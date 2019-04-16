@@ -1,0 +1,17 @@
+.InputField {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+
+  input {
+    height: 40px;
+    border-top-left-radius:  2px;
+    border-top-right-radius:  2px;
+    background-color: #F4F4F4;
+    border: none;
+    border-bottom: 1px solid #647384;
+    padding-left: 5px;
+    padding-right: 5px;
+    outline: none;
+  }
+}

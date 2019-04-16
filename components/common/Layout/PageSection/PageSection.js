@@ -10,4 +10,4 @@ const pageSection = props => {
     );
 };
 
-export default pageSection
+export default pageSection;
