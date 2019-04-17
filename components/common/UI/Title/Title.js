@@ -6,19 +6,21 @@ const Title = (props) => (
     <div className={classes.Title}>
         {titleGenerator(props.size, props.children)}
     </div>
-)
+);
 
 const titleGenerator = (size, text) =>
 {
+    const content = (<span>{text}</span>);
+
     switch (size) {
         case "s":
-            return <p>{text}</p>
+            return <p>{content}</p>
         case "m":
-            return <h3>{text}</h3>
+            return <h3>{content}</h3>
         case "l":
-            return <h2>{text}</h2>
+            return <h2>{content}</h2>
         default:
-            return <h1>{text}</h1>
+            return <h1>{content}</h1>
     }
 }
 export default Title
