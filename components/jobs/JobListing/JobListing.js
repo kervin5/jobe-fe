@@ -5,7 +5,9 @@ import Title from '../../common/UI/Title/Title';
 
 const jobListing = () => (
     <div className={classes.cont}>
-        <Title size={""}>Job Title</Title>
+        <div className={classes.header}>
+            <Title size={""}>Job Title</Title>
+        </div>
         <Title size={"m"}>location</Title>
         <Title size={"s"}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius ipsa
             nulla sit? Adipisci assumenda dignissimos doloremque dolorum ducimus

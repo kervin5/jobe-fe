@@ -8,7 +8,8 @@
   padding: 60px;
   display: flex;
   flex-direction: column;
-  background-color: $muted-color;
+  background-color: $muted-color-1;
+  border-radius: 10px;
 
 
     button{
@@ -16,5 +17,22 @@
       padding: 5px;
       width: 200px;
       align-self: flex-end;
+      border-radius: 50px;
+      border:  solid $muted-color-1 2px;
+      background-color: $dark-color;
+      color: $clear-color;
+
+
+        &:hover{
+          background-color: $clear-color;
+          border:  solid $dark-color 2px;
+          color: $dark-color;
+          transition: ease 0.6s;
+        }
+      
     }
+
+  .header{
+    background-color: $accent-color-1;
+  }
 }
