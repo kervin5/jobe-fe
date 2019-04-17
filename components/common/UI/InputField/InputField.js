@@ -8,7 +8,16 @@ const inputField = (props) => {
 
     const changeHandler = (e) =>{
         const newValue = e.target.value;
-        setValue(newValue);
+        // setValue(newValue);
+
+        if (props.type === "number") {
+            if(!newValue.match(/[a-zA-Z]/i) ) {
+                setValue(newValue);
+            }
+        }else {
+            setValue(newValue);
+        }
+
         if(newValue !== ""){
             setHasContent(true)
         }else {
