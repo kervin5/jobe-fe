@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300i,400,700');
+
+.cont {
+  //border: 1px solid coral;
+  width: 85%;
+  height: 85vh;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+
+
+    button{
+      margin-bottom: 10px;
+      padding: 5px;
+      width: 200px;
+      align-self: flex-end;
+    }
+}
