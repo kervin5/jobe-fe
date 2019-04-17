@@ -1,6 +1,8 @@
+@import '../../../../static/genericStyles/global.module.scss';
+
 .NavigationBar {
   //background-color: yellow;
-  background-color: rgba(244,244,244,1);
+  background-color: $muted-color-1;
   height: 50px;
   display: flex;
   justify-content: flex-end;

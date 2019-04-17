@@ -1,3 +1,12 @@
+@import '../../../../static/genericStyles/global.module.scss';
+
+%touched-input {
+  color: $accent-color-2;
+  bottom: 30px;
+  left: 35px;
+  font-size: 0.8em;
+}
+
 .InputField {
   display: flex;
   flex-direction: column;
@@ -9,9 +18,9 @@
     height: 50px;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
-    background-color: #F4F4F4;
+    background-color: $muted-color-1;
     border: none;
-    border-bottom: 1px solid #647384;
+    border-bottom: 1px solid $muted-color-2;
     padding-top: 10px;
     padding-left: 35px;
     padding-right: 5px;
@@ -24,7 +33,7 @@
     display: block;
     //width: 100px;
     height: 4px;
-    background-color: #258EA6;
+    background-color: $accent-color-2;
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -41,10 +50,7 @@
     }
 
     .Placeholder {
-      color: #258EA6;
-      bottom: 30px;
-      left: 35px;
-      font-size: 0.8em;
+      @extend %touched-input;
     }
   }
 
@@ -68,9 +74,6 @@
 
 .Filled {
   .Placeholder {
-     color: #258EA6;
-    bottom: 30px;
-    left: 35px;
-    font-size: 0.8em;
+   @extend %touched-input;
   }
 }
