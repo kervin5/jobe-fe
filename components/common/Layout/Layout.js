@@ -22,6 +22,10 @@ const layout = (props) => {
                     padding: 0;
                     font-family: 'Poppins', sans-serif; 
                   }
+                  
+                  p {
+                    font-weight: 300;
+                  }
                 
             `}</style>
         </div>
