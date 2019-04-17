@@ -7,9 +7,9 @@ const jobCreator = () => {
         <div>
             <Card>
                 <form>
-                    <InputField type={"text"} label={"What is your name?"} />
-                    <InputField type={"number"} label={"Phone"} />
-                    <InputField type={"password"} label={"Password"} />
+                    <InputField type={"text"} label={"What is your name?"} placeholder={"Username"}/>
+                    <InputField type={"number"} label={"Phone"} placeholder={"Phone"}/>
+                    <InputField type={"password"} label={"Password"} placeholder={"Password"}/>
                 </form>
             </Card>
         </div>

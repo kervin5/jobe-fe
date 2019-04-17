@@ -6,29 +6,31 @@
 
 
   input {
-    height: 40px;
+    height: 50px;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     background-color: #F4F4F4;
     border: none;
     border-bottom: 1px solid #647384;
-    padding-left: 5px;
+    padding-top: 10px;
+    padding-left: 35px;
     padding-right: 5px;
     outline: none;
+    width: 100%;
   }
 
   &:before {
-      content: "";
-      display: block;
-      //width: 100px;
-      height: 4px;
-      background-color: #FF595E;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      right: 50%;
-      transition: 300ms;
-    }
+    content: "";
+    display: block;
+    //width: 100px;
+    height: 4px;
+    background-color: #258EA6;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    transition: 300ms;
+  }
 
 
   &:focus-within {
@@ -37,5 +39,38 @@
       left: 0.1px;
       right: 0.1px;
     }
+
+    .Placeholder {
+      color: #258EA6;
+      bottom: 30px;
+      left: 35px;
+      font-size: 0.8em;
+    }
+  }
+
+  .Icon {
+    position: absolute;
+    bottom: 15px;
+    left: 12px;
+    color: #CECECE;
+  }
+
+  .Placeholder {
+    color: #8F96A8;
+    position: absolute;
+    bottom: 10px;
+    left: 40px;
+    transition: 200ms;
+    transition-timing-function: ease-in;
+    pointer-events: none;
+  }
+}
+
+.Filled {
+  .Placeholder {
+     color: #258EA6;
+    bottom: 30px;
+    left: 35px;
+    font-size: 0.8em;
   }
 }
