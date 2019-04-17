@@ -1,17 +1,17 @@
 import React from 'react';
-import Card from '../../common/UI/Card/Card';
-import InputField from '../../common/UI/InputField/InputField.js';
+import classes from './JobCreator.module.scss';
+// import Card from '../../common/UI/Card/Card';
+import Title from '../../common/UI/Title/Title';
+import JobCreatorForm from './JobCreatorForm/JobCreatorForm';
 
 const jobCreator = () => {
-    return(
-        <div>
-            <Card>
-                <form>
-                    <InputField type={"text"} label={"What is your name?"} placeholder={"Username"}/>
-                    <InputField type={"number"} label={"Phone"} placeholder={"Phone"}/>
-                    <InputField type={"password"} label={"Password"} placeholder={"Password"}/>
-                </form>
-            </Card>
+    return (
+        <div className={classes.JobCreator}>
+
+            <Title>Post a Job</Title>
+            <p className={classes.Instructions}>Please enter the information for the new job listing</p>
+            <JobCreatorForm/>
+
         </div>
     );
 };

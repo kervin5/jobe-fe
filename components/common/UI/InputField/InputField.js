@@ -5,6 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const inputField = (props) => {
     const [hasContent, setHasContent]  = useState(false);
     const [value, setValue] = useState("");
+    let FieldToRender = null;
+    const inputOrnaments = (
+        <React.Fragment>
+            <FontAwesomeIcon icon={"user"} className={classes.Icon}/>
+
+       </React.Fragment>
+    );
+
 
     const changeHandler = (e) =>{
         const newValue = e.target.value;
@@ -25,14 +33,20 @@ const inputField = (props) => {
         }
     };
 
-    console.log(hasContent);
+    if(props.type === "textarea") {
+        FieldToRender = "textarea";
+    } else {
+        FieldToRender = "input";
+    }
+
+    const inputClasses = classes.InputField + " " + (hasContent ? classes.Filled :  "") + " " + (props.type === 'textarea' ? classes.TextArea : "");
 
     return(
-        <div className={classes.InputField + " " + (hasContent ? classes.Filled :  "")}>
+        <div className={inputClasses}>
             <label>{props.label}</label>
-            <input type={props.type} placeholder="" value={value} onChange={changeHandler}/>
-            <FontAwesomeIcon icon={"user"} className={classes.Icon}/>
-            <p className={classes.Placeholder}>{props.placeholder}</p>
+            <FieldToRender type={props.type} placeholder="" value={value} onChange={changeHandler}/>
+            {props.type !== "textarea" ? inputOrnaments : null }
+             <p className={classes.Placeholder}>{props.placeholder}</p>
         </div>
     );
 };
