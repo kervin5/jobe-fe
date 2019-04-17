@@ -1,5 +1,7 @@
+@import '../../../../static/genericStyles/global.module';
+
 .Title{
-  color : pink;
+  color : $accent-color-1;
   padding: 5px 0;
 
   p{
