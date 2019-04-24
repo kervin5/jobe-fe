@@ -1,38 +1,19 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:200,300i,400,700');
 @import '../../../static/genericStyles/global.module';
 
 .cont {
   //border: 1px solid coral;
   width: 85%;
-  height: 85vh;
   padding: 60px;
-  display: flex;
-  flex-direction: column;
   background-color: $muted-color-1;
   border-radius: 10px;
+  justify-content: space-between;
 
-
-    button{
-      margin-bottom: 10px;
-      padding: 5px;
-      width: 200px;
-      align-self: flex-end;
-      border-radius: 50px;
-      border:  solid $muted-color-1 2px;
-      background-color: $dark-color;
-      color: $clear-color;
-
-
-        &:hover{
-          background-color: $clear-color;
-          border:  solid $dark-color 2px;
-          color: $dark-color;
-          transition: ease 0.6s;
-        }
-      
-    }
 
   .header{
-    background-color: $accent-color-1;
+    padding-bottom: 40px;
+  }
+
+  p{
+    padding-bottom: 40px;
   }
 }
