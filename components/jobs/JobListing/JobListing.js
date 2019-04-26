@@ -30,7 +30,7 @@ const jobListing = () => (
                 nulla sit? Adipisci assumenda dignissimos doloremque dolorum ducimus
                 earum eligendi illum iste, itaque natus nemo neque nulla rerum sunt velit.</p>
 
-            <Button title={"Apply"}/>
+            <Button>Apply</Button>
         </div>
     </div>
 )
