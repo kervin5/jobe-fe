@@ -7,7 +7,7 @@ const inputField = (props) => {
     let FieldToRender = null;
     const inputOrnaments = (
         <React.Fragment>
-            <FontAwesomeIcon icon={props.icon ? props.icon : "pencil-alt"} className={classes.Icon}/>
+            { props.icon ? <FontAwesomeIcon icon={props.icon} className={classes.Icon}/> : null}
        </React.Fragment>
     );
 

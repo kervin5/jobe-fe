@@ -1,4 +1,7 @@
 .JobCreatorForm {
   width: 100%;
   flex-wrap: wrap;
+  &>*{
+    margin-bottom: 50px !important;
+  }
 }
