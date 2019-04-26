@@ -6,9 +6,7 @@ import Nav from '../components/nav'
 import classes from './index.module.scss';
 import PageSection from '../components/common/Layout/PageSection/PageSection';
 import Layout from '../components/common/Layout/Layout';
-import SearchForm from '../components/common/Search/SearchForm/SearchForm';
 const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
-const landingLogo = "../static/images/LandingLogo.svg";
 //
 // const Home = () => (
 //   <div>
@@ -101,10 +99,12 @@ const landingLogo = "../static/images/LandingLogo.svg";
 // export default Home
 const homePage = (props) => {
     return (
-        <Layout title={"Home Page"}  hideNav>
+        <Layout title={"Home Page"}>
             <PageSection className={classes.HomePage}>
-                <img src={landingLogo}/>
-                <SearchForm/>
+                <img src={peopleImage} alt=""/>
+            </PageSection>
+            <PageSection className={classes.HomePage}>
+                <img src={peopleImage} alt=""/>
             </PageSection>
         </Layout>
     );

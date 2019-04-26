@@ -1,0 +1,19 @@
+@import '../../../../static/genericStyles/global.module.scss';
+
+.SearchForm {
+  width: 100%;
+  max-width: 300px;
+  &>* {
+    margin-bottom: 30px !important;
+    width: 100%;
+  }
+
+  @media (min-width: $medium-screen) {
+    display: flex;
+    max-width: 800px;
+
+    &>* {
+      margin: 4px;
+    }
+  }
+}

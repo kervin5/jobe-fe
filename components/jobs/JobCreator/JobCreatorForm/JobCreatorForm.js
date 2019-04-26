@@ -6,9 +6,9 @@ const jobCreatorForm = () => {
     return(
 
                 <form className={classes.JobCreatorForm}>
-                        <InputField type={"text"} placeholder={"Job Title"}/>
-                        <InputField type={"text"} placeholder={"Location"}/>
-                        <InputField type={"number"} placeholder={"Phone"}/>
+                        <InputField type="text" placeholder="Warehouse Manager" label="Job Title"/>
+                        <InputField type="text" placeholder="Los Angeles, CA" label="Location" />
+                        <InputField type={"number"} placeholder="Phone"/>
                         <InputField type={"text"} placeholder={"Job Tags"}/>
                         <InputField type={"text"} placeholder={"Application Email or Url"}/>
                         <InputField type={"number"} placeholder={"Minimum rate/h ($)"}/>
