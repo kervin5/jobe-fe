@@ -1,9 +1,22 @@
 $dark-color: #2E294E;
-$clear-color: #FFFFFB;
-$muted-color-1: #f6f6f6;
-$muted-color-2: #647384;
+$clear-color: #FFFFFF;
+$muted-color-1: #F9F7F7;
+$muted-color-2: #E3E3E3;
 
 
-$accent-color-1: #FF6B6C;
+$accent-color-1: #DA9000;
 $accent-color-2: #247BA0;
 $accent-color-3: #FFD400;
+
+//Text color
+$base-text-color: #888888;
+$muted-text-color: #C8C8C8;
+
+
+$input-height: 45px;
+$rounded-radius: 30px;
+
+//Breakpoints
+
+$small-screen: 520px;
+$medium-screen: 920px;

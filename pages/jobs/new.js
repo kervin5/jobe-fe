@@ -7,7 +7,7 @@ import JobCreator from '../../components/jobs/JobCreator/JobCreator.js';
 const homePage = (props) => {
     return (
         <Layout title={"New Job"}>
-            <PageSection className={classes.HomePage}>
+            <PageSection className={classes.NewJobPage}>
                 <JobCreator/>
             </PageSection>
         </Layout>
