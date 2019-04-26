@@ -1,16 +1,29 @@
 @import '../../../static/genericStyles/global.module';
-
+//mobil
 .cont {
   //border: 1px solid coral;
-  width: 85%;
-  padding: 60px;
-  background-color: $muted-color-1;
-  border-radius: 10px;
+  background-color: $clear-color;
   justify-content: space-between;
+  padding-top: 0;
 
 
-  .header{
-    padding-bottom: 40px;
+  .header {
+    margin: 0 auto;
+    padding: 20px;
+    background-color: $accent-color-3;
+    //border-top-right-radius: 30px;
+    //border-top-left-radius: 30px;
+    //background-image: url("https://previews.123rf.com/images/moodboard/moodboard1203/moodboard120301857/12592658-forklift-driver.jpg");
+
+
+  }
+
+  .Body{
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+    //border-bottom-right-radius: 30px;
+    //border-bottom-left-radius: 30px;
   }
 
   p{

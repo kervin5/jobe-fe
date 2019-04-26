@@ -2,11 +2,10 @@
 
 .jobinfo {
   margin-bottom: 30px;
-  background: $clear-color;
   width: 100%;
-  padding: 30px;
   border-radius: 15px;
   display:flex;
+  background-color: blue;
 
   .item{
     flex-direction: column;
