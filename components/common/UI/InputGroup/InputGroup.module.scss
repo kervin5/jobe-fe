@@ -1,0 +1,37 @@
+.InputGroup {
+  position: relative;
+
+  p {
+    font-weight: normal;
+    color: #888888;
+    position: absolute;
+    top: -16px;
+  }
+
+  .Content {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.Inline {
+  .Content {
+    flex-direction: row;
+    align-items: baseline;
+    label {
+      font-size: 0.9em;
+      top: -20px;
+      font-weight: lighter;
+    }
+
+    &>* {
+      &:first-child {
+        margin-right: 5px;
+      }
+
+      &:last-child {
+        margin-left: 5px;
+      }
+    }
+  }
+}
