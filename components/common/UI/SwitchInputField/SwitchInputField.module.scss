@@ -1,0 +1,50 @@
+@import "../../../../static/genericStyles/global.module";
+
+.SwitchInputField {
+    height: 45px;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    position: relative;
+    top: -4px;
+   background-color: $muted-color-2;
+    border-radius: 15px;
+    //overflow: hidden;
+
+  .Switch {
+    height: 45px;
+
+
+    list-style: none;
+    display: flex;
+
+    position: relative;
+
+    li {
+      margin: 2px 5px;
+      display: flex;
+      justify-items: center;
+      align-items: center;
+      font-size: 0.8em;
+      padding-left: 10px;
+      padding-right: 10px;
+      color: $base-text-color;
+      cursor: pointer;
+
+      &.Selected {
+        color: $clear-color;
+      }
+    }
+  }
+
+  .Selector {
+    content: " ";
+      display: inline-block;
+      width: 50%;
+      height: 43px;
+      background-color: $accent-color-1;
+      position: absolute;
+    left: 1px;
+    border-radius: 15px;
+  }
+}
