@@ -7,7 +7,7 @@ const switchInputField = props => {
         right: props.options[1]
     };
 
-    const [selectedValue, setSelectedValue] = useState(values.left);
+    const [selectedValue, setSelectedValue] = useState(props.value === values.left ? values.left : values.right);
     const [selectorPosition, setSelectorPosition] = useState(classes.left);
 
     const clickHandler = (e) => {
@@ -15,6 +15,7 @@ const switchInputField = props => {
         const clickedElement = e.target.getAttribute('data-position');
         setSelectedValue(values[clickedElement]);
         setSelectorPosition(classes[clickedElement]);
+        props.change(values[clickedElement]);
     };
 
     return (
