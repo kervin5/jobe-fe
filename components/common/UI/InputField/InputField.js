@@ -1,6 +1,9 @@
 import React,{useState} from 'react';
 import classes from './InputField.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import TextField from './TextInputField/TextInputField';
+import SwitchInputField from './SwitchInputField/SwitchInputField';
+import DropdownInputField from './DropdownInputField/DropdownInputField';
 
 const inputField = (props) => {
     const [value, setValue] = useState("");
@@ -12,30 +15,32 @@ const inputField = (props) => {
     );
 
     const changeHandler = (e) =>{
-        const newValue = e.target.value;
-        // setValue(newValue);
-
-        if (props.type === "number") {
-            if(!newValue.match(/[a-zA-Z]/i) ) {
-                setValue(newValue);
-            }
-        }else {
-            setValue(newValue);
-        }
+        // const newValue = e.target.value;
+        // // setValue(newValue);
+        //
+        // if (props.type === "number") {
+        //     if(!newValue.match(/[a-zA-Z]/i) ) {
+        //         setValue(newValue);
+        //     }
+        // }else {
+        //     setValue(newValue);
+        // }
     };
+     if(['password','email','phone','number','text','textarea'].includes(props.type)) {
+        FieldToRender = <TextField inputType={props.type} placeholder={props.placeholder}/>;
+    } else if(props.type === 'switch'){
+         FieldToRender = <SwitchInputField options={props.options}/>
+     } else if(props.type === 'dropdown') {
+        FieldToRender = <DropdownInputField placeholder={props.placeholder} options={props.options}/>
+     }
 
-    if(props.type === "textarea") {
-        FieldToRender = "textarea";
-    } else {
-        FieldToRender = "input";
-    }
-
-    const inputClasses = [classes.InputField, (props.rounded ? classes.Rounded : "" ), (props.centerPlaceholder ? classes.CenterPlaceholder : "")].join(" ") ;
+    const inputClasses = [ props.type !== "switch" ? classes.InputField : "", (props.rounded ? classes.Rounded : "" ), (props.centerPlaceholder ? classes.CenterPlaceholder : "")].join(" ") ;
     return(
         <div className={inputClasses}>
             <label>{props.label}</label>
             {props.type !== "textarea" ? inputOrnaments : null }
-            <FieldToRender type={props.type} placeholder={props.placeholder} value={value} onChange={changeHandler}/>
+            {/*<FieldToRender type={props.type} placeholder={props.placeholder} value={value} onChange={changeHandler}/>*/}
+            {FieldToRender}
         </div>
     );
 };

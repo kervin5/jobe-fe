@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './JobCreatorForm.module.scss';
 import InputField from '../../../common/UI/InputField/InputField.js';
-import SwitchInputField from '../../../common/UI/SwitchInputField/SwitchInputField';
+import SwitchInputField from '../../../common/UI/InputField/SwitchInputField/SwitchInputField';
 
 import InputGroup from '../../../common/UI/InputGroup/InputGroup.js';
 
@@ -12,11 +12,14 @@ const jobCreatorForm = () => {
                         <InputField type="text" placeholder="Los Angeles, CA" label="Location" />
 
                         <InputGroup inline title="Compensation">
-                             <InputField type="text" placeholder="$0" label="From" />
-                             <InputField type="text" placeholder="$0" label="To" />
-                             <SwitchInputField label={""}/>
+                             <InputField type="number" placeholder="$0" label="From" />
+                             <InputField type="number" placeholder="$0" label="To" />
+                             <InputField type="switch" options={["Hourly","Salary"]}/>
                         </InputGroup>
 
+                        <InputField type="dropdown" options={["Full-Time", "Part-time", "Temp", "Per-diem"]} placeholder={"Job Type"} label={"Job Type"}/>
+                        <InputField type="text" placeholder="Warehouse, Clerical" label="Job Category" />
+                        <InputField type="textarea" placeholder="Required Skills, Experience, etc." label="Job Description" />
                         {/*<InputField type={"number"} placeholder="Phone"/>*/}
                         {/*<InputField type={"text"} placeholder={"Job Tags"}/>*/}
                         {/*<InputField type={"text"} placeholder={"Application Email or Url"}/>*/}
