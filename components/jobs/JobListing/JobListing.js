@@ -1,17 +1,20 @@
 import React from 'react'
 
-import classes from './JobListing.modules.scss'
+import classes from './JobListing.modules.scss';
 import Title from '../../common/UI/Title/Title';
 import Button from '../../common/UI/Button/Button';
-
-import Jobinfo from './Jobinfo/jobInfo';
+import Icon from '../JobListing/Icon/Icon';
+//import backgroundChanger from './BackgroundChanger/backgroundChanger';
 
 const jobListing = () => (
     <div className={classes.cont}>
-
-        <div className={classes.header}>
-            <Title size={"m"}>Job Title</Title>
-            <Title size={"m"}>Target- Santa Monica</Title>
+        
+        <div>
+            <div className={classes.header}>
+                <Title size={"l"}>Job Title</Title>
+                <Title size={"s"}>Target- Santa Monica</Title>
+                <Icon icon="heart" color='red' />
+            </div>
         </div>
 
         <div className={classes.Body}>
@@ -30,7 +33,12 @@ const jobListing = () => (
                 nulla sit? Adipisci assumenda dignissimos doloremque dolorum ducimus
                 earum eligendi illum iste, itaque natus nemo neque nulla rerum sunt velit.</p>
 
-            <Button>Apply</Button>
+            <Button className={classes.Button}>Apply</Button>
+
+            {/* <Title size="m" className={classes.Button}>Share:</Title>
+            <Icon icon="heart" color='red' />
+            <Icon icon="heart" color='red' /> */}
+
         </div>
     </div>
 )
