@@ -2,34 +2,16 @@
 
 .cont {
   background-color: $clear-color;
-  justify-content: space-between;
   max-width: 95%;
   margin: 20px;
   height: 100vh;
 
-
-  .header {
-    width: 100%;
-    max-width: 1000px;
-    padding: 30px 20px;
-    background-image: url('https://images.pexels.com/photos/1376864/pexels-photo-1376864.jpeg?cs=srgb&dl=adult-business-deal-collaboration-1376864.jpg&fm=jpg');
-    background-size: cover;
-    background-position: center;
-    border-top-right-radius: 30px;
-    border-top-left-radius: 30px;
-
-    .icon {
-      float: right;
-    }
-  }
-
   .Body{
     margin: 0 auto;
     max-width: 1000px;
-    padding: 20px;
+    padding: 40px 40px 60px 40px;
     width: 100%;
-    height: 100vh;
-    background-color: #eee;
+    background-color: $muted-color-1;
     border-bottom-right-radius: 30px;
     border-bottom-left-radius: 30px;
 
@@ -42,46 +24,22 @@
       color:$clear-color;
       float: right;
     }
-
-    .icon {
-      float: left;
-    }
   }
 }
 
 
 //mobil
-@media only screen and (max-width: 430px){
+@media only screen and (max-width: 520px){
   .cont {
     background-color: $clear-color;
-    justify-content: space-between;
     max-width: 100%;
-    height: 100vh;
     margin: 0 auto;
 
-    .header {
-      width: 100%;
-      padding: 30px 20px;
-      background-image: url('https://images.pexels.com/photos/1376864/pexels-photo-1376864.jpeg?cs=srgb&dl=adult-business-deal-collaboration-1376864.jpg&fm=jpg');
-      background-size: cover;
-      background-position: center;
-      border-top-right-radius: 0px;
-      border-top-left-radius: 0px;
-
-      .icon {
-        float: right;
-      }
-
-      p{
-        padding-bottom: 30px;
-      }
-    }
-
     .Body{
-      margin: 0 auto;
-      padding:20px;
+      //margin: 0 auto;
+      padding:40px 40px 60px 40px;
       width: 100%;
-      background-color: pink;
+      background-color: $muted-color-1;
       border-bottom-right-radius: 0px;
       border-bottom-left-radius: 0px;
     
@@ -89,10 +47,6 @@
         width: 100%;
         color:$clear-color;
         float: right;
-      }
-
-      .icon {
-        float: left;
       }
     }
   }

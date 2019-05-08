@@ -1,0 +1,41 @@
+@import '../../../../static//genericStyles/global.module.scss';
+
+.header {
+    width: 100%;
+    max-width: 1200px;
+    padding: 50px 40px;
+    background-color: $accent-color-3;
+    // background-image: url('https://images.pexels.com/photos/1376864/pexels-photo-1376864.jpeg?cs=srgb&dl=adult-business-deal-collaboration-1376864.jpg&fm=jpg');
+    // background-size: cover;
+    // background-position: center;
+    // filter: blur(1.5px);
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    z-index: 800;
+  
+
+    .Icon{
+     color: red; 
+     float: right;
+     transform: scale(1.9);
+    }
+}
+
+  @media only screen and (max-width: 520px){
+
+    .header {
+        width: 100%;
+        padding: 40px 40px;
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+  
+        p{
+          padding-bottom: 30px;
+        }
+
+        .icon{
+          color: red; 
+          float: right;
+         }
+    }
+  }

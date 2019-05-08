@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classes from './Icon.modules.scss';
 
 const icon = (props) => (
-    <div>
-        <FontAwesomeIcon icon={props.icon} style={{color: props.color}} className={classes.icon}/>
+    <div className={classes.container}>
+      <FontAwesomeIcon icon={["fas",props.icon || "caret-square-right"]} style={{color: props.color, float: props.float}} className={classes.icon}/>    
     </div>
 )
 

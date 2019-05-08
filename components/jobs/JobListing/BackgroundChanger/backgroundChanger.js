@@ -1,32 +1,35 @@
-// import React from 'react';
+import React from 'react';
 
-// import accounting from '../../../../static/images/CategoryImages/Accounting.jpg';
-// import aerospace from '../../../../static/images/CategoryImages/aerospace.jpg';
-// import customerservice from '../../../../static/images/CategoryImages/customeService.jpg';
-// import engineering from '../../../../static/images/CategoryImages/Engineering.jpg';
-// import entertainment from '../../../../static/images/CategoryImages/entertainment.jpg';
-// import foodIndustry from '../../../../static/images/CategoryImages/foodindustry.jpg';
-// import health from '../../../../static/images/CategoryImages/health.jpg';
-// import helpdesk from '../../../../static/images/CategoryImages/Helpdesk.jpg';
-// import hr from '../../../../static/images/CategoryImages/HR.jpg';
-// import insurance from '../../../../static/images/CategoryImages/insurance.jpg';
-// import it from '../../../../static/images/CategoryImages/IT.jpg';
-// import language from '../../../../static/images/CategoryImages/language.jpg';
-// import legal from '../../../../static/images/CategoryImages/legal.jpg';
-// import marketing from '../../../../static/images/CategoryImages/marketing.jpg';
-// import other from '../../../../static/images/CategoryImages/Other.jpg';
-// import warehouse from '../../../../static/images/CategoryImages/Warehouse.jpg'
+import classes from './BackgroundChanger.modules.scss';
+const accounting = "../../../../static/images/CategoryImages/Accounting.jpg";
+const aerospace = "../../../../static/images/CategoryImages/aerospace.jpg"; 
+const customerservice = "../../../../static/images/CategoryImages/customeService.jpg"; 
+const engineering = "../../../../static/images/CategoryImages/Engineering.jpg";
+const entertainment = "../../../../static/images/CategoryImages/entertainment.jpg"; 
+const foodIndustry = "../../../../static/images/CategoryImages/foodindustry.jpg" ;
+const health = "../../../../static/images/CategoryImages/health.jpg"; 
+const helpdesk = "../../../../static/images/CategoryImages/Helpdesk.jpg"; 
+const hr = "../../../../static/images/CategoryImages/HR.jpg"; 
+const insurance = "../../../../static/images/CategoryImages/insurance.jpg"; 
+const it = "../../../../static/images/CategoryImages/IT.jpg"; 
+const language = "../../../../static/images/CategoryImages/language.jpg"; 
+const legal = "../../../../static/images/CategoryImages/legal.jpg"; 
+const marketing = "../../../../static/images/CategoryImages/marketing.jpg"; 
+const other = "../../../../static/images/CategoryImages/Other.jpg"; 
+const warehouse = "../../../../static/images/CategoryImages/Warehouse.jpg";
 
-// const backgroundChanger = (props) => {
 
-// <div {props.background} className={classes.background}>        
-    
-// </div>
+const backgroundImage = (props) => {
+    return <div>
+                <img src={backgroundChanger(props.image)} className={classes.backgroundChanger}></img> 
+                {props.children}
+            </div>
+}
 
-    function backgroundChanger (background) {
+    function backgroundChanger(background) {
         switch(background){
             case 'accounting':
-                return <img src="../../../../static/images/CategoryImages/Accounting.jpg"/>;
+                return accounting;
             case 'aerospace':
                 return aerospace;
             case 'customerservice':
@@ -61,6 +64,4 @@
         }
     }
 
-
-
-export default backgroundChanger;
+export default backgroundImage;
