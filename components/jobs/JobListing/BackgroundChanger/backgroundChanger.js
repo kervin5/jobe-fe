@@ -22,7 +22,6 @@ const warehouse = "../../../../static/images/CategoryImages/Warehouse.jpg";
 const backgroundImage = (props) => {
     return <div>
                 <img src={backgroundChanger(props.image)} className={classes.backgroundChanger}></img> 
-                {props.children}
             </div>
 }
 
@@ -65,3 +64,5 @@ const backgroundImage = (props) => {
     }
 
 export default backgroundImage;
+
+// className={classes.backgroundChanger}

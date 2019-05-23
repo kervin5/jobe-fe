@@ -5,7 +5,8 @@ import Title from '../../common/UI/Title/Title';
 import Button from '../../common/UI/Button/Button';
 import Icon from '../JobListing/Icon/Icon';
 import Header from './Header/Header';
-import List from './List/List';
+import List from '../../common/UI/List/List';
+import BottomNav from '../../common/UI/BottomNav/BottomNav';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { fab } from '@fortawesome/free-brands-svg-icons';
 
@@ -29,11 +30,12 @@ const jobListing = () => (
                 <List />
 
             <Button className={classes.Button} onClick={() => { console.log('Are you sure you wish to delete this item?') } }>Apply</Button>
-{/* 
-            <Title size="m">Share:</Title>
-             <Icon icon="heart" color='red' className={classes.icon} />
-            <Icon icon="heart" color='red' className={classes.icon}/> */}
 
+            <Title size="m">Share:</Title>
+             <Icon icon="twitter" color='red' className={classes.icon} />
+            <Icon icon="heart" color='red' className={classes.icon}/> 
+
+            <BottomNav />
         </div>
     </div>
 )
