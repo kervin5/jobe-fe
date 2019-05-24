@@ -31,9 +31,8 @@ const textInputField = props => {
     if(props.inputType === 'textarea'){
         InputType = "textarea";
     }
-    console.log(props.value);
 
-    return   <InputType type={props.inputType} placeholder={props.placeholder} value={props.value} onChange={changeHandler}/>;
+    return   <InputType type={props.inputType} placeholder={props.placeholder} value={props.value || ''} onChange={changeHandler}/>;
 };
 
 export default textInputField;

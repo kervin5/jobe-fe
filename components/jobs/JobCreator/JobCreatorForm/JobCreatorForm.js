@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import classes from './JobCreatorForm.module.scss';
 import InputField from '../../../common/UI/InputField/InputField.js';
-import SwitchInputField from '../../../common/UI/InputField/SwitchInputField/SwitchInputField';
+import Button from '../../../common/UI/Button/Button';
 
 import InputGroup from '../../../common/UI/InputGroup/InputGroup.js';
 
@@ -33,6 +34,10 @@ class JobCreatorForm extends Component {
       });
     };
 
+    submitHandler = () => {
+        axios.post();
+    }
+
     render() {
         return (
             <form className={classes.JobCreatorForm}>
@@ -48,6 +53,8 @@ class JobCreatorForm extends Component {
                 <InputField type="dropdown" options={["Full-Time", "Part-time", "Temp", "Per-diem"]} value={this.state.formData.jobType} placeholder={"Job Type"} label={"Job Type"} change={this.changeHandler} name={"jobType"}/>
                 <InputField type="text" placeholder="Warehouse, Clerical" label="Job Category" value={this.state.formData.jobCategory} change={this.changeHandler} name={"jobCategory"}/>
                 <InputField type="textarea" placeholder="Required Skills, Experience, etc." value={this.state.formData.jobDescription} label="Job Description" change={this.changeHandler} name={"jobDescription"}/>
+            
+                <Button>Post</Button>
             </form>
         );
     }
