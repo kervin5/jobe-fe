@@ -3,7 +3,7 @@ import React from 'react';
 import BottomNav from '../../common/UI/BottomNav/BottomNav';
 import Button from '../../common/UI/Button/Button';
 import classes from './JobListing.modules.scss';
-import Header from './Header/Header';
+import Header from './JobListingHeader/JobListingHeader';
 import Icon from '../JobListing/Icon/Icon';
 import List from '../../common/UI/List/List';
 import Title from '../../common/UI/Title/Title';
