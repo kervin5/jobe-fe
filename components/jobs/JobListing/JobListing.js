@@ -1,14 +1,12 @@
 import React from 'react';
 
-import classes from './JobListing.modules.scss';
-import Title from '../../common/UI/Title/Title';
-import Button from '../../common/UI/Button/Button';
-// import Icon from '../JobListing/Icon/Icon';
-import Header from './Header/Header';
-import List from '../../common/UI/List/List';
 import BottomNav from '../../common/UI/BottomNav/BottomNav';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { fab } from '@fortawesome/free-brands-svg-icons';
+import Button from '../../common/UI/Button/Button';
+import classes from './JobListing.modules.scss';
+import Header from './Header/Header';
+import Icon from '../JobListing/Icon/Icon';
+import List from '../../common/UI/List/List';
+import Title from '../../common/UI/Title/Title';
 
 
 const jobListing = (props) => (
