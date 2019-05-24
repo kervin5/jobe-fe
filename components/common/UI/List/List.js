@@ -1,6 +1,7 @@
 import React from 'react';
 
 import classes from './List.modules.scss';
+import uniqid from 'uniqid';
 
 const listItems = ["High school diploma or General Education Development (GED) or equivalent", 
                     "3 months' warehouse experience", 
@@ -9,13 +10,13 @@ const listItems = ["High school diploma or General Education Development (GED) o
 
 const list = (props) => {
     <style jsx>{`
-    li { 
-            list-style-image: url('../../../../static/images/ExactStaffArrow.svg');
-        }
+        li { 
+                list-style-image: url('../../../../static/images/ExactStaffArrow.svg');
+            }
     `}</style>
 
     const totalList = listItems.map(listItem => {
-        return <li>{listItem}</li>
+        return <li key={uniqid('listing')}>{listItem}</li>
     })
 
     return (

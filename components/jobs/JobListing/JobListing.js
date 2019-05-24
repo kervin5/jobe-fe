@@ -28,11 +28,11 @@ const jobListing = (props) => (
 
             <Button className={classes.Button} onClick={() => { console.log('Are you sure you wish to delete this item?') } }>Apply</Button>
 
-            <Title size="m">Share:</Title>
-             <Icon icon="twitter" color='red' className={classes.icon} />
-            <Icon icon="heart" color='red' className={classes.icon}/> 
+            {/* <Title size="m">Share:</Title>
+             <Icon icon="fab-twitter" color='red' className={classes.icon} />
+            <Icon icon="heart" color='red' className={classes.icon}/>  */}
 
-            <BottomNav />
+            {/* <BottomNav /> */}
         </div>
     </div>
 )

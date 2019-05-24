@@ -2,8 +2,7 @@ import React from 'react';
 
 import classes from './Header.modules.scss';
 import Title from '../../../common/UI/Title/Title';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import BackgroundChanger from '../BackgroundChanger/backgroundChanger';
+import Icon from '../Icon/Icon';
 
 const header = (props) => (
 
@@ -11,7 +10,7 @@ const header = (props) => (
         {/* <div><BackgroundChanger image={"it"}/></div> */}
             <Title size={'l'}>{props.title}</Title>
             <Title size={"m"}>{props.location}</Title>
-            <FontAwesomeIcon icon={"heart"} className={classes.Icon} fixedWidth size="1x"/> 
+            {/* <Icon icon={"heart"} color={"red"} float={"right"} size="1x"/>  */}
 
         {/* <style jsx>{`
             .bg-image: {
