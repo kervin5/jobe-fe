@@ -14,7 +14,7 @@ const titleGenerator = (size, text) =>
 
     switch (size) {
         case "s":
-            return <p>{content}</p>
+            return <h5>{content}</h5>
         case "m":
             return <h3>{content}</h3>
         case "l":

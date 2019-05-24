@@ -1,0 +1,9 @@
+.container{
+    display: inline-flex;
+    width: 40px;
+
+    .icon {
+        transform: scale(2);
+        cursor: pointer;
+    }
+}
