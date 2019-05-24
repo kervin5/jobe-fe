@@ -5,7 +5,7 @@ import classes from './Icon.modules.scss';
 
 const icon = (props) => (
 
-      <FontAwesomeIcon icon={props.icon} style={{color: props.color, float: props.float}} className={classes.icon} size={"lg"}/>    
+      <FontAwesomeIcon icon={["fa", props.icon]} style={{color: props.color, float: props.float}} className={classes.icon} size={"lg"}/>    
 )
 
 export default icon;

@@ -3,7 +3,7 @@ import React from 'react';
 import classes from './JobListing.modules.scss';
 import Title from '../../common/UI/Title/Title';
 import Button from '../../common/UI/Button/Button';
-import Icon from '../JobListing/Icon/Icon';
+// import Icon from '../JobListing/Icon/Icon';
 import Header from './Header/Header';
 import List from '../../common/UI/List/List';
 import BottomNav from '../../common/UI/BottomNav/BottomNav';
@@ -34,7 +34,7 @@ const jobListing = (props) => (
              <Icon icon="fab-twitter" color='red' className={classes.icon} />
             <Icon icon="heart" color='red' className={classes.icon}/>  */}
 
-            <BottomNav />
+            {/* <BottomNav /> */}
         </div>
     </div>
 )
