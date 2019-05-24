@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import classes from './JobListing.modules.scss';
 import Title from '../../common/UI/Title/Title';
@@ -11,10 +11,9 @@ import BottomNav from '../../common/UI/BottomNav/BottomNav';
 // import { fab } from '@fortawesome/free-brands-svg-icons';
 
 
-const jobListing = () => (
+const jobListing = (props) => (
     <div className={classes.cont}>
-
-        <Header title={'Target Warehouse'} location={'Target - San Fernando'}/>
+        <Header title={props.title} location={'Target - San Fernando'}/>
 
         <div className={classes.Body}>
             <Title size={"m"}>About Target</Title>
