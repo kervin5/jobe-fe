@@ -8,7 +8,7 @@ const searchForm = props => {
       <form className={classes.SearchForm}>
           <InputField type="text" placeholder="Job Title, Keywords, or Company Name" rounded centerPlaceholder icon="search"/>
           <InputField type="text" placeholder="Location" rounded centerPlaceholder icon="map-marker-alt"/>
-          <Button>Search</Button>
+          <Button className={classes.SearchButton}>Search</Button>
       </form>
   );
 };

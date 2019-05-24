@@ -104,6 +104,7 @@ const homePage = (props) => {
         <Layout title={"Home Page"}  hideNav>
             <PageSection className={classes.HomePage}>
                 <img src={landingLogo}/>
+                <img src={peopleImage} className={classes.PeopleLogo}/>
                 <SearchForm/>
             </PageSection>
         </Layout>
