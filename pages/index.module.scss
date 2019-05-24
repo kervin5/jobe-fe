@@ -1,9 +1,7 @@
 .HomePage {
   //background: linear-gradient(0deg, rgba(255,255,255,1) 40%, rgba(244,244,244,1) 40%);
   min-height: 100vh !important;
-  background: url("/static/images/bigTriangle.svg");
-  background-position: -180px -100px;
-  background-repeat: no-repeat;
+  background: linear-gradient(0deg, white 40%, #f4f4f4 40%);
   flex-direction: column;
 
   img {
@@ -19,5 +17,10 @@
       width: 100%;
       max-width: 600px;
     }
+  }
+
+  .PeopleLogo {
+    max-height: 300px;
+    width: auto;
   }
 }

@@ -1,0 +1,75 @@
+@import "../../../../../static/genericStyles/global.module";
+
+
+.SwitchInputField {
+  height: 45px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+  top: -4px;
+  background-color: $muted-color-2;
+  border-radius: 10px;
+  //overflow: hidden;
+
+  .Switch {
+    height: 45px;
+    list-style: none;
+    display: flex;
+    position: relative;
+
+    li {
+      margin: 2px 5px;
+      display: flex;
+      justify-items: center;
+      align-items: center;
+      font-size: 0.8em;
+      padding-left: 10px;
+      padding-right: 10px;
+      color: $base-text-color;
+      cursor: pointer;
+    }
+  }
+
+  .Selector {
+    content: " ";
+    display: flex;
+    //width: 50%;
+    height: 43px;
+    background-color: $accent-color-1;
+    position: absolute;
+
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    justify-content: center;
+    align-items: center;
+    color: $clear-color;
+    font-size: 0.8em;
+    //width: 20%;
+	//animation:  slide 5s infinite;
+  //animation: 3s linear 0s slide infinite;
+    left: 0;
+    transition: 300ms;
+
+    &.left {
+      //left: 1px;
+      left: 0;
+    }
+
+    &.right {
+      //right: 1px;
+       left: 100%;
+      transform: translateX(-100%);
+    }
+  }
+}
+
+//@keyframes slide {
+//  from { left: 0; }
+//  to {
+//    left: 100%;
+//    transform: translateX(-100%);
+//  }
+//}
+//
