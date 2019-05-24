@@ -1,7 +1,7 @@
 import React from 'react';
-import classes from './Layout.module.scss';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import classes from './Layout.module.scss';
 import NavigationBar from '../UI/NavigationBar/NavigationBar.js';
 import Head from '../../head.js';
 
