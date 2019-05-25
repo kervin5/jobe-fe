@@ -14,7 +14,7 @@ describe('<JobListingHeaderHeader />', () => {
   it('renders the job location property',()=>{
     const mockLocation = 'This is a mock location';
     const wrapper = mount(<JobListingHeader location={mockLocation}/>);
-    expect(wrapper.find({}).last().text()).toEqual(mockLocation);
+    expect(wrapper.find(Title).last().text()).toEqual(mockLocation);
   });
 
 });

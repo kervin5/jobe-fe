@@ -11,7 +11,7 @@ import Title from '../../common/UI/Title/Title';
 
 const jobListing = (props) => (
     <div className={classes.cont}>
-        <Header title={"This is a test"} id="jobHeader" location={'Target - San Fernando'}/>
+        <Header title={"This is a test"} location={'Target - San Fernando'}/>
 
         <div className={classes.Body}>
             <Title size={"m"}>About Target</Title>
