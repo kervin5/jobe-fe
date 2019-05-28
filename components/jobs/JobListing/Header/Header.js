@@ -10,7 +10,7 @@ const header = (props) => (
         {/* <div><BackgroundChanger image={"it"}/></div> */}
             <Title size={'l'}>{props.title}</Title>
             <Title size={"m"}>{props.location}</Title>
-            {/* <Icon icon={"heart"} color={"red"} float={"right"} size="1x"/>  */}
+            <Icon icon={"heart"} color={"red"} float={"right"} size="1x"/> 
 
         {/* <style jsx>{`
             .bg-image: {
