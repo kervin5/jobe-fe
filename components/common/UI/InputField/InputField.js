@@ -26,7 +26,12 @@ const inputField = (props) => {
         // }else {
         //     setValue(newValue);
         // }
-        props.change(props.name, value);
+
+        if(!props.name) {
+            props.change(value);
+        }else {
+            props.change(props.name, value);
+        }
     };
      if(['password','email','phone','number','text','textarea'].includes(props.type)) {
         FieldToRender = <TextField inputType={props.type} placeholder={props.placeholder} value={props.value} change={changeHandler}/>;
