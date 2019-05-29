@@ -59,7 +59,7 @@ class JobCreatorForm extends Component {
     render() {
         return (
             <form className={classes.JobCreatorForm}>
-                <InputField type="text" placeholder="Warehouse Manager" label="Job Title" value={this.state.formData.jobTitle} name={"jobTitle"} change={this.changeHandler}/>
+                <InputField type="text" placeholder="Warehouse Manager" label="Job Title" value={this.state.formData.jobTitle} name={"jobTitle"} change={this.changeHandler} required/>
                 <InputField type="text" placeholder="Los Angeles, CA" label="Location"  value={this.state.formData.jobLocation} name={"jobLocation"} change={this.changeHandler}/>
 
                 <InputGroup inline title="Compensation">
