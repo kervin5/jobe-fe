@@ -3,19 +3,20 @@ import React from 'react';
 import classes from './List.modules.scss';
 import uniqid from 'uniqid';
 
-const listItems = ["High school diploma or General Education Development (GED) or equivalent", 
-                    "3 months' warehouse experience", 
-                    "3 months' experience operating an electric pallet jack or forklift", 
-                    "Previous experience at Sysco or in foodservice industry"]
-
 const list = (props) => {
+    const jobQualifications = 
+    ["High school diploma or General Education Development (GED) or equivalent", 
+    "3 months' warehouse experience", 
+    "3 months' experience operating an electric pallet jack or forklift", 
+    "Previous experience at Sysco or in foodservice industry"];
+    
     <style jsx>{`
         li { 
                 list-style-image: url('../../../../static/images/ExactStaffArrow.svg');
             }
     `}</style>
 
-    const totalList = listItems.map(listItem => {
+    const totalList = jobQualifications.map(listItem => {
         return <li key={uniqid('listing')}>{listItem}</li>
     })
 
