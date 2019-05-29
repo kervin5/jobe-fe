@@ -1,0 +1,43 @@
+@import '../../../static/genericStyles/global.module.scss';
+
+.JobListItem {
+    background-color: $clear-color;
+    margin-bottom: 10px;
+    transition: 100ms;
+    animation-timing-function: ease-in;
+
+    a {
+        color: $accent-color-2;
+        font-size: 1em;
+    }
+
+    &:hover {
+        transform: scale(1.05);
+
+
+        a {
+            color: $accent-color-1;
+        }
+    }
+
+    .JobListItemHeader {
+        display: flex;
+        justify-content: space-between;
+
+        a {
+            font-weight: bold;
+            text-decoration: none;
+        }
+    }
+
+    .Location {
+        font-size: 0.9em;
+    }
+
+    .Content {
+        font-weight: normal;
+        font-size: 0.9em;
+    }
+    
+}
+
