@@ -103,8 +103,10 @@ const homePage = (props) => {
     return (
         <Layout title={"Home Page"}  hideNav>
             <PageSection className={classes.HomePage}>
-                <img src={landingLogo}/>
-                <img src={peopleImage} className={classes.PeopleLogo}/>
+                <div className={classes.Logos}>
+                    <img src={landingLogo} className={classes.CompanyLogo}/>
+                    <img src={peopleImage} className={classes.PeopleLogo}/>
+                </div>
                 <SearchForm/>
             </PageSection>
         </Layout>
