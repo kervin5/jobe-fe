@@ -2,14 +2,14 @@
 
 .SearchForm {
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
   &>* {
     width: 100%;
   }
 
   @media (min-width: $medium-screen) {
     display: flex;
-    max-width: 800px;
+    max-width: 920px;
 
     &>* {
       margin: 4px;

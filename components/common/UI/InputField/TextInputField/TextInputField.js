@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 
 const textInputField = props => {
 
-    const [value, setValue] = useState("");
+    // const [value, setValue] = useState("");
 
     const changeHandler = (e) =>{
         // const newValue = e.target.value;
@@ -19,14 +19,6 @@ const textInputField = props => {
     };
 
     let InputType = "input";
-
-    // let FieldToRender = "";
-    //
-    // if(props.inputType === "textarea") {
-    //     FieldToRender = "textarea";
-    // } else {
-    //     FieldToRender = "input";
-    // }
 
     if(props.inputType === 'textarea'){
         InputType = "textarea";

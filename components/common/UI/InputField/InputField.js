@@ -6,7 +6,8 @@ import SwitchInputField from './SwitchInputField/SwitchInputField';
 import DropdownInputField from './DropdownInputField/DropdownInputField';
 
 const inputField = (props) => {
-    const [value, setValue] = useState(props.value || "");
+    const [touched, setTouched] = useState(false);
+    // const [value, setValue] = useState(props.value || "");
     // const [fieldName, setFieldName] = useState(props.value || "");
     let FieldToRender = null;
     const inputOrnaments = (
@@ -26,9 +27,19 @@ const inputField = (props) => {
         // }else {
         //     setValue(newValue);
         // }
-        props.change(props.name, value);
+
+        if(!props.name) {
+            props.change(value);
+        }else {
+            props.change(props.name, value);
+        }
     };
-     if(['password','email','phone','number','text','textarea'].includes(props.type)) {
+
+    const handleFocus = () => {
+        setTouched(true);
+    }
+
+    if(['password','email','phone','number','text','textarea'].includes(props.type)) {
         FieldToRender = <TextField inputType={props.type} placeholder={props.placeholder} value={props.value} change={changeHandler}/>;
     } else if(props.type === 'switch'){
          FieldToRender = <SwitchInputField options={props.options} value={props.value} change={changeHandler}/>
@@ -36,14 +47,22 @@ const inputField = (props) => {
         FieldToRender = <DropdownInputField placeholder={props.placeholder} options={props.options} value={props.value} change={changeHandler}/>
      }
 
-    const inputClasses = [ props.type !== "switch" ? classes.InputField : "", (props.rounded ? classes.Rounded : "" ), (props.centerPlaceholder ? classes.CenterPlaceholder : "")].join(" ") ;
+    const inputClasses = [ 
+        props.type !== "switch" ? classes.InputField : classes.Relative, 
+        (props.rounded ? classes.Rounded : "" ), 
+        (props.centerPlaceholder ? classes.CenterPlaceholder : ""), 
+        (touched ? classes.WithError : "")].join(" ") ;
+
     return(
-        <div className={inputClasses}>
-            <label>{props.label}</label>
-            {props.type !== "textarea" ? inputOrnaments : null }
-            {/*<FieldToRender type={props.type} placeholder={props.placeholder} value={value} onChange={changeHandler}/>*/}
-            {FieldToRender}
-        </div>
+        <React.Fragment>
+            <div className={inputClasses} onFocus={handleFocus}>
+                <label>{props.label}</label>
+                {props.type !== "textarea" ? inputOrnaments : null }
+                {FieldToRender}
+                <p className={classes.ErrorMessage}>This field is required</p>
+            </div>
+       
+        </React.Fragment>
     );
 };
 
