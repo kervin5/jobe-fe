@@ -5,7 +5,12 @@
   background-color: $muted-color-1;
   height: 50px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding-left: 30px;
   padding-right: 30px;
+
+  img {
+    height: 35px;
+    margin: 10px auto 0px;
+  }
 }
