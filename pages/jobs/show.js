@@ -8,7 +8,7 @@ import { statement } from '@babel/template';
 import Link from 'next/link';
 
 
-const show = () => {
+const show = ({ url: { query: { slug } } }) => {
 
     const PostLink = props => (
         <li>
@@ -21,7 +21,11 @@ const show = () => {
     const [singleJob, setSingleJob] = useState({});
 
     useEffect(() => {
-        axios.get('https://myexactjobsapi.herokuapp.com/api/jobs/5ceeb5fe44541700179dea38')
+     
+        const jobId = slug.split("-").pop();
+        console.log(jobId);
+
+        axios.get('https://myexactjobsapi.herokuapp.com/api/jobs/'+jobId)
             .then(response => {
                 setSingleJob(response.data);
                 console.log(response);
@@ -33,7 +37,6 @@ const show = () => {
 
     return(
         <Layout>
-            <PostLink id="hello-nextjs" title="Hello Next.js" />
         <PageSection>
             <JobListing 
                 title={singleJob.title}
