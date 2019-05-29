@@ -69,11 +69,12 @@
 }
 
 .ErrorMessage {
-  color: red;
+  color: red !important;
   position: absolute;
   top: initial !important;
   bottom: -25px;
   left: 0px;
-  font-size: 0.9em;
+  font-size: 0.8em;
+  font-weight: 400 !important;
 }
 
