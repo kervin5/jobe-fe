@@ -20,21 +20,18 @@
 
   &>* {
 
-    &:first-letter {
-       background:               linear-gradient(90deg, $accent-color-1 37%, $accent-color-2 37%);
-        background-size:                contain;
-        margin:                         auto;
+    // &:first-letter {
+    //    background:               linear-gradient(90deg, $accent-color-1 37%, $accent-color-2 37%);
+    //     background-size:                contain;
+    //     margin:                         auto;
 
-        background-clip:                text;
-        -webkit-background-clip:        text;
-        color:                          transparent;
+    //     background-clip:                text;
+    //     -webkit-background-clip:        text;
+    //     color:                          transparent;
 
 
-    }
+    // }
 
-    span {
-
-    }
   }
 
 

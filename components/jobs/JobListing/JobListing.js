@@ -14,6 +14,7 @@ import Button from '../../common/UI/Button/Button';
 
 const jobListing = (props) => (
     <div className={classes.JobListing}>
+        
         <JobListingHeader 
             title={props.title} 
             location={props.location}   

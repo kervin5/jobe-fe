@@ -3,7 +3,7 @@ import React from 'react';
 import classes from './Title.modules.scss';
 
 const Title = (props) => (
-    <div className={classes.Title}>
+    <div className={classes.Title + " " + (props.className || "")}>
         {titleGenerator(props.size, props.children)}
     </div>
 );
