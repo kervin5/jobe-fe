@@ -7,7 +7,7 @@ import PageSection from '../../components/common/Layout/PageSection/PageSection'
 import JobListing from '../../components/jobs/JobListing/JobListing';
 
 
-const show = ({ url: { query: { slug } } }) => {
+const single = (props) => {
     
     // const jobQualifications = 
     // ["High school diploma or General Education Development (GED) or equivalent", 
