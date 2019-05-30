@@ -3,6 +3,7 @@ import React from 'react';
 import classes from './List.modules.scss';
 import uniqid from 'uniqid';
 
+
 const list = (props) => {
     const jobQualifications = 
     ["High school diploma or General Education Development (GED) or equivalent", 

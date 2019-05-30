@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+
 import classes from './JobCreatorForm.module.scss';
 import InputField from '../../../common/UI/InputField/InputField.js';
+import InputGroup from '../../../common/UI/InputGroup/InputGroup.js';
+import Loader from '../../../common/UI/Animated/Loader/Loader';
+import ThumbsUp from '../../../common/UI/Animated/ThumbsUp/ThumbsUp';
 import Button from '../../../common/UI/Button/Button';
 
-import InputGroup from '../../../common/UI/InputGroup/InputGroup.js';
-import ThumbsUp from '../../../common/UI/Animated/ThumbsUp/ThumbsUp';
-import Loader from '../../../common/UI/Animated/Loader/Loader';
+
 
 class JobCreatorForm extends Component {
 

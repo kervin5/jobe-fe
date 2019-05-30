@@ -1,9 +1,12 @@
 import React from 'react';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+
 import classes from './Layout.module.scss';
-import NavigationBar from '../UI/NavigationBar/NavigationBar.js';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import Head from '../../head.js';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import NavigationBar from '../UI/NavigationBar/NavigationBar.js';
+
+
 
 library.add(fas);
 

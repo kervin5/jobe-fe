@@ -3,4 +3,8 @@
 
 .JobsPage {
     background-color: $muted-color-1;
+
+    .Container {
+        max-width: 600px;
+    }
 }

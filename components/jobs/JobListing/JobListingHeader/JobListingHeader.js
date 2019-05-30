@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Title from '../../../common/UI/Title/Title';
 import classes from './JobListingHeader.modules.scss';
-
 import Bubble from '../../../common/UI/Bubble/Bubble';
 import Icon from '../Icon/Icon';
+import Title from '../../../common/UI/Title/Title';
+
 
 const header = (props) => (
     <div className={classes.header} >

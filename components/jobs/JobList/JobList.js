@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+
+import classes from './JobList.module.scss';
 import JobListItem from './JobListItem';
+
 
 const jobList = () => {
     const [jobs,setJobs] = useState([]);
@@ -26,7 +29,7 @@ const jobList = () => {
     });
 
     return(
-        <div>
+        <div className={classes.JobList}>
             {cards}
         </div>
     );

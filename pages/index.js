@@ -1,13 +1,13 @@
-import React from 'react'
-import Link from 'next/link'
-import Head from '../components/head'
-import Nav from '../components/nav'
+import React from 'react';
+import Layout from '../components/common/Layout/Layout';
+import Link from 'next/link';
+import Head from '../components/head';
+import Nav from '../components/nav';
 
 import classes from './index.module.scss';
-import Layout from '../components/common/Layout/Layout';
+import SearchForm from '../components/common/Search/SearchForm/SearchForm';
 import PageSection from '../components/common/Layout/PageSection/PageSection';
 
-import SearchForm from '../components/common/Search/SearchForm/SearchForm';
 const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
 const landingLogo = "../static/images/LandingLogo.svg";
 //

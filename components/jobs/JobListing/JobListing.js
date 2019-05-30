@@ -1,18 +1,19 @@
 import React from 'react';
 
-import Title from '../../common/UI/Title/Title';
-import BottomNav from '../../common/UI/BottomNav/BottomNav';
-import Button from '../../common/UI/Button/Button';
-import JobListingHeader from './JobListingHeader/JobListingHeader';
-import List from '../../common/UI/List/List';
 import classes from './JobListing.modules.scss';
+// import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
 import JobListingDescription from './JobListingDescription/JobListingDescription';
+import JobListingHeader from './JobListingHeader/JobListingHeader';
+import List from '../../common/UI/List/List';
+import Title from '../../common/UI/Title/Title';
+import Button from '../../common/UI/Button/Button';
+
 
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
 const jobListing = (props) => (
-    <div className={classes.cont}>
+    <div className={classes.JobListing}>
         <JobListingHeader 
             title={props.title} 
             location={props.location}   

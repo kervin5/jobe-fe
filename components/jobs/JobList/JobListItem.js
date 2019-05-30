@@ -1,8 +1,10 @@
 import React from 'react';
-import {Link} from '../../../routes';
+
+import classes from './JobListItem.module.scss'
 import Bubble from '../../common/UI/Bubble/Bubble';
 import Card from '../../common/UI/Card/Card';
-import classes from './JobListItem.module.scss'
+import {Link} from '../../../routes';
+
 
 const jobListItem = (props) => {
     return(

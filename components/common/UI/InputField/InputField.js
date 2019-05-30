@@ -1,9 +1,13 @@
 import React,{useState, useEffect} from 'react';
+
 import classes from './InputField.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import TextField from './TextInputField/TextInputField';
-import SwitchInputField from './SwitchInputField/SwitchInputField';
 import DropdownInputField from './DropdownInputField/DropdownInputField';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SwitchInputField from './SwitchInputField/SwitchInputField';
+import TextField from './TextInputField/TextInputField';
+
+
+
 
 const inputField = (props) => {
     const [touched, setTouched] = useState(false);

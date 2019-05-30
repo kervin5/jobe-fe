@@ -4,6 +4,7 @@ import classes from './BottomNav.modules.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
+
 const bottomNav = () => (
     <div className={classes.bottomNav}>
         <FontAwesomeIcon icon="search" color="white"  />
