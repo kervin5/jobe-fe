@@ -1,11 +1,12 @@
 import React from 'react';
 
+import Title from '../../common/UI/Title/Title';
 import BottomNav from '../../common/UI/BottomNav/BottomNav';
 import Button from '../../common/UI/Button/Button';
 import JobListingHeader from './JobListingHeader/JobListingHeader';
 import List from '../../common/UI/List/List';
 import classes from './JobListing.modules.scss';
-import Title from '../../common/UI/Title/Title';
+
 import JobListingDescription from './JobListingDescription/JobListingDescription';
 
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
