@@ -5,8 +5,8 @@ import Title from '../../../common/UI/Title/Title';
 
 const jobListingDescription = (props) => (
     <div>
-        <Title title={props.title}/>
-        <p>{props.children}</p>
+        <Title size={"m"}>{props.title}</Title>
+        <p>{props.description}</p>
     </div>
 );
 
