@@ -4,8 +4,9 @@ import Head from '../components/head'
 import Nav from '../components/nav'
 
 import classes from './index.module.scss';
-import PageSection from '../components/common/Layout/PageSection/PageSection';
 import Layout from '../components/common/Layout/Layout';
+import PageSection from '../components/common/Layout/PageSection/PageSection';
+
 const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
 //
 // const Home = () => (
