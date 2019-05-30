@@ -1,19 +1,53 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:200,300i,400,700');
+@import '../../../static/genericStyles/global.module';
 
 .cont {
-  //border: 1px solid coral;
-  width: 85%;
-  height: 85vh;
-  padding: 60px;
-  display: flex;
-  flex-direction: column;
-  background-color: #f4f4f4;
+  background-color: $clear-color;
+  max-width: 95%;
+  margin: 20px;
+  height: 100vh;
 
+  .Body{
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 40px 40px 60px 40px;
+    width: 100%;
+    background-color: $muted-color-1;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+
+    p{
+      padding-bottom: 30px;
+    }
 
     button{
-      margin-bottom: 10px;
-      padding: 5px;
-      width: 200px;
-      align-self: flex-end;
+      width: 40%;
+      color:$clear-color;
+      float: right;
     }
+  }
+}
+
+
+//mobil
+@media only screen and (max-width: 520px){
+  .cont {
+    background-color: $clear-color;
+    max-width: 100%;
+    margin: 0 auto;
+
+    .Body{
+      //margin: 0 auto;
+      padding:40px 40px 60px 40px;
+      width: 100%;
+      background-color: $muted-color-1;
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+    
+      button{
+        width: 100%;
+        color:$clear-color;
+        float: right;
+      }
+    }
+  }
 }

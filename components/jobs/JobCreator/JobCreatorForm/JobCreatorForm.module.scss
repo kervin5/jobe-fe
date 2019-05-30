@@ -1,4 +1,14 @@
 .JobCreatorForm {
   width: 100%;
   flex-wrap: wrap;
+  &>*{
+    margin-bottom: 50px !important;
+  }
+}
+
+.Center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

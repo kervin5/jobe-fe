@@ -1,0 +1,117 @@
+// .accounting {
+//  background-image: url('../../../../static/images/CategoryImages/Accounting.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// }
+// .aerospace {
+//  background-image: url('../../../../static/images/CategoryImages/aerospace.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .customerservice {
+//  background-image: url('../../../../static/images/CategoryImages/customerService.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .engineering {
+//  background-image: url('../../../../static/images/CategoryImages/Engineering.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .entertainment {
+//  background-image: url('../../../../static/images/CategoryImages/entertainment.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .foodIndustry {
+//  background-image: url('../../../../static/images/CategoryImages/foodindustry.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .health {
+//  background-image: url('../../../../static/images/CategoryImages/health.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .helpdesk {
+//  background-image: url('../../../../static/images/CategoryImages/Helpdesk.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .hr {
+//  background-image: url('../../../../static/images/CategoryImages/hr.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .insurance {
+//  background-image: url('../../../../static/images/CategoryImages/insurance.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .it {
+//  background-image: url('../../../../static/images/CategoryImages/IT.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .language {
+//  background-image: url('../../../../static/images/CategoryImages/language.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .legal {
+//  background-image: url('../../../../static/images/CategoryImages/legal.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .marketing {
+//  background-image: url('../../../../static/images/CategoryImages/marketing.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// }
+// .warehouse {
+//  background-image: url('../../../../static/images/CategoryImages/Warehouse.jpg');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+// .default {
+//  background-image: url('../../../../static/images/CategoryImages/Other.jpg ');
+//  background-size: cover;
+//  background-position: center;
+//  filter: blur(1.4px);
+// } 
+
+.backgroundChanger {
+    // background-size: cover;
+    // background-position: center;
+    // filter: blur(0px);
+    margin: 0 auto;
+    width: 100%;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    max-width: 1200px;
+    height: 20vh;
+    z-index: 2;
+
+    filter: blur(8px);
+    -webkit-filter: blur(10px);
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+   } 

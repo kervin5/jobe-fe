@@ -1,104 +1,80 @@
 @import '../../../../static/genericStyles/global.module.scss';
 
-
-%untouched-input {
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  background-color: $muted-color-1;
-  border: none;
-  outline: none;
-  width: 100%;
-
-}
-
-
 .InputField {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
   position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: $clear-color;
+  min-height: $input-height;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  border-radius: 8px;
+  border: 1px solid $muted-color-2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 300ms;
 
+  .Icon {
+    color: $accent-color-1;
 
-  input {
-    height: 50px;
-    @extend %untouched-input;
-    //border-bottom: 1px solid $muted-color-2;
-    padding-top: 10px;
-    padding-left: 35px;
-    padding-right: 5px;
+  }
+
+  input, textarea, select {
+    border: none;
+    margin: 5px;
+    width: 90%;
+    outline: none;
+
+    &::placeholder {
+      color: $muted-text-color;
+    }
   }
 
   textarea {
-    @extend %untouched-input;
-    padding: 35px 15px 15px;
-    resize: none;
     min-height: 300px;
+    padding-top: 15px;
   }
 
-  &:before {
-    content: "";
-    display: block;
-    //width: 100px;
-    height: 4px;
-    background-color: $accent-color-2;
+  label {
+    width: 100%;
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    right: 50%;
-    transition: 300ms;
+    top: -25px;
+    color: $base-text-color;
   }
 
+}
 
-  &:focus-within {
-    &:before {
-      bottom: 0;
-      left: 0.1px;
-      right: 0.1px;
-    }
+.Relative {
+  position: relative;
+}
 
-    .Placeholder {
-      @extend %touched-input;
-    }
-  }
+.Rounded {
+    border-radius: $rounded-radius;
+}
 
-  .Icon {
-    position: absolute;
-    bottom: 15px;
-    left: 12px;
-    color: #CECECE;
-  }
-
-  .Placeholder {
-    color: #8F96A8;
-    position: absolute;
-    bottom: 10px;
-    left: 40px;
-    transition: 200ms;
-    transition-timing-function: ease-in;
-    pointer-events: none;
-    font-weight: bold;
-  }
-
-  &.Filled {
-    .Placeholder {
-      @extend %touched-input;
+.CenterPlaceholder {
+  input {
+    &::placeholder {
+      text-align: center;
     }
   }
 }
 
-%touched-input {
-  color: $accent-color-2;
-  bottom: 30px;
-  left: 35px;
+.WithError {
+  border: 1px solid red ;
+  label {
+    color: red;
+  }
+}
+
+.ErrorMessage {
+  color: red !important;
+  position: absolute;
+  top: initial !important;
+  bottom: -25px;
+  left: 0px;
   font-size: 0.8em;
-  font-weight: bold;
+  font-weight: 400 !important;
 }
-
-.TextArea {
-  .Placeholder {
-    top: 15px;
-    left: 15px !important;
-  }
-}
-
 
