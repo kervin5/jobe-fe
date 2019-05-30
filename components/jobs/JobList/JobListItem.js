@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import {Link} from '../../../routes';
 import Bubble from '../../common/UI/Bubble/Bubble';
 import Card from '../../common/UI/Card/Card';
 import classes from './JobListItem.module.scss'
@@ -10,10 +10,7 @@ const jobListItem = (props) => {
             <Card className={classes.JobListItem} >
                     <div className={classes.JobListItemHeader}>
                         <div>
-                            <Link 
-                            href={"/jobs/show?slug="+(props.title.split(" ").join("-"))+"-"+props.id}
-                            as={"/jobs/show/"+(props.title.split(" ").join("-"))+"-"+props.id}
-                            >
+                            <Link route={"/jobs/"+(props.title.split(" ").join("-"))+"-"+props.id}>
                                 <a>{props.title}</a>
                             </Link>
                             <p className={classes.Location}>{props.location}</p>

@@ -1,27 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { withRouter } from "next/router";
+import axios from 'axios';
 
-import JobListing from '../../components/jobs/JobListing/JobListing';
 import Layout from '../../components/common/Layout/Layout';
 import PageSection from '../../components/common/Layout/PageSection/PageSection';
-import { statement } from '@babel/template';
-import Link from 'next/link';
+import JobListing from '../../components/jobs/JobListing/JobListing';
 
 
-const show = ({ url: { query: { slug } } }) => {
+const single = (props) => {
 
-    const PostLink = props => (
-        <li>
-          <Link as={`/p/${props.id}`} href={`/post?title=${props.title}`}>
-            <a>{props.title}</a>
-          </Link>
-        </li>
-      );
 
     const [singleJob, setSingleJob] = useState({});
 
     useEffect(() => {
-     
+        const { router: { query: { slug } }} = props;
         const jobId = slug.split("-").pop();
         console.log(jobId);
 
@@ -50,4 +42,4 @@ const show = ({ url: { query: { slug } } }) => {
     )
 }
 
-export default show
+export default withRouter(single);

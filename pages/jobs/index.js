@@ -1,10 +1,11 @@
 import React from 'react'
 
-
-import classes from './index.module.scss';
 import Layout from '../../components/common/Layout/Layout';
 import PageSection from '../../components/common/Layout/PageSection/PageSection';
+import classes from './index.module.scss';
 import JobList from '../../components/jobs/JobList/JobList';
+
+
 
 
 const show = () => (
