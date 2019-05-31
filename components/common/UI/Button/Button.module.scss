@@ -10,7 +10,9 @@
   transition: 300ms;
   width: 100%;
 
+
   &:hover {
     background-color: $accent-color-2;
+    cursor: pointer;
   }
 }

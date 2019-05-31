@@ -3,7 +3,7 @@ import React from 'react';
 import classes from './Title.modules.scss';
 
 const Title = (props) => (
-    <div className={classes.Title}>
+    <div className={classes.Title + " " + (props.className || "")}>
         {titleGenerator(props.size, props.children)}
     </div>
 );
@@ -14,7 +14,7 @@ const titleGenerator = (size, text) =>
 
     switch (size) {
         case "s":
-            return <p>{content}</p>
+            return <h5>{content}</h5>
         case "m":
             return <h3>{content}</h3>
         case "l":

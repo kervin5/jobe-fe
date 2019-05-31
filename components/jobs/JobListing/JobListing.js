@@ -1,36 +1,44 @@
-import React from 'react'
+import React from 'react';
 
-import classes from './JobListing.modules.scss'
+import classes from './JobListing.modules.scss';
+// import BottomNav from '../../common/UI/BottomNav/BottomNav';
+
+import JobListingDescription from './JobListingDescription/JobListingDescription';
+import JobListingHeader from './JobListingHeader/JobListingHeader';
+import List from '../../common/UI/List/List';
 import Title from '../../common/UI/Title/Title';
 import Button from '../../common/UI/Button/Button';
 
-import Jobinfo from './Jobinfo/jobInfo';
 
-const jobListing = () => (
-    <div className={classes.cont}>
+// import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
-        <div className={classes.header}>
-            <Title size={"m"}>Job Title</Title>
-            <Title size={"m"}>Target- Santa Monica</Title>
-        </div>
+const jobListing = (props) => (
+    <div className={classes.JobListing}>
+        
+        <JobListingHeader 
+            title={props.title} 
+            location={props.location}   
+            minAmount={props.minAmount} 
+            maxAmount={props.maxAmount} 
+            type={props.type}/>
 
         <div className={classes.Body}>
-            <Title size={"m"}>About Target</Title>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius ipsa
-                nulla sit? Adipisci assumenda dignissimos doloremque dolorum ducimus
-                earum eligendi illum iste, itaque natus nemo neque nulla rerum sunt velit.</p>
+
+            <JobListingDescription 
+                description={props.aboutCompany} 
+                title={"About the Company"} />
+
+            <JobListingDescription 
+                description={props.description} 
+                title={"Job Description"} />
 
             <Title size={"m"}>Responsabilities:</Title>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius ipsa
-                nulla sit? Adipisci assumenda dignissimos doloremque dolorum ducimus
-                earum eligendi illum iste, itaque natus nemo neque nulla rerum sunt velit.</p>
+                <List jobQualifications={props.jobQualifications}/>
+                
+            <Title size={"m"}>Qualilfications:</Title>
+                <List />
 
-            <Title size={"m"}>Requirements:</Title>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius ipsa
-                nulla sit? Adipisci assumenda dignissimos doloremque dolorum ducimus
-                earum eligendi illum iste, itaque natus nemo neque nulla rerum sunt velit.</p>
-
-            <Button>Apply</Button>
+            <Button className={classes.Button} click={() => window.alert("You Have Sucessfully applied")}>Apply</Button>
         </div>
     </div>
 )

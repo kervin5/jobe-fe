@@ -1,0 +1,42 @@
+@import '../../../../static//genericStyles/global.module.scss';
+
+.header {
+    width: 100%;
+    max-width: 1200px;
+    padding: 50px 40px;
+    background-color: $accent-color-2;
+    border-top-right-radius: $rounded-radius;
+    border-top-left-radius: $rounded-radius;
+    z-index: 800;
+
+    .JobListingTitle {
+      color: $clear-color;
+    }
+
+    .JobListingLocation {
+      color: $clear-color;
+      opacity: 0.7;
+      span {
+        font-weight: 400;
+      }
+    }
+
+    .JobListingHeaderBar {
+      display: flex;
+      justify-content: space-between;
+    }
+}
+
+  @media only screen and (max-width: 520px){
+
+    .header {
+        width: 100%;
+        padding: 40px 40px;
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+  
+        p{
+          padding-bottom: 30px;
+        }
+    }
+  }

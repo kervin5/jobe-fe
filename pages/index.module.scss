@@ -1,23 +1,40 @@
 .HomePage {
   //background: linear-gradient(0deg, rgba(255,255,255,1) 40%, rgba(244,244,244,1) 40%);
   min-height: 100vh !important;
-  background: url("/static/images/bigTriangle.svg");
-  background-position: -180px -100px;
-  background-repeat: no-repeat;
+  background: linear-gradient(0deg, white 40%, #f4f4f4 40%);
   flex-direction: column;
 
-  img {
-    margin-bottom: 30px;
-    transform: scale(1.1);
-  }
   
   @media (min-width: 520px) {
     background-size: 130%;
     background-position: center;
     //background-repeat: repeat;
+   
+  }
+
+  .Logos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    padding: 30px;
     img {
       width: 100%;
-      max-width: 600px;
     }
+
+    .CompanyLogo {
+       margin-bottom: 15px;
+    }
+  }
+
+  .PeopleLogo {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  Form {
+    padding: 30px;
   }
 }

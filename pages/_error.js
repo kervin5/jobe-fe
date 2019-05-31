@@ -1,7 +1,11 @@
 import React from 'react';
-import classes from '../static/genericStyles/_error.module.scss';
-import PageSection from '../components/common/Layout/PageSection/PageSection.js';
 import Layout from '../components/common/Layout/Layout.js';
+import classes from '../static/genericStyles/_error.module.scss';
+
+
+
+import PageSection from '../components/common/Layout/PageSection/PageSection.js';
+
 // Page: Landing Page
 const peopleImage = '../static/images/334809-PAIXKS-603.ai.png';
 

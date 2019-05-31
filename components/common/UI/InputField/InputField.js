@@ -1,12 +1,22 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
+
 import classes from './InputField.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import TextField from './TextInputField/TextInputField';
-import SwitchInputField from './SwitchInputField/SwitchInputField';
 import DropdownInputField from './DropdownInputField/DropdownInputField';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SwitchInputField from './SwitchInputField/SwitchInputField';
+import TextField from './TextInputField/TextInputField';
+
+
+
 
 const inputField = (props) => {
-    const [value, setValue] = useState("");
+    const [touched, setTouched] = useState(false);
+    const [errors, setErrors] = useState([]);
+    const [value, setValue] = useState(props.value);
+    const validation = {
+        required: props.required || false
+    };
+    // const [fieldName, setFieldName] = useState(props.value || "");
     let FieldToRender = null;
     const inputOrnaments = (
         <React.Fragment>
@@ -14,34 +24,70 @@ const inputField = (props) => {
        </React.Fragment>
     );
 
-    const changeHandler = (e) =>{
-        // const newValue = e.target.value;
-        // // setValue(newValue);
-        //
-        // if (props.type === "number") {
-        //     if(!newValue.match(/[a-zA-Z]/i) ) {
-        //         setValue(newValue);
-        //     }
-        // }else {
-        //     setValue(newValue);
-        // }
-    };
-     if(['password','email','phone','number','text','textarea'].includes(props.type)) {
-        FieldToRender = <TextField inputType={props.type} placeholder={props.placeholder}/>;
-    } else if(props.type === 'switch'){
-         FieldToRender = <SwitchInputField options={props.options}/>
-     } else if(props.type === 'dropdown') {
-        FieldToRender = <DropdownInputField placeholder={props.placeholder} options={props.options}/>
-     }
+    const changeHandler = (newValue) =>{   
+        const valid = errors.length === 0;
 
-    const inputClasses = [ props.type !== "switch" ? classes.InputField : "", (props.rounded ? classes.Rounded : "" ), (props.centerPlaceholder ? classes.CenterPlaceholder : "")].join(" ") ;
+        if(!props.name) {
+            props.change(newValue);
+            
+        }else {
+            props.change(props.name, newValue, valid);
+        }
+
+        setValue(newValue);
+    };
+
+    const handleBlur = () => {
+        setTouched(true);
+        validate();
+    }
+
+    useEffect(()=>{
+        validate();
+    },[value,touched]);
+
+    const validate = () => {
+        if(touched) {
+            if(validation.required) {
+               
+                if(value === "") {
+                    setErrors(["This field is required"]);
+                }else {
+                    setErrors([]);
+                }
+            }
+        }
+       
+    };
+
+    if(['password','email','phone','number','text','textarea'].includes(props.type)) {
+        FieldToRender = <TextField inputType={props.type} placeholder={props.placeholder} value={props.value} change={changeHandler} />;
+    } else if(props.type === 'switch'){
+         FieldToRender = <SwitchInputField options={props.options} value={props.value} change={changeHandler}/>
+    } else if(props.type === 'dropdown') {
+        FieldToRender = <DropdownInputField placeholder={props.placeholder} options={props.options} value={props.value} change={changeHandler}/>
+    }
+
+    const inputClasses = [ 
+        props.type !== "switch" ? classes.InputField : classes.Relative, 
+        (props.rounded ? classes.Rounded : "" ), 
+        (props.centerPlaceholder ? classes.CenterPlaceholder : ""), 
+        (errors.length > 0 ? classes.WithError : "")].join(" ") ;
+
+    const errorLabel = ( <p className={classes.ErrorMessage}> <FontAwesomeIcon icon={"exclamation-circle"}/> This field is required</p>);
+
+
+
     return(
-        <div className={inputClasses}>
-            <label>{props.label}</label>
-            {props.type !== "textarea" ? inputOrnaments : null }
-            {/*<FieldToRender type={props.type} placeholder={props.placeholder} value={value} onChange={changeHandler}/>*/}
-            {FieldToRender}
-        </div>
+        <React.Fragment>
+            <div className={inputClasses} onBlur={handleBlur}>
+                <label>{props.label}</label>
+                {props.type !== "textarea" ? inputOrnaments : null }
+                {FieldToRender}
+                {(props.type !== "switch" && errors.length > 0 ) ? errorLabel : null}
+            </div>
+       
+        </React.Fragment>
     );
 };
 

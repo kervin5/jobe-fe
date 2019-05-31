@@ -1,32 +1,49 @@
 @import '../../../static/genericStyles/global.module';
-//mobil
-.cont {
-  //border: 1px solid coral;
+
+.JobListing {
   background-color: $clear-color;
-  justify-content: space-between;
-  padding-top: 0;
-
-
-  .header {
-    margin: 0 auto;
-    padding: 20px;
-    background-color: $accent-color-3;
-    //border-top-right-radius: 30px;
-    //border-top-left-radius: 30px;
-    //background-image: url("https://previews.123rf.com/images/moodboard/moodboard1203/moodboard120301857/12592658-forklift-driver.jpg");
-
-
-  }
+  height: 100vh;
 
   .Body{
     margin: 0 auto;
-    padding: 20px;
-    width: 100%;
-    //border-bottom-right-radius: 30px;
-    //border-bottom-left-radius: 30px;
-  }
+    padding: 40px 40px 60px 40px;
+    background-color: $muted-color-1;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
 
-  p{
-    padding-bottom: 40px;
+    p{
+      padding-bottom: 30px;
+    }
+
+    button{
+      width: 40%;
+      color:$clear-color;
+      float: right;
+    }
+  }
+}
+
+
+//mobil
+@media only screen and (max-width: 520px){
+  .JobListing {
+    background-color: $clear-color;
+    max-width: 100%;
+    margin: 0 auto;
+
+    .Body{
+      //margin: 0 auto;
+      padding:40px 40px 60px 40px;
+      width: 100%;
+      background-color: $muted-color-1;
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+    
+      button{
+        width: 100%;
+        color:$clear-color;
+        float: right;
+      }
+    }
   }
 }

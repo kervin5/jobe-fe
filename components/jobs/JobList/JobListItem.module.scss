@@ -1,0 +1,71 @@
+@import '../../../static/genericStyles/global.module.scss';
+
+.JobListItem {
+    background-color: $clear-color;
+    margin: auto 20px 20px;
+    transition: 100ms;
+    animation-timing-function: ease-in;
+    padding: 20px !important;
+    border-radius: 15px;
+
+    a {
+        color: $dark-color;
+        font-size: 1em;
+    }
+
+    &:hover {
+        transform: scale(1.05);
+
+
+        a {
+            color: $accent-color-1;
+        }
+    }
+
+    .JobListItemHeader {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        a {
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .JobListItemMainInfo {
+            white-space: nowrap;
+        }
+    }
+
+    .JobListItemFooter{
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 5px;
+
+        a {
+            font-weight: bold;
+            text-decoration: none;
+        }
+    }
+
+
+    .Location {
+        font-size: 0.9em;
+    }
+
+    .Content {
+        font-weight: normal;
+        font-size: 0.9em;
+        letter-spacing: 0.1em;
+    }
+
+    .LocationIcon {
+        opacity: 0.4;
+    }
+
+    .LikeIcon {
+        opacity: 0.4;
+    }
+    
+}
+

@@ -1,12 +1,13 @@
-import React from 'react'
-import Link from 'next/link'
-import Head from '../components/head'
-import Nav from '../components/nav'
+import React from 'react';
+import Layout from '../components/common/Layout/Layout';
+import Link from 'next/link';
+import Head from '../components/head';
+import Nav from '../components/nav';
 
 import classes from './index.module.scss';
-import PageSection from '../components/common/Layout/PageSection/PageSection';
-import Layout from '../components/common/Layout/Layout';
 import SearchForm from '../components/common/Search/SearchForm/SearchForm';
+import PageSection from '../components/common/Layout/PageSection/PageSection';
+
 const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
 const landingLogo = "../static/images/LandingLogo.svg";
 //
@@ -103,7 +104,10 @@ const homePage = (props) => {
     return (
         <Layout title={"Home Page"}  hideNav>
             <PageSection className={classes.HomePage}>
-                <img src={landingLogo}/>
+                <div className={classes.Logos}>
+                    <img src={landingLogo} className={classes.CompanyLogo}/>
+                    <img src={peopleImage} className={classes.PeopleLogo}/>
+                </div>
                 <SearchForm/>
             </PageSection>
         </Layout>
