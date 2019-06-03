@@ -9,7 +9,7 @@ import Title from '../../../common/UI/Title/Title';
 const header = (props) => (
     <div className={classes.header} >
             <Title size={'l'} className={classes.JobListingTitle}>{props.title}</Title>
-            <Title size={"m"} className={classes.JobListingLocation}><Icon icon="map-marker-alt"/> {props.location}</Title>
+            <Title size={"m"} className={classes.JobListingLocation}><Icon icon="map-marker-alt"/>{props.location}</Title>
 
             <div className={classes.JobListingHeaderBar}>
                 <div className={classes.JobListingJobType}>
