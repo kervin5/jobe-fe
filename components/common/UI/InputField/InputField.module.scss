@@ -11,18 +11,19 @@
   border-radius: 8px;
   border: 1px solid $muted-color-2;
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
   transition: 300ms;
 
   .Icon {
     color: $accent-color-1;
-
+    left: 30px;
+    position: absolute;
   }
 
   input, textarea, select {
     border: none;
-    margin: 5px;
+    margin: 5px 20px 5px 45px;
     width: 90%;
     outline: none;
 
