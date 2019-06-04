@@ -23,8 +23,8 @@
 
 const variables = {
     darkColor: "#2E294E",
-    clearColor: "#FFFFFF",
-    mutedColor1: "#F9F7F7F",
+    clearColor: "#FFF",
+    mutedColor1: "#F9F7F7",
     mutedColor2: "#E3E3E3",
 
     accentColor1: "#1AAF4B",
