@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './List.modules.scss';
+// import classes from './List.modules.scss';
 import uniqid from 'uniqid';
 
 
@@ -11,6 +11,7 @@ const list = (props) => {
     "3 months' experience operating an electric pallet jack or forklift", 
     "Previous experience at Sysco or in foodservice industry"];
 
+
     const bulletStyle = {
         listStyleImage: 'url(../../../../static/images/ExactStaffArrow.svg)'
     }
@@ -19,7 +20,7 @@ const list = (props) => {
         return <li style={bulletStyle} key={uniqid('listing')}>{listItem}</li>
     })
 
-    return (
+    return (    
     <div className={classes.List}>
         <ul>
             {totalList}
