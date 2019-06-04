@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Head from '../components/head';
 import Nav from '../components/nav';
 
-import classes from './index.module.scss';
+// import classes from './index.module.scss';
 import SearchForm from '../components/common/Search/SearchForm/SearchForm';
 import PageSection from '../components/common/Layout/PageSection/PageSection';
 
@@ -100,16 +100,44 @@ const landingLogo = "../static/images/LandingLogo.svg";
 // )
 //
 // export default Home
+
+const homePageStyle = "background: linear-gradient(0deg, white 40%, #f4f4f4 40%);";
+
 const homePage = (props) => {
     return (
         <Layout title={"Home Page"}  hideNav>
-            <PageSection className={classes.HomePage}>
-                <div className={classes.Logos}>
-                    <img src={landingLogo} className={classes.CompanyLogo}/>
-                    <img src={peopleImage} className={classes.PeopleLogo}/>
+            <PageSection styles={homePageStyle} className="HomePage" column fullHeight>
+                <div className="Logos">
+                    <img src={landingLogo} className="CompanyLogo"/>
+                    <img src={peopleImage} className="PeopleLogo"/>
                 </div>
                 <SearchForm/>
             </PageSection>
+            <style jsx>{`
+
+            .Logos {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                max-width: 700px;
+                padding: 30px;
+            }
+
+            .Logos img {
+                width: 100%;
+            }
+
+            .CompanyLogo {
+                margin-bottom: 15px;
+            }
+
+            .PeopleLogo {
+                width: 100%;
+                max-width: 400px;
+              }
+            `}</style>
         </Layout>
     );
 };

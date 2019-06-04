@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './Title.modules.scss';
+// import classes from './Title.modules.scss';
 
 const Title = (props) => {
     const alignment = props.center ? "Center" : (props.right ? "Right" : "Left");

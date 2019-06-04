@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './NavigationItems.module.scss';
+// import classes from './NavigationItems.module.scss';
 import NavigationItem from './NavigationItem/NavigationItem.js';
 
 
