@@ -1,26 +1,28 @@
 import React from 'react';
 
-import classes from './Title.modules.scss';
+// import classes from './Title.modules.scss';
 
-const Title = (props) => (
-    <div className={classes.Title + " " + (props.className || "")}>
+const Title = (props) => {
+    const alignment = props.center ? "Center" : (props.right ? "Right" : "Left");
+    const classesToRender = [classes.Title,(props.className || ""),(classes[alignment])].join(" ");
+
+    return(
+    <div className={classesToRender}>
         {titleGenerator(props.size, props.children)}
-    </div>
-);
+    </div>);
+};
 
 const titleGenerator = (size, text) =>
 {
-    const content = (<span>{text}</span>);
-
     switch (size) {
         case "s":
-            return <h5>{content}</h5>
+            return <h5>{text}</h5>
         case "m":
-            return <h3>{content}</h3>
+            return <h3>{text}</h3>
         case "l":
-            return <h2>{content}</h2>
+            return <h2>{text}</h2>
         default:
-            return <h1>{content}</h1>
+            return <h1>{text}</h1>
     }
 }
 export default Title

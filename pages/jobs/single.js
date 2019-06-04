@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
 import Layout from '../../components/common/Layout/Layout';
 import { withRouter } from "next/router";
 import axios from 'axios';
@@ -26,13 +27,17 @@ const single = (props) => {
 
         axios.get('https://myexactjobsapi.herokuapp.com/api/jobs/'+jobId)
             .then(response => {
-                //const jobData = response.data;
-                //jobData.qualifications = jobQualifications;
-                setSingleJob(response.data);
-                console.log(response);
+
+                if(response.data) {
+                    setSingleJob(response.data);
+                }
+
             })
             .catch(err => {
-                console.log(err);
+                console.log("Failed");
+                if(err.response.status === 404) {
+                    Router.push('/error')
+                }
             })
         },[])
 

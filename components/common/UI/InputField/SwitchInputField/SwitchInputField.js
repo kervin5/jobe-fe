@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import classes from './SwitchInputField.module.scss';
+// import classes from './SwitchInputField.module.scss';
 
 const switchInputField = props => {
     const values = {

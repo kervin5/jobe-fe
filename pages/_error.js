@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/common/Layout/Layout.js';
-import classes from '../static/genericStyles/_error.module.scss';
+// import classes from '../static/genericStyles/_error.module.scss';
 
 
 

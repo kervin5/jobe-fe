@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './NavigationBar.module.scss';
+// import classes from './NavigationBar.module.scss';
 import {Link} from '../../../../routes';
 
 import NavigationItems from '../NavigationItems/NavigationItems';
