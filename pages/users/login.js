@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Layout from '../../components/common/Layout/Layout';
 import PageSection from '../../components/common/Layout/PageSection/PageSection';
 import LoginForm from '../../components/users/LoginForm/LoginForm';
-import classes from './login.module.scss';
+// import classes from './login.module.scss';
 
 const friendsImgUrl = '../../static/images/friends-with-bg.png';
 

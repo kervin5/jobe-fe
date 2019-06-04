@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
 
-import classes from './InputField.module.scss';
+// import classes from './InputField.module.scss';
 import DropdownInputField from './DropdownInputField/DropdownInputField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SwitchInputField from './SwitchInputField/SwitchInputField';
@@ -20,7 +20,7 @@ const inputField = (props) => {
     let FieldToRender = null;
     const inputOrnaments = (
         <React.Fragment>
-            { props.icon ? <FontAwesomeIcon icon={['fa', props.icon]} className={classes.Icon}/> : null}
+            { props.icon ? <FontAwesomeIcon icon={['fa', props.icon]} className="Icon"/> : null}
        </React.Fragment>
     );
 
@@ -69,12 +69,12 @@ const inputField = (props) => {
     }
 
     const inputClasses = [ 
-        props.type !== "switch" ? classes.InputField : classes.Relative, 
-        (props.rounded ? classes.Rounded : "" ), 
-        (props.centerPlaceholder ? classes.CenterPlaceholder : ""), 
-        (errors.length > 0 ? classes.WithError : "")].join(" ") ;
+        props.type !== "switch" ? "InputField" : "Relative", 
+        (props.rounded ? "Rounded" : "" ), 
+        (props.centerPlaceholder ? "CenterPlaceholder" : ""), 
+        (errors.length > 0 ? "WithError" : "")].join(" ") ;
 
-    const errorLabel = ( <p className={classes.ErrorMessage}> <FontAwesomeIcon icon={"exclamation-circle"}/> This field is required</p>);
+    const errorLabel = ( <p className={"ErrorMessage"}> <FontAwesomeIcon icon={"exclamation-circle"}/> This field is required</p>);
 
 
 
@@ -86,7 +86,13 @@ const inputField = (props) => {
                 {FieldToRender}
                 {(props.type !== "switch" && errors.length > 0 ) ? errorLabel : null}
             </div>
-       
+            <style jsx>{`
+                     .Icon {
+                        color: $accent-color-1;
+                        left: 30px;
+                        position: absolute;
+                      }
+            `}</style>
         </React.Fragment>
     );
 };
