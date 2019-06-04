@@ -1,6 +1,6 @@
 import React from 'react';
-
-import classes from './JobListing.modules.scss';
+import variables from '../../../components/common/globalVariables';
+// import classes from './JobListing.modules.scss';
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
 import JobListingDescription from './JobListingDescription/JobListingDescription';
@@ -13,34 +13,82 @@ import Button from '../../common/UI/Button/Button';
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
 const jobListing = (props) => (
-    <div className={classes.JobListing}>
-        
-    <JobListingHeader 
-        title={props.title} 
-        location={props.location}   
-        minAmount={props.minAmount} 
-        maxAmount={props.maxAmount} 
-        type={props.type}/>
-
-    <div className={classes.Body}>
-
-        <JobListingDescription 
-            description={props.aboutCompany} 
-            title={"About the Company"} />
-
-        <JobListingDescription 
-            description={props.description} 
-            title={"Job Description"} />
-
-        <Title size={"m"}>Responsabilities:</Title>
-            <List jobQualifications={props.jobQualifications}/>
+    <div className="JobListing">
             
-        <Title size={"m"}>Qualilfications:</Title>
-            <List />
+        <JobListingHeader 
+            title={props.title} 
+            location={props.location}   
+            minAmount={props.minAmount} 
+            maxAmount={props.maxAmount} 
+            type={props.type}/>
 
-        <Button className={classes.Button} click={() => window.alert("You Have Sucessfully applied")}>Apply</Button>
+        <div className="Body">
+
+            <JobListingDescription 
+                description={props.aboutCompany} 
+                title={"About the Company"} />
+
+            <JobListingDescription 
+                description={props.description} 
+                title={"Job Description"} />
+
+            <Title size={"m"}>Responsabilities:</Title>
+                <List jobQualifications={props.jobQualifications}/>
+                
+            <Title size={"m"}>Qualilfications:</Title>
+                <List />
+
+            <Button className="button" click={() => window.alert("You Have Sucessfully applied")}>Apply</Button>
+        </div>
+        <style jsx>{`
+            .JobListing {
+                background-color: ${variables.clearColor};
+                height: 100vh;
+            }
+
+            .Body{
+                margin: 0 auto;
+                padding: 40px 40px 60px 40px;
+                background-color: ${variables.mutedColor1};
+                border-bottom-right-radius: 30px;
+                border-bottom-left-radius: 30px;
+            }
+
+            .Body button{
+                width: 40%;
+                color: ${variables.clearColor};
+                float: right;
+            }
+
+            .Body p {
+                padding-bottom: 30px;
+            }
+
+            @media only screen and (max-width: 520px){
+                .JobListing {
+                    background-color: ${variables.clearColor};
+                    max-width: 100%;
+                    margin: 0 auto;
+                }
+
+                .Body{
+                    //margin: 0 auto;
+                    padding:40px 40px 60px 40px;
+                    width: 100%;
+                    background-color: ${variables.mutedColor1};
+                    border-bottom-right-radius: 0px;
+                    border-bottom-left-radius: 0px;
+                }
+                  
+                .Body button{
+                    width: 100%;
+                    color:${variables.clearColor};
+                    float: right;
+                }
+            }
+        `}</style>
     </div>
-</div>
+  
 )
 
 export default jobListing

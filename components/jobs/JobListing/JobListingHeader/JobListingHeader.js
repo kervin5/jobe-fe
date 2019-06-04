@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './JobListingHeader.modules.scss';
+// import classes from './JobListingHeader.modules.scss';
 import Bubble from '../../../common/UI/Bubble/Bubble';
 import Icon from '../../../common/UI/Icon/Icon';
 import Title from '../../../common/UI/Title/Title';

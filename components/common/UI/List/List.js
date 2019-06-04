@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './List.modules.scss';
+// import classes from './List.modules.scss';
 import uniqid from 'uniqid';
 
 
