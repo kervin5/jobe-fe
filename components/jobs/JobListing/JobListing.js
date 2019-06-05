@@ -56,7 +56,7 @@ const jobListing = (props) => (
 
             .Body button{
                 width: 40%;
-                color: ${variables.clearColor};
+                color: ${variables.clearColor};n
                 float: right;
             }
 

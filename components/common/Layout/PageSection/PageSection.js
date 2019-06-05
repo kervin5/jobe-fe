@@ -4,8 +4,6 @@ import React from 'react';
 const pageSection = props => {
     const fullHeight = props.fullHeight ? "min-height: 100vh !important;" : "";
     const extraStyles = props.styles ? props.styles : "";
-
-    console.log(props.styles);
     return(
         // <div className={classes.PageSection + " " +extraClasses}>
         <div className="PageSection">

@@ -23,8 +23,7 @@ const single = (props) => {
     useEffect(() => {
         const { router: { query: { slug } }} = props;
         const jobId = slug.split("-").pop();
-        console.log(jobId);
-
+   
         axios.get('https://myexactjobsapi.herokuapp.com/api/jobs/'+jobId)
             .then(response => {
 
