@@ -69,7 +69,7 @@ const inputField = (props) => {
     }
 
     const inputClasses = [ 
-        props.type !== "switch" ? "InputField" : "Relative", 
+        props.type !== "switch" ? "InputContainer" : "Relative", 
         (props.rounded ? "Rounded" : "" ), 
         (errors.length > 0 ? "WithError" : "")].join(" ") ;
 
@@ -79,31 +79,31 @@ const inputField = (props) => {
 
     return(
         <React.Fragment>
-            <div className={inputClasses} onBlur={handleBlur}>
+            <div  onBlur={handleBlur}>
                 <label>{props.label}</label>
-                {props.type !== "textarea" ? inputOrnaments : null }
-                {FieldToRender}
-                {(props.type !== "switch" && errors.length > 0 ) ? errorLabel : null}
+                <div className={inputClasses}>
+                    {props.type !== "textarea" ? inputOrnaments : null }
+                    {FieldToRender}
+                    {(props.type !== "switch" && errors.length > 0 ) ? errorLabel : null}
+                </div>
             </div>
             <style jsx>{`
-                .InputField {
+                .InputContainer {
                     position: relative;
                     padding-left: 15px;
                     padding-right: 15px;
                     background-color: ${variables.clearColor};
                     min-height: ${variables.inputHeight};
-                    margin-bottom: 10px;
-                    margin-top: 30px;
                     border-radius: 8px;
                     border: 1px solid ${variables.mutedColor2};
                     display: flex;
                     align-items: center;
                     transition: 300ms;
-                    margin: 10px;
+                    margin: 10px auto;
                 }
 
                 @media(min-width: 800px) {
-                    .InputField {
+                    .InputContainer {
                         min-width: 300px;
                     }
                       
@@ -138,6 +138,10 @@ const inputField = (props) => {
                     font-size: 0.8em;
                     font-weight: 400 !important;
                   }
+
+                  label {
+                    color: ${variables.baseTextColor};
+                }
                   
             `}</style>
         </React.Fragment>

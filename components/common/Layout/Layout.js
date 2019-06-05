@@ -32,6 +32,7 @@ const layout = (props) => {
 
                   .Layout {
                       min-height: 100%;
+                     
                   }
 
                   main {
