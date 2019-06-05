@@ -3,7 +3,7 @@ import variables from '../../../common/globalVariables';
 
 const button = props => {
     return(
-        <button onClick={props.click} className={"Button" + " " + props.className}>
+        <button onClick={props.click} className={"Button"}>
             {props.children}
             <style jsx>{`
                 li {
@@ -30,13 +30,15 @@ const button = props => {
                     box-shadow: 0px 3px 22px -10px rgba(0,0,0,0.75);
                     transition: 300ms;
                     width: 100%;
-                    ${props.styles || ""}
                 }
 
                 .Button:hover{
                     background-color: ${variables.accentColor2};
                     cursor: pointer;
                 }
+
+                ${props.styles || ""}
+                
                 `}</style>
         </button>
     );

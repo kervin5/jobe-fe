@@ -5,7 +5,8 @@ import axios from 'axios';
 import InputField from '../../UI/InputField/InputField.js';
 import Button from '../../UI/Button/Button.js';
 
-const buttonStyles = ` margin-top: 30px;`;
+const buttonStyles = `margin-top:10px;`;
+const inputStyles = `min-width: 300px`;
 
 const searchForm = props => {
   const [searchTerms, setSearchTerms] = useState("");
@@ -21,7 +22,7 @@ const searchForm = props => {
   return(
       <form >
           <InputField type="text" placeholder="Job Title, Keywords, or Company Name" rounded centerPlaceholder icon="search" value={searchTerms} change={setSearchTerms}/>
-          <InputField type="text" placeholder="Location" rounded centerPlaceholder icon="map-marker-alt"value={searchLocation} change={setSearchLocation}/>
+          <InputField type="text" placeholder="Location" rounded icon="map-marker-alt"value={searchLocation} change={setSearchLocation} />
           <Button styles={buttonStyles} click={submitFormHandler}>Search</Button>
           <style jsx >{`
             form {

@@ -1,14 +1,25 @@
 import variables from "../../globalVariables";
 
-export const inputStyles = (<style jsx>{`
+const inputStyles = <style jxs>{`
 input, textarea, select {
     border: none;
-    margin: 5px 20px 5px 45px;
+    margin: 5px 20px 5px 15px;
     width: 90%;
     outline: none;
 }
 
 input::placeholder, textarea::placeholder, select::placeholder {
-     color: ${variables.mutedColor1};   
+     color: ${variables.secondaryTextColor};   
 }
-`}</style>);
+
+textarea {
+    min-height: 300px;
+    padding-top: 15px;
+}
+
+label {
+    color: ${variables.baseTextColor};
+}
+`}</style>;
+
+export default inputStyles;

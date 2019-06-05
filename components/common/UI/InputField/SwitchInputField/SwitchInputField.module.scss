@@ -34,7 +34,7 @@
   .Selector {
     content: " ";
     display: flex;
-    //width: 50%;
+
     height: 43px;
     background-color: $accent-color-1;
     position: absolute;
@@ -46,9 +46,6 @@
     align-items: center;
     color: $clear-color;
     font-size: 0.8em;
-    //width: 20%;
-	//animation:  slide 5s infinite;
-  //animation: 3s linear 0s slide infinite;
     left: 0;
     transition: 300ms;
 

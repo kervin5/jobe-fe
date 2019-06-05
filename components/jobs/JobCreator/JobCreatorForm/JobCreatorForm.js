@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-import classes from './JobCreatorForm.module.scss';
+// import classes from './JobCreatorForm.module.scss';
 import InputField from '../../../common/UI/InputField/InputField.js';
 import InputGroup from '../../../common/UI/InputGroup/InputGroup.js';
 import Loader from '../../../common/UI/Animated/Loader/Loader';
@@ -108,7 +108,7 @@ class JobCreatorForm extends Component {
 
     render() {
         let elementToRender = (
-            <div className={classes.Center}>
+            <div className={"Center"}>
                 <Loader />
                 <h1>Posting...</h1>
             </div> 
@@ -116,7 +116,7 @@ class JobCreatorForm extends Component {
 
         if(this.state.status === "filling") {
             elementToRender = (
-                <form className={classes.JobCreatorForm}>
+                <form className={"JobCreatorForm"}>
                     <InputField type="text" placeholder="Warehouse Manager" label="Job Title" value={this.state.formData.jobTitle.value} name={"jobTitle"} change={this.changeHandler} required/>
                     <InputField type="text" placeholder="Los Angeles, CA" label="Location"  value={this.state.formData.jobLocation.value} name={"jobLocation"} change={this.changeHandler} required/>
     
@@ -131,24 +131,51 @@ class JobCreatorForm extends Component {
                     <InputField type="textarea" placeholder="Required Skills, Experience, etc." value={this.state.formData.jobDescription.value} label="Job Description" change={this.changeHandler} name={"jobDescription"} required/>
                 
                     <Button click={this.submitFormHandler}>Post</Button>
+                    <style jsx>{`
+                
+                        form {
+                            width: 100%;
+                            flex-wrap: wrap;
+                            padding-bottom: 30px;
+                        }
+
+                        .Center {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            flex-direction: column;
+                        }
+                    `}</style>
                 </form>
             );
         } else if(this.state.status === "posted") {
             elementToRender = (
-                <div className={classes.Center}>
+                <div className={"Center"}>
                     <ThumbsUp />
                     <h1>Job Posted!</h1>
                 </div> 
             );
         } else if (this.state.status === "failed") {
             elementToRender = (
-                <div className={classes.Center}>
+                <div className={"Center"}>
                     <Loader />
                     <h1>Something went wrong</h1>
-            </div> );
+                </div>);
         }
 
-        return elementToRender;
+        return (
+            <React.Fragment>
+                {elementToRender}
+                <style jsx>{`
+                    .Center {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                      }
+                `}</style>
+            </React.Fragment>
+        );
     }
 
 

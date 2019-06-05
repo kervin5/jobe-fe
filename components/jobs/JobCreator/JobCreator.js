@@ -1,18 +1,26 @@
 import React from 'react';
 
-import classes from './JobCreator.module.scss';
+// import classes from './JobCreator.module.scss';
 import JobCreatorForm from './JobCreatorForm/JobCreatorForm';
 import Title from '../../common/UI/Title/Title';
 
 
 const jobCreator = () => {
     return (
-        <div className={classes.JobCreator}>
+        <div className={"JobCreator"}>
 
             <Title>Post a Job</Title>
-            <p className={classes.Instructions}>Please enter the information for the new job listing</p>
+            <p className={"Instructions"}>Please enter the information for the new job listing</p>
             <JobCreatorForm/>
+            <style jsx>{`
+                div {
+                    width: 100%;
+                }
 
+                .Instructions {
+                    margin-bottom: 15px;
+                  }
+            `}</style>
         </div>
     );
 };
