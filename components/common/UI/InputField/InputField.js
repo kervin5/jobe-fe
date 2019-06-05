@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
-
-import classes from './InputField.module.scss';
+import variables from '../../globalVariables';
+// import classes from './InputField.module.scss';
 import DropdownInputField from './DropdownInputField/DropdownInputField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SwitchInputField from './SwitchInputField/SwitchInputField';
@@ -20,7 +20,7 @@ const inputField = (props) => {
     let FieldToRender = null;
     const inputOrnaments = (
         <React.Fragment>
-            { props.icon ? <FontAwesomeIcon icon={props.icon} className={classes.Icon}/> : null}
+            { props.icon ? <FontAwesomeIcon icon={['fa', props.icon]} style={{ "color": variables.accentColor1}}/> : null}
        </React.Fragment>
     );
 
@@ -69,12 +69,11 @@ const inputField = (props) => {
     }
 
     const inputClasses = [ 
-        props.type !== "switch" ? classes.InputField : classes.Relative, 
-        (props.rounded ? classes.Rounded : "" ), 
-        (props.centerPlaceholder ? classes.CenterPlaceholder : ""), 
-        (errors.length > 0 ? classes.WithError : "")].join(" ") ;
+        props.type !== "switch" ? "InputField" : "Relative", 
+        (props.rounded ? "Rounded" : "" ), 
+        (errors.length > 0 ? "WithError" : "")].join(" ") ;
 
-    const errorLabel = ( <p className={classes.ErrorMessage}> <FontAwesomeIcon icon={"exclamation-circle"}/> This field is required</p>);
+    const errorLabel = ( <p className={"ErrorMessage"}> <FontAwesomeIcon icon={"exclamation-circle"}/> This field is required</p>);
 
 
 
@@ -86,7 +85,61 @@ const inputField = (props) => {
                 {FieldToRender}
                 {(props.type !== "switch" && errors.length > 0 ) ? errorLabel : null}
             </div>
-       
+            <style jsx>{`
+                .InputField {
+                    position: relative;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    background-color: ${variables.clearColor};
+                    min-height: ${variables.inputHeight};
+                    margin-bottom: 10px;
+                    margin-top: 30px;
+                    border-radius: 8px;
+                    border: 1px solid ${variables.mutedColor2};
+                    display: flex;
+                    align-items: center;
+                    transition: 300ms;
+                    margin: 10px;
+                }
+
+                @media(min-width: 800px) {
+                    .InputField {
+                        min-width: 300px;
+                    }
+                      
+                }  
+                
+
+                .Icon {
+                    color: ${variables.accentColor1};
+                    left: 30px;
+                    position: absolute;
+                }
+
+                .Relative {
+                    position: relative;
+                  }
+                  
+                  .Rounded {
+                      border-radius: ${variables.roundedRadius};
+                  }
+
+                  .WithError {
+                    border: 1px solid red ;
+        
+                  }
+
+                  .ErrorMessage {
+                    color: red !important;
+                    position: absolute;
+                    top: initial !important;
+                    bottom: -25px;
+                    left: 0px;
+                    font-size: 0.8em;
+                    font-weight: 400 !important;
+                  }
+                  
+            `}</style>
         </React.Fragment>
     );
 };

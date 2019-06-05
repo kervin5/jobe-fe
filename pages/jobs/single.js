@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
 import Layout from '../../components/common/Layout/Layout';
 import { withRouter } from "next/router";
 import axios from 'axios';
@@ -11,26 +12,31 @@ import PageSection from '../../components/common/Layout/PageSection/PageSection'
 
 const single = (props) => {
     
-    // const jobQualifications = 
-    // ["High school diploma or General Education Development (GED) or equivalent", 
-    // "3 months' warehouse experience", 
-    // "3 months' experience operating an electric pallet jack or forklift", 
-    // "Previous experience at Sysco or in foodservice industry"];
+    const jobQualifications = 
+    ["High school diploma or General Education Development (GED) or equivalent", 
+    "3 months' warehouse experience", 
+    "3 months' experience operating an electric pallet jack or forklift", 
+    "Previous experience at Sysco or in foodservice industry"];
 
     const [singleJob, setSingleJob] = useState({});
 
     useEffect(() => {
         const { router: { query: { slug } }} = props;
         const jobId = slug.split("-").pop();
-        console.log(jobId);
-
+   
         axios.get('https://myexactjobsapi.herokuapp.com/api/jobs/'+jobId)
             .then(response => {
-                setSingleJob(response.data);
-                console.log(response);
+
+                if(response.data) {
+                    setSingleJob(response.data);
+                }
+
             })
             .catch(err => {
-                console.log(err);
+                console.log("Failed");
+                if(err.response.status === 404) {
+                    Router.push('/error')
+                }
             })
         },[])
 

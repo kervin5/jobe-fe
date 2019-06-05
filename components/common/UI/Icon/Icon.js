@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './Icon.modules.scss';
+// import classes from './Icon.modules.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 

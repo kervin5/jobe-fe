@@ -11,38 +11,27 @@
     top: -5px;
 }
 
-.Title{
-  color : $accent-color-2;
+.Title {
+  color : $dark-color;
   position: relative;
   line-height: 1.5rem;
   margin-bottom: 10px;
   //background-image: linear-gradient(red, yellow);
 
-  &>* {
-
-    // &:first-letter {
-    //    background:               linear-gradient(90deg, $accent-color-1 37%, $accent-color-2 37%);
-    //     background-size:                contain;
-    //     margin:                         auto;
-
-    //     background-clip:                text;
-    //     -webkit-background-clip:        text;
-    //     color:                          transparent;
-
-
-    // }
-
-  }
-
-
-
-  p{
-    color: $dark-color;
-  }
 
   h1 {
     font-size: 2.5em;
   }
+}
 
+.Left {
+  text-align: left;
+}
 
+.Center {
+  text-align: center;
+}
+
+.Right {
+  text-align: right;
 }

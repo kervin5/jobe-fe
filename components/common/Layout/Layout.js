@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './Layout.module.scss';
+// import classes from './Layout.module.scss';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import Head from '../../head.js';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -12,7 +12,7 @@ library.add(fas);
 
 const layout = (props) => {
     return (
-        <div className={classes.Layout}>
+        <div className="Layout">
             <Head title={props.title} />
             {props.hideNav ? null : <NavigationBar/> }
             <main>
@@ -28,6 +28,14 @@ const layout = (props) => {
                   
                   p {
                     font-weight: 300;
+                  }
+
+                  .Layout {
+                      min-height: 100%;
+                  }
+
+                  main {
+                    height: 100%;
                   }
                 
             `}</style>
