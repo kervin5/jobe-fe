@@ -1,12 +1,12 @@
 import React from 'react'
 import Layout from '../../components/common/Layout/Layout';
 // import classes from './new.module.scss';
-import Container from '../../components/common/Layout/Container/Container';
+import Container from '../../components/common/Layout/Container';
 import JobCreator from '../../components/jobs/JobCreator/JobCreator.js';
 
 
 
-import PageSection from '../../components/common/Layout/PageSection/PageSection';
+import PageSection from '../../components/common/Layout/PageSection';
 
 const pageSytles = `
 padding-left: 30px;

@@ -1,8 +1,8 @@
 import React from 'react';
 
 // import classes from './JobCreator.module.scss';
-import JobCreatorForm from './JobCreatorForm/JobCreatorForm';
-import Title from '../../common/UI/Title/Title';
+import JobCreatorForm from './JobCreatorForm';
+import Title from '../../common/UI/Title';
 
 
 const jobCreator = () => {

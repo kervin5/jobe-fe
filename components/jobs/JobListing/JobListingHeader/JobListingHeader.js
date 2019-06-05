@@ -1,9 +1,9 @@
 import React from 'react';
 import variables from '../../../../components/common/globalVariables';
 // import classes from './JobListingHeader.modules.scss';
-import Bubble from '../../../common/UI/Bubble/Bubble';
-import Icon from '../../../common/UI/Icon/Icon';
-import Title from '../../../common/UI/Title/Title';
+import Bubble from '../../../common/UI/Bubble';
+import Icon from '../../../common/UI/Icon';
+import Title from '../../../common/UI/Title';
 
 
 const jobListingTitleStyles = `color: ${variables.clearColor};`;

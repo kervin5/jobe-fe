@@ -2,9 +2,9 @@ import React from 'react';
 
 // import classes from './JobListItem.module.scss';
 import variables from '../../common/globalVariables';
-import Bubble from '../../common/UI/Bubble/Bubble';
-import Icon from '../../common/UI/Icon/Icon';
-import Card from '../../common/UI/Card/Card';
+import Bubble from '../../common/UI/Bubble';
+import Icon from '../../common/UI/Icon';
+import Card from '../../common/UI/Card';
 import {Link} from '../../../routes';
 
 const styles = ` background-color: ${variables.clearColor};

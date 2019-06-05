@@ -1,8 +1,8 @@
 import React,{useState, useEffect} from 'react';
 import uniqid from 'uniqid';
-import InputField from '../../common/UI/InputField/InputField';
-import Button from '../../common/UI/Button/Button';
-import Title from '../../../components/common/UI/Title/Title';
+import InputField from '../../common/UI/Input/InputField';
+import Button from '../../common/UI/Button';
+import Title from '../../common/UI/Title';
 
 
 const loginForm = () => {
