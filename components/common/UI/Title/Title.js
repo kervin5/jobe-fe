@@ -1,28 +1,52 @@
 import React from 'react';
-
+import variables from '../../../../components/common/globalVariables';
 // import classes from './Title.modules.scss';
 
 const Title = (props) => {
+    const extraStyles = props.styles || "";
     const alignment = props.center ? "Center" : (props.right ? "Right" : "Left");
-    const classesToRender = [classes.Title,(props.className || ""),(classes[alignment])].join(" ");
-
+    const classesToRender = ["Title",alignment].join(" ");
+    const weight = props.weight || "bold";
+console.log(weight);
     return(
     <div className={classesToRender}>
-        {titleGenerator(props.size, props.children)}
+        {titleGenerator(props.size, props.children, weight)}
+        <style jsx>{`
+            .Title {
+                color : ${variables.darkColor};
+                position: relative;
+                line-height: 1.5rem;
+                margin-bottom: 10px;
+                ${extraStyles};
+            }
+
+            .Left {
+                text-align: left;
+              }
+              
+              .Center {
+                text-align: center;
+              }
+              
+              .Right {
+                text-align: right;
+              }
+              
+        `}</style>
     </div>);
 };
 
-const titleGenerator = (size, text) =>
+const titleGenerator = (size, text, weight) =>
 {
     switch (size) {
         case "s":
-            return <h5>{text}</h5>
+            return <h5 style={{"fontWeight": weight}}>{text}</h5>
         case "m":
-            return <h3>{text}</h3>
+            return <h3 style={{"fontWeight": weight}}>{text}</h3>
         case "l":
-            return <h2>{text}</h2>
+            return <h2 style={{"fontWeight": weight}}>{text}</h2>
         default:
-            return <h1>{text}</h1>
+            return <h1 style={{"fontWeight": weight, "fontSize": "2.5em"}}>{text}</h1>
     }
 }
 export default Title

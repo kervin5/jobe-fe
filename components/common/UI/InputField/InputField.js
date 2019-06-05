@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-
+import variables from '../../globalVariables';
 // import classes from './InputField.module.scss';
 import DropdownInputField from './DropdownInputField/DropdownInputField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -87,11 +87,46 @@ const inputField = (props) => {
                 {(props.type !== "switch" && errors.length > 0 ) ? errorLabel : null}
             </div>
             <style jsx>{`
-                     .Icon {
-                        color: $accent-color-1;
-                        left: 30px;
-                        position: absolute;
-                      }
+                .InputField {
+                    position: relative;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    background-color: ${variables.clearColor};
+                    min-height: ${variables.inputHeight};
+                    margin-bottom: 10px;
+                    margin-top: 30px;
+                    border-radius: 8px;
+                    border: 1px solid ${variables.mutedColor2};
+                    display: flex;
+                    align-items: center;
+                    transition: 300ms;
+                }
+
+
+                .Icon {
+                    color: ${variables.accentColor1};
+                    left: 30px;
+                    position: absolute;
+                }
+
+                .Relative {
+                    position: relative;
+                  }
+                  
+                  .Rounded {
+                      border-radius: ${variables.roundedRadius};
+                  }
+
+                  .ErrorMessage {
+                    color: red !important;
+                    position: absolute;
+                    top: initial !important;
+                    bottom: -25px;
+                    left: 0px;
+                    font-size: 0.8em;
+                    font-weight: 400 !important;
+                  }
+                  
             `}</style>
         </React.Fragment>
     );
