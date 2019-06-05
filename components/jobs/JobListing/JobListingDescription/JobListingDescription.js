@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Title from '../../../common/UI/Title/Title';
+import Title from '../../../common/UI/Title';
 
 
 const jobListingDescription = (props) => (

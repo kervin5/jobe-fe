@@ -4,7 +4,7 @@ import Layout from '../components/common/Layout/Layout.js';
 
 
 
-import PageSection from '../components/common/Layout/PageSection/PageSection.js';
+import PageSection from '../components/common/Layout/PageSection.js';
 
 // Page: Landing Page
 const peopleImage = '../static/images/334809-PAIXKS-603.ai.png';

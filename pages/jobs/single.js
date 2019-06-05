@@ -4,11 +4,11 @@ import Layout from '../../components/common/Layout/Layout';
 import { withRouter } from "next/router";
 import axios from 'axios';
 
-import Container from '../../components/common/Layout/Container/Container';
+import Container from '../../components/common/Layout/Container';
 import JobListing from '../../components/jobs/JobListing/JobListing';
 
 
-import PageSection from '../../components/common/Layout/PageSection/PageSection';
+import PageSection from '../../components/common/Layout/PageSection';
 
 const single = (props) => {
     

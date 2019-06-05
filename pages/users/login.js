@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import variables from '../../components/common/globalVariables';
 import Layout from '../../components/common/Layout/Layout';
-import PageSection from '../../components/common/Layout/PageSection/PageSection';
+import PageSection from '../../components/common/Layout/PageSection';
 import LoginForm from '../../components/users/LoginForm/LoginForm';
 // import classes from './login.module.scss';
 

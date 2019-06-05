@@ -5,9 +5,9 @@ import variables from '../../../components/common/globalVariables';
 
 import JobListingDescription from './JobListingDescription/JobListingDescription';
 import JobListingHeader from './JobListingHeader/JobListingHeader';
-import List from '../../common/UI/List/List';
-import Title from '../../common/UI/Title/Title';
-import Button from '../../common/UI/Button/Button';
+import List from '../../common/UI/List';
+import Title from '../../common/UI/Title';
+import Button from '../../common/UI/Button';
 
 
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';

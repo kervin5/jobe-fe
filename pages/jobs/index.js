@@ -3,7 +3,7 @@ import variables from '../../components/common/globalVariables';
 import Layout from '../../components/common/Layout/Layout';
 // import classes from './index.module.scss';
 import JobList from '../../components/jobs/JobList/JobList';
-import PageSection from '../../components/common/Layout/PageSection/PageSection';
+import PageSection from '../../components/common/Layout/PageSection';
 
 const styles = `background-color: ${variables.mutedColor1};`
 
