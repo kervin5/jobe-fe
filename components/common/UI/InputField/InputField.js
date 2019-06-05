@@ -20,7 +20,7 @@ const inputField = (props) => {
     let FieldToRender = null;
     const inputOrnaments = (
         <React.Fragment>
-            { props.icon ? <FontAwesomeIcon icon={['fa', props.icon]} className="Icon"/> : null}
+            { props.icon ? <FontAwesomeIcon icon={['fa', props.icon]} style={{ "color": variables.accentColor1}}/> : null}
        </React.Fragment>
     );
 
@@ -71,7 +71,6 @@ const inputField = (props) => {
     const inputClasses = [ 
         props.type !== "switch" ? "InputField" : "Relative", 
         (props.rounded ? "Rounded" : "" ), 
-        (props.centerPlaceholder ? "CenterPlaceholder" : ""), 
         (errors.length > 0 ? "WithError" : "")].join(" ") ;
 
     const errorLabel = ( <p className={"ErrorMessage"}> <FontAwesomeIcon icon={"exclamation-circle"}/> This field is required</p>);
@@ -100,8 +99,16 @@ const inputField = (props) => {
                     display: flex;
                     align-items: center;
                     transition: 300ms;
+                    margin: 10px;
                 }
 
+                @media(min-width: 800px) {
+                    .InputField {
+                        min-width: 300px;
+                    }
+                      
+                }  
+                
 
                 .Icon {
                     color: ${variables.accentColor1};
@@ -115,6 +122,11 @@ const inputField = (props) => {
                   
                   .Rounded {
                       border-radius: ${variables.roundedRadius};
+                  }
+
+                  .WithError {
+                    border: 1px solid red ;
+        
                   }
 
                   .ErrorMessage {
