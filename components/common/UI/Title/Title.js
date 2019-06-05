@@ -7,7 +7,6 @@ const Title = (props) => {
     const alignment = props.center ? "Center" : (props.right ? "Right" : "Left");
     const classesToRender = ["Title",alignment].join(" ");
     const weight = props.weight || "bold";
-console.log(weight);
     return(
     <div className={classesToRender}>
         {titleGenerator(props.size, props.children, weight)}

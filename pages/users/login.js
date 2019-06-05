@@ -1,16 +1,22 @@
 import React from 'react';
 import Link from 'next/link';
+import variables from '../../components/common/globalVariables';
 import Layout from '../../components/common/Layout/Layout';
 import PageSection from '../../components/common/Layout/PageSection/PageSection';
 import LoginForm from '../../components/users/LoginForm/LoginForm';
 // import classes from './login.module.scss';
 
 const friendsImgUrl = '../../static/images/friends-with-bg.png';
+const pageStyles = ` background-color: $muted-color-1;
+                    padding: 30px;
+                    display: flex;
+                    flex-direction: column;`;
 
 const login = () => {
 
     return(<Layout title={"Login"}>
-            <PageSection className={classes.LoginPage}>
+            <PageSection styles={pageStyles}>
+
                 <LoginForm />
                
                 <Link href="/users/recover">
@@ -23,8 +29,15 @@ const login = () => {
                     </Link>
                 </p>
                 <img src={friendsImgUrl} />
-               
             </PageSection>
+            <style jsx>{`
+            
+                    img {
+                        width: 100%;
+                        max-width: 400px;
+                    }
+            
+            `}</style>
         </Layout>);
 };
 
