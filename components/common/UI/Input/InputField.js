@@ -105,8 +105,7 @@ const inputField = (props) => {
                 @media(min-width: 800px) {
                     .InputContainer {
                         min-width: 300px;
-                    }
-                      
+                    }   
                 }  
                 
 
