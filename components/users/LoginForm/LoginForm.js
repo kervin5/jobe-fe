@@ -57,11 +57,17 @@ const loginForm = () => {
     return(
     <React.Fragment>
         
-        <form>
+        <form >
             <Title center>Login</Title>
                 {fieldsToRender}
             <Button>Sign In</Button>
+            
         </form>
+        <style jsx>{`
+            form {
+                margin-bottom: 30px;
+            }    
+            `}</style>
     </React.Fragment>
     );
 }
