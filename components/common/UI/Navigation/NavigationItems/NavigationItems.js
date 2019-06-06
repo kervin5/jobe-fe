@@ -17,6 +17,12 @@ const navigationItems = () => {
                     justify-content: center;
                     height: 100%;
                 }
+
+                @media(max-width: 900px){
+                    div {
+                        display: none;
+                    }
+                }
             `}</style>
         </div>
     );

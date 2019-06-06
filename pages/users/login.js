@@ -4,7 +4,7 @@ import variables from '../../components/common/globalVariables';
 import Layout from '../../components/common/Layout/Layout';
 import PageSection from '../../components/common/Layout/PageSection';
 import LoginForm from '../../components/users/LoginForm/LoginForm';
-// import classes from './login.module.scss';
+
 
 const friendsImgUrl = '../../static/images/friends-with-bg.png';
 const pageStyles = ` background-color: ${variables.mutedColor1};
@@ -43,6 +43,15 @@ const login = () => {
             
                     a , p {
                         font-size: 0.8em;
+                    }
+
+                    a {
+                        color: ${variables.accentColor1}
+                    }
+
+                    p a {
+                        font-size: 1em;
+                        font-weight: bold;
                     }
             `}</style>
         </Layout>);
