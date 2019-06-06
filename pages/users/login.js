@@ -7,7 +7,7 @@ import LoginForm from '../../components/users/LoginForm/LoginForm';
 // import classes from './login.module.scss';
 
 const friendsImgUrl = '../../static/images/friends-with-bg.png';
-const pageStyles = ` background-color: $muted-color-1;
+const pageStyles = ` background-color: ${variables.mutedColor1};
                     padding: 30px;
                     display: flex;
                     flex-direction: column;`;
@@ -20,7 +20,7 @@ const login = () => {
                 <LoginForm />
                
                 <Link href="/users/recover">
-                    <a>Forgot Password?</a>
+                    <a className="forgoPasswordLink">Forgot Password?</a>
                 </Link>
                 <p>
                     Don't have an account? 
@@ -36,7 +36,14 @@ const login = () => {
                         width: 100%;
                         max-width: 400px;
                     }
+
+                    .forgoPasswordLink {
+                        margin-bottom: 50px;
+                    }
             
+                    a , p {
+                        font-size: 0.8em;
+                    }
             `}</style>
         </Layout>);
 };
