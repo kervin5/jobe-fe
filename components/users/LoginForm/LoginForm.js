@@ -60,13 +60,18 @@ const loginForm = () => {
         <form >
             <Title center>Login</Title>
                 {fieldsToRender}
+                <br />
             <Button>Sign In</Button>
             
         </form>
         <style jsx>{`
             form {
                 margin-bottom: 30px;
-            }    
+                width:100%;
+                max-width: 500px;
+            }
+
+
             `}</style>
     </React.Fragment>
     );
