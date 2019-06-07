@@ -40,12 +40,13 @@ const loginForm = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        const email = formData.email.value;
-        const password = formData.password.value;
+        const {email, password} = formData;
+       
 
+        console.log()
         if(email.valid && password.valid) {
             try {
-            const result = await axios.post('https://myexactjobsapi.herokuapp.com/api/auth',{email, password});
+            const result = await axios.post('https://myexactjobsapi.herokuapp.com/api/auth',{email: email.value, password: password.value});
 
             console.log(result);
             }
