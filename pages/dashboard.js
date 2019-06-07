@@ -1,5 +1,6 @@
 import Layout from '../components/common/Layout/Layout';
 import PageSection from '../components/common/Layout/PageSection';
+import WithAuth from '../components/hoc/WithAuth';
 
 
 const homePage = (props) => {
@@ -15,4 +16,4 @@ const homePage = (props) => {
     );
 };
 
-export default homePage;
+export default WithAuth(homePage);
