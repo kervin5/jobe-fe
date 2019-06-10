@@ -45,24 +45,13 @@ const loginForm = () => {
         if(email.valid && password.valid) {
             try {
                 // const result = await axios.post('https://myexactjobsapi.herokuapp.com/api/auth',{email: email.value, password: password.value, withCredentials: true});
-                const result = await axios({ 
-                    method: 'post',
-                    url: '/auth',
-                    data: {
-                        email: email.value, password: password.value
-                    },
-                    withCredentials: true
-                });
-                console.log(result);
+                const result = await axios.post('/auth',{email: email.value, password: password.value},{withCredentials: true});
+                console.log(result); 
             }
             catch(ex) {
                 console.log("Error",ex.response);
             }
         }
-
-        
-
-        
     }  
 
     const fieldsToRender = Object.keys(formData).map(key=>{
