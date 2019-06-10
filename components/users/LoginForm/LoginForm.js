@@ -1,5 +1,5 @@
-import React,{useState, useEffect} from 'react';
-import uniqid from 'uniqid';
+import {useState, useEffect} from 'react';
+import axios from '../../../data/api';
 import InputField from '../../common/UI/Input/InputField';
 import Button from '../../common/UI/Button';
 import Title from '../../common/UI/Title';
@@ -38,6 +38,22 @@ const loginForm = () => {
         setFormData(newState);
     };
 
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        const {email, password} = formData;
+    
+        if(email.valid && password.valid) {
+            try {
+                // const result = await axios.post('https://myexactjobsapi.herokuapp.com/api/auth',{email: email.value, password: password.value, withCredentials: true});
+                const result = await axios.post('/auth',{email: email.value, password: password.value},{withCredentials: true});
+                console.log(result); 
+            }
+            catch(ex) {
+                console.log("Error",ex.response);
+            }
+        }
+    }  
+
     const fieldsToRender = Object.keys(formData).map(key=>{
         const fieldData = formData[key];
         return <InputField 
@@ -51,6 +67,7 @@ const loginForm = () => {
             value={fieldData.value}
             label={fieldData.label}
             icon={fieldData.icon}
+            required
             />;
     });
 
@@ -61,7 +78,7 @@ const loginForm = () => {
             <Title center>Login</Title>
                 {fieldsToRender}
                 <br />
-            <Button>Sign In</Button>
+            <Button click={submitHandler}>Sign In</Button>
             
         </form>
         <style jsx>{`
