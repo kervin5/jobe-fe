@@ -4,23 +4,27 @@ import {useState, useEffect} from 'react';
 import InputField from '../../common/UI/Input/InputField'
 import Title from '../../common/UI/Title';
 import Button from '../../../components/common/UI/Button';
+import axios from '../../../data/api';
 
-const RegisterForm = () => {
+// POST https://myexactjobsapi.herokuapp.com/api/users
+// name, email, password
+
+const registerForm = () => {
     const [registerData, setRegisterData] = useState({
-        firstName:{
+        fullName:{
             value: "",
             valid: false,
             type: "text",
-            label: "First Name",
-            placeholder: "John",
+            label: "Full Name",
+            placeholder: "John Doe",
         },
-        lastName : {
-            value: "",
-            valid: false,
-            type: "text",
-            label: "Last Name",
-            placeholder: "Doe",
-        },
+        // lastName : {
+        //     value: "",
+        //     valid: false,
+        //     type: "text",
+        //     label: "Last Name",
+        //     placeholder: "Doe",
+        // },
         emailAddress: {
             value: "",
             valid: false,
@@ -28,12 +32,12 @@ const RegisterForm = () => {
             label: "Email Address",
             placeholder: "john@doe.com",
         },
-        dateOfBirth: {
+        password: {
             value: "",
             valid:false,
-            type: "number",
-            label: "Birthdate",
-            placeholder: "01/01/2099"
+            type: "text",
+            label: "Password",
+            placeholder: " Password"
         }
     });
 
@@ -49,6 +53,31 @@ const RegisterForm = () => {
         setRegisterData(updatedState);
     };
 
+    const registerSubmitHandler = async (e) => {
+        e.preventDefault();
+        const { fullName, emailAddress, password} = registerData;
+
+        if (fullName.valid && emailAddress.valid && password.valid){
+            try{
+                const result = await axios({
+                    method: 'post',
+                    url: '/users',
+                    data: {
+                        name: fullName.value,
+                        email: email.value,
+                        password: password.value
+                    },
+                    withCredentials: true
+                });
+                console.log(result);
+            }
+            catch(ex) {
+                console.log("error", ex.response);
+            }
+        }
+    }
+
+
     const registerFormData = Object.keys(registerData).map(key => {
         const registerDataField = registerData[key];
         return <InputField
@@ -57,6 +86,8 @@ const RegisterForm = () => {
             type={registerDataField.type}
             label={registerDataField.label}
             placeholder={registerDataField.placeholder}
+            name={key}
+            key={"registerField"+key} 
             required
         />;
     })
@@ -65,13 +96,9 @@ const RegisterForm = () => {
         <form>
             <Title center>Register</Title><br />
             {registerFormData}<br />
-            <Button>Submit</Button>
-
-            <style jsx>{`
-
-            `}</style>
+            <Button click={registerSubmitHandler}>Submit</Button>
         </form>
     )
 }
 
-export default RegisterForm;
+export default registerForm;
