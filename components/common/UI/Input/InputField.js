@@ -5,6 +5,7 @@ import DropdownInputField from './DropdownInputField/DropdownInputField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SwitchInputField from './SwitchInputField/SwitchInputField';
 import TextField from './TextInputField/TextInputField';
+import LocationInputField from './LocationInputField/LocationInputField';
 
 
 
@@ -40,7 +41,7 @@ const inputField = (props) => {
     const handleBlur = () => {
         setTouched(true);
         validate();
-    }
+    };
 
     useEffect(()=>{
         validate();
@@ -63,9 +64,11 @@ const inputField = (props) => {
     if(['password','email','phone','number','text','textarea'].includes(props.type)) {
         FieldToRender = <TextField inputType={props.type} placeholder={props.placeholder} value={props.value} change={changeHandler} />;
     } else if(props.type === 'switch'){
-         FieldToRender = <SwitchInputField options={props.options} value={props.value} change={changeHandler}/>
+         FieldToRender = <SwitchInputField options={props.options} value={props.value} change={changeHandler}/>;
     } else if(props.type === 'dropdown') {
-        FieldToRender = <DropdownInputField placeholder={props.placeholder} options={props.options} value={props.value} change={changeHandler}/>
+        FieldToRender = <DropdownInputField placeholder={props.placeholder} options={props.options} value={props.value} change={changeHandler}/>;
+    } else if (props.type === 'location') {
+        FieldToRender = <LocationInputField inputType={props.type} placeholder={props.placeholder} value={props.value} change={changeHandler} />;
     }
 
     const inputClasses = [ 
