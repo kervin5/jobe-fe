@@ -13,7 +13,8 @@ const list = (props) => {
 
 
     const bulletStyle = {
-        listStyleImage: 'url(../../../../static/images/ExactStaffArrow.svg)'
+        listStyleImage: 'url(../../../../static/images/ExactStaffArrow.svg)',
+        padding: '5px'
     }
     
     const totalList = jobQualifications.map(listItem => {

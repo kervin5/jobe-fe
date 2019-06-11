@@ -44,6 +44,7 @@ const jobListing = (props) => (
             .JobListing {
                 background-color: ${variables.clearColor};
                 height: 100vh;
+                padding: 30px;
             }
 
             .Body{
@@ -52,6 +53,7 @@ const jobListing = (props) => (
                 background-color: ${variables.mutedColor1};
                 border-bottom-right-radius: 30px;
                 border-bottom-left-radius: 30px;
+                color: ${variables.baseTextColor};
             }
 
             .Body button{

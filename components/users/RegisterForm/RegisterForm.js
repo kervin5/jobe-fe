@@ -64,7 +64,7 @@ const registerForm = () => {
                     url: '/users',
                     data: {
                         name: fullName.value,
-                        email: email.value,
+                        email: emailAddress.value,
                         password: password.value
                     },
                     withCredentials: true
