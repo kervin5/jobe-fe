@@ -4,8 +4,8 @@ import AutoCompleteInputField from '../AutoCompleteInputField/AutoCompleteInputF
 
 const locationInputField = props => {
 
-    const changeHandler = (e) =>{
-        props.change(e.target.value);
+    const changeHandler = (value) =>{
+        props.change(value);
     };
 
     const options = [
@@ -19,7 +19,7 @@ const locationInputField = props => {
 
     return (<React.Fragment>
                 {/*<input type="text" placeholder={props.placeholder} value={props.value || ''} onChange={changeHandler} />*/}
-                <AutoCompleteInputField placeholder={props.placeholder}  value={props.value || ''} options={options}/>
+                <AutoCompleteInputField placeholder={props.placeholder} change={changeHandler}  value={props.value || ''} options={options}/>
                  <style jsx>{`
                  input, textarea, select {
                     border: none;

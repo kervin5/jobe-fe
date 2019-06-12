@@ -9,23 +9,43 @@ const locationInputField = props => {
     const [textFieldValue, setTextFieldValue] = useState("");
     const [optionsToDisplay, setOptionsToDisplay] = useState(null);
     const [options, setOptions] = useState(props.options);
+    const [hasValueFromOptions, setHasValueFromOptions] = useState(false);
+    //const fieldIsValid = useState(false);
+
 
     const changeHandler = (e) =>{
-        setTextFieldValue(e.target.value);
-        setOptions(filterOptions(e.target.value,props.options));
+        updateField(e.target.value);
     };
 
-    const handleOptionClick = (newValue) => {
-        setTextFieldValue(newValue);
-        setOptions(filterOptions(newValue,props.options));
+    const updateField = (value) => {
+        setTextFieldValue(value);
+        setOptions(filterOptions(value,props.options));
+        setHasValueFromOptions(fieldIsValid(value));
+    };
+
+    const fieldIsValid = (value) => {
+      const result = props.options.filter(option => {
+            return option.value.trim().toLowerCase() === value.trim().toLowerCase();
+        });
+      return result.length > 0;
     };
 
     useEffect(()=>{
         const optionsElements = options.map((option, index) => {
-            return <div key={index} className={"Option"} onClick={()=> handleOptionClick(option.value)}>{option.label}</div>;
+            return <div key={index} className={"Option"} onClick={()=> updateField(option.value)}>{option.label}</div>;
         });
         setOptionsToDisplay(optionsElements);
-    });
+    },[options]);
+
+    useEffect(()=>{
+        if(props.change) {
+            if(hasValueFromOptions) {
+                props.change(textFieldValue);
+            } else {
+                props.change("");
+            }
+        }
+    },[textFieldValue, hasValueFromOptions]);
 
     return (<React.Fragment>
                 <input type="text" placeholder={props.placeholder} value={textFieldValue} onChange={changeHandler} />

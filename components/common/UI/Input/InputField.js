@@ -8,8 +8,6 @@ import TextField from './TextInputField/TextInputField';
 import LocationInputField from './LocationInputField/LocationInputField';
 
 
-
-
 const inputField = (props) => {
     const [touched, setTouched] = useState(false);
     const [errors, setErrors] = useState([]);
@@ -34,7 +32,6 @@ const inputField = (props) => {
         }else {
             props.change(props.name, newValue, valid);
         }
-
         setValue(newValue);
     };
 
