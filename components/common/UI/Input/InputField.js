@@ -5,14 +5,17 @@ import DropdownInputField from './DropdownInputField/DropdownInputField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SwitchInputField from './SwitchInputField/SwitchInputField';
 import TextField from './TextInputField/TextInputField';
-
-
+import LocationInputField from './LocationInputField/LocationInputField';
+import RichTextInputField from './RichTextInputField/RichTextInputField';
+import TagsInputField from './TagsInputField/TagsInputField';
 
 
 const inputField = (props) => {
     const [touched, setTouched] = useState(false);
     const [errors, setErrors] = useState([]);
     const [value, setValue] = useState(props.value);
+    //const [isValid, setIsValid] = useState(props.required);
+
     const validation = {
         required: props.required || false
     };
@@ -25,26 +28,28 @@ const inputField = (props) => {
     );
 
     const changeHandler = (newValue) =>{   
-        const valid = errors.length === 0;
-
+       // const valid = errors.length === 0;
         if(!props.name) {
             props.change(newValue);
-            
         }else {
-            props.change(props.name, newValue, valid);
+            props.change(props.name, newValue, fieldIsValid(newValue));
+            console.log(props.name, newValue, fieldIsValid(newValue));
         }
-
         setValue(newValue);
     };
 
     const handleBlur = () => {
         setTouched(true);
         validate();
-    }
+    };
 
     useEffect(()=>{
         validate();
     },[value,touched]);
+
+    // useEffect(()=> {
+    //     // setIsValid(errors.length === 0);
+    // },[errors]);
 
     const validate = () => {
         if(touched) {
@@ -57,15 +62,26 @@ const inputField = (props) => {
                 }
             }
         }
-       
+    };
+
+    const fieldIsValid = (value) => {
+        return !(validation.required && value === "");
     };
 
     if(['password','email','phone','number','text','textarea'].includes(props.type)) {
         FieldToRender = <TextField inputType={props.type} placeholder={props.placeholder} value={props.value} change={changeHandler} />;
     } else if(props.type === 'switch'){
-         FieldToRender = <SwitchInputField options={props.options} value={props.value} change={changeHandler}/>
+         FieldToRender = <SwitchInputField options={props.options} value={props.value} change={changeHandler}/>;
     } else if(props.type === 'dropdown') {
-        FieldToRender = <DropdownInputField placeholder={props.placeholder} options={props.options} value={props.value} change={changeHandler}/>
+        FieldToRender = <DropdownInputField placeholder={props.placeholder} options={props.options} value={props.value} change={changeHandler}/>;
+    } else if (props.type === 'location') {
+        FieldToRender = <LocationInputField inputType={props.type} placeholder={props.placeholder} value={props.value} change={changeHandler} />;
+    } else if(props.type === 'richText') {
+        FieldToRender = <RichTextInputField placeholder={props.placeholder} change={changeHandler}/>
+    } else if(props.type === 'richTextLimited') {
+        FieldToRender = <RichTextInputField placeholder={props.placeholder} toolbarOptions={['list', 'emoji', 'remove', 'history']} change={changeHandler}/>
+    } else if(props.type === 'tags') {
+        FieldToRender = <TagsInputField options={props.options} change={changeHandler}/>
     }
 
     const inputClasses = [ 
@@ -84,8 +100,8 @@ const inputField = (props) => {
                 <div className={inputClasses}>
                     {props.type !== "textarea" ? inputOrnaments : null }
                     {FieldToRender}
-                    {(props.type !== "switch" && errors.length > 0 ) ? errorLabel : null}
                 </div>
+                 {(props.type !== "switch" && errors.length > 0 ) ? errorLabel : null}
             </div>
             <style jsx>{`
                 .InputContainer {
@@ -100,6 +116,19 @@ const inputField = (props) => {
                     align-items: center;
                     transition: 300ms;
                     margin: 10px auto;
+                }
+
+                .InputContainer :global(.DraftEditor-root) {
+                    height: 200px;
+                
+                }
+
+                .InputContainer :global(.wrapperClassName) {
+                    width: 100%;
+                }
+
+                .InputContainer :global(textarea) {
+                    width: 100%;
                 }
 
                 @media(min-width: 800px) {
@@ -128,14 +157,15 @@ const inputField = (props) => {
         
                   }
 
-                  .ErrorMessage {
+                  div :global(.ErrorMessage)  {
                     color: red !important;
-                    position: absolute;
+                    // position: absolute;
                     top: initial !important;
-                    bottom: -25px;
-                    left: 0px;
+                    // bottom: -25px;
+                    // left: 0px;
                     font-size: 0.8em;
                     font-weight: 400 !important;
+                    margin-bottom: 20px;
                   }
 
                   label {

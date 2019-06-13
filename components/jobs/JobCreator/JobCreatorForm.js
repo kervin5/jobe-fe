@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-
 // import classes from './JobCreatorForm.module.scss';
 import InputField from '../../common/UI/Input/InputField';
 import InputGroup from '../../common/UI/Input/InputGroup';
 import Loader from '../../common/UI/Animated/Loader';
 import ThumbsUp from '../../common/UI/Animated/ThumbsUp';
 import Button from '../../common/UI/Button';
-
-
 
 class JobCreatorForm extends Component {
 
@@ -31,21 +28,37 @@ class JobCreatorForm extends Component {
             valid: false
           },
         compensationType: {
-            value: "Hourly",
-            valid: true
+            value: "",
+            valid: false,
+            options: ["Hourly", "Salary"]
         },
         jobType: {
             value: "",
-            valid: false
+            valid: false,
+            options: ["Full-Time", "Part-time", "Temp", "Per-diem"]
         },
         jobCategory: {
             value: "",
-            valid: false
+            valid: false,
+            options: ["Warehouse","Industrial","Software","Engineering","Medical"]
         },
         jobDescription: {
             value: "",
             valid: false
-        }
+        },
+          jobRequirements: {
+            value: "",
+            valid: false
+        },
+          jobQualifications: {
+            value: "",
+            valid: false
+        },
+          jobSkills: {
+            value: "",
+             valid: false,
+              options: ["Excel", "Word", "Photoshop", "Adobe", "Something"]
+          }
       },
       status: "filling"
     };
@@ -76,14 +89,14 @@ class JobCreatorForm extends Component {
                 minCompensation: this.state.formData.minCompensation.value,
                 maxCompensation: this.state.formData.maxCompensation.value,
                 compensationType: this.state.formData.compensationType.value,
-                type: this.state.formData.jobType.value,
                 category: this.state.formData.jobCategory.value,
-                description: this.state.formData.jobDescription.value
+                type: this.state.formData.jobType.value,
+                description: this.state.formData.jobDescription.value,
+                skills: this.state.formData.jobSkills.value,
+                requirements: this.state.formData.jobRequirements.value,
+                qualifications: this.state.formData.jobQualifications.value
             };
-    
-    
-    
-    
+
             axios.post("https://myexactjobsapi.herokuapp.com/api/jobs",jobData)
             .then(res=>{
                 console.log(res);
@@ -94,7 +107,7 @@ class JobCreatorForm extends Component {
                 console.log(err.response)
             })
         }      
-    }
+    };
 
     formIsValid = () => {
         const invalid = Object.keys(this.state.formData).filter(key => {
@@ -104,7 +117,7 @@ class JobCreatorForm extends Component {
         console.log(invalid);
 
         return invalid.length === 0;
-    }
+    };
 
     render() {
         let elementToRender = (
@@ -118,18 +131,21 @@ class JobCreatorForm extends Component {
             elementToRender = (
                 <form className={"JobCreatorForm"}>
                     <InputField type="text" placeholder="Warehouse Manager" label="Job Title" value={this.state.formData.jobTitle.value} name={"jobTitle"} change={this.changeHandler} required/>
-                    <InputField type="text" placeholder="Los Angeles, CA" label="Location"  value={this.state.formData.jobLocation.value} name={"jobLocation"} change={this.changeHandler} required/>
-    
+                    <InputField type="location" placeholder="Los Angeles, CA" label="Location"  value={this.state.formData.jobLocation.value} name={"jobLocation"} change={this.changeHandler} required/>
+
                     <InputGroup inline title="Compensation">
                         <InputField type="number" placeholder="$0" label="From" value={this.state.formData.minCompensation.value} change={this.changeHandler} name={"minCompensation"} required/>
                         <InputField type="number" placeholder="$0" label="To" value={this.state.formData.maxCompensation.value} change={this.changeHandler} name={"maxCompensation"} required/>
-                        <InputField type="switch" options={["Hourly", "Salary"]} value={this.state.formData.compensationType.value} change={this.changeHandler} name={"compensationType"} />
+                        <InputField type="dropdown" options={this.state.formData.compensationType.options} placeholder={"Select an option"} label={"Compensation Type"} value={this.state.formData.compensationType.value} change={this.changeHandler} name={"compensationType"} />
                     </InputGroup>
-    
-                    <InputField type="dropdown" options={["Full-Time", "Part-time", "Temp", "Per-diem"]} value={this.state.formData.jobType.value} placeholder={"Job Type"} label={"Job Type"} change={this.changeHandler} name={"jobType"} required/>
-                    <InputField type="text" placeholder="Warehouse, Clerical" label="Job Category" value={this.state.formData.jobCategory.value} change={this.changeHandler} name={"jobCategory"} required/>
+
+                    <InputField type="tags" placeholder="Warehouse, Clerical" label="Job Category" options={this.state.formData.jobCategory.options} change={this.changeHandler} name={"jobCategory"} required/>
+                    <InputField type="dropdown" options={this.state.formData.jobType.options} value={this.state.formData.jobType.value} placeholder={"Select an option"} label={"Job Type"} change={this.changeHandler} name={"jobType"} required/>
                     <InputField type="textarea" placeholder="Required Skills, Experience, etc." value={this.state.formData.jobDescription.value} label="Job Description" change={this.changeHandler} name={"jobDescription"} required/>
-                
+                    <InputField type="tags" placeholder="Please enter the job skills"  label="Skills" change={this.changeHandler} name={"jobSkills"} options={this.state.formData.jobSkills.options} required/>
+                    <InputField type="richTextLimited" placeholder="Please enter the job requirements such as experience and education"  label="Job Requirements" change={this.changeHandler} name={"jobRequirements"} required/>
+                    <InputField type="richTextLimited" placeholder="Please enter the job qualifications"  label="Job Qualifications" change={this.changeHandler} name={"jobQualifications"} required/>
+
                     <Button click={this.submitFormHandler}>Post</Button>
                     <style jsx>{`
                 

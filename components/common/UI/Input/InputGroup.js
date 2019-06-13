@@ -27,7 +27,6 @@ const inputGroup = props => {
 
                 .Inline .Content {
                     flex-direction: row;
-                    align-items: flex-end;
                 }
 
                 .Inline .Content  label {
