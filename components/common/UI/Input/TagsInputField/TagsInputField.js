@@ -51,6 +51,7 @@ class TagsInputField extends React.Component {
                 suggestions={this.state.suggestions}
                 handleDelete={this.handleDelete.bind(this)}
                 minQueryLength={1}
+                autofocus={false}
                 handleAddition={this.handleAddition.bind(this)} />
                 <style jsx global>{`
 
@@ -81,8 +82,8 @@ class TagsInputField extends React.Component {
                       background-color: ${variables.clearColor};
                       position: absolute;
                       z-index: 1999;
-                     box-shadow: -1px 20px 19px -5px rgba(0,0,0,0.55);
-                     border-radius: 15px;
+                    box-shadow: 0px 9px 16px -4px rgba(0,0,0,0.55);
+                     border-radius: 10px;
                      overflow: hidden;
                     }
                     
