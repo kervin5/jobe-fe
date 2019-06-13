@@ -50,7 +50,7 @@ class TagsInputField extends React.Component {
                 tags={this.state.tags}
                 suggestions={this.state.suggestions}
                 handleDelete={this.handleDelete.bind(this)}
-                // delimiters={[9]}
+                minQueryLength={1}
                 handleAddition={this.handleAddition.bind(this)} />
                 <style jsx global>{`
 
@@ -78,14 +78,30 @@ class TagsInputField extends React.Component {
                     }
                     
                     .react-tags__suggestions {
-                      background-color: blue;
+                      background-color: ${variables.clearColor};
                       position: absolute;
-                     
+                      z-index: 1999;
+                     box-shadow: -1px 20px 19px -5px rgba(0,0,0,0.55);
+                     border-radius: 15px;
+                     overflow: hidden;
                     }
                     
                     .react-tags__suggestions li {
                       list-style-type: none;
+                      font-size: 0.8em;
+                      margin-bottom: 5px;
+                      padding: 4px 15px;
+                      transition: 300ms;
                     }
+                    
+                    .react-tags__suggestions li:hover {
+                      background-color: ${variables.accentColor2};
+                      color: ${variables.clearColor};
+                     }
+                     
+                     .react-tags__suggestions li:last-child { 
+                      margin-bottom: 0px;
+                     }
                     
                 `}</style>
         </NoSSR>
