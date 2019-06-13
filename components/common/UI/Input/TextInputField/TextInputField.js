@@ -30,7 +30,7 @@ const textInputField = props => {
                 }
                 
                 textarea {
-                    min-height: 300px;
+                    min-height: 200px;
                     padding-top: 15px;
                 }
                 

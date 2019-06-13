@@ -18,7 +18,7 @@ const loginForm = () => {
         password: {
             value: "",
             valid: false,
-            type: "text",
+            type: "password",
             label: "Password",
             placeholder: "Password",
             icon: "key"

@@ -1,25 +1,66 @@
+import {useState, useEffect} from 'react';
 import variables from '../../../globalVariables';
 import AutoCompleteInputField from '../AutoCompleteInputField/AutoCompleteInputField';
+import axios from 'axios';
 // import inputStyles from '../InputStyles';
 
 const locationInputField = props => {
+    const [locations, setLocations] = useState([]);
+    const [options, setOptions] = useState([]);
+    const [isTyping, setIsTyping] = useState(false);
+    const [uri, setUri] = useState("");
+
+    const delayTimeout = () => {
+        setIsTyping(true);
+
+         return setTimeout(()=> {
+                      setIsTyping(false);
+         },2000);
+    };
+    // const [localValue, setLocalValue] = useState("");
 
     const changeHandler = (value) =>{
         props.change(value);
+        // setLocalValue(value);
     };
 
-    const options = [
-        {label: "Los Angeles", value: "Los Angeles"},
-        {label: "Florida", value: "Florida"},
-        {label: "Texas", value: "Texas"},
-        {label: "Managua", value: "Managua"},
-        {label: "Manila", value: "Manila"},
-         {label: "Congo", value: "Congo"}
-    ];
+    useEffect(()=>{
+        if(!isTyping && uri !== "") {
+
+             axios.get('https://api.mapbox.com/geocoding/v5/mapbox.places/'+uri+'.json'+'?access_token=pk.eyJ1Ijoia3Zhc3F1ZXppdCIsImEiOiJjandzNWtjcjUwMHh2NDJxa2toeWJ6N2FlIn0.Qa-IM4Em_QMvC2QWlMvieQ')
+                .then(res => {
+                    setLocations(res.data.features);
+                     console.log(res.data.features);
+                });
+        }
+    },[isTyping,uri]);
+
+    const ajaxCallback = (value) => {
+        if(value.length > 2 ) {
+           const encodedValue = encodeURIComponent(value);
+           setUri(encodedValue);
+        } else {
+            setLocations([]);
+            setUri("");
+        }
+        clearTimeout(delayTimeout);
+        delayTimeout();
+    };
+
+    useEffect(()=>{
+          const result = locations.map(location => {
+              return {
+                  label: location.place_name,
+                  value: location.place_name
+              }
+          });
+
+          setOptions(result);
+    },[locations]);
 
     return (<React.Fragment>
                 {/*<input type="text" placeholder={props.placeholder} value={props.value || ''} onChange={changeHandler} />*/}
-                <AutoCompleteInputField placeholder={props.placeholder} change={changeHandler}  value={props.value || ''} options={options}/>
+                <AutoCompleteInputField placeholder={props.placeholder} change={changeHandler} callback={ajaxCallback}  value={props.value || ''} options={options} ajax/>
                  <style jsx>{`
                  input, textarea, select {
                     border: none;

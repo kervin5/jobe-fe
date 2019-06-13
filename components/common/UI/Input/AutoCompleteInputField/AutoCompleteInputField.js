@@ -10,16 +10,32 @@ const locationInputField = props => {
     const [optionsToDisplay, setOptionsToDisplay] = useState(null);
     const [options, setOptions] = useState(props.options);
     const [hasValueFromOptions, setHasValueFromOptions] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
     //const fieldIsValid = useState(false);
 
 
-    const changeHandler = (e) =>{
+    const changeHandler = async (e) =>{
         updateField(e.target.value);
+         if(props.ajax && e.target.value !== "") {
+                props.callback(e.target.value);
+            }
+        // await setTyping(true);
+        // await setTimeout(async ()=>{
+        //     await setTyping(false);
+        // },1000);
+        //
+        // if(!typing) {
+        //     if(props.ajax && !typing) {
+        //         props.callback(e.target.value);
+        //     }
+        // }
     };
 
     const updateField = (value) => {
         setTextFieldValue(value);
-        setOptions(filterOptions(value,props.options));
+        if(!props.ajax) {
+             setOptions(filterOptions(value,props.options));
+        }
         setHasValueFromOptions(fieldIsValid(value));
     };
 
@@ -32,10 +48,16 @@ const locationInputField = props => {
 
     useEffect(()=>{
         const optionsElements = options.map((option, index) => {
-            return <div key={index} className={"Option"} onClick={()=> updateField(option.value)}>{option.label}</div>;
+            return <div key={index} className={"Option"} onClick={()=> handleOptionClick(option.value)}>{option.label}</div>;
         });
         setOptionsToDisplay(optionsElements);
     },[options]);
+
+    useEffect(()=> {
+        setOptions(props.options);
+    },[props.options]);
+
+
 
     useEffect(()=>{
         if(props.change) {
@@ -47,13 +69,33 @@ const locationInputField = props => {
         }
     },[textFieldValue, hasValueFromOptions]);
 
-    return (<React.Fragment>
-                <input type="text" placeholder={props.placeholder} value={textFieldValue} onChange={changeHandler} />
-                <div className={'Options'}>
-                    {optionsToDisplay}
-                </div>
+    const handleBlur = (e) => {
+         const currentTarget = e.currentTarget;
+
+        setTimeout(function() {
+          if (!currentTarget.contains(document.activeElement)) {
+             setShowMenu(false);
+          }
+        }, 0);
+    };
+
+    const handleOptionClick = (value) => {
+        updateField(value);
+        setShowMenu(false);
+    };
+
+    return (<div onBlur={handleBlur} className="AutoCompleteInputField">
+                <input type="text" placeholder={props.placeholder} value={textFieldValue} onChange={changeHandler} onFocus={()=> setShowMenu(true)}/>
+                {showMenu &&
+                <div className={'Options'} >
+                    {optionsToDisplay.length > 0 ? optionsToDisplay : "No results found"}
+                </div>}
 
                  <style jsx>{`
+                 .AutoCompleteInputField {
+                    width: 100%;
+                 }
+                 
                  input, textarea, select {
                     border: none;
                     margin: 5px 20px 5px 15px;
@@ -100,11 +142,11 @@ const locationInputField = props => {
                
                  `}</style>
 
-            </React.Fragment>);
+    </div>);
 };
 
 const filterOptions = (sentence, options) => {
-    const words = sentence.trim().split(" ");
+    const words = sentence.replace(/[^a-zA-Z0-9\s]/g, "").trim().split(" ");
     let result = [];
     let filteredWords = [];
     words.forEach(word => {
@@ -117,7 +159,7 @@ const filterOptions = (sentence, options) => {
           });
         }
     });
-    return result;
+    return sentence === "" ? options : result;
 };
 
 export default locationInputField;
