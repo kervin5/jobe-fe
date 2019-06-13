@@ -183,7 +183,7 @@ class JobCreatorForm extends Component {
         return (
             <React.Fragment>
                 {elementToRender}
-                <style jsx>{`
+                <style jsx global>{`
                     .Center {
                         display: flex;
                         justify-content: center;
