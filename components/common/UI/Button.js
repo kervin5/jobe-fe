@@ -2,6 +2,15 @@
 import variables from '../globalVariables';
 
 const button = props => {
+    const buttonWidth = "Width:" + props.width || ;
+    let widthStyle = {width: '100%'};
+    
+    // if (props.width) {
+    //     if(props.width === widthStyle)
+    // }
+
+
+
     return(
         <button onClick={props.click} className={"Button"}>
             {props.children}
