@@ -70,6 +70,7 @@ class JobCreatorForm extends Component {
             formData: {
                 ...prevState.formData,
                 [field]: {
+                    ...prevState.formData[field],
                     value: value,
                     valid: valid
                 }

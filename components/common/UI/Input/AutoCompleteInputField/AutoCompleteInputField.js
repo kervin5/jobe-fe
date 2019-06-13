@@ -19,16 +19,6 @@ const locationInputField = props => {
          if(props.ajax && e.target.value !== "") {
                 props.callback(e.target.value);
             }
-        // await setTyping(true);
-        // await setTimeout(async ()=>{
-        //     await setTyping(false);
-        // },1000);
-        //
-        // if(!typing) {
-        //     if(props.ajax && !typing) {
-        //         props.callback(e.target.value);
-        //     }
-        // }
     };
 
     const updateField = (value) => {
@@ -37,12 +27,14 @@ const locationInputField = props => {
              setOptions(filterOptions(value,props.options));
         }
         setHasValueFromOptions(fieldIsValid(value));
+        console.log(hasValueFromOptions);
     };
 
     const fieldIsValid = (value) => {
       const result = props.options.filter(option => {
             return option.value.trim().toLowerCase() === value.trim().toLowerCase();
         });
+      console.log("Verified");
       return result.length > 0;
     };
 
@@ -70,19 +62,33 @@ const locationInputField = props => {
     },[textFieldValue, hasValueFromOptions]);
 
     const handleBlur = (e) => {
-         const currentTarget = e.currentTarget;
+        //  const currentTarget = e.currentTarget;
+        // console.log("Blur");
+        // console.log(currentTarget);
+        // console.log(document.activeElement);
+        // setTimeout(function() {
+        //   if (!currentTarget.contains(document.activeElement)) {
+        //      setShowMenu(false);
+        //   }
+        // }, 0);
 
-        setTimeout(function() {
-          if (!currentTarget.contains(document.activeElement)) {
-             setShowMenu(false);
-          }
-        }, 0);
+        //TODO: Refactor onBlur handler
     };
 
     const handleOptionClick = (value) => {
         updateField(value);
+        console.log("clicked");
         setShowMenu(false);
     };
+
+    useEffect(()=>{
+        if(!showMenu) {
+            if(!hasValueFromOptions) {
+                setOptions([]);
+            }
+        }
+
+    },[showMenu]);
 
     return (<div onBlur={handleBlur} className="AutoCompleteInputField">
                 <input type="text" placeholder={props.placeholder} value={textFieldValue} onChange={changeHandler} onFocus={()=> setShowMenu(true)}/>
