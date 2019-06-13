@@ -20,7 +20,7 @@ const jobListItem = (props) => {
             <Card styles={styles} animate>
                     <div className="JobListItemHeader">
                         <div>
-                            <Link route={"/jobs/"+(props.title.split(" ").join("-"))+"-"+props.id}>
+                            <Link route={"/jobs/show/"+(props.title.split(" ").join("-"))+"-"+props.id}>
                                 <a>{props.title}</a>
                             </Link>
                             <p className="Location"><Icon icon="map-marker-alt" size="sm" className="LocationIcon"/> {props.location}</p>
