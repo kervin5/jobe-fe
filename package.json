@@ -1,12 +1,16 @@
 {
-  "name": "create-next-example-app",
+  "name": "myexact-jobs",
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
+
     "start": "NODE_ENV=production node server.js",
+    "heroku-postbuild": "npm run build",
+    "now-build": "next build && next export -o dist",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
+
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
