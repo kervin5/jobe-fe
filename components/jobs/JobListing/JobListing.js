@@ -13,8 +13,15 @@ import Button from '../../common/UI/Button';
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
 const jobListing = (props) => (
+    
+
+    const listItems = [
+        "High school diploma or General Education Development (GED) or equivalent", 
+        "3 months' warehouse experience", 
+        "3 months' experience operating an electric pallet jack or forklift", 
+        "Previous experience at Sysco or in foodservice industry"];
+
     <div className="JobListing">
-            
         <JobListingHeader 
             title={props.title} 
             location={props.location}   
@@ -33,7 +40,7 @@ const jobListing = (props) => (
                 title={"Job Description"} />
 
             <Title size={"m"}>Responsabilities:</Title>
-                <List jobQualifications={props.jobQualifications}/>
+                <List list={props.list}/>
                 
             <Title size={"m"}>Qualilfications:</Title>
                 <List />
@@ -56,9 +63,9 @@ const jobListing = (props) => (
                 color: ${variables.baseTextColor};
             }
 
-            .Body button{
-                width: 40%;
-                color: ${variables.clearColor};n
+            Body .button{
+                width: 50%;
+                color: ${variables.clearColor};
                 float: right;
             }
 
