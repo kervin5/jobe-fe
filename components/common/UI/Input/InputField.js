@@ -73,7 +73,7 @@ const inputField = (props) => {
     } else if(props.type === 'switch'){
          FieldToRender = <SwitchInputField options={props.options} value={props.value} change={changeHandler}/>;
     } else if(props.type === 'dropdown') {
-        FieldToRender = <DropdownInputField placeholder={props.placeholder} options={props.options} value={props.value} change={changeHandler}/>;
+        FieldToRender = <DropdownInputField placeholder={props.placeholder} options={props.options}  change={changeHandler}/>;
     } else if (props.type === 'location') {
         FieldToRender = <LocationInputField inputType={props.type} placeholder={props.placeholder} value={props.value} change={changeHandler} />;
     } else if(props.type === 'richText') {
@@ -129,6 +129,11 @@ const inputField = (props) => {
 
                 .InputContainer :global(textarea) {
                     width: 100%;
+                }
+                
+                .InputContainer :global(select) {
+                     border:0px;
+                     outline:0px;
                 }
 
                 @media(min-width: 800px) {
