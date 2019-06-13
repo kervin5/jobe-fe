@@ -1,5 +1,7 @@
 import variables from '../../../globalVariables';
+import React from 'react';
 const dropdownInputField = props => {
+
     const optionsToRender = props.options.map((optionValue,index) => <option value={optionValue} key={optionValue+index}>{optionValue}</option>);
 
     return(
@@ -31,4 +33,4 @@ const dropdownInputField = props => {
     );
 };
 
-export default dropdownInputField;
+export default React.memo(dropdownInputField);

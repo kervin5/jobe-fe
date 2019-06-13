@@ -18,6 +18,7 @@ const list = (props) => {
     
     const totalList = jobQualifications.map(listItem => {
         return <li style={bulletStyle} key={uniqid('listing')}>{listItem}</li>
+
     })
 
     return (    

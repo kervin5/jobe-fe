@@ -3,12 +3,15 @@ import Router from 'next/router';
 import Layout from '../../components/common/Layout/Layout';
 import { withRouter } from "next/router";
 import axios from 'axios';
+import variables from '../../components/common/globalVariables';
 
 import Container from '../../components/common/Layout/Container';
 import JobListing from '../../components/jobs/JobListing/JobListing';
 
 
 import PageSection from '../../components/common/Layout/PageSection';
+
+const pageStyles = `background-color:${variables.mutedColor1}`;
 
 const single = (props) => {
     
@@ -42,7 +45,7 @@ const single = (props) => {
 
     return(
         <Layout>
-        <PageSection>
+        <PageSection styles={pageStyles}>
             <Container >
                 <JobListing 
                     title={singleJob.title}
