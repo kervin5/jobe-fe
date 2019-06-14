@@ -14,34 +14,34 @@ import Button from '../../common/UI/Button';
 
 const jobListing = (props) => (
     <div className="JobListing">
-            
         <JobListingHeader 
             title={props.title} 
             location={props.location}   
             minAmount={props.minAmount} 
             maxAmount={props.maxAmount} 
-            type={props.type}/>
+            type={props.type}
+            />
 
         <div className="Body">
-
-            <JobListingDescription 
-                description={props.aboutCompany} 
-                title={"About the Company"} />
-
             <JobListingDescription 
                 description={props.description} 
                 title={"Job Description"} />
 
             <Title size={"m"}>Responsabilities:</Title>
-                <List jobQualifications={props.jobQualifications}/>
+                {/* <List list={props.list}/> */}
                 
             <Title size={"m"}>Qualilfications:</Title>
-                <List />
+                <List list={props.list}/>
+
+            <JobListingDescription 
+                description={props.aboutCompany} 
+                title={"About the Company"} />
 
             <Button className="button" click={() => window.alert("You Have Sucessfully applied")}>Apply</Button>
         </div>
         <style jsx>{`
             .JobListing {
+
                 box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
                 min-height: 100vh;
                 margin-bottom: 30px;
@@ -54,11 +54,12 @@ const jobListing = (props) => (
                 background-color: ${variables.clearColor};
                 border-bottom-right-radius: 30px;
                 border-bottom-left-radius: 30px;
+                color: ${variables.baseTextColor};
             }
 
-            .Body button{
-                width: 40%;
-                color: ${variables.clearColor};n
+            Body .button{
+                width: 50%;
+                color: ${variables.clearColor};
                 float: right;
             }
 
