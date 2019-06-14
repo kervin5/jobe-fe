@@ -17,7 +17,6 @@ const list = (props) => {
         itemsToRender = listItems;
     }
     
-    
 
     return (    
     <div className="List">

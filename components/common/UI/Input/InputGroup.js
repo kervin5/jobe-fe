@@ -25,10 +25,13 @@ const inputGroup = props => {
                     flex-direction: column;
                   }
 
-                .Inline .Content {
-                    flex-direction: row;
-                    align-items: flex-end;
+                @media(min-width: 800px) {
+                    .Inline .Content {
+                        flex-direction: row;
+                    }
+                
                 }
+                
 
                 .Inline .Content  label {
                     font-size: 0.9em;

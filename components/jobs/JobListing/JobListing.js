@@ -41,15 +41,17 @@ const jobListing = (props) => (
         </div>
         <style jsx>{`
             .JobListing {
-                background-color: ${variables.clearColor};
-                height: 100vh;
-                padding: 30px;
+
+                box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                min-height: 100vh;
+                margin-bottom: 30px;
+                border-radius: 30px;
             }
 
             .Body{
                 margin: 0 auto;
                 padding: 40px 40px 60px 40px;
-                background-color: ${variables.mutedColor1};
+                background-color: ${variables.clearColor};
                 border-bottom-right-radius: 30px;
                 border-bottom-left-radius: 30px;
                 color: ${variables.baseTextColor};
@@ -67,7 +69,6 @@ const jobListing = (props) => (
 
             @media only screen and (max-width: 520px){
                 .JobListing {
-                    background-color: ${variables.clearColor};
                     max-width: 100%;
                     margin: 0 auto;
                 }
@@ -76,7 +77,6 @@ const jobListing = (props) => (
                     //margin: 0 auto;
                     padding:40px 40px 60px 40px;
                     width: 100%;
-                    background-color: ${variables.mutedColor1};
                     border-bottom-right-radius: 0px;
                     border-bottom-left-radius: 0px;
                 }
