@@ -30,7 +30,11 @@ const layout = (props) => {
 
                   .Layout {
                       min-height: 100%;
-                     line-height: 1.6em;
+                     
+                  }
+                  
+                  p {
+                    line-height: 1.6em;
                   }
 
                   main {
