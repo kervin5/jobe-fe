@@ -12,7 +12,7 @@ const navigationBar = (props) => {
     return(
         <nav>
             <div>
-                <Link route={"/"}>
+                <Link route={"/index"}>
                     <a>
                         <img src={MyExactStaffLogo}></img>
                     </a>
