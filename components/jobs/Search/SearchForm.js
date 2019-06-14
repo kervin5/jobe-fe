@@ -33,6 +33,16 @@ const searchForm = props => {
             form * {
               width: 100%;
             }
+            
+            form :global(.InputContainer) {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+            
+            form :global(button) {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
 
             @media (min-width: ${variables.mediumScreen}) {
 
