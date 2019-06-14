@@ -8,6 +8,7 @@ import JobListingHeader from './JobListingHeader/JobListingHeader';
 import List from '../../common/UI/List';
 import Title from '../../common/UI/Title';
 import Button from '../../common/UI/Button';
+import HtmlRenderer from '../../hoc/HtmlRenderer';
 
 
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
@@ -28,10 +29,12 @@ const jobListing = (props) => (
                 title={"Job Description"} />
 
             <Title size={"m"}>Responsabilities:</Title>
-                {/* <List list={props.list}/> */}
+             
+                <HtmlRenderer html={props.qualifications}/>
                 
             <Title size={"m"}>Qualilfications:</Title>
-                <List list={props.list}/>
+               
+                <HtmlRenderer html={props.requirements}/>
 
             <JobListingDescription 
                 description={props.aboutCompany} 
@@ -67,6 +70,17 @@ const jobListing = (props) => (
                 padding-bottom: 30px;
             }
 
+            .JobListing :global(ul){
+                padding: 0 0 20px 40px;
+                color: ${variables.baseTextColor};
+            }
+
+            .JobListing :global(li) {
+       
+                list-style-image: url('${'../../../static/images/ExactStaffArrow.png'}');
+                // padding: 5px;
+            }
+
             @media only screen and (max-width: 520px){
                 .JobListing {
                     max-width: 100%;
@@ -86,6 +100,7 @@ const jobListing = (props) => (
                     color:${variables.clearColor};
                     float: right;
                 }
+
             }
         `}</style>
     </div>

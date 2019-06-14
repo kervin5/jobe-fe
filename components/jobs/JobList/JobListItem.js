@@ -72,8 +72,9 @@ const jobListItem = (props) => {
                     
                         .Content {
                             font-weight: normal;
-                            font-size: 0.9em;
-                            letter-spacing: 0.1em;
+                            // font-size: 0.9em;
+                            // letter-spacing: 0.1em;
+                            line-height: 1.4em;
                         }
                     
                         .LocationIcon {

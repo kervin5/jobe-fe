@@ -62,7 +62,8 @@ const single = (props) => {
                     maxAmount={singleJob.maxCompensation}
                     type={singleJob.type}
                     aboutCompany={"Under the direction of the Nurse Manager and attending physicians, act as a Medical Scribe and provide electronic medical record and phone support services related to patient care. Duties will include transcribing medical data quickly and accurately while patients are being examined, preparing electronic charts in advance and during visits for new and established patients by entering referring and other treating Doctors(s) contact information/care team, entering orders and referrals, and all medical information relevant to the office visit, take patient history, review of systems, physical exam findings, symptoms and complaints, progress notes, procedure notes, follow up lab and diagnostic orders and results. Position also includes phone support in clinic, and relaying messages to/from clinical teams, patients, and transcribing into EHR as needed."}
-                    list={singleJob.qualifications}
+                    qualifications={singleJob.qualifications}
+                    requirements={singleJob.requirements}
                 />
             
              </Container>

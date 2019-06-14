@@ -23,16 +23,14 @@ const layout = (props) => {
                     box-sizing: border-box; 
                     margin: 0; 
                     padding: 0;
-                    font-family: 'Poppins', sans-serif; 
+                    font-family: 'Lato', sans-serif; 
                   }
                   
-                  p {
-                    font-weight: 300;
-                  }
+               
 
                   .Layout {
                       min-height: 100%;
-                     
+                     line-height: 1.6em;
                   }
 
                   main {
