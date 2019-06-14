@@ -5,21 +5,24 @@ import uniqid from 'uniqid';
 
 
 const list = (props) => {
-    //const listItems = {props};
+    const listItems = props.list;
+    let itemsToRender = null;
 
     const bulletStyle = {
         listStyleImage: 'url(../../../../static/images/ExactStaffArrow.svg)',
         padding: '5px'
     }
+
+    if(typeof listItems !== 'undefined' ) {
+        itemsToRender = listItems;
+    }
     
-    const totalList = listItems.map(listItem => {
-        return <li style={bulletStyle} key={uniqid('listing')}>{listItem}</li>
-    })
+    
 
     return (    
     <div className="List">
         <ul>
-            {totalList}
+            {itemsToRender}
         </ul>
         
         <style jsx>{`

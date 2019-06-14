@@ -18,13 +18,6 @@ const registerForm = () => {
             label: "Full Name",
             placeholder: "John Doe",
         },
-        // lastName : {
-        //     value: "",
-        //     valid: false,
-        //     type: "text",
-        //     label: "Last Name",
-        //     placeholder: "Doe",
-        // },
         emailAddress: {
             value: "",
             valid: false,

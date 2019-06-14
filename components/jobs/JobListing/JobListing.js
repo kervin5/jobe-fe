@@ -13,37 +13,29 @@ import Button from '../../common/UI/Button';
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
 const jobListing = (props) => (
-    
-
-    const listItems = [
-        "High school diploma or General Education Development (GED) or equivalent", 
-        "3 months' warehouse experience", 
-        "3 months' experience operating an electric pallet jack or forklift", 
-        "Previous experience at Sysco or in foodservice industry"];
-
     <div className="JobListing">
         <JobListingHeader 
             title={props.title} 
             location={props.location}   
             minAmount={props.minAmount} 
             maxAmount={props.maxAmount} 
-            type={props.type}/>
+            type={props.type}
+            />
 
         <div className="Body">
-
-            <JobListingDescription 
-                description={props.aboutCompany} 
-                title={"About the Company"} />
-
             <JobListingDescription 
                 description={props.description} 
                 title={"Job Description"} />
 
             <Title size={"m"}>Responsabilities:</Title>
-                <List list={props.list}/>
+                {/* <List list={props.list}/> */}
                 
             <Title size={"m"}>Qualilfications:</Title>
-                <List />
+                <List list={props.list}/>
+
+            <JobListingDescription 
+                description={props.aboutCompany} 
+                title={"About the Company"} />
 
             <Button className="button" click={() => window.alert("You Have Sucessfully applied")}>Apply</Button>
         </div>
