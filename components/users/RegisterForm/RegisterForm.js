@@ -28,7 +28,7 @@ const registerForm = () => {
         password: {
             value: "",
             valid:false,
-            type: "text",
+            type: "password",
             label: "Password",
             placeholder: " Password"
         }
@@ -59,8 +59,8 @@ const registerForm = () => {
                         name: fullName.value,
                         email: emailAddress.value,
                         password: password.value
-                    },
-                    withCredentials: true
+                    }
+                    // withCredentials: true
                 });
                 console.log(result);
             }
@@ -82,15 +82,29 @@ const registerForm = () => {
             name={key}
             key={"registerField"+key} 
             required
+            rounded
         />;
     })
 
     return (
-        <form>
-            <Title center>Register</Title><br />
-            {registerFormData}<br />
-            <Button click={registerSubmitHandler}>Submit</Button>
-        </form>
+        <React.Fragment>
+            <form>
+                <Title center>Register</Title><br />
+                {registerFormData}<br />
+                <Button click={registerSubmitHandler}>Submit</Button>
+            </form>
+
+            <style jsx>{`
+            form {
+                margin-bottom: 30px;
+                width:100%;
+                max-width: 500px;
+            }
+
+
+            `}</style>
+        </React.Fragment>
+
     )
 }
 
