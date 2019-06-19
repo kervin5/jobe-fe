@@ -23,7 +23,7 @@ const navigationBar = (props) => {
 
             <style jsx>{`
                 nav {
-                    background-color: ${variables.mutedColor1};
+                    background-color: ${variables.accentColor3};
                     height: 50px;
                     display: flex;
                     justify-content: space-between;

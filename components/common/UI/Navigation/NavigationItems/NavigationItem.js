@@ -1,10 +1,11 @@
 import React from 'react';
+import { tsPropertySignature } from '@babel/types';
 // import classes from './NavigationItem.module.scss';
 
-const navigationItem = () => {
+const navigationItem = (props) => {
     return (
-        <div >
-            Test
+        <div>
+            {props.children}
             <style jsx>{`
                 div {
                     background-color: transparent;
