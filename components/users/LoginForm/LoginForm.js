@@ -3,6 +3,7 @@ import axios from '../../../data/api';
 import InputField from '../../common/UI/Input/InputField';
 import Button from '../../common/UI/Button';
 import Title from '../../common/UI/Title';
+import Router from 'next/router';
 
 
 const loginForm = () => {
@@ -34,7 +35,6 @@ const loginForm = () => {
                 valid: valid
             }
         };
-
         setFormData(newState);
     };
 
@@ -44,30 +44,21 @@ const loginForm = () => {
     
         if(email.valid && password.valid) {
             try {
-                // const result = await axios.post('https://myexactjobsapi.herokuapp.com/api/auth',{email: email.value, password: password.value, withCredentials: true});
                 const result = await axios({ 
                     method: 'post',
                     url: '/auth',
                     data: {
                         email: email.value, password: password.value
-                    },
-                    withCredentials: true
+                    }
                 });
-
-                // postData('https://myexactjobsapi.herokuapp.com/api/auth',{
-                //     email: email.value, password: password.value
-                // });
-                console.log(result);
+                window.sessionStorage.setItem('token',result.data.token);
+                Router.push('/dashboard');
             }
             catch(ex) {
                 console.log("Error",ex.response);
             }
-        }
-
-        
-
-        
-    }  
+        }      
+    };
 
     const fieldsToRender = Object.keys(formData).map(key=>{
         const fieldData = formData[key];

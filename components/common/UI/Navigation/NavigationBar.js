@@ -2,7 +2,7 @@ import React from 'react';
 import variables from '../../../../components/common/globalVariables';
 // import classes from './NavigationBar.module.scss';
 import {Link} from '../../../../routes';
-import Router from 'next/router';
+// import Router from 'next/router';
 
 import NavigationItems from './NavigationItems/NavigationItems';
 
@@ -13,11 +13,11 @@ const navigationBar = (props) => {
     return(
         <nav>
             <div>
-                {/*<Link route={"/home"}>*/}
-                    <a href="/">
+                <Link route={"/"}>
+                    <a>
                         <img src={MyExactStaffLogo}></img>
                     </a>
-                {/*</Link>*/}
+                </Link>
             </div>
              <div></div>
             <NavigationItems/>

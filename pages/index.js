@@ -7,6 +7,7 @@ import Nav from '../components/nav';
 // import classes from './index.module.scss';
 import SearchForm from '../components/jobs/Search/SearchForm';
 import PageSection from '../components/common/Layout/PageSection';
+import variables from '../components/common/globalVariables.js';
 
 const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
 const landingLogo = "../static/images/LandingLogo.svg";
@@ -101,11 +102,11 @@ const landingLogo = "../static/images/LandingLogo.svg";
 //
 // export default Home
 
-const homePageStyle = "background: linear-gradient(0deg, white 40%, #f4f4f4 40%);";
+const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.mutedColor1} 40%);`;
 
 const homePage = (props) => {
     return (
-        <Layout title={"Home Page"}  hideNav>
+        <Layout title={"Home Page"}  >
             <PageSection styles={homePageStyle} className="HomePage" column fullHeight>
                 <div className="Logos">
                     <img src={landingLogo} className="CompanyLogo"/>
