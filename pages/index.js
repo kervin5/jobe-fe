@@ -1,8 +1,5 @@
 import React from 'react';
 import Layout from '../components/common/Layout/Layout';
-import Link from 'next/link';
-import Head from '../components/head';
-import Nav from '../components/nav';
 
 // import classes from './index.module.scss';
 import SearchForm from '../components/jobs/Search/SearchForm';
@@ -107,7 +104,7 @@ const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.
 const homePage = (props) => {
     return (
         <Layout title={"Home Page"}  >
-            <PageSection styles={homePageStyle} className="HomePage" column fullHeight>
+            <PageSection styles={homePageStyle} className="HomePage" column>
                 <div className="Logos">
                     <img src={landingLogo} className="CompanyLogo"/>
                     <img src={peopleImage} className="PeopleLogo"/>
