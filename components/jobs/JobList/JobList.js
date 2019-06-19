@@ -3,20 +3,11 @@ import axios from 'axios';
 import JobListItem from './JobListItem';
 import Loader from '../../common/UI/Animated/Loader';
 
-const jobList = () => {
-    const [jobs,setJobs] = useState([]);
+const jobList = (props) => {
     let elementToRender = <Loader />;
 
-    useEffect(()=>{
-        axios.get('https://myexactjobsapi.herokuapp.com/api/jobs')
-        .then(res => {
-            setJobs(res.data);
-            console.log(res);
-        })
-    },[]);
-
-    if(jobs.length > 0 ){
-        elementToRender = jobs.map(job => {
+    if(props.jobs.length > 0 ){
+        elementToRender = props.jobs.map(job => {
             return <JobListItem 
             key={job._id} 
             title={job.title} 

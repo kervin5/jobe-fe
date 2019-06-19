@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import variables from '../../common/globalVariables';
+import Router from 'next/router';
 import axios from 'axios';
 // import classes from './SearchForm.module.scss';
 import InputField from '../../common/UI/Input/InputField';
 import Button from '../../common/UI/Button';
 
 const buttonStyles = `margin-top:10px;`;
-const inputStyles = `min-width: 300px`;
 
 const searchForm = props => {
   const [searchTerms, setSearchTerms] = useState("");
@@ -15,14 +15,14 @@ const searchForm = props => {
   const submitFormHandler = (e) => {
     e.preventDefault();
     const formData = {searchTerms, searchLocation};
-
-    axios.post('http://google.com',formData);
+    Router.push(`/jobs/search?q=${searchTerms}&location=${searchLocation}`);
+    // axios.post('http://google.com',formData);
   };
 
   return(
       <form >
           <InputField type="text" placeholder="Job Title, Keywords, or Company Name" rounded centerPlaceholder icon="search" value={searchTerms} change={setSearchTerms}/>
-          <InputField type="text" placeholder="Location" rounded icon="map-marker-alt"value={searchLocation} change={setSearchLocation} />
+          <InputField type="location" placeholder="Location" rounded icon="map-marker-alt" value={searchLocation} change={setSearchLocation} />
           <Button styles={buttonStyles} click={submitFormHandler}>Search</Button>
           <style jsx >{`
             form {
