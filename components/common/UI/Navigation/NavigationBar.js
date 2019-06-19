@@ -2,6 +2,7 @@ import React from 'react';
 import variables from '../../../../components/common/globalVariables';
 // import classes from './NavigationBar.module.scss';
 import {Link} from '../../../../routes';
+// import Router from 'next/router';
 
 import NavigationItems from './NavigationItems/NavigationItems';
 

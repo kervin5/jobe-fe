@@ -3,17 +3,14 @@ import PageSection from '../components/common/Layout/PageSection';
 import WithAuth from '../components/hoc/WithAuth';
 
 
-const homePage = (props) => {
+const dashboardPage = (props) => {
     return (
         <Layout title={"Home Page"}  hideNav>
             <PageSection className="HomePage" column fullHeight>
-              
+              <p>Dashboard</p>
             </PageSection>
-            <style jsx>{`
-
-            `}</style>
         </Layout>
     );
 };
 
-export default WithAuth(homePage);
+export default WithAuth(dashboardPage);
