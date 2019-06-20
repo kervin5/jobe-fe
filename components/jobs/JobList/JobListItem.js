@@ -8,11 +8,12 @@ import Card from '../../common/UI/Card';
 import {Link} from '../../../routes';
 
 const styles = ` background-color: ${variables.clearColor};
-                margin: auto 20px 20px;
+                margin: 20px auto;
                 transition: 100ms;
                 animation-timing-function: ease-in;
                 padding: 20px !important;
                 border-radius: 15px;
+                width: 100%;
                 `;
 
 const jobListItem = (props) => {

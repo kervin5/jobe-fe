@@ -13,7 +13,7 @@ import TagsInputField from './TagsInputField/TagsInputField';
 const inputField = (props) => {
     const [touched, setTouched] = useState(false);
     const [errors, setErrors] = useState([]);
-    const [value, setValue] = useState(props.value);
+    const [value, setValue] = useState(props.value || "");
     //const [isValid, setIsValid] = useState(props.required);
 
     const validation = {
@@ -40,26 +40,23 @@ const inputField = (props) => {
 
     const handleBlur = () => {
         setTouched(true);
-        validate();
     };
 
     useEffect(()=>{
-        validate();
-    },[value,touched]);
-
-    // useEffect(()=> {
-    //     // setIsValid(errors.length === 0);
-    // },[errors]);
+        console.log(props.validate,name);
+        if(touched || props.validate) {
+            validate();
+        }
+        
+    },[value,touched,props.validate]);
 
     const validate = () => {
-        if(touched) {
-            if(validation.required) {
-               
-                if(value === "") {
-                    setErrors(["This field is required"]);
-                }else {
-                    setErrors([]);
-                }
+        if(validation.required) {   
+            console.log(value,props.name);
+            if(value === "") {
+                setErrors(["This field is required"]);
+            }else {
+                setErrors([]);
             }
         }
     };

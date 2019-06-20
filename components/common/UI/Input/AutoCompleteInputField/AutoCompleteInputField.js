@@ -11,8 +11,6 @@ const locationInputField = props => {
     const [options, setOptions] = useState(props.options);
     const [hasValueFromOptions, setHasValueFromOptions] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
-    //const fieldIsValid = useState(false);
-
 
     const changeHandler = async (e) =>{
         updateField(e.target.value);
@@ -62,17 +60,14 @@ const locationInputField = props => {
     },[textFieldValue, hasValueFromOptions]);
 
     const handleBlur = (e) => {
-        //  const currentTarget = e.currentTarget;
-        // console.log("Blur");
-        // console.log(currentTarget);
-        // console.log(document.activeElement);
-        // setTimeout(function() {
-        //   if (!currentTarget.contains(document.activeElement)) {
-        //      setShowMenu(false);
-        //   }
-        // }, 0);
+         const currentTarget = e.currentTarget;
+        setTimeout(function() {
+          if (!currentTarget.contains(document.activeElement)) {
+             setShowMenu(false);
+          }
+        }, 0);
 
-        //TODO: Refactor onBlur handler
+       // TODO: Refactor onBlur handler
     };
 
     const handleOptionClick = (value) => {

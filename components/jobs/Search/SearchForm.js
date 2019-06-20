@@ -11,18 +11,21 @@ const buttonStyles = `margin-top:10px;`;
 const searchForm = props => {
   const [searchTerms, setSearchTerms] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
+  const [validate, setValidate] = useState(false);
 
   const submitFormHandler = (e) => {
     e.preventDefault();
-    const formData = {searchTerms, searchLocation};
-    Router.push(`/jobs/search?q=${searchTerms}&location=${searchLocation}`);
-    // axios.post('http://google.com',formData);
+    setValidate(true);
+
+    if(searchTerms !== "" && searchLocation !== "") {
+      Router.push(`/jobs/search?q=${searchTerms}&location=${searchLocation}`);
+    }
   };
 
   return(
       <form >
-          <InputField type="text" placeholder="Job Title, Keywords, or Company Name" rounded centerPlaceholder icon="search" value={searchTerms} change={setSearchTerms}/>
-          <InputField type="location" placeholder="Location" rounded icon="map-marker-alt" value={searchLocation} change={setSearchLocation} />
+          <InputField validate={validate} type="text" placeholder="Job Title, Keywords, or Company Name" rounded centerPlaceholder icon="search" value={searchTerms} change={setSearchTerms} required/>
+          <InputField validate={validate} type="location" placeholder="Location" rounded icon="map-marker-alt" value={searchLocation} change={setSearchLocation} required/>
           <Button styles={buttonStyles} click={submitFormHandler}>Search</Button>
           <style jsx >{`
             form {
