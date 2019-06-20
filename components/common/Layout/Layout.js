@@ -14,8 +14,7 @@ const layout = (props) => {
     return (
         <div className="Layout">
             <Head title={props.title} />
-            {/* {props.hideNav ? null : <NavigationBar/> } */}
-            <NavigationBar />
+            {props.hideNav ? null : <NavigationBar/> }
             <main>
                 {props.children}
             </main>
