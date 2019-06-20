@@ -5,16 +5,10 @@ import Bubble from '../../../common/UI/Bubble';
 import Icon from '../../../common/UI/Icon';
 import Title from '../../../common/UI/Title';
 
+// const [ addToFavorite, setAddToFavorite ] = useState(false);
 
 const jobListingTitleStyles = `color: ${variables.clearColor};`;
 const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
-
-// const [ addToFavorite, setAddToFavorite] = useState(false);
-
-// const setFavoriteHandler = () => {
-
-//     setAddToFavorite(true);
-// }
 
 const header = (props) => (
     <div className="header" >
@@ -26,7 +20,7 @@ const header = (props) => (
                 <Bubble color="1">${props.minAmount}-{props.maxAmount}</Bubble>
                 <Bubble color="3">{props.type}</Bubble>
             </div>
-            <Icon icon="heart" color="white" float="right"  />
+            <Icon icon="heart" color="white" float="right" />
         </div>
         <style jsx>{`
             .header {
