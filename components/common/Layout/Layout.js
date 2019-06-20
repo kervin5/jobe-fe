@@ -30,7 +30,8 @@ const layout = (props) => {
 
                   .Layout {
                       min-height: 100%;
-                     
+                    width: 100%;
+                    overflow-x: hidden;
                   }
                   
                   p {

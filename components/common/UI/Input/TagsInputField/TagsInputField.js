@@ -19,21 +19,22 @@ class TagsInputField extends React.Component {
       tags: props.tags || [],
       suggestions: (props.options ? suggestions : [])
     };
-
-    console.log("invoked");
   }
 
   handleDelete (i) {
     const tags = this.state.tags.slice(0);
+    const removedTag = this.state.tags[i];
     tags.splice(i, 1);
     this.setState({ tags });
-     this.passValueToChangeProp(tags);
+    this.passValueToChangeProp(tags);
+    this.updateSuggestions(removedTag);
   }
  
   handleAddition (tag) {
     const tags = [].concat(this.state.tags, tag);
     this.setState({ tags });
     this.passValueToChangeProp(tags);
+    this.updateSuggestions(tag,"remove");
   }
 
   passValueToChangeProp = (tags) => {
@@ -42,6 +43,20 @@ class TagsInputField extends React.Component {
       this.props.change(values);
     }
   };
+
+  updateSuggestions = (tag,action) => {
+    if(action === 'remove') {
+     
+      const updatedSuggestions = this.state.suggestions.filter(suggestion => {
+        return suggestion.id !==  tag.id;
+      });
+
+      this.setState({suggestions: updatedSuggestions});
+    } else {
+      const updatedSuggestions = this.state.suggestions.concat(tag);
+      this.setState({suggestions: updatedSuggestions});
+    }
+  }
  
   render () {
     return (
