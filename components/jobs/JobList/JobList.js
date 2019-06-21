@@ -24,11 +24,6 @@ const jobList = props => {
   return (
     <React.Fragment>
       <div>{elementToRender}</div>
-      <style jsx>{`
-        div {
-          padding: 5px 30px 30px;
-        }
-      `}</style>
     </React.Fragment>
   );
 };

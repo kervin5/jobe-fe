@@ -6,6 +6,8 @@ import { withRouter } from "next/router";
 import JobList from "../../components/jobs/JobList/JobList";
 import PageSection from "../../components/common/Layout/PageSection";
 import SearchBar from "../../components/jobs/Search/SearchBar";
+import Button from "../../components/common/UI/Button";
+import ButtonGroup from "../../components/common/UI/ButtonGroup";
 
 const styles = `background-color: ${variables.mutedColor1}; padding: 30px;`;
 
@@ -30,7 +32,14 @@ const SearchPage = props => {
       <PageSection styles={styles}>
         <div className="Container">
           <SearchBar terms={q} location={location} />
-
+          <ButtonGroup>
+            <Button size={{ height: "30px" }} icon="filter" color="2">
+              Filter
+            </Button>
+            <Button size={{ height: "30px" }} icon="bell">
+              Create Alert
+            </Button>
+          </ButtonGroup>
           <JobList jobs={jobs} />
         </div>
       </PageSection>
