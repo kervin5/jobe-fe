@@ -65,13 +65,12 @@ const locationInputField = props => {
   }, [textFieldValue, hasValueFromOptions]);
 
   const handleBlur = e => {
-    const currentTarget = e.currentTarget;
-    setTimeout(function() {
-      if (!currentTarget.contains(document.activeElement)) {
-        setShowMenu(false);
-      }
-    }, 0);
-
+    // const currentTarget = e.currentTarget;
+    // setTimeout(function() {
+    //   if (!currentTarget.contains(document.activeElement)) {
+    //     setShowMenu(false);
+    //   }
+    // }, 0);
     // TODO: Refactor onBlur handler
   };
 
