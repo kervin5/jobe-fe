@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build :
+  build:
     docker: # use the docker executor type; machine and macos executors are also supported
       - image: circleci/node:8.9 # the primary container, where your job's commands are run
     steps:
@@ -31,4 +31,3 @@ workflows:
       - test:
           requires:
             - hithere
-  

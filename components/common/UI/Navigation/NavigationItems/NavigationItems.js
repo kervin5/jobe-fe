@@ -3,7 +3,7 @@ import variables from "../../../globalVariables";
 // import classes from './NavigationItems.module.scss';
 import NavigationItem from "./NavigationItem.js";
 import Icon from "../../Icon";
-import ProfileDropdownMenu from "../ProfileDropdownMenu";
+import DropdownMenu from "../DropdownMenu";
 
 const navigationItems = () => {
   return (
@@ -12,7 +12,6 @@ const navigationItems = () => {
       <NavigationItem>
         <Icon icon={"user"} />
       </NavigationItem>
-      {/* <NavigationItem>   <ProfileDropdownMenu/> </NavigationItem>           */}
       <style jsx>{`
         div {
           display: flex;
