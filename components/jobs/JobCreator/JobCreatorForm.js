@@ -107,16 +107,13 @@ class JobCreatorForm extends Component {
       axios
         .post("https://myexactjobsapi.herokuapp.com/api/jobs", jobData)
         .then(res => {
-          console.log(res);
           this.setState({ status: "posted" });
         })
         .catch(err => {
           this.setState({ status: "failed" });
-          console.log(err.response);
         });
     } else {
       this.setState({ validate: true });
-      console.log("Invalid");
     }
   };
 
@@ -124,9 +121,6 @@ class JobCreatorForm extends Component {
     const invalid = Object.keys(this.state.formData).filter(key => {
       return !this.state.formData[key].valid;
     });
-
-    console.log(invalid);
-
     return invalid.length === 0;
   };
 

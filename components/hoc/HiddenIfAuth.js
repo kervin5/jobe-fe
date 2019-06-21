@@ -15,7 +15,6 @@ export default function HiddenIfAuth(ComponentToProtect, route) {
         }
       })
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
             this.setState({ redirect: true });
           }
