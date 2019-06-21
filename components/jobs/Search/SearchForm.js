@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import variables from "../../common/globalVariables";
 import Router from "next/router";
-import axios from "axios";
-// import classes from './SearchForm.module.scss';
 import InputField from "../../common/UI/Input/InputField";
 import Button from "../../common/UI/Button";
 

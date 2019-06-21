@@ -17,6 +17,9 @@ const styles = ` background-color: ${variables.clearColor};
                 `;
 
 const jobListItem = props => {
+  const shortLocation =
+    props.location.split(",")[0] + ", " + props.location.split(",")[1];
+
   return (
     <Card styles={styles} animate>
       <div className="JobListItemHeader">
@@ -30,7 +33,7 @@ const jobListItem = props => {
           </Link>
           <p className="Location">
             <Icon icon="map-marker-alt" size="sm" className="LocationIcon" />{" "}
-            {props.location}
+            {shortLocation}
           </p>
         </div>
         <div className="JobListItemMainInfo">
@@ -38,8 +41,14 @@ const jobListItem = props => {
           <Bubble color="2">{props.type}</Bubble>
         </div>
       </div>
+      <Link
+        route={
+          "/jobs/view/" + props.title.split(" ").join("-") + "-" + props.id
+        }
+      >
+        <a className="Content">{props.description.substr(1, 200)}...</a>
+      </Link>
 
-      <p className="Content">{props.description.substr(1, 200)}...</p>
       <div className="JobListItemFooter">
         <Icon icon="heart" size="lg" className="LikeIcon" />
       </div>
@@ -47,10 +56,7 @@ const jobListItem = props => {
         a {
           color: ${variables.darkColor};
           font-size: 1em;
-        }
-
-        a:hover {
-          color: ${variables.accentColor1};
+          text-decoration: none;
         }
 
         .JobListItemHeader {
@@ -62,10 +68,7 @@ const jobListItem = props => {
         .JobListItemHeader a {
           font-weight: bold;
           text-decoration: none;
-        }
-
-        .JobListItemHeader .JobListItemMainInfo {
-          white-space: nowrap;
+          color: ${variables.accentColor2};
         }
 
         .Location {
@@ -74,7 +77,7 @@ const jobListItem = props => {
 
         .Content {
           font-weight: normal;
-          // font-size: 0.9em;
+          font-size: 0.9em;
           // letter-spacing: 0.1em;
           line-height: 1.4em;
         }

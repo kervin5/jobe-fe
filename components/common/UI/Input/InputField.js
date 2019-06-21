@@ -37,7 +37,6 @@ const inputField = props => {
       props.change(newValue);
     } else {
       props.change(props.name, newValue, fieldIsValid(newValue));
-      console.log(props.name, newValue, fieldIsValid(newValue));
     }
     setValue(newValue);
   };
@@ -47,7 +46,6 @@ const inputField = props => {
   };
 
   useEffect(() => {
-    console.log(props.validate, name);
     if (touched || props.validate) {
       validate();
     }
@@ -55,7 +53,6 @@ const inputField = props => {
 
   const validate = () => {
     if (validation.required) {
-      console.log(value, props.name);
       if (value === "") {
         setErrors(["This field is required"]);
       } else {

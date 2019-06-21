@@ -24,14 +24,12 @@ const locationInputField = props => {
       setOptions(filterOptions(value, props.options));
     }
     setHasValueFromOptions(fieldIsValid(value));
-    console.log(hasValueFromOptions);
   };
 
   const fieldIsValid = value => {
     const result = props.options.filter(option => {
       return option.value.trim().toLowerCase() === value.trim().toLowerCase();
     });
-    console.log("Verified");
     return result.length > 0;
   };
 
@@ -76,7 +74,6 @@ const locationInputField = props => {
 
   const handleOptionClick = value => {
     updateField(value);
-    console.log("clicked");
     setShowMenu(false);
   };
 

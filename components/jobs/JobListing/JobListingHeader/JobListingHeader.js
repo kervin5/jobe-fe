@@ -1,11 +1,8 @@
 import React from "react";
 import variables from "../../../../components/common/globalVariables";
-// import classes from './JobListingHeader.modules.scss';
 import Bubble from "../../../common/UI/Bubble";
 import Icon from "../../../common/UI/Icon";
 import Title from "../../../common/UI/Title";
-
-// const [ addToFavorite, setAddToFavorite ] = useState(false);
 
 const jobListingTitleStyles = `color: ${variables.clearColor};`;
 const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
