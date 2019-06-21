@@ -3,17 +3,15 @@ import variables from '../../../globalVariables';
 // import classes from './NavigationItems.module.scss';
 import NavigationItem from './NavigationItem.js';
 import Icon from '../../Icon';
-import ProfileDropdownMenu from '../ProfileDropdownMenu';
+//import ProfileDropdownMenu from '../DropdownMenu';
 
 
 const navigationItems = () => {
     return (
         <div>
             <NavigationItem>Search Jobs</NavigationItem>
-            <NavigationItem>
-                <Icon icon={"user"}/>
-            </NavigationItem> 
-            {/* <NavigationItem>   <ProfileDropdownMenu/> </NavigationItem>           */}
+            {/* <ProfileDropdownMenu /> */}
+
             <style jsx>{`
                 div {
                     display: flex;
