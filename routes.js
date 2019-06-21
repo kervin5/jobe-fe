@@ -1,10 +1,10 @@
-const routes = require('next-routes');
+const routes = require("next-routes");
 
 module.exports = routes()
-.add('login','/users/login','users/login')
-.add('/jobs','jobs/index')
-.add('/jobs/new','jobs/new')
-.add('job', '/jobs/view/:slug','jobs/single');
+  .add("login", "/users/login", "users/login")
+  .add("/jobs", "jobs/index")
+  .add("/jobs/new", "jobs/new")
+  .add("job", "/jobs/view/:slug", "jobs/single");
 
 // .add('user', '/user/:id', 'profile')
 // .add('/:noname/:lang(en|es)/:wow+', 'complex')
