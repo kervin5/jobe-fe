@@ -5,8 +5,11 @@ import Layout from "../../components/common/Layout/Layout";
 import { withRouter } from "next/router";
 import JobList from "../../components/jobs/JobList/JobList";
 import PageSection from "../../components/common/Layout/PageSection";
+import SearchBar from "../../components/jobs/Search/SearchBar";
+import Button from "../../components/common/UI/Button";
+import ButtonGroup from "../../components/common/UI/ButtonGroup";
 
-const styles = `background-color: ${variables.mutedColor1};`;
+const styles = `background-color: ${variables.mutedColor1}; padding: 30px;`;
 
 const SearchPage = props => {
   const {
@@ -28,15 +31,22 @@ const SearchPage = props => {
     <Layout>
       <PageSection styles={styles}>
         <div className="Container">
-          <h2>
-            {q} Jobs in {location}
-          </h2>
+          <SearchBar terms={q} location={location} />
+          <ButtonGroup>
+            <Button size={{ height: "30px" }} icon="filter" color="2">
+              Filter
+            </Button>
+            <Button size={{ height: "30px" }} icon="bell">
+              Create Alert
+            </Button>
+          </ButtonGroup>
           <JobList jobs={jobs} />
         </div>
       </PageSection>
       <style jsx>{`
         .Container {
           max-width: 600px;
+          width: 100%;
         }
       `}</style>
     </Layout>

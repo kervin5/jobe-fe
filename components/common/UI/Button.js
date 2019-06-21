@@ -1,48 +1,64 @@
-// import classes from './Button.module.scss';
-import variables from '../globalVariables';
+import PropTypes from "prop-types";
+import Icon from "./Icon";
+import variables from "../globalVariables";
 
-const button = props => {
-    return(
-        <button onClick={props.click} className={"Button"}>
-            {props.children}
-            <style jsx>{`
-                li {
-                    list-style: none;
-                    margin: 5px 0;
-                }
+const Button = props => {
+  const height = props.size ? props.size.height : variables.inputHeight;
 
-                a {
-                    text-decoration: none;
-                    color: blue;
-                    font-family: 'Arial';
-                }
+  return (
+    <button onClick={props.click} className={"Button"}>
+      {props.icon ? <Icon icon={props.icon} /> : null}
+      {props.children}
+      <style jsx>{`
+        li {
+          list-style: none;
+          margin: 5px 0;
+        }
 
-                a:hover {
-                    opacity: 0.6;
-                }
+        a {
+          text-decoration: none;
+          color: blue;
+          font-family: "Arial";
+        }
 
-                .Button{
-                    height: ${variables.inputHeight};
-                    border-radius: ${variables.roundedRadius};
-                    background-color: ${variables.accentColor1};
-                    border: none;
-                    color: ${variables.clearColor};
-                    box-shadow: 0px 3px 22px -10px rgba(0,0,0,0.75);
-                    transition: 300ms;
-                    width: 100%;
-                }
+        a:hover {
+          opacity: 0.6;
+        }
 
-                .Button:hover{
-                    background-color: ${variables.accentColor2};
-                    cursor: pointer;
-                }
+        .Button {
+          height: ${height};
+          border-radius: ${variables.roundedRadius};
+          background-color: ${props.color
+            ? variables.accentColor2
+            : variables.accentColor1};
+          border: none;
+          color: ${variables.clearColor};
+          box-shadow: 0px 3px 22px -10px rgba(0, 0, 0, 0.75);
+          transition: 300ms;
+          width: 100%;
+        }
 
-                ${props.styles || ""}
-                
-                `}</style>
-        </button>
-    );
+        .Button:hover {
+          background-color: ${variables.accentColor3};
+          cursor: pointer;
+        }
+
+        .Button :global(svg) {
+          margin-right: 10px;
+          opacity: 0.8;
+          height: 15px;
+        }
+
+        ${props.styles || ""}
+      `}</style>
+    </button>
+  );
 };
 
-export default button;
+Button.propTypes = {
+  size: PropTypes.object,
+  icon: PropTypes.string,
+  color: PropTypes.string
+};
 
+export default Button;
