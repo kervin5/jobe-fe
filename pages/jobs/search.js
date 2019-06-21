@@ -5,8 +5,9 @@ import Layout from "../../components/common/Layout/Layout";
 import { withRouter } from "next/router";
 import JobList from "../../components/jobs/JobList/JobList";
 import PageSection from "../../components/common/Layout/PageSection";
+import SearchBar from "../../components/jobs/Search/SearchBar";
 
-const styles = `background-color: ${variables.mutedColor1};`;
+const styles = `background-color: ${variables.mutedColor1}; padding: 30px;`;
 
 const SearchPage = props => {
   const {
@@ -28,15 +29,15 @@ const SearchPage = props => {
     <Layout>
       <PageSection styles={styles}>
         <div className="Container">
-          <h2>
-            {q} Jobs in {location}
-          </h2>
+          <SearchBar terms={q} location={location} />
+
           <JobList jobs={jobs} />
         </div>
       </PageSection>
       <style jsx>{`
         .Container {
           max-width: 600px;
+          width: 100%;
         }
       `}</style>
     </Layout>
