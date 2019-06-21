@@ -1,12 +1,10 @@
-import React from 'react';
-import Layout from '../components/common/Layout/Layout';
-import Link from 'next/link';
-import Head from '../components/head';
-import Nav from '../components/nav';
+import React from "react";
+import Layout from "../components/common/Layout/Layout";
 
 // import classes from './index.module.scss';
-import SearchForm from '../components/jobs/Search/SearchForm';
-import PageSection from '../components/common/Layout/PageSection';
+import SearchForm from "../components/jobs/Search/SearchForm";
+import PageSection from "../components/common/Layout/PageSection";
+import variables from "../components/common/globalVariables.js";
 
 const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
 const landingLogo = "../static/images/LandingLogo.svg";
@@ -101,45 +99,44 @@ const landingLogo = "../static/images/LandingLogo.svg";
 //
 // export default Home
 
-const homePageStyle = "background: linear-gradient(0deg, white 40%, #f4f4f4 40%);";
+const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.mutedColor1} 40%);`;
 
-const homePage = (props) => {
-    return (
-        <Layout title={"Home Page"}  hideNav>
-            <PageSection styles={homePageStyle} className="HomePage" column fullHeight>
-                <div className="Logos">
-                    <img src={landingLogo} className="CompanyLogo"/>
-                    <img src={peopleImage} className="PeopleLogo"/>
-                </div>
-                <SearchForm/>
-            </PageSection>
-            <style jsx>{`
+const homePage = props => {
+  return (
+    <Layout title={"Home Page"}>
+      <PageSection styles={homePageStyle} className="HomePage" column>
+        <div className="Logos">
+          <img src={landingLogo} className="CompanyLogo" />
+          <img src={peopleImage} className="PeopleLogo" />
+        </div>
+        <SearchForm />
+      </PageSection>
+      <style jsx>{`
+        .Logos {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          max-width: 700px;
+          padding: 30px;
+        }
 
-            .Logos {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                max-width: 700px;
-                padding: 30px;
-            }
+        .Logos img {
+          width: 100%;
+        }
 
-            .Logos img {
-                width: 100%;
-            }
+        .CompanyLogo {
+          margin-bottom: 15px;
+        }
 
-            .CompanyLogo {
-                margin-bottom: 15px;
-            }
-
-            .PeopleLogo {
-                width: 100%;
-                max-width: 400px;
-              }
-            `}</style>
-        </Layout>
-    );
+        .PeopleLogo {
+          width: 100%;
+          max-width: 400px;
+        }
+      `}</style>
+    </Layout>
+  );
 };
 
 export default homePage;

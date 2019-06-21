@@ -1,26 +1,31 @@
 import React, { useState } from "react";
 import variables from "../../common/globalVariables";
+import Router from "next/router";
 import axios from "axios";
 // import classes from './SearchForm.module.scss';
 import InputField from "../../common/UI/Input/InputField";
 import Button from "../../common/UI/Button";
 
 const buttonStyles = `margin-top:10px;`;
-const inputStyles = `min-width: 300px`;
 
 const searchForm = props => {
   const [searchTerms, setSearchTerms] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
+  const [validate, setValidate] = useState(false);
 
   const submitFormHandler = e => {
     e.preventDefault();
-    const formData = { searchTerms, searchLocation };
-    axios.post("http://google.com", formData);
+    setValidate(true);
+
+    if (searchTerms !== "" && searchLocation !== "") {
+      Router.push(`/jobs/search?q=${searchTerms}&location=${searchLocation}`);
+    }
   };
 
   return (
     <form>
       <InputField
+        validate={validate}
         type="text"
         placeholder="Job Title, Keywords, or Company Name"
         rounded
@@ -28,14 +33,17 @@ const searchForm = props => {
         icon="search"
         value={searchTerms}
         change={setSearchTerms}
+        required
       />
       <InputField
-        type="text"
+        validate={validate}
+        type="location"
         placeholder="Location"
         rounded
         icon="map-marker-alt"
         value={searchLocation}
         change={setSearchLocation}
+        required
       />
       <Button styles={buttonStyles} click={submitFormHandler}>
         Search
@@ -44,6 +52,7 @@ const searchForm = props => {
         form {
           width: 100%;
           max-width: 400px;
+          padding: 0 15px;
         }
 
         form * {
@@ -51,11 +60,6 @@ const searchForm = props => {
         }
 
         form :global(.InputContainer) {
-          margin-left: 5px;
-          margin-right: 5px;
-        }
-
-        form :global(button) {
           margin-left: 5px;
           margin-right: 5px;
         }

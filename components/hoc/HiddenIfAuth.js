@@ -2,9 +2,10 @@ import { Component } from "react";
 import axios from "../../data/api";
 import Router from "next/router";
 
-export default function HiddenIfAuth(ComponentToProtect) {
+export default function HiddenIfAuth(ComponentToProtect, route) {
   return class extends Component {
     state = { loading: true, redirect: false };
+
     componentDidMount() {
       axios({
         url: "/auth",
@@ -14,24 +15,24 @@ export default function HiddenIfAuth(ComponentToProtect) {
         }
       })
         .then(res => {
-          if (res.status !== 200) {
+          console.log(res);
+          if (res.status === 200) {
             this.setState({ redirect: true });
           }
           this.setState({ loading: false });
         })
         .catch(err => {
-          this.setState({ loading: false, redirect: true });
+          this.setState({ loading: false });
         });
     }
 
     render() {
-      // return (<ComponentToProtect {...this.props} />);
       const { loading, redirect } = this.state;
       if (loading) {
-        return <p>loading</p>;
+        return null;
       } else if (redirect) {
-        Router.push("/users/login", "users/login");
-        return <p>Redirect</p>;
+        Router.push({ pathname: route });
+        return null;
       } else {
         return (
           <React.Fragment>
