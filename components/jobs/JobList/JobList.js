@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import JobListItem from "./JobListItem";
 import Loader from "../../common/UI/Animated/Loader";
 
@@ -25,11 +24,6 @@ const jobList = props => {
   return (
     <React.Fragment>
       <div>{elementToRender}</div>
-      <style jsx>{`
-        div {
-          padding: 30px;
-        }
-      `}</style>
     </React.Fragment>
   );
 };
