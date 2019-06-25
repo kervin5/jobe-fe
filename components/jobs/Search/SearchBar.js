@@ -1,11 +1,18 @@
 import Icon from "../../common/UI/Icon";
 import variables from "../../common/globalVariables";
+import PropTypes from "prop-types";
 
-const SearchBar = ({ terms, location }) => {
+const SearchBar = ({ terms, location, onClick }) => {
   const shortLocationName = location.split(",")[0];
 
+  const clickHandler = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return (
-    <div>
+    <div onClick={clickHandler}>
       <h3>
         {terms} <span className="connector">Jobs in</span>{" "}
         <span className="location">{shortLocationName}</span>
@@ -26,6 +33,7 @@ const SearchBar = ({ terms, location }) => {
           justify-content: space-between;
           align-items: center;
           margin-bottom: 15px;
+          margin-top: 10px;
         }
 
         .connector {
@@ -43,6 +51,11 @@ const SearchBar = ({ terms, location }) => {
       `}</style>
     </div>
   );
+};
+
+SearchBar.propTypes = {
+  terms: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired
 };
 
 export default SearchBar;

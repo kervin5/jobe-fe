@@ -13,7 +13,8 @@ const inputField = props => {
   const [touched, setTouched] = useState(false);
   const [errors, setErrors] = useState([]);
   const [value, setValue] = useState(props.value || "");
-  //const [isValid, setIsValid] = useState(props.required);
+  const [isFocused, setIsFocused] = useState(false);
+  let timeOutId = null;
 
   const validation = {
     required: props.required || false
@@ -41,15 +42,28 @@ const inputField = props => {
     setValue(newValue);
   };
 
-  const handleBlur = () => {
+  const handleBlur = e => {
+    timeOutId = setTimeout(() => {
+      if (isFocused) {
+        setIsFocused(false);
+      }
+    }, 0);
     setTouched(true);
   };
 
+  const handleFocus = () => {
+    clearTimeout(timeOutId);
+    if (!isFocused) {
+      setIsFocused(true);
+    }
+  };
+
   useEffect(() => {
-    if (touched || props.validate) {
+    console.log(isFocused);
+    if ((touched && !isFocused) || props.validate) {
       validate();
     }
-  }, [value, touched, props.validate]);
+  }, [value, touched, props.validate, isFocused]);
 
   const validate = () => {
     if (validation.required) {
@@ -138,8 +152,8 @@ const inputField = props => {
   );
 
   return (
-    <React.Fragment>
-      <div onBlur={handleBlur}>
+    <div className="InputField">
+      <div onBlur={handleBlur} onFocus={handleFocus}>
         <label>{props.label}</label>
         <div className={inputClasses}>
           {props.type !== "textarea" ? inputOrnaments : null}
@@ -148,6 +162,10 @@ const inputField = props => {
         {props.type !== "switch" && errors.length > 0 ? errorLabel : null}
       </div>
       <style jsx>{`
+        .InputField {
+          flex-grow: 1;
+        }
+
         .InputContainer {
           position: relative;
           padding-left: 15px;
@@ -181,7 +199,6 @@ const inputField = props => {
 
         @media (min-width: 800px) {
           .InputContainer {
-            min-width: 300px;
           }
         }
 
@@ -218,8 +235,12 @@ const inputField = props => {
           color: ${variables.baseTextColor};
         }
       `}</style>
-    </React.Fragment>
+    </div>
   );
 };
 
-export default inputField;
+const comparisonFn = function(prevProps, nextProps) {
+  return prevProps.value !== nextProps.value;
+};
+
+export default React.memo(inputField, comparisonFn);

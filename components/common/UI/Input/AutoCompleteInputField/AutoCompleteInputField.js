@@ -2,67 +2,64 @@ import React, { useState, useEffect } from "react";
 import variables from "../../../globalVariables";
 // import inputStyles from '../InputStyles';
 
-const locationInputField = props => {
-  let ajaxField = props.ajax || false;
+class AutoCompleteInputField extends React.Component {
+  state = {
+    textFieldValue: this.props.value || "",
+    optionsToDisplay: null,
+    options: [],
+    hasValueFromOptions: false,
+    showMenu: false
+  };
 
-  const [textFieldValue, setTextFieldValue] = useState("");
-  const [optionsToDisplay, setOptionsToDisplay] = useState(null);
-  const [options, setOptions] = useState(props.options);
-  const [hasValueFromOptions, setHasValueFromOptions] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
+  inputTextChangeHandler = async e => {
+    //Passes the value when the text input is changed
+    this.updateField(e.target.value);
 
-  const changeHandler = async e => {
-    updateField(e.target.value);
-    if (props.ajax && e.target.value !== "") {
-      props.callback(e.target.value);
+    if (this.props.ajax && e.target.value !== "") {
+      this.props.callback(e.target.value);
     }
   };
 
-  const updateField = value => {
-    setTextFieldValue(value);
-    if (!props.ajax) {
-      setOptions(filterOptions(value, props.options));
+  updateField = value => {
+    this.setState({ textFieldValue: value });
+    if (!this.props.ajax) {
+      this.setState({ options: filterOptions(value, props.options) });
     }
-    setHasValueFromOptions(fieldIsValid(value));
+    this.setState({ hasValueFromOptions: this.fieldIsValid(value) }, () => {
+      if (this.props.change) {
+        console.log(
+          "Executed---------------------------------------------------",
+          value,
+          this.state.hasValueFromOptions
+        );
+        if (this.state.hasValueFromOptions) {
+          this.props.change(textFieldValue);
+        } else {
+          this.props.change("");
+        }
+      }
+    });
   };
 
-  const fieldIsValid = value => {
-    const result = props.options.filter(option => {
+  fieldIsValid = value => {
+    const result = this.props.options.filter(option => {
       return option.value.trim().toLowerCase() === value.trim().toLowerCase();
     });
     return result.length > 0;
   };
 
-  useEffect(() => {
-    const optionsElements = options.map((option, index) => {
-      return (
-        <div
-          key={index}
-          className={"Option"}
-          onClick={() => handleOptionClick(option.value)}
-        >
-          {option.label}
-        </div>
-      );
-    });
-    setOptionsToDisplay(optionsElements);
-  }, [options]);
+  // useEffect(() => {
 
-  useEffect(() => {
-    setOptions(props.options);
-  }, [props.options]);
+  //   if (props.change) {
+  //     if (hasValueFromOptions) {
+  //       props.change(textFieldValue);
+  //     } else {
+  //       props.change("");
+  //     }
+  //   }
+  // }, [textFieldValue, hasValueFromOptions]);
 
-  useEffect(() => {
-    if (props.change) {
-      if (hasValueFromOptions) {
-        props.change(textFieldValue);
-      } else {
-        props.change("");
-      }
-    }
-  }, [textFieldValue, hasValueFromOptions]);
-
-  const handleBlur = e => {
+  handleBlur = e => {
     // const currentTarget = e.currentTarget;
     // setTimeout(function() {
     //   if (!currentTarget.contains(document.activeElement)) {
@@ -72,89 +69,111 @@ const locationInputField = props => {
     // TODO: Refactor onBlur handler
   };
 
-  const handleOptionClick = value => {
-    updateField(value);
-    setShowMenu(false);
+  handleOptionClick = (e, value) => {
+    this.setState({
+      showMenu: false,
+      textFieldValue: value,
+      hasValueFromOptions: true
+    });
+    if (this.props.change) {
+      this.props.change(value);
+    }
   };
 
-  useEffect(() => {
-    if (!showMenu) {
-      if (!hasValueFromOptions) {
-        setOptions([]);
-      }
-    }
-  }, [showMenu]);
+  // useEffect(() => {
+  //   if (!showMenu) {
+  //     if (!hasValueFromOptions) {
+  //       setOptions([]);
+  //     }
+  //   }
+  // }, [showMenu]);
 
-  return (
-    <div onBlur={handleBlur} className="AutoCompleteInputField">
-      <input
-        type="text"
-        placeholder={props.placeholder}
-        value={textFieldValue}
-        onChange={changeHandler}
-        onFocus={() => setShowMenu(true)}
-      />
-      {showMenu && (
-        <div className={"Options"}>
-          {optionsToDisplay.length > 0 ? optionsToDisplay : "No results found"}
+  render() {
+    const optionsElements = this.props.options.map((option, index) => {
+      return (
+        <div
+          key={index}
+          className={"Option"}
+          onClick={e => this.handleOptionClick(e, option.value)}
+        >
+          {option.label}
         </div>
-      )}
+      );
+    });
 
-      <style jsx>{`
-        .AutoCompleteInputField {
-          width: 100%;
-        }
+    return (
+      <div onBlur={this.handleBlur} className="AutoCompleteInputField">
+        <input
+          type="text"
+          placeholder={this.props.placeholder}
+          value={this.state.textFieldValue}
+          onChange={this.inputTextChangeHandler}
+          onFocus={() => this.setState({ showMenu: true })}
+        />
+        {this.state.showMenu && (
+          <div className={"Options"}>
+            {this.props.options.length > 0
+              ? optionsElements
+              : "No results found"}
+          </div>
+        )}
 
-        input,
-        textarea,
-        select {
-          border: none;
-          margin: 5px 20px 5px 15px;
-          width: 90%;
-          outline: none;
-        }
+        <style jsx>{`
+          .AutoCompleteInputField {
+            width: 100%;
+          }
 
-        input::placeholder,
-        textarea::placeholder,
-        select::placeholder {
-          color: ${variables.secondaryTextColor};
-        }
+          input,
+          textarea,
+          select {
+            border: none;
+            margin: 5px 20px 5px 15px;
+            width: 90%;
+            outline: none;
+          }
 
-        textarea {
-          min-height: 300px;
-          padding-top: 15px;
-        }
+          input::placeholder,
+          textarea::placeholder,
+          select::placeholder {
+            color: ${variables.secondaryTextColor};
+          }
 
-        label {
-          color: ${variables.baseTextColor};
-        }
+          textarea {
+            min-height: 300px;
+            padding-top: 15px;
+          }
 
-        .Options {
-          left: 0;
-          right: 0;
-          background-color: ${variables.clearColor};
-          border: 1px solid ${variables.mutedColor2};
-          position: absolute;
-          top: 50px;
-          z-index: 999;
-          border-bottom-left-radius: 10px;
-          border-bottom-right-radius: 10px;
-          padding: 5px 15px;
-          box-shadow: 0px 32px 45px -41px rgba(0, 0, 0, 0.75);
-        }
+          label {
+            color: ${variables.baseTextColor};
+          }
 
-        .Options :global(.Option) {
-          margin-bottom: 5px;
-        }
+          .Options {
+            left: 0;
+            right: 0;
+            background-color: ${variables.clearColor};
+            border: 1px solid ${variables.mutedColor2};
+            position: absolute;
+            top: 50px;
+            z-index: 999;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            padding: 5px 15px;
+            box-shadow: 0px 32px 45px -41px rgba(0, 0, 0, 0.75);
+          }
 
-        .Options :global(.Option):hover {
-          margin-bottom: 5px;
-          background-color: blue;
-        }
-      `}</style>
-    </div>
-  );
-};
+          .Options :global(.Option) {
+            margin-bottom: 5px;
+          }
+
+          .Options :global(.Option):hover {
+            margin-bottom: 5px;
+            background-color: blue;
+          }
+        `}</style>
+      </div>
+    );
+  }
+}
 
 const filterOptions = (sentence, options) => {
   const words = sentence
@@ -179,4 +198,9 @@ const filterOptions = (sentence, options) => {
   return sentence === "" ? options : result;
 };
 
-export default locationInputField;
+// const comparisonFn = function(prevProps, nextProps) {
+
+//   return prevProps.options === nextProps.options;
+// };
+
+export default AutoCompleteInputField;
