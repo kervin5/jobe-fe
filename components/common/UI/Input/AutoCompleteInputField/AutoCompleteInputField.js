@@ -159,6 +159,7 @@ class AutoCompleteInputField extends React.Component {
             border-bottom-right-radius: 10px;
             padding: 5px 15px;
             box-shadow: 0px 32px 45px -41px rgba(0, 0, 0, 0.75);
+            cursor: pointer;
           }
 
           .Options :global(.Option) {

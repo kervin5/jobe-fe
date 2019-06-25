@@ -60,10 +60,11 @@ const inputField = props => {
 
   useEffect(() => {
     console.log(isFocused);
+    console.log({ value, touched, isFocused });
     if ((touched && !isFocused) || props.validate) {
       validate();
     }
-  }, [value, touched, props.validate, isFocused]);
+  }, [value, touched, props.validate]);
 
   const validate = () => {
     if (validation.required) {
