@@ -33,9 +33,11 @@ const Button = props => {
             : variables.accentColor1};
           border: none;
           color: ${variables.clearColor};
-          box-shadow: 0px 3px 22px -10px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 5px 15px -9px rgba(0, 0, 0, 0.66);
           transition: 300ms;
-          width: 100%;
+          min-width: 100px;
+          padding-left: 10px;
+          padding-right: 10px;
         }
 
         .Button:hover {

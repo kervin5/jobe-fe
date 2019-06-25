@@ -7,8 +7,8 @@ import Button from "../../common/UI/Button";
 const buttonStyles = `margin-top:10px;`;
 
 const searchForm = props => {
-  const [searchTerms, setSearchTerms] = useState("");
-  const [searchLocation, setSearchLocation] = useState("");
+  const [searchTerms, setSearchTerms] = useState(props.terms || "");
+  const [searchLocation, setSearchLocation] = useState(props.location || "");
   const [validate, setValidate] = useState(false);
 
   const submitFormHandler = e => {
@@ -39,7 +39,7 @@ const searchForm = props => {
         placeholder="Location"
         rounded
         icon="map-marker-alt"
-        value={searchLocation}
+        value={props.location || searchLocation}
         change={setSearchLocation}
         required
       />
@@ -50,7 +50,8 @@ const searchForm = props => {
         form {
           width: 100%;
           max-width: 400px;
-          padding: 0 15px;
+          padding ${props.noPadding ? "0px" : "0 15px"};
+         
         }
 
         form * {
@@ -58,18 +59,29 @@ const searchForm = props => {
         }
 
         form :global(.InputContainer) {
-          margin-left: 5px;
+    
           margin-right: 5px;
+        }
+
+        form :global(input) {
+          font-weight: bold;
         }
 
         @media (min-width: ${variables.mediumScreen}) {
           form {
             display: flex;
             max-width: 920px;
+         
           }
 
           form > * {
             margin: 4px;
+          }
+        }
+
+        @media (max-width: ${variables.mediumScreen}) {
+          form :global(button) {
+            width: 100%;
           }
         }
       `}</style>

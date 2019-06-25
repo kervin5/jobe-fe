@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import variables from "../../../globalVariables";
 import AutoCompleteInputField from "../AutoCompleteInputField/AutoCompleteInputField";
 import axios from "axios";
-// import inputStyles from '../InputStyles';
 
 const locationInputField = props => {
   const [locations, setLocations] = useState([]);
@@ -64,7 +63,6 @@ const locationInputField = props => {
 
   return (
     <React.Fragment>
-      {/*<input type="text" placeholder={props.placeholder} value={props.value || ''} onChange={changeHandler} />*/}
       <AutoCompleteInputField
         placeholder={props.placeholder}
         change={changeHandler}
@@ -102,4 +100,8 @@ const locationInputField = props => {
   );
 };
 
-export default locationInputField;
+const comparisonFn = function(prevProps, nextProps) {
+  return prevProps.value === nextProps.value;
+};
+
+export default React.memo(locationInputField, comparisonFn);

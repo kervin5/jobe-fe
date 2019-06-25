@@ -48,17 +48,17 @@ const jobListing = props => (
     </div>
     <style jsx>{`
             .JobListing {
-
                 box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
                 min-height: 100vh;
                 margin-bottom: 30px;
                 border-radius: 30px;
+                background-color: ${variables.clearColor};
             }
 
             .Body{
                 margin: 0 auto;
                 padding: 40px 40px 60px 40px;
-                background-color: ${variables.clearColor};
+                
                 border-bottom-right-radius: 30px;
                 border-bottom-left-radius: 30px;
                 color: ${variables.baseTextColor};
@@ -83,6 +83,7 @@ const jobListing = props => (
        
                 list-style-image: url('${"../../../static/images/ExactStaffArrow.png"}');
                 // padding: 5px;
+                margin-bottom: 5px;
             }
 
             @media only screen and (max-width: 520px){
