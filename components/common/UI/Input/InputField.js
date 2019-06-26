@@ -47,8 +47,11 @@ const inputField = props => {
       if (isFocused) {
         setIsFocused(false);
       }
+
+      if (!touched) {
+        setTouched(true);
+      }
     }, 0);
-    setTouched(true);
   };
 
   const handleFocus = () => {
@@ -59,9 +62,7 @@ const inputField = props => {
   };
 
   useEffect(() => {
-    console.log(isFocused);
-    console.log({ value, touched, isFocused });
-    if ((touched && !isFocused) || props.validate) {
+    if (touched || props.validate) {
       validate();
     }
   }, [value, touched, props.validate]);
