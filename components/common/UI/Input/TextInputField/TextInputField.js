@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import variables from "../../../globalVariables";
 import inputStyles from "../InputStyles";
 
@@ -28,6 +28,7 @@ const textInputField = props => {
         placeholder={props.placeholder}
         value={value}
         onChange={changeHandler}
+        autoFocus={props.focused ? true : false}
       />
 
       <style jsx>{`
