@@ -27,12 +27,18 @@ const login = () => {
             <a> Sign Up</a>
           </Link>
         </p>
-        <img src={friendsImgUrl} />
+        <div className="BgImage">
+          <img src={friendsImgUrl} />
+        </div>
       </PageSection>
       <style jsx>{`
-        img {
+        .BgImage {
           width: 100%;
           max-width: 400px;
+        }
+
+        .BgImage img {
+          width: 100%;
         }
 
         .forgoPasswordLink {

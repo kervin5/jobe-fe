@@ -38,6 +38,7 @@ const Button = props => {
           min-width: 100px;
           padding-left: 10px;
           padding-right: 10px;
+          width: ${props.fullWidth ? "100%" : "auto"};
         }
 
         .Button:hover {
