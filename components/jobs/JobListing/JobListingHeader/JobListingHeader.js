@@ -1,8 +1,9 @@
-import React from "react";
+import React, { setState } from "react";
 import variables from "../../../../components/common/globalVariables";
 import Bubble from "../../../common/UI/Bubble";
 import Icon from "../../../common/UI/Icon";
 import Title from "../../../common/UI/Title";
+import FavoriteIcon from "../../../common/UI/favoriteIcon";
 
 const jobListingTitleStyles = `color: ${variables.clearColor};`;
 const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
@@ -23,7 +24,7 @@ const header = props => (
         </Bubble>
         <Bubble color="3">{props.type}</Bubble>
       </div>
-      <Icon icon="heart" color="white" float="right" />
+      <FavoriteIcon />
     </div>
     <style jsx>{`
       .header {

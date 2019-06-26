@@ -1,17 +1,18 @@
 import React from "react";
+import Link from "next/link";
 import variables from "../../../globalVariables";
 // import classes from './NavigationItems.module.scss';
 import NavigationItem from "./NavigationItem.js";
-import Icon from "../../Icon";
-import DropdownMenu from "../DropdownMenu";
 
 const navigationItems = () => {
   return (
     <div>
-      <NavigationItem>Search Jobs</NavigationItem>
-      <NavigationItem>
-        <Icon icon={"user"} />
-      </NavigationItem>
+      <Link href="/jobs">
+        <NavigationItem>Search Jobs</NavigationItem>
+      </Link>
+      <NavigationItem>My Dashboard</NavigationItem>
+      <NavigationItem>Log Out</NavigationItem>
+
       <style jsx>{`
         div {
           display: flex;
