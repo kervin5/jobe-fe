@@ -31,7 +31,7 @@ const homePage = props => {
           align-items: center;
           width: 100%;
           max-width: 700px;
-          padding: 30px;
+          padding: 20px 30px;
         }
 
         .Logos img {

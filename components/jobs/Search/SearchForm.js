@@ -32,6 +32,7 @@ const searchForm = props => {
         value={searchTerms}
         change={setSearchTerms}
         required
+        focused
       />
       <InputField
         validate={validate}
@@ -64,7 +65,12 @@ const searchForm = props => {
         }
 
         form :global(input) {
-          font-weight: bold;
+        
+          font-size: 1.1em;
+        }
+
+        form :global(button) {
+          margin-bottom: 20px;
         }
 
         @media (min-width: ${variables.mediumScreen}) {

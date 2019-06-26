@@ -92,6 +92,7 @@ const inputField = props => {
         placeholder={props.placeholder}
         value={props.value}
         change={changeHandler}
+        focused={props.focused}
       />
     );
   } else if (props.type === "switch") {
@@ -161,7 +162,7 @@ const inputField = props => {
           {FieldToRender}
         </div>
         <p className={"ErrorMessage"}>
-          &nbsp;
+          <span className={"spacer"}>&nbsp;</span>
           {props.type !== "switch" && errors.length > 0 ? errorLabel : null}
         </p>
       </div>
@@ -226,17 +227,19 @@ const inputField = props => {
 
         div :global(.ErrorMessage) {
           color: red !important;
-          // position: absolute;
           top: initial !important;
-          // bottom: -25px;
-          // left: 0px;
           font-size: 0.8em;
           font-weight: 400 !important;
-          margin-bottom: 20px;
         }
 
         label {
           color: ${variables.baseTextColor};
+        }
+
+        @media (max-width: ${variables.mediumScreen}) {
+          .spacer {
+            display: none;
+          }
         }
       `}</style>
     </div>
