@@ -147,10 +147,9 @@ const inputField = props => {
   ].join(" ");
 
   const errorLabel = (
-    <p className={"ErrorMessage"}>
-      {" "}
+    <React.Fragment>
       <FontAwesomeIcon icon={"exclamation-circle"} /> This field is required
-    </p>
+    </React.Fragment>
   );
 
   return (
@@ -161,7 +160,10 @@ const inputField = props => {
           {props.type !== "textarea" ? inputOrnaments : null}
           {FieldToRender}
         </div>
-        {props.type !== "switch" && errors.length > 0 ? errorLabel : null}
+        <p className={"ErrorMessage"}>
+          &nbsp;
+          {props.type !== "switch" && errors.length > 0 ? errorLabel : null}
+        </p>
       </div>
       <style jsx>{`
         .InputField {

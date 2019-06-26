@@ -3,12 +3,15 @@ import variables from "../../../globalVariables";
 // import inputStyles from '../InputStyles';
 
 class AutoCompleteInputField extends React.Component {
+  _timeoutID;
+
   state = {
     textFieldValue: this.props.value || "",
     optionsToDisplay: null,
     options: [],
     hasValueFromOptions: false,
-    showMenu: false
+    showMenu: false,
+    isManagingFocus: false
   };
 
   inputTextChangeHandler = async e => {
@@ -27,11 +30,6 @@ class AutoCompleteInputField extends React.Component {
     }
     this.setState({ hasValueFromOptions: this.fieldIsValid(value) }, () => {
       if (this.props.change) {
-        console.log(
-          "Executed---------------------------------------------------",
-          value,
-          this.state.hasValueFromOptions
-        );
         if (this.state.hasValueFromOptions) {
           this.props.change(textFieldValue);
         } else {
@@ -59,17 +57,10 @@ class AutoCompleteInputField extends React.Component {
   //   }
   // }, [textFieldValue, hasValueFromOptions]);
 
-  handleBlur = e => {
-    // const currentTarget = e.currentTarget;
-    // setTimeout(function() {
-    //   if (!currentTarget.contains(document.activeElement)) {
-    //     setShowMenu(false);
-    //   }
-    // }, 0);
-    // TODO: Refactor onBlur handler
-  };
-
   handleOptionClick = (e, value) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("Clicked");
     this.setState({
       showMenu: false,
       textFieldValue: value,
@@ -88,13 +79,52 @@ class AutoCompleteInputField extends React.Component {
   //   }
   // }, [showMenu]);
 
+  _onBlur = e => {
+    e.preventDefault();
+    // e.stopPropagation();
+    console.log("Lost");
+    this._timeoutID = setTimeout(() => {
+      if (this.state.isManagingFocus) {
+        this.setState({
+          isManagingFocus: false,
+          showMenu: false
+        });
+      }
+
+      if (this.props.change) {
+        if (this.state.hasValueFromOptions) {
+          this.props.change(this.state.textFieldValue);
+        } else {
+          this.props.change("");
+          this.setState({ textFieldValue: "", options: [] });
+        }
+      }
+    }, 0);
+  };
+
+  _onFocus = () => {
+    clearTimeout(this._timeoutID);
+    if (!this.state.isManagingFocus) {
+      this.setState({
+        isManagingFocus: true,
+        showMenu: true
+      });
+    }
+  };
+
   render() {
-    const optionsElements = this.props.options.map((option, index) => {
+    let options = this.props.ajax ? this.props.options : this.state.options;
+
+    if (this.state.textFieldValue === "") {
+      options = [];
+    }
+
+    const optionsElements = options.map((option, index) => {
       return (
         <div
           key={index}
           className={"Option"}
-          onClick={e => this.handleOptionClick(e, option.value)}
+          onMouseDown={e => this.handleOptionClick(e, option.value)}
         >
           {option.label}
         </div>
@@ -102,19 +132,21 @@ class AutoCompleteInputField extends React.Component {
     });
 
     return (
-      <div onBlur={this.handleBlur} className="AutoCompleteInputField">
+      <div
+        onBlur={this.handleBlur}
+        className="AutoCompleteInputField"
+        onFocus={this._onFocus}
+        onBlur={this._onBlur}
+      >
         <input
           type="text"
           placeholder={this.props.placeholder}
           value={this.state.textFieldValue}
           onChange={this.inputTextChangeHandler}
-          onFocus={() => this.setState({ showMenu: true })}
         />
         {this.state.showMenu && (
           <div className={"Options"}>
-            {this.props.options.length > 0
-              ? optionsElements
-              : "No results found"}
+            {options.length > 0 ? optionsElements : "No results found"}
           </div>
         )}
 
