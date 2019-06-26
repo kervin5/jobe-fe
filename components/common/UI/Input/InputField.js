@@ -47,8 +47,11 @@ const inputField = props => {
       if (isFocused) {
         setIsFocused(false);
       }
+
+      if (!touched) {
+        setTouched(true);
+      }
     }, 0);
-    setTouched(true);
   };
 
   const handleFocus = () => {
@@ -59,9 +62,7 @@ const inputField = props => {
   };
 
   useEffect(() => {
-    console.log(isFocused);
-    console.log({ value, touched, isFocused });
-    if ((touched && !isFocused) || props.validate) {
+    if (touched || props.validate) {
       validate();
     }
   }, [value, touched, props.validate]);
@@ -146,10 +147,9 @@ const inputField = props => {
   ].join(" ");
 
   const errorLabel = (
-    <p className={"ErrorMessage"}>
-      {" "}
+    <React.Fragment>
       <FontAwesomeIcon icon={"exclamation-circle"} /> This field is required
-    </p>
+    </React.Fragment>
   );
 
   return (
@@ -160,7 +160,10 @@ const inputField = props => {
           {props.type !== "textarea" ? inputOrnaments : null}
           {FieldToRender}
         </div>
-        {props.type !== "switch" && errors.length > 0 ? errorLabel : null}
+        <p className={"ErrorMessage"}>
+          &nbsp;
+          {props.type !== "switch" && errors.length > 0 ? errorLabel : null}
+        </p>
       </div>
       <style jsx>{`
         .InputField {
