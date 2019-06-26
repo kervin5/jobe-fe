@@ -14,7 +14,7 @@ import Loader from "../../components/common/UI/Animated/Loader";
 const pageStyles = `background-color:${variables.mutedColor1}`;
 
 const single = props => {
-  const [singleJob, setSingleJob] = useState({});
+  const [singleJob, setSingleJob] = useState(null);
   let waitingOnData = <Loader />;
 
   useEffect(() => {
@@ -30,7 +30,6 @@ const single = props => {
       .then(response => {
         if (response.data) {
           setSingleJob(response.data);
-          // console.log(response.data)
         }
       })
       .catch(err => {
