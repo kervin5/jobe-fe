@@ -1,15 +1,15 @@
-import React from 'react'
-import NextHead from 'next/head'
-import { string } from 'prop-types'
+import React from "react";
+import NextHead from "next/head";
+import { string } from "prop-types";
 
-const defaultDescription = ''
-const defaultOGURL = ''
-const defaultOGImage = ''
+const defaultDescription = "";
+const defaultOGURL = "";
+const defaultOGImage = "";
 
 const Head = props => (
   <NextHead>
     <meta charSet="UTF-8" />
-    <title>{props.title || ''}</title>
+    <title>{props.title || ""}</title>
     <meta
       name="description"
       content={props.description || defaultDescription}
@@ -19,10 +19,16 @@ const Head = props => (
     <link rel="apple-touch-icon" href="/static/touch-icon.png" />
     <link rel="mask-icon" href="/static/favicon-mask.svg" color="#49B882" />
     <link rel="icon" href="/static/favicon.ico" />
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
+      rel="stylesheet"
+    />
     <meta property="og:url" content={props.url || defaultOGURL} />
-    <meta property="og:title" content={props.title || ''} />
+    <meta property="og:title" content={props.title || ""} />
     <meta
       property="og:description"
       content={props.description || defaultDescription}
@@ -43,4 +49,4 @@ Head.propTypes = {
   ogImage: string
 };
 
-export default Head
+export default Head;
