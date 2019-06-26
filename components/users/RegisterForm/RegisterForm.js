@@ -16,21 +16,24 @@ const registerForm = () => {
       valid: false,
       type: "text",
       label: "Full Name",
-      placeholder: "John Doe"
+      placeholder: "John Doe",
+      valid: false
     },
     emailAddress: {
       value: "",
       valid: false,
       type: "text",
       label: "Email Address",
-      placeholder: "john@doe.com"
+      placeholder: "john@doe.com",
+      valid: false
     },
     password: {
       value: "",
       valid: false,
       type: "password",
       label: "Password",
-      placeholder: " Password"
+      placeholder: " Password",
+      valid: false
     }
   });
 
