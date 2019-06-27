@@ -33,7 +33,7 @@ const SearchPage = props => {
         `/jobs?q=${searchParams.terms}&location=${searchParams.location}&page=${searchParams.page}`
       )
       .then(res => {
-        fetchData(searchParams.terms, searchParams.location);
+        fetchData(searchParams.terms, searchParams.location, searchParams.page);
       });
   }, []);
 
