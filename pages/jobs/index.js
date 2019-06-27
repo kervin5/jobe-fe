@@ -16,20 +16,21 @@ const SearchContext = React.createContext();
 const SearchPage = props => {
   const {
     router: {
-      query: { q, location }
+      query: { q, location, page }
     }
   } = props;
 
   const [jobs, setJobs] = useState([]);
   const [searchParams, setSearchParams] = useState({
     terms: q,
-    location: location
+    location: location,
+    page: page
   });
 
   useEffect(() => {
     axios
       .get(
-        `/jobs?q=${searchParams.terms}&location=${searchParams.location}&page=${page}`
+        `/jobs?q=${searchParams.terms}&location=${searchParams.location}&page=${searchParams.page}`
       )
       .then(res => {
         fetchData(searchParams.terms, searchParams.location);
@@ -43,10 +44,10 @@ const SearchPage = props => {
       }
     } = props;
 
-    fetchData(q, location);
+    fetchData(q, location, page);
   }, [props.router]);
 
-  const fetchData = (terms, location) => {
+  const fetchData = (terms, location, page) => {
     axios
       .get(`/jobs?q=${terms}&location=${location}&page=${page}`)
       .then(res => {
