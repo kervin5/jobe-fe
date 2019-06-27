@@ -37,6 +37,8 @@ const registerForm = () => {
     }
   });
 
+  const [validate, setValidate] = useState(false);
+
   const updatedFieldHandler = (key, value, valid) => {
     const updatedState = {
       ...registerData,
@@ -51,6 +53,7 @@ const registerForm = () => {
 
   const registerSubmitHandler = async e => {
     e.preventDefault();
+    setValidate(true);
     const { fullName, emailAddress, password } = registerData;
 
     if (fullName.valid && emailAddress.valid && password.valid) {
@@ -63,9 +66,9 @@ const registerForm = () => {
             email: emailAddress.value,
             password: password.value
           }
-          // withCredentials: true
         });
-        console.log(result);
+        // window.sessionStorage.setItem("token", result.data.token);
+        // Router.push("/dashboard");
       } catch (ex) {
         console.log("error", ex.response);
       }
@@ -85,6 +88,7 @@ const registerForm = () => {
         key={"registerField" + key}
         required
         rounded
+        validate={validate}
       />
     );
   });
@@ -96,7 +100,9 @@ const registerForm = () => {
         <br />
         {registerFormData}
         <br />
-        <Button click={registerSubmitHandler}>Submit</Button>
+        <Button click={registerSubmitHandler} fullWidth>
+          Submit
+        </Button>
       </form>
 
       <style jsx>{`
