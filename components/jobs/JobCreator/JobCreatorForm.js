@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../../../data/api";
 // import classes from './JobCreatorForm.module.scss';
 import InputField from "../../common/UI/Input/InputField";
 import InputGroup from "../../common/UI/Input/InputGroup";
@@ -105,7 +105,7 @@ class JobCreatorForm extends Component {
       };
 
       axios
-        .post("https://myexactjobsapi.herokuapp.com/api/jobs", jobData)
+        .post("/jobs", jobData)
         .then(res => {
           this.setState({ status: "posted" });
         })
