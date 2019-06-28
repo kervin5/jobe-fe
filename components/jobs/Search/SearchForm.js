@@ -15,8 +15,9 @@ const searchForm = props => {
     e.preventDefault();
     setValidate(true);
 
+    console.log(searchTerms, searchLocation);
     if (searchTerms !== "" && searchLocation !== "") {
-      Router.push(`/jobs?q=${searchTerms}&location=${searchLocation}&page=1`);
+      Router.push(`/jobs?q=${searchTerms}&location=${searchLocation}`);
     }
   };
 
