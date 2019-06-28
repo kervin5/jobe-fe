@@ -24,29 +24,29 @@ const jobListing = props => (
     />
 
     <div className="Body" data-test="main-content-section">
-      <JobListingContentBlock title={"Job Description"}>
-        {props.description}
-      </JobListingContentBlock>
+      <Title size={"m"}>Job Description:</Title>
+      <p>{props.description}</p>
+      <br />
 
       <Title size={"m"}>Responsabilities:</Title>
-
       <HtmlRenderer html={props.qualifications} />
+      <br />
 
       <Title size={"m"}>Qualilfications:</Title>
-
       <HtmlRenderer html={props.requirements} />
+      <br />
 
-      <JobListingContentBlock
-        title={"About the Company"}
-        data-test="company-information-section"
-      >
-        {props.aboutCompany}
-      </JobListingContentBlock>
+      <Title size={"m"} data-test="company-information-section">
+        About the Company:
+      </Title>
+      <p>{props.aboutCompany}</p>
+      <br />
 
       <Button
         className="button"
         click={() => window.alert("You Have Sucessfully applied")}
         data-test="appy-button"
+        fullWidth
       >
         Apply
       </Button>
@@ -65,8 +65,8 @@ const jobListing = props => (
                 margin: 0 auto;
                 padding: 40px 40px 60px 40px;
                 
-                border-bottom-right-radius: 30px;
-                border-bottom-left-radius: 30px;
+                border-bottom-right-radius: ${variables.roundedRadius};
+                border-bottom-left-radius: ${variables.roundedRadius};
                 color: ${variables.baseTextColor};
             }
 
@@ -76,12 +76,10 @@ const jobListing = props => (
                 float: right;
             }
 
-            .Body p {
-                padding-bottom: 30px;
-            }
+
 
             .JobListing :global(ul){
-                padding: 0 0 20px 40px;
+                padding: 0 0 0 40px;
                 color: ${variables.baseTextColor};
             }
 
@@ -96,6 +94,8 @@ const jobListing = props => (
                 .JobListing {
                     max-width: 100%;
                     margin: 0 auto;
+                    border-bottom-right-radius: 0px;
+                    border-bottom-left-radius: 0px;
                 }
 
                 .Body{
