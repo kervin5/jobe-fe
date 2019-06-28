@@ -4,7 +4,7 @@ import InputField from "../../common/UI/Input/InputField";
 import Button from "../../common/UI/Button";
 import Title from "../../common/UI/Title";
 import Router from "next/router";
-import { loginUser } from "../../../data/auth";
+import { logInUser } from "../../../data/auth";
 
 const loginForm = () => {
   const [formData, setFormData] = useState({
@@ -55,7 +55,7 @@ const loginForm = () => {
             password: password.value
           }
         });
-        loginUser(result.data.token);
+        logInUser(result.data.token);
         Router.push("/dashboard");
       } catch (ex) {
         console.log("Error", ex.response);

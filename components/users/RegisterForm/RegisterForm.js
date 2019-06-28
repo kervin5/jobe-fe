@@ -5,6 +5,7 @@ import InputField from "../../common/UI/Input/InputField";
 import Title from "../../common/UI/Title";
 import Button from "../../../components/common/UI/Button";
 import axios from "../../../data/api";
+import Router from "next/router";
 
 // POST https://myexactjobsapi.herokuapp.com/api/users
 // name, email, password
@@ -16,23 +17,28 @@ const registerForm = () => {
       valid: false,
       type: "text",
       label: "Full Name",
-      placeholder: "John Doe"
+      placeholder: "John Doe",
+      valid: false
     },
     emailAddress: {
       value: "",
       valid: false,
       type: "text",
       label: "Email Address",
-      placeholder: "john@doe.com"
+      placeholder: "john@doe.com",
+      valid: false
     },
     password: {
       value: "",
       valid: false,
       type: "password",
       label: "Password",
-      placeholder: " Password"
+      placeholder: " Password",
+      valid: false
     }
   });
+
+  const [validate, setValidate] = useState(false);
 
   const updatedFieldHandler = (key, value, valid) => {
     const updatedState = {
@@ -48,6 +54,7 @@ const registerForm = () => {
 
   const registerSubmitHandler = async e => {
     e.preventDefault();
+    setValidate(true);
     const { fullName, emailAddress, password } = registerData;
 
     if (fullName.valid && emailAddress.valid && password.valid) {
@@ -60,9 +67,10 @@ const registerForm = () => {
             email: emailAddress.value,
             password: password.value
           }
-          // withCredentials: true
         });
-        console.log(result);
+        // console.log(response.headers.T);
+        window.sessionStorage.setItem("token", result.headers.token);
+        Router.push("/dashboard");
       } catch (ex) {
         console.log("error", ex.response);
       }
@@ -82,6 +90,7 @@ const registerForm = () => {
         key={"registerField" + key}
         required
         rounded
+        validate={validate}
       />
     );
   });
@@ -93,7 +102,9 @@ const registerForm = () => {
         <br />
         {registerFormData}
         <br />
-        <Button click={registerSubmitHandler}>Submit</Button>
+        <Button click={registerSubmitHandler} fullWidth>
+          Submit
+        </Button>
       </form>
 
       <style jsx>{`
