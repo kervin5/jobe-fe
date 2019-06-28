@@ -29,7 +29,7 @@ const SearchPage = props => {
   useEffect(() => {
     axios
       .get(
-        `/jobs/query?q=${searchParams.terms}&location=${searchParams.location}`
+        `/jobs?q=${searchParams.terms}&location=${searchParams.location}&page=${page}`
       )
       .then(res => {
         fetchData(searchParams.terms, searchParams.location);
@@ -39,7 +39,7 @@ const SearchPage = props => {
   useEffect(() => {
     const {
       router: {
-        query: { q, location }
+        query: { q, location, page }
       }
     } = props;
 
@@ -47,9 +47,11 @@ const SearchPage = props => {
   }, [props.router]);
 
   const fetchData = (terms, location) => {
-    axios.get(`/jobs/query?q=${terms}&location=${location}`).then(res => {
-      setJobs(res.data);
-    });
+    axios
+      .get(`/jobs?q=${terms}&location=${location}&page=${page}`)
+      .then(res => {
+        setJobs(res.data);
+      });
   };
 
   return (
