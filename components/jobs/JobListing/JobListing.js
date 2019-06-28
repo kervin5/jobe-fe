@@ -13,16 +13,17 @@ import HtmlRenderer from "../../hoc/HtmlRenderer";
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
 const jobListing = props => (
-  <div className="JobListing">
+  <div className="JobListing" data-test="job-listing">
     <JobListingHeader
       title={props.title}
       location={props.location}
       minAmount={props.minAmount}
       maxAmount={props.maxAmount}
       type={props.type}
+      data-test="title-section"
     />
 
-    <div className="Body">
+    <div className="Body" data-test="main-content-section">
       <JobListingContentBlock title={"Job Description"}>
         {props.description}
       </JobListingContentBlock>
@@ -35,13 +36,17 @@ const jobListing = props => (
 
       <HtmlRenderer html={props.requirements} />
 
-      <JobListingContentBlock title={"About the Company"}>
+      <JobListingContentBlock
+        title={"About the Company"}
+        data-test="company-information-section"
+      >
         {props.aboutCompany}
       </JobListingContentBlock>
 
       <Button
         className="button"
         click={() => window.alert("You Have Sucessfully applied")}
+        data-test="appy-button"
       >
         Apply
       </Button>
