@@ -5,6 +5,7 @@ import InputField from "../../common/UI/Input/InputField";
 import Title from "../../common/UI/Title";
 import Button from "../../../components/common/UI/Button";
 import axios from "../../../data/api";
+import Router from "next/router";
 
 // POST https://myexactjobsapi.herokuapp.com/api/users
 // name, email, password
@@ -67,9 +68,9 @@ const registerForm = () => {
             password: password.value
           }
         });
-        console.log(result);
-        // window.sessionStorage.setItem("token", result.data.token);
-        // Router.push("/dashboard");
+        // console.log(response.headers.T);
+        window.sessionStorage.setItem("token", result.headers.token);
+        Router.push("/dashboard");
       } catch (ex) {
         console.log("error", ex.response);
       }

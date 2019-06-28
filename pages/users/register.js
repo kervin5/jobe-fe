@@ -22,7 +22,7 @@ const register = () => {
 
       <style jsx>{`
         img {
-          width: 210px;
+          width: 310px;
           opacity: 0.3;
         }
       `}</style>
