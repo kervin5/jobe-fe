@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { withRouter } from "next/router";
 import axios from "../../data/api";
 import variables from "../../components/common/globalVariables";
 import Layout from "../../components/common/Layout/Layout";
-import { withRouter } from "next/router";
-import JobList from "../../components/jobs/JobList/JobList";
 import PageSection from "../../components/common/Layout/PageSection";
+
+import JobList from "../../components/jobs/JobList/JobList";
 import SearchFieldSection from "../../components/jobs/Search/SearchFieldSection";
 import Button from "../../components/common/UI/Button";
 import ButtonGroup from "../../components/common/UI/ButtonGroup";
 import Loader from "../../components/common/UI/Animated/Loader";
-import Router from "next/router";
+import SideDrawer from "../../components/common/UI/Navigation/SideDrawer";
 
 const styles = `background-color: ${variables.mutedColor1}; padding: 30px; align-items: flex-start;`;
 
@@ -21,21 +22,25 @@ const SearchPage = props => {
   } = props;
 
   const [jobs, setJobs] = useState(null);
-  const [terms, setTerms] = useState(query.q);
-  const [location, setLocation] = useState(query.location);
-  const [page, setPage] = useState(parseInt(query.page));
+  const [page, setPage] = useState(1);
   const [showMoreButton, setShowMoreButton] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
-    fetchData(terms, location, page);
+    fetchData(query.q, query.location, page, true);
   }, [props.router]);
 
-  const fetchData = (terms, location, page) => {
+  const fetchData = (terms, location, page, refreshAll) => {
     axios
       .get(`/jobs?q=${terms}&location=${location}&page=${page}`)
       .then(res => {
-        const listOfJobs =
-          jobs == null ? [].concat(res.data) : jobs.concat(res.data);
+        let listOfJobs = [];
+        if (refreshAll) {
+          listOfJobs = res.data;
+        } else {
+          listOfJobs =
+            jobs == null ? [].concat(res.data) : jobs.concat(res.data);
+        }
         setJobs(listOfJobs);
       });
   };
@@ -45,7 +50,9 @@ const SearchPage = props => {
   };
 
   useEffect(() => {
-    fetchData(terms, location, page);
+    if (page !== 1) {
+      fetchData(query.q, query.location, page);
+    }
   }, [page]);
 
   useEffect(() => {
@@ -56,14 +63,22 @@ const SearchPage = props => {
 
   return (
     <Layout>
+      <SideDrawer show={showFilters} close={() => setShowFilters(false)}>
+        <h3>Filter</h3>
+      </SideDrawer>
       <PageSection styles={styles}>
         <div className="Container">
-          <SearchFieldSection terms={terms} location={location} />
+          <SearchFieldSection terms={query.q} location={query.location} />
           <ButtonGroup>
             <Button size={{ height: "30px" }} icon="bell">
               Create Alert
             </Button>
-            <Button size={{ height: "30px" }} icon="filter" color="2">
+            <Button
+              size={{ height: "30px" }}
+              icon="filter"
+              color="2"
+              click={() => setShowFilters(!showFilters)}
+            >
               Filter
             </Button>
           </ButtonGroup>
