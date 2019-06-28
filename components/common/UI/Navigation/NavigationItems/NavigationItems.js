@@ -3,20 +3,18 @@ import Link from "next/link";
 import variables from "../../../globalVariables";
 // import classes from './NavigationItems.module.scss';
 import NavigationItem from "./NavigationItem.js";
-import SideDrawer from "../SideDrawer";
 
 const navigationItems = () => {
-  const [showDrawer, setShowDrawer] = useState(false);
+  // const [showDrawer, setShowDrawer] = useState(false);
 
   return (
     <div>
       <Link href="/jobs">
         <NavigationItem>Search Jobs</NavigationItem>
       </Link>
-      <NavigationItem>Profile</NavigationItem>
-      <NavigationItem>
-        <SideDrawer />
-      </NavigationItem>
+      <Link href="/dashboard">
+        <NavigationItem>Profile</NavigationItem>
+      </Link>
 
       <style jsx>{`
         div {
