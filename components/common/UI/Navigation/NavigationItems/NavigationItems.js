@@ -12,8 +12,11 @@ const navigationItems = () => {
       <Link href="/jobs">
         <NavigationItem>Search Jobs</NavigationItem>
       </Link>
-      <Link href="/dashboard">
+      {/* <Link href="/dashboard">
         <NavigationItem>Profile</NavigationItem>
+      </Link> */}
+      <Link href="/LoginForm">
+        <NavigationItem>Log In</NavigationItem>
       </Link>
 
       <style jsx>{`
