@@ -8,6 +8,8 @@ import PageSection from "../../components/common/Layout/PageSection";
 import SearchFieldSection from "../../components/jobs/Search/SearchFieldSection";
 import Button from "../../components/common/UI/Button";
 import ButtonGroup from "../../components/common/UI/ButtonGroup";
+import Loader from "../../components/common/UI/Animated/Loader";
+import Router from "next/router";
 
 const styles = `background-color: ${variables.mutedColor1}; padding: 30px; align-items: flex-start;`;
 
@@ -15,54 +17,48 @@ const SearchContext = React.createContext();
 
 const SearchPage = props => {
   const {
-    router: {
-      query: { q, location, page }
-    }
+    router: { query }
   } = props;
 
-  const [jobs, setJobs] = useState([]);
-  const [searchParams, setSearchParams] = useState({
-    terms: q,
-    location: location,
-    page: page
-  });
+  const [jobs, setJobs] = useState(null);
+  const [terms, setTerms] = useState(query.q);
+  const [location, setLocation] = useState(query.location);
+  const [page, setPage] = useState(parseInt(query.page));
+  const [showMoreButton, setShowMoreButton] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(
-        `/jobs?q=${searchParams.terms}&location=${searchParams.location}&page=${searchParams.page}`
-      )
-      .then(res => {
-        fetchData(searchParams.terms, searchParams.location, searchParams.page);
-      });
-  }, []);
-
-  useEffect(() => {
-    const {
-      router: {
-        query: { q, location, page }
-      }
-    } = props;
-
-    fetchData(q, location, page);
+    fetchData(terms, location, page);
   }, [props.router]);
 
   const fetchData = (terms, location, page) => {
     axios
       .get(`/jobs?q=${terms}&location=${location}&page=${page}`)
       .then(res => {
-        setJobs(res.data);
+        const listOfJobs =
+          jobs == null ? [].concat(res.data) : jobs.concat(res.data);
+        setJobs(listOfJobs);
       });
   };
+
+  const handleViewMoreButton = () => {
+    setPage(page + 1);
+  };
+
+  useEffect(() => {
+    fetchData(terms, location, page);
+  }, [page]);
+
+  useEffect(() => {
+    if (jobs && jobs.length > 0 && jobs.length % page !== 0) {
+      setShowMoreButton(false);
+    }
+  }, [jobs]);
 
   return (
     <Layout>
       <PageSection styles={styles}>
         <div className="Container">
-          <SearchFieldSection
-            terms={searchParams.terms}
-            location={searchParams.location}
-          />
+          <SearchFieldSection terms={terms} location={location} />
           <ButtonGroup>
             <Button size={{ height: "30px" }} icon="bell">
               Create Alert
@@ -71,7 +67,14 @@ const SearchPage = props => {
               Filter
             </Button>
           </ButtonGroup>
-          <JobList jobs={jobs} />
+          {jobs ? <JobList jobs={jobs} /> : <Loader />}
+          {showMoreButton ? (
+            <Button fullWidth click={handleViewMoreButton}>
+              View More
+            </Button>
+          ) : (
+            <p>That's all for now 😊</p>
+          )}
         </div>
       </PageSection>
 
@@ -79,6 +82,10 @@ const SearchPage = props => {
         .Container {
           max-width: 600px;
           width: 100%;
+        }
+
+        p {
+          text-align: center;
         }
       `}</style>
     </Layout>

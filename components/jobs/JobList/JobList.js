@@ -1,9 +1,8 @@
 import React from "react";
 import JobListItem from "./JobListItem";
-import Loader from "../../common/UI/Animated/Loader";
 
 const jobList = props => {
-  let elementToRender = <Loader />;
+  let elementToRender = <h3>No jobs found</h3>;
 
   if (props.jobs.length > 0) {
     elementToRender = props.jobs.map(job => {
