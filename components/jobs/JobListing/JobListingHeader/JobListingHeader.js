@@ -9,11 +9,16 @@ const jobListingTitleStyles = `color: ${variables.clearColor};`;
 const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
 
 const header = props => (
-  <div className="header">
-    <Title size={"l"} styles={jobListingTitleStyles}>
+  <div className="header" data-test="job-listing-header">
+    <Title size={"l"} styles={jobListingTitleStyles} data-test="title-section">
       {props.title}
     </Title>
-    <Title size={"m"} styles={JobListingLocationStyles} weight="400">
+    <Title
+      size={"m"}
+      styles={JobListingLocationStyles}
+      weight="400"
+      data-test="location-section"
+    >
       <Icon icon="map-marker-alt" /> {props.location}
     </Title>
 
@@ -22,7 +27,7 @@ const header = props => (
         <Bubble color="1">
           ${props.minAmount}-{props.maxAmount}
         </Bubble>
-        <Bubble color="3">{props.type}</Bubble>
+        <Bubble color="2">{props.type}</Bubble>
       </div>
       <FavoriteIcon />
     </div>

@@ -13,7 +13,7 @@ const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.
 
 const homePage = props => {
   return (
-    <Layout title={"Home Page"}>
+    <Layout title={"Home Page"} data-test="indexPage">
       <PageSection styles={homePageStyle} className="HomePage" column>
         <div className="Logos">
           <img src={landingLogo} className="CompanyLogo" />
