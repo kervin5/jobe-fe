@@ -29,7 +29,9 @@
     "react-dom": "16.8.6",
     "react-draft-wysiwyg": "^1.13.2",
     "react-no-ssr": "^1.1.0",
+    "react-redux": "^7.1.0",
     "react-tag-autocomplete": "^5.11.1",
+    "redux": "^4.0.1",
     "sanitize-html": "^1.20.1",
     "uniqid": "^5.0.3"
   },
@@ -47,6 +49,7 @@
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
+    "redux-devtools-extension": "^2.13.8",
     "url-loader": "^1.1.2"
   },
   "husky": {
