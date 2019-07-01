@@ -61,6 +61,8 @@ const Button = props => {
           width: 40px;
           height: 40px;
           min-width: 0px;
+          padding-left: 0;
+          padding-right: 0;
         }
 
         .IconOnly :global(svg) {

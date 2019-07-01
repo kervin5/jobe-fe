@@ -5,10 +5,10 @@ import variables from "../../globalVariables";
 const ButtonsBar = props => {
   return (
     <nav>
-      <Button iconOnly icon="home" />
-      <Button iconOnly icon="briefcase" />
-      <Button iconOnly icon="users" />
-      <Button iconOnly icon="cog" />
+      <Button iconOnly icon="Home" />
+      <Button iconOnly icon="BusinessCenter" />
+      <Button iconOnly icon="Group" />
+      <Button iconOnly icon="Settings" />
       <style jsx>{`
         nav {
           top: 70px;

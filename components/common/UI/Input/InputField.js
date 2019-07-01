@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import variables from "../../globalVariables";
 // import classes from './InputField.module.scss';
 import DropdownInputField from "./DropdownInputField/DropdownInputField";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Icon from "../Icon";
 import SwitchInputField from "./SwitchInputField/SwitchInputField";
 import TextField from "./TextInputField/TextInputField";
 import LocationInputField from "./LocationInputField/LocationInputField";
@@ -24,10 +24,7 @@ const inputField = props => {
   const inputOrnaments = (
     <React.Fragment>
       {props.icon ? (
-        <FontAwesomeIcon
-          icon={["fa", props.icon]}
-          style={{ color: variables.accentColor1 }}
-        />
+        <Icon icon={props.icon} style={{ color: variables.accentColor1 }} />
       ) : null}
     </React.Fragment>
   );
@@ -149,7 +146,7 @@ const inputField = props => {
 
   const errorLabel = (
     <React.Fragment>
-      <FontAwesomeIcon icon={"exclamation-circle"} /> This field is required
+      <Icon icon={"exclamation-circle"} /> This field is required
     </React.Fragment>
   );
 
