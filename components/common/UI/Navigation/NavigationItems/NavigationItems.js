@@ -1,23 +1,40 @@
 import React, { useState } from "react";
-import Link from "next/link";
+import { Link } from "../../../../../routes";
 import variables from "../../../globalVariables";
 // import classes from './NavigationItems.module.scss';
 import NavigationItem from "./NavigationItem.js";
+import { userIsLoggedIn } from "../../../../../data/auth";
 
 const navigationItems = () => {
   // const [showDrawer, setShowDrawer] = useState(false);
 
+  userIsLoggedIn();
+
   return (
     <div>
-      <Link href="/jobs">
-        <NavigationItem>Search Jobs</NavigationItem>
+      <Link route="/">
+        <a>
+          <NavigationItem>Search Jobs</NavigationItem>
+        </a>
       </Link>
-      {/* <Link href="/dashboard">
-        <NavigationItem>Profile</NavigationItem>
+
+      <Link route={"/users/login"}>
+        <a>
+          <NavigationItem>Log In</NavigationItem>
+        </a>
+      </Link>
+
+      <Link route={"/users/register"}>
+        <a>
+          <NavigationItem>Register</NavigationItem>
+        </a>
+      </Link>
+
+      {/* <Link route={"/dashboard"}>
+        <a>
+          <NavigationItem>Jane Doe</NavigationItem>          
+        </a>
       </Link> */}
-      <Link href="/LoginForm">
-        <NavigationItem>Log In</NavigationItem>
-      </Link>
 
       <style jsx>{`
         div {
@@ -25,6 +42,12 @@ const navigationItems = () => {
           align-items: center;
           justify-content: center;
           height: 100%;
+          vertical-align: middle;
+        }
+
+        a {
+          text-decoration: none;
+          color: ${variables.baseTextColor};
         }
 
         @media (max-width: 900px) {
