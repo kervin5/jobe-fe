@@ -15,7 +15,6 @@ const searchForm = props => {
     e.preventDefault();
     setValidate(true);
 
-    console.log(searchTerms, searchLocation);
     if (searchTerms !== "" && searchLocation !== "") {
       Router.push(`/jobs?q=${searchTerms}&location=${searchLocation}`);
     }
@@ -29,7 +28,7 @@ const searchForm = props => {
         placeholder="Job Title, Keywords, or Company Name"
         rounded
         centerPlaceholder
-        icon="search"
+        icon="Search"
         value={searchTerms}
         change={setSearchTerms}
         required
@@ -40,12 +39,12 @@ const searchForm = props => {
         type="location"
         placeholder="Location"
         rounded
-        icon="map-marker-alt"
+        icon="LocationOn"
         value={props.location || searchLocation}
         change={setSearchLocation}
         required
       />
-      <Button styles={buttonStyles} click={submitFormHandler}>
+      <Button styles={buttonStyles} click={submitFormHandler} fullWidth>
         Search
       </Button>
       <style jsx>{`
@@ -84,7 +83,13 @@ const searchForm = props => {
           form > * {
             margin: 4px;
           }
+
+          form :global(button) {
+            max-width: 100px;
+          }
         }
+
+        
 
         @media (max-width: ${variables.mediumScreen}) {
           form :global(button) {

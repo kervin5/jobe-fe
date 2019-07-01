@@ -30,7 +30,7 @@ export default function HiddenIfAuth(ComponentToProtect) {
       if (loading) {
         return <p>loading</p>;
       } else if (redirect) {
-        Router.push("/users/login", "users/login");
+        Router.push("/user/login", "user/login");
         return <p>Redirect</p>;
       } else {
         return (

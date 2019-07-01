@@ -1,17 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
+import dynamic from "next/dynamic";
+import variables from "../globalVariables";
 
-// import classes from './Icon.modules.scss';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+const DynamicIcon = icon => {
+  return dynamic(() => import("@material-ui/icons").then(mod => mod[icon]));
+};
 
 const Icon = props => {
+  const IconToRender = DynamicIcon(props.icon);
+
   if (props.icon) {
     return (
-      <FontAwesomeIcon
-        icon={["fa", props.icon]}
-        size={props.size || "lg"}
-        onClick={props.click}
-      />
+      <React.Fragment>
+        <IconToRender />
+        <style jsx global>{`
+          .MuiSvgIcon-root {
+            color: ${variables.accentColor1};
+          }
+        `}</style>
+      </React.Fragment>
     );
   }
 
@@ -22,4 +30,6 @@ Icon.propTypes = {
   icon: PropTypes.string.isRequired
 };
 
-export default Icon;
+export default React.memo(Icon, (prevProps, nextProps) => {
+  return prevProps.icon === nextProps.icon;
+});
