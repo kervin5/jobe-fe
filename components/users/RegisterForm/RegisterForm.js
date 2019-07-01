@@ -7,7 +7,7 @@ import Button from "../../../components/common/UI/Button";
 import axios from "../../../data/api";
 import Router from "next/router";
 import { logInUser } from "../../../data/auth";
-
+import { userIsLoggedIn } from "../../../data/auth";
 // POST https://myexactjobsapi.herokuapp.com/api/users
 // name, email, password
 
@@ -71,6 +71,7 @@ const registerForm = () => {
         });
         console.log(result);
         logInUser(result.data.token);
+        console.log(userIsLoggedIn());
         Router.push("/dashboard");
       } catch (ex) {
         console.log("error", ex.response);

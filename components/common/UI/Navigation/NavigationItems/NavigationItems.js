@@ -3,12 +3,9 @@ import { Link } from "../../../../../routes";
 import variables from "../../../globalVariables";
 // import classes from './NavigationItems.module.scss';
 import NavigationItem from "./NavigationItem.js";
-import { userIsLoggedIn } from "../../../../../data/auth";
 
 const navigationItems = () => {
   // const [showDrawer, setShowDrawer] = useState(false);
-
-  userIsLoggedIn();
 
   return (
     <div>
