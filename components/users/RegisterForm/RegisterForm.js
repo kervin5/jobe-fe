@@ -69,9 +69,9 @@ const registerForm = () => {
             password: password.value
           }
         });
+
         console.log(result);
         logInUser(result.data.token);
-        console.log(userIsLoggedIn());
         Router.push("/dashboard");
       } catch (ex) {
         console.log("error", ex.response);

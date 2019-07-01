@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "next/router";
 import axios from "../../data/api";
 import variables from "../../components/common/globalVariables";
+import WithAuth from "../../components/hoc/WithAuth";
+
 import Layout from "../../components/common/Layout/Layout";
 import PageSection from "../../components/common/Layout/PageSection";
 
@@ -107,4 +109,4 @@ const SearchPage = props => {
   );
 };
 
-export default withRouter(SearchPage);
+export default WithAuth(withRouter(SearchPage));

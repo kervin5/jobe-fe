@@ -60,7 +60,7 @@ class AutoCompleteInputField extends React.Component {
   handleOptionClick = (e, value) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("Clicked");
+
     this.setState({
       showMenu: false,
       textFieldValue: value,
@@ -82,7 +82,7 @@ class AutoCompleteInputField extends React.Component {
   _onBlur = e => {
     e.preventDefault();
     // e.stopPropagation();
-    console.log("Lost");
+
     this._timeoutID = setTimeout(() => {
       if (this.state.isManagingFocus) {
         this.setState({

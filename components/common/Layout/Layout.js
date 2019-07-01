@@ -1,12 +1,6 @@
 import React from "react";
-
-// import classes from './Layout.module.scss';
-import { fas } from "@fortawesome/free-solid-svg-icons";
 import Head from "../../head.js";
-import { library } from "@fortawesome/fontawesome-svg-core";
 import NavigationBar from "../UI/Navigation/NavigationBar";
-
-library.add(fas);
 
 const layout = props => {
   return (
