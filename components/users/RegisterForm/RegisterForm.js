@@ -68,7 +68,7 @@ const registerForm = () => {
             password: password.value
           }
         });
-        // console.log(response.headers.T);
+
         window.sessionStorage.setItem("token", result.headers.token);
         Router.push("/dashboard");
       } catch (ex) {

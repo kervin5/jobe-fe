@@ -1,7 +1,7 @@
 const routes = require("next-routes");
 
 module.exports = routes()
-  .add("login", "/users/login", "users/login")
+  .add("login", "/user/login", "user/login")
   .add("/jobs", "jobs/index")
   .add("/jobs/new", "jobs/new")
   .add("job", "/jobs/view/:slug", "jobs/single");
