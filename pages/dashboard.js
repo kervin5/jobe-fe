@@ -4,6 +4,7 @@ import WithAuth from "../components/hoc/WithAuth";
 import { useState } from "react";
 import ButtonsBar from "../components/common/UI/Navigation/ButtonsBar";
 
+import Container from "../components/common/Layout/Container";
 import DashboardHome from "../components/dashboard/DashboardHome";
 
 const dashboardPage = props => {
@@ -14,7 +15,9 @@ const dashboardPage = props => {
       <PageSection className="DashboardPage" column>
         <ButtonsBar />
         {/* {componentInView} */}
-        <DashboardHome />
+        <Container>
+          <DashboardHome />
+        </Container>
       </PageSection>
     </Layout>
   );

@@ -24,7 +24,6 @@ const Button = props => {
         a {
           text-decoration: none;
           color: blue;
-          font-family: "Arial";
         }
 
         a:hover {
@@ -53,8 +52,9 @@ const Button = props => {
 
         .Button :global(svg) {
           margin-right: 10px;
-          opacity: 0.8;
+          opacity: 0.9;
           height: 15px;
+          color: ${variables.clearColor};
         }
 
         .IconOnly {
