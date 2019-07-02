@@ -1,25 +1,34 @@
 import React, { useState } from "react";
 
+import Icon from "./Icon";
+
 const favoriteIcon = props => {
   const [favoriteSelected, setFavoriteSelected] = useState(false);
-  let iconColor = { color: "#ffffff" };
+  const [classes, setClasses] = useState("untouched");
 
   const setFavoriteHandler = () => {
     setFavoriteSelected(!favoriteSelected);
+    setClasses(classes === "untouched" ? "touched" : "untouched");
   };
 
-  if (favoriteSelected === true) {
-    iconColor = { color: "#ffeb11" };
-  }
-
   return (
-    <FontAwesomeIcon
-      icon={["fa", "star"]}
-      size={props.size || "lg"}
-      onClick={setFavoriteHandler}
-      style={iconColor}
-      title={"Add to Favorites"}
-    ></FontAwesomeIcon>
+    <span onClick={setFavoriteHandler} className={classes}>
+      <Icon
+        icon={"Star"}
+        size={props.size || "lg"}
+        title={"Add to Favorites"}
+      ></Icon>
+
+      <style jsx>{`
+        .untouched :global(svg) {
+          color: white;
+        }
+
+        .touched :global(svg) {
+          color: #ffd800;
+        }
+      `}</style>
+    </span>
   );
 };
 
