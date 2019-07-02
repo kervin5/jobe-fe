@@ -1,30 +1,48 @@
-import NoSSR from "react-no-ssr";
-import Button from "@material-ui/core/Button";
-import MaterialTable from "material-table";
+import React from "react";
+import Table from "../common/UI/Table";
+import axios from "../../data/api";
 
-const DashboardHome = props => {
-  return (
-    <div>
-      <NoSSR>
-        <MaterialTable
+class DashboardHome extends React.Component {
+  state = {
+    jobs: []
+  };
+
+  componentDidMount() {
+    axios({
+      url: "/jobs/user/all",
+      method: "get",
+      headers: {
+        Authorization: window.sessionStorage.getItem("token")
+      }
+    })
+      .then(response => {
+        console.log(response);
+        this.setState({ jobs: response.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  render() {
+    return (
+      <div>
+        <Table
+          title="Jobs"
           columns={[
-            { title: "Adı", field: "name" },
-            { title: "Soyadı", field: "surname" },
-            { title: "Doğum Yılı", field: "birthYear", type: "numeric" },
+            { title: "Title", field: "title" },
+            { title: "Location", field: "location" },
+            { title: "Posted", field: "posted", type: "date" },
             {
-              title: "Doğum Yeri",
-              field: "birthCity",
-              lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
+              title: "Category",
+              field: "category"
             }
           ]}
-          data={[
-            { name: "Mehmet", surname: "Baran", birthYear: 1987, birthCity: 63 }
-          ]}
-          title="Demo Title"
+          data={this.state.jobs}
         />
-      </NoSSR>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
 
 export default DashboardHome;
