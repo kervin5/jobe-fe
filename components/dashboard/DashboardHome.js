@@ -26,21 +26,19 @@ class DashboardHome extends React.Component {
 
   render() {
     return (
-      <div>
-        <Table
-          title="Jobs"
-          columns={[
-            { title: "Title", field: "title" },
-            { title: "Location", field: "location" },
-            { title: "Posted", field: "posted", type: "date" },
-            {
-              title: "Category",
-              field: "category"
-            }
-          ]}
-          data={this.state.jobs}
-        />
-      </div>
+      <Table
+        title="Jobs"
+        columns={[
+          { title: "Title", field: "title" },
+          { title: "Location", field: "location" },
+          { title: "Posted", field: "posted", type: "date" },
+          {
+            title: "Category",
+            field: "category"
+          }
+        ]}
+        data={this.state.jobs}
+      />
     );
   }
 }

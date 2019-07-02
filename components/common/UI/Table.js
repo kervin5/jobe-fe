@@ -55,6 +55,10 @@ const Table = props => {
         />
       </NoSSR>
       <style jsx>{`
+        .Table {
+          width: 100%;
+        }
+
         .Table > :global(div) {
           border-radius: 15px;
         }
