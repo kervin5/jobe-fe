@@ -105,7 +105,11 @@ class JobCreatorForm extends Component {
       };
 
       axios
-        .post("/jobs", jobData)
+        .post("/jobs", jobData, {
+          headers: {
+            Authorization: window.sessionStorage.getItem("token")
+          }
+        })
         .then(res => {
           this.setState({ status: "posted" });
         })

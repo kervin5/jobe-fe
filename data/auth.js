@@ -6,3 +6,7 @@ export const userIsLoggedIn = () => {
 export const logInUser = token => {
   window.sessionStorage.setItem("token", token);
 };
+
+export const getAuthToken = () => {
+  return window.sessionStorage.getItem("token");
+};
