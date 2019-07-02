@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Router from "next/router";
 import Layout from "../../components/common/Layout/Layout";
 import { withRouter } from "next/router";
-import axios from "axios";
+import axios from "../../data/api";
 import variables from "../../components/common/globalVariables";
 
 import Container from "../../components/common/Layout/Container";
@@ -26,7 +26,7 @@ const single = props => {
     const jobId = slug.split("-").pop();
 
     axios
-      .get("https://myexactjobsapi.herokuapp.com/api/jobs/" + jobId)
+      .get("/jobs/single/" + jobId)
       .then(response => {
         if (response.data) {
           setSingleJob(response.data);

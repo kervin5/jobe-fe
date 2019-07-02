@@ -15,13 +15,13 @@ const navigationItems = () => {
         </a>
       </Link>
 
-      <Link route={"/users/login"}>
+      <Link route={"/user/login"}>
         <a>
           <NavigationItem>Log In</NavigationItem>
         </a>
       </Link>
 
-      <Link route={"/users/register"}>
+      <Link route={"/user/register"}>
         <a>
           <NavigationItem>Register</NavigationItem>
         </a>
