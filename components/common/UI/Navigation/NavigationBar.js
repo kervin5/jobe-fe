@@ -212,6 +212,10 @@ export default function PrimarySearchAppBar(props) {
           .DesktopMenu {
             display: none;
           }
+
+          .SearchField {
+            display: none;
+          }
         }
       `}</style>
     </div>
