@@ -39,9 +39,11 @@ const Button = props => {
           box-shadow: 0px 5px 15px -9px rgba(0, 0, 0, 0.66);
           transition: 300ms;
           min-width: 100px;
-          padding-left: 10px;
-          padding-right: 10px;
+          padding-left: 15px;
+          padding-right: 15px;
           width: ${props.fullWidth ? "100%" : "auto"};
+          display: flex;
+          justify-content: space-around;
           ${customColor}
         }
 
@@ -51,7 +53,7 @@ const Button = props => {
         }
 
         .Button :global(svg) {
-          margin-right: 10px;
+          margin-right: 5px;
           opacity: 0.9;
           height: 15px;
           color: ${variables.clearColor};
