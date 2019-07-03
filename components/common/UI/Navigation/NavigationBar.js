@@ -18,7 +18,7 @@ import variables from "../../globalVariables";
 
 const MyExactStaffLogo = "../../../../static/images/LandingLogo.svg";
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -140,7 +140,7 @@ export default function PrimarySearchAppBar() {
             >
               <AccountCircle />
             </IconButton>
-            <IconButton aria-label="Show 17 new notifications" color="inherit">
+            <IconButton color="inherit" onClick={props.menuButtonClick}>
               <MenuIcon />
             </IconButton>
           </div>

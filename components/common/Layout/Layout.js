@@ -1,12 +1,20 @@
 import React from "react";
 import Head from "../../head.js";
 import NavigationBar from "../UI/Navigation/NavigationBar";
+import NavigationDrawer from "../UI/Navigation/NavigationDrawer";
 
 const layout = props => {
+  const [showDrawer, setShowDrawer] = React.useState(false);
+  console.log(showDrawer);
+  const handleMenuClick = value => setShowDrawer(value || !showDrawer);
+
   return (
     <div className="Layout">
       <Head title={props.title} />
-      {props.hideNav ? null : <NavigationBar />}
+      {props.hideNav ? null : (
+        <NavigationBar menuButtonClick={handleMenuClick} />
+      )}
+      {<NavigationDrawer show={showDrawer} toggle={handleMenuClick} />}
       <main>{props.children}</main>
       <style jsx global>{`
         * {
