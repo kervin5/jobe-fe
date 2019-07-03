@@ -13,32 +13,9 @@ import Loader from "../../components/common/UI/Animated/Loader";
 
 const pageStyles = `background-color:${variables.mutedColor1}`;
 
-const single = props => {
-  const [singleJob, setSingleJob] = useState(null);
+const ViewJobPage = props => {
+  const [singleJob, setSingleJob] = useState(props.job);
   let waitingOnData = <Loader />;
-
-  useEffect(() => {
-    const {
-      router: {
-        query: { slug }
-      }
-    } = props;
-    const jobId = slug.split("-").pop();
-
-    axios
-      .get("/jobs/single/" + jobId)
-      .then(response => {
-        if (response.data) {
-          setSingleJob(response.data);
-        }
-      })
-      .catch(err => {
-        console.log("Failed");
-        if (err.response.status === 404) {
-          Router.push("/error");
-        }
-      });
-  }, []);
 
   if (singleJob) {
     waitingOnData = (
@@ -69,4 +46,16 @@ const single = props => {
   );
 }; //eof
 
-export default withRouter(single);
+ViewJobPage.getInitialProps = async function({ query }) {
+  const slugParts = query.slug.split("-");
+  const postId = slugParts[slugParts.length - 1];
+
+  try {
+    const jobInfo = await axios.get("/jobs/single/" + postId);
+    return { job: jobInfo.data };
+  } catch (err) {
+    console.log(err.response);
+  }
+};
+
+export default ViewJobPage;
