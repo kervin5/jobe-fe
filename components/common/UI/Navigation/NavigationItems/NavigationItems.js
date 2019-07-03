@@ -3,7 +3,6 @@ import Link from "next/link";
 import variables from "../../../globalVariables";
 // import classes from './NavigationItems.module.scss';
 import NavigationItem from "./NavigationItem.js";
-import Button from "@material-ui/core/Button";
 
 const navigationItems = () => {
   // const [showDrawer, setShowDrawer] = useState(false);
@@ -48,17 +47,9 @@ const navigationItems = () => {
           color: ${variables.baseTextColor};
         }
 
-        .hamburgerMenu {
-          display: none;
-        }
-
         @media (max-width: 900px) {
           div {
             display: none;
-          }
-
-          .hamburgerMenu {
-            display: block;
           }
         }
       `}</style>
