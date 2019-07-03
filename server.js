@@ -13,10 +13,6 @@ const server = express();
 
 app.prepare().then(() => {
   server.use(handler);
-
-  if (process.env.NODE_ENV === "production") {
-    server.use(compression());
-  }
-
+  server.use(compression());
   server.listen(process.env.PORT || 3000);
 });
