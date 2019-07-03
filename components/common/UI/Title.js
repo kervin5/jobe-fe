@@ -14,7 +14,6 @@ const Title = props => {
         .Title {
           color: ${variables.darkColor};
           position: relative;
-          line-height: 1.5rem;
           margin-bottom: 10px;
           ${extraStyles};
         }
