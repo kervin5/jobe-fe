@@ -14,10 +14,12 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
+  server.use(compression());
+
   server.get("*", (req, res) => {
     return handle(req, res);
   });
   // server.use(handler);
-  server.use(compression());
+
   server.listen(process.env.PORT || 3000);
 });
