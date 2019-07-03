@@ -47,7 +47,8 @@ const ViewJobPage = props => {
 }; //eof
 
 ViewJobPage.getInitialProps = async function({ query }) {
-  const postId = query.slug.split("-")[2];
+  const slugParts = query.slug.split("-");
+  const postId = slugParts[slugParts.length - 1];
 
   try {
     const jobInfo = await axios.get("/jobs/single/" + postId);
