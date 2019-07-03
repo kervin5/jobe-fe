@@ -5,7 +5,7 @@ import { useState } from "react";
 import ButtonsBar from "../components/common/UI/Navigation/ButtonsBar";
 
 import Container from "../components/common/Layout/Container";
-import DashboardHome from "../components/dashboard/DashboardHome";
+import DashboardHome from "../components/dashboard/DashboardHome/DashboardHome";
 
 const dashboardPage = props => {
   const [componentInView, setComponentInView] = useState(<p>Dashboard</p>);
