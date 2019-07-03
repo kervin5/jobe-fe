@@ -15,7 +15,6 @@ const registerForm = () => {
   const [registerData, setRegisterData] = useState({
     fullName: {
       value: "",
-      valid: false,
       type: "text",
       label: "Full Name",
       placeholder: "John Doe",
@@ -23,7 +22,6 @@ const registerForm = () => {
     },
     emailAddress: {
       value: "",
-      valid: false,
       type: "text",
       label: "Email Address",
       placeholder: "john@doe.com",
@@ -31,7 +29,6 @@ const registerForm = () => {
     },
     password: {
       value: "",
-      valid: false,
       type: "password",
       label: "Password",
       placeholder: " Password",
@@ -79,7 +76,7 @@ const registerForm = () => {
     }
   };
 
-  const registerFormData = Object.keys(registerData).map(key => {
+  const registerFormData = ["fullName", "emailAddress", "password"].map(key => {
     const registerDataField = registerData[key];
     return (
       <InputField
