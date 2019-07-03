@@ -14,6 +14,12 @@ app.prepare().then(() => {
   const server = express();
 
   server.use(handler);
-  server.use(compression());
+  server.use(
+    compression({
+      filter: function() {
+        return true;
+      }
+    })
+  );
   server.listen(process.env.PORT || 3000);
 });
