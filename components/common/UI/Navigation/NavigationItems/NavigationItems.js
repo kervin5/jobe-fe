@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "../../../../../routes";
+import Link from "next/link";
 import variables from "../../../globalVariables";
 // import classes from './NavigationItems.module.scss';
 import NavigationItem from "./NavigationItem.js";
@@ -9,19 +9,19 @@ const navigationItems = () => {
 
   return (
     <div>
-      <Link route="/">
+      <Link herf="/">
         <a>
           <NavigationItem>Search Jobs</NavigationItem>
         </a>
       </Link>
 
-      <Link route={"/users/login"}>
+      <Link herf={"/users/login"}>
         <a>
           <NavigationItem>Log In</NavigationItem>
         </a>
       </Link>
 
-      <Link route={"/users/register"}>
+      <Link href={"/users/register"}>
         <a>
           <NavigationItem>Register</NavigationItem>
         </a>

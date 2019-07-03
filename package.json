@@ -22,7 +22,6 @@
     "mapbox-gl": "^1.0.0",
     "material-table": "^1.40.1",
     "next": "8.0.4",
-    "next-routes": "^1.4.2",
     "npm": "^6.9.0",
     "path-match": "^1.2.4",
     "prop-types": "^15.7.2",
