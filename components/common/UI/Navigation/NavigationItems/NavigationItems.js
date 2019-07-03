@@ -3,35 +3,24 @@ import { Link } from "../../../../../routes";
 import variables from "../../../globalVariables";
 // import classes from './NavigationItems.module.scss';
 import NavigationItem from "./NavigationItem.js";
+import Button from "@material-ui/core/Button";
 
 const navigationItems = () => {
   // const [showDrawer, setShowDrawer] = useState(false);
 
   return (
     <div>
-      <Link route="/">
-        <a>
-          <NavigationItem>Search Jobs</NavigationItem>
-        </a>
-      </Link>
+      <Button>
+        <Link route={"/user/login"}>
+          <a>Log In</a>
+        </Link>
+      </Button>
 
-      <Link route={"/user/login"}>
-        <a>
-          <NavigationItem>Log In</NavigationItem>
-        </a>
-      </Link>
-
-      <Link route={"/user/register"}>
-        <a>
-          <NavigationItem>Register</NavigationItem>
-        </a>
-      </Link>
-
-      {/* <Link route={"/dashboard"}>
-        <a>
-          <NavigationItem>Jane Doe</NavigationItem>          
-        </a>
-      </Link> */}
+      <Button>
+        <Link route={"/user/register"}>
+          <a>Register</a>
+        </Link>
+      </Button>
 
       <style jsx>{`
         div {
@@ -47,9 +36,17 @@ const navigationItems = () => {
           color: ${variables.baseTextColor};
         }
 
+        .hamburgerMenu {
+          display: none;
+        }
+
         @media (max-width: 900px) {
           div {
             display: none;
+          }
+
+          .hamburgerMenu {
+            display: block;
           }
         }
       `}</style>
