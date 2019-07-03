@@ -37,6 +37,7 @@ const loginForm = () => {
         valid: valid
       }
     };
+    console.log(newState);
     setFormData(newState);
   };
 
@@ -63,7 +64,7 @@ const loginForm = () => {
     }
   };
 
-  const fieldsToRender = Object.keys(formData).map(key => {
+  const fieldsToRender = ["email", "password"].map(key => {
     const fieldData = formData[key];
     return (
       <InputField
