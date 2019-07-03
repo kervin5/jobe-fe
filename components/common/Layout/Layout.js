@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "../../head.js";
 import NavigationBar from "../UI/Navigation/NavigationBar";
 import NavigationDrawer from "../UI/Navigation/NavigationDrawer";
 
 const layout = props => {
-  const [showDrawer, setShowDrawer] = React.useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
   console.log(showDrawer);
-  const handleMenuClick = value => setShowDrawer(value || !showDrawer);
+  const handleMenuClick = value => setShowDrawer(!showDrawer);
 
   return (
     <div className="Layout">

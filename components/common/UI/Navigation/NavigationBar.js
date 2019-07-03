@@ -154,6 +154,9 @@ export default function PrimarySearchAppBar(props) {
             >
               <MoreIcon />
             </IconButton>
+            <IconButton color="inherit" onClick={props.menuButtonClick}>
+              <MenuIcon />
+            </IconButton>
           </div>
         </Toolbar>
       </AppBar>
