@@ -14,7 +14,15 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
-  server.use(compression());
+  if (process.env.NODE_ENV === "production") {
+    server.use(compression());
+  }
+
+  server.get("/jobs/view/:slug", (req, res) => {
+    const actualPage = "/jobs/view";
+    const queryParams = { slug: req.params.slug };
+    app.render(req, res, actualPage, queryParams);
+  });
 
   server.get("*", (req, res) => {
     return handle(req, res);
