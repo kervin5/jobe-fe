@@ -1,5 +1,6 @@
 import React from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
+import Link from "next/link";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -106,7 +107,11 @@ export default function PrimarySearchAppBar(props) {
           <IconButton edge="start" color="inherit" aria-label="Open drawer">
             <MenuIcon />
           </IconButton>
-          <img src={MyExactStaffLogo} className="CompanyLogo"></img>
+          <Link href="/">
+            <a>
+              <img src={MyExactStaffLogo} className="CompanyLogo" />
+            </a>
+          </Link>
           <div className="SearchField">
             <div className="Icon">
               <SearchIcon />

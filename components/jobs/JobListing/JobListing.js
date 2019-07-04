@@ -3,7 +3,7 @@ import variables from "../../../components/common/globalVariables";
 // import classes from './JobListing.modules.scss';
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
-import JobListingContentBlock from "./JobListingContentBlock/JobListingContentBlock";
+import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
 import List from "../../common/UI/List";
 import Title from "../../common/UI/Title";
@@ -13,7 +13,7 @@ import HtmlRenderer from "../../hoc/HtmlRenderer";
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
 const jobListing = props => (
-  <div className="JobListing" data-test="job-listing">
+  <TransformerContainer>
     <JobListingHeader
       title={props.title}
       location={props.location}
@@ -53,14 +53,6 @@ const jobListing = props => (
     </div>
     <style jsx>{`
 
-            .JobListing {
-                box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-                min-height: 100vh;
-                margin-bottom: 30px;
-                border-radius: 30px;
-                background-color: ${variables.clearColor};
-            }
-
             .Body{
                 margin: 0 auto;
                 padding: 40px 40px 60px 40px;
@@ -76,14 +68,12 @@ const jobListing = props => (
                 float: right;
             }
 
-
-
-            .JobListing :global(ul){
+            .Body :global(ul){
                 padding: 0 0 0 40px;
                 color: ${variables.baseTextColor};
             }
 
-            .JobListing :global(li) {
+            .Body :global(li) {
        
                 list-style-image: url('${"../../../static/images/ExactStaffArrow.png"}');
                 // padding: 5px;
@@ -91,13 +81,7 @@ const jobListing = props => (
             }
 
             @media only screen and (max-width: 520px){
-                .JobListing {
-                    max-width: 100%;
-                    margin: 0 auto;
-                    border-bottom-right-radius: 0px;
-                    border-bottom-left-radius: 0px;
-                }
-
+           
                 .Body{
                     //margin: 0 auto;
                     padding:40px 40px 60px 40px;
@@ -114,7 +98,7 @@ const jobListing = props => (
 
             }
         `}</style>
-  </div>
+  </TransformerContainer>
 );
 
 export default jobListing;

@@ -25,7 +25,7 @@ const pageSection = props => {
         }
 
         .PageSection:first-child {
-          min-height: calc(100vh - 50px);
+          min-height: calc(100vh - 56px);
         }
       `}</style>
     </div>
