@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Head from "../../head.js";
 import NavigationBar from "../UI/Navigation/NavigationBar";
 import NavigationDrawer from "../UI/Navigation/NavigationDrawer";
+import variables from "../globalVariables";
 
 const layout = props => {
   const [showDrawer, setShowDrawer] = useState(false);
@@ -28,6 +29,10 @@ const layout = props => {
           min-height: 100%;
           width: 100%;
           overflow-x: hidden;
+        }
+
+        .MuiSvgIcon-root {
+          color: ${variables.accentColor1};
         }
 
         p {
