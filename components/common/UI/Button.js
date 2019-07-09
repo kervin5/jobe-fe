@@ -5,6 +5,7 @@ import variables from "../globalVariables";
 const Button = props => {
   const height = props.size ? props.size.height : variables.inputHeight;
   const iconOnly = props.iconOnly ? "IconOnly" : "";
+  const disabled = props.disabled ? "Disabled" : "";
   const customColor =
     "background-color: " +
     (props.color
@@ -12,7 +13,11 @@ const Button = props => {
       : variables.accentColor1 + ";");
 
   return (
-    <button onClick={props.click} className={["Button", iconOnly].join(" ")}>
+    <button
+      onClick={props.click}
+      className={["Button", iconOnly, disabled].join(" ")}
+      disabled={props.disabled}
+    >
       {props.icon ? <Icon icon={props.icon} /> : null}
       {props.iconOnly ? null : props.children}
       <style jsx>{`
@@ -69,6 +74,17 @@ const Button = props => {
 
         .IconOnly :global(svg) {
           margin-right: 0;
+        }
+
+        .Disabled {
+          background-color: ${variables.mutedColor1};
+          color: ${variables.darkColor};
+          box-shadow: none;
+        }
+
+        .Disabled:hover {
+          background-color: ${variables.mutedColor1};
+          cursor: not-allowed;
         }
 
         ${props.styles || ""}

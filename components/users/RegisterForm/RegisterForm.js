@@ -1,5 +1,6 @@
 import React from "react";
 import variables from "../../common/globalVariables";
+import Loader from "../../common/UI/Animated/Loader";
 import { useState, useEffect } from "react";
 import InputField from "../../common/UI/Input/InputField";
 import Title from "../../common/UI/Title";
@@ -11,7 +12,7 @@ import { userIsLoggedIn } from "../../../data/auth";
 // POST https://myexactjobsapi.herokuapp.com/api/users
 // name, email, password
 
-const registerForm = () => {
+const registerForm = props => {
   const [registerData, setRegisterData] = useState({
     fullName: {
       value: "",
@@ -35,6 +36,13 @@ const registerForm = () => {
       valid: false
     }
   });
+  const [submitted, setSubmitted] = useState(false);
+
+  const registerSubmitCustomHandler =
+    props.onSubmit ||
+    (result => {
+      return result ? Router.push("/dashboard") : null;
+    });
 
   const [validate, setValidate] = useState(false);
 
@@ -67,11 +75,13 @@ const registerForm = () => {
           }
         });
 
-        console.log(result);
         logInUser(result.data.token);
-        Router.push("/dashboard");
+        registerSubmitCustomHandler(true);
+        setSubmitted(true);
       } catch (ex) {
         console.log("error", ex.response);
+        registerSubmitCustomHandler(false);
+        setSubmitted(false);
       }
     }
   };
@@ -88,22 +98,31 @@ const registerForm = () => {
         name={key}
         key={"registerField" + key}
         required
-        rounded
         validate={validate}
       />
     );
   });
 
+  let formContent = (
+    <React.Fragment>
+      <br />
+      {registerFormData}
+      <br />
+      <Button click={registerSubmitHandler} fullWidth disabled={submitted}>
+        Submit
+      </Button>
+    </React.Fragment>
+  );
+
+  if (submitted) {
+    formContent = <Loader />;
+  }
+
   return (
     <React.Fragment>
       <form>
         <Title center>Register</Title>
-        <br />
-        {registerFormData}
-        <br />
-        <Button click={registerSubmitHandler} fullWidth>
-          Submit
-        </Button>
+        {formContent}
       </form>
 
       <style jsx>{`

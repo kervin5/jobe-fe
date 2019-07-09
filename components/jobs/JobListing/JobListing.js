@@ -1,57 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import variables from "../../../components/common/globalVariables";
+import { getUserInfo } from "../../../data/auth";
 // import classes from './JobListing.modules.scss';
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
-
+import RegisterForm from "../../users/RegisterForm/RegisterForm";
 import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
-import List from "../../common/UI/List";
+import PopUp from "../../common/UI/PopUp";
 import Title from "../../common/UI/Title";
 import Button from "../../common/UI/Button";
 import HtmlRenderer from "../../hoc/HtmlRenderer";
 
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
-const jobListing = props => (
-  <TransformerContainer>
-    <JobListingHeader
-      title={props.title}
-      location={props.location}
-      minAmount={props.minAmount}
-      maxAmount={props.maxAmount}
-      type={props.type}
-      data-test="title-section"
-    />
+const jobListing = props => {
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [buttonData, setButtonData] = useState({
+    text: "Apply",
+    disabled: false
+  });
+  const applyBtnClicHandler = () => {
+    setShowPopUp(true);
+  };
 
-    <div className="Body" data-test="main-content-section">
-      <Title size={"m"}>Job Description:</Title>
-      <p>{props.description}</p>
-      <br />
+  const applicationCompleteHandler = registed => {
+    if (registed) {
+      setShowPopUp(false);
+      setButtonData({ text: "Applied", disabled: true });
+    }
+  };
 
-      <Title size={"m"}>Responsabilities:</Title>
-      <HtmlRenderer html={props.qualifications} />
-      <br />
+  return (
+    <TransformerContainer>
+      <JobListingHeader
+        title={props.title}
+        location={props.location}
+        minAmount={props.minAmount}
+        maxAmount={props.maxAmount}
+        type={props.type}
+        data-test="title-section"
+      />
 
-      <Title size={"m"}>Qualilfications:</Title>
-      <HtmlRenderer html={props.requirements} />
-      <br />
+      <div className="Body" data-test="main-content-section">
+        <Title size={"m"}>Job Description:</Title>
+        <p>{props.description}</p>
+        <br />
 
-      <Title size={"m"} data-test="company-information-section">
-        About the Company:
-      </Title>
-      <p>{props.aboutCompany}</p>
-      <br />
+        <Title size={"m"}>Responsabilities:</Title>
+        <HtmlRenderer html={props.qualifications} />
+        <br />
 
-      <Button
-        className="button"
-        click={() => window.alert("You Have Sucessfully applied")}
-        data-test="appy-button"
-        fullWidth
-      >
-        Apply
-      </Button>
-    </div>
-    <style jsx>{`
+        <Title size={"m"}>Qualilfications:</Title>
+        <HtmlRenderer html={props.requirements} />
+        <br />
+
+        <Title size={"m"} data-test="company-information-section">
+          About the Company:
+        </Title>
+        <p>{props.aboutCompany}</p>
+        <br />
+
+        <Button
+          className="button"
+          click={applyBtnClicHandler}
+          data-test="appy-button"
+          fullWidth
+          disabled={buttonData.disabled}
+        >
+          {buttonData.text}
+        </Button>
+        <PopUp show={showPopUp}>
+          <RegisterForm onSubmit={applicationCompleteHandler} />
+        </PopUp>
+      </div>
+      <style jsx>{`
 
             .Body{
                 margin: 0 auto;
@@ -98,7 +120,8 @@ const jobListing = props => (
 
             }
         `}</style>
-  </TransformerContainer>
-);
+    </TransformerContainer>
+  );
+};
 
 export default jobListing;
