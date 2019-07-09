@@ -5,10 +5,10 @@ import variables from "../../../components/common/globalVariables";
 
 import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
-import List from "../../common/UI/List";
 import Title from "../../common/UI/Title";
 import Button from "../../common/UI/Button";
 import HtmlRenderer from "../../hoc/HtmlRenderer";
+import SocialMedia from "../../common/UI/SocialMedia";
 
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
@@ -98,6 +98,7 @@ const jobListing = props => (
 
             }
         `}</style>
+    <SocialMedia />
   </TransformerContainer>
 );
 
