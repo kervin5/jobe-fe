@@ -47,7 +47,6 @@ const registerForm = props => {
   const [validate, setValidate] = useState(false);
 
   const updatedFieldHandler = (key, value, valid) => {
-    console.log(key, value, valid);
     const updatedState = {
       ...registerData,
       [key]: {
@@ -63,9 +62,6 @@ const registerForm = props => {
     e.preventDefault();
     await setValidate(true);
     const { fullName, emailAddress, password } = registerData;
-    console.log("clicked");
-    console.log(fullName.valid && emailAddress.valid && password.valid);
-    console.log(registerData);
     if (fullName.valid && emailAddress.valid && password.valid) {
       try {
         const result = await axios({
@@ -89,15 +85,6 @@ const registerForm = props => {
         registerSubmitCustomHandler(false);
 
         console.log("didn't worked");
-
-        ///TODO: Remove this workaround and implement proper frontend validation
-        const newSatus = {};
-
-        ["fullName", "emailAddress", "password"].forEach(key => {
-          newSatus[key] = { ...registerData[key], valid: true };
-        });
-
-        setRegisterData(newSatus);
       }
     }
   };
