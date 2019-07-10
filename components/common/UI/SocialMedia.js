@@ -1,18 +1,60 @@
 import React from "react";
 
+import Title from "./Title";
 import variables from "../globalVariables";
 
-const socialMedia = () => {
+const socialMedia = props => {
   return (
-    <div className={"SocialMediaContainer"}>
-      <h4>Twitter</h4>
+    <div className={"SocialMedia"}>
+      <Title size="s">Share this Job:</Title>
+      <div className={"buttons"}>
+        <a
+          href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+          class="twitter-share-button"
+          data-size="large"
+          data-text="What an opportunity!"
+          data-hashtags="ExactStaff"
+          data-show-count="true"
+        >
+          Share on Twitter
+        </a>
+        <script
+          async
+          src="https://platform.twitter.com/widgets.js"
+          charset="utf-8"
+        ></script>
+        <a
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmyexactjobs.com%2F&amp;src=sdkpreparse"
+          class="fb-share-button"
+          data-size="large"
+          data-layout="button"
+        >
+          Share on Facebook
+        </a>
+        <script
+          async
+          src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3"
+        ></script>
+      </div>
+
       <style jsx>{`
-                .SocialMediaContainer {
-                    background-color: orange;
-                    border-radius: ${variables.roundedRadius}
-                    padding:500px;
-                }
-            `}</style>
+        .SocialMedia {
+          display: flex;
+          flex-direction: column;
+          align-items: baseline;
+          padding: 10px;
+        }
+
+        .buttons {
+          display: flex;
+          align-content: space-between;
+        }
+
+        .buttons a {
+          display: block;
+          padding: 0 5px;
+        }
+      `}</style>
     </div>
   );
 };

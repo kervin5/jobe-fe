@@ -41,7 +41,7 @@ const jobListing = props => (
       </Title>
       <p>{props.aboutCompany}</p>
       <br />
-
+      <SocialMedia />
       <Button
         className="button"
         click={() => window.alert("You Have Sucessfully applied")}
@@ -98,7 +98,6 @@ const jobListing = props => (
 
             }
         `}</style>
-    <SocialMedia />
   </TransformerContainer>
 );
 
