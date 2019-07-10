@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import variables from "../../../globalVariables";
-import inputStyles from "../InputStyles";
 
 const textInputField = props => {
   const [value, setValue] = useState(props.value || "");
@@ -60,4 +59,4 @@ const textInputField = props => {
   );
 };
 
-export default textInputField;
+export default React.memo(textInputField);

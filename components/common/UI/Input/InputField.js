@@ -17,7 +17,9 @@ const inputField = props => {
   let timeOutId = null;
 
   const validation = {
-    required: props.required || false
+    required: props.required || false,
+    minLength: props.minLength || 0,
+    maxLength: props.maxLength || 9999999
   };
   // const [fieldName, setFieldName] = useState(props.value || "");
   let FieldToRender = null;
@@ -30,13 +32,9 @@ const inputField = props => {
   );
 
   const changeHandler = newValue => {
-    // const valid = errors.length === 0;
-    if (!props.name) {
-      props.change(newValue);
-    } else {
-      props.change(props.name, newValue, fieldIsValid(newValue));
+    if (isFocused) {
+      setValue(newValue);
     }
-    setValue(newValue);
   };
 
   const handleBlur = e => {
@@ -46,6 +44,7 @@ const inputField = props => {
       }
 
       if (!touched) {
+        console.log("Blur");
         setTouched(true);
       }
     }, 0);
@@ -59,23 +58,80 @@ const inputField = props => {
   };
 
   useEffect(() => {
+    console.log(touched, value);
     if (touched || props.validate) {
       validate();
+      console.log("Should validate");
     }
   }, [value, touched, props.validate]);
 
+  useEffect(() => {
+    if (!props.name) {
+      props.change(newValue);
+    } else {
+      props.change(props.name, value, fieldIsValid(value));
+    }
+  }, [value]);
+
   const validate = () => {
-    if (validation.required) {
-      if (value === "") {
-        setErrors(["This field is required"]);
+    if (validation.required && value === "") {
+      addError("This field is required");
+    } else {
+      removeError("This field is required");
+    }
+
+    if (value.length < validation.minLength) {
+      addError(
+        `This filed must have at least ${validation.minLength} characters`
+      );
+    } else {
+      removeError(
+        `This filed must have at least ${validation.minLength} characters`
+      );
+    }
+
+    if (value.length > validation.maxLength) {
+      addError(
+        `This field must have ${validation.minLength} characters or less`
+      );
+    } else {
+      removeError(
+        `This field must have ${validation.minLength} characters or less`
+      );
+    }
+
+    if (props.type === "email") {
+      console.log("verify", emailIsValid(value));
+      if (!emailIsValid(value)) {
+        addError("Please enter a valid email");
       } else {
-        setErrors([]);
+        removeError("Please enter a valid email");
       }
+    }
+
+    console.log("Errors", errors);
+  };
+
+  const addError = message => {
+    if (!errors.includes(message)) {
+      setErrors(errors.concat(message));
     }
   };
 
+  const removeError = message => {
+    if (errors.includes(message)) {
+      const newErrors = errors.filter(e => e !== message);
+      setErrors(newErrors);
+    }
+  };
+
+  const emailIsValid = email => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  };
+
   const fieldIsValid = value => {
-    return !(validation.required && value === "");
+    return errors.length <= 0;
   };
 
   if (
@@ -146,7 +202,13 @@ const inputField = props => {
 
   const errorLabel = (
     <React.Fragment>
-      <Icon icon={"exclamation-circle"} /> This field is required
+      {errors.map(errorMessage => (
+        <li key={errorMessage + "errorLabel"}>
+          {" "}
+          <Icon icon={"Error"} />
+          {errorMessage}
+        </li>
+      ))}
     </React.Fragment>
   );
 
@@ -158,9 +220,9 @@ const inputField = props => {
           {props.type !== "textarea" ? inputOrnaments : null}
           {FieldToRender}
         </div>
-        <p className={"ErrorMessage"}>
+        <ul className={"ErrorMessage"}>
           {props.type !== "switch" && errors.length > 0 ? errorLabel : null}
-        </p>
+        </ul>
       </div>
       <style jsx>{`
         .InputField {
@@ -226,6 +288,21 @@ const inputField = props => {
           top: initial !important;
           font-size: 0.8em;
           font-weight: 400 !important;
+          padding: 0px 5px 10px;
+        }
+
+        div :global(.ErrorMessage li) {
+          list-style: none;
+        }
+
+        div :global(.ErrorMessage .Icon) {
+          display: inline-block;
+        }
+
+        div :global(.ErrorMessage .Icon svg) {
+          color: red;
+          width: 15px;
+          height: 15px;
         }
 
         label {
