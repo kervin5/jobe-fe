@@ -6,7 +6,6 @@ import variables from "../globalVariables";
 
 const layout = props => {
   const [showDrawer, setShowDrawer] = useState(false);
-  console.log(showDrawer);
   const handleMenuClick = value => setShowDrawer(!showDrawer);
 
   return (

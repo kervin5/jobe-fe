@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import variables from "../../../components/common/globalVariables";
-import { getUserInfo } from "../../../data/auth";
-// import classes from './JobListing.modules.scss';
-// import BottomNav from '../../common/UI/BottomNav/BottomNav';
+import { getUserInfo, userIsLoggedIn } from "../../../data/auth";
+import axios from "../../../data/api";
+import { getAuthToken } from "../../../data/auth";
 import RegisterForm from "../../users/RegisterForm/RegisterForm";
 import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
@@ -17,16 +17,88 @@ const jobListing = props => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [buttonData, setButtonData] = useState({
     text: "Apply",
-    disabled: false
+    disabled: true,
+    loading: true
   });
+  const [applicationStatus, setApplicationStatus] = useState("loading");
+
   const applyBtnClicHandler = () => {
-    setShowPopUp(true);
+    if (!userIsLoggedIn()) {
+      setShowPopUp(true);
+    } else {
+      axios
+        .post(
+          `/jobs/apply`,
+          { jobId: props.jobId },
+          {
+            headers: {
+              Authorization: getAuthToken()
+            }
+          }
+        )
+        .then(result => {
+          setButtonData({ text: "Applied 😁", disabled: true, loading: false });
+          console.log(result);
+        })
+        .catch(err => {
+          console.log(err);
+          setButtonData({ text: "Apply", disabled: false, loading: false });
+        });
+    }
   };
 
-  const applicationCompleteHandler = registed => {
+  useEffect(() => {
+    if (userIsLoggedIn()) {
+      axios
+        .post(
+          "/jobs/application/status",
+          { jobId: props.jobId },
+          {
+            headers: {
+              Authorization: getAuthToken()
+            }
+          }
+        )
+        .then(response => {
+          console.log(response);
+          if (response.data.status === "applied") {
+            setButtonData({
+              text: "Applied 😁",
+              disabled: true,
+              loading: false
+            });
+          } else {
+            setButtonData({ text: "Apply", disabled: false, loading: false });
+          }
+        });
+    } else {
+      setButtonData({ text: "Apply", disabled: false, loading: false });
+    }
+  }, []);
+
+  const applicationCompleteHandler = async registed => {
     if (registed) {
       setShowPopUp(false);
-      setButtonData({ text: "Applied", disabled: true });
+      setButtonData({ text: "Applying", disabled: true });
+
+      axios
+        .post(
+          `/jobs/apply`,
+          { jobId: props.jobId },
+          {
+            headers: {
+              Authorization: getAuthToken()
+            }
+          }
+        )
+        .then(result => {
+          setButtonData({ text: "Applied 😁", disabled: true, loading: false });
+          console.log(result);
+        })
+        .catch(err => {
+          console.log(err);
+          setButtonData({ text: "Apply", disabled: false, loading: false });
+        });
     }
   };
 
@@ -66,6 +138,7 @@ const jobListing = props => {
           data-test="appy-button"
           fullWidth
           disabled={buttonData.disabled}
+          loading={buttonData.loading}
         >
           {buttonData.text}
         </Button>

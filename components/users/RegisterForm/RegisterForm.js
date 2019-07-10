@@ -60,9 +60,10 @@ const registerForm = props => {
 
   const registerSubmitHandler = async e => {
     e.preventDefault();
-    setValidate(true);
+    await setValidate(true);
     const { fullName, emailAddress, password } = registerData;
-
+    console.log("clicked");
+    console.log(fullName.valid && emailAddress.valid && password.valid);
     if (fullName.valid && emailAddress.valid && password.valid) {
       try {
         const result = await axios({
@@ -76,12 +77,16 @@ const registerForm = props => {
         });
 
         logInUser(result.data.token);
+        await setSubmitted(true);
         registerSubmitCustomHandler(true);
-        setSubmitted(true);
+
+        console.log("worked");
       } catch (ex) {
         console.log("error", ex.response);
-        registerSubmitCustomHandler(false);
         setSubmitted(false);
+        registerSubmitCustomHandler(false);
+
+        console.log("didn't worked");
       }
     }
   };
@@ -136,4 +141,4 @@ const registerForm = props => {
   );
 };
 
-export default registerForm;
+export default React.memo(registerForm);

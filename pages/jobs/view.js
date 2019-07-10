@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Router from "next/router";
 import Layout from "../../components/common/Layout/Layout";
-import { withRouter } from "next/router";
+
 import axios from "../../data/api";
 import variables from "../../components/common/globalVariables";
 
@@ -15,6 +15,7 @@ const pageStyles = `background-color:${variables.mutedColor1}`;
 
 const ViewJobPage = props => {
   const [singleJob, setSingleJob] = useState(props.job);
+
   let waitingOnData = <Loader />;
 
   if (singleJob) {
@@ -33,6 +34,7 @@ const ViewJobPage = props => {
         }
         qualifications={singleJob.qualifications}
         requirements={singleJob.requirements}
+        jobId={singleJob._id}
       />
     );
   }
@@ -48,11 +50,12 @@ const ViewJobPage = props => {
 
 ViewJobPage.getInitialProps = async function({ query }) {
   const slugParts = query.slug.split("-");
-  const postId = slugParts[slugParts.length - 1];
+  const jobId = slugParts[slugParts.length - 1];
 
   try {
-    const jobInfo = await axios.get("/jobs/single/" + postId);
-    return { job: jobInfo.data };
+    const jobInfo = await axios.get("/jobs/single/" + jobId);
+    const result = { job: jobInfo.data };
+    return result;
   } catch (err) {
     console.log(err.response);
   }

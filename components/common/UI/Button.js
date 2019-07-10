@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import Icon from "./Icon";
 import variables from "../globalVariables";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Button = props => {
   const height = props.size ? props.size.height : variables.inputHeight;
@@ -19,7 +20,11 @@ const Button = props => {
       disabled={props.disabled}
     >
       {props.icon ? <Icon icon={props.icon} /> : null}
-      {props.iconOnly ? null : props.children}
+      {props.iconOnly ? null : props.loading ? (
+        <CircularProgress />
+      ) : (
+        props.children
+      )}
       <style jsx>{`
         li {
           list-style: none;
@@ -57,10 +62,18 @@ const Button = props => {
           cursor: pointer;
         }
 
-        .Button :global(svg) {
+        .Button :global(.MuiSvgIcon-root) {
           margin-right: 5px;
           opacity: 0.9;
           height: 15px;
+          color: ${variables.clearColor};
+        }
+
+        .Button :global(.MuiCircularProgress-root) {
+          padding: 5px;
+        }
+
+        .Button :global(.MuiCircularProgress-root svg) {
           color: ${variables.clearColor};
         }
 

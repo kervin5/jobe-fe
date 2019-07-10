@@ -1,7 +1,7 @@
 import axios from "../data/api";
 
 export const userIsLoggedIn = () => {
-  token = window.sessionStorage.getItem("token");
+  const token = window.sessionStorage.getItem("token");
   return token && token !== "";
 };
 
