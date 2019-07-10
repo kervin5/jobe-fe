@@ -17,7 +17,7 @@ const Icon = props => {
       <span className={[classes, "Icon", Color].join(" ")}>
         <IconToRender />
         <style jsx global>{`
-          .MuiSvgIcon-root {
+          .Icon .MuiSvgIcon-root {
             color: ${variables.accentColor1};
           }
 

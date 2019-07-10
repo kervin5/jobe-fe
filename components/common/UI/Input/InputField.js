@@ -159,7 +159,6 @@ const inputField = props => {
           {FieldToRender}
         </div>
         <p className={"ErrorMessage"}>
-          <span className={"spacer"}>&nbsp;</span>
           {props.type !== "switch" && errors.length > 0 ? errorLabel : null}
         </p>
       </div>

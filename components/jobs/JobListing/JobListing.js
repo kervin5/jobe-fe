@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import variables from "../../../components/common/globalVariables";
-// import classes from './JobListing.modules.scss';
-// import BottomNav from '../../common/UI/BottomNav/BottomNav';
-
+import { getUserInfo, userIsLoggedIn } from "../../../data/auth";
+import axios from "../../../data/api";
+import { getAuthToken } from "../../../data/auth";
+import RegisterForm from "../../users/RegisterForm/RegisterForm";
 import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
+import PopUp from "../../common/UI/PopUp";
 import Title from "../../common/UI/Title";
 import Button from "../../common/UI/Button";
 import HtmlRenderer from "../../hoc/HtmlRenderer";
@@ -12,46 +14,140 @@ import SocialMedia from "../../common/UI/SocialMedia";
 
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
-const jobListing = props => (
-  <TransformerContainer>
-    <JobListingHeader
-      title={props.title}
-      location={props.location}
-      minAmount={props.minAmount}
-      maxAmount={props.maxAmount}
-      type={props.type}
-      data-test="title-section"
-    />
+const jobListing = props => {
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [buttonData, setButtonData] = useState({
+    text: "Apply",
+    disabled: true,
+    loading: true
+  });
+  const [applicationStatus, setApplicationStatus] = useState("loading");
 
-    <div className="Body" data-test="main-content-section">
-      <Title size={"m"}>Job Description:</Title>
-      <p>{props.description}</p>
-      <br />
+  const applyBtnClicHandler = () => {
+    if (!userIsLoggedIn()) {
+      setShowPopUp(true);
+    } else {
+      axios
+        .post(
+          `/jobs/apply`,
+          { jobId: props.jobId },
+          {
+            headers: {
+              Authorization: getAuthToken()
+            }
+          }
+        )
+        .then(result => {
+          setButtonData({ text: "Applied 😁", disabled: true, loading: false });
+          console.log(result);
+        })
+        .catch(err => {
+          console.log(err);
+          setButtonData({ text: "Apply", disabled: false, loading: false });
+        });
+    }
+  };
 
-      <Title size={"m"}>Responsabilities:</Title>
-      <HtmlRenderer html={props.qualifications} />
-      <br />
+  useEffect(() => {
+    if (userIsLoggedIn()) {
+      axios
+        .post(
+          "/jobs/application/status",
+          { jobId: props.jobId },
+          {
+            headers: {
+              Authorization: getAuthToken()
+            }
+          }
+        )
+        .then(response => {
+          console.log(response);
+          if (response.data.status === "applied") {
+            setButtonData({
+              text: "Applied 😁",
+              disabled: true,
+              loading: false
+            });
+          } else {
+            setButtonData({ text: "Apply", disabled: false, loading: false });
+          }
+        });
+    } else {
+      setButtonData({ text: "Apply", disabled: false, loading: false });
+    }
+  }, []);
 
-      <Title size={"m"}>Qualilfications:</Title>
-      <HtmlRenderer html={props.requirements} />
-      <br />
+  const applicationCompleteHandler = async registed => {
+    if (registed) {
+      setShowPopUp(false);
+      setButtonData({ text: "Applying", disabled: true });
 
-      <Title size={"m"} data-test="company-information-section">
-        About the Company:
-      </Title>
-      <p>{props.aboutCompany}</p>
-      <br />
-      <SocialMedia />
-      <Button
-        className="button"
-        click={() => window.alert("You Have Sucessfully applied")}
-        data-test="appy-button"
-        fullWidth
-      >
-        Apply
-      </Button>
-    </div>
-    <style jsx>{`
+      axios
+        .post(
+          `/jobs/apply`,
+          { jobId: props.jobId },
+          {
+            headers: {
+              Authorization: getAuthToken()
+            }
+          }
+        )
+        .then(result => {
+          setButtonData({ text: "Applied 😁", disabled: true, loading: false });
+          console.log(result);
+        })
+        .catch(err => {
+          console.log(err);
+          setButtonData({ text: "Apply", disabled: false, loading: false });
+        });
+    }
+  };
+
+  return (
+    <TransformerContainer>
+      <JobListingHeader
+        title={props.title}
+        location={props.location}
+        minAmount={props.minAmount}
+        maxAmount={props.maxAmount}
+        type={props.type}
+        data-test="title-section"
+      />
+
+      <div className="Body" data-test="main-content-section">
+        <Title size={"m"}>Job Description:</Title>
+        <p>{props.description}</p>
+        <br />
+
+        <Title size={"m"}>Responsabilities:</Title>
+        <HtmlRenderer html={props.qualifications} />
+        <br />
+
+        <Title size={"m"}>Qualilfications:</Title>
+        <HtmlRenderer html={props.requirements} />
+        <br />
+
+        <Title size={"m"} data-test="company-information-section">
+          About the Company:
+        </Title>
+        <p>{props.aboutCompany}</p>
+        <br />
+
+        <Button
+          className="button"
+          click={applyBtnClicHandler}
+          data-test="appy-button"
+          fullWidth
+          disabled={buttonData.disabled}
+          loading={buttonData.loading}
+        >
+          {buttonData.text}
+        </Button>
+        <PopUp show={showPopUp}>
+          <RegisterForm onSubmit={applicationCompleteHandler} />
+        </PopUp>
+      </div>
+      <style jsx>{`
 
             .Body{
                 margin: 0 auto;
@@ -98,7 +194,8 @@ const jobListing = props => (
 
             }
         `}</style>
-  </TransformerContainer>
-);
+    </TransformerContainer>
+  );
+};
 
 export default jobListing;
