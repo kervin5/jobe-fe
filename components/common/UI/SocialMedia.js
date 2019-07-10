@@ -4,13 +4,25 @@ import Title from "./Title";
 import variables from "../globalVariables";
 
 const socialMedia = props => {
+  function fbshareCurrentPage() {
+    window.open(
+      "https://www.facebook.com/sharer/sharer.php?u=" +
+        escape(window.location.href) +
+        "&t=" +
+        document.title,
+      "",
+      "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600"
+    );
+    return false;
+  }
+
   return (
     <div className={"SocialMedia"}>
       <Title size="s">Share this Job:</Title>
       <div className={"buttons"}>
         <a
           href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-          class="twitter-share-button"
+          className="twitter-share-button"
           data-size="large"
           data-text="What an opportunity!"
           data-hashtags="ExactStaff"
@@ -21,11 +33,11 @@ const socialMedia = props => {
         <script
           async
           src="https://platform.twitter.com/widgets.js"
-          charset="utf-8"
+          charSet="utf-8"
         ></script>
         <a
-          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmyexactjobs.com%2F&amp;src=sdkpreparse"
-          class="fb-share-button"
+          href="fbshareCurrentPage()"
+          className="fb-share-button"
           data-size="large"
           data-layout="button"
         >
