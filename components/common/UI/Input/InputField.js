@@ -8,12 +8,15 @@ import TextField from "./TextInputField/TextInputField";
 import LocationInputField from "./LocationInputField/LocationInputField";
 import RichTextInputField from "./RichTextInputField/RichTextInputField";
 import TagsInputField from "./TagsInputField/TagsInputField";
+import InputErrors from "./InputErrors";
 
 const inputField = props => {
   const [touched, setTouched] = useState(false);
   const [errors, setErrors] = useState([]);
   const [value, setValue] = useState(props.value || "");
   const [isFocused, setIsFocused] = useState(false);
+  const [valid, setValid] = useState(true);
+
   let timeOutId = null;
 
   const validation = {
@@ -31,21 +34,20 @@ const inputField = props => {
     </React.Fragment>
   );
 
-  const changeHandler = newValue => {
-    if (isFocused) {
-      setValue(newValue);
-    }
+  const changeHandler = fieldData => {
+    setValid(fieldData.valid);
+    setValue(fieldData.value);
+    setErrors(fieldData.errors);
   };
 
   const handleBlur = e => {
     timeOutId = setTimeout(() => {
       if (isFocused) {
-        setIsFocused(false);
+        // setIsFocused(false);
       }
 
       if (!touched) {
-        console.log("Blur");
-        setTouched(true);
+        // setTouched(true);
       }
     }, 0);
   };
@@ -58,81 +60,12 @@ const inputField = props => {
   };
 
   useEffect(() => {
-    console.log(touched, value);
-    if (touched || props.validate) {
-      validate();
-      console.log("Should validate");
-    }
-  }, [value, touched, props.validate]);
-
-  useEffect(() => {
     if (!props.name) {
-      props.change(newValue);
+      props.change(value);
     } else {
-      props.change(props.name, value, fieldIsValid(value));
+      props.change(props.name, value, valid);
     }
   }, [value]);
-
-  const validate = () => {
-    if (validation.required && value === "") {
-      addError("This field is required");
-    } else {
-      removeError("This field is required");
-    }
-
-    if (value.length < validation.minLength) {
-      addError(
-        `This filed must have at least ${validation.minLength} characters`
-      );
-    } else {
-      removeError(
-        `This filed must have at least ${validation.minLength} characters`
-      );
-    }
-
-    if (value.length > validation.maxLength) {
-      addError(
-        `This field must have ${validation.minLength} characters or less`
-      );
-    } else {
-      removeError(
-        `This field must have ${validation.minLength} characters or less`
-      );
-    }
-
-    if (props.type === "email") {
-      console.log("verify", emailIsValid(value));
-      if (!emailIsValid(value)) {
-        addError("Please enter a valid email");
-      } else {
-        removeError("Please enter a valid email");
-      }
-    }
-
-    console.log("Errors", errors);
-  };
-
-  const addError = message => {
-    if (!errors.includes(message)) {
-      setErrors(errors.concat(message));
-    }
-  };
-
-  const removeError = message => {
-    if (errors.includes(message)) {
-      const newErrors = errors.filter(e => e !== message);
-      setErrors(newErrors);
-    }
-  };
-
-  const emailIsValid = email => {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  };
-
-  const fieldIsValid = value => {
-    return errors.length <= 0;
-  };
 
   if (
     ["password", "email", "phone", "number", "text", "textarea"].includes(
@@ -146,6 +79,8 @@ const inputField = props => {
         value={props.value}
         change={changeHandler}
         focused={props.focused}
+        validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "switch") {
@@ -171,6 +106,7 @@ const inputField = props => {
         placeholder={props.placeholder}
         value={props.value}
         change={changeHandler}
+        validate={props.validate}
       />
     );
   } else if (props.type === "richText") {
@@ -197,20 +133,8 @@ const inputField = props => {
   const inputClasses = [
     props.type !== "switch" ? "InputContainer" : "Relative",
     props.rounded ? "Rounded" : "",
-    errors.length > 0 ? "WithError" : ""
+    !valid > 0 ? "WithError" : ""
   ].join(" ");
-
-  const errorLabel = (
-    <React.Fragment>
-      {errors.map(errorMessage => (
-        <li key={errorMessage + "errorLabel"}>
-          {" "}
-          <Icon icon={"Error"} />
-          {errorMessage}
-        </li>
-      ))}
-    </React.Fragment>
-  );
 
   return (
     <div className="InputField">
@@ -220,9 +144,7 @@ const inputField = props => {
           {props.type !== "textarea" ? inputOrnaments : null}
           {FieldToRender}
         </div>
-        <ul className={"ErrorMessage"}>
-          {props.type !== "switch" && errors.length > 0 ? errorLabel : null}
-        </ul>
+        <InputErrors errors={errors} />
       </div>
       <style jsx>{`
         .InputField {
@@ -283,28 +205,6 @@ const inputField = props => {
           border: 1px solid red;
         }
 
-        div :global(.ErrorMessage) {
-          color: red !important;
-          top: initial !important;
-          font-size: 0.8em;
-          font-weight: 400 !important;
-          padding: 0px 5px 10px;
-        }
-
-        div :global(.ErrorMessage li) {
-          list-style: none;
-        }
-
-        div :global(.ErrorMessage .Icon) {
-          display: inline-block;
-        }
-
-        div :global(.ErrorMessage .Icon svg) {
-          color: red;
-          width: 15px;
-          height: 15px;
-        }
-
         label {
           color: ${variables.baseTextColor};
         }
@@ -319,8 +219,4 @@ const inputField = props => {
   );
 };
 
-const comparisonFn = function(prevProps, nextProps) {
-  return prevProps.value !== nextProps.value;
-};
-
-export default React.memo(inputField, comparisonFn);
+export default React.memo(inputField);
