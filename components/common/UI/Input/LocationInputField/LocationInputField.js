@@ -18,8 +18,9 @@ const locationInputField = props => {
   };
   // const [localValue, setLocalValue] = useState("");
 
-  const changeHandler = value => {
-    props.change(value);
+  const changeHandler = fieldData => {
+    console.log(fieldData);
+    props.change(fieldData);
     // setLocalValue(value);
   };
 
@@ -69,6 +70,7 @@ const locationInputField = props => {
         callback={ajaxCallback}
         value={props.value || ""}
         options={options}
+        validate={props.validate}
         ajax
       />
       <style jsx>{`
@@ -100,8 +102,4 @@ const locationInputField = props => {
   );
 };
 
-const comparisonFn = function(prevProps, nextProps) {
-  return prevProps.value === nextProps.value;
-};
-
-export default React.memo(locationInputField, comparisonFn);
+export default React.memo(locationInputField);
