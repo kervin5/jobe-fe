@@ -35,6 +35,7 @@ const socialMedia = props => {
           src="https://platform.twitter.com/widgets.js"
           charSet="utf-8"
         ></script>
+
         <a
           href="fbshareCurrentPage()"
           className="fb-share-button"
@@ -65,6 +66,10 @@ const socialMedia = props => {
         .buttons a {
           display: block;
           padding: 0 5px;
+        }
+
+        button {
+          padding: 0 2px;
         }
       `}</style>
     </div>

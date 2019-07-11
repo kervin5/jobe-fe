@@ -133,6 +133,7 @@ const jobListing = props => {
         <p>{props.aboutCompany}</p>
         <br />
 
+        <SocialMedia />
         <Button
           className="button"
           click={applyBtnClicHandler}
