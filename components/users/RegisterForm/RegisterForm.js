@@ -17,21 +17,33 @@ const registerForm = props => {
       type: "text",
       label: "Full Name",
       placeholder: "John Doe",
-      valid: false
+      valid: false,
+      validation: {
+        required: true,
+        minLength: 5
+      }
     },
     emailAddress: {
       value: "",
-      type: "text",
+      type: "email",
       label: "Email Address",
       placeholder: "john@doe.com",
-      valid: false
+      valid: false,
+      validation: {
+        required: true,
+        minLength: 5
+      }
     },
     password: {
       value: "",
       type: "password",
       label: "Password",
       placeholder: " Password",
-      valid: false
+      valid: false,
+      validation: {
+        required: true,
+        minLength: 5
+      }
     }
   });
   const [submitted, setSubmitted] = useState(false);
@@ -98,8 +110,8 @@ const registerForm = props => {
         placeholder={registerDataField.placeholder}
         name={key}
         key={"registerField" + key}
-        required
         validate={validate}
+        {...registerDataField.validation}
       />
     );
   });

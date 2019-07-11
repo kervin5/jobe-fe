@@ -8,16 +8,21 @@ import TextField from "./TextInputField/TextInputField";
 import LocationInputField from "./LocationInputField/LocationInputField";
 import RichTextInputField from "./RichTextInputField/RichTextInputField";
 import TagsInputField from "./TagsInputField/TagsInputField";
+import InputErrors from "./InputErrors";
 
 const inputField = props => {
   const [touched, setTouched] = useState(false);
   const [errors, setErrors] = useState([]);
   const [value, setValue] = useState(props.value || "");
   const [isFocused, setIsFocused] = useState(false);
+  const [valid, setValid] = useState(true);
+
   let timeOutId = null;
 
   const validation = {
-    required: props.required || false
+    required: props.required || false,
+    minLength: props.minLength || 0,
+    maxLength: props.maxLength || 9999999
   };
   // const [fieldName, setFieldName] = useState(props.value || "");
   let FieldToRender = null;
@@ -29,24 +34,20 @@ const inputField = props => {
     </React.Fragment>
   );
 
-  const changeHandler = newValue => {
-    // const valid = errors.length === 0;
-    if (!props.name) {
-      props.change(newValue);
-    } else {
-      props.change(props.name, newValue, fieldIsValid(newValue));
-    }
-    setValue(newValue);
+  const changeHandler = fieldData => {
+    setValid(fieldData.valid);
+    setValue(fieldData.value);
+    setErrors(fieldData.errors);
   };
 
   const handleBlur = e => {
     timeOutId = setTimeout(() => {
       if (isFocused) {
-        setIsFocused(false);
+        // setIsFocused(false);
       }
 
       if (!touched) {
-        setTouched(true);
+        // setTouched(true);
       }
     }, 0);
   };
@@ -59,24 +60,12 @@ const inputField = props => {
   };
 
   useEffect(() => {
-    if (touched || props.validate) {
-      validate();
+    if (!props.name) {
+      props.change(value);
+    } else {
+      props.change(props.name, value, valid);
     }
-  }, [value, touched, props.validate]);
-
-  const validate = () => {
-    if (validation.required) {
-      if (value === "") {
-        setErrors(["This field is required"]);
-      } else {
-        setErrors([]);
-      }
-    }
-  };
-
-  const fieldIsValid = value => {
-    return !(validation.required && value === "");
-  };
+  }, [value]);
 
   if (
     ["password", "email", "phone", "number", "text", "textarea"].includes(
@@ -90,6 +79,8 @@ const inputField = props => {
         value={props.value}
         change={changeHandler}
         focused={props.focused}
+        validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "switch") {
@@ -115,6 +106,7 @@ const inputField = props => {
         placeholder={props.placeholder}
         value={props.value}
         change={changeHandler}
+        validate={props.validate}
       />
     );
   } else if (props.type === "richText") {
@@ -141,14 +133,8 @@ const inputField = props => {
   const inputClasses = [
     props.type !== "switch" ? "InputContainer" : "Relative",
     props.rounded ? "Rounded" : "",
-    errors.length > 0 ? "WithError" : ""
+    !valid > 0 ? "WithError" : ""
   ].join(" ");
-
-  const errorLabel = (
-    <React.Fragment>
-      <Icon icon={"exclamation-circle"} /> This field is required
-    </React.Fragment>
-  );
 
   return (
     <div className="InputField">
@@ -158,9 +144,7 @@ const inputField = props => {
           {props.type !== "textarea" ? inputOrnaments : null}
           {FieldToRender}
         </div>
-        <p className={"ErrorMessage"}>
-          {props.type !== "switch" && errors.length > 0 ? errorLabel : null}
-        </p>
+        <InputErrors errors={errors} />
       </div>
       <style jsx>{`
         .InputField {
@@ -221,13 +205,6 @@ const inputField = props => {
           border: 1px solid red;
         }
 
-        div :global(.ErrorMessage) {
-          color: red !important;
-          top: initial !important;
-          font-size: 0.8em;
-          font-weight: 400 !important;
-        }
-
         label {
           color: ${variables.baseTextColor};
         }
@@ -242,8 +219,4 @@ const inputField = props => {
   );
 };
 
-const comparisonFn = function(prevProps, nextProps) {
-  return prevProps.value !== nextProps.value;
-};
-
-export default React.memo(inputField, comparisonFn);
+export default React.memo(inputField);
