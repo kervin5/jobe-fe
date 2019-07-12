@@ -12,6 +12,7 @@ const useInput = ({
   const [inputName, setInputName] = useState(name || "");
   const [inputValue, setInputValue] = useState(value || "");
   const [inputPlaceholder, setInputPlaceholder] = useState(placeholder || "");
+  const [inputType, setInputType] = useState(type || "text");
   const [inputValid, setInputValid] = useState(false);
   const [inputTouched, setInputTouched] = useState(false);
   const [inputErrors, setInputErrors] = useState([]);
@@ -42,7 +43,8 @@ const useInput = ({
       valid: inputValid,
       errors: inputErrors,
       name: inputName,
-      placeholder: inputPlaceholder
+      placeholder: inputPlaceholder,
+      type: inputType
     },
     setInputField
   ];

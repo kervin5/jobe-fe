@@ -69,7 +69,7 @@ class JobCreatorForm extends Component {
     validate: false
   };
 
-  changeHandler = (field, value, valid) => {
+  changeHandler = fieldData => {
     // console.log(field,value, valid);
 
     this.setState(prevState => {
@@ -77,10 +77,9 @@ class JobCreatorForm extends Component {
         ...prevState,
         formData: {
           ...prevState.formData,
-          [field]: {
-            ...prevState.formData[field],
-            value: value,
-            valid: valid
+          [fieldData.name]: {
+            ...prevState.formData[fieldData.name],
+            ...fieldData
           }
         }
       };
@@ -92,33 +91,33 @@ class JobCreatorForm extends Component {
     this.setState({ validate: true }, () => {
       if (this.formIsValid()) {
         console.log(this.formIsValid());
-        // this.setState({ status: "sending" });
-        // const jobData = {
-        //   title: this.state.formData.jobTitle.value,
-        //   location: this.state.formData.jobLocation.value,
-        //   minCompensation: this.state.formData.minCompensation.value,
-        //   maxCompensation: this.state.formData.maxCompensation.value,
-        //   compensationType: this.state.formData.compensationType.value,
-        //   category: this.state.formData.jobCategory.value,
-        //   type: this.state.formData.jobType.value,
-        //   description: this.state.formData.jobDescription.value,
-        //   skills: this.state.formData.jobSkills.value,
-        //   requirements: this.state.formData.jobRequirements.value,
-        //   qualifications: this.state.formData.jobQualifications.value
-        // };
+        this.setState({ status: "sending" });
+        const jobData = {
+          title: this.state.formData.jobTitle.value,
+          location: this.state.formData.jobLocation.value,
+          minCompensation: this.state.formData.minCompensation.value,
+          maxCompensation: this.state.formData.maxCompensation.value,
+          compensationType: this.state.formData.compensationType.value,
+          category: this.state.formData.jobCategory.value,
+          type: this.state.formData.jobType.value,
+          description: this.state.formData.jobDescription.value,
+          skills: this.state.formData.jobSkills.value,
+          requirements: this.state.formData.jobRequirements.value,
+          qualifications: this.state.formData.jobQualifications.value
+        };
 
-        // axios
-        //   .post("/jobs", jobData, {
-        //     headers: {
-        //       Authorization: window.sessionStorage.getItem("token")
-        //     }
-        //   })
-        //   .then(res => {
-        //     this.setState({ status: "posted" });
-        //   })
-        //   .catch(err => {
-        //     this.setState({ status: "failed" });
-        //   });
+        axios
+          .post("/jobs", jobData, {
+            headers: {
+              Authorization: window.sessionStorage.getItem("token")
+            }
+          })
+          .then(res => {
+            this.setState({ status: "posted" });
+          })
+          .catch(err => {
+            this.setState({ status: "failed" });
+          });
       }
     });
   };
@@ -126,6 +125,7 @@ class JobCreatorForm extends Component {
   formIsValid = () => {
     const invalid = Object.keys(this.state.formData).filter(key => {
       // console.log(key,this.state.formData[key].valid);
+
       return !this.state.formData[key].valid;
     });
     return invalid.length === 0;

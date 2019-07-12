@@ -28,11 +28,14 @@ const textInputField = props => {
   };
 
   useEffect(() => {
+    if (!props.touched && props.validate) {
+      setTouched(true);
+    }
     if ((touched || props.validate) && props.change) {
       setTextFieldState(textFieldState.value);
       props.change({ ...textFieldState, touched });
     }
-  }, [textFieldState, touched, props.validate]);
+  }, [touched, props.validate, textFieldState.valid, textFieldState.value]);
 
   let InputFieldTag = "input";
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import variables from "../../common/globalVariables";
 import Router from "next/router";
 import InputField from "../../common/UI/Input/InputField";
@@ -40,8 +40,8 @@ const searchForm = props => {
   const submitFormHandler = e => {
     e.preventDefault();
     setValidate(true);
-
     const { searchTerms, searchLocation } = formData;
+
     if (searchTerms.valid && searchLocation.valid) {
       Router.push(
         `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`

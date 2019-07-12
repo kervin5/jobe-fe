@@ -16,8 +16,18 @@ class TagsInputField extends React.Component {
 
     this.state = {
       tags: props.tags || [],
-      suggestions: props.options ? suggestions : []
+      suggestions: props.options ? suggestions : [],
+      valid: false,
+      touched: false,
+      value: "",
+      errors: []
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.validate !== this.props.validate && this.props.validate) {
+      this.passValueToChangeProp(this.state.tags);
+    }
   }
 
   handleDelete(i) {
@@ -37,9 +47,36 @@ class TagsInputField extends React.Component {
   }
 
   passValueToChangeProp = tags => {
-    if (this.props.change) {
-      const values = tags.map(tag => tag.name).join(",");
-      this.props.change(values);
+    const values = tags.map(tag => tag.name).join(",");
+
+    if (values === "" && this.props.validation.required) {
+      this.setState(
+        {
+          valid: false,
+          value: values,
+          touched: true,
+          errors: ["Please enter at least one value"]
+        },
+        () => {
+          if (this.props.change) {
+            this.props.change(this.state);
+          }
+        }
+      );
+    } else {
+      this.setState(
+        {
+          valid: true,
+          value: values,
+          touched: true,
+          errors: []
+        },
+        () => {
+          if (this.props.change) {
+            this.props.change(this.state);
+          }
+        }
+      );
     }
   };
 

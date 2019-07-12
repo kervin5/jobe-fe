@@ -23,15 +23,7 @@ const dropdownInputField = props => {
 
   const handleOptionClick = e => {
     const newValue = e.target.value;
-
-    if (newValue === "") {
-      setValid(false);
-      setErrors(["Please select an option from the dropdown"]);
-    } else {
-      setValid(true);
-      setErrors([]);
-    }
-    setValue(newValue);
+    setDropdownInput(newValue);
     setTouched(true);
   };
 

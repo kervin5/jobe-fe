@@ -90,6 +90,7 @@ const inputField = props => {
         value={props.value}
         change={changeHandler}
         validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "richText") {
@@ -97,6 +98,8 @@ const inputField = props => {
       <RichTextInputField
         placeholder={props.placeholder}
         change={changeHandler}
+        validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "richTextLimited") {
@@ -105,11 +108,18 @@ const inputField = props => {
         placeholder={props.placeholder}
         toolbarOptions={["list", "emoji", "remove", "history"]}
         change={changeHandler}
+        validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "tags") {
     FieldToRender = (
-      <TagsInputField options={props.options} change={changeHandler} />
+      <TagsInputField
+        options={props.options}
+        change={changeHandler}
+        validation={{ required: props.required }}
+        validate={props.validate}
+      />
     );
   }
 

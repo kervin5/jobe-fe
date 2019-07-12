@@ -70,6 +70,7 @@ const locationInputField = props => {
         value={props.value || ""}
         options={options}
         validate={props.validate}
+        required={props.required}
         ajax
       />
       <style jsx>{`
