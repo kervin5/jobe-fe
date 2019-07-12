@@ -1,41 +1,38 @@
 import React, { useState, useEffect } from "react";
 import variables from "../../../globalVariables";
-import validate from "../validate";
+import useInput from "../useInput";
 
 const textInputField = props => {
-  const [value, setValue] = useState(props.value || "");
-  const [valid, setValid] = useState(true);
-  const [errors, setErrors] = useState([]);
-  const [validation, setValidation] = useState({
-    required: props.required || false,
-    minLength: props.minLength || 0,
-    maxLength: props.maxLength || 9999999
+  const validation = {
+    required: props.required,
+    maxLength: props.maxLength,
+    minLength: props.minLength
+  };
+  const [textFieldState, setTextFieldState] = useInput({
+    type: props.inputType,
+    value: props.value,
+    placeholder: props.placeholder,
+    name: props.name,
+    validation: validation
   });
-  const [name, setName] = useState("");
+  const [touched, setTouched] = useState(false);
 
-  const changeHandler = e => {
-    updateValidityStatus(e.target.value);
+  const handleBlur = e => {
+    setTouched(true);
+    setTextFieldState(e.target.value);
+  };
+
+  const handleChange = e => {
+    setTouched(true);
+    setTextFieldState(e.target.value);
   };
 
   useEffect(() => {
-    if (props.validate) {
-      updateValidityStatus(value);
+    if ((touched || props.validate) && props.change) {
+      setTextFieldState(textFieldState.value);
+      props.change({ ...textFieldState, touched });
     }
-  }, [props.validate]);
-
-  //Passes the field status to a parent handler function if it exists
-  useEffect(() => {
-    if (props.change) {
-      props.change({ name, value, valid, errors });
-    }
-  }, [value, errors, valid]);
-
-  const updateValidityStatus = newValue => {
-    const validityStatus = validate(props.inputType, newValue, validation);
-    setValue(newValue);
-    setErrors(validityStatus.errors);
-    setValid(validityStatus.valid);
-  };
+  }, [textFieldState, touched, props.validate]);
 
   let InputFieldTag = "input";
 
@@ -46,10 +43,11 @@ const textInputField = props => {
   return (
     <React.Fragment>
       <InputFieldTag
-        type={props.inputType}
-        placeholder={props.placeholder}
-        value={value}
-        onChange={changeHandler}
+        type={textFieldState.type}
+        placeholder={textFieldState.placeholder}
+        value={textFieldState.value}
+        onChange={handleChange}
+        onBlur={handleBlur}
         autoFocus={props.focused ? true : false}
       />
 

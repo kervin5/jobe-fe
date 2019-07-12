@@ -19,7 +19,6 @@ const locationInputField = props => {
   // const [localValue, setLocalValue] = useState("");
 
   const changeHandler = fieldData => {
-    console.log(fieldData);
     props.change(fieldData);
     // setLocalValue(value);
   };

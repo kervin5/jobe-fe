@@ -18,6 +18,7 @@ const InputErrors = ({ errors = [] }) => {
       {errors.length > 0 ? errorLabels : null}
       <style jsx>{`
         ul {
+          padding: 0px 5px 10px !important;
         }
 
         ul :global(.ErrorMessage) {
