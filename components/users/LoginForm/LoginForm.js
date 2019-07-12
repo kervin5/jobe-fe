@@ -28,17 +28,15 @@ const loginForm = () => {
 
   const [validate, setValidate] = useState(false);
 
-  const changeHandler = (key, value, valid) => {
-    const newState = {
+  const changeHandler = fieldData => {
+    console.log(fieldData, formData[fieldData.name]);
+    setFormData({
       ...formData,
-      [key]: {
-        ...formData[key],
-        value: value,
-        valid: valid
+      [fieldData.name]: {
+        ...formData[fieldData.name],
+        ...fieldData
       }
-    };
-    console.log(newState);
-    setFormData(newState);
+    });
   };
 
   const submitHandler = async e => {

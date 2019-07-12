@@ -1,6 +1,13 @@
-const validateField = (type, value, validation) => {
+const validateField = (type, value, validation, customMessages) => {
   let valid = false;
   let errors = [];
+  let errorMessages = {
+    required: "This field is required",
+    minLength: `This field must have at least ${validation.minLength} characters`,
+    maxLength: `This field must have ${validation.minLength} characters or less`,
+    emailFormat: "Please enter a valid email",
+    ...customMessages
+  };
 
   const emailIsValid = email => {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -20,35 +27,20 @@ const validateField = (type, value, validation) => {
   };
 
   if (validation.required && value === "") {
-    addError("This field is required");
-  } else {
-    removeError("This field is required");
+    addError(errorMessages.required);
   }
 
   if (value.length < validation.minLength) {
-    addError(
-      `This field must have at least ${validation.minLength} characters`
-    );
-  } else {
-    removeError(
-      `This field must have at least ${validation.minLength} characters`
-    );
+    addError(errorMessages.minLength);
   }
 
   if (value.length > validation.maxLength) {
-    addError(`This field must have ${validation.minLength} characters or less`);
-  } else {
-    removeError(
-      `This field must have ${validation.minLength} characters or less`
-    );
+    addError(errorMessages.maxLength);
   }
 
   if (type === "email") {
-    console.log("verify", emailIsValid(value));
     if (!emailIsValid(value)) {
-      addError("Please enter a valid email");
-    } else {
-      removeError("Please enter a valid email");
+      addError(errorMessages.emailFormat);
     }
   }
 

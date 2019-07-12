@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import variables from "../../common/globalVariables";
 import Router from "next/router";
 import InputField from "../../common/UI/Input/InputField";
@@ -7,43 +7,71 @@ import Button from "../../common/UI/Button";
 const buttonStyles = `margin-top:10px;`;
 
 const searchForm = props => {
-  const [searchTerms, setSearchTerms] = useState(props.terms || "");
-  const [searchLocation, setSearchLocation] = useState(props.location || "");
+  const [formData, setFormData] = useState({
+    searchTerms: {
+      value: "",
+      valid: false,
+      icon: "Search",
+      type: "text",
+      placeholder: "Job Title, Keywords, or Company Name",
+      focused: true
+    },
+    searchLocation: {
+      value: "",
+      valid: false,
+      icon: "LocationOn",
+      type: "location",
+      placeholder: "Location",
+      focused: false
+    }
+  });
   const [validate, setValidate] = useState(false);
+
+  const handleChange = fieldData => {
+    setFormData({
+      ...formData,
+      [fieldData.name]: {
+        ...formData[fieldData.name],
+        ...fieldData
+      }
+    });
+  };
 
   const submitFormHandler = e => {
     e.preventDefault();
     setValidate(true);
+    const { searchTerms, searchLocation } = formData;
 
-    if (searchTerms !== "" && searchLocation !== "") {
-      Router.push(`/jobs?q=${searchTerms}&location=${searchLocation}`);
+    if (searchTerms.valid && searchLocation.valid) {
+      Router.push(
+        `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`
+      );
     }
   };
 
-  return (
-    <form>
+  const InputFields = ["searchTerms", "searchLocation"].map(key => {
+    const fieldData = formData[key];
+
+    return (
       <InputField
         validate={validate}
-        type="text"
-        placeholder="Job Title, Keywords, or Company Name"
+        type={fieldData.type}
+        placeholder={fieldData.placeholder}
         rounded
         centerPlaceholder
-        icon="Search"
-        value={searchTerms}
-        change={setSearchTerms}
+        icon={fieldData.icon}
+        change={handleChange}
         required
         focused
+        name={key}
+        key={key + "SearchField"}
       />
-      <InputField
-        validate={validate}
-        type="location"
-        placeholder="Location"
-        rounded
-        icon="LocationOn"
-        value={props.location || searchLocation}
-        change={setSearchLocation}
-        required
-      />
+    );
+  });
+
+  return (
+    <form>
+      {InputFields}
       <Button styles={buttonStyles} click={submitFormHandler} fullWidth>
         Search
       </Button>

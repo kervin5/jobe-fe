@@ -19,7 +19,6 @@ const locationInputField = props => {
   // const [localValue, setLocalValue] = useState("");
 
   const changeHandler = fieldData => {
-    console.log(fieldData);
     props.change(fieldData);
     // setLocalValue(value);
   };
@@ -71,6 +70,7 @@ const locationInputField = props => {
         value={props.value || ""}
         options={options}
         validate={props.validate}
+        required={props.required}
         ajax
       />
       <style jsx>{`

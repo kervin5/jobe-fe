@@ -11,13 +11,10 @@ import TagsInputField from "./TagsInputField/TagsInputField";
 import InputErrors from "./InputErrors";
 
 const inputField = props => {
+  const [valid, setValid] = useState(false);
+  const [value, setValue] = useState("");
   const [touched, setTouched] = useState(false);
   const [errors, setErrors] = useState([]);
-  const [value, setValue] = useState(props.value || "");
-  const [isFocused, setIsFocused] = useState(false);
-  const [valid, setValid] = useState(true);
-
-  let timeOutId = null;
 
   const validation = {
     required: props.required || false,
@@ -37,35 +34,19 @@ const inputField = props => {
   const changeHandler = fieldData => {
     setValid(fieldData.valid);
     setValue(fieldData.value);
+    setTouched(fieldData.touched);
     setErrors(fieldData.errors);
   };
 
-  const handleBlur = e => {
-    timeOutId = setTimeout(() => {
-      if (isFocused) {
-        // setIsFocused(false);
-      }
-
-      if (!touched) {
-        // setTouched(true);
-      }
-    }, 0);
-  };
-
-  const handleFocus = () => {
-    clearTimeout(timeOutId);
-    if (!isFocused) {
-      setIsFocused(true);
-    }
-  };
-
   useEffect(() => {
-    if (!props.name) {
-      props.change(value);
-    } else {
-      props.change(props.name, value, valid);
+    if (props.change) {
+      if (!props.name) {
+        props.change(value);
+      } else {
+        props.change({ name: props.name, valid, value, touched, errors });
+      }
     }
-  }, [value]);
+  }, [valid, value, touched, errors]);
 
   if (
     ["password", "email", "phone", "number", "text", "textarea"].includes(
@@ -97,6 +78,8 @@ const inputField = props => {
         placeholder={props.placeholder}
         options={props.options}
         change={changeHandler}
+        validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "location") {
@@ -107,6 +90,7 @@ const inputField = props => {
         value={props.value}
         change={changeHandler}
         validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "richText") {
@@ -114,6 +98,8 @@ const inputField = props => {
       <RichTextInputField
         placeholder={props.placeholder}
         change={changeHandler}
+        validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "richTextLimited") {
@@ -122,30 +108,36 @@ const inputField = props => {
         placeholder={props.placeholder}
         toolbarOptions={["list", "emoji", "remove", "history"]}
         change={changeHandler}
+        validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "tags") {
     FieldToRender = (
-      <TagsInputField options={props.options} change={changeHandler} />
+      <TagsInputField
+        options={props.options}
+        change={changeHandler}
+        validation={{ required: props.required }}
+        validate={props.validate}
+      />
     );
   }
 
   const inputClasses = [
     props.type !== "switch" ? "InputContainer" : "Relative",
     props.rounded ? "Rounded" : "",
-    !valid > 0 ? "WithError" : ""
+    !valid && (touched || props.validate) ? "WithError" : ""
   ].join(" ");
 
   return (
     <div className="InputField">
-      <div onBlur={handleBlur} onFocus={handleFocus}>
-        <label>{props.label}</label>
-        <div className={inputClasses}>
-          {props.type !== "textarea" ? inputOrnaments : null}
-          {FieldToRender}
-        </div>
-        <InputErrors errors={errors} />
+      <label>{props.label}</label>
+      <div className={inputClasses}>
+        {props.type !== "textarea" ? inputOrnaments : null}
+        {FieldToRender}
       </div>
+      <InputErrors errors={errors} />
+
       <style jsx>{`
         .InputField {
           flex-grow: 1;

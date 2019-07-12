@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import variables from "../../../globalVariables";
 // import inputStyles from '../InputStyles';
 
@@ -12,9 +11,11 @@ class AutoCompleteInputField extends React.PureComponent {
     hasValueFromOptions: false,
     showMenu: false,
     isManagingFocus: false,
-    valid: true,
+    valid: false,
     errors: [],
-    name: this.props.name || ""
+    name: this.props.name || "",
+    touched: false,
+    helpLabel: "Please type something"
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -33,37 +34,31 @@ class AutoCompleteInputField extends React.PureComponent {
     }
   };
 
+  handleStateChange = state => {
+    const newState = {
+      ...this.state,
+      ...state
+    };
+
+    this.setState(newState, () => {
+      if (this.props.change) {
+        this.props.change(newState);
+      }
+    });
+  };
+
   updateField = value => {
-    this.setState({ value });
+    this.handleStateChange({ value });
     if (!this.props.ajax) {
       this.setState({ options: filterOptions(value, props.options) });
     }
     this.setState({ hasValueFromOptions: this.fieldIsValid(value) }, () => {
-      if (this.props.change) {
-        if (this.state.hasValueFromOptions) {
-          this.props.change({
-            name: this.state.name,
-            value,
-            valid: this.state.valid,
-            errors: this.state.errors
-          });
-        } else {
-          this.setState(
-            {
-              valid: false,
-              errors: ["Please select an option from the dropdown"],
-              options: []
-            },
-            () => {
-              this.props.change({
-                name: this.state.name,
-                value: this.state.value,
-                valid: this.state.valid,
-                errors: this.state.errors
-              });
-            }
-          );
-        }
+      if (!this.state.hasValueFromOptions && this.props.required) {
+        this.handleStateChange({
+          valid: false,
+          errors: ["Please select an option from the dropdown"],
+          options: []
+        });
       }
     });
   };
@@ -76,62 +71,37 @@ class AutoCompleteInputField extends React.PureComponent {
   };
 
   validate = () => {
-    this.setState(
-      { hasValueFromOptions: this.fieldIsValid(this.state.value) },
-      () => {
-        if (this.props.change) {
-          if (this.state.hasValueFromOptions) {
-            this.props.change({
-              name: this.state.name,
-              value: this.state.value,
-              valid: this.state.valid,
-              errors: this.state.errors
-            });
-          } else {
-            this.setState(
-              {
-                valid: false,
-                errors: ["Please select an option from the dropdown"],
-                options: []
-              },
-              () => {
-                this.props.change({
-                  name: this.state.name,
-                  value: this.state.value,
-                  valid: this.state.valid,
-                  errors: this.state.errors
-                });
-              }
-            );
-          }
-        }
-      }
-    );
+    if (this.props.required && !this.state.hasValueFromOptions) {
+      this.handleStateChange({
+        hasValueFromOptions: false,
+        errors: ["Please select an option from the dropdown"],
+        options: [],
+        valid: false,
+        touched: true
+      });
+    } else if (!this.props.required && this.props.value === "") {
+      this.handleStateChange({
+        hasValueFromOptions: false,
+        errors: [],
+        options: [],
+        valid: true,
+        touched: true
+      });
+    }
   };
 
   handleOptionClick = (e, value) => {
     e.preventDefault();
     e.stopPropagation();
 
-    this.setState(
-      {
-        showMenu: false,
-        value: value,
-        hasValueFromOptions: true,
-        valid: true,
-        errors: []
-      },
-      () => {
-        if (this.props.change) {
-          this.props.change({
-            name: this.state.name,
-            value,
-            valid: this.state.valid,
-            errors: this.state.errors
-          });
-        }
-      }
-    );
+    this.handleStateChange({
+      showMenu: false,
+      value: value,
+      hasValueFromOptions: true,
+      valid: true,
+      errors: [],
+      touched: true
+    });
   };
 
   _onBlur = e => {
@@ -140,37 +110,18 @@ class AutoCompleteInputField extends React.PureComponent {
 
     this._timeoutID = setTimeout(() => {
       if (this.state.isManagingFocus) {
-        this.setState({
+        this.handleStateChange({
           isManagingFocus: false,
-          showMenu: false
+          showMenu: false,
+          touched: true
         });
       }
 
-      if (this.props.change) {
-        if (this.state.hasValueFromOptions) {
-          this.props.change({
-            name: this.state.name,
-            value: this.state.value,
-            valid: this.state.valid,
-            errors: this.state.errors
-          });
-        } else {
-          this.setState(
-            {
-              errors: ["Please select an option from the dropdown"],
-              options: []
-            },
-            () => {
-              this.props.change({
-                name: this.state.name,
-                valid: false,
-                value: this.state.value,
-                valid: this.state.valid,
-                errors: this.state.errors
-              });
-            }
-          );
-        }
+      if (!this.state.hasValueFromOptions) {
+        this.handleStateChange({
+          errors: ["Please select an option from the dropdown"],
+          options: []
+        });
       }
     }, 0);
   };
@@ -178,7 +129,7 @@ class AutoCompleteInputField extends React.PureComponent {
   _onFocus = () => {
     clearTimeout(this._timeoutID);
     if (!this.state.isManagingFocus) {
-      this.setState({
+      this.handleStateChange({
         isManagingFocus: true,
         showMenu: true
       });
@@ -219,7 +170,11 @@ class AutoCompleteInputField extends React.PureComponent {
         />
         {this.state.showMenu && (
           <div className={"Options"}>
-            {options.length > 0 ? optionsElements : "No results found"}
+            {options.length > 0 ? (
+              optionsElements
+            ) : (
+              <div className="Option">Nothing found</div>
+            )}
           </div>
         )}
 
