@@ -1,4 +1,5 @@
 import React from "react";
+import variables from "../globalVariables";
 // import classes from './PageSection.module.scss';
 
 const pageSection = props => {
@@ -18,12 +19,13 @@ const pageSection = props => {
           align-items: center;
           padding-top: 20px;
           flex-direction: ${props.column ? "column" : "row"};
+          background-color: ${variables.mutedColor1};
           ${fullHeight}
           ${extraStyles}
         }
 
         .PageSection:first-child {
-          min-height: calc(100vh - 50px);
+          min-height: calc(100vh - 56px);
         }
       `}</style>
     </div>

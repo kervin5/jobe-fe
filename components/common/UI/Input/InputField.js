@@ -2,84 +2,51 @@ import React, { useState, useEffect } from "react";
 import variables from "../../globalVariables";
 // import classes from './InputField.module.scss';
 import DropdownInputField from "./DropdownInputField/DropdownInputField";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Icon from "../Icon";
 import SwitchInputField from "./SwitchInputField/SwitchInputField";
 import TextField from "./TextInputField/TextInputField";
 import LocationInputField from "./LocationInputField/LocationInputField";
 import RichTextInputField from "./RichTextInputField/RichTextInputField";
 import TagsInputField from "./TagsInputField/TagsInputField";
+import InputErrors from "./InputErrors";
 
 const inputField = props => {
+  const [valid, setValid] = useState(false);
+  const [value, setValue] = useState("");
   const [touched, setTouched] = useState(false);
   const [errors, setErrors] = useState([]);
-  const [value, setValue] = useState(props.value || "");
-  const [isFocused, setIsFocused] = useState(false);
-  let timeOutId = null;
 
   const validation = {
-    required: props.required || false
+    required: props.required || false,
+    minLength: props.minLength || 0,
+    maxLength: props.maxLength || 9999999
   };
   // const [fieldName, setFieldName] = useState(props.value || "");
   let FieldToRender = null;
   const inputOrnaments = (
     <React.Fragment>
       {props.icon ? (
-        <FontAwesomeIcon
-          icon={["fa", props.icon]}
-          style={{ color: variables.accentColor1 }}
-        />
+        <Icon icon={props.icon} style={{ color: variables.accentColor1 }} />
       ) : null}
     </React.Fragment>
   );
 
-  const changeHandler = newValue => {
-    // const valid = errors.length === 0;
-    if (!props.name) {
-      props.change(newValue);
-    } else {
-      props.change(props.name, newValue, fieldIsValid(newValue));
-    }
-    setValue(newValue);
-  };
-
-  const handleBlur = e => {
-    timeOutId = setTimeout(() => {
-      if (isFocused) {
-        setIsFocused(false);
-      }
-
-      if (!touched) {
-        setTouched(true);
-      }
-    }, 0);
-  };
-
-  const handleFocus = () => {
-    clearTimeout(timeOutId);
-    if (!isFocused) {
-      setIsFocused(true);
-    }
+  const changeHandler = fieldData => {
+    setValid(fieldData.valid);
+    setValue(fieldData.value);
+    setTouched(fieldData.touched);
+    setErrors(fieldData.errors);
   };
 
   useEffect(() => {
-    if (touched || props.validate) {
-      validate();
-    }
-  }, [value, touched, props.validate]);
-
-  const validate = () => {
-    if (validation.required) {
-      if (value === "") {
-        setErrors(["This field is required"]);
+    if (props.change) {
+      if (!props.name) {
+        props.change(value);
       } else {
-        setErrors([]);
+        props.change({ name: props.name, valid, value, touched, errors });
       }
     }
-  };
-
-  const fieldIsValid = value => {
-    return !(validation.required && value === "");
-  };
+  }, [valid, value, touched, errors]);
 
   if (
     ["password", "email", "phone", "number", "text", "textarea"].includes(
@@ -93,6 +60,8 @@ const inputField = props => {
         value={props.value}
         change={changeHandler}
         focused={props.focused}
+        validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "switch") {
@@ -109,6 +78,8 @@ const inputField = props => {
         placeholder={props.placeholder}
         options={props.options}
         change={changeHandler}
+        validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "location") {
@@ -118,6 +89,8 @@ const inputField = props => {
         placeholder={props.placeholder}
         value={props.value}
         change={changeHandler}
+        validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "richText") {
@@ -125,6 +98,8 @@ const inputField = props => {
       <RichTextInputField
         placeholder={props.placeholder}
         change={changeHandler}
+        validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "richTextLimited") {
@@ -133,39 +108,36 @@ const inputField = props => {
         placeholder={props.placeholder}
         toolbarOptions={["list", "emoji", "remove", "history"]}
         change={changeHandler}
+        validate={props.validate}
+        {...validation}
       />
     );
   } else if (props.type === "tags") {
     FieldToRender = (
-      <TagsInputField options={props.options} change={changeHandler} />
+      <TagsInputField
+        options={props.options}
+        change={changeHandler}
+        validation={{ required: props.required }}
+        validate={props.validate}
+      />
     );
   }
 
   const inputClasses = [
     props.type !== "switch" ? "InputContainer" : "Relative",
     props.rounded ? "Rounded" : "",
-    errors.length > 0 ? "WithError" : ""
+    !valid && (touched || props.validate) ? "WithError" : ""
   ].join(" ");
-
-  const errorLabel = (
-    <React.Fragment>
-      <FontAwesomeIcon icon={"exclamation-circle"} /> This field is required
-    </React.Fragment>
-  );
 
   return (
     <div className="InputField">
-      <div onBlur={handleBlur} onFocus={handleFocus}>
-        <label>{props.label}</label>
-        <div className={inputClasses}>
-          {props.type !== "textarea" ? inputOrnaments : null}
-          {FieldToRender}
-        </div>
-        <p className={"ErrorMessage"}>
-          <span className={"spacer"}>&nbsp;</span>
-          {props.type !== "switch" && errors.length > 0 ? errorLabel : null}
-        </p>
+      <label>{props.label}</label>
+      <div className={inputClasses}>
+        {props.type !== "textarea" ? inputOrnaments : null}
+        {FieldToRender}
       </div>
+      <InputErrors errors={errors} />
+
       <style jsx>{`
         .InputField {
           flex-grow: 1;
@@ -225,13 +197,6 @@ const inputField = props => {
           border: 1px solid red;
         }
 
-        div :global(.ErrorMessage) {
-          color: red !important;
-          top: initial !important;
-          font-size: 0.8em;
-          font-weight: 400 !important;
-        }
-
         label {
           color: ${variables.baseTextColor};
         }
@@ -246,8 +211,4 @@ const inputField = props => {
   );
 };
 
-const comparisonFn = function(prevProps, nextProps) {
-  return prevProps.value !== nextProps.value;
-};
-
-export default React.memo(inputField, comparisonFn);
+export default React.memo(inputField);

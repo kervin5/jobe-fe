@@ -1,33 +1,56 @@
 import React, { useState, useEffect } from "react";
 import variables from "../../../globalVariables";
-import inputStyles from "../InputStyles";
+import useInput from "../useInput";
 
 const textInputField = props => {
-  const [value, setValue] = useState(props.value || "");
+  const validation = {
+    required: props.required,
+    maxLength: props.maxLength,
+    minLength: props.minLength
+  };
+  const [textFieldState, setTextFieldState] = useInput({
+    type: props.inputType,
+    value: props.value,
+    placeholder: props.placeholder,
+    name: props.name,
+    validation: validation
+  });
+  const [touched, setTouched] = useState(false);
 
-  const changeHandler = e => {
-    setValue(e.target.value);
+  const handleBlur = e => {
+    setTouched(true);
+    setTextFieldState(e.target.value);
+  };
+
+  const handleChange = e => {
+    setTouched(true);
+    setTextFieldState(e.target.value);
   };
 
   useEffect(() => {
-    if (props.change) {
-      props.change(value);
+    if (!props.touched && props.validate) {
+      setTouched(true);
     }
-  }, [value]);
+    if ((touched || props.validate) && props.change) {
+      setTextFieldState(textFieldState.value);
+      props.change({ ...textFieldState, touched });
+    }
+  }, [touched, props.validate, textFieldState.valid, textFieldState.value]);
 
-  let InputType = "input";
+  let InputFieldTag = "input";
 
   if (props.inputType === "textarea") {
-    InputType = "textarea";
+    InputFieldTag = "textarea";
   }
 
   return (
     <React.Fragment>
-      <InputType
-        type={props.inputType}
-        placeholder={props.placeholder}
-        value={value}
-        onChange={changeHandler}
+      <InputFieldTag
+        type={textFieldState.type}
+        placeholder={textFieldState.placeholder}
+        value={textFieldState.value}
+        onChange={handleChange}
+        onBlur={handleBlur}
         autoFocus={props.focused ? true : false}
       />
 
@@ -60,4 +83,4 @@ const textInputField = props => {
   );
 };
 
-export default textInputField;
+export default React.memo(textInputField);

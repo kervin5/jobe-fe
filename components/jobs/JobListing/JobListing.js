@@ -1,67 +1,159 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import variables from "../../../components/common/globalVariables";
-// import classes from './JobListing.modules.scss';
-// import BottomNav from '../../common/UI/BottomNav/BottomNav';
-
-import JobListingContentBlock from "./JobListingContentBlock/JobListingContentBlock";
+import { getUserInfo, userIsLoggedIn } from "../../../data/auth";
+import axios from "../../../data/api";
+import { getAuthToken } from "../../../data/auth";
+import RegisterForm from "../../users/RegisterForm/RegisterForm";
+import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
-import List from "../../common/UI/List";
+import PopUp from "../../common/UI/PopUp";
 import Title from "../../common/UI/Title";
 import Button from "../../common/UI/Button";
 import HtmlRenderer from "../../hoc/HtmlRenderer";
 
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
-const jobListing = props => (
-  <div className="JobListing">
-    <JobListingHeader
-      title={props.title}
-      location={props.location}
-      minAmount={props.minAmount}
-      maxAmount={props.maxAmount}
-      type={props.type}
-    />
+const jobListing = props => {
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [buttonData, setButtonData] = useState({
+    text: "Apply",
+    disabled: true,
+    loading: true
+  });
+  const [applicationStatus, setApplicationStatus] = useState("loading");
 
-    <div className="Body">
-      <JobListingContentBlock title={"Job Description"}>
-        {props.description}
-      </JobListingContentBlock>
-
-      <Title size={"m"}>Responsabilities:</Title>
-
-      <HtmlRenderer html={props.qualifications} />
-
-      <Title size={"m"}>Qualilfications:</Title>
-
-      <HtmlRenderer html={props.requirements} />
-
-      <JobListingContentBlock title={"About the Company"}>
-        {props.aboutCompany}
-      </JobListingContentBlock>
-
-      <Button
-        className="button"
-        click={() => window.alert("You Have Sucessfully applied")}
-      >
-        Apply
-      </Button>
-    </div>
-    <style jsx>{`
-
-            .JobListing {
-                box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-                min-height: 100vh;
-                margin-bottom: 30px;
-                border-radius: 30px;
-                background-color: ${variables.clearColor};
+  const applyBtnClicHandler = () => {
+    if (!userIsLoggedIn()) {
+      setShowPopUp(true);
+    } else {
+      axios
+        .post(
+          `/jobs/apply`,
+          { jobId: props.jobId },
+          {
+            headers: {
+              Authorization: getAuthToken()
             }
+          }
+        )
+        .then(result => {
+          setButtonData({ text: "Applied 😁", disabled: true, loading: false });
+          console.log(result);
+        })
+        .catch(err => {
+          console.log(err);
+          setButtonData({ text: "Apply", disabled: false, loading: false });
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (userIsLoggedIn()) {
+      axios
+        .post(
+          "/jobs/application/status",
+          { jobId: props.jobId },
+          {
+            headers: {
+              Authorization: getAuthToken()
+            }
+          }
+        )
+        .then(response => {
+          console.log(response);
+          if (response.data.status === "applied") {
+            setButtonData({
+              text: "Applied 😁",
+              disabled: true,
+              loading: false
+            });
+          } else {
+            setButtonData({ text: "Apply", disabled: false, loading: false });
+          }
+        });
+    } else {
+      setButtonData({ text: "Apply", disabled: false, loading: false });
+    }
+  }, []);
+
+  const applicationCompleteHandler = async registed => {
+    if (registed) {
+      setShowPopUp(false);
+      setButtonData({ text: "Applying", disabled: true });
+
+      axios
+        .post(
+          `/jobs/apply`,
+          { jobId: props.jobId },
+          {
+            headers: {
+              Authorization: getAuthToken()
+            }
+          }
+        )
+        .then(result => {
+          setButtonData({ text: "Applied 😁", disabled: true, loading: false });
+          console.log(result);
+        })
+        .catch(err => {
+          console.log(err);
+          setButtonData({ text: "Apply", disabled: false, loading: false });
+        });
+    }
+  };
+
+  return (
+    <TransformerContainer data-test="job-listing">
+      <JobListingHeader
+        title={props.title}
+        location={props.location}
+        minAmount={props.minAmount}
+        maxAmount={props.maxAmount}
+        type={props.type}
+        data-test="title-section"
+      />
+
+      <div className="Body" data-test="main-content-section">
+        <Title size={"m"}>Job Description:</Title>
+        <p>{props.description}</p>
+        <br />
+
+        <Title size={"m"}>Responsabilities:</Title>
+        <HtmlRenderer html={props.qualifications} />
+        <br />
+
+        <Title size={"m"}>Qualilfications:</Title>
+        <HtmlRenderer html={props.requirements} />
+        <br />
+
+        <Title size={"m"} data-test="company-information-section">
+          About the Company:
+        </Title>
+        <p>{props.aboutCompany}</p>
+        <br />
+
+        <Button
+          className="button"
+          click={applyBtnClicHandler}
+          data-test="appy-button"
+          fullWidth
+          disabled={buttonData.disabled}
+          loading={buttonData.loading}
+        >
+          {buttonData.text}
+        </Button>
+        <PopUp show={showPopUp}>
+          <RegisterForm onSubmit={applicationCompleteHandler} />
+        </PopUp>
+      </div>
+      <style jsx>{`
 
             .Body{
                 margin: 0 auto;
                 padding: 40px 40px 60px 40px;
                 
-                border-bottom-right-radius: 30px;
-                border-bottom-left-radius: 30px;
+                border-bottom-right-radius: ${variables.roundedRadius};
+                border-bottom-left-radius: ${variables.roundedRadius};
                 color: ${variables.baseTextColor};
             }
 
@@ -71,16 +163,12 @@ const jobListing = props => (
                 float: right;
             }
 
-            .Body p {
-                padding-bottom: 30px;
-            }
-
-            .JobListing :global(ul){
-                padding: 0 0 20px 40px;
+            .Body :global(ul){
+                padding: 0 0 0 40px;
                 color: ${variables.baseTextColor};
             }
 
-            .JobListing :global(li) {
+            .Body :global(li) {
        
                 list-style-image: url('${"../../../static/images/ExactStaffArrow.png"}');
                 // padding: 5px;
@@ -88,11 +176,7 @@ const jobListing = props => (
             }
 
             @media only screen and (max-width: 520px){
-                .JobListing {
-                    max-width: 100%;
-                    margin: 0 auto;
-                }
-
+           
                 .Body{
                     //margin: 0 auto;
                     padding:40px 40px 60px 40px;
@@ -109,7 +193,8 @@ const jobListing = props => (
 
             }
         `}</style>
-  </div>
-);
+    </TransformerContainer>
+  );
+};
 
 export default jobListing;

@@ -4,7 +4,7 @@ import InputField from "../../common/UI/Input/InputField";
 import Button from "../../common/UI/Button";
 import Title from "../../common/UI/Title";
 import Router from "next/router";
-import { loginUser } from "../../../data/auth";
+import { logInUser } from "../../../data/auth";
 
 const loginForm = () => {
   const [formData, setFormData] = useState({
@@ -14,7 +14,7 @@ const loginForm = () => {
       type: "text",
       label: "Email",
       placeholder: "jdoe@myemail.com",
-      icon: "envelope"
+      icon: "Email"
     },
     password: {
       value: "",
@@ -22,22 +22,21 @@ const loginForm = () => {
       type: "password",
       label: "Password",
       placeholder: "Password",
-      icon: "key"
+      icon: "VpnKey"
     }
   });
 
   const [validate, setValidate] = useState(false);
 
-  const changeHandler = (key, value, valid) => {
-    const newState = {
+  const changeHandler = fieldData => {
+    console.log(fieldData, formData[fieldData.name]);
+    setFormData({
       ...formData,
-      [key]: {
-        ...formData[key],
-        value: value,
-        valid: valid
+      [fieldData.name]: {
+        ...formData[fieldData.name],
+        ...fieldData
       }
-    };
-    setFormData(newState);
+    });
   };
 
   const submitHandler = async e => {
@@ -55,7 +54,7 @@ const loginForm = () => {
             password: password.value
           }
         });
-        loginUser(result.data.token);
+        logInUser(result.data.token);
         Router.push("/dashboard");
       } catch (ex) {
         console.log("Error", ex.response);
@@ -63,7 +62,7 @@ const loginForm = () => {
     }
   };
 
-  const fieldsToRender = Object.keys(formData).map(key => {
+  const fieldsToRender = ["email", "password"].map(key => {
     const fieldData = formData[key];
     return (
       <InputField

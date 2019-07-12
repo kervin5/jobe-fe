@@ -1,18 +1,20 @@
-import React from "react";
-
-// import classes from './Layout.module.scss';
-import { fas } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
 import Head from "../../head.js";
-import { library } from "@fortawesome/fontawesome-svg-core";
 import NavigationBar from "../UI/Navigation/NavigationBar";
-
-library.add(fas);
+import NavigationDrawer from "../UI/Navigation/NavigationDrawer";
+import variables from "../globalVariables";
 
 const layout = props => {
+  const [showDrawer, setShowDrawer] = useState(false);
+  const handleMenuClick = value => setShowDrawer(!showDrawer);
+
   return (
     <div className="Layout">
       <Head title={props.title} />
-      {props.hideNav ? null : <NavigationBar />}
+      {props.hideNav ? null : (
+        <NavigationBar menuButtonClick={handleMenuClick} />
+      )}
+      {<NavigationDrawer show={showDrawer} toggle={handleMenuClick} />}
       <main>{props.children}</main>
       <style jsx global>{`
         * {
@@ -26,6 +28,10 @@ const layout = props => {
           min-height: 100%;
           width: 100%;
           overflow-x: hidden;
+        }
+
+        .MuiSvgIcon-root {
+          color: ${variables.accentColor1};
         }
 
         p {

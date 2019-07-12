@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Router from "next/router";
 import Layout from "../../components/common/Layout/Layout";
-import { withRouter } from "next/router";
-import axios from "axios";
+
+import axios from "../../data/api";
 import variables from "../../components/common/globalVariables";
 
 import Container from "../../components/common/Layout/Container";
@@ -13,32 +13,10 @@ import Loader from "../../components/common/UI/Animated/Loader";
 
 const pageStyles = `background-color:${variables.mutedColor1}`;
 
-const single = props => {
-  const [singleJob, setSingleJob] = useState(null);
+const ViewJobPage = props => {
+  const [singleJob, setSingleJob] = useState(props.job);
+
   let waitingOnData = <Loader />;
-
-  useEffect(() => {
-    const {
-      router: {
-        query: { slug }
-      }
-    } = props;
-    const jobId = slug.split("-").pop();
-
-    axios
-      .get("https://myexactjobsapi.herokuapp.com/api/jobs/" + jobId)
-      .then(response => {
-        if (response.data) {
-          setSingleJob(response.data);
-        }
-      })
-      .catch(err => {
-        console.log("Failed");
-        if (err.response.status === 404) {
-          Router.push("/error");
-        }
-      });
-  }, []);
 
   if (singleJob) {
     waitingOnData = (
@@ -56,6 +34,7 @@ const single = props => {
         }
         qualifications={singleJob.qualifications}
         requirements={singleJob.requirements}
+        jobId={singleJob._id}
       />
     );
   }
@@ -69,4 +48,17 @@ const single = props => {
   );
 }; //eof
 
-export default withRouter(single);
+ViewJobPage.getInitialProps = async function({ query }) {
+  const slugParts = query.slug.split("-");
+  const jobId = slugParts[slugParts.length - 1];
+
+  try {
+    const jobInfo = await axios.get("/jobs/single/" + jobId);
+    const result = { job: jobInfo.data };
+    return result;
+  } catch (err) {
+    console.log(err.response);
+  }
+};
+
+export default ViewJobPage;

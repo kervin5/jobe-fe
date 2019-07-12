@@ -1,40 +1,64 @@
-import React, { useState, useEffect } from "react";
 import variables from "../../../globalVariables";
 // import inputStyles from '../InputStyles';
 
-class AutoCompleteInputField extends React.Component {
+class AutoCompleteInputField extends React.PureComponent {
   _timeoutID;
 
   state = {
-    textFieldValue: this.props.value || "",
+    value: this.props.value || "",
     optionsToDisplay: null,
     options: [],
     hasValueFromOptions: false,
     showMenu: false,
-    isManagingFocus: false
+    isManagingFocus: false,
+    valid: false,
+    errors: [],
+    name: this.props.name || "",
+    touched: false,
+    helpLabel: "Please type something"
   };
 
-  inputTextChangeHandler = async e => {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.validate !== prevProps.validate && this.props.validate) {
+      this.validate();
+    }
+  }
+
+  inputTextChangeHandler = e => {
     //Passes the value when the text input is changed
     this.updateField(e.target.value);
+    this.setState({ showMenu: true });
 
     if (this.props.ajax && e.target.value !== "") {
       this.props.callback(e.target.value);
     }
   };
 
+  handleStateChange = state => {
+    const newState = {
+      ...this.state,
+      ...state
+    };
+
+    this.setState(newState, () => {
+      if (this.props.change) {
+        this.props.change(newState);
+      }
+    });
+  };
+
   updateField = value => {
-    this.setState({ textFieldValue: value });
+    this.handleStateChange({ value });
     if (!this.props.ajax) {
       this.setState({ options: filterOptions(value, props.options) });
     }
     this.setState({ hasValueFromOptions: this.fieldIsValid(value) }, () => {
-      if (this.props.change) {
-        if (this.state.hasValueFromOptions) {
-          this.props.change(textFieldValue);
-        } else {
-          this.props.change("");
-        }
+      if (!this.state.hasValueFromOptions && this.props.required) {
+        this.handleStateChange({
+          valid: false,
+          errors: ["Please select an option from the dropdown"],
+          options: []
+        });
       }
     });
   };
@@ -46,58 +70,58 @@ class AutoCompleteInputField extends React.Component {
     return result.length > 0;
   };
 
-  // useEffect(() => {
-
-  //   if (props.change) {
-  //     if (hasValueFromOptions) {
-  //       props.change(textFieldValue);
-  //     } else {
-  //       props.change("");
-  //     }
-  //   }
-  // }, [textFieldValue, hasValueFromOptions]);
+  validate = () => {
+    if (this.props.required && !this.state.hasValueFromOptions) {
+      this.handleStateChange({
+        hasValueFromOptions: false,
+        errors: ["Please select an option from the dropdown"],
+        options: [],
+        valid: false,
+        touched: true
+      });
+    } else if (!this.props.required && this.props.value === "") {
+      this.handleStateChange({
+        hasValueFromOptions: false,
+        errors: [],
+        options: [],
+        valid: true,
+        touched: true
+      });
+    }
+  };
 
   handleOptionClick = (e, value) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("Clicked");
-    this.setState({
-      showMenu: false,
-      textFieldValue: value,
-      hasValueFromOptions: true
-    });
-    if (this.props.change) {
-      this.props.change(value);
-    }
-  };
 
-  // useEffect(() => {
-  //   if (!showMenu) {
-  //     if (!hasValueFromOptions) {
-  //       setOptions([]);
-  //     }
-  //   }
-  // }, [showMenu]);
+    this.handleStateChange({
+      showMenu: false,
+      value: value,
+      hasValueFromOptions: true,
+      valid: true,
+      errors: [],
+      touched: true
+    });
+  };
 
   _onBlur = e => {
     e.preventDefault();
     // e.stopPropagation();
-    console.log("Lost");
+
     this._timeoutID = setTimeout(() => {
       if (this.state.isManagingFocus) {
-        this.setState({
+        this.handleStateChange({
           isManagingFocus: false,
-          showMenu: false
+          showMenu: false,
+          touched: true
         });
       }
 
-      if (this.props.change) {
-        if (this.state.hasValueFromOptions) {
-          this.props.change(this.state.textFieldValue);
-        } else {
-          this.props.change("");
-          this.setState({ textFieldValue: "", options: [] });
-        }
+      if (!this.state.hasValueFromOptions) {
+        this.handleStateChange({
+          errors: ["Please select an option from the dropdown"],
+          options: []
+        });
       }
     }, 0);
   };
@@ -105,7 +129,7 @@ class AutoCompleteInputField extends React.Component {
   _onFocus = () => {
     clearTimeout(this._timeoutID);
     if (!this.state.isManagingFocus) {
-      this.setState({
+      this.handleStateChange({
         isManagingFocus: true,
         showMenu: true
       });
@@ -141,12 +165,16 @@ class AutoCompleteInputField extends React.Component {
         <input
           type="text"
           placeholder={this.props.placeholder}
-          value={this.state.textFieldValue}
+          value={this.state.value}
           onChange={this.inputTextChangeHandler}
         />
         {this.state.showMenu && (
           <div className={"Options"}>
-            {options.length > 0 ? optionsElements : "No results found"}
+            {options.length > 0 ? (
+              optionsElements
+            ) : (
+              <div className="Option">Nothing found</div>
+            )}
           </div>
         )}
 

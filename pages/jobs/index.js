@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "next/router";
 import axios from "../../data/api";
 import variables from "../../components/common/globalVariables";
+
 import Layout from "../../components/common/Layout/Layout";
 import PageSection from "../../components/common/Layout/PageSection";
 
@@ -70,12 +71,12 @@ const SearchPage = props => {
         <div className="Container">
           <SearchFieldSection terms={query.q} location={query.location} />
           <ButtonGroup>
-            <Button size={{ height: "30px" }} icon="bell">
+            <Button size={{ height: "30px" }} icon="AddAlert">
               Create Alert
             </Button>
             <Button
               size={{ height: "30px" }}
-              icon="filter"
+              icon="Tune"
               color="2"
               click={() => setShowFilters(!showFilters)}
             >

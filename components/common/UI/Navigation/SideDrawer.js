@@ -10,7 +10,6 @@ import PropTypes from "prop-types";
  */
 
 const sideDrawer = props => {
-  console.log(props.show);
   return (
     <div className={"SideDrawer " + (props.show ? "" : "Hidden")}>
       <p onClick={props.close} className="CloseBtn">

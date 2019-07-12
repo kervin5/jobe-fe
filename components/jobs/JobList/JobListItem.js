@@ -5,7 +5,7 @@ import variables from "../../common/globalVariables";
 import Bubble from "../../common/UI/Bubble";
 import Icon from "../../common/UI/Icon";
 import Card from "../../common/UI/Card";
-import { Link } from "../../../routes";
+import Link from "next/link";
 
 const styles = ` background-color: ${variables.clearColor};
                 margin: 20px auto;
@@ -25,7 +25,7 @@ const jobListItem = props => {
       <div className="JobListItemHeader">
         <div>
           <Link
-            route={
+            href={
               "/jobs/view/" + props.title.split(" ").join("-") + "-" + props.id
             }
           >
@@ -42,9 +42,7 @@ const jobListItem = props => {
         </div>
       </div>
       <Link
-        route={
-          "/jobs/view/" + props.title.split(" ").join("-") + "-" + props.id
-        }
+        href={"/jobs/view/" + props.title.split(" ").join("-") + "-" + props.id}
       >
         <a className="Content">{props.description.substr(1, 200)}...</a>
       </Link>
