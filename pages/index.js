@@ -1,28 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/common/Layout/Layout";
 
 // import classes from './index.module.scss';
-import SearchForm from "../components/jobs/Search/SearchForm";
+import SearchArea from "../components/jobs/Search/SearchArea";
 import PageSection from "../components/common/Layout/PageSection";
-import variables from "../components/common/globalVariables.js";
+import Container from "../components/common/Layout/Container";
+import UserLocator from "../data/UserLocator";
 
-const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
+import variables from "../components/common/globalVariables.js";
+import JobList from "../components/jobs/JobList/JobList";
+
+// const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
 const landingLogo = "../static/images/LandingLogo.svg";
 
-const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.mutedColor1} 40%);`;
+// const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.mutedColor1} 40%);`;
 
 const homePage = props => {
+  const [userLocation, setUserLocation] = useState("Loading...");
+  const userLocator = new UserLocator();
+
+  useEffect(() => {
+    userLocator.getLocation().then(res => {
+      console.log(res);
+    });
+  }, []);
+
   return (
     <Layout title={"Home Page"} data-test="indexPage">
-      <PageSection styles={homePageStyle} className="HomePage" column>
+      <PageSection className="HomePage" column>
         <div className="Logos">
           <img src={landingLogo} className="CompanyLogo" />
         </div>
-        <SearchForm />
-        <div className="PeopleLogo">
-          <img src={peopleImage} />
-        </div>
+
+        <Container>
+          <SearchArea location={userLocation} />
+          <JobList />
+        </Container>
       </PageSection>
+
       <style jsx>{`
         .Logos {
           display: flex;
@@ -52,8 +67,9 @@ const homePage = props => {
         }
 
         @media (max-width: ${variables.mediumScreen}) {
-          .PeopleLogo {
-            max-width: 190px;
+          .PeopleLogo,
+          .CompanyLogo {
+            display: none;
           }
         }
       `}</style>

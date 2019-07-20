@@ -2,7 +2,7 @@ import Icon from "../../common/UI/Icon";
 import variables from "../../common/globalVariables";
 import PropTypes from "prop-types";
 
-const SearchBar = ({ terms, location, onClick }) => {
+const SearchBar = ({ terms = "Awesome", location, onClick }) => {
   const shortLocationName = location.split(",")[0];
 
   const clickHandler = () => {
@@ -17,7 +17,10 @@ const SearchBar = ({ terms, location, onClick }) => {
         {terms} <span className="connector">Jobs in</span>{" "}
         <span className="location">{shortLocationName}</span>
       </h3>
-      <Icon icon="search" />
+      <span className="SearchIcon">
+        <Icon icon="Search" />
+      </span>
+
       <style jsx>{`
         h3 {
           text-align: center;
@@ -30,10 +33,11 @@ const SearchBar = ({ terms, location, onClick }) => {
           border-radius: 50px;
           border: 1px solid ${variables.mutedColor2};
           display: flex;
-          justify-content: space-between;
+          justify-content: center;
           align-items: center;
           margin-bottom: 15px;
           margin-top: 10px;
+          position: relative;
         }
 
         .connector {
@@ -44,9 +48,16 @@ const SearchBar = ({ terms, location, onClick }) => {
           color: ${variables.accentColor1};
         }
 
-        div :global(svg) {
+        .SearchIcon {
+          position: absolute;
+          top: 10px;
+          right: 15px;
+        }
+
+        .SearchIcon :global(.Icon svg) {
           max-width: 18px;
           color: ${variables.darkColor};
+          margin-left: 10px;
         }
       `}</style>
     </div>
@@ -54,7 +65,7 @@ const SearchBar = ({ terms, location, onClick }) => {
 };
 
 SearchBar.propTypes = {
-  terms: PropTypes.string.isRequired,
+  terms: PropTypes.string,
   location: PropTypes.string.isRequired
 };
 
