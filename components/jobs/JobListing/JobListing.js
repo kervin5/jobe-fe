@@ -132,7 +132,6 @@ const jobListing = props => {
         </Title>
         <p>{props.aboutCompany}</p>
         <br />
-
         <SocialMedia />
         <Button
           className="button"
