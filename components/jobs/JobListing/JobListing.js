@@ -10,6 +10,7 @@ import PopUp from "../../common/UI/PopUp";
 import Title from "../../common/UI/Title";
 import Button from "../../common/UI/Button";
 import HtmlRenderer from "../../hoc/HtmlRenderer";
+import SocialMedia from "../../common/UI/SocialMedia";
 
 // import BottomNav from '../../common/UI/BottomNav/BottomNav';
 
@@ -131,7 +132,7 @@ const jobListing = props => {
         </Title>
         <p>{props.aboutCompany}</p>
         <br />
-
+        <SocialMedia />
         <Button
           className="button"
           click={applyBtnClicHandler}
