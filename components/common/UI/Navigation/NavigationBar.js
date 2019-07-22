@@ -13,6 +13,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
+import HomeIcon from "@material-ui/icons/Home";
+import WorkIcon from "@material-ui/icons/Work";
+import MessageIcon from "@material-ui/icons/Message";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import variables from "../../globalVariables";
@@ -72,8 +75,8 @@ export default function PrimarySearchAppBar(props) {
     >
       <MenuItem>
         <IconButton aria-label="Show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
+          <Badge badgeContent={3} color="secondary">
+            <HomeIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
@@ -124,14 +127,20 @@ export default function PrimarySearchAppBar(props) {
           </div>
           <div />
           <div className="DesktopMenu">
-            <IconButton aria-label="Show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
+            <IconButton aria-label="Home Page" color="inherit">
+              <HomeIcon />
+            </IconButton>
+            <IconButton aria-label="Home Page" color="inherit">
+              <WorkIcon />
             </IconButton>
             <IconButton aria-label="Show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton aria-label="Show 4 new mails" color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <MessageIcon />
               </Badge>
             </IconButton>
 

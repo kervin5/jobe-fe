@@ -2,6 +2,7 @@ import React from "react";
 
 // import classes from './JobListItem.module.scss';
 import variables from "../../common/globalVariables";
+import moment from "moment";
 import Bubble from "../../common/UI/Bubble";
 import Icon from "../../common/UI/Icon";
 import Card from "../../common/UI/Card";
@@ -29,7 +30,7 @@ const jobListItem = props => {
               "/jobs/view/" + props.title.split(" ").join("-") + "-" + props.id
             }
           >
-            <a>{props.title}</a>
+            <a className="JobTitle">{props.title}</a>
           </Link>
           <p className="Location">
             <Icon icon="map-marker-alt" size="sm" className="LocationIcon" />{" "}
@@ -48,7 +49,8 @@ const jobListItem = props => {
       </Link>
 
       <div className="JobListItemFooter">
-        <Icon icon="heart" size="lg" className="LikeIcon" />
+        <p className="PostDate">{moment(props.date).fromNow()}</p>
+        <Icon icon="Favorite" size="lg" className="LikeIcon" />
       </div>
       <style jsx>{`
         a {
@@ -63,10 +65,14 @@ const jobListItem = props => {
           margin-bottom: 10px;
         }
 
-        .JobListItemHeader a {
+        .JobListItemHeader .JobTitle {
           font-weight: bold;
           text-decoration: none;
           color: ${variables.accentColor2};
+        }
+
+        .JobListItemHeader .JobTitle:hover {
+          border-bottom: 1px solid red;
         }
 
         .Location {
@@ -90,13 +96,20 @@ const jobListItem = props => {
 
         .JobListItemFooter {
           display: flex;
-          justify-content: flex-end;
+          justify-content: space-between;
           margin-bottom: 5px;
+          margin-top: 5px;
         }
 
         .JobListItemFooter a {
           font-weight: bold;
           text-decoration: none;
+        }
+
+        .PostDate {
+          font-size: 0.9em;
+          font-weight: bold;
+          color: ${variables.accentColor1};
         }
       `}</style>
     </Card>

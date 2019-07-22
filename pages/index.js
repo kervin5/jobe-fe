@@ -3,11 +3,12 @@ import Layout from "../components/common/Layout/Layout";
 
 // import classes from './index.module.scss';
 import axios from "../data/api";
+import UserLocator from "../data/UserLocator";
 import PageSection from "../components/common/Layout/PageSection";
 import Container from "../components/common/Layout/Container";
 import Title from "../components/common/UI/Title";
+import DynamicImageBg from "../components/common/UI/DynamicImageBg";
 import SearchArea from "../components/jobs/Search/SearchArea";
-import UserLocator from "../data/UserLocator";
 
 import variables from "../components/common/globalVariables.js";
 import JobList from "../components/jobs/JobList/JobList";
@@ -34,24 +35,31 @@ const homePage = props => {
 
   useEffect(() => {
     if (userLocation.name !== "Loading...") {
-      axios
-        .get(`/jobs?q=${"warehouse"}&location=${userLocation.name}&page=${1}`)
-        .then(res => {
-          console.log(res.data);
-          setJobs(res.data);
-        });
+      axios.get(`/jobs?location=${userLocation.name}&page=${1}`).then(res => {
+        console.log(res.data);
+        setJobs(res.data);
+      });
     }
   }, [userLocation.name]);
 
   return (
     <Layout title={"Home Page"} data-test="indexPage">
       <PageSection className="HomePage" column>
-        <div className="Logos">
-          <img src={landingLogo} className="CompanyLogo" />
-        </div>
-
+        <DynamicImageBg
+          query={
+            userLocation.name !== "Loading..."
+              ? userLocation.name + " City"
+              : ""
+          }
+        >
+          <Container>
+            <div className="Logos">
+              <img src={landingLogo} className="CompanyLogo" />
+            </div>
+            <SearchArea location={userLocation.name} />
+          </Container>
+        </DynamicImageBg>
         <Container>
-          <SearchArea location={userLocation.name} />
           <Title size={"m"} center>
             What's Poppin' 😎
           </Title>
@@ -68,6 +76,7 @@ const homePage = props => {
           width: 100%;
           max-width: 700px;
           padding: 20px 30px;
+          margin: auto;
         }
 
         .Logos img {
@@ -88,6 +97,7 @@ const homePage = props => {
         }
 
         @media (max-width: ${variables.mediumScreen}) {
+          .Logos,
           .PeopleLogo,
           .CompanyLogo {
             display: none;

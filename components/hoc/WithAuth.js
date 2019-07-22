@@ -1,6 +1,7 @@
 import { Component } from "react";
 import axios from "../../data/api";
 import Router from "next/router";
+import Loader from "../common/UI/Animated/Loader";
 
 export default function HiddenIfAuth(ComponentToProtect) {
   return class extends Component {
@@ -28,10 +29,10 @@ export default function HiddenIfAuth(ComponentToProtect) {
       // return (<ComponentToProtect {...this.props} />);
       const { loading, redirect } = this.state;
       if (loading) {
-        return <p>loading</p>;
+        return <Loader />;
       } else if (redirect) {
         Router.push("/user/login", "user/login");
-        return <p>Redirect</p>;
+        return <Loader />;
       } else {
         return (
           <React.Fragment>
