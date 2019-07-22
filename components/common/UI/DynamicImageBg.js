@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import variables from "../globalVariables";
 import axios from "axios";
 
 const DynamicImageBg = props => {
@@ -11,22 +12,41 @@ const DynamicImageBg = props => {
           `https://api.unsplash.com/photos/search?client_id=6b3443da3cd476fda43efed0e145250702d95e2f6372309d511825442fc7c646&query=${props.query}&orientation=landscape`
         )
         .then(res => {
-          console.log(res.data);
-          console.log(res.data);
-          setImgUrl(res.data[0].urls.regular);
+          setImgUrl(res.data[1].urls.regular);
         });
     }
   }, [props.query]);
 
   return (
     <div className={"DynamicImageBg"}>
-      {props.children}
+      <div className={"ImgContainer"}></div>
+      <div className={"Content"}>{props.children}</div>
+
       <style jsx>{`
             .DynamicImageBg {
-                background-color: red;
+                width: 100%;               
+                position: relative;
+            }
+
+            .ImgContainer {
+                background-color: ${variables.accentColor2};
                 background-image: url('${imgUrl}');
                 width: 100%;
-                background-size: contain;
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                filter: blur(12px);
+                z-index: 4;
+            }
+
+            .Content {
+                z-index: 5;
+                position: relative;
             }
         `}</style>
     </div>

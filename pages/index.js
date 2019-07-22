@@ -41,17 +41,11 @@ const homePage = props => {
       });
     }
   }, [userLocation.name]);
-
+  console.log(jobs);
   return (
     <Layout title={"Home Page"} data-test="indexPage">
       <PageSection className="HomePage" column>
-        <DynamicImageBg
-          query={
-            userLocation.name !== "Loading..."
-              ? userLocation.name + " City"
-              : ""
-          }
-        >
+        <DynamicImageBg query={jobs.length > 0 ? jobs[0].category : ""}>
           <Container>
             <div className="Logos">
               <img src={landingLogo} className="CompanyLogo" />
