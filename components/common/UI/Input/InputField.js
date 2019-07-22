@@ -12,7 +12,7 @@ import InputErrors from "./InputErrors";
 
 const inputField = props => {
   const [valid, setValid] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(props.value || "");
   const [touched, setTouched] = useState(false);
   const [errors, setErrors] = useState([]);
 
@@ -57,7 +57,7 @@ const inputField = props => {
       <TextField
         inputType={props.type}
         placeholder={props.placeholder}
-        value={props.value}
+        value={value}
         change={changeHandler}
         focused={props.focused}
         validate={props.validate}

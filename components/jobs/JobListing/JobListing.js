@@ -142,7 +142,7 @@ const jobListing = props => {
         >
           {buttonData.text}
         </Button>
-        <PopUp show={showPopUp}>
+        <PopUp show={showPopUp} changeHandler={setShowPopUp}>
           <RegisterForm onSubmit={applicationCompleteHandler} />
         </PopUp>
       </div>
@@ -181,8 +181,7 @@ const jobListing = props => {
                     //margin: 0 auto;
                     padding:40px 40px 60px 40px;
                     width: 100%;
-                    border-bottom-right-radius: 0px;
-                    border-bottom-left-radius: 0px;
+                   
                 }
                   
                 .Body button{

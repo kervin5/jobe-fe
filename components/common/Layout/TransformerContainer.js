@@ -19,8 +19,6 @@ const TransformerContainer = props => {
           .TransformerContainer {
             max-width: 100%;
             margin: 0 auto;
-            border-bottom-right-radius: 0px;
-            border-bottom-left-radius: 0px;
           }
         }
       `}</style>

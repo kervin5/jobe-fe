@@ -51,8 +51,6 @@ const header = props => (
         .header {
           width: 100%;
           padding: 40px 40px;
-          border-top-right-radius: 0px;
-          border-top-left-radius: 0px;
         }
 
         .header p {
