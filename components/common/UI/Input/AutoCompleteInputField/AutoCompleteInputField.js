@@ -79,7 +79,8 @@ class AutoCompleteInputField extends React.PureComponent {
         valid: false,
         touched: true
       });
-    } else if (!this.props.required && this.props.value === "") {
+    } else if (!this.props.required) {
+      console.log("valid");
       this.handleStateChange({
         hasValueFromOptions: false,
         errors: [],

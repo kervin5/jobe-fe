@@ -9,23 +9,26 @@ const buttonStyles = `margin-top:10px;`;
 const searchForm = props => {
   const [formData, setFormData] = useState({
     searchTerms: {
-      value: "",
+      value: props.terms || "",
       valid: false,
       icon: "Search",
       type: "text",
       placeholder: "Job Title, Keywords, or Company Name",
-      focused: true
+      focused: true,
+      required: true
     },
     searchLocation: {
-      value: "",
+      value: props.location || "",
       valid: false,
       icon: "LocationOn",
       type: "location",
       placeholder: "Location",
-      focused: false
+      focused: false,
+      required: false
     }
   });
   const [validate, setValidate] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = fieldData => {
     setFormData({
@@ -40,18 +43,21 @@ const searchForm = props => {
   const submitFormHandler = e => {
     e.preventDefault();
     setValidate(true);
+    setSubmitted(true);
+  };
+
+  useEffect(() => {
     const { searchTerms, searchLocation } = formData;
 
-    if (searchTerms.valid && searchLocation.valid) {
+    if (searchTerms.valid && searchLocation.valid && submitted) {
       Router.push(
         `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`
       );
     }
-  };
+  }, [formData.searchTerms.valid, formData.searchLocation.valid, submitted]);
 
   const InputFields = ["searchTerms", "searchLocation"].map(key => {
     const fieldData = formData[key];
-
     return (
       <InputField
         validate={validate}
@@ -61,9 +67,10 @@ const searchForm = props => {
         centerPlaceholder
         icon={fieldData.icon}
         change={handleChange}
-        required
+        required={fieldData.required}
         focused
         name={key}
+        value={fieldData.value}
         key={key + "SearchField"}
       />
     );

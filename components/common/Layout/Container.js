@@ -9,9 +9,10 @@ const container = props => {
       {props.children}
       <style jsx>{`
         div {
-          margin: auto;
+          margin: 0 auto;
           max-width: 920px;
           width: 100%;
+          padding: 15px;
           ${props.styles || ""};
         }
       `}</style>

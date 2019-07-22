@@ -57,7 +57,10 @@ const SearchPage = props => {
   }, [page]);
 
   useEffect(() => {
-    if (jobs && jobs.length > 0 && jobs.length % page !== 0) {
+    if (
+      (jobs && jobs.length <= 10 && page === 1) ||
+      (jobs && jobs.length > 0 && jobs.length % page !== 0)
+    ) {
       setShowMoreButton(false);
     }
   }, [jobs]);
