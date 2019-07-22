@@ -41,7 +41,6 @@ const homePage = props => {
       });
     }
   }, [userLocation.name]);
-  console.log(jobs);
   return (
     <Layout title={"Home Page"} data-test="indexPage">
       <PageSection className="HomePage" column>

@@ -42,11 +42,20 @@ const DynamicImageBg = props => {
                 bottom: 0;
                 filter: blur(12px);
                 z-index: 4;
+                transition: 300ms;
             }
 
             .Content {
                 z-index: 5;
                 position: relative;
+            }
+
+            @media(max-width: ${variables.mediumScreen}) {
+                .ImgContainer {
+                  
+                    filter: blur(4px);
+                  
+                }
             }
         `}</style>
     </div>
