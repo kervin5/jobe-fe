@@ -41,10 +41,15 @@ const homePage = props => {
       });
     }
   }, [userLocation.name]);
+
   return (
     <Layout title={"Home Page"} data-test="indexPage">
       <PageSection className="HomePage" column>
-        <DynamicImageBg query={jobs.length > 0 ? jobs[0].category : ""}>
+        <DynamicImageBg
+          query={
+            jobs.length > 0 ? jobs[randomInt(0, jobs.length)].category : ""
+          }
+        >
           <Container>
             <div className="Logos">
               <img src={landingLogo} className="CompanyLogo" />
@@ -101,4 +106,7 @@ const homePage = props => {
   );
 };
 
+const randomInt = (min, max) => {
+  return Math.floor(Math.random() * (+max - +min)) + +min;
+};
 export default homePage;
