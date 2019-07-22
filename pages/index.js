@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import Layout from "../components/common/Layout/Layout";
 
 // import classes from './index.module.scss';
-import SearchArea from "../components/jobs/Search/SearchArea";
+import axios from "../data/api";
 import PageSection from "../components/common/Layout/PageSection";
 import Container from "../components/common/Layout/Container";
+import Title from "../components/common/UI/Title";
+import SearchArea from "../components/jobs/Search/SearchArea";
 import UserLocator from "../data/UserLocator";
 
 import variables from "../components/common/globalVariables.js";
@@ -16,14 +18,30 @@ const landingLogo = "../static/images/LandingLogo.svg";
 // const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.mutedColor1} 40%);`;
 
 const homePage = props => {
-  const [userLocation, setUserLocation] = useState("Loading...");
+  const [userLocation, setUserLocation] = useState({
+    name: "Loading...",
+    lat: 0,
+    lon: 0
+  });
+  const [jobs, setJobs] = useState([]);
   const userLocator = new UserLocator();
 
   useEffect(() => {
     userLocator.getLocation().then(res => {
-      console.log(res);
+      setUserLocation(res);
     });
   }, []);
+
+  useEffect(() => {
+    if (userLocation.name !== "Loading...") {
+      axios
+        .get(`/jobs?q=${"warehouse"}&location=${userLocation.name}&page=${1}`)
+        .then(res => {
+          console.log(res.data);
+          setJobs(res.data);
+        });
+    }
+  }, [userLocation.name]);
 
   return (
     <Layout title={"Home Page"} data-test="indexPage">
@@ -33,8 +51,11 @@ const homePage = props => {
         </div>
 
         <Container>
-          <SearchArea location={userLocation} />
-          <JobList />
+          <SearchArea location={userLocation.name} />
+          <Title size={"m"} center>
+            What's Poppin' 😎
+          </Title>
+          <JobList jobs={jobs} />
         </Container>
       </PageSection>
 
