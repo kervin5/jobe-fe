@@ -182,6 +182,8 @@ const jobListing = props => {
                     //margin: 0 auto;
                     padding:40px 40px 60px 40px;
                     width: 100%;
+                    border-bottom-right-radius: 0px;
+                    border-bottom-left-radius: 0px;
                    
                 }
                   
