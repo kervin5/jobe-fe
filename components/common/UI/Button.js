@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import Icon from "./Icon";
 import variables from "../globalVariables";
-import CircularProgress from "@material-ui/core/CircularProgress";
+
+import { Loader } from "semantic-ui-react";
 
 const Button = props => {
   const height = props.size ? props.size.height : variables.inputHeight;
@@ -20,11 +21,7 @@ const Button = props => {
       disabled={props.disabled}
     >
       {props.icon ? <Icon icon={props.icon} /> : null}
-      {props.iconOnly ? null : props.loading ? (
-        <CircularProgress />
-      ) : (
-        props.children
-      )}
+      {props.iconOnly ? null : props.loading ? <Loader /> : props.children}
       <style jsx>{`
         li {
           list-style: none;

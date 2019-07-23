@@ -36,7 +36,6 @@ const homePage = props => {
   useEffect(() => {
     if (userLocation.name !== "Loading...") {
       axios.get(`/jobs?location=${userLocation.name}&page=${1}`).then(res => {
-        console.log(res.data);
         setJobs(res.data);
       });
     }

@@ -18,7 +18,7 @@ const SearchBar = ({ terms = "Awesome", location, onClick }) => {
         <span className="location">{shortLocationName}</span>
       </h3>
       <span className="SearchIcon">
-        <Icon icon="Search" />
+        <Icon icon="search" />
       </span>
 
       <style jsx>{`

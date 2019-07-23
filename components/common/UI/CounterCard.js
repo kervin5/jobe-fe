@@ -1,7 +1,6 @@
 import React from "react";
 import variables from "../globalVariables";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import { Card } from "semantic-ui-react";
 import Icon from "./Icon";
 
 const CounterCard = ({ icon, label, value, color }) => {
@@ -10,12 +9,12 @@ const CounterCard = ({ icon, label, value, color }) => {
 
   return (
     <Card className="CounterCard">
-      <CardContent>
+      <Card.Content>
         <Icon icon={iconName} circle color={color} />
         <h2 className="Label">{label}</h2>
         &nbsp;
         <h2 className={["Value", Color].join(" ")}>{value}</h2>
-      </CardContent>
+      </Card.Content>
       <style jsx global>{`
         .CounterCard {
           border-radius: 15px;
