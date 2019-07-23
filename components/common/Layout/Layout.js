@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Head from "../../head.js";
 import NavigationBar from "../UI/Navigation/NavigationBar";
-import NavigationDrawer from "../UI/Navigation/NavigationDrawer";
+// import NavigationDrawer from "../UI/Navigation/NavigationDrawer";
 import variables from "../globalVariables";
 
 const layout = props => {
@@ -14,7 +14,6 @@ const layout = props => {
       {props.hideNav ? null : (
         <NavigationBar menuButtonClick={handleMenuClick} />
       )}
-      {<NavigationDrawer show={showDrawer} toggle={handleMenuClick} />}
       <main>{props.children}</main>
       <style jsx global>{`
         * {
