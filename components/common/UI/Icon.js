@@ -1,21 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import dynamic from "next/dynamic";
+import { Icon } from "semantic-ui-react";
 import variables from "../globalVariables";
 
-const DynamicIcon = icon => {
-  return dynamic(() => import("@material-ui/icons").then(mod => mod[icon]));
-};
-
-const Icon = props => {
-  const IconToRender = DynamicIcon(props.icon);
+const CustomIcon = props => {
   const classes = props.circle ? "Circle" : "";
   const Color = props.color ? "Color" + props.color : "Color1";
 
   if (props.icon) {
     return (
       <span className={[classes, "Icon", Color].join(" ")}>
-        <IconToRender />
+        <Icon name={props.icon} />
         <style jsx global>{`
           .Icon .MuiSvgIcon-root {
             color: ${variables.accentColor1};
@@ -62,10 +57,10 @@ const Icon = props => {
   return null;
 };
 
-Icon.propTypes = {
+CustomIcon.propTypes = {
   icon: PropTypes.string.isRequired
 };
 
-export default React.memo(Icon, (prevProps, nextProps) => {
+export default React.memo(CustomIcon, (prevProps, nextProps) => {
   return prevProps.icon === nextProps.icon;
 });

@@ -1,70 +1,55 @@
-import { forwardRef } from "react";
-import NoSSR from "react-no-ssr";
+import React from "react";
+import { Icon, Label, Menu, Table } from "semantic-ui-react";
 
-import MaterialTable from "material-table";
+const TableExamplePagination = () => (
+  <Table celled>
+    <Table.Header>
+      <Table.Row>
+        <Table.HeaderCell>Header</Table.HeaderCell>
+        <Table.HeaderCell>Header</Table.HeaderCell>
+        <Table.HeaderCell>Header</Table.HeaderCell>
+      </Table.Row>
+    </Table.Header>
 
-import AddBox from "@material-ui/icons/AddBox";
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import Check from "@material-ui/icons/Check";
-import ChevronLeft from "@material-ui/icons/ChevronLeft";
-import ChevronRight from "@material-ui/icons/ChevronRight";
-import Clear from "@material-ui/icons/Clear";
-import DeleteOutline from "@material-ui/icons/DeleteOutline";
-import Edit from "@material-ui/icons/Edit";
-import FilterList from "@material-ui/icons/FilterList";
-import FirstPage from "@material-ui/icons/FirstPage";
-import LastPage from "@material-ui/icons/LastPage";
-import Remove from "@material-ui/icons/Remove";
-import SaveAlt from "@material-ui/icons/SaveAlt";
-import Search from "@material-ui/icons/Search";
-import ViewColumn from "@material-ui/icons/ViewColumn";
+    <Table.Body>
+      <Table.Row>
+        <Table.Cell>
+          <Label ribbon>First</Label>
+        </Table.Cell>
+        <Table.Cell>Cell</Table.Cell>
+        <Table.Cell>Cell</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell>Cell</Table.Cell>
+        <Table.Cell>Cell</Table.Cell>
+        <Table.Cell>Cell</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell>Cell</Table.Cell>
+        <Table.Cell>Cell</Table.Cell>
+        <Table.Cell>Cell</Table.Cell>
+      </Table.Row>
+    </Table.Body>
 
-const tableIcons = {
-  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
-  Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
-  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-  Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
-  DetailPanel: forwardRef((props, ref) => (
-    <ChevronRight {...props} ref={ref} />
-  )),
-  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
-  Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
-  Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
-  FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
-  LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
-  NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-  PreviousPage: forwardRef((props, ref) => (
-    <ChevronLeft {...props} ref={ref} />
-  )),
-  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
-  SortArrow: forwardRef((props, ref) => <ArrowUpward {...props} ref={ref} />),
-  ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
-};
+    <Table.Footer>
+      <Table.Row>
+        <Table.HeaderCell colSpan="3">
+          <Menu floated="right" pagination>
+            <Menu.Item as="a" icon>
+              <Icon name="chevron left" />
+            </Menu.Item>
+            <Menu.Item as="a">1</Menu.Item>
+            <Menu.Item as="a">2</Menu.Item>
+            <Menu.Item as="a">3</Menu.Item>
+            <Menu.Item as="a">4</Menu.Item>
+            <Menu.Item as="a" icon>
+              <Icon name="chevron right" />
+            </Menu.Item>
+          </Menu>
+        </Table.HeaderCell>
+      </Table.Row>
+    </Table.Footer>
+  </Table>
+);
 
-const Table = props => {
-  return (
-    <div className="Table">
-      <NoSSR>
-        <MaterialTable
-          columns={props.columns}
-          data={props.data || []}
-          title={props.title}
-          icons={tableIcons}
-        />
-      </NoSSR>
-      <style jsx>{`
-        .Table {
-          width: 100%;
-        }
-
-        .Table > :global(div) {
-          border-radius: 15px;
-        }
-      `}</style>
-    </div>
-  );
-};
-
-export default Table;
+export default TableExamplePagination;

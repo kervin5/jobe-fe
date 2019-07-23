@@ -1,9 +1,6 @@
 import { useState } from "react";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import { Card } from "semantic-ui-react";
+import Button from "./Button";
 
 const PopUp = props => {
   return (
@@ -11,19 +8,10 @@ const PopUp = props => {
       <div className="PopUp">
         <div className="Content">
           <Card>
-            <CardHeader
-              action={
-                <IconButton
-                  aria-label="Settings"
-                  onClick={() => props.changeHandler(false)}
-                >
-                  <CloseIcon />
-                </IconButton>
-              }
-              title={props.title || ""}
-              subheader={props.subtitle || ""}
-            />
-            <CardContent>{props.children}</CardContent>
+            <Card.Header>
+              <Button click={() => props.changeHandler(false)}>X</Button>
+            </Card.Header>
+            <Card.Content>{props.children}</Card.Content>
           </Card>
         </div>
         <style jsx>{`

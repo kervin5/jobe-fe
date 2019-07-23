@@ -33,7 +33,7 @@ const jobListItem = props => {
             <a className="JobTitle">{props.title}</a>
           </Link>
           <p className="Location">
-            <Icon icon="map-marker-alt" size="sm" className="LocationIcon" />{" "}
+            <Icon icon="marker" size="sm" className="LocationIcon" />{" "}
             {shortLocation}
           </p>
         </div>
@@ -50,7 +50,7 @@ const jobListItem = props => {
 
       <div className="JobListItemFooter">
         <p className="PostDate">{moment(props.date).fromNow()}</p>
-        <Icon icon="Favorite" size="lg" className="LikeIcon" />
+        <Icon icon="favorite" size="lg" className="LikeIcon" />
       </div>
       <style jsx>{`
         a {

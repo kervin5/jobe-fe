@@ -12,7 +12,6 @@ const jobList = ({ jobs }) => {
 
   if (jobs && jobs.length > 0) {
     elementToRender = jobs.map(job => {
-      console.log(job.posted);
       return (
         <JobListItem
           key={job._id}
