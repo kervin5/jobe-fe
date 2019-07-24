@@ -4,13 +4,15 @@ import Layout from "../components/common/Layout/Layout";
 // import classes from './index.module.scss';
 import axios from "../data/api";
 import UserLocator from "../data/UserLocator";
+import variables from "../components/common/globalVariables.js";
+import { randomInt } from "../lib/random";
+
 import PageSection from "../components/common/Layout/PageSection";
 import Container from "../components/common/Layout/Container";
 import Title from "../components/common/UI/Title";
 import DynamicImageBg from "../components/common/UI/DynamicImageBg";
 import SearchArea from "../components/jobs/Search/SearchArea";
 
-import variables from "../components/common/globalVariables.js";
 import JobList from "../components/jobs/JobList/JobList";
 
 // const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
@@ -46,7 +48,7 @@ const homePage = props => {
       <PageSection className="HomePage" column>
         <DynamicImageBg
           query={
-            jobs.length > 0 ? jobs[randomInt(0, jobs.length)].category : ""
+            jobs.length > 0 ? jobs[randomInt(0, jobs.length)].location : ""
           }
         >
           <Container>
@@ -105,7 +107,4 @@ const homePage = props => {
   );
 };
 
-const randomInt = (min, max) => {
-  return Math.floor(Math.random() * (+max - +min)) + +min;
-};
 export default homePage;

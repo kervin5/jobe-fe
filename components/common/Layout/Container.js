@@ -10,7 +10,7 @@ const container = props => {
       <style jsx>{`
         div {
           margin: 0 auto;
-          max-width: 920px;
+          max-width: 970px;
           width: 100%;
           padding: 15px;
           ${props.styles || ""};
