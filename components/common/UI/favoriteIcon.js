@@ -14,7 +14,7 @@ const favoriteIcon = props => {
   return (
     <span onClick={setFavoriteHandler} className={classes}>
       <Icon
-        icon={"Star"}
+        icon={"favorite"}
         size={props.size || "lg"}
         title={"Add to Favorites"}
       ></Icon>
