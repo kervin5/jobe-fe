@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
-import variables from "../../../globalVariables";
 // import classes from './NavigationItems.module.scss';
 import NavigationItem from "./NavigationItem.js";
 
@@ -9,30 +7,10 @@ const navigationItems = () => {
 
   return (
     <div>
-      <Link herf="/">
-        <a>
-          <NavigationItem>Search Jobs</NavigationItem>
-        </a>
-      </Link>
-
-      <Link herf={"/users/login"}>
-        <a>
-          <NavigationItem>Log In</NavigationItem>
-        </a>
-      </Link>
-
-      <Link href={"/users/register"}>
-        <a>
-          <NavigationItem>Register</NavigationItem>
-        </a>
-      </Link>
-
-      {/* <Link route={"/dashboard"}>
-        <a>
-          <NavigationItem>Jane Doe</NavigationItem>          
-        </a>
-      </Link> */}
-
+      <NavigationItem href="/">Search Jobs</NavigationItem>
+      <NavigationItem href={"/user/login"}>Log In</NavigationItem>
+      <NavigationItem href={"/user/register"}>Register</NavigationItem>
+      <NavigationItem href={"/dashboard"}>Dashboard</NavigationItem>
       <style jsx>{`
         div {
           display: flex;
@@ -40,11 +18,6 @@ const navigationItems = () => {
           justify-content: center;
           height: 100%;
           vertical-align: middle;
-        }
-
-        a {
-          text-decoration: none;
-          color: ${variables.baseTextColor};
         }
 
         @media (max-width: 900px) {
@@ -57,4 +30,4 @@ const navigationItems = () => {
   );
 };
 
-export default navigationItems;
+export default React.memo(navigationItems);
