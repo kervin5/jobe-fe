@@ -5,7 +5,7 @@ import Icon from "./Icon";
 
 const CounterCard = ({ icon, label, value, color }) => {
   const Color = color ? "Color" + color : "Color1";
-  const iconName = icon ? icon : "Check";
+  const iconName = icon ? icon : "check";
 
   return (
     <Card className="CounterCard">
@@ -18,12 +18,17 @@ const CounterCard = ({ icon, label, value, color }) => {
       <style jsx global>{`
         .CounterCard {
           border-radius: 15px;
+          margin-top: 1em;
         }
 
-        .MuiCardContent-root {
+        .CounterCard .content {
           display: flex;
           align-items: center;
           padding: 25px;
+        }
+
+        h2 {
+          margin: 0 5px 0 0;
         }
 
         .Label {

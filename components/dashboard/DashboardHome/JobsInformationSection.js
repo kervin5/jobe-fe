@@ -1,5 +1,6 @@
 import React from "react";
 import Table from "../../common/UI/Table";
+import { Grid } from "semantic-ui-react";
 import axios from "../../../data/api";
 import CounterCard from "../../common/UI/CounterCard";
 
@@ -46,25 +47,35 @@ class JobsInformationSection extends React.Component {
     return (
       <React.Fragment>
         <div className="Summary">
-          <CounterCard label="Posted" value={this.state.jobsCount.posted} />
-          <CounterCard
-            label="Draft"
-            value={this.state.jobsCount.draft}
-            color="2"
-            icon="Create"
-          />
-          <CounterCard
-            label="Expired"
-            value={this.state.jobsCount.draft}
-            color="3"
-            icon="TimerOff"
-          />
-          <CounterCard
-            label="Applications"
-            value={this.state.jobsCount.draft}
-            color="4"
-            icon="Face"
-          />
+          <Grid columns={4}>
+            <Grid.Column>
+              <CounterCard label="Posted" value={this.state.jobsCount.posted} />
+            </Grid.Column>
+            <Grid.Column>
+              <CounterCard
+                label="Draft"
+                value={this.state.jobsCount.draft}
+                color="2"
+                icon="pencil"
+              />
+            </Grid.Column>
+            <Grid.Column>
+              <CounterCard
+                label="Expired"
+                value={this.state.jobsCount.draft}
+                color="3"
+                icon="clock"
+              />
+            </Grid.Column>
+            <Grid.Column>
+              <CounterCard
+                label="Applicants"
+                value={this.state.jobsCount.draft}
+                color="4"
+                icon="smile"
+              />
+            </Grid.Column>
+          </Grid>
         </div>
         <Table
           title="Jobs"

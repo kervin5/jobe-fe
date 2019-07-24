@@ -22,7 +22,7 @@ class DashboardHome extends React.Component {
       <React.Fragment>
         <div className="Header">
           <Title>Jobs</Title>
-          <Button icon="Add" click={this.AddNewClickHandler}>
+          <Button icon="add" click={this.AddNewClickHandler}>
             Add New
           </Button>
         </div>

@@ -24,7 +24,7 @@ const SearchBar = ({ terms = "Awesome", location, onClick }) => {
       <style jsx>{`
         h3 {
           text-align: center;
-          display: "inline-block";
+          margin-bottom: 0;
         }
 
         div {

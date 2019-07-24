@@ -16,7 +16,7 @@ const MePage = props => {
         {/* <ButtonsBar /> */}
         {/* {componentInView} */}
         <Container>
-          <Title>Me</Title>
+          <Title>Your Profile</Title>
         </Container>
       </PageSection>
     </Layout>

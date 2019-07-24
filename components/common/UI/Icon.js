@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Icon } from "semantic-ui-react";
+
 import variables from "../globalVariables";
 
 const CustomIcon = props => {
@@ -12,22 +13,28 @@ const CustomIcon = props => {
       <span className={[classes, "Icon", Color].join(" ")}>
         <Icon name={props.icon} />
         <style jsx global>{`
-          .Icon .MuiSvgIcon-root {
+          .Icon i {
             color: ${variables.accentColor1};
+            width: auto;
+            height: auto;
+            margin: 0;
           }
 
-          .Icon {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
+          // .Icon {
+          //   display: flex;
+          //   justify-content: center;
+          //   align-items: center;
+          // }
 
           .Circle {
             border-radius: 25px;
             min-width: 35px;
             min-height: 35px;
-
+            display: inline-block;
             box-shadow: 0px 1px 5px -2px rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
 
           .Circle.Color1 {
@@ -46,7 +53,7 @@ const CustomIcon = props => {
             background-color: ${variables.darkColor};
           }
 
-          .Circle .MuiSvgIcon-root {
+          .Circle i {
             color: ${variables.clearColor};
           }
         `}</style>
