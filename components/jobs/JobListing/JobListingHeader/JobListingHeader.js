@@ -19,7 +19,7 @@ const header = props => (
       weight="400"
       data-test="location-section"
     >
-      <Icon icon="map pin" /> {props.location}
+      <Icon icon="map marker alternate" /> {props.location}
     </Title>
 
     <div className="JobListingHeaderBar">
