@@ -1,143 +1,106 @@
-import React from "react";
-import variables from "../../common/globalVariables";
-import Loader from "../../common/UI/Animated/Loader";
 import { useState, useEffect } from "react";
-import InputField from "../../common/UI/Input/InputField";
-import Title from "../../common/UI/Title";
-import Button from "../../../components/common/UI/Button";
 import axios from "../../../data/api";
+import InputField from "../../common/UI/Input/InputField";
+import Button from "../../common/UI/Button";
+import Title from "../../common/UI/Title";
 import Router from "next/router";
 import { logInUser } from "../../../data/auth";
-import { userIsLoggedIn } from "../../../data/auth";
 
-const registerForm = props => {
-  const [registerData, setRegisterData] = useState({
-    fullName: {
+const registerForm = () => {
+  const [formData, setFormData] = useState({
+    name: {
       value: "",
+      valid: false,
       type: "text",
       label: "Full Name",
       placeholder: "John Doe",
-      valid: false,
-      validation: {
-        required: true,
-        minLength: 5
-      }
+      icon: "user"
     },
-    emailAddress: {
+    email: {
       value: "",
-      type: "email",
-      label: "Email Address",
-      placeholder: "john@doe.com",
       valid: false,
-      validation: {
-        required: true,
-        minLength: 5
-      }
+      type: "text",
+      label: "Email",
+      placeholder: "jdoe@myemail.com",
+      icon: "mail"
     },
     password: {
       value: "",
+      valid: false,
       type: "password",
       label: "Password",
-      placeholder: " Password",
-      valid: false,
-      validation: {
-        required: true,
-        minLength: 5
-      }
+      placeholder: "Password",
+      icon: "key"
     }
   });
-  const [submitted, setSubmitted] = useState(false);
-
-  const registerSubmitCustomHandler =
-    props.onSubmit ||
-    (result => {
-      return result ? Router.push("/dashboard") : null;
-    });
 
   const [validate, setValidate] = useState(false);
 
-  const updatedFieldHandler = (key, value, valid) => {
-    const updatedState = {
-      ...registerData,
-      [key]: {
-        ...registerData[key],
-        value: value,
-        valid: valid
+  const changeHandler = fieldData => {
+    console.log(fieldData, formData[fieldData.name]);
+    setFormData({
+      ...formData,
+      [fieldData.name]: {
+        ...formData[fieldData.name],
+        ...fieldData
       }
-    };
-    setRegisterData(updatedState);
+    });
   };
 
-  const registerSubmitHandler = async e => {
+  const submitHandler = async e => {
     e.preventDefault();
-    await setValidate(true);
-    const { fullName, emailAddress, password } = registerData;
-    if (fullName.valid && emailAddress.valid && password.valid) {
+    setValidate(true);
+    const { email, password, name } = formData;
+
+    if (email.valid && password.valid && name.valid) {
       try {
         const result = await axios({
           method: "post",
           url: "/users",
           data: {
-            name: fullName.value,
-            email: emailAddress.value,
-            password: password.value
+            email: email.value,
+            password: password.value,
+            name: name.value
           }
         });
-
         logInUser(result.data.token);
-        await setSubmitted(true);
-        registerSubmitCustomHandler(true);
-
-        console.log("worked");
+        Router.push("/dashboard");
       } catch (ex) {
-        console.log("error", ex.response);
-        setSubmitted(false);
-        registerSubmitCustomHandler(false);
-
-        console.log("didn't worked");
+        console.log("Error", ex.response);
       }
     }
   };
 
-  const registerFormData = ["fullName", "emailAddress", "password"].map(key => {
-    const registerDataField = registerData[key];
+  const fieldsToRender = ["name", "email", "password"].map(key => {
+    const fieldData = formData[key];
     return (
       <InputField
-        change={updatedFieldHandler}
-        value={registerDataField.value}
-        type={registerDataField.type}
-        label={registerDataField.label}
-        placeholder={registerDataField.placeholder}
+        change={changeHandler}
         name={key}
         key={"registerField" + key}
+        type={fieldData.type}
+        label={fieldData.label}
+        rounded
+        placeholder={fieldData.placeholder}
+        value={fieldData.value}
+        label={fieldData.label}
+        icon={fieldData.icon}
+        required
         validate={validate}
-        {...registerDataField.validation}
       />
     );
   });
-
-  let formContent = (
-    <React.Fragment>
-      <br />
-      {registerFormData}
-      <br />
-      <Button click={registerSubmitHandler} fullWidth disabled={submitted}>
-        Submit
-      </Button>
-    </React.Fragment>
-  );
-
-  if (submitted) {
-    formContent = <Loader />;
-  }
 
   return (
     <React.Fragment>
       <form>
         <Title center>Register</Title>
-        {formContent}
+        {fieldsToRender}
+        <br />
+        <Button click={submitHandler} fullWidth>
+          Sign In
+        </Button>
       </form>
-
       <style jsx>{`
         form {
           margin-bottom: 30px;
@@ -149,4 +112,4 @@ const registerForm = props => {
   );
 };
 
-export default React.memo(registerForm);
+export default registerForm;
