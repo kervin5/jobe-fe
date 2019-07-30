@@ -6,7 +6,7 @@ const InputErrors = ({ errors = [] }) => {
       {errors.map(errorMessage => (
         <li key={errorMessage + "errorLabel"} className="ErrorMessage">
           {" "}
-          <Icon icon={"Error"} />
+          <Icon icon={"exclamation circle"} />
           {errorMessage}
         </li>
       ))}
