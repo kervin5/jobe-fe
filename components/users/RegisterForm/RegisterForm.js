@@ -58,6 +58,7 @@ const registerForm = () => {
           method: "post",
           url: "/users",
           data: {
+
             email: email.value,
             password: password.value,
             name: name.value

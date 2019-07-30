@@ -1,77 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Title from "./Title";
-import variables from "../globalVariables";
+import { Button, Icon } from "semantic-ui-react";
 
-const socialMedia = props => {
-  function fbshareCurrentPage() {
-    window.open(
-      "https://www.facebook.com/sharer/sharer.php?u=" +
-        escape(window.location.href) +
-        "&t=" +
-        document.title,
-      "",
-      "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600"
-    );
-    return false;
-  }
+const socialMedia = () => {
+  const url =
+    "http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3";
+  // SWITCH TO THIS WHEN DEPLOYING
+  // const url = location.window.href;
+
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  const twitterUrl = `https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20${url}`;
+  const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
 
   return (
     <div className={"SocialMedia"}>
       <Title size="s">Share this Job:</Title>
+
       <div className={"buttons"}>
-        <a
-          href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-          className="twitter-share-button"
-          data-size="large"
-          data-text="What an opportunity!"
-          data-hashtags="ExactStaff"
-          data-show-count="true"
-        >
-          Share on Twitter
+        <a target="_blank">
+          <button
+            className="ui twitter button"
+            onClick={() =>
+              window.open(
+                { twitterUrl },
+                "Popup",
+                "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
+              )
+            }
+          >
+            <i aria-hidden="true" className="twitter icon"></i>
+            Twitter
+          </button>
         </a>
-        <script
-          async
-          src="https://platform.twitter.com/widgets.js"
-          charSet="utf-8"
-        ></script>
 
         <a
-          href="fbshareCurrentPage()"
-          className="fb-share-button"
-          data-size="large"
-          data-layout="button"
+          href={facebookUrl}
+          target="_blank"
+          onClick={() =>
+            window.open(
+              { facebookUrl },
+              "Popup",
+              "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
+            )
+          }
         >
-          Share on Facebook
+          <button className="ui facebook button">
+            <i aria-hidden="true" className="facebook icon"></i>
+            Facebook
+          </button>
         </a>
-        <script
-          async
-          src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3"
-        ></script>
+
+        <a
+          href={linkedinUrl}
+          target="_blank"
+          onClick={() =>
+            window.open(
+              { linkedinUrl },
+              "Popup",
+              "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
+            )
+          }
+        >
+          <button className="ui linkedin button">
+            <i aria-hidden="true" className="linkedin icon"></i>
+            LinkedIn
+          </button>
+        </a>
       </div>
-
-      <style jsx>{`
-        .SocialMedia {
-          display: flex;
-          flex-direction: column;
-          align-items: baseline;
-          padding: 10px;
-        }
-
-        .buttons {
-          display: flex;
-          align-content: space-between;
-        }
-
-        .buttons a {
-          display: block;
-          padding: 0 5px;
-        }
-
-        button {
-          padding: 0 2px;
-        }
-      `}</style>
     </div>
   );
 };
