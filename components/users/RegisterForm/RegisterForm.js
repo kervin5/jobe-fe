@@ -78,7 +78,7 @@ const registerForm = props => {
           method: "post",
           url: "/users",
           data: {
-            name: fullName.value,
+            fullName: fullName.value,
             email: emailAddress.value,
             password: password.value
           }
@@ -108,7 +108,7 @@ const registerForm = props => {
         type={registerDataField.type}
         label={registerDataField.label}
         placeholder={registerDataField.placeholder}
-        name={key}
+        fullName={key}
         key={"registerField" + key}
         validate={validate}
         {...registerDataField.validation}

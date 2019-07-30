@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Icon from "./Icon";
+import variables from "../globalVariables";
 
 const favoriteIcon = props => {
   const [favoriteSelected, setFavoriteSelected] = useState(false);
@@ -17,15 +18,16 @@ const favoriteIcon = props => {
         icon={"favorite"}
         size={props.size || "lg"}
         title={"Add to Favorites"}
+        color={"color2"}
       ></Icon>
 
       <style jsx>{`
         .untouched :global(svg) {
-          color: white;
+          color: ${variables.darkColor};
         }
 
         .touched :global(svg) {
-          color: #ffd800;
+          color: ${variables.clearColor};
         }
       `}</style>
     </span>
