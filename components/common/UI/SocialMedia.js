@@ -4,14 +4,14 @@ import Title from "./Title";
 import { Button, Icon } from "semantic-ui-react";
 
 const socialMedia = () => {
-  const url =
-    "http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3";
+  //const url =
+  // "http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3";
   // SWITCH TO THIS WHEN DEPLOYING
-  //const url = location.window.href;
+  const url = location.window.href;
 
-  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-  const twitterUrl = `https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20${url}`;
-  const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
+  // const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  // const twitterUrl = `https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20${url}`;
+  // const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
 
   return (
     <div className={"SocialMedia"}>
@@ -23,7 +23,8 @@ const socialMedia = () => {
             className="ui twitter button"
             onClick={() =>
               window.open(
-                { twitterUrl },
+                "https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20" +
+                  { url },
                 "Popup",
                 "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
               )
@@ -39,7 +40,7 @@ const socialMedia = () => {
           target="_blank"
           onClick={() =>
             window.open(
-              { facebookUrl },
+              "https://www.facebook.com/sharer/sharer.php?u=http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3",
               "Popup",
               "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
             )
@@ -56,7 +57,7 @@ const socialMedia = () => {
           target="_blank"
           onClick={() =>
             window.open(
-              { linkedinUrl },
+              "https://www.linkedin.com/shareArticle?mini=true&url=http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3",
               "Popup",
               "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
             )
