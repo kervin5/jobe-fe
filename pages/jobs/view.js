@@ -11,7 +11,7 @@ import JobListing from "../../components/jobs/JobListing/JobListing";
 import PageSection from "../../components/common/Layout/PageSection";
 import Loader from "../../components/common/UI/Animated/Loader";
 
-const pageStyles = `background-color:${variables.mutedColor1}`;
+const pageStyles = `background-color:${variables.mutedColor1};justify-content: center;`;
 
 const ViewJobPage = props => {
   const [singleJob, setSingleJob] = useState(props.job);
@@ -57,7 +57,7 @@ ViewJobPage.getInitialProps = async function({ query }) {
     const result = { job: jobInfo.data };
     return result;
   } catch (err) {
-    console.log(err.response);
+    console.log(err);
   }
 };
 

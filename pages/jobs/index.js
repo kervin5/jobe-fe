@@ -74,12 +74,12 @@ const SearchPage = props => {
         <div className="Container">
           <SearchFieldSection terms={query.q} location={query.location} />
           <ButtonGroup>
-            <Button size={{ height: "30px" }} icon="AddAlert">
+            <Button size={{ height: "30px" }} icon="alarm">
               Create Alert
             </Button>
             <Button
               size={{ height: "30px" }}
-              icon="Tune"
+              icon="filter"
               color="2"
               click={() => setShowFilters(!showFilters)}
             >

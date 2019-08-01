@@ -70,7 +70,7 @@ const Button = props => {
           padding: 5px;
         }
 
-        .Button :global(.MuiCircularProgress-root svg) {
+        .Button :global(.Icon i) {
           color: ${variables.clearColor};
         }
 
