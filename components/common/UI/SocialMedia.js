@@ -1,17 +1,17 @@
 import React, { useState } from "react";
+import { withRouter } from "next/router";
 
 import Title from "./Title";
 import { Button, Icon } from "semantic-ui-react";
 
 const socialMedia = () => {
-  //const url =
-  // "http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3";
+  //const url = "http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3";
   // SWITCH TO THIS WHEN DEPLOYING
-  const url = location.window.href;
+  const url = location.window.pathname;
 
-  // const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-  // const twitterUrl = `https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20${url}`;
-  // const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  const twitterUrl = `https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20${url}`;
+  const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
 
   return (
     <div className={"SocialMedia"}>
@@ -73,4 +73,4 @@ const socialMedia = () => {
   );
 };
 
-export default socialMedia;
+export default withRouter(socialMedia);
