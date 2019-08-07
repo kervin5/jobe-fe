@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import Router from "next/router";
-import Layout from "../../components/common/Layout/Layout";
 
 import axios from "../../data/api";
 import variables from "../../components/common/globalVariables";
-
+import PageTitle from "../../components/common/Layout/PageTitle";
 import Container from "../../components/common/Layout/Container";
 import JobListing from "../../components/jobs/JobListing/JobListing";
 
 import PageSection from "../../components/common/Layout/PageSection";
 import Loader from "../../components/common/UI/Animated/Loader";
 
-const pageStyles = `background-color:${variables.mutedColor1}`;
+const pageStyles = `background-color:${variables.mutedColor1};justify-content: center;`;
 
 const ViewJobPage = props => {
   const [singleJob, setSingleJob] = useState(props.job);
@@ -40,11 +38,12 @@ const ViewJobPage = props => {
   }
 
   return (
-    <Layout>
-      <PageSection styles={pageStyles}>
-        <Container>{waitingOnData}</Container>
-      </PageSection>
-    </Layout>
+    <PageSection styles={pageStyles}>
+      <PageTitle
+        title={singleJob && singleJob.title + " at " + singleJob.location}
+      />
+      <Container>{waitingOnData}</Container>
+    </PageSection>
   );
 }; //eof
 
@@ -57,7 +56,7 @@ ViewJobPage.getInitialProps = async function({ query }) {
     const result = { job: jobInfo.data };
     return result;
   } catch (err) {
-    console.log(err.response);
+    console.log(err);
   }
 };
 

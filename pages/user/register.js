@@ -1,6 +1,5 @@
 import React from "react";
 import variables from "../../components/common/globalVariables";
-import Layout from "../../components/common/Layout/Layout";
 import PageSection from "../../components/common/Layout/PageSection";
 import RegisterForm from "../../components/users/RegisterForm/RegisterForm";
 import HiddenIfAuth from "../../components/hoc/HiddenIfAuth";
@@ -13,20 +12,17 @@ const pageStyles = ` background-color: ${variables.mutedColor1};
 
 const register = () => {
   return (
-    <Layout>
-      <PageSection styles={pageStyles}>
-        <RegisterForm />
-        <br />
-        <img src={friendsImgUrl} />
-      </PageSection>
-
+    <PageSection styles={pageStyles}>
+      <RegisterForm />
+      <br />
+      <img src={friendsImgUrl} />
       <style jsx>{`
         img {
           width: 310px;
           opacity: 0.3;
         }
       `}</style>
-    </Layout>
+    </PageSection>
   );
 };
 

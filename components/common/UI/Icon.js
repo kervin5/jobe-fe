@@ -20,12 +20,6 @@ const CustomIcon = props => {
             margin: 0;
           }
 
-          // .Icon {
-          //   display: flex;
-          //   justify-content: center;
-          //   align-items: center;
-          // }
-
           .Circle {
             border-radius: 25px;
             min-width: 35px;

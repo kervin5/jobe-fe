@@ -14,7 +14,7 @@ const loginForm = () => {
       type: "text",
       label: "Email",
       placeholder: "jdoe@myemail.com",
-      icon: "Email"
+      icon: "mail"
     },
     password: {
       value: "",
@@ -22,7 +22,7 @@ const loginForm = () => {
       type: "password",
       label: "Password",
       placeholder: "Password",
-      icon: "VpnKey"
+      icon: "key"
     }
   });
 

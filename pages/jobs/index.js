@@ -3,7 +3,6 @@ import { withRouter } from "next/router";
 import axios from "../../data/api";
 import variables from "../../components/common/globalVariables";
 
-import Layout from "../../components/common/Layout/Layout";
 import PageSection from "../../components/common/Layout/PageSection";
 
 import JobList from "../../components/jobs/JobList/JobList";
@@ -66,7 +65,7 @@ const SearchPage = props => {
   }, [jobs]);
 
   return (
-    <Layout>
+    <>
       <SideDrawer show={showFilters} close={() => setShowFilters(false)}>
         <h3>Filter</h3>
       </SideDrawer>
@@ -74,12 +73,12 @@ const SearchPage = props => {
         <div className="Container">
           <SearchFieldSection terms={query.q} location={query.location} />
           <ButtonGroup>
-            <Button size={{ height: "30px" }} icon="AddAlert">
+            <Button size={{ height: "30px" }} icon="alarm">
               Create Alert
             </Button>
             <Button
               size={{ height: "30px" }}
-              icon="Tune"
+              icon="filter"
               color="2"
               click={() => setShowFilters(!showFilters)}
             >
@@ -107,7 +106,7 @@ const SearchPage = props => {
           text-align: center;
         }
       `}</style>
-    </Layout>
+    </>
   );
 };
 
