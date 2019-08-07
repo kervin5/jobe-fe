@@ -61,7 +61,6 @@ const jobListing = props => {
           }
         )
         .then(response => {
-          console.log(response);
           if (response.data.status === "applied") {
             setButtonData({
               text: "Applied 😁",

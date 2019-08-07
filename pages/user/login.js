@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import variables from "../../components/common/globalVariables";
-import Layout from "../../components/common/Layout/Layout";
 import PageSection from "../../components/common/Layout/PageSection";
 import LoginForm from "../../components/users/LoginForm/LoginForm";
 import HiddenIfAuth from "../../components/hoc/HiddenIfAuth";
@@ -14,23 +13,21 @@ const pageStyles = ` background-color: ${variables.mutedColor1};
 
 const login = () => {
   return (
-    <Layout title={"Login"}>
-      <PageSection styles={pageStyles}>
-        <LoginForm />
+    <PageSection styles={pageStyles}>
+      <LoginForm />
 
-        <Link href="/users/recover">
-          <a className="forgoPasswordLink">Forgot Password?</a>
+      <Link href="/users/recover">
+        <a className="forgoPasswordLink">Forgot Password?</a>
+      </Link>
+      <p>
+        Don't have an account?
+        <Link href="/users/register">
+          <a> Sign Up</a>
         </Link>
-        <p>
-          Don't have an account?
-          <Link href="/users/register">
-            <a> Sign Up</a>
-          </Link>
-        </p>
-        <div className="BgImage">
-          <img src={friendsImgUrl} />
-        </div>
-      </PageSection>
+      </p>
+      <div className="BgImage">
+        <img src={friendsImgUrl} />
+      </div>
       <style jsx>{`
         .BgImage {
           width: 100%;
@@ -59,7 +56,7 @@ const login = () => {
           font-weight: bold;
         }
       `}</style>
-    </Layout>
+    </PageSection>
   );
 };
 

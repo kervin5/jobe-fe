@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../components/common/Layout/Layout";
+import PageTitle from "../components/common/Layout/PageTitle";
 
 // import classes from './index.module.scss';
 import axios from "../data/api";
@@ -44,28 +44,24 @@ const homePage = props => {
   }, [userLocation.name]);
 
   return (
-    <Layout title={"Home Page"} data-test="indexPage">
-      <PageSection className="HomePage" column>
-        <DynamicImageBg
-          query={
-            jobs.length > 0 ? jobs[randomInt(0, jobs.length)].location : ""
-          }
-        >
-          <Container>
-            <div className="Logos">
-              <img src={landingLogo} className="CompanyLogo" />
-            </div>
-            <SearchArea location={userLocation.name} />
-          </Container>
-        </DynamicImageBg>
+    <PageSection className="HomePage" column>
+      <PageTitle title="Home Page" />
+      <DynamicImageBg
+        query={jobs.length > 0 ? jobs[randomInt(0, jobs.length)].location : ""}
+      >
         <Container>
-          <Title size={"m"} center>
-            What's Poppin' 😎
-          </Title>
-          <JobList jobs={jobs} />
+          <div className="Logos">
+            <img src={landingLogo} className="CompanyLogo" />
+          </div>
+          <SearchArea location={userLocation.name} />
         </Container>
-      </PageSection>
-
+      </DynamicImageBg>
+      <Container>
+        <Title size={"m"} center>
+          What's Poppin' 😎
+        </Title>
+        <JobList jobs={jobs} />
+      </Container>
       <style jsx>{`
         .Logos {
           display: flex;
@@ -103,7 +99,7 @@ const homePage = props => {
           }
         }
       `}</style>
-    </Layout>
+    </PageSection>
   );
 };
 
