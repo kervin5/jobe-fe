@@ -44,7 +44,7 @@ const homePage = props => {
   }, [userLocation.name]);
 
   return (
-    <PageSection className="HomePage" column>
+    <PageSection className="HomePage" column data-test="indexPage">
       <PageTitle title="Home Page" />
       <DynamicImageBg
         query={jobs.length > 0 ? jobs[randomInt(0, jobs.length)].location : ""}
