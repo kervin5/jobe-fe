@@ -16,13 +16,11 @@ background-color: #F9F7F7;
 
 const newJobPage = props => {
   return (
-    <Layout title={"New Job"}>
-      <PageSection styles={pageSytles}>
-        <Container>
-          <JobCreator />
-        </Container>
-      </PageSection>
-    </Layout>
+    <PageSection styles={pageSytles}>
+      <Container>
+        <JobCreator />
+      </Container>
+    </PageSection>
   );
 };
 

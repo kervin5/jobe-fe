@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Head from "../../head.js";
+//import Head from "../../head.js";
 import NavigationBar from "../UI/Navigation/NavigationBar";
 // import NavigationDrawer from "../UI/Navigation/NavigationDrawer";
 import variables from "../globalVariables";
@@ -10,7 +10,6 @@ const layout = props => {
 
   return (
     <div className="Layout">
-      <Head title={props.title} />
       {props.hideNav ? null : (
         <NavigationBar menuButtonClick={handleMenuClick} />
       )}

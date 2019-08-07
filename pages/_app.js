@@ -1,5 +1,6 @@
 import React from "react";
 import App, { Container } from "next/app";
+import Page from "../components/Page";
 import "semantic-ui-css/semantic.min.css";
 import "./app.css";
 
@@ -18,9 +19,9 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
 
     return (
-      <Container>
+      <Page>
         <Component {...pageProps} />
-      </Container>
+      </Page>
     );
   }
 }

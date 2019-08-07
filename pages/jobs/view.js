@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import Router from "next/router";
-import Layout from "../../components/common/Layout/Layout";
 
 import axios from "../../data/api";
 import variables from "../../components/common/globalVariables";
-
+import PageTitle from "../../components/common/Layout/PageTitle";
 import Container from "../../components/common/Layout/Container";
 import JobListing from "../../components/jobs/JobListing/JobListing";
 
@@ -40,11 +38,12 @@ const ViewJobPage = props => {
   }
 
   return (
-    <Layout>
-      <PageSection styles={pageStyles}>
-        <Container>{waitingOnData}</Container>
-      </PageSection>
-    </Layout>
+    <PageSection styles={pageStyles}>
+      <PageTitle
+        title={singleJob && singleJob.title + " at " + singleJob.location}
+      />
+      <Container>{waitingOnData}</Container>
+    </PageSection>
   );
 }; //eof
 
