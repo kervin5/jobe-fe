@@ -1,30 +1,32 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { withRouter } from "next/router";
 
 import Title from "./Title";
 import { Button, Icon } from "semantic-ui-react";
 
 const socialMedia = () => {
+  function Page({ router }) {
+    return <p>{router.pathname}</p>;
+  }
   //const url = "http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3";
   // SWITCH TO THIS WHEN DEPLOYING
-  const url = location.window.pathname;
 
-  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-  const twitterUrl = `https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20${url}`;
-  const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${Page}`;
+  //const twitterUrl = `https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20${url}`;
+  //const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
 
   return (
-    <div className={"SocialMedia"}>
+    <div>
       <Title size="s">Share this Job:</Title>
-
       <div className={"buttons"}>
         <a target="_blank">
           <button
             className="ui twitter button"
             onClick={() =>
               window.open(
-                "https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20" +
-                  { url },
+                // "https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20" +{ url },
+
                 "Popup",
                 "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
               )
@@ -36,11 +38,11 @@ const socialMedia = () => {
         </a>
 
         <a
-          href={facebookUrl}
+          // href={facebookUrl}
           target="_blank"
           onClick={() =>
             window.open(
-              "https://www.facebook.com/sharer/sharer.php?u=http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3",
+              "https://www.facebook.com/sharer/sharer.php?u=" + { Page },
               "Popup",
               "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
             )
@@ -53,11 +55,10 @@ const socialMedia = () => {
         </a>
 
         <a
-          href={linkedinUrl}
           target="_blank"
           onClick={() =>
             window.open(
-              "https://www.linkedin.com/shareArticle?mini=true&url=http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3",
+              //"https://www.linkedin.com/shareArticle?mini=true&url=http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3",
               "Popup",
               "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
             )
