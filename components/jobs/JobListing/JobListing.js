@@ -7,6 +7,7 @@ import RegisterForm from "../../users/RegisterForm/RegisterForm";
 import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
 import PopUp from "../../common/UI/PopUp";
+import PageTitle from "../../common/Layout/PageTitle";
 import Title from "../../common/UI/Title";
 import Button from "../../common/UI/Button";
 import HtmlRenderer from "../../hoc/HtmlRenderer";
@@ -104,6 +105,7 @@ const jobListing = props => {
 
   return (
     <TransformerContainer data-test="job-listing">
+      <PageTitle title={props.title + " at " + props.location} />
       <JobListingHeader
         title={props.title}
         location={props.location}

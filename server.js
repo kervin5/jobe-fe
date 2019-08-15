@@ -17,11 +17,11 @@ app.prepare().then(() => {
     server.use(compression());
   }
 
-  server.get("/jobs/view/:slug", (req, res) => {
-    const actualPage = "/jobs/view";
-    const queryParams = { slug: req.params.slug };
-    app.render(req, res, actualPage, queryParams);
-  });
+  // server.get("/jobs/view/:slug", (req, res) => {
+  //   const actualPage = "/jobs/view";
+  //   const queryParams = { slug: req.params.slug };
+  //   app.render(req, res, actualPage, queryParams);
+  // });
 
   server.get("*", (req, res) => {
     return handle(req, res);

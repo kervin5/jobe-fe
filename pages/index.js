@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PageTitle from "../components/common/Layout/PageTitle";
 
-// import classes from './index.module.scss';
-import axios from "../data/api";
 import UserLocator from "../data/UserLocator";
 import variables from "../components/common/globalVariables.js";
 import { randomInt } from "../lib/random";
@@ -13,7 +11,7 @@ import Title from "../components/common/UI/Title";
 import DynamicImageBg from "../components/common/UI/DynamicImageBg";
 import SearchArea from "../components/jobs/Search/SearchArea";
 
-import JobList from "../components/jobs/JobList/JobList";
+import Jobs from "../components/jobs/Jobs";
 
 // const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
 const landingLogo = "../static/images/LandingLogo.svg";
@@ -26,7 +24,7 @@ const homePage = props => {
     lat: 0,
     lon: 0
   });
-  const [jobs, setJobs] = useState([]);
+
   const userLocator = new UserLocator();
 
   useEffect(() => {
@@ -35,19 +33,23 @@ const homePage = props => {
     });
   }, []);
 
-  useEffect(() => {
-    if (userLocation.name !== "Loading...") {
-      axios.get(`/jobs?location=${userLocation.name}&page=${1}`).then(res => {
-        setJobs(res.data);
-      });
-    }
-  }, [userLocation.name]);
+  // useEffect(() => {
+  //   if (userLocation.name !== "Loading...") {
+  //     axios.get(`/jobs?location=${userLocation.name}&page=${1}`).then(res => {
+  //       setJobs(res.data);
+  //     });
+  //   }
+  // }, [userLocation.name]);
 
   return (
     <PageSection className="HomePage" column data-test="indexPage">
       <PageTitle title="Home Page" />
       <DynamicImageBg
-        query={jobs.length > 0 ? jobs[randomInt(0, jobs.length)].location : ""}
+        query={
+          userLocation.name !== "Loading..."
+            ? userLocation.name
+            : "Los Angeles, CA"
+        }
       >
         <Container>
           <div className="Logos">
@@ -60,7 +62,7 @@ const homePage = props => {
         <Title size={"m"} center>
           What's Poppin' 😎
         </Title>
-        <JobList jobs={jobs} />
+        <Jobs />
       </Container>
       <style jsx>{`
         .Logos {

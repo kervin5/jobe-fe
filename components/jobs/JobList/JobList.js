@@ -14,14 +14,14 @@ const jobList = ({ jobs }) => {
     elementToRender = jobs.map(job => {
       return (
         <JobListItem
-          key={job._id}
+          key={job.id}
           title={job.title}
           description={job.description}
           location={job.location}
           compensation={job.minCompensation}
           type={job.type}
-          id={job._id}
-          date={job.posted}
+          id={job.id}
+          date={job.createdAt}
         />
       );
     });

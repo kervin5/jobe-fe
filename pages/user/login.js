@@ -6,7 +6,7 @@ import LoginForm from "../../components/users/LoginForm/LoginForm";
 import HiddenIfAuth from "../../components/hoc/HiddenIfAuth";
 
 const friendsImgUrl = "../../static/images/friends-with-bg.png";
-const pageStyles = ` background-color: ${variables.mutedColor1};
+const pageStyles = `background-color: ${variables.mutedColor1};
                     padding: 30px;
                     display: flex;
                     flex-direction: column;`;
@@ -47,9 +47,9 @@ const login = () => {
           font-size: 0.8em;
         }
 
-        a {
-          color: ${variables.accentColor1};
-        }
+        // a {
+        //   color: ${variables.accentColor1};
+        // }
 
         p a {
           font-size: 1em;
