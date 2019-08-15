@@ -21,7 +21,7 @@ const jobList = ({ jobs }) => {
           compensation={job.minCompensation}
           type={job.type}
           id={job.id}
-          date={job.posted}
+          date={job.createdAt}
         />
       );
     });
