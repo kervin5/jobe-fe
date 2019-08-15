@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "next/router";
+import { Query } from "react-apollo";
+
 import axios from "../../data/api";
 import variables from "../../components/common/globalVariables";
 
@@ -11,6 +13,7 @@ import Button from "../../components/common/UI/Button";
 import ButtonGroup from "../../components/common/UI/ButtonGroup";
 import Loader from "../../components/common/UI/Animated/Loader";
 import SideDrawer from "../../components/common/UI/Navigation/SideDrawer";
+import Jobs from "../../components/jobs/Jobs";
 
 const styles = `background-color: ${variables.mutedColor1}; padding: 30px; align-items: flex-start;`;
 

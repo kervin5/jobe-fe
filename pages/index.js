@@ -13,7 +13,7 @@ import Title from "../components/common/UI/Title";
 import DynamicImageBg from "../components/common/UI/DynamicImageBg";
 import SearchArea from "../components/jobs/Search/SearchArea";
 
-import JobList from "../components/jobs/JobList/JobList";
+import Jobs from "../components/jobs/Jobs";
 
 // const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
 const landingLogo = "../static/images/LandingLogo.svg";
@@ -60,7 +60,7 @@ const homePage = props => {
         <Title size={"m"} center>
           What's Poppin' 😎
         </Title>
-        <JobList jobs={jobs} />
+        <Jobs />
       </Container>
       <style jsx>{`
         .Logos {

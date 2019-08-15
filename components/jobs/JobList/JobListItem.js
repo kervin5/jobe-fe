@@ -18,8 +18,7 @@ const styles = ` background-color: ${variables.clearColor};
                 `;
 
 const jobListItem = props => {
-  const shortLocation =
-    props.location.split(",")[0] + ", " + props.location.split(",")[1];
+  const shortLocation = props.location.name;
 
   return (
     <Card styles={styles} animate>
