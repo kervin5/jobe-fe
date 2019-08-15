@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { withRouter } from "next/router";
 
 import Title from "./Title";
 import { Button, Icon } from "semantic-ui-react";
 
-const socialMedia = () => {
+const socialMedia = props => {
   function Page({ router }) {
     return <p>{router.pathname}</p>;
   }
+  console.log(props);
   //const url = "http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3";
   // SWITCH TO THIS WHEN DEPLOYING
 
@@ -20,7 +20,7 @@ const socialMedia = () => {
     <div>
       <Title size="s">Share this Job:</Title>
       <div className={"buttons"}>
-        <a target="_blank">
+        {/* <a target="_blank">
           <button
             className="ui twitter button"
             onClick={() =>
@@ -35,14 +35,14 @@ const socialMedia = () => {
             <i aria-hidden="true" className="twitter icon"></i>
             Twitter
           </button>
-        </a>
+        </a> */}
 
         <a
           // href={facebookUrl}
           target="_blank"
           onClick={() =>
             window.open(
-              "https://www.facebook.com/sharer/sharer.php?u=" + { Page },
+              { facebookUrl },
               "Popup",
               "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
             )
@@ -54,7 +54,7 @@ const socialMedia = () => {
           </button>
         </a>
 
-        <a
+        {/* <a
           target="_blank"
           onClick={() =>
             window.open(
@@ -68,7 +68,7 @@ const socialMedia = () => {
             <i aria-hidden="true" className="linkedin icon"></i>
             LinkedIn
           </button>
-        </a>
+        </a> */}
       </div>
     </div>
   );
