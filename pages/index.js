@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PageTitle from "../components/common/Layout/PageTitle";
 
-// import classes from './index.module.scss';
-import axios from "../data/api";
 import UserLocator from "../data/UserLocator";
 import variables from "../components/common/globalVariables.js";
 import { randomInt } from "../lib/random";
@@ -26,7 +24,7 @@ const homePage = props => {
     lat: 0,
     lon: 0
   });
-  const [jobs, setJobs] = useState([]);
+
   const userLocator = new UserLocator();
 
   useEffect(() => {
@@ -35,19 +33,23 @@ const homePage = props => {
     });
   }, []);
 
-  useEffect(() => {
-    if (userLocation.name !== "Loading...") {
-      axios.get(`/jobs?location=${userLocation.name}&page=${1}`).then(res => {
-        setJobs(res.data);
-      });
-    }
-  }, [userLocation.name]);
+  // useEffect(() => {
+  //   if (userLocation.name !== "Loading...") {
+  //     axios.get(`/jobs?location=${userLocation.name}&page=${1}`).then(res => {
+  //       setJobs(res.data);
+  //     });
+  //   }
+  // }, [userLocation.name]);
 
   return (
     <PageSection className="HomePage" column data-test="indexPage">
       <PageTitle title="Home Page" />
       <DynamicImageBg
-        query={jobs.length > 0 ? jobs[randomInt(0, jobs.length)].location : ""}
+        query={
+          userLocation.name !== "Loading..."
+            ? userLocation.name
+            : "Los Angeles, CA"
+        }
       >
         <Container>
           <div className="Logos">

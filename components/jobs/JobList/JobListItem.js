@@ -25,9 +25,7 @@ const jobListItem = props => {
       <div className="JobListItemHeader">
         <div>
           <Link
-            href={
-              "/jobs/view/" + props.title.split(" ").join("-") + "-" + props.id
-            }
+            href={"/jobs/" + props.title.split(" ").join("-") + "-" + props.id}
           >
             <a className="JobTitle">{props.title}</a>
           </Link>
@@ -41,9 +39,7 @@ const jobListItem = props => {
           <Bubble color="2">{props.type}</Bubble>
         </div>
       </div>
-      <Link
-        href={"/jobs/view/" + props.title.split(" ").join("-") + "-" + props.id}
-      >
+      <Link href={"/jobs/" + props.title.split(" ").join("-") + "-" + props.id}>
         <a className="Content">{props.description.substr(1, 200)}...</a>
       </Link>
 

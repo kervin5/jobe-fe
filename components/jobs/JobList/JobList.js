@@ -20,7 +20,7 @@ const jobList = ({ jobs }) => {
           location={job.location}
           compensation={job.minCompensation}
           type={job.type}
-          id={job._id}
+          id={job.id}
           date={job.posted}
         />
       );
