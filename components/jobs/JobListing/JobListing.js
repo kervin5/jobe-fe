@@ -133,7 +133,9 @@ const jobListing = props => {
         </Title>
         <p>{props.aboutCompany}</p>
         <br />
-        <SocialMedia />
+        <SocialMedia
+          url={"http://localhost:3000/jobs/" + props.title + "-" + props.jobId}
+        />
         <br />
         <Button
           className="button"
