@@ -13,11 +13,10 @@ const dashboardPage = props => {
     <PageSection className="DashboardPage" column>
       <ButtonsBar />
       {/* {componentInView} */}
-      <Container>
-        <DashboardHome />
-      </Container>
+      <Container>{/* <DashboardHome /> */}</Container>
     </PageSection>
   );
 };
 
-export default WithAuth(dashboardPage);
+// export default WithAuth(dashboardPage);
+export default dashboardPage;
