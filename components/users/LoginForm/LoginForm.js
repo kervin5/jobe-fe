@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
-import axios from "../../../data/api";
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
 import InputField from "../../common/UI/Input/InputField";
 import Button from "../../common/UI/Button";
 import Title from "../../common/UI/Title";
 import Router from "next/router";
 import { logInUser } from "../../../data/auth";
+
+const LOGIN_USER = gql`
+  mutation LOGIN_USER($email: String!, $password: String!) {
+    login(email: $email, password: $password)
+  }
+`;
 
 const loginForm = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +36,6 @@ const loginForm = () => {
   const [validate, setValidate] = useState(false);
 
   const changeHandler = fieldData => {
-    console.log(fieldData, formData[fieldData.name]);
     setFormData({
       ...formData,
       [fieldData.name]: {
@@ -39,25 +45,17 @@ const loginForm = () => {
     });
   };
 
-  const submitHandler = async e => {
+  const submitHandler = async (e, loginUserMutation) => {
     e.preventDefault();
     await setValidate(true);
     const { email, password } = formData;
 
     if (email.valid && password.valid) {
-      try {
-        const result = await axios({
-          method: "post",
-          url: "/auth",
-          data: {
-            email: email.value,
-            password: password.value
-          }
-        });
-        logInUser(result.data.token);
+      const res = await loginUserMutation();
+      console.log(res);
+      if (res.data.login) {
+        logInUser(res.data.login);
         Router.push("/dashboard");
-      } catch (ex) {
-        console.log("Error", ex.response);
       }
     }
   };
@@ -84,19 +82,36 @@ const loginForm = () => {
 
   return (
     <React.Fragment>
-      <form>
-        <Title center>Login</Title>
-        {fieldsToRender}
-        <br />
-        <Button click={submitHandler} fullWidth>
-          Sign In
-        </Button>
-      </form>
+      <Mutation
+        mutation={LOGIN_USER}
+        variables={{
+          email: formData.email.value,
+          password: formData.password.value
+        }}
+      >
+        {(loginUser, { loading, error, called, data }) => (
+          <form>
+            <Title center>Login</Title>
+            {error && <p>Something went wrong</p>}
+            <fieldset disabled={loading} aria-busy={loading}>
+              {fieldsToRender}
+              <br />
+              <Button click={e => submitHandler(e, loginUser)} fullWidth>
+                Sign In
+              </Button>
+            </fieldset>
+          </form>
+        )}
+      </Mutation>
       <style jsx>{`
         form {
           margin-bottom: 30px;
           width: 100%;
           max-width: 500px;
+        }
+
+        fieldset {
+          border: none;
         }
       `}</style>
     </React.Fragment>

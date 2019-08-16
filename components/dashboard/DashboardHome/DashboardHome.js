@@ -1,12 +1,8 @@
 import React from "react";
-import Table from "../../common/UI/Table";
 import Title from "../../common/UI/Title";
-import axios from "../../../data/api";
 import Button from "../../common/UI/Button";
-import CounterCard from "../../common/UI/CounterCard";
 import JobsInformationSection from "./JobsInformationSection";
 import JobCreator from "../../jobs/JobCreator/JobCreator";
-import Router from "next/router";
 
 class DashboardHome extends React.Component {
   state = {
