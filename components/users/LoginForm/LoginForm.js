@@ -41,7 +41,7 @@ const loginForm = () => {
 
   const submitHandler = async e => {
     e.preventDefault();
-    setValidate(true);
+    await setValidate(true);
     const { email, password } = formData;
 
     if (email.valid && password.valid) {
