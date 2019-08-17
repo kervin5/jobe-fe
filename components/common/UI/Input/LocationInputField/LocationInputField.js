@@ -18,9 +18,21 @@ const locationInputField = props => {
   };
   // const [localValue, setLocalValue] = useState("");
 
-  const changeHandler = fieldData => {
-    props.change(fieldData);
-    // setLocalValue(value);
+  const changeHandler = async fieldData => {
+    let locationDetails = {};
+    if (fieldData.valid) {
+      const selectedLocation = locations.filter(
+        loc => loc.place_name === fieldData.value
+      )[0];
+      const [longitude, latitude] = selectedLocation.geometry.coordinates;
+      locationDetails = {
+        name: selectedLocation.place_name,
+        latitude,
+        longitude
+      };
+    }
+    props.change({ ...fieldData, details: locationDetails });
+    // console.log({...fieldData, details: locationDetails});
   };
 
   useEffect(() => {
