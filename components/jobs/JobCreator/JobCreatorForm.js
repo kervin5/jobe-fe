@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "../../../data/api";
 import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 // import classes from './JobCreatorForm.module.scss';
 import InputField from "../../common/UI/Input/InputField";
 import InputGroup from "../../common/UI/Input/InputGroup";
@@ -22,6 +22,14 @@ const CREATE_JOB_MUTATION = gql`
     ) {
       title
       id
+    }
+  }
+`;
+
+const ALL_CATEGORIES_QUERY = gql`
+  query ALL_CATEGORIES_QUERY {
+    categories {
+      name
     }
   }
 `;
@@ -235,16 +243,27 @@ class JobCreatorForm extends Component {
                   />
                 </InputGroup>
 
-                <InputField
-                  validate={this.state.validate}
-                  type="tags"
-                  placeholder="Warehouse, Clerical"
-                  label="Job Category"
-                  options={this.state.formData.jobCategory.options}
-                  change={this.changeHandler}
-                  name={"jobCategory"}
-                  required
-                />
+                <Query query={ALL_CATEGORIES_QUERY}>
+                  {({ data, error, loading }) => {
+                    if (error) return <p>Something went wrong</p>;
+                    if (loading) return <p>Loading</p>;
+                    const categories = data.categories.map(
+                      category => category.name
+                    );
+                    return (
+                      <InputField
+                        validate={this.state.validate}
+                        type="tags"
+                        placeholder="Warehouse, Clerical"
+                        label="Job Category"
+                        options={categories}
+                        change={this.changeHandler}
+                        name={"jobCategory"}
+                        required
+                      />
+                    );
+                  }}
+                </Query>
                 <InputField
                   validate={this.state.validate}
                   type="dropdown"

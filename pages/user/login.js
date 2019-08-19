@@ -3,7 +3,7 @@ import Link from "next/link";
 import variables from "../../components/common/globalVariables";
 import PageSection from "../../components/common/Layout/PageSection";
 import LoginForm from "../../components/users/LoginForm/LoginForm";
-import HiddenIfAuth from "../../components/hoc/HiddenIfAuth";
+import HiddenIfAuth from "../../components/hoc/RedirectIfAuth";
 
 const friendsImgUrl = "../../static/images/friends-with-bg.png";
 const pageStyles = `background-color: ${variables.mutedColor1};

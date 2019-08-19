@@ -39,19 +39,6 @@ export default function WithAuth(ComponentToProtect) {
 
     render() {
       return this.state.componentToRender;
-      // const { loading, redirect } = this.state;
-      // if (loading) {
-      //   return <Loader />;
-      // } else if (redirect) {
-      //   Router.push("/user/login", "user/login");
-      //   return <Loader />;
-      // } else {
-      //   return (
-      //     <React.Fragment>
-      //       <ComponentToProtect {...this.props} />
-      //     </React.Fragment>
-      //   );
-      // }
     }
   };
 }

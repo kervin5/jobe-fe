@@ -2,7 +2,7 @@ import React from "react";
 import variables from "../../components/common/globalVariables";
 import PageSection from "../../components/common/Layout/PageSection";
 import RegisterForm from "../../components/users/RegisterForm/RegisterForm";
-import HiddenIfAuth from "../../components/hoc/HiddenIfAuth";
+import RedirectIfAuth from "../../components/hoc/RedirectIfAuth";
 
 const friendsImgUrl = "../../static/images/friends-with-bg.png";
 const pageStyles = ` background-color: ${variables.mutedColor1};
@@ -26,4 +26,4 @@ const register = () => {
   );
 };
 
-export default HiddenIfAuth(register, "/dashboard");
+export default RedirectIfAuth(register, "/dashboard");
