@@ -1,14 +1,13 @@
 import { Component } from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import { getAuthToken, userIsLoggedIn } from "../../data/auth";
-import LoginForm from "../users/LoginForm/LoginForm";
+import { userIsLoggedIn } from "../../data/auth";
 import Loader from "../common/UI/Animated/Loader";
 import Router from "next/router";
 
 const AUTHORIZE_USER = gql`
-  query AUTHORIZE_USER($token: String!) {
-    authorize(token: $token)
+  query AUTHORIZE_USER {
+    authorize
   }
 `;
 
@@ -26,7 +25,7 @@ export default function WithAuth(ComponentToProtect) {
       } else {
         this.setState({
           componentToRender: (
-            <Query query={AUTHORIZE_USER} variables={{ token: getAuthToken() }}>
+            <Query query={AUTHORIZE_USER}>
               {(data, error, loading) => {
                 console.log(data);
                 if (loading) return <Loader />;

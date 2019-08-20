@@ -61,7 +61,7 @@ const SearchPage = props => {
 };
 
 SearchPage.getInitialProps = async function({ query }) {
-  console.log(query);
+  // console.log(query);
   const { q, location } = query;
   return { q, location };
 };

@@ -59,7 +59,8 @@ const registerForm = () => {
     e.preventDefault();
     await setValidate(true);
     const { email, password, name } = formData;
-
+    console.log("===================================");
+    console.log(email, password, name);
     if (email.valid && password.valid && name.valid) {
       const res = await signupUserMutation();
       console.log(res);
@@ -67,22 +68,6 @@ const registerForm = () => {
         logInUser(res.data.signup);
         Router.push("/dashboard");
       }
-
-      // try {
-      //   const result = await axios({
-      //     method: "post",
-      //     url: "/users",
-      //     data: {
-      //       email: email.value,
-      //       password: password.value,
-      //       name: name.value
-      //     }
-      //   });
-      //   logInUser(result.data.token);
-      //   Router.push("/dashboard");
-      // } catch (ex) {
-      //   console.log("Error", ex.response);
-      // }
     }
   };
 
@@ -106,16 +91,15 @@ const registerForm = () => {
     );
   });
 
+  const signUpData = {
+    email: formData.email.value,
+    password: formData.password.value,
+    name: formData.name.value
+  };
+
   return (
     <React.Fragment>
-      <Mutation
-        mutation={SIGNUP_USER}
-        variables={{
-          email: formData.name.value,
-          password: formData.password.value,
-          name: formData.name.value
-        }}
-      >
+      <Mutation mutation={SIGNUP_USER} variables={{ ...signUpData }}>
         {(signupUser, { loading, error, called, data }) => {
           return (
             <form>

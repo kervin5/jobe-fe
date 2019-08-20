@@ -15,6 +15,7 @@ function createClient({ ctx, headers, initialState }) {
     {
       uri: process.env.NODE_ENV === "development" ? endpoint : endpoint,
       cache: new InMemoryCache().restore(initialState || {}),
+      credentials: "include",
       headers: {
         ...headers,
         ...extraHeaders
