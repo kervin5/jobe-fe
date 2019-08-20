@@ -11,14 +11,14 @@ const TransformerContainer = props => {
             0 6px 6px rgba(0, 0, 0, 0.23);
           min-height: 100vh;
           margin-bottom: 30px;
-          border-radius: 30px;
-          background-color: ${variables.clearColor};
+          border-radius: ${variables.roundedRadius};
         }
 
         @media only screen and (max-width: 520px) {
           .TransformerContainer {
             max-width: 100%;
             margin: 0 auto;
+            border-radius: 0px;
           }
         }
       `}</style>

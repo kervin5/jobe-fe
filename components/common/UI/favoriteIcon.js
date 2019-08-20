@@ -18,16 +18,15 @@ const favoriteIcon = props => {
         icon={"star"}
         size={props.size || "lg"}
         title={"Add to Favorites"}
-        color={"color2"}
       ></Icon>
 
       <style jsx>{`
         .untouched :global(svg) {
-          color: ${variables.darkColor};
+          color: ${variables.clearColor};
         }
 
         .touched :global(svg) {
-          color: ${variables.clearColor};
+          color: ${variables.accentColor1};
         }
       `}</style>
     </span>
