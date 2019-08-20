@@ -8,7 +8,6 @@ const socialMedia = props => {
   function Page({ router }) {
     return <p>{router.pathname}</p>;
   }
-  console.log(props);
   //const url = "http://myexactjobsstaging.herokuapp.com/jobs/view/Surgeon-5d3630364b307c00178569a3";
   // SWITCH TO THIS WHEN DEPLOYING
 

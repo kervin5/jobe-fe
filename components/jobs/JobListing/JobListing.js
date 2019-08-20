@@ -40,10 +40,10 @@ const jobListing = props => {
         )
         .then(result => {
           setButtonData({ text: "Applied 😁", disabled: true, loading: false });
-          console.log(result);
+          //console.log(result);
         })
         .catch(err => {
-          console.log(err);
+          //console.log(err);
           setButtonData({ text: "Apply", disabled: false, loading: false });
         });
     }
@@ -94,10 +94,10 @@ const jobListing = props => {
         )
         .then(result => {
           setButtonData({ text: "Applied 😁", disabled: true, loading: false });
-          console.log(result);
+          //console.log(result);
         })
         .catch(err => {
-          console.log(err);
+          //console.log(err);
           setButtonData({ text: "Apply", disabled: false, loading: false });
         });
     }
@@ -113,6 +113,7 @@ const jobListing = props => {
         maxAmount={props.maxAmount}
         type={props.type}
         data-test="title-section"
+        hideFavoriteButton={props.preview}
       />
 
       <div className="Body" data-test="main-content-section">
@@ -133,21 +134,27 @@ const jobListing = props => {
         </Title>
         <p>{props.aboutCompany}</p>
         <br />
-        <SocialMedia />
+        {props.preview ? null : <SocialMedia />}
         <br />
-        <Button
-          className="button"
-          click={applyBtnClicHandler}
-          data-test="appy-button"
-          fullWidth
-          disabled={buttonData.disabled}
-          loading={buttonData.loading}
-        >
-          {buttonData.text}
-        </Button>
-        <PopUp show={showPopUp} changeHandler={setShowPopUp}>
-          <RegisterForm onSubmit={applicationCompleteHandler} />
-        </PopUp>
+
+        {props.preview ? null : (
+          <Button
+            className="button"
+            click={applyBtnClicHandler}
+            data-test="appy-button"
+            fullWidth
+            disabled={buttonData.disabled}
+            loading={buttonData.loading}
+          >
+            {buttonData.text}
+          </Button>
+        )}
+
+        {props.preview ? null : (
+          <PopUp show={showPopUp} changeHandler={setShowPopUp}>
+            <RegisterForm onSubmit={applicationCompleteHandler} />
+          </PopUp>
+        )}
       </div>
       <style jsx>{`
 

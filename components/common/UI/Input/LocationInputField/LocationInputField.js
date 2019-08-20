@@ -37,7 +37,6 @@ const locationInputField = props => {
     }
 
     props.change({ ...fieldData, details: locationDetails });
-    // console.log({...fieldData, details: locationDetails});
   };
 
   useEffect(() => {
