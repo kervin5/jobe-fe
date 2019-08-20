@@ -15,6 +15,7 @@ const inputField = props => {
   const [value, setValue] = useState(props.value || "");
   const [touched, setTouched] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [details, setDetails] = useState(null);
 
   const validation = {
     required: props.required || false,
@@ -36,6 +37,9 @@ const inputField = props => {
     setValue(fieldData.value);
     setTouched(fieldData.touched);
     setErrors(fieldData.errors);
+    if (fieldData.details) {
+      setDetails(fieldData.details);
+    }
   };
 
   useEffect(() => {
@@ -43,7 +47,14 @@ const inputField = props => {
       if (!props.name) {
         props.change(value);
       } else {
-        props.change({ name: props.name, valid, value, touched, errors });
+        props.change({
+          name: props.name,
+          valid,
+          value,
+          touched,
+          errors,
+          details
+        });
       }
     }
   }, [valid, value, touched, errors]);

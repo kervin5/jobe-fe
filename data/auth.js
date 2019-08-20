@@ -1,16 +1,16 @@
 import axios from "../data/api";
 
 export const userIsLoggedIn = () => {
-  const token = window.sessionStorage.getItem("token");
+  const token = window.localStorage.getItem("token");
   return token && token !== "";
 };
 
 export const logInUser = token => {
-  window.sessionStorage.setItem("token", token);
+  window.localStorage.setItem("token", token);
 };
 
 export const getAuthToken = () => {
-  return window.sessionStorage.getItem("token");
+  return window.localStorage.getItem("token") || "";
 };
 
 export const getUserInfo = async () => {
@@ -20,7 +20,7 @@ export const getUserInfo = async () => {
       {},
       {
         headers: {
-          Authorization: window.sessionStorage.getItem("token")
+          Authorization: window.localStorage.getItem("token")
         }
       }
     ).data;

@@ -29,7 +29,7 @@ const header = props => (
         </Bubble>
         <Bubble color="2">{props.type}</Bubble>
       </div>
-      <FavoriteIcon />
+      {props.hideFavoriteButton ? null : <FavoriteIcon />}
     </div>
     <style jsx>{`
       .header {

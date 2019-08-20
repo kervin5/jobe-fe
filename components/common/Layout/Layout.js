@@ -43,6 +43,10 @@ const layout = props => {
         button:focus {
           outline: 0;
         }
+
+        fieldset {
+          border: none;
+        }
       `}</style>
     </div>
   );

@@ -27,11 +27,15 @@ const Header = () => (
       </ul>
     </ul>
 
-    <style jsx>{`
+    <style jsx global>{`
       :global(body) {
         margin: 0;
         font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
           Helvetica, sans-serif;
+      }
+
+      fieldset {
+        border: none;
       }
       nav {
         text-align: center;

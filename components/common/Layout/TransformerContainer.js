@@ -9,7 +9,7 @@ const TransformerContainer = props => {
         .TransformerContainer {
           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
             0 6px 6px rgba(0, 0, 0, 0.23);
-          min-height: 100vh;
+          // min-height: 100vh;
           margin-bottom: 30px;
           border-radius: ${variables.roundedRadius};
         }

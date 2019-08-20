@@ -4,7 +4,6 @@ import Title from "./Title";
 
 const socialMedia = props => {
   const url = props.url;
-
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
   const twitterUrl = `https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20${url}`;
   const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;

@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import JobListing from "./JobListing";
 
-const SINGLE_JOB_QUERY = gql`
+export const SINGLE_JOB_QUERY = gql`
   query SINGLE_ITEM_QUERY($id: ID!) {
     job(where: { id: $id }) {
       id

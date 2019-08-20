@@ -21,3 +21,4 @@ const dashboardPage = props => {
 };
 
 export default WithAuth(dashboardPage);
+// export default dashboardPage;

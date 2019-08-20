@@ -3,10 +3,24 @@ import ApolloClient, { InMemoryCache } from "apollo-boost";
 import { endpoint } from "../../config";
 
 function createClient({ ctx, headers, initialState }) {
+  const extraHeaders = {
+    authorization: ""
+  };
+
+  if (typeof window !== "undefined") {
+    extraHeaders.authorization = window.localStorage.getItem("token");
+  }
+
   return new ApolloClient(
     {
       uri: process.env.NODE_ENV === "development" ? endpoint : endpoint,
-      cache: new InMemoryCache().restore(initialState || {})
+      cache: new InMemoryCache().restore(initialState || {}),
+      credentials: "include",
+      headers: {
+        ...headers,
+        ...extraHeaders
+        // authorization: token ? `Bearer ${token}` : ""
+      }
     },
     {
       getDataFromTree: "always"

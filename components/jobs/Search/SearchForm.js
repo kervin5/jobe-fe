@@ -40,9 +40,9 @@ const searchForm = props => {
     });
   };
 
-  const submitFormHandler = e => {
+  const submitFormHandler = async e => {
     e.preventDefault();
-    setValidate(true);
+    await setValidate(true);
     setSubmitted(true);
   };
 
@@ -87,7 +87,6 @@ const searchForm = props => {
           width: 100%;
           max-width: 400px;
           padding ${props.noPadding ? "0px" : "0 15px"};
-         
         }
 
         form * {
