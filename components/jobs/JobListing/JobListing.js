@@ -135,7 +135,13 @@ const jobListing = props => {
         <p>{props.aboutCompany}</p>
         <br />
 
-        {props.preview ? null : <SocialMedia url={"http://localhost:3000/jobs/" + props.title + "-" + props.jobId/>}
+        {props.preview ? null : (
+          <SocialMedia
+            url={
+              "http://localhost:3000/jobs/" + props.title + "-" + props.jobId
+            }
+          />
+        )}
         <br />
 
         {props.preview ? null : (
