@@ -26,13 +26,12 @@ export default function WithAuth(ComponentToProtect) {
         this.setState({
           componentToRender: (
             <Query query={AUTHORIZE_USER}>
-              {(data, error, loading) => {
-                console.log(data);
+              {({ data, error, loading }) => {
                 if (loading) return <Loader />;
-                if (data.data.authorize) {
+                if (data && data.authorize) {
                   return null;
                 }
-                if (data.data && !data.data.authorize)
+                if (data && !data.authorize)
                   return <ComponentToProtect {...this.props} />;
                 // if(!data.data.authorize) return Router.push("/user/login", "user/login");
                 // Router.push("/user/login", "user/login");

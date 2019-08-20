@@ -10,6 +10,11 @@ const JobListingContentBlock = props => (
       p {
         padding-bottom: 40px;
       }
+
+      @media only screen and (max-width: 520px) {
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+      }
     `}</style>
   </div>
 );

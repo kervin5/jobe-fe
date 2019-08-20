@@ -35,9 +35,9 @@ const header = props => (
       .header {
         width: 100%;
         max-width: 1200px;
-        padding: 50px 40px;
+        padding: 40px;
         background-color: ${variables.accentColor2};
-        border-top-right-radius: ${variables.roundedRadius};
+        border-top-right-radius: 30px;
         border-top-left-radius: ${variables.roundedRadius};
         z-index: 800;
       }
@@ -51,6 +51,8 @@ const header = props => (
         .header {
           width: 100%;
           padding: 40px 40px;
+          border-top-right-radius: 0px;
+          border-top-left-radius: 0px;
         }
 
         .header p {
