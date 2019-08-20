@@ -14,11 +14,27 @@ const CREATE_JOB_MUTATION = gql`
     $title: String!
     $description: String!
     $location: LocationCreateWithoutJobsInput!
+    $categories: [String!]!
+    $skills: [String!]!
+    $qualifications: String!
+    $requirements: String!
+    $type: String!
+    $minCompensation: Float!
+    $maxCompensation: Float!
+    $compensationType: String!
   ) {
     createJob(
       title: $title
       description: $description
       location: { create: $location }
+      categories: $categories
+      skills: $skills
+      qualifications: $qualifications
+      requirements: $requirements
+      type: $type
+      minCompensation: $minCompensation
+      maxCompensation: $maxCompensation
+      compensationType: $compensationType
     ) {
       title
       id
@@ -29,6 +45,14 @@ const CREATE_JOB_MUTATION = gql`
 const ALL_CATEGORIES_QUERY = gql`
   query ALL_CATEGORIES_QUERY {
     categories {
+      name
+    }
+  }
+`;
+
+const ALL_SKILLS_QUERY = gql`
+  query ALL_SKILLS_QUERY {
+    skills {
       name
     }
   }
@@ -66,13 +90,7 @@ class JobCreatorForm extends Component {
       jobCategory: {
         value: "",
         valid: false,
-        options: [
-          "Warehouse",
-          "Industrial",
-          "Software",
-          "Engineering",
-          "Medical"
-        ]
+        options: []
       },
       jobDescription: {
         value: "",
@@ -89,7 +107,7 @@ class JobCreatorForm extends Component {
       jobSkills: {
         value: "",
         valid: false,
-        options: ["Excel", "Word", "Photoshop", "Adobe", "Something"]
+        options: []
       }
     },
     status: "filling",
@@ -119,16 +137,21 @@ class JobCreatorForm extends Component {
     this.setState({ validate: true }, () => {
       if (this.formIsValid()) {
         // this.setState({ status: "sending" });
+        console.log(this.state.formData.jobLocation);
         const jobData = {
           title: this.state.formData.jobTitle.value,
           location: { ...this.state.formData.jobLocation.details },
-          minCompensation: this.state.formData.minCompensation.value,
-          maxCompensation: this.state.formData.maxCompensation.value,
+          minCompensation: parseFloat(
+            this.state.formData.minCompensation.value
+          ),
+          maxCompensation: parseFloat(
+            this.state.formData.maxCompensation.value
+          ),
           compensationType: this.state.formData.compensationType.value,
-          category: this.state.formData.jobCategory.value,
+          categories: this.state.formData.jobCategory.value.split(","),
           type: this.state.formData.jobType.value,
           description: this.state.formData.jobDescription.value,
-          skills: this.state.formData.jobSkills.value,
+          skills: this.state.formData.jobSkills.value.split(","),
           requirements: this.state.formData.jobRequirements.value,
           qualifications: this.state.formData.jobQualifications.value
         };
@@ -285,16 +308,27 @@ class JobCreatorForm extends Component {
                   name={"jobDescription"}
                   required
                 />
-                <InputField
-                  validate={this.state.validate}
-                  type="tags"
-                  placeholder="Please enter the job skills"
-                  label="Skills"
-                  change={this.changeHandler}
-                  name={"jobSkills"}
-                  options={this.state.formData.jobSkills.options}
-                  required
-                />
+
+                <Query query={ALL_SKILLS_QUERY}>
+                  {({ data, error, loading }) => {
+                    if (error) return <p>Something went wrong!</p>;
+                    if (loading) return <p>Loading</p>;
+                    const skills = data.skills.map(skills => skills.name);
+                    return (
+                      <InputField
+                        validate={this.state.validate}
+                        type="tags"
+                        placeholder="Please enter the job skills"
+                        label="Skills"
+                        change={this.changeHandler}
+                        name={"jobSkills"}
+                        options={skills}
+                        required
+                      />
+                    );
+                  }}
+                </Query>
+
                 <InputField
                   validate={this.state.validate}
                   type="richTextLimited"

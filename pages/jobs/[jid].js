@@ -19,7 +19,6 @@ const SingleJobView = props => {
 }; //eof
 
 SingleJobView.getInitialProps = async function({ query }) {
-  console.log(query);
   const { jid } = query;
   const slugParts = jid.split("-");
   const jobId = slugParts[slugParts.length - 1];

@@ -24,8 +24,9 @@ export default function WithAuth(ComponentToProtect) {
         componentToRender: (
           <Query query={AUTHORIZE_USER} variables={{ token: getAuthToken() }}>
             {(data, error, loading) => {
+              if (error) return <p>Something went wrong</p>;
               if (loading) return <Loader />;
-              if (data.data.authorize)
+              if (data.data && data.data.authorize)
                 return <ComponentToProtect {...this.props} />;
               if (data.data && !data.data.authorize) return <LoginForm />;
               // if(!data.data.authorize) return Router.push("/user/login", "user/login");
