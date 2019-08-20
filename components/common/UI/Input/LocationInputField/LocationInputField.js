@@ -18,9 +18,26 @@ const locationInputField = props => {
   };
   // const [localValue, setLocalValue] = useState("");
 
-  const changeHandler = fieldData => {
-    props.change(fieldData);
-    // setLocalValue(value);
+  const changeHandler = async fieldData => {
+    let locationDetails = {};
+    if (fieldData.valid) {
+      const selectedLocation = locations.filter(
+        loc => loc.place_name === fieldData.value
+      )[0];
+
+      //Gets the location details if the location selected is valid, this is needed for the Backend when setting a location
+      if (typeof selectedLocation !== "undefined") {
+        const [longitude, latitude] = selectedLocation.geometry.coordinates;
+        locationDetails = {
+          name: selectedLocation.place_name,
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude)
+        };
+      }
+    }
+
+    props.change({ ...fieldData, details: locationDetails });
+    // console.log({...fieldData, details: locationDetails});
   };
 
   useEffect(() => {
@@ -30,7 +47,8 @@ const locationInputField = props => {
           "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
             uri +
             ".json" +
-            "?access_token=pk.eyJ1Ijoia3Zhc3F1ZXppdCIsImEiOiJjandzNWtjcjUwMHh2NDJxa2toeWJ6N2FlIn0.Qa-IM4Em_QMvC2QWlMvieQ"
+            "?access_token=pk.eyJ1Ijoia3Zhc3F1ZXppdCIsImEiOiJjandzNWtjcjUwMHh2NDJxa2toeWJ6N2FlIn0.Qa-IM4Em_QMvC2QWlMvieQ" +
+            "&types=country,region,postcode,place"
         )
         .then(res => {
           setLocations(res.data.features);
