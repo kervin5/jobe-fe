@@ -1,55 +1,81 @@
-import React from "react";
-import { Icon, Label, Menu, Table } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Icon, Table, Pagination } from "semantic-ui-react";
 
-const TableExamplePagination = () => (
-  <Table celled>
-    <Table.Header>
-      <Table.Row>
-        <Table.HeaderCell>Header</Table.HeaderCell>
-        <Table.HeaderCell>Header</Table.HeaderCell>
-        <Table.HeaderCell>Header</Table.HeaderCell>
-      </Table.Row>
-    </Table.Header>
+const TableWithPagination = ({
+  data,
+  perPage,
+  count,
+  turnPageHandler,
+  page
+}) => {
+  const pages = Math.ceil(count / perPage);
+  const handlePaginationChange = (e, { activePage }) => {
+    turnPageHandler(activePage);
+  };
 
-    <Table.Body>
-      <Table.Row>
-        <Table.Cell>
-          <Label ribbon>First</Label>
-        </Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-      </Table.Row>
-    </Table.Body>
+  if (!data || data.length === 0) return <p>No Data To Show</p>;
+  return (
+    <Table celled>
+      <Table.Header>
+        <Table.Row>
+          {Object.keys(data[0])
+            .filter(header => header !== "__typename")
+            .map((header, key) => (
+              <Table.HeaderCell key={header + key}>
+                {jsUcfirst(header)}
+              </Table.HeaderCell>
+            ))}
+        </Table.Row>
+      </Table.Header>
 
-    <Table.Footer>
-      <Table.Row>
-        <Table.HeaderCell colSpan="3">
-          <Menu floated="right" pagination>
-            <Menu.Item as="a" icon>
-              <Icon name="chevron left" />
-            </Menu.Item>
-            <Menu.Item as="a">1</Menu.Item>
-            <Menu.Item as="a">2</Menu.Item>
-            <Menu.Item as="a">3</Menu.Item>
-            <Menu.Item as="a">4</Menu.Item>
-            <Menu.Item as="a" icon>
-              <Icon name="chevron right" />
-            </Menu.Item>
-          </Menu>
-        </Table.HeaderCell>
-      </Table.Row>
-    </Table.Footer>
-  </Table>
-);
+      <Table.Body>
+        {data.map((row, key) => (
+          <Table.Row key={"Row" + key}>
+            {Object.keys(row)
+              .filter(rowName => rowName !== "__typename")
+              .map((column, index) => {
+                return (
+                  <Table.Cell key={row + key + column + index}>
+                    {row[column]}
+                  </Table.Cell>
+                );
+              })}
+          </Table.Row>
+        ))}
+      </Table.Body>
 
-export default TableExamplePagination;
+      <Table.Footer>
+        <Table.Row>
+          <Table.HeaderCell colSpan="3">
+            <Pagination
+              floated="right"
+              defaultActivePage={page}
+              ellipsisItem={{
+                content: <Icon name="ellipsis horizontal" />,
+                icon: true
+              }}
+              firstItem={{
+                content: <Icon name="angle double left" />,
+                icon: true
+              }}
+              lastItem={{
+                content: <Icon name="angle double right" />,
+                icon: true
+              }}
+              prevItem={{ content: <Icon name="angle left" />, icon: true }}
+              nextItem={{ content: <Icon name="angle right" />, icon: true }}
+              totalPages={pages}
+              onPageChange={handlePaginationChange}
+            />
+          </Table.HeaderCell>
+        </Table.Row>
+      </Table.Footer>
+    </Table>
+  );
+};
+
+function jsUcfirst(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export default TableWithPagination;
