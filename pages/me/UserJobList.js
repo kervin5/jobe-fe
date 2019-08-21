@@ -7,59 +7,77 @@ import { getAuthToken } from "../../data/auth";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-const USER_JOBLIST_QUERY = gql`
-  query USER_JOBLIST_QUERY {
-    jobs {
+const USER_RECOMMENDED_JOBS = gql`
+  query USER_RECOMMENDED_JOBS {
+    jobs(first: 10) {
       id
       title
       description
       createdAt
-      minCompensation
-      maxCompensation
-      compensationType
-      type
       location {
         name
+      }
+      minCompensation
+      maxCompensation
+      type
+    }
+  }
+`;
+
+const USER_FAVORITED_JOBS = gql`
+  query USER_FAVORITED_JOBS {
+    me {
+      name
+      id
+      favorites {
+        job {
+          id
+          title
+          description
+          minCompensation
+          maxCompensation
+          type
+          qualifications
+          requirements
+          createdAt
+          location {
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
+const USER_APPLIED_JOBS = gql`
+  query USER_APPLIED_JOBS {
+    me {
+      name
+      id
+      favorites {
+        job {
+          id
+          title
+          description
+          minCompensation
+          maxCompensation
+          type
+          qualifications
+          requirements
+          createdAt
+          location {
+            name
+          }
+        }
       }
     }
   }
 `;
 
 const userJobList = () => {
-  const [recommendedJobs, setRecommendedJobs] = useState([]);
-  const [favoriteJobs, setFavoriteJobs] = useState([]);
-  const [appliedJobs, setAppliedJobs] = useState([]);
   const [jobsTorender, setJobsToRender] = useState([]);
-
   const [activeItem, setActiveItem] = useState("recommended");
   const handleItemClick = (e, { name }) => setActiveItem(name);
-
-  const data = <p>yes</p>;
-
-  useEffect(() => {
-    switch (activeItem) {
-      case "favorites":
-        fetchJobs("/jobs", favoriteJobs, setFavoriteJobs);
-        break;
-      case "applied":
-        fetchJobs("/jobs/user/applied", appliedJobs, setAppliedJobs);
-        break;
-      default:
-        fetchJobs("/jobs", recommendedJobs, setRecommendedJobs);
-    }
-  }, [activeItem, recommendedJobs, favoriteJobs, appliedJobs]);
-
-  const fetchJobs = (route, currentItems, handler) => {
-    if (currentItems === recommendedJobs) {
-      setRecommendedJobs({ data });
-    }
-    if (currentItems === favoriteJobs) {
-      setRecommendedJobs({ data });
-    }
-    if (currentItems === appliedJobs) {
-      setAppliedJobs({ data });
-    }
-  };
 
   return (
     <div>
@@ -104,18 +122,58 @@ const userJobList = () => {
           </Menu.Menu>
         </Menu>
         <Segment attached="bottom">
-          <Query query={USER_JOBLIST_QUERY}>
-            {({ error, loading, data }) => {
-              if (error) return <p>Something went wrong</p>;
-              if (loading) return <p>Loading Awesome Jobs</p>;
-              console.log(data);
-              return <JobList jobs={data.jobs} />;
-            }}
-          </Query>
+          {activeItem === "recommended" && (
+            <Query query={USER_RECOMMENDED_JOBS} ssr={true}>
+              {({ error, loading, data }) => {
+                if (error) return <p>Something went wrong</p>;
+                if (loading) return <p>Loading Awesome Jobs</p>;
+
+                return <JobList jobs={formatJobs(data)} />;
+              }}
+            </Query>
+          )}
+          {activeItem === "favorites" && (
+            <Query query={USER_FAVORITED_JOBS} ssr={true}>
+              {({ error, loading, data }) => {
+                if (error) return <p>Something went wrong</p>;
+                if (loading) return <p>Loading Awesome Jobs</p>;
+
+                return <JobList jobs={formatJobs(data)} />;
+              }}
+            </Query>
+          )}
+          {activeItem === "applied" && (
+            <Query query={USER_APPLIED_JOBS} ssr={true}>
+              {({ error, loading, data }) => {
+                if (error) return <p>Something went wrong</p>;
+                if (loading) return <p>Loading Awesome Jobs</p>;
+
+                return <JobList jobs={formatJobs(data)} />;
+              }}
+            </Query>
+          )}
         </Segment>
       </div>
     </div>
   );
+};
+
+const formatJobs = data => {
+  console.log(data);
+  let jobs = [];
+  if (data.me) {
+    if (data.me.favorites) {
+      data.me.favorites.map(favorite => jobs.concat(favorite.job));
+    } else if (data.me.applications) {
+      data.me.applications.map(application => jobs.concat(application.job));
+    } else {
+      jobs = [];
+    }
+  } else {
+    jobs = jobs.concat(data.jobs);
+  }
+
+  return jobs;
 };
 
 export default userJobList;
