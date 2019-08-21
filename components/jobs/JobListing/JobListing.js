@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Mutation, Query } from "react-apollo";
+import gql from "graphql-tag";
 import variables from "../../../components/common/globalVariables";
 import { getUserInfo, userIsLoggedIn } from "../../../data/auth";
 import axios from "../../../data/api";
@@ -13,7 +15,15 @@ import Button from "../../common/UI/Button";
 import HtmlRenderer from "../../hoc/HtmlRenderer";
 import SocialMedia from "../../common/UI/SocialMedia";
 
-// import BottomNav from '../../common/UI/BottomNav/BottomNav';
+const APPLY_TO_JOB_MUTATION = gql`
+  mutation APPLY_TO_JOB_MUTATION($jobId: ID!) {
+    createApplication(job: { connect: { id: $jobId } }) {
+      job {
+        title
+      }
+    }
+  }
+`;
 
 const jobListing = props => {
   const [showPopUp, setShowPopUp] = useState(false);
@@ -145,22 +155,35 @@ const jobListing = props => {
         <br />
 
         {props.preview ? null : (
-          <Button
-            className="button"
-            click={applyBtnClicHandler}
-            data-test="appy-button"
-            fullWidth
-            disabled={buttonData.disabled}
-            loading={buttonData.loading}
-          >
-            {buttonData.text}
-          </Button>
-        )}
+          <React.Fragment>
+            <Mutation
+              mutation={APPLY_TO_JOB_MUTATION}
+              variables={{ jobId: props.jobId }}
+            >
+              {(applyToJobMutation, { loading, error, called, data }) => {
+                if (loading) return <p>Processing</p>;
+                if (error) return <p>Something Failed</p>;
+                console.log(data);
+                return (
+                  <Button
+                    className="button"
+                    click={applyToJobMutation}
+                    data-test="appy-button"
+                    fullWidth
+                    // disabled={buttonData.disabled}
+                    // loading={buttonData.loading}
+                  >
+                    {/* {buttonData.text} */}
+                    Apply
+                  </Button>
+                );
+              }}
+            </Mutation>
 
-        {props.preview ? null : (
-          <PopUp show={showPopUp} changeHandler={setShowPopUp}>
-            <RegisterForm onSubmit={applicationCompleteHandler} />
-          </PopUp>
+            <PopUp show={showPopUp} changeHandler={setShowPopUp}>
+              <RegisterForm onSubmit={applicationCompleteHandler} />
+            </PopUp>
+          </React.Fragment>
         )}
       </div>
       <style jsx>{`
