@@ -17,6 +17,7 @@ const USER_JOBLIST_QUERY = gql`
       minCompensation
       maxCompensation
       compensationType
+      type
       location {
         name
       }
@@ -44,20 +45,23 @@ const userJobList = () => {
       default:
         fetchJobs("/jobs", recommendedJobs, setRecommendedJobs);
     }
-  }, [activeItem]);
-
-  useEffect(() => {
-    switch (activeItem) {
-      case "favorites":
-        setJobsToRender(favoriteJobs);
-        break;
-      case "applied":
-        setJobsToRender(appliedJobs);
-        break;
-      default:
-        setJobsToRender(recommendedJobs);
-    }
   }, [activeItem, recommendedJobs, favoriteJobs, appliedJobs]);
+
+  //fetchJobs  received from fetchJobs^^^
+
+  const fetchJobs = (route, currentItems, handler) => {
+    if (currentItems.length === 0) {
+      axios(route, {
+        headers: {
+          Authorization: getAuthToken()
+        }
+      })
+        .then(res => {
+          handler(res.data);
+        })
+        .catch(err => console.log(err));
+    }
+  };
 
   return (
     <div>
