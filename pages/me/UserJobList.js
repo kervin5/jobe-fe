@@ -7,57 +7,77 @@ import { getAuthToken } from "../../data/auth";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-const USER_JOBLIST_QUERY = gql`
-  query USER_JOBLIST_QUERY {
-    jobs {
+const USER_RECOMMENDED_JOBS = gql`
+  query USER_RECOMMENDED_JOBS {
+    jobs(first: 10) {
       id
       title
       description
       createdAt
-      minCompensation
-      maxCompensation
-      compensationType
       location {
         name
+      }
+      minCompensation
+      maxCompensation
+      type
+    }
+  }
+`;
+
+const USER_FAVORITED_JOBS = gql`
+  query USER_FAVORITED_JOBS {
+    me {
+      name
+      id
+      favorites {
+        job {
+          id
+          title
+          description
+          minCompensation
+          maxCompensation
+          type
+          qualifications
+          requirements
+          createdAt
+          location {
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
+const USER_APPLIED_JOBS = gql`
+  query USER_APPLIED_JOBS {
+    me {
+      name
+      id
+      favorites {
+        job {
+          id
+          title
+          description
+          minCompensation
+          maxCompensation
+          type
+          qualifications
+          requirements
+          createdAt
+          location {
+            name
+          }
+        }
       }
     }
   }
 `;
 
 const userJobList = () => {
-  const [recommendedJobs, setRecommendedJobs] = useState([]);
-  const [favoriteJobs, setFavoriteJobs] = useState([]);
-  const [appliedJobs, setAppliedJobs] = useState([]);
   const [jobsTorender, setJobsToRender] = useState([]);
-
   const [activeItem, setActiveItem] = useState("recommended");
   const handleItemClick = (e, { name }) => setActiveItem(name);
-
-  useEffect(() => {
-    switch (activeItem) {
-      case "favorites":
-        fetchJobs("/jobs", favoriteJobs, setFavoriteJobs);
-        break;
-      case "applied":
-        fetchJobs("/jobs/user/applied", appliedJobs, setAppliedJobs);
-        break;
-      default:
-        fetchJobs("/jobs", recommendedJobs, setRecommendedJobs);
-    }
-  }, [activeItem]);
-
-  useEffect(() => {
-    switch (activeItem) {
-      case "favorites":
-        setJobsToRender(favoriteJobs);
-        break;
-      case "applied":
-        setJobsToRender(appliedJobs);
-        break;
-      default:
-        setJobsToRender(recommendedJobs);
-    }
-  }, [activeItem, recommendedJobs, favoriteJobs, appliedJobs]);
 
   return (
     <div>
@@ -102,133 +122,58 @@ const userJobList = () => {
           </Menu.Menu>
         </Menu>
         <Segment attached="bottom">
-          <Query query={USER_JOBLIST_QUERY}>
-            {({ error, loading, data }) => {
-              if (error) return <p>Something went wrong</p>;
-              if (loading) return <p>Loading Awesome Jobs</p>;
-              console.log(data);
-              return <JobList jobs={data.jobs} />;
-            }}
-          </Query>
+          {activeItem === "recommended" && (
+            <Query query={USER_RECOMMENDED_JOBS} ssr={true}>
+              {({ error, loading, data }) => {
+                if (error) return <p>Something went wrong</p>;
+                if (loading) return <p>Loading Awesome Jobs</p>;
+
+                return <JobList jobs={formatJobs(data)} />;
+              }}
+            </Query>
+          )}
+          {activeItem === "favorites" && (
+            <Query query={USER_FAVORITED_JOBS} ssr={true}>
+              {({ error, loading, data }) => {
+                if (error) return <p>Something went wrong</p>;
+                if (loading) return <p>Loading Awesome Jobs</p>;
+
+                return <JobList jobs={formatJobs(data)} />;
+              }}
+            </Query>
+          )}
+          {activeItem === "applied" && (
+            <Query query={USER_APPLIED_JOBS} ssr={true}>
+              {({ error, loading, data }) => {
+                if (error) return <p>Something went wrong</p>;
+                if (loading) return <p>Loading Awesome Jobs</p>;
+
+                return <JobList jobs={formatJobs(data)} />;
+              }}
+            </Query>
+          )}
         </Segment>
       </div>
     </div>
   );
 };
 
+const formatJobs = data => {
+  console.log(data);
+  let jobs = [];
+  if (data.me) {
+    if (data.me.favorites) {
+      data.me.favorites.map(favorite => jobs.concat(favorite.job));
+    } else if (data.me.applications) {
+      data.me.applications.map(application => jobs.concat(application.job));
+    } else {
+      jobs = [];
+    }
+  } else {
+    jobs = jobs.concat(data.jobs);
+  }
+
+  return jobs;
+};
+
 export default userJobList;
-/**
- *
- */
-
-// const UserJobList = () => {
-//   const [recommendedJobs, setRecommendeJobs] = useState([]);
-//   const [favoriteJobs, setFavoriteJobs] = useState([]);
-//   const [appliedJobs, setAppliedJobs] = useState([]);
-//   const [jobsTorender, setJobsToRender] = useState([]);
-
-//   const [activeItem, setActiveItem] = useState("recommended");
-//   const handleItemClick = (e, { name }) => setActiveItem(name);
-
-//   useEffect(() => {
-//     if (recommendedJobs.length === 0) {
-//       axios
-//         .get("/jobs")
-//         .then(res => {
-//           console.log(res);
-//           setRecommendeJobs(res.data);
-//         })
-//         .catch(err => console.log(err));
-//     }
-//   }, []);
-
-//   useEffect(() => {
-//     switch (activeItem) {
-//       case "favorites":
-//         fetchJobs("/jobs", favoriteJobs, setFavoriteJobs);
-//         break;
-//       case "applied":
-//         fetchJobs("/jobs/user/applied", appliedJobs, setAppliedJobs);
-//         break;
-//       default:
-//         fetchJobs("/jobs", recommendedJobs, setRecommendeJobs);
-//     }
-//   }, [activeItem]);
-
-//   useEffect(() => {
-//     switch (activeItem) {
-//       case "favorites":
-//         setJobsToRender(favoriteJobs);
-//         break;
-//       case "applied":
-//         setJobsToRender(appliedJobs);
-//         break;
-//       default:
-//         setJobsToRender(recommendedJobs);
-//     }
-//   }, [activeItem, recommendedJobs, favoriteJobs, appliedJobs]);
-
-// const fetchJobs = (route, currentItems, handler) => {
-//   if (currentItems.length === 0) {
-//     axios(route, {
-//       headers: {
-//         Authorization: getAuthToken()
-//       }
-//     })
-//       .then(res => {
-//         handler(res.data);
-//       })
-//       .catch(err => console.log(err));
-//   }
-// };
-
-//   return (
-// <div>
-//   <h5>
-//     Based on your skills, here is what we think would be a great choice for
-//     you
-//   </h5>
-//    <Menu attached="top" tabular>
-// <Menu.Item
-//       name="recommended"
-//       active={activeItem === "recommended"}
-//       onClick={handleItemClick}
-//     >
-//       <Icon icon="video camera" />
-//       &nbsp; Recommended
-//     </Menu.Item>
-//     <Menu.Item
-//       name="favorites"
-//       active={activeItem === "favorites"}
-//       onClick={handleItemClick}
-//     >
-//       <Icon icon="star" />
-//       &nbsp; Favorites
-//     </Menu.Item>
-//     <Menu.Item
-//       name="applied"
-//       active={activeItem === "applied"}
-//       onClick={handleItemClick}
-//     >
-//       <Icon icon="check" />
-//       &nbsp; Applied
-//     </Menu.Item>
-//     <Menu.Menu position="right">
-//       <Menu.Item>
-//         <Input
-//           transparent
-//           icon={{ name: "search", link: true }}
-//           placeholder="Search jobs..."
-//         />
-//       </Menu.Item>
-//     </Menu.Menu>
-//   </Menu>
-//   <Segment attached="bottom">
-//     <JobList jobs={jobsTorender} />
-//   </Segment>
-// </div>
-//   );
-// };
-// export default UserJobList;
-
-/////////////////////////////////////////////////////
