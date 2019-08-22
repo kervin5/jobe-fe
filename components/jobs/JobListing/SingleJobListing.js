@@ -2,6 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import JobListing from "./JobListing";
+import Loader from "../../common/UI/Animated/Loader";
 
 export const SINGLE_JOB_QUERY = gql`
   query SINGLE_ITEM_QUERY($id: ID!) {
@@ -24,10 +25,10 @@ export const SINGLE_JOB_QUERY = gql`
 
 const SingleJobListing = ({ jobId }) => {
   return (
-    <Query query={SINGLE_JOB_QUERY} variables={{ id: jobId }}>
+    <Query query={SINGLE_JOB_QUERY} variables={{ id: jobId }} ssr={true}>
       {({ error, loading, data }) => {
         if (error) return <p>Error!</p>;
-        if (loading) return <p>Loading...</p>;
+        if (loading) return <Loader />;
         if (!data.job) return <p>No job found for: {jobId}</p>;
 
         const singleJob = data.job;
