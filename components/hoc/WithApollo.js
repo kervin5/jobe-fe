@@ -13,10 +13,7 @@ function createClient({ ctx, headers, initialState }) {
 
   return new ApolloClient(
     {
-      uri:
-        process.env.NODE_ENV === "development"
-          ? endpoint
-          : process.env.GRAPHQL_URL,
+      uri: process.env.NODE_ENV === "development" ? endpoint : endpoint,
       cache: new InMemoryCache().restore(initialState || {}),
       credentials: "include",
       headers: {
