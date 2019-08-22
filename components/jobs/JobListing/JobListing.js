@@ -1,118 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Mutation, Query } from "react-apollo";
-import gql from "graphql-tag";
 import variables from "../../../components/common/globalVariables";
-import { getUserInfo, userIsLoggedIn } from "../../../data/auth";
-import axios from "../../../data/api";
-import { getAuthToken } from "../../../data/auth";
-import RegisterForm from "../../users/RegisterForm/RegisterForm";
 import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
-import PopUp from "../../common/UI/PopUp";
 import PageTitle from "../../common/Layout/PageTitle";
 import Title from "../../common/UI/Title";
-import Button from "../../common/UI/Button";
+import ApplyToJobButton from "../../common/UI/ApplyToJobButton";
 import HtmlRenderer from "../../hoc/HtmlRenderer";
 import SocialMedia from "../../common/UI/SocialMedia";
 
-const APPLY_TO_JOB_MUTATION = gql`
-  mutation APPLY_TO_JOB_MUTATION($jobId: ID!) {
-    createApplication(job: { connect: { id: $jobId } }) {
-      job {
-        title
-      }
-    }
-  }
-`;
-
 const jobListing = props => {
-  const [showPopUp, setShowPopUp] = useState(false);
-  const [buttonData, setButtonData] = useState({
-    text: "Apply",
-    disabled: true,
-    loading: true
-  });
-  const [applicationStatus, setApplicationStatus] = useState("loading");
-
-  const applyBtnClicHandler = () => {
-    if (!userIsLoggedIn()) {
-      setShowPopUp(true);
-    } else {
-      axios
-        .post(
-          `/jobs/apply`,
-          { jobId: props.jobId },
-          {
-            headers: {
-              Authorization: getAuthToken()
-            }
-          }
-        )
-        .then(result => {
-          setButtonData({ text: "Applied 😁", disabled: true, loading: false });
-          //console.log(result);
-        })
-        .catch(err => {
-          //console.log(err);
-          setButtonData({ text: "Apply", disabled: false, loading: false });
-        });
-    }
-  };
-
-  useEffect(() => {
-    if (userIsLoggedIn()) {
-      axios
-        .post(
-          "/jobs/application/status",
-          { jobId: props.jobId },
-          {
-            headers: {
-              Authorization: getAuthToken()
-            }
-          }
-        )
-        .then(response => {
-          if (response.data.status === "applied") {
-            setButtonData({
-              text: "Applied 😁",
-              disabled: true,
-              loading: false
-            });
-          } else {
-            setButtonData({ text: "Apply", disabled: false, loading: false });
-          }
-        });
-    } else {
-      setButtonData({ text: "Apply", disabled: false, loading: false });
-    }
-  }, []);
-
-  const applicationCompleteHandler = async registed => {
-    if (registed) {
-      setShowPopUp(false);
-      setButtonData({ text: "Applying", disabled: true });
-
-      axios
-        .post(
-          `/jobs/apply`,
-          { jobId: props.jobId },
-          {
-            headers: {
-              Authorization: getAuthToken()
-            }
-          }
-        )
-        .then(result => {
-          setButtonData({ text: "Applied 😁", disabled: true, loading: false });
-          //console.log(result);
-        })
-        .catch(err => {
-          //console.log(err);
-          setButtonData({ text: "Apply", disabled: false, loading: false });
-        });
-    }
-  };
-
   return (
     <TransformerContainer data-test="job-listing">
       <PageTitle title={props.title + " at " + props.location} />
@@ -124,6 +20,7 @@ const jobListing = props => {
         type={props.type}
         data-test="title-section"
         hideFavoriteButton={props.preview}
+        jobId={props.jobId}
       />
 
       <div className="Body" data-test="main-content-section">
@@ -154,36 +51,7 @@ const jobListing = props => {
         )}
         <br />
 
-        {props.preview ? null : (
-          <React.Fragment>
-            <Mutation
-              mutation={APPLY_TO_JOB_MUTATION}
-              variables={{ jobId: props.jobId }}
-            >
-              {(applyToJobMutation, { loading, error, called, data }) => {
-                if (loading) return <p>Processing</p>;
-                if (error) return <p>Something Failed</p>;
-                console.log(data);
-                return (
-                  <Button
-                    className="button"
-                    click={applyToJobMutation}
-                    fullWidth
-                    // disabled={buttonData.disabled}
-                    // loading={buttonData.loading}
-                  >
-                    {/* {buttonData.text} */}
-                    Apply
-                  </Button>
-                );
-              }}
-            </Mutation>
-
-            <PopUp show={showPopUp} changeHandler={setShowPopUp}>
-              <RegisterForm onSubmit={applicationCompleteHandler} />
-            </PopUp>
-          </React.Fragment>
-        )}
+        {props.preview ? null : <ApplyToJobButton jobId={props.jobId} />}
       </div>
       <style jsx>{`
 

@@ -40,6 +40,8 @@ const Button = props => {
         .Button {
           height: ${height};
           border-radius: ${variables.roundedRadius};
+          font-size: 1.2em;
+          font-weight: bold;
 
           border: none;
           color: ${variables.clearColor};

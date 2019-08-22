@@ -21,7 +21,7 @@ const bubble = props => {
       <style jsx>{`
         span {
           font-weight: bold;
-          font-size: 0.75em;
+          font-size: 0.9em;
           text-align: center;
           padding: 4px 8px;
 

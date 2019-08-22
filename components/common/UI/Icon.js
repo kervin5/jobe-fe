@@ -10,7 +10,14 @@ const CustomIcon = props => {
 
   if (props.icon) {
     return (
-      <span className={[classes, "Icon", Color].join(" ")}>
+      <span
+        className={[
+          classes,
+          "Icon",
+          Color,
+          props.className ? props.className : ""
+        ].join(" ")}
+      >
         <Icon name={props.icon} />
         <style jsx global>{`
           .Icon i {

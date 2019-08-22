@@ -30,6 +30,7 @@ const USER_FAVORITED_JOBS = gql`
       name
       id
       favorites {
+        id
         job {
           id
           title
@@ -55,6 +56,7 @@ const USER_APPLIED_JOBS = gql`
       name
       id
       applications {
+        id
         job {
           id
           title

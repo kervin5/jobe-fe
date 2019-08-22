@@ -11,7 +11,7 @@ const searchForm = props => {
     searchTerms: {
       value: props.terms || "",
       valid: false,
-      icon: "Search",
+      icon: "search",
       type: "text",
       placeholder: "Job Title, Keywords, or Company Name",
       focused: true,
@@ -20,7 +20,7 @@ const searchForm = props => {
     searchLocation: {
       value: props.location || "",
       valid: false,
-      icon: "LocationOn",
+      icon: "map marker",
       type: "location",
       placeholder: "Location",
       focused: false,
@@ -49,6 +49,7 @@ const searchForm = props => {
   useEffect(() => {
     const { searchTerms, searchLocation } = formData;
 
+    console.log(searchTerms.valid && searchLocation.valid && submitted);
     if (searchTerms.valid && searchLocation.valid && submitted) {
       Router.push(
         `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`

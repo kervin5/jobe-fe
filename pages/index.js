@@ -33,14 +33,6 @@ const homePage = props => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (userLocation.name !== "Loading...") {
-  //     axios.get(`/jobs?location=${userLocation.name}&page=${1}`).then(res => {
-  //       setJobs(res.data);
-  //     });
-  //   }
-  // }, [userLocation.name]);
-
   return (
     <PageSection className="HomePage" column data-test="indexPage">
       <PageTitle title="Home Page" />

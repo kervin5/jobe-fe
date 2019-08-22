@@ -11,6 +11,7 @@ const navigationItems = () => {
       <NavigationItem href={"/user/login"}>Log In</NavigationItem>
       <NavigationItem href={"/user/register"}>Register</NavigationItem>
       <NavigationItem href={"/dashboard"}>Dashboard</NavigationItem>
+      <NavigationItem href={"/me"}>Me</NavigationItem>
       <style jsx>{`
         div {
           display: flex;

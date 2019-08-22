@@ -3,7 +3,7 @@ import variables from "../../../../components/common/globalVariables";
 import Bubble from "../../../common/UI/Bubble";
 import Icon from "../../../common/UI/Icon";
 import Title from "../../../common/UI/Title";
-import FavoriteIcon from "../../../common/UI/favoriteIcon";
+import FavoriteButton from "../../../common/UI/FavoriteButton";
 
 const jobListingTitleStyles = `color: ${variables.clearColor};`;
 const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
@@ -29,7 +29,7 @@ const header = props => (
         </Bubble>
         <Bubble color="2">{props.type}</Bubble>
       </div>
-      {props.hideFavoriteButton ? null : <FavoriteIcon />}
+      {props.hideFavoriteButton ? null : <FavoriteButton jobId={props.jobId} />}
     </div>
     <style jsx>{`
       .header {

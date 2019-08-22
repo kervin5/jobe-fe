@@ -11,7 +11,9 @@ import { perPage } from "../../../config";
 const USER_JOBS_QUERY = gql`
   query USER_JOBS_QUERY($perPage: Int!, $skip: Int!) {
     me {
+      id
       jobs(first: $perPage, skip: $skip) {
+        id
         title
         location {
           name

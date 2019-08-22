@@ -5,6 +5,7 @@ import variables from "../../common/globalVariables";
 import moment from "moment";
 import Bubble from "../../common/UI/Bubble";
 import Icon from "../../common/UI/Icon";
+import FavoriteButton from "../../common/UI/FavoriteButton";
 import Card from "../../common/UI/Card";
 import Link from "next/link";
 
@@ -45,7 +46,7 @@ const jobListItem = props => {
 
       <div className="JobListItemFooter">
         <p className="PostDate">{moment(props.date).fromNow()}</p>
-        <Icon icon="favorite" size="lg" className="LikeIcon" />
+        <FavoriteButton jobId={props.id} />
       </div>
       <style jsx>{`
         a {
@@ -64,6 +65,7 @@ const jobListItem = props => {
           font-weight: bold;
           text-decoration: none;
           color: ${variables.accentColor2};
+          font-size: 1.2em;
         }
 
         .JobListItemHeader .JobTitle:hover {
@@ -72,11 +74,12 @@ const jobListItem = props => {
 
         .Location {
           font-size: 0.9em;
+          font-weight: bold;
         }
 
         .Content {
           font-weight: normal;
-          font-size: 0.9em;
+          font-size: 1em;
           // letter-spacing: 0.1em;
           line-height: 1.4em;
         }

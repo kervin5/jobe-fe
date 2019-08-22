@@ -46,7 +46,7 @@ const TableWithPagination = ({
 
       <Table.Footer>
         <Table.Row>
-          <Table.HeaderCell colSpan="3">
+          <Table.HeaderCell colSpan={Object.keys(data[0]).length}>
             <Pagination
               floated="right"
               defaultActivePage={page}

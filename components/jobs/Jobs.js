@@ -1,9 +1,10 @@
 import React, { PureComponent } from "react";
-import { Query, ApolloConsumer } from "react-apollo";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { perPage } from "../../config";
 import JobList from "./JobList/JobList";
 import Button from "../common/UI/Button";
+import Loader from "../common/UI/Animated/Loader";
 
 const ALL_JOBS_QUERY = gql`
   query ALL_JOBS_QUERY($perPage: Int!, $skip: Int!) {
@@ -62,13 +63,13 @@ class Jobs extends PureComponent {
           }}
         >
           {({ data, error, loading, fetchMore }) => {
-            if (loading) return <p>Loading...</p>;
+            if (loading) return <Loader />;
             if (error) return <p>Error: {error.message}</p>;
             const endReached = data.jobs.length % perPage !== 0;
             return (
               <React.Fragment>
                 <JobList jobs={data.jobs} />
-                {!endReached && (
+                {!endReached && data.jobs.length > 0 && (
                   <Button
                     fullWidth
                     click={() => {
