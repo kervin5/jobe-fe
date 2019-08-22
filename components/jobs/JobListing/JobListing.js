@@ -168,7 +168,6 @@ const jobListing = props => {
                   <Button
                     className="button"
                     click={applyToJobMutation}
-                    data-test="appy-button"
                     fullWidth
                     // disabled={buttonData.disabled}
                     // loading={buttonData.loading}
