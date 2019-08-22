@@ -45,7 +45,6 @@ const registerForm = () => {
   const [validate, setValidate] = useState(false);
 
   const changeHandler = fieldData => {
-    console.log(fieldData, formData[fieldData.name]);
     setFormData({
       ...formData,
       [fieldData.name]: {
@@ -59,8 +58,6 @@ const registerForm = () => {
     e.preventDefault();
     await setValidate(true);
     const { email, password, name } = formData;
-    console.log("===================================");
-    console.log(email, password, name);
     if (email.valid && password.valid && name.valid) {
       const res = await signupUserMutation();
       console.log(res);
