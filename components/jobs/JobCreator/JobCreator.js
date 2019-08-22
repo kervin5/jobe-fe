@@ -9,15 +9,19 @@ const jobCreator = props => {
     creating: {
       title: "Post a Job",
       caption: "Please enter the information for the new job listing"
+    },
+    editing: {
+      title: "Edit Job",
+      caption: "Please review the details of the job"
     }
   };
 
-  const [currentAction, setCurrentAction] = useState(actions["creating"]);
+  const action = props.edit ? "editing" : "creating";
 
   return (
     <div className={"JobCreator"}>
-      <Title size={props.smallTitle ? "m" : "l"}>{currentAction.title}</Title>
-      <p className={"Instructions"}>{currentAction.caption}</p>
+      <Title size={props.smallTitle ? "m" : "l"}>{actions[action].title}</Title>
+      <p className={"Instructions"}>{actions[action].caption}</p>
       <JobCreatorForm />
       <style jsx>{`
         div {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Input, Menu, Segment } from "semantic-ui-react";
-import Icon from "../../components/common/UI/Icon";
-import JobList from "../../components/jobs/JobList/JobList";
+import Icon from "../common/UI/Icon";
+import JobList from "../jobs/JobList/JobList";
 import { getAuthToken } from "../../data/auth";
 
 import { Query } from "react-apollo";
@@ -54,7 +54,7 @@ const USER_APPLIED_JOBS = gql`
     me {
       name
       id
-      favorites {
+      applications {
         job {
           id
           title
@@ -159,20 +159,19 @@ const userJobList = () => {
 };
 
 const formatJobs = data => {
-  console.log(data);
   let jobs = [];
+
   if (data.me) {
     if (data.me.favorites) {
-      data.me.favorites.map(favorite => jobs.concat(favorite.job));
+      jobs = jobs.concat(data.me.favorites.map(favorite => favorite.job));
     } else if (data.me.applications) {
-      data.me.applications.map(application => jobs.concat(application.job));
+      jobs = data.me.applications.map(application => application.job);
     } else {
       jobs = [];
     }
   } else {
     jobs = jobs.concat(data.jobs);
   }
-
   return jobs;
 };
 
