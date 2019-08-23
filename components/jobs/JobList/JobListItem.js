@@ -20,14 +20,12 @@ const styles = ` background-color: ${variables.clearColor};
 
 const jobListItem = props => {
   const shortLocation = props.location.name;
-
+  const jobUrl = "/jobs/" + props.title.split(" ").join("-") + "-" + props.id;
   return (
     <Card styles={styles} animate>
       <div className="JobListItemHeader">
         <div>
-          <Link
-            href={"/jobs/" + props.title.split(" ").join("-") + "-" + props.id}
-          >
+          <Link href="/jobs/[jid]" as={jobUrl}>
             <a className="JobTitle">{props.title}</a>
           </Link>
           <p className="Location">
@@ -40,7 +38,7 @@ const jobListItem = props => {
           <Bubble color="2">{props.type}</Bubble>
         </div>
       </div>
-      <Link href={"/jobs/" + props.title.split(" ").join("-") + "-" + props.id}>
+      <Link href="/jobs/[jid]" as={jobUrl}>
         <a className="Content">{props.description.substr(1, 200)}...</a>
       </Link>
 
