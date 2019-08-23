@@ -38,7 +38,6 @@ const favoriteButtonWrapper = props => {
       variables={{ jobId: props.jobId }}
     >
       {({ error, loading, data, refetch }) => {
-        console.log(error);
         if (error) return <p>Something failed</p>;
         if (loading) return <p>Loading...</p>;
         let classes =

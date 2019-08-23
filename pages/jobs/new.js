@@ -1,8 +1,6 @@
 import React from "react";
-import Layout from "../../components/common/Layout/Layout";
-// import classes from './new.module.scss';
 import Container from "../../components/common/Layout/Container";
-import JobCreator from "../../components/jobs/JobCreator/JobCreator.js";
+import JobCreatorForm from "../../components/jobs/JobMutation/JobCreatorForm";
 import WithAuth from "../../components/hoc/WithAuth";
 
 import PageSection from "../../components/common/Layout/PageSection";
@@ -18,10 +16,11 @@ const newJobPage = props => {
   return (
     <PageSection styles={pageSytles}>
       <Container>
-        <JobCreator />
+        <JobCreatorForm />
       </Container>
     </PageSection>
   );
 };
 
-export default WithAuth(newJobPage);
+// export default WithAuth(newJobPage);
+export default newJobPage;

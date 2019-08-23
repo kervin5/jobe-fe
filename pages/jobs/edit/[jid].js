@@ -2,7 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Container from "../../../components/common/Layout/Container";
-import JobCreator from "../../../components/jobs/JobCreator/JobCreator.js";
+import JobEditorForm from "../../../components/jobs/JobMutation/JobEditorForm";
 import WithAuth from "../../../components/hoc/WithAuth";
 import PageSection from "../../../components/common/Layout/PageSection";
 
@@ -40,7 +40,7 @@ const EditJobPage = props => {
           {({ error, loading, data }) => {
             if (error) return <p>Something went wrong</p>;
             if (loading) return <p>Loading Job...</p>;
-            return <JobCreator edit />;
+            return <JobEditorForm jobId={props.jobId} />;
           }}
         </Query>
       </Container>

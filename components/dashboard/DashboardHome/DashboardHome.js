@@ -2,7 +2,7 @@ import React from "react";
 import Title from "../../common/UI/Title";
 import Button from "../../common/UI/Button";
 import JobsInformationSection from "./JobsInformationSection";
-import JobCreator from "../../jobs/JobCreator/JobCreator";
+import JobCreatorForm from "../../jobs/JobMutation/JobCreatorForm";
 
 class DashboardHome extends React.Component {
   state = {
@@ -10,7 +10,7 @@ class DashboardHome extends React.Component {
   };
 
   AddNewClickHandler = () => {
-    this.setState({ componentToRender: <JobCreator smallHeader /> });
+    this.setState({ componentToRender: <JobCreatorForm smallHeader /> });
   };
 
   render() {
