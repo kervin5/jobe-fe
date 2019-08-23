@@ -38,9 +38,11 @@ const favoriteButtonWrapper = props => {
       variables={{ jobId: props.jobId }}
     >
       {({ error, loading, data, refetch }) => {
+        console.log(error);
         if (error) return <p>Something failed</p>;
         if (loading) return <p>Loading...</p>;
-        let classes = data.me.favorites.length > 0 ? "touched" : "untouched";
+        let classes =
+          data.me && data.me.favorites.length > 0 ? "touched" : "untouched";
         // const mutation = classes === "untouched" ? USER_ADD_FAVORITE_MUTATION : USER_DELETE_FAVORITE_MUTATION;
         const addFavorite = classes === "untouched";
         return (
