@@ -50,7 +50,7 @@ const JobCreatorForm = props => {
   const [formData, setFormData] = useState({});
 
   return (
-    <div>
+    <React.Fragment>
       <Title size={props.smallTitle ? "m" : "l"}>Post a Job</Title>
       <p className={"Instructions"}>
         Please enter the information for the new job listing
@@ -69,7 +69,7 @@ const JobCreatorForm = props => {
           );
         }}
       </Mutation>
-    </div>
+    </React.Fragment>
   );
 };
 

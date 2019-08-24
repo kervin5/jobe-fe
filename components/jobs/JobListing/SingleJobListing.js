@@ -5,7 +5,7 @@ import JobListing from "./JobListing";
 import Loader from "../../common/UI/Animated/Loader";
 
 export const SINGLE_JOB_QUERY = gql`
-  query SINGLE_ITEM_QUERY($id: ID!) {
+  query SINGLE_JOB_QUERY($id: ID!) {
     job(where: { id: $id }) {
       id
       title
@@ -18,6 +18,8 @@ export const SINGLE_JOB_QUERY = gql`
       createdAt
       location {
         name
+        latitude
+        longitude
       }
     }
   }

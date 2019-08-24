@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import NoSSR from "react-no-ssr";
 import { Editor } from "react-draft-wysiwyg";
 import { stateToHTML } from "draft-js-export-html";
-import { EditorState } from "draft-js";
+import { EditorState, convertFromHTML } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import useInput from "../useInput";
 
@@ -12,14 +12,24 @@ const RichTextInputFields = props => {
     maxLength: props.maxLength,
     minLength: props.minLength
   };
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  console.log(props.value);
+  const blocksFromHTML = convertFromHTML(props.value);
+  const defaultState = ContentState.createFromBlockArray(
+    blocksFromHTML.contentBlocks,
+    blocksFromHTML.entityMap
+  );
+  const [editorState, setEditorState] = useState(
+    props.value ? defaultState : EditorState.createEmpty()
+  );
   const [touched, setTouched] = useState(false);
   const [richTextFieldState, setRichTextFieldState] = useInput({
     type: props.inputType,
     value: props.value,
     placeholder: props.placeholder,
     name: props.name,
-    validation: validation
+    validation: validation,
+    editorState: null
   });
 
   const changeHandler = editorState => {

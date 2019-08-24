@@ -40,7 +40,7 @@ const dropdownInputField = props => {
   }, [props.validate]);
 
   return (
-    <select onChange={handleOptionClick}>
+    <select onChange={handleOptionClick} defaultValue={dropdownInput.value}>
       <option value="">{props.placeholder}</option>
       {optionsToRender}
       <style jsx>{`

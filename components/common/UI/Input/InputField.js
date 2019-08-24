@@ -90,6 +90,7 @@ const inputField = props => {
         options={props.options}
         change={changeHandler}
         validate={props.validate}
+        value={props.value}
         {...validation}
       />
     );
@@ -110,6 +111,7 @@ const inputField = props => {
         placeholder={props.placeholder}
         change={changeHandler}
         validate={props.validate}
+        value={props.value}
         {...validation}
       />
     );
@@ -120,6 +122,7 @@ const inputField = props => {
         toolbarOptions={["list", "emoji", "remove", "history"]}
         change={changeHandler}
         validate={props.validate}
+        value={props.value}
         {...validation}
       />
     );
@@ -130,6 +133,8 @@ const inputField = props => {
         change={changeHandler}
         validation={{ required: props.required }}
         validate={props.validate}
+        value={props.value}
+        tags={props.value}
       />
     );
   }

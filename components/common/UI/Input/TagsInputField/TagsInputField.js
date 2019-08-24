@@ -14,12 +14,14 @@ class TagsInputField extends React.Component {
       });
     }
 
+    console.log(props);
+
     this.state = {
       tags: props.tags || [],
       suggestions: props.options ? suggestions : [],
       valid: false,
       touched: false,
-      value: "",
+      value: props.value || "",
       errors: []
     };
   }

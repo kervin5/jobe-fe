@@ -72,7 +72,8 @@ class JobMutationBaseForm extends Component {
         value: "",
         valid: false,
         options: []
-      }
+      },
+      ...this.props.jobData
     },
     status: "filling",
     validate: false,

@@ -8,9 +8,7 @@ class Page extends Component {
       <div>
         <Head />
         {/* <Header /> */}
-        <Layout>
-          <div>{this.props.children}</div>
-        </Layout>
+        <Layout>{this.props.children}</Layout>
       </div>
     );
   }
