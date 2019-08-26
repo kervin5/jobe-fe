@@ -41,7 +41,7 @@ const ApplyToJobButton = props => {
         if (loading) return <Loader active inline="centered" />;
         if (error) return <p>Something went wrong</p>;
         //Check if the user has previously applied
-        console.log(loading);
+
         let userApplied = !!(
           data.applicationsConnection &&
           data.applicationsConnection.aggregate.count > 0

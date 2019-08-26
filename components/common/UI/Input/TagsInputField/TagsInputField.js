@@ -14,8 +14,6 @@ class TagsInputField extends React.Component {
       });
     }
 
-    console.log(props);
-
     this.state = {
       tags: props.tags || [],
       suggestions: props.options ? suggestions : [],

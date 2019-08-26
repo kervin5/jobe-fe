@@ -81,28 +81,49 @@ class JobMutationBaseForm extends Component {
   };
 
   changeHandler = fieldData => {
-    this.setState(prevState => {
-      return {
-        ...prevState,
-        formData: {
-          ...prevState.formData,
-          [fieldData.name]: {
-            ...prevState.formData[fieldData.name],
-            ...fieldData
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          formData: {
+            ...prevState.formData,
+            [fieldData.name]: {
+              ...prevState.formData[fieldData.name],
+              ...fieldData
+            }
           }
-        },
-        touchedFields: {
-          ...prevState.touchedFields,
-          [fieldData.name]: fieldData.value
-        }
-      };
-    });
+        };
+      },
+      () => {
+        this.setState(prevState => {
+          if (fieldData.touched) {
+            return {
+              ...prevState,
+              touchedFields: {
+                ...prevState.touchedFields,
+                [fieldData.name]: {
+                  ...prevState.formData[fieldData.name],
+                  ...fieldData
+                }
+              }
+            };
+          }
+        });
+      }
+    );
   };
 
   submitFormHandler = e => {
     e.preventDefault();
     this.setState({ validate: true }, async () => {
       if (this.formIsValid()) {
+        const formatedCategories = Array(this.state.formData.categories.value)
+          ? this.state.formData.categories.value.map(skill => skill.name)
+          : this.state.formData.categories.value.split(",");
+        const formatedSkills = Array(this.state.formData.skills.value)
+          ? this.state.formData.skills.value.map(skill => skill.name)
+          : this.state.formData.skills.value.split(",");
+
         let jobData = {
           title: this.state.formData.title.value,
           location: { ...this.state.formData.location.details },
@@ -113,10 +134,10 @@ class JobMutationBaseForm extends Component {
             this.state.formData.maxCompensation.value
           ),
           compensationType: this.state.formData.compensationType.value,
-          categories: this.state.formData.categories.value.split(","),
+          categories: formatedCategories,
           type: this.state.formData.type.value,
           description: this.state.formData.description.value,
-          skills: this.state.formData.skills.value.split(","),
+          skills: formatedSkills,
           requirements: this.state.formData.requirements.value,
           qualifications: this.state.formData.qualifications.value
         };
@@ -128,6 +149,7 @@ class JobMutationBaseForm extends Component {
         });
 
         //Executes the mutation
+        // console.log(dataToSend);
         console.log(dataToSend);
         await this.props.mutation.setVariables(dataToSend);
         this.props.mutation.execute();
@@ -137,7 +159,9 @@ class JobMutationBaseForm extends Component {
 
   formIsValid = () => {
     const invalid = Object.keys(this.state.formData).filter(key => {
-      return !this.state.formData[key].valid;
+      return (
+        this.state.formData[key].touched && !this.state.formData[key].valid
+      );
     });
     return invalid.length === 0;
   };

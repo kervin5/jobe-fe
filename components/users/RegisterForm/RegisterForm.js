@@ -60,7 +60,7 @@ const registerForm = () => {
     const { email, password, name } = formData;
     if (email.valid && password.valid && name.valid) {
       const res = await signupUserMutation();
-      console.log(res);
+      // console.log(res);
       if (res.data.signup) {
         logInUser(res.data.signup);
         Router.push("/dashboard");

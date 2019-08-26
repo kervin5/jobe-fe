@@ -52,7 +52,7 @@ const loginForm = () => {
 
     if (email.valid && password.valid) {
       const res = await loginUserMutation();
-      console.log(res);
+      // console.log(res);
       if (res.data.login) {
         logInUser(res.data.login);
         Router.push("/dashboard");

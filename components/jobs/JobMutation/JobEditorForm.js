@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import gql from "graphql-tag";
 import { Mutation, Query } from "react-apollo";
 import JobMutationBaseForm from "./JobMutationBaseForm";
@@ -34,19 +34,77 @@ const SINGLE_JOB_ALL_DATA_QUERY = gql`
   }
 `;
 
+const UPDATE_JOB_MUTATION = gql`
+  mutation UPDATE_JOB_MUTATION(
+    $jobId: ID!
+    $title: String
+    $description: String
+    $type: String
+    $compensationType: String
+    $maxCompensation: Float
+    $minCompensation: Float
+    $qualifications: String
+    $requirements: String
+    $location: LocationCreateWithoutJobsInput
+    $categories: [String!]
+    $skills: [String!]
+  ) {
+    updateJob(
+      where: { id: $jobId }
+
+      data: {
+        title: $title
+        compensationType: $compensationType
+        description: $description
+        type: $type
+        maxCompensation: $maxCompensation
+        minCompensation: $minCompensation
+        qualifications: $qualifications
+        requirements: $requirements
+        location: { create: $location }
+        categories: $categories
+        skills: $skills
+      }
+    ) {
+      id
+      title
+    }
+  }
+`;
+
 const JobEditorForm = props => {
+  const [formData, setFormData] = useState({});
+
   return (
     <Query query={SINGLE_JOB_ALL_DATA_QUERY} variables={{ id: props.jobId }}>
       {({ error, loading, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Something went wrong</p>;
-
+        const jobData = data;
         return (
-          <React.Fragment>
-            <Title size={props.smallTitle ? "m" : "l"}>Edit Job</Title>
-            <p className={"Instructions"}>Enter the job details</p>
-            <JobMutationBaseForm jobData={formatFormData(data.job)} />
-          </React.Fragment>
+          <Mutation
+            mutation={UPDATE_JOB_MUTATION}
+            variables={{ jobId: props.jobId, ...formData }}
+          >
+            {(EditJobMutation, { error, loading, data }) => {
+              if (error) return <p>Something went wrong</p>;
+              if (loading) return <p>Processing</p>;
+              if (data) return <p>Job modified</p>;
+              return (
+                <React.Fragment>
+                  <Title size={props.smallTitle ? "m" : "l"}>Edit Job</Title>
+                  <p className={"Instructions"}>Enter the job details</p>
+                  <JobMutationBaseForm
+                    mutation={{
+                      execute: EditJobMutation,
+                      setVariables: setFormData
+                    }}
+                    jobData={formatFormData(jobData.job)}
+                  />
+                </React.Fragment>
+              );
+            }}
+          </Mutation>
         );
       }}
     </Query>

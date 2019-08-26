@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import NoSSR from "react-no-ssr";
 import { Editor } from "react-draft-wysiwyg";
 import { stateToHTML } from "draft-js-export-html";
-import { EditorState, convertFromHTML } from "draft-js";
+import { EditorState, ContentState } from "draft-js";
+import htmlToDraft from "html-to-draftjs";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import useInput from "../useInput";
 
@@ -13,15 +14,8 @@ const RichTextInputFields = props => {
     minLength: props.minLength
   };
 
-  console.log(props.value);
-  const blocksFromHTML = convertFromHTML(props.value);
-  const defaultState = ContentState.createFromBlockArray(
-    blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap
-  );
-  const [editorState, setEditorState] = useState(
-    props.value ? defaultState : EditorState.createEmpty()
-  );
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
   const [touched, setTouched] = useState(false);
   const [richTextFieldState, setRichTextFieldState] = useInput({
     type: props.inputType,
@@ -50,6 +44,21 @@ const RichTextInputFields = props => {
     setRichTextFieldState(html);
     setEditorState(editorState);
   };
+
+  useEffect(() => {
+    if (props.value) {
+      console.log(props.value);
+      const html = props.value;
+      const contentBlock = htmlToDraft(html);
+      if (contentBlock) {
+        const contentState = ContentState.createFromBlockArray(
+          contentBlock.contentBlocks
+        );
+        const editorState = EditorState.createWithContent(contentState);
+        setEditorState(editorState);
+      }
+    }
+  }, []);
 
   const handleBlur = e => {
     setTouched(true);
