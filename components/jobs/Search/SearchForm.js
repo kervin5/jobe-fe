@@ -48,8 +48,6 @@ const searchForm = props => {
 
   useEffect(() => {
     const { searchTerms, searchLocation } = formData;
-
-    console.log(searchTerms.valid && searchLocation.valid && submitted);
     if (searchTerms.valid && searchLocation.valid && submitted) {
       Router.push(
         `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`

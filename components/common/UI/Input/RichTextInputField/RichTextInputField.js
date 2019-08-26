@@ -47,7 +47,6 @@ const RichTextInputFields = props => {
 
   useEffect(() => {
     if (props.value) {
-      console.log(props.value);
       const html = props.value;
       const contentBlock = htmlToDraft(html);
       if (contentBlock) {

@@ -63,7 +63,6 @@ class UserLocator {
           `https://api.ipgeolocation.io/ipgeo?apiKey=1503b8dbdf444bb786093ea0bbbd39fb`
         )
         .then(res => {
-          console.log(res);
           const locationData = {
             lat: res.data.latitude,
             lon: res.data.longitude,
@@ -74,6 +73,7 @@ class UserLocator {
           resolve(locationData);
         })
         .catch(err => {
+          console.log("Geolocation Error");
           console.log(err);
           resolve(this.setUnknownLocation());
         });
