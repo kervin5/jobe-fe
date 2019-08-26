@@ -117,10 +117,14 @@ class JobMutationBaseForm extends Component {
     e.preventDefault();
     this.setState({ validate: true }, async () => {
       if (this.formIsValid()) {
-        const formatedCategories = Array(this.state.formData.categories.value)
+        console.log(Array.isArray(this.state.formData.categories.value));
+        console.log(this.state.formData.categories.value);
+        const formatedCategories = Array.isArray(
+          this.state.formData.categories.value
+        )
           ? this.state.formData.categories.value.map(skill => skill.name)
           : this.state.formData.categories.value.split(",");
-        const formatedSkills = Array(this.state.formData.skills.value)
+        const formatedSkills = Array.isArray(this.state.formData.skills.value)
           ? this.state.formData.skills.value.map(skill => skill.name)
           : this.state.formData.skills.value.split(",");
 
@@ -158,11 +162,16 @@ class JobMutationBaseForm extends Component {
   };
 
   formIsValid = () => {
-    const invalid = Object.keys(this.state.formData).filter(key => {
+    const invalid = Object.keys(this.state.touchedFields).filter(key => {
       return (
-        this.state.formData[key].touched && !this.state.formData[key].valid
+        (this.state.formData[key].touched && !this.state.formData[key].valid) ||
+        (!this.state.formData.touched &&
+          this.state.validate &&
+          !this.state.formData[key].valid)
       );
     });
+
+    console.log(invalid, this.state.formData);
     return invalid.length === 0;
   };
 

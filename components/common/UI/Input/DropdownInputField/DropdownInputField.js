@@ -29,7 +29,7 @@ const dropdownInputField = props => {
 
   useEffect(() => {
     if (props.change && (touched || props.validate)) {
-      props.change(dropdownInput);
+      props.change({ ...dropdownInput, touched });
     }
   }, [dropdownInput]);
 
