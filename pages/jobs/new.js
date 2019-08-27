@@ -1,7 +1,7 @@
 import React from "react";
 import Container from "../../components/common/Layout/Container";
 import JobCreatorForm from "../../components/jobs/JobMutation/JobCreatorForm";
-import WithAuth from "../../components/hoc/WithAuth";
+import withAuth from "../../lib/withAuth";
 
 import PageSection from "../../components/common/Layout/PageSection";
 
@@ -22,5 +22,8 @@ const newJobPage = props => {
   );
 };
 
-// export default WithAuth(newJobPage);
+newJobPage.getInitialProps = async function(props) {
+  await withAuth(props);
+};
+
 export default newJobPage;

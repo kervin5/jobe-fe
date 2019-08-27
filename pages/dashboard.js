@@ -1,6 +1,6 @@
 import PageSection from "../components/common/Layout/PageSection";
-import WithAuth from "../components/hoc/WithAuth";
-import { useState } from "react";
+// import WithAuth from "../components/hoc/WithAuth";
+import withAuth from "../lib/withAuth";
 import ButtonsBar from "../components/common/UI/Navigation/ButtonsBar";
 
 import Container from "../components/common/Layout/Container";
@@ -20,5 +20,8 @@ const dashboardPage = props => {
   );
 };
 
-export default WithAuth(dashboardPage);
+dashboardPage.getInitialProps = async function(props) {
+  await withAuth(props);
+};
+export default dashboardPage;
 // export default dashboardPage;

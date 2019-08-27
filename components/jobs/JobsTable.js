@@ -56,6 +56,7 @@ const JobsTable = props => {
             {({ data, error, loading }) => {
               if (loading) return <p>Loading...</p>;
               if (error) return <p>Something Failed...</p>;
+              if (!data.me) return <p>Unauthorized</p>;
               const dataForTable = data.me.jobs.map(job => {
                 return {
                   ...job,
@@ -92,8 +93,16 @@ const injectActionsColumn = data => {
             color="green"
             onClick={e => Router.push(`/jobs/${record.id}`)}
           />
-          <Button icon="edit" color="yellow" />
-          <Button icon="trash" color="red" />
+          <Button
+            icon="edit"
+            color="yellow"
+            onClick={e => Router.push(`/jobs/edit/${record.id}`)}
+          />
+          <Button
+            icon="trash"
+            color="red"
+            onClick={() => alert("Are you sure?")}
+          />
         </Button.Group>
       )
     };
