@@ -54,7 +54,7 @@ const loginForm = () => {
       const res = await loginUserMutation();
       // console.log(res);
       if (res.data.login) {
-        logInUser(res.data.login);
+        // logInUser(res.data.login);
         Router.push("/dashboard");
       }
     }
