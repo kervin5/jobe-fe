@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // import classes from './NavigationItems.module.scss';
 import NavigationItem from "./NavigationItem.js";
+import LogOut from "../../LogOut";
 
 const navigationItems = () => {
   // const [showDrawer, setShowDrawer] = useState(false);
@@ -12,6 +13,7 @@ const navigationItems = () => {
       <NavigationItem href={"/user/register"}>Register</NavigationItem>
       <NavigationItem href={"/dashboard"}>Dashboard</NavigationItem>
       <NavigationItem href={"/me"}>Me</NavigationItem>
+      <LogOut />
       <style jsx>{`
         div {
           display: flex;

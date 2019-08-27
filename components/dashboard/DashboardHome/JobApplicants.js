@@ -29,12 +29,11 @@ const JobApplicant = ({}) => {
   return (
     <Query query={JOB_APPLICANTS_QUERY}>
       {({ error, loading, data }) => {
-        console.log(error);
         if (error) return <p>Something went wrong!</p>;
         if (loading) return <Loader />;
-
+        console.log(data);
         const listOfApplicants = data.me;
-        <p>yes</p>;
+        return <p>{data.job}</p>;
       }}
     </Query>
   );
