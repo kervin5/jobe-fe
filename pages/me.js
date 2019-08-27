@@ -1,4 +1,4 @@
-import WithAuth from "../components/hoc/WithAuth";
+import withAuth from "../lib/withAuth";
 import PageSection from "../components/common/Layout/PageSection";
 
 import Title from "../components/common/UI/Title";
