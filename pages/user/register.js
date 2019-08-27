@@ -2,7 +2,7 @@ import React from "react";
 import variables from "../../components/common/globalVariables";
 import PageSection from "../../components/common/Layout/PageSection";
 import RegisterForm from "../../components/users/RegisterForm/RegisterForm";
-import RedirectIfAuth from "../../components/hoc/RedirectIfAuth";
+import { redirectIfAuth } from "../../lib/withAuth";
 
 const friendsImgUrl = "../../static/images/friends-with-bg.png";
 const pageStyles = ` background-color: ${variables.mutedColor1};
@@ -10,7 +10,7 @@ const pageStyles = ` background-color: ${variables.mutedColor1};
                 display: flex;
                 flex-direction: column;`;
 
-const register = () => {
+const registerPage = () => {
   return (
     <PageSection styles={pageStyles}>
       <RegisterForm />
@@ -26,4 +26,8 @@ const register = () => {
   );
 };
 
-export default RedirectIfAuth(register, "/dashboard");
+registerPage.getInitialProps = async function(props) {
+  await redirectIfAuth(props);
+};
+
+export default registerPage;

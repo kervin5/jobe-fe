@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Container from "../../../components/common/Layout/Container";
 import JobEditorForm from "../../../components/jobs/JobMutation/JobEditorForm";
-import WithAuth from "../../../components/hoc/WithAuth";
+import withAuth from "../../../lib/withAuth";
 import PageSection from "../../../components/common/Layout/PageSection";
 
 const pageSytles = `
@@ -48,7 +48,8 @@ const EditJobPage = props => {
   );
 };
 
-EditJobPage.getInitialProps = function(args) {
+EditJobPage.getInitialProps = async args => {
+  await withAuth(args);
   const { jid } = args.query;
   const slugParts = jid.split("-");
   const jobId = slugParts[slugParts.length - 1];

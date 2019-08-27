@@ -21,4 +21,8 @@ const MePage = props => {
   );
 };
 
+MePage.getInitialProps = async function(props) {
+  await withAuth(props);
+};
+
 export default WithAuth(MePage);

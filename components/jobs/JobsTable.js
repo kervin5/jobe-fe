@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import { perPage } from "../../config";
 import Loader from "../common/UI/Animated/Loader";
 import Table from "../common/UI/Table";
+import Router from "next/router";
 
 const USER_JOBS_QUERY = gql`
   query USER_JOBS_QUERY($perPage: Int!, $skip: Int!) {
@@ -55,6 +56,7 @@ const JobsTable = props => {
             {({ data, error, loading }) => {
               if (loading) return <p>Loading...</p>;
               if (error) return <p>Something Failed...</p>;
+              if (!data.me) return <p>Unauthorized</p>;
               const dataForTable = data.me.jobs.map(job => {
                 return {
                   ...job,
@@ -86,9 +88,21 @@ const injectActionsColumn = data => {
       ...record,
       actions: (
         <Button.Group>
-          <Button icon="eye" color="green" />
-          <Button icon="edit" color="yellow" />
-          <Button icon="trash" color="red" />
+          <Button
+            icon="eye"
+            color="green"
+            onClick={e => Router.push(`/jobs/${record.id}`)}
+          />
+          <Button
+            icon="edit"
+            color="yellow"
+            onClick={e => Router.push(`/jobs/edit/${record.id}`)}
+          />
+          <Button
+            icon="trash"
+            color="red"
+            onClick={() => alert("Are you sure?")}
+          />
         </Button.Group>
       )
     };
