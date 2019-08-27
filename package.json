@@ -26,6 +26,7 @@
     "next": "^9.0.3",
     "next-with-apollo": "^4.2.0",
     "npm": "^6.10.1",
+    "nprogress": "^0.2.0",
     "path-match": "^1.2.4",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
