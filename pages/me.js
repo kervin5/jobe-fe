@@ -25,4 +25,4 @@ MePage.getInitialProps = async function(props) {
   await withAuth(props);
 };
 
-export default WithAuth(MePage);
+export default MePage;
