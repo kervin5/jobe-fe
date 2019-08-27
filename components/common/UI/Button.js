@@ -42,7 +42,6 @@ const Button = props => {
           border-radius: ${variables.roundedRadius};
           font-size: 1.2em;
           font-weight: bold;
-
           border: none;
           color: ${variables.clearColor};
           box-shadow: 0px 5px 15px -9px rgba(0, 0, 0, 0.66);
@@ -53,6 +52,7 @@ const Button = props => {
           width: ${props.fullWidth ? "100%" : "auto"};
           display: flex;
           justify-content: space-around;
+          align-items: center;
           ${customColor}
         }
 
