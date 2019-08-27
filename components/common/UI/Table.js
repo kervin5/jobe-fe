@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Icon, Table, Pagination } from "semantic-ui-react";
+import { Icon, Table, Pagination, Loader } from "semantic-ui-react";
 
 const TableWithPagination = ({
   data,
   perPage,
   count,
   turnPageHandler,
-  page
+  page,
+  loading
 }) => {
   const pages = Math.ceil(count / perPage);
   const handlePaginationChange = (e, { activePage }) => {
@@ -29,19 +30,23 @@ const TableWithPagination = ({
       </Table.Header>
 
       <Table.Body>
-        {data.map((row, key) => (
-          <Table.Row key={"Row" + key}>
-            {Object.keys(row)
-              .filter(rowName => rowName !== "__typename")
-              .map((column, index) => {
-                return (
-                  <Table.Cell key={row + key + column + index}>
-                    {row[column]}
-                  </Table.Cell>
-                );
-              })}
-          </Table.Row>
-        ))}
+        {loading ? (
+          <Loader />
+        ) : (
+          data.map((row, key) => (
+            <Table.Row key={"Row" + key}>
+              {Object.keys(row)
+                .filter(rowName => rowName !== "__typename")
+                .map((column, index) => {
+                  return (
+                    <Table.Cell key={row + key + column + index}>
+                      {row[column]}
+                    </Table.Cell>
+                  );
+                })}
+            </Table.Row>
+          ))
+        )}
       </Table.Body>
 
       <Table.Footer>

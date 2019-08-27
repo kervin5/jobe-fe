@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Query } from "react-apollo";
-import { Button } from "semantic-ui-react";
+import { Button, Placeholder, Loader } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { perPage } from "../../config";
-import Loader from "../common/UI/Animated/Loader";
+// import Loader from "../common/UI/Animated/Loader";
 import Table from "../common/UI/Table";
 import Router from "next/router";
 
@@ -57,21 +57,36 @@ const JobsTable = props => {
             }}
           >
             {({ data, error, loading }) => {
-              if (loading) return <p>Loading...</p>;
+              if (loading)
+                return (
+                  <Placeholder fluid>
+                    <Placeholder.Header>
+                      <Placeholder.Line />
+                      <Placeholder.Line />
+                    </Placeholder.Header>
+                    <Placeholder.Paragraph>
+                      <Placeholder.Line />
+                      <Placeholder.Line />
+                      <Placeholder.Line />
+                    </Placeholder.Paragraph>
+                  </Placeholder>
+                );
               if (error) return <p>Something Failed...</p>;
               //   if (!data.me) return <p>Unauthorized</p>;
+
               const dataForTable = data.me.jobs.map(job => {
                 return {
                   ...job,
                   location: job.location.name
                 };
               });
+              const jobsCount =
+                userJobsData.data.jobsConnectionPerUser.aggregate.count;
               return (
                 <Table
                   page={currentPage}
-                  count={
-                    userJobsData.data.jobsConnectionPerUser.aggregate.count
-                  }
+                  loading={loading}
+                  count={jobsCount}
                   perPage={perPage}
                   turnPageHandler={handleTurnPage}
                   data={injectActionsColumn(dataForTable)}

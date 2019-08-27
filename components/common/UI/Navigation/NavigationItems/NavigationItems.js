@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-// import classes from './NavigationItems.module.scss';
 import NavigationItem from "./NavigationItem.js";
-import LogOut from "../../LogOut";
+import LogoutButton from "../../LogoutButton";
+import RenderIfLoggedIn from "../../../../hoc/RenderIfLoggedIn";
+import RenderIfLoggedOut from "../../../../hoc/RenderIfLoggedOut";
 
 const navigationItems = () => {
   // const [showDrawer, setShowDrawer] = useState(false);
@@ -9,11 +10,15 @@ const navigationItems = () => {
   return (
     <div>
       <NavigationItem href="/">Search Jobs</NavigationItem>
-      <NavigationItem href={"/user/login"}>Log In</NavigationItem>
-      <NavigationItem href={"/user/register"}>Register</NavigationItem>
-      <NavigationItem href={"/dashboard"}>Dashboard</NavigationItem>
-      <NavigationItem href={"/me"}>Me</NavigationItem>
-      <LogOut />
+      <RenderIfLoggedOut>
+        <NavigationItem href={"/user/login"}>Log In</NavigationItem>
+        <NavigationItem href={"/user/register"}>Register</NavigationItem>
+      </RenderIfLoggedOut>
+      <RenderIfLoggedIn>
+        <NavigationItem href={"/dashboard"}>Dashboard</NavigationItem>
+        <NavigationItem href={"/me"}>Me</NavigationItem>
+        <LogoutButton />
+      </RenderIfLoggedIn>
       <style jsx>{`
         div {
           display: flex;
