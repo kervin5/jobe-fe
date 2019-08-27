@@ -18,6 +18,9 @@ const USER_JOBS_QUERY = gql`
           name
         }
         status
+        applications {
+          id
+        }
       }
     }
   }
@@ -41,7 +44,7 @@ const JobsTable = props => {
   };
 
   return (
-    <Query query={USER_JOBS_CONNECTION_QUERY} ssr={false}>
+    <Query query={USER_JOBS_CONNECTION_QUERY}>
       {userJobsData => {
         if (userJobsData.error) <p>Something went wrong...</p>;
         if (userJobsData.loading) <Loader />;
@@ -52,12 +55,11 @@ const JobsTable = props => {
               perPage,
               skip: (currentPage - 1) * perPage
             }}
-            ssr={false}
           >
             {({ data, error, loading }) => {
               if (loading) return <p>Loading...</p>;
               if (error) return <p>Something Failed...</p>;
-              if (!data.me) return <p>Unauthorized</p>;
+              //   if (!data.me) return <p>Unauthorized</p>;
               const dataForTable = data.me.jobs.map(job => {
                 return {
                   ...job,
@@ -87,6 +89,7 @@ const injectActionsColumn = data => {
   return data.map(record => {
     return {
       ...record,
+      applications: record.applications.length,
       actions: (
         <Button.Group>
           <Button
