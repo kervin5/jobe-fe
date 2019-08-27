@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import { perPage } from "../../config";
 import Loader from "../common/UI/Animated/Loader";
 import Table from "../common/UI/Table";
+import Router from "next/router";
 
 const USER_JOBS_QUERY = gql`
   query USER_JOBS_QUERY($perPage: Int!, $skip: Int!) {
@@ -86,7 +87,11 @@ const injectActionsColumn = data => {
       ...record,
       actions: (
         <Button.Group>
-          <Button icon="eye" color="green" />
+          <Button
+            icon="eye"
+            color="green"
+            onClick={e => Router.push(`/jobs/${record.id}`)}
+          />
           <Button icon="edit" color="yellow" />
           <Button icon="trash" color="red" />
         </Button.Group>
