@@ -7,10 +7,13 @@ import Table from "../../common/UI/Table";
 export const JOB_APPLICANTS_QUERY = gql`
   query JOB_APPLICANTS_QUERY {
     me {
+      id
       name
       jobs {
         title
+        id
         applications {
+          id
           user {
             name
             id
@@ -26,12 +29,12 @@ const JobApplicant = ({}) => {
   return (
     <Query query={JOB_APPLICANTS_QUERY}>
       {({ error, loading, data }) => {
+        console.log(error);
         if (error) return <p>Something went wrong!</p>;
         if (loading) return <Loader />;
 
         const listOfApplicants = data.me;
         <p>yes</p>;
-        console.log(listOfApplicants);
       }}
     </Query>
   );
