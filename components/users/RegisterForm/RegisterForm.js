@@ -62,7 +62,7 @@ const registerForm = () => {
       const res = await signupUserMutation();
       // console.log(res);
       if (res.data.signup) {
-        logInUser(res.data.signup);
+        // logInUser(res.data.signup);
         Router.push("/dashboard");
       }
     }
