@@ -1,6 +1,7 @@
 import React from "react";
 
 import Title from "./Title";
+import JobApplicants from "../../dashboard/DashboardHome/JobApplicants";
 
 const socialMedia = props => {
   const url = props.url;
@@ -62,6 +63,7 @@ const socialMedia = props => {
           </button>
         </a>
       </div>
+      <JobApplicants />
     </div>
   );
 };
