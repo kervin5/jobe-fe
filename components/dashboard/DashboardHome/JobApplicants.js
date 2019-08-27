@@ -2,6 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Loader from "../../common/UI/Animated/Loader";
+import Table from "../../common/UI/Table";
 
 export const JOB_APPLICANTS_QUERY = gql`
   query JOB_APPLICANTS_QUERY {
@@ -28,8 +29,8 @@ const JobApplicant = ({}) => {
         if (error) return <p>Something went wrong!</p>;
         if (loading) return <Loader />;
 
-        const listOfApplicants = data;
-        <p>{data}</p>;
+        const listOfApplicants = data.me;
+        <p>yes</p>;
         console.log(listOfApplicants);
       }}
     </Query>
