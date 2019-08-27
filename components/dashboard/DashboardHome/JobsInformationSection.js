@@ -3,7 +3,6 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Table from "../../common/UI/Table";
 import { Grid } from "semantic-ui-react";
-import axios from "../../../data/api";
 import CounterCard from "../../common/UI/CounterCard";
 import Loader from "../../common/UI/Animated/Loader";
 import { perPage } from "../../../config";

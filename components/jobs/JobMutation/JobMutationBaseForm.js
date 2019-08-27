@@ -154,7 +154,7 @@ class JobMutationBaseForm extends Component {
 
         //Executes the mutation
         // console.log(dataToSend);
-        console.log(dataToSend);
+        // console.log(dataToSend);
         await this.props.mutation.setVariables(dataToSend);
         this.props.mutation.execute();
       }
