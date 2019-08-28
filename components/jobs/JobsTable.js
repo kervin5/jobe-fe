@@ -73,7 +73,7 @@ const JobsTable = props => {
                   </Placeholder>
                 );
               if (error) return <p>Something Failed...</p>;
-              //   if (!data.me) return <p>Unauthorized</p>;
+              if (!data.me) return <p>Please wait</p>;
 
               const dataForTable = data.me.jobs.map(job => {
                 return {
