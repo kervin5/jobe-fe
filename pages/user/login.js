@@ -60,8 +60,8 @@ const loginPage = () => {
   );
 };
 
-loginPage.getInitialProps = async props => {
-  await redirectIfAuth(props);
-};
+// loginPage.getInitialProps = async props => {
+//   await redirectIfAuth(props);
+// };
 
 export default loginPage;
