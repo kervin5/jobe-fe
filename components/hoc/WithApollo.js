@@ -16,7 +16,7 @@ function createClient({ ctx, headers, initialState }) {
       uri: process.env.NODE_ENV === "development" ? endpoint : prodEndpoint,
       cache: new InMemoryCache().restore(initialState || {}),
       credentials: "include",
-      ssrMode: true,
+      // ssrMode: true,
       headers: {
         ...headers,
         ...extraHeaders
