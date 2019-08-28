@@ -22,8 +22,8 @@ function create(initialState) {
       fetch: !isBrowser && fetch,
       headers: initialState.headers
     }),
-    // cache: new InMemoryCache()
-    cache: new InMemoryCache().restore(initialState || {})
+    cache: new InMemoryCache()
+    // cache: new InMemoryCache().restore(initialState || {})
   });
 }
 
