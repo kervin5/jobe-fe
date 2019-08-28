@@ -22,6 +22,7 @@ SingleJobView.getInitialProps = async function({ query }) {
   const { jid } = query;
   const slugParts = jid.split("-");
   const jobId = slugParts[slugParts.length - 1];
+  console.log(jobId);
   return { jobId };
 };
 

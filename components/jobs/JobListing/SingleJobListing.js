@@ -32,7 +32,7 @@ const SingleJobListing = ({ jobId }) => {
         if (error) return <p>Error!</p>;
         if (loading) return <Loader />;
         if (!data.job) return <p>No job found for: {jobId}</p>;
-
+        console.log(data);
         const singleJob = data.job;
         return (
           <JobListing
