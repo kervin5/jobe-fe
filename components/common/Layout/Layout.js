@@ -25,9 +25,9 @@ const layout = props => {
 
   return (
     <div className="Layout">
-      {/* {props.hideNav ? null : (
+      {props.hideNav ? null : (
         <NavigationBar menuButtonClick={handleMenuClick} />
-      )} */}
+      )}
       <main>{props.children}</main>
       <style jsx global>{`
         * {
