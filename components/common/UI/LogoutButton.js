@@ -24,7 +24,8 @@ const LogoutButton = () => {
         return (
           <Button
             click={() => {
-              logOutMutation;
+              logOutMutation();
+              location.reload();
             }}
           >
             Sign Out
