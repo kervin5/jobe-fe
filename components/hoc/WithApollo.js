@@ -20,7 +20,7 @@ function createClient({ ctx, headers, initialState }) {
       credentials: "include",
       ssrMode: !isBrowser,
       headers: {
-        ...headers,
+        // ...headers,
         ...extraHeaders
         // authorization: token ? `Bearer ${token}` : ""
       }
