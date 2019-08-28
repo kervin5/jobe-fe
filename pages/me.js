@@ -1,4 +1,4 @@
-import withAuth from "../lib/withAuth";
+import WithAuth from "../components/hoc/WithAuth";
 import PageSection from "../components/common/Layout/PageSection";
 
 import Title from "../components/common/UI/Title";
@@ -10,19 +10,17 @@ import UserJobList from "../components/me/UserJobList";
 const MePage = props => {
   const [componentInView, setComponentInView] = useState(<p>Dashboard</p>);
   return (
-    <PageSection className="DashboardPage" column>
-      {/* <ButtonsBar /> */}
-      {/* {componentInView} */}
-      <Container>
-        <Title>Your Profile</Title>
-        <UserJobList />
-      </Container>
-    </PageSection>
+    <WithAuth>
+      <PageSection className="DashboardPage" column>
+        {/* <ButtonsBar /> */}
+        {/* {componentInView} */}
+        <Container>
+          <Title>Your Profile</Title>
+          <UserJobList />
+        </Container>
+      </PageSection>
+    </WithAuth>
   );
-};
-
-MePage.getInitialProps = async function(props) {
-  await withAuth(props);
 };
 
 export default MePage;

@@ -44,7 +44,7 @@ const JobsTable = props => {
   };
 
   return (
-    <Query query={USER_JOBS_CONNECTION_QUERY}>
+    <Query query={USER_JOBS_CONNECTION_QUERY} ssr={false}>
       {userJobsData => {
         if (userJobsData.error) <p>Something went wrong...</p>;
         if (userJobsData.loading) <Loader />;
@@ -55,6 +55,7 @@ const JobsTable = props => {
               perPage,
               skip: (currentPage - 1) * perPage
             }}
+            ssr={false}
           >
             {({ data, error, loading }) => {
               if (loading)
@@ -80,6 +81,7 @@ const JobsTable = props => {
                   location: job.location.name
                 };
               });
+
               const jobsCount =
                 userJobsData.data.jobsConnectionPerUser.aggregate.count;
               return (

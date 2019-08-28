@@ -3,7 +3,7 @@ import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Loader } from "semantic-ui-react";
 import PopUp from "./PopUp";
-import RegisterForm from "../../users/RegisterForm/RegisterForm";
+import RegisterForm from "../../users/RegisterForm";
 import Button from "./Button";
 
 const APPLY_TO_JOB_MUTATION = gql`

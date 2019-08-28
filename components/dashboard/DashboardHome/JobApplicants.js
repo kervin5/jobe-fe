@@ -31,7 +31,7 @@ const JobApplicant = ({}) => {
       {({ error, loading, data }) => {
         if (error) return <p>Something went wrong!</p>;
         if (loading) return <Loader />;
-        console.log(data);
+
         const listOfApplicants = data.me;
         return <p>{data.job}</p>;
       }}
