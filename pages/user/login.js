@@ -61,6 +61,7 @@ const loginPage = () => {
 };
 
 loginPage.getInitialProps = async props => {
+  console.log(Object.keys(props));
   return await redirectIfAuth(props);
 };
 
