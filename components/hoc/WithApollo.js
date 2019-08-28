@@ -11,8 +11,6 @@ function createClient({ ctx, headers, initialState }) {
     extraHeaders.authorization = window.localStorage.getItem("token");
   }
 
-  const isBrowser = typeof window !== "undefined";
-
   return new ApolloClient(
     {
       uri: process.env.NODE_ENV === "development" ? endpoint : prodEndpoint,

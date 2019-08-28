@@ -13,15 +13,23 @@ const LOG_OUT_MUTATION = gql`
 const LogoutButton = () => {
   return (
     <Mutation mutation={LOG_OUT_MUTATION}>
-      {(logOutMutation, { error, loading, data, client }) => {
+      {(logOutMutation, { error, loading, data }) => {
         // console.log(client);
-        if (client) {
-          console.log(client);
-          client.resetStore();
-        }
+        // if (client) {
+        //   console.log(client);
+        //   client.resetStore();
+        // }
         if (error) return <p>Logged out</p>;
         if (loading) return <Loader />;
-        return <Button click={logOutMutation}>Sign Out</Button>;
+        return (
+          <Button
+            click={() => {
+              logOutMutation;
+            }}
+          >
+            Sign Out
+          </Button>
+        );
       }}
     </Mutation>
   );
