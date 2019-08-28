@@ -62,8 +62,8 @@ const loginPage = () => {
 };
 
 loginPage.getInitialProps = async props => {
-  if (!(await hasSignedIn(props))) {
-    redirect("/user/login", props.res);
+  if (!!(await hasSignedIn(props))) {
+    redirect("/dashboard", props.res);
   }
   return {};
   // console.log(Object.keys(props));
