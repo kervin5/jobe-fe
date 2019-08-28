@@ -1,7 +1,6 @@
 import React from "react";
 import App, { Container } from "next/app";
-// import { ApolloProvider } from "react-apollo";
-import { ApolloProvider } from "@apollo/react-hooks";
+import { ApolloProvider } from "react-apollo";
 import WithApollo from "../components/hoc/WithApollo";
 import Page from "../components/Page";
 import "semantic-ui-css/semantic.min.css";
@@ -20,6 +19,7 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps, apollo } = this.props;
+
     return (
       <ApolloProvider client={apollo}>
         <Page>
