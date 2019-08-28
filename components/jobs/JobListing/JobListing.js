@@ -45,7 +45,10 @@ const jobListing = props => {
         {props.preview ? null : (
           <SocialMedia
             url={
-              "http://localhost:3000/jobs/" + props.title + "-" + props.jobId
+              "https://myexactjobsstaging.herokuapp.com/jobs/" +
+              props.title +
+              "-" +
+              props.jobId
             }
           />
         )}
