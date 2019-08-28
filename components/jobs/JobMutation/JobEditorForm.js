@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { Mutation, Query } from "react-apollo";
 import JobMutationBaseForm from "./JobMutationBaseForm";
 import Title from "../../common/UI/Title";
+import JobPreview from "../../jobs/JobMutation/JobPreview";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
   query SINGLE_JOB_ALL_DATA_QUERY($id: ID!) {
@@ -89,7 +90,7 @@ const JobEditorForm = props => {
             {(EditJobMutation, { error, loading, data }) => {
               if (error) return <p>Something went wrong</p>;
               if (loading) return <p>Processing</p>;
-              if (data) return <p>Job modified</p>;
+              if (data) return <JobPreview jobId={data.updateJob.id} />;
               return (
                 <React.Fragment>
                   <Title size={props.smallTitle ? "m" : "l"}>Edit Job</Title>

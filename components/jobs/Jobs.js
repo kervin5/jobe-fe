@@ -8,7 +8,12 @@ import Loader from "../common/UI/Animated/Loader";
 
 const ALL_JOBS_QUERY = gql`
   query ALL_JOBS_QUERY($perPage: Int!, $skip: Int!) {
-    jobs(first: $perPage, skip: $skip, orderBy: createdAt_DESC) {
+    jobs(
+      first: $perPage
+      skip: $skip
+      orderBy: createdAt_DESC
+      where: { status: POSTED }
+    ) {
       id
       title
       description

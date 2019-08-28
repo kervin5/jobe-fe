@@ -117,8 +117,8 @@ class JobMutationBaseForm extends Component {
     e.preventDefault();
     this.setState({ validate: true }, async () => {
       if (this.formIsValid()) {
-        console.log(Array.isArray(this.state.formData.categories.value));
-        console.log(this.state.formData.categories.value);
+        // console.log(Array.isArray(this.state.formData.categories.value));
+        // console.log(this.state.formData.categories.value);
         const formatedCategories = Array.isArray(
           this.state.formData.categories.value
         )
@@ -171,7 +171,7 @@ class JobMutationBaseForm extends Component {
       );
     });
 
-    console.log(invalid, this.state.formData);
+    // console.log(invalid, this.state.formData);
     return invalid.length === 0;
   };
 
