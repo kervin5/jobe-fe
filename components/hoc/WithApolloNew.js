@@ -9,21 +9,22 @@ const uri = process.env.NODE_ENV === "development" ? endpoint : prodEndpoint;
 
 let apolloClient = null;
 
-function create(initialState) {
+function create({ ctx, headers, initialState }) {
   // Check out https://github.com/zeit/next.js/pull/4611 if you want to use the AWSAppSyncClient
   const isBrowser = typeof window !== "undefined";
   return new ApolloClient({
     connectToDevTools: isBrowser,
-    ssrMode: !isBrowser, // Disables forceFetch on the server (so queries are only run once)
+    ssrMode: true, // Disables forceFetch on the server (so queries are only run once)
+    ssrForceFetchDelay: 100,
     link: createHttpLink({
       uri, // Server URL (must be absolute)
       credentials: "include", // Additional fetch() options like `credentials` or `headers`
       // Use fetch() polyfill on the server
-      fetch: !isBrowser && fetch
-      // headers: initialState.headers
+      fetch: !isBrowser && fetch,
+      headers: headers
     }),
-    cache: new InMemoryCache()
-    // cache: new InMemoryCache().restore(initialState || {})
+    // cache: new InMemoryCache()
+    cache: new InMemoryCache().restore(initialState || {})
   });
 }
 

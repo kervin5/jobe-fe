@@ -27,12 +27,11 @@ export const SINGLE_JOB_QUERY = gql`
 
 const SingleJobListing = ({ jobId }) => {
   return (
-    <Query query={SINGLE_JOB_QUERY} variables={{ id: jobId }} ssr={true}>
+    <Query query={SINGLE_JOB_QUERY} variables={{ id: jobId }}>
       {({ error, loading, data }) => {
         if (error) return <p>Error!</p>;
         if (loading) return <Loader />;
         if (!data.job) return <p>No job found for: {jobId}</p>;
-
         const singleJob = data.job;
         return (
           <JobListing

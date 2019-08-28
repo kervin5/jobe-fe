@@ -29,3 +29,11 @@ function createClient({ ctx, headers, initialState }) {
 }
 
 export default withApollo(createClient);
+// request: operation => {
+//   operation.setContext({
+//     fetchOptions: {
+//       credentials: "include"
+//     },
+//     headers
+//   });
+// }
