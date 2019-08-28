@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import InputField from "../../common/UI/Input/InputField";
-import Button from "../../common/UI/Button";
-import Title from "../../common/UI/Title";
+import InputField from "../common/UI/Input/InputField";
+import Button from "../common/UI/Button";
+import Title from "../common/UI/Title";
 import Router from "next/router";
 // import { logInUser } from "../../../data/auth";
 
