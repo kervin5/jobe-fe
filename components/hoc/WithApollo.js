@@ -19,11 +19,11 @@ function create(initialState) {
       uri, // Server URL (must be absolute)
       credentials: "include", // Additional fetch() options like `credentials` or `headers`
       // Use fetch() polyfill on the server
-      fetch: !isBrowser && fetch
-      // headers: initialState.headers,
+      fetch: !isBrowser && fetch,
+      headers: initialState.headers
     }),
-    cache: new InMemoryCache()
-    // cache: new InMemoryCache().restore(initialState || {}),
+    // cache: new InMemoryCache()
+    cache: new InMemoryCache().restore(initialState || {})
   });
 }
 
