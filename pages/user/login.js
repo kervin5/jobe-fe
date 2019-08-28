@@ -4,6 +4,7 @@ import variables from "../../components/common/globalVariables";
 import PageSection from "../../components/common/Layout/PageSection";
 import LoginForm from "../../components/users/LoginForm/LoginForm";
 import { redirectIfAuth } from "../../lib/withAuth";
+import { AUTHORIZE_USER } from "../../lib/withAuth";
 
 const friendsImgUrl = "../../static/images/friends-with-bg.png";
 const pageStyles = `background-color: ${variables.mutedColor1};
@@ -61,8 +62,28 @@ const loginPage = () => {
 };
 
 loginPage.getInitialProps = async props => {
-  console.log(Object.keys(props));
-  return await redirectIfAuth(props);
+  if (!(await hasSignedIn(props))) {
+    redirect("/user/login", props.res);
+  }
+  return {};
+  // console.log(Object.keys(props));
+  // return await redirectIfAuth(props);
 };
+
+const redirect = (url, res) => {
+  if (res) {
+    res.writeHead(302, {
+      Location: url
+    });
+    res.end();
+  } else {
+    Router.push(url);
+  }
+};
+
+export async function hasSignedIn({ apolloClient }) {
+  const { data } = await apolloClient.query({ query: AUTHORIZE_USER });
+  return data.authorize;
+}
 
 export default loginPage;
