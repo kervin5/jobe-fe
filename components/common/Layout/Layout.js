@@ -6,16 +6,13 @@ import NavigationBar from "../UI/Navigation/NavigationBar";
 import variables from "../globalVariables";
 
 Router.onRouteChangeStart = () => {
-  console.log("Started");
   NProgress.start();
 };
 Router.onRouteChangeComplete = () => {
-  console.log("Completed");
   NProgress.done();
 };
 
 Router.onRouteChangeError = () => {
-  console.log("Error");
   NProgress.done();
 };
 

@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Container from "../../../components/common/Layout/Container";
 import JobEditorForm from "../../../components/jobs/JobMutation/JobEditorForm";
-import withAuth from "../../../lib/withAuth";
+import WithAuth from "../../../components/hoc/WithAuth";
 import PageSection from "../../../components/common/Layout/PageSection";
 
 const pageSytles = `
@@ -34,22 +34,26 @@ const SINGLE_JOB_DETAILS_QUERY = gql`
 
 const EditJobPage = props => {
   return (
-    <PageSection styles={pageSytles}>
-      <Container>
-        <Query query={SINGLE_JOB_DETAILS_QUERY} variables={{ id: props.jobId }}>
-          {({ error, loading, data }) => {
-            if (error) return <p>Something went wrong</p>;
-            if (loading) return <p>Loading Job...</p>;
-            return <JobEditorForm jobId={props.jobId} />;
-          }}
-        </Query>
-      </Container>
-    </PageSection>
+    <WithAuth>
+      <PageSection styles={pageSytles}>
+        <Container>
+          <Query
+            query={SINGLE_JOB_DETAILS_QUERY}
+            variables={{ id: props.jobId }}
+          >
+            {({ error, loading, data }) => {
+              if (error) return <p>Something went wrong</p>;
+              if (loading) return <p>Loading Job...</p>;
+              return <JobEditorForm jobId={props.jobId} />;
+            }}
+          </Query>
+        </Container>
+      </PageSection>
+    </WithAuth>
   );
 };
 
 EditJobPage.getInitialProps = async args => {
-  await withAuth(args);
   const { jid } = args.query;
   const slugParts = jid.split("-");
   const jobId = slugParts[slugParts.length - 1];

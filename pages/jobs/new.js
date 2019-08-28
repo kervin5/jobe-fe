@@ -1,7 +1,7 @@
 import React from "react";
 import Container from "../../components/common/Layout/Container";
 import JobCreatorForm from "../../components/jobs/JobMutation/JobCreatorForm";
-import withAuth from "../../lib/withAuth";
+import WithAuth from "../../components/hoc/WithAuth";
 
 import PageSection from "../../components/common/Layout/PageSection";
 

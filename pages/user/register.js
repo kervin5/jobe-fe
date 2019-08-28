@@ -1,8 +1,8 @@
 import React from "react";
 import variables from "../../components/common/globalVariables";
 import PageSection from "../../components/common/Layout/PageSection";
-import RegisterForm from "../../components/users/RegisterForm/RegisterForm";
-import { redirectIfAuth } from "../../lib/withAuth";
+import RegisterForm from "../../components/users/RegisterForm";
+// import { redirectIfAuth } from "../../lib/withAuth";
 
 const friendsImgUrl = "../../static/images/friends-with-bg.png";
 const pageStyles = ` background-color: ${variables.mutedColor1};
@@ -24,10 +24,6 @@ const registerPage = () => {
       `}</style>
     </PageSection>
   );
-};
-
-registerPage.getInitialProps = async function(props) {
-  await redirectIfAuth(props);
 };
 
 export default registerPage;

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import InputField from "../../common/UI/Input/InputField";
-import Button from "../../common/UI/Button";
-import Title from "../../common/UI/Title";
+import InputField from "../common/UI/Input/InputField";
+import Button from "../common/UI/Button";
+import Title from "../common/UI/Title";
 import Router from "next/router";
-import { logInUser } from "../../../data/auth";
+import { logInUser } from "../../data/auth";
 
 const LOGIN_USER = gql`
   mutation LOGIN_USER($email: String!, $password: String!) {
@@ -52,7 +52,7 @@ const loginForm = () => {
 
     if (email.valid && password.valid) {
       const res = await loginUserMutation();
-      // console.log(res);
+
       if (res.data.login) {
         // logInUser(res.data.login);
         Router.push("/dashboard");
