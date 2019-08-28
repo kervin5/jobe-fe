@@ -18,12 +18,12 @@ function createClient({ ctx, headers, initialState }) {
       uri: process.env.NODE_ENV === "development" ? endpoint : prodEndpoint,
       cache: new InMemoryCache().restore(initialState || {}),
       credentials: "include",
-      ssrMode: !isBrowser,
-      headers: {
-        ...headers,
-        ...extraHeaders
-        // authorization: token ? `Bearer ${token}` : ""
-      }
+      ssrMode: !isBrowser
+      // headers: {
+      //   ...headers,
+      //   ...extraHeaders
+      //   // authorization: token ? `Bearer ${token}` : ""
+      // }
     },
     {
       getDataFromTree: "always"
