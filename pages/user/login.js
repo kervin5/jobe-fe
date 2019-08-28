@@ -16,12 +16,12 @@ const loginPage = () => {
     <PageSection styles={pageStyles}>
       <LoginForm />
 
-      <Link href="/users/recover">
+      <Link href="/user/login">
         <a className="forgoPasswordLink">Forgot Password?</a>
       </Link>
       <p>
         Don't have an account?
-        <Link href="/users/register">
+        <Link href="/user/register">
           <a> Sign Up</a>
         </Link>
       </p>
