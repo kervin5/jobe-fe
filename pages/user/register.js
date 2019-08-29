@@ -2,7 +2,7 @@ import React from "react";
 import variables from "../../components/common/globalVariables";
 import PageSection from "../../components/common/Layout/PageSection";
 import RegisterForm from "../../components/users/RegisterForm";
-// import { redirectIfAuth } from "../../lib/withAuth";
+import RedirectIfAuth from "../../components/hoc/RedirectIfAuth";
 
 const friendsImgUrl = "../../static/images/friends-with-bg.png";
 const pageStyles = ` background-color: ${variables.mutedColor1};
@@ -12,17 +12,19 @@ const pageStyles = ` background-color: ${variables.mutedColor1};
 
 const registerPage = () => {
   return (
-    <PageSection styles={pageStyles}>
-      <RegisterForm />
-      <br />
-      <img src={friendsImgUrl} />
-      <style jsx>{`
-        img {
-          width: 310px;
-          opacity: 0.3;
-        }
-      `}</style>
-    </PageSection>
+    <RedirectIfAuth>
+      <PageSection styles={pageStyles}>
+        <RegisterForm />
+        <br />
+        <img src={friendsImgUrl} />
+        <style jsx>{`
+          img {
+            width: 310px;
+            opacity: 0.3;
+          }
+        `}</style>
+      </PageSection>
+    </RedirectIfAuth>
   );
 };
 
