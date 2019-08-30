@@ -7,6 +7,7 @@ import Title from "../../common/UI/Title";
 import ApplyToJobButton from "../../common/UI/ApplyToJobButton";
 import HtmlRenderer from "../../hoc/HtmlRenderer";
 import SocialMedia from "../../common/UI/SocialMedia";
+import { RFC_2822 } from "moment";
 
 const jobListing = props => {
   return (
