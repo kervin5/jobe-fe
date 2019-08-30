@@ -10,25 +10,50 @@ import DashboardHome from "../components/dashboard/DashboardHome/DashboardHome";
 import SideMenu from "../components/common/UI/Navigation/SideMenu";
 
 const dashboardPage = props => {
-  // const [componentInView, setComponentInView] = useState(<p>Dashboard</p>);
+  const sections = {
+    Home: {
+      label: "Home",
+      component: <DashboardHome />,
+      icon: "home"
+    },
+    Applications: {
+      label: "Applications",
+      component: <p>Applications</p>,
+      icon: "copy outline"
+    },
+    Jobs: {
+      label: "Jobs",
+      component: <p>Jobs</p>,
+      icon: "briefcase"
+    },
+    Users: {
+      label: "Users",
+      component: <p>Users</p>,
+      icon: "briefcase"
+    }
+  };
+
+  const [componentInView, setComponentInView] = useState(sections.Home);
+
+  const handleItemClick = name => {
+    setComponentInView(sections[name]);
+  };
+
   return (
     <WithAuth>
-      <SideMenu />
-      <PageSection className="DashboardPage" column>
-        <ButtonsBar />
-        {/* {componentInView} */}
-        {/* oNLY TOUCH CONTAINER CHILDREN */}
-        <Container>
-          <DashboardHome />
-        </Container>
+      <SideMenu
+        click={handleItemClick}
+        options={Object.keys(sections).map(
+          sectionName => sections[sectionName]
+        )}
+      />
+      <PageSection className="DashboardPage">
+        {/* <ButtonsBar /> */}
+        <Container>{componentInView.component}</Container>
       </PageSection>
     </WithAuth>
   );
 };
-
-const applicants = () => <p>Applicants</p>;
-const jobs = () => <p>Jobs</p>;
-// const applicants = () => <p>Home</p>;
 
 export default dashboardPage;
 // export default dashboardPage;
