@@ -1,14 +1,39 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
 import variables from "../common/globalVariables";
 import Button from "../common/UI/Button";
+import { handleUpload } from "../../lib/upload";
 
-const App = () => {
+const SIGN_UPLOAD_MUTATION = gql`
+  mutation SIGN_UPLOAD_MUTATION($fileName: String!, $fileType: String!) {
+    signFileUpload(fileName: $fileName, fileType: $fileType) {
+      signedRequest
+      url
+    }
+  }
+`;
+
+const ResumeUploadForm = () => {
+  const [fileToUpload, setFileToUpload] = useState(null);
+
   const maxSize = 1048576;
 
   const onDrop = useCallback(acceptedFiles => {
-    console.log(acceptedFiles);
+    setFileToUpload(acceptedFiles[0]);
   }, []);
+
+  const uploadFile = async signUploadMutation => {
+    const result = await signUploadMutation();
+    console.log(result);
+    const uploadRes = await handleUpload(
+      result.data.signFileUpload.signedRequest,
+      fileToUpload,
+      fileToUpload.type
+    );
+    console.log(uploadRes);
+  };
 
   const {
     isDragActive,
@@ -20,7 +45,7 @@ const App = () => {
     isDragAccept
   } = useDropzone({
     onDrop,
-    accept: "image/*",
+    accept: ["application/pdf"],
     minSize: 0,
     maxSize
   });
@@ -44,7 +69,29 @@ const App = () => {
           )}
         </div>
       </div>
-      <Button fullWidth>Upload</Button>
+      <Mutation
+        mutation={SIGN_UPLOAD_MUTATION}
+        variables={
+          fileToUpload
+            ? { fileType: fileToUpload.type, fileName: fileToUpload.name }
+            : {}
+        }
+      >
+        {(signUploadMutation, { error, loading, data }) => {
+          if (loading) return <p>loading</p>;
+          if (error) return <p>Something went wrong</p>;
+          if (data) return <p>Uploading</p>;
+          return (
+            <Button
+              disabled={acceptedFiles.length === 0}
+              click={() => uploadFile(signUploadMutation)}
+              fullWidth
+            >
+              Upload
+            </Button>
+          );
+        }}
+      </Mutation>
       <style jsx>{`
         .ResumeUploadForm {
           width: 100%;
@@ -77,4 +124,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default ResumeUploadForm;
