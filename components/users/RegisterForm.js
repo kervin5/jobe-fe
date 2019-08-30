@@ -5,6 +5,7 @@ import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
 import Title from "../common/UI/Title";
 import Router from "next/router";
+import ResumeUploadForm from "../resumes/ResumeUploadForm";
 // import { logInUser } from "../../../data/auth";
 
 const SIGNUP_USER = gql`
@@ -98,16 +99,19 @@ const registerForm = () => {
       <Mutation mutation={SIGNUP_USER} variables={{ ...signUpData }}>
         {(signupUser, { loading, error, called, data }) => {
           return (
-            <form>
-              <fieldset disabled={loading} aria-busy={loading}>
-                <Title center>Register</Title>
-                {fieldsToRender}
-                <br />
-                <Button click={e => submitHandler(signupUser, e)} fullWidth>
-                  Register
-                </Button>
-              </fieldset>
-            </form>
+            <>
+              <form>
+                <fieldset disabled={loading} aria-busy={loading}>
+                  <Title center>Register</Title>
+                  {fieldsToRender}
+                  <br />
+                  <Button click={e => submitHandler(signupUser, e)} fullWidth>
+                    Register
+                  </Button>
+                </fieldset>
+              </form>
+              <ResumeUploadForm />
+            </>
           );
         }}
       </Mutation>
