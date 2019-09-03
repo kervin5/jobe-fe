@@ -46,8 +46,9 @@ const JobsTable = props => {
   return (
     <Query query={USER_JOBS_CONNECTION_QUERY} ssr={false}>
       {userJobsData => {
-        if (userJobsData.error) <p>Something went wrong...</p>;
-        if (userJobsData.loading) <Loader />;
+        if (userJobsData.error) return <p>Something went wrong...</p>;
+        if (userJobsData.loading) return <Loader />;
+
         return (
           <Query
             query={USER_JOBS_QUERY}
@@ -75,7 +76,6 @@ const JobsTable = props => {
               if (error) return <p>Something Failed...</p>;
               if (!userJobsData.data) return <p>Please wait</p>;
               if (!data.me) return <p>Please wait</p>;
-
               const dataForTable = data.me.jobs.map(job => {
                 return {
                   ...job,
