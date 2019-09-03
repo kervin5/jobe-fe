@@ -31,7 +31,8 @@ const ResumeUploadForm = () => {
       result.data.signFileUpload.signedRequest,
       fileToUpload,
       fileToUpload.type,
-      result.data.signFileUpload.acl
+      result.data.signFileUpload.acl,
+      result.data.signFileUpload.url
     );
   };
 
