@@ -18,6 +18,8 @@ const pageSection = props => {
           align-items: center;
           flex-direction: ${props.column ? "column" : "row"};
           background-color: ${variables.mutedColor1};
+          max-width: ${props.maxWidth || "100%"};
+          margin: 0 auto;
           ${fullHeight}
           ${extraStyles}
         }

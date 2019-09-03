@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { Loader } from "semantic-ui-react";
 import PopUp from "./PopUp";
 import RegisterForm from "../../users/RegisterForm";
+import RegisterToApplyButton from "./RegisterToApplyButton";
 import Button from "./Button";
 
 const APPLY_TO_JOB_MUTATION = gql`
@@ -41,6 +42,7 @@ const ApplyToJobButton = props => {
         if (loading) return <Loader active inline="centered" />;
         if (error) return <p>Something went wrong</p>;
         //Check if the user has previously applied
+        if (!data.applicationsConnection) return <RegisterToApplyButton />;
 
         let userApplied = !!(
           data.applicationsConnection &&
