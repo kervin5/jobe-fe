@@ -16,8 +16,20 @@ const SIGN_UPLOAD_MUTATION = gql`
   }
 `;
 
+const CREATE_RESUME_MUTATION = gql`
+  mutation CREATE_RESUME_MUTATION($path: String!, $type: String!) {
+    createResume(path: $path, type: $type) {
+      file {
+        createdAt
+      }
+    }
+  }
+`;
+
 const ResumeUploadForm = () => {
   const [fileToUpload, setFileToUpload] = useState(null);
+  const [uploaded, setUploaded] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const maxSize = 1048576;
 
@@ -25,8 +37,9 @@ const ResumeUploadForm = () => {
     setFileToUpload(acceptedFiles[0]);
   }, []);
 
-  const uploadFile = async signUploadMutation => {
+  const uploadFile = async (signUploadMutation, createResumeMutation) => {
     const result = await signUploadMutation();
+    await setUploading(true);
     const uploadRes = await handleUpload(
       result.data.signFileUpload.signedRequest,
       fileToUpload,
@@ -34,6 +47,12 @@ const ResumeUploadForm = () => {
       result.data.signFileUpload.acl,
       result.data.signFileUpload.url
     );
+    await setUploading(false);
+    setUploaded(true);
+
+    createResumeMutation({
+      variables: { path: uploadRes.path, type: uploadRes.fileType }
+    });
   };
 
   const {
@@ -53,6 +72,14 @@ const ResumeUploadForm = () => {
 
   const isFileTooLarge =
     rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize;
+
+  if (uploading) {
+    return <p>Uploading</p>;
+  }
+
+  if (uploaded) {
+    return <p>Uploaded</p>;
+  }
 
   return (
     <div className="ResumeUploadForm">
@@ -81,15 +108,25 @@ const ResumeUploadForm = () => {
         {(signUploadMutation, { error, loading, data }) => {
           if (loading) return <p>loading</p>;
           if (error) return <p>Something went wrong</p>;
-          if (data) return <p>Uploading</p>;
           return (
-            <Button
-              disabled={acceptedFiles.length === 0}
-              click={() => uploadFile(signUploadMutation)}
-              fullWidth
-            >
-              Upload
-            </Button>
+            <Mutation mutation={CREATE_RESUME_MUTATION}>
+              {(createResumeMutation, { error, loading, data }) => {
+                if (loading) return <p>uploading</p>;
+                if (error) return <p>Something went wrong</p>;
+                if (data) return <p>Uploaded</p>;
+                return (
+                  <Button
+                    disabled={acceptedFiles.length === 0 || loading}
+                    click={() =>
+                      uploadFile(signUploadMutation, createResumeMutation)
+                    }
+                    fullWidth
+                  >
+                    Upload
+                  </Button>
+                );
+              }}
+            </Mutation>
           );
         }}
       </Mutation>
@@ -97,6 +134,7 @@ const ResumeUploadForm = () => {
         .ResumeUploadForm {
           width: 100%;
           max-width: 500px;
+          margin: 0 auto;
         }
 
         .DropZoneContainer {
