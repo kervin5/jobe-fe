@@ -66,7 +66,7 @@ const socialMedia = props => {
             newUrl
           }
         >
-          <button class="ui labeled icon button">
+          <button className="ui labeled icon button">
             <i className="envelope icon"></i>
             Email
           </button>
