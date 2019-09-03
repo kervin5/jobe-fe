@@ -11,6 +11,7 @@ const SIGN_UPLOAD_MUTATION = gql`
     signFileUpload(fileName: $fileName, fileType: $fileType) {
       signedRequest
       url
+      acl
     }
   }
 `;
@@ -26,13 +27,12 @@ const ResumeUploadForm = () => {
 
   const uploadFile = async signUploadMutation => {
     const result = await signUploadMutation();
-    console.log(result);
     const uploadRes = await handleUpload(
       result.data.signFileUpload.signedRequest,
       fileToUpload,
-      fileToUpload.type
+      fileToUpload.type,
+      result.data.signFileUpload.acl
     );
-    console.log(uploadRes);
   };
 
   const {
