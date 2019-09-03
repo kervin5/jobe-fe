@@ -4,9 +4,7 @@ import Title from "./Title";
 
 const socialMedia = props => {
   const url = props.url;
-  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-  const twitterUrl = `https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20${url}`;
-  const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
+  let newUrl = url.replace(" ", "-");
 
   return (
     <div>
@@ -18,7 +16,7 @@ const socialMedia = props => {
             onClick={() =>
               window.open(
                 "https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20" +
-                  url,
+                  newUrl,
 
                 "Popup",
                 "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
@@ -34,7 +32,7 @@ const socialMedia = props => {
           target="_blank"
           onClick={() =>
             window.open(
-              "https://www.facebook.com/sharer/sharer.php?u=" + url,
+              "https://www.facebook.com/sharer/sharer.php?u=" + newUrl,
               "Popup",
               "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
             )
@@ -50,7 +48,7 @@ const socialMedia = props => {
           target="_blank"
           onClick={() =>
             window.open(
-              "https://www.linkedin.com/shareArticle?mini=true&url=" + url,
+              "https://www.linkedin.com/shareArticle?mini=true&url=" + newUrl,
               "Popup",
               "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=400, top=30"
             )

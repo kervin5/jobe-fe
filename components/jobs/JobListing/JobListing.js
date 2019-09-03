@@ -7,6 +7,7 @@ import Title from "../../common/UI/Title";
 import ApplyToJobButton from "../../common/UI/ApplyToJobButton";
 import HtmlRenderer from "../../hoc/HtmlRenderer";
 import SocialMedia from "../../common/UI/SocialMedia";
+import { RFC_2822 } from "moment";
 
 const jobListing = props => {
   return (
@@ -43,9 +44,13 @@ const jobListing = props => {
         <br />
 
         {props.preview ? null : (
+          //PLEASE CHANGE THE LINK BEFORE IT GOES LIVE
           <SocialMedia
             url={
-              "http://localhost:3000/jobs/" + props.title + "-" + props.jobId
+              "https://myexactjobsstaging.herokuapp.com/jobs/" +
+              props.title +
+              "-" +
+              props.jobId
             }
           />
         )}
