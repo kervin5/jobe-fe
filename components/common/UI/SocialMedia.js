@@ -59,6 +59,18 @@ const socialMedia = props => {
             LinkedIn
           </button>
         </a>
+
+        <a
+          href={
+            "mailto:?subject=My Exact Jobs Career Opportunity&body=Look at this amazing Job Opportunity! " +
+            newUrl
+          }
+        >
+          <button class="ui labeled icon button">
+            <i className="envelope icon"></i>
+            Email
+          </button>
+        </a>
       </div>
     </div>
   );
