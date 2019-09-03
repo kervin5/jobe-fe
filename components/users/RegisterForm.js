@@ -15,6 +15,8 @@ const SIGNUP_USER = gql`
 `;
 
 const registerForm = () => {
+  const [validate, setValidate] = useState(false);
+  const [registerd, setRegistered] = useState(false);
   const [formData, setFormData] = useState({
     name: {
       value: "",
@@ -42,8 +44,6 @@ const registerForm = () => {
     }
   });
 
-  const [validate, setValidate] = useState(false);
-
   const changeHandler = fieldData => {
     setFormData({
       ...formData,
@@ -63,7 +63,7 @@ const registerForm = () => {
 
       if (res.data.signup) {
         // logInUser(res.data.signup);
-        Router.push("/dashboard");
+        Router.push("/resumes/upload");
       }
     }
   };
@@ -110,7 +110,7 @@ const registerForm = () => {
                   </Button>
                 </fieldset>
               </form>
-              <ResumeUploadForm />
+              {/* <ResumeUploadForm /> */}
             </>
           );
         }}
