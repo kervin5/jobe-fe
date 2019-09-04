@@ -28,7 +28,7 @@ const socialMedia = props => {
   let newUrl = url.replace(" ", "-");
 
   return (
-    <div>
+    <div className="SocialButtons">
       <Title size="s">Share this Job:</Title>
       <Button.Group>
         {Object.keys(shareServices).map((serviceName, index) => {
