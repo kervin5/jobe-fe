@@ -4,6 +4,7 @@ import PageSection from "../../components/common/Layout/PageSection";
 import RegisterForm from "../../components/users/RegisterForm";
 import RedirectIfAuth from "../../components/hoc/RedirectIfAuth";
 import Title from "../../components/common/UI/Title";
+import Link from "next/link";
 
 const friendsImgUrl = "../../static/images/friends-with-bg.png";
 const pageStyles = ` background-color: ${variables.mutedColor1};
@@ -17,6 +18,12 @@ const registerPage = () => {
       <PageSection styles={pageStyles}>
         <Title center>Register</Title>
         <RegisterForm />
+        <p>
+          Already have an account?
+          <Link href="/user/register">
+            <a> Sign In</a>
+          </Link>
+        </p>
         <br />
         <img src={friendsImgUrl} />
         <style jsx>{`

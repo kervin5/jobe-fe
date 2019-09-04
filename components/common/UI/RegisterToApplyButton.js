@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Button from "./Button";
 import PopUp from "./PopUp";
-import RegisterForm from "../../users/RegisterForm";
+import AuthForm from "../../users/AuthForm";
 import ResumeUploadForm from "../../resumes/ResumeUploadForm";
 import { CHECK_USER_APPLICATION_STATUS_QUERY } from "./ApplyToJobButton";
 
@@ -22,7 +22,7 @@ const RegisterToApplyButton = props => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpTitle, setPopUpTitle] = useState("Register");
   const [caption, setCaption] = useState(
-    "Before applying for this position you need to register with us. It will only take a few minutes"
+    "Before applying for this position you need to create a profile. It will only take a few minutes"
   );
 
   return (
@@ -40,7 +40,7 @@ const RegisterToApplyButton = props => {
             if (error) return <p>Something went wrong...</p>;
             if (loading) return <p>Loading...</p>;
             if (data.me && data.me.resumes.length === 0) {
-              setPopUpTitle("Resume");
+              setPopUpTitle("Upload Resume");
               setCaption(
                 "Just one more step. Please upload your most recent resume"
               );
@@ -57,7 +57,7 @@ const RegisterToApplyButton = props => {
               );
             }
             return (
-              <RegisterForm
+              <AuthForm
                 noredirect
                 refetchQueries={[{ query: USER_IS_REGISTERED_QUERY }]}
               />

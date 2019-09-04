@@ -3,8 +3,7 @@ import Link from "next/link";
 import variables from "../../components/common/globalVariables";
 import PageSection from "../../components/common/Layout/PageSection";
 import LoginForm from "../../components/users/LoginForm";
-// import { redirectIfAuth } from "../../lib/withAuth";
-// import { AUTHORIZE_USER } from "../../lib/withAuth";
+import Title from "../../components/common/UI/Title";
 import RedirectIfAuth from "../../components/hoc/RedirectIfAuth";
 
 const friendsImgUrl = "../../static/images/friends-with-bg.png";
@@ -17,6 +16,7 @@ const loginPage = () => {
   return (
     <RedirectIfAuth>
       <PageSection styles={pageStyles}>
+        <Title center>Login</Title>
         <LoginForm />
 
         <Link href="/user/login">

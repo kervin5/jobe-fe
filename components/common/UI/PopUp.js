@@ -34,6 +34,11 @@ const PopUp = props => {
             align-items: center;
           }
 
+          .PopUp :global(.card) {
+            width: 100% !important;
+            max-width: 500px;
+          }
+
           .PopUp :global(.card .header) {
             margin: 10px;
           }

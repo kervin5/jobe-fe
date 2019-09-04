@@ -3,9 +3,9 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
-import Title from "../common/UI/Title";
+import { AUTHORIZE_USER } from "../hoc/WithAuth";
 import Router from "next/router";
-import { logInUser } from "../../data/auth";
+// import { logInUser } from "../../data/auth";
 
 const LOGIN_USER = gql`
   mutation LOGIN_USER($email: String!, $password: String!) {
@@ -13,7 +13,7 @@ const LOGIN_USER = gql`
   }
 `;
 
-const loginForm = () => {
+const loginForm = props => {
   const [formData, setFormData] = useState({
     email: {
       value: "",
@@ -53,7 +53,7 @@ const loginForm = () => {
     if (email.valid && password.valid) {
       const res = await loginUserMutation();
 
-      if (res.data.login) {
+      if (res.data.login && !props.noredirect) {
         // logInUser(res.data.login);
         Router.push("/dashboard");
       }
@@ -88,10 +88,13 @@ const loginForm = () => {
           email: formData.email.value,
           password: formData.password.value
         }}
+        refetchQueries={[
+          { query: AUTHORIZE_USER },
+          ...(props.refetchQueries || [])
+        ]}
       >
         {(loginUser, { loading, error, called, data }) => (
           <form>
-            <Title center>Login</Title>
             {error && <p>Something went wrong</p>}
             <fieldset disabled={loading} aria-busy={loading}>
               {fieldsToRender}
