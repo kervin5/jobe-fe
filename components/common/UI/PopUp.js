@@ -9,7 +9,7 @@ const PopUp = props => {
         <div className="Content">
           <Card>
             <Card.Header>
-              <Title inline>Register</Title>
+              <Title inline>{props.title || ""}</Title>
               <Button
                 click={() => props.changeHandler(false)}
                 iconOnly

@@ -17,11 +17,15 @@ const APPLY_TO_JOB_MUTATION = gql`
   }
 `;
 
-const CHECK_USER_APPLICATION_STATUS_QUERY = gql`
+export const CHECK_USER_APPLICATION_STATUS_QUERY = gql`
   query CHECK_USER_APPLICATION_STATUS_QUERY($jobId: ID!) {
-    applicationsConnection(where: { job: { id: $jobId } }) {
-      aggregate {
-        count
+    me {
+      id
+      applications(where: { job: { id: $jobId } }) {
+        id
+      }
+      resumes {
+        id
       }
     }
   }
@@ -37,13 +41,12 @@ const ApplyToJobButton = props => {
       {({ error, loading, data }) => {
         if (loading) return <Loader active inline="centered" />;
         if (error) return <p>Something went wrong</p>;
+        console.log(data);
         //Check if the user has previously applied
-        if (!data.applicationsConnection) return <RegisterToApplyButton />;
+        if (!data.me || data.me.resumes.length === 0)
+          return <RegisterToApplyButton jobId={props.jobId} />;
 
-        let userApplied = !!(
-          data.applicationsConnection &&
-          data.applicationsConnection.aggregate.count > 0
-        );
+        let userApplied = data.me.applications.length > 0;
 
         return (
           <React.Fragment>

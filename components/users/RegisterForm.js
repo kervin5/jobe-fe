@@ -13,7 +13,7 @@ const SIGNUP_USER = gql`
   }
 `;
 
-const registerForm = () => {
+const registerForm = props => {
   const [validate, setValidate] = useState(false);
   const [registerd, setRegistered] = useState(false);
   const [formData, setFormData] = useState({
@@ -60,7 +60,7 @@ const registerForm = () => {
     if (email.valid && password.valid && name.valid) {
       const res = await signupUserMutation();
 
-      if (res.data.signup) {
+      if (res.data.signup && !props.noredirect) {
         // logInUser(res.data.signup);
         Router.push("/resumes/upload");
       }
@@ -95,7 +95,11 @@ const registerForm = () => {
 
   return (
     <React.Fragment>
-      <Mutation mutation={SIGNUP_USER} variables={{ ...signUpData }}>
+      <Mutation
+        mutation={SIGNUP_USER}
+        variables={{ ...signUpData }}
+        refetchQueries={props.refetchQueries || []}
+      >
         {(signupUser, { loading, error, called, data }) => {
           return (
             <>
