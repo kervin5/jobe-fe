@@ -30,22 +30,54 @@ const socialMedia = props => {
   return (
     <div className="SocialButtons">
       <Title size="s">Share this Job:</Title>
-      <Button.Group>
+      <div className="DesktopSocial">
+        <Button.Group>
+          {Object.keys(shareServices).map((serviceName, index) => {
+            const serviceData = shareServices[serviceName];
+            return (
+              <Button
+                color={serviceData.color || serviceName}
+                as="a"
+                target="_blank"
+                href={serviceData.url + newUrl}
+                key={serviceName + index}
+              >
+                <Icon name={serviceData.icon || serviceName} />{" "}
+                {serviceData.name}
+              </Button>
+            );
+          })}
+        </Button.Group>
+      </div>
+      <div className="MobileSocial">
         {Object.keys(shareServices).map((serviceName, index) => {
           const serviceData = shareServices[serviceName];
           return (
             <Button
+              circular
               color={serviceData.color || serviceName}
               as="a"
               target="_blank"
               href={serviceData.url + newUrl}
-              key={serviceName + index}
-            >
-              <Icon name={serviceData.icon || serviceName} /> {serviceData.name}
-            </Button>
+              key={serviceName + index + "Mobile"}
+              icon={serviceData.icon || serviceName}
+            />
           );
         })}
-      </Button.Group>
+      </div>
+      <style jsx>{`
+        @media (min-width: 720px) {
+          .MobileSocial {
+            display: none;
+          }
+        }
+
+        @media (max-width: 720px) {
+          .DesktopSocial {
+            display: none;
+          }
+        }
+      `}</style>
     </div>
   );
 };

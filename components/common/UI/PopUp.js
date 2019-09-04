@@ -1,4 +1,4 @@
-import { useState } from "react";
+import Title from "./Title";
 import { Card } from "semantic-ui-react";
 import Button from "./Button";
 
@@ -9,6 +9,7 @@ const PopUp = props => {
         <div className="Content">
           <Card>
             <Card.Header>
+              <Title inline>Register</Title>
               <Button
                 click={() => props.changeHandler(false)}
                 iconOnly
