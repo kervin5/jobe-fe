@@ -5,6 +5,7 @@ import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
 import Router from "next/router";
 import { AUTHORIZE_USER } from "../hoc/WithAuth";
+import { CHECK_USER_APPLICATION_STATUS_QUERY } from "../common/UI/ApplyToJobButton";
 
 // import { logInUser } from "../../../data/auth";
 
@@ -63,6 +64,7 @@ const registerForm = props => {
 
       if (res.data.signup && !props.noredirect) {
         // logInUser(res.data.signup);
+        console.log("Registered");
         Router.push("/resumes/upload");
       }
     }
@@ -101,6 +103,7 @@ const registerForm = props => {
         variables={{ ...signUpData }}
         refetchQueries={[
           { query: AUTHORIZE_USER },
+          { query: CHECK_USER_APPLICATION_STATUS_QUERY },
           ...(props.refetchQueries || [])
         ]}
       >

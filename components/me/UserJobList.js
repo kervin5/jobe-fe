@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Input, Menu, Segment } from "semantic-ui-react";
 import Icon from "../common/UI/Icon";
 import JobList from "../jobs/JobList/JobList";
-import { getAuthToken } from "../../data/auth";
 import ResumeList from "../common/UI/ResumeList";
 
 import { Query } from "react-apollo";
@@ -152,31 +151,30 @@ const userJobList = () => {
         </Menu>
         <Segment attached="bottom">
           {activeItem === "recommended" && (
-            <Query query={USER_RECOMMENDED_JOBS} ssr={true}>
+            <Query query={USER_RECOMMENDED_JOBS}>
               {({ error, loading, data }) => {
                 if (error) return <p>Something went wrong</p>;
                 if (loading) return <p>Loading Awesome Jobs</p>;
-
+                if (!data.me) return <p>Please wait</p>;
                 return <JobList jobs={formatJobs(data)} />;
               }}
             </Query>
           )}
           {activeItem === "favorites" && (
-            <Query query={USER_FAVORITED_JOBS} ssr={true}>
+            <Query query={USER_FAVORITED_JOBS}>
               {({ error, loading, data }) => {
                 if (error) return <p>Something went wrong</p>;
                 if (loading) return <p>Loading Awesome Jobs</p>;
-
+                if (!data.me) return <p>Please wait</p>;
                 return <JobList jobs={formatJobs(data)} />;
               }}
             </Query>
           )}
           {activeItem === "applied" && (
-            <Query query={USER_APPLIED_JOBS} ssr={true}>
+            <Query query={USER_APPLIED_JOBS}>
               {({ error, loading, data }) => {
                 if (error) return <p>Something went wrong</p>;
                 if (loading) return <p>Loading Awesome Jobs</p>;
-
                 return <JobList jobs={formatJobs(data)} />;
               }}
             </Query>
