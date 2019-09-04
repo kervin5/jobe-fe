@@ -3,6 +3,7 @@ import { Input, Menu, Segment } from "semantic-ui-react";
 import Icon from "../common/UI/Icon";
 import JobList from "../jobs/JobList/JobList";
 import { getAuthToken } from "../../data/auth";
+import ResumeList from "../common/UI/ResumeList";
 
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
@@ -70,6 +71,24 @@ const USER_APPLIED_JOBS = gql`
           location {
             name
           }
+        }
+      }
+    }
+  }
+`;
+
+const RESUME_LIST_QUERY = gql`
+  query RESUME_LIST_QUERY {
+    me {
+      id
+      name
+      resumes {
+        id
+        file {
+          id
+          path
+          createdAt
+          updatedAt
         }
       }
     }
@@ -159,6 +178,17 @@ const userJobList = () => {
                 if (loading) return <p>Loading Awesome Jobs</p>;
 
                 return <JobList jobs={formatJobs(data)} />;
+              }}
+            </Query>
+          )}
+          {activeItem === "resumes" && (
+            <Query query={RESUME_LIST_QUERY}>
+              {({ error, loading, data }) => {
+                if (error) return <p>There was an error</p>;
+                if (loading) return <p>Loading your resumes</p>;
+                let list = data.me.resumes;
+                console.log(data);
+                return <ResumeList list={list} />;
               }}
             </Query>
           )}
