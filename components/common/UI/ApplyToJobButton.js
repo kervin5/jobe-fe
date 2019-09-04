@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Loader } from "semantic-ui-react";
-import PopUp from "./PopUp";
-import RegisterForm from "../../users/RegisterForm";
 import RegisterToApplyButton from "./RegisterToApplyButton";
 import Button from "./Button";
 
@@ -30,8 +28,6 @@ const CHECK_USER_APPLICATION_STATUS_QUERY = gql`
 `;
 
 const ApplyToJobButton = props => {
-  const [showPopUp, setShowPopUp] = useState(false);
-
   return (
     <Query
       query={CHECK_USER_APPLICATION_STATUS_QUERY}
@@ -83,10 +79,6 @@ const ApplyToJobButton = props => {
                 );
               }}
             </Mutation>
-
-            <PopUp show={showPopUp} changeHandler={setShowPopUp}>
-              <RegisterForm onSubmit={() => console.log("Applied")} />
-            </PopUp>
           </React.Fragment>
         );
       }}
