@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
 import Router from "next/router";
+import { AUTHORIZE_USER } from "../hoc/WithAuth";
 
 // import { logInUser } from "../../../data/auth";
 
@@ -13,7 +14,7 @@ const SIGNUP_USER = gql`
   }
 `;
 
-const registerForm = () => {
+const registerForm = props => {
   const [validate, setValidate] = useState(false);
   const [registerd, setRegistered] = useState(false);
   const [formData, setFormData] = useState({
@@ -60,7 +61,7 @@ const registerForm = () => {
     if (email.valid && password.valid && name.valid) {
       const res = await signupUserMutation();
 
-      if (res.data.signup) {
+      if (res.data.signup && !props.noredirect) {
         // logInUser(res.data.signup);
         Router.push("/resumes/upload");
       }
@@ -95,7 +96,14 @@ const registerForm = () => {
 
   return (
     <React.Fragment>
-      <Mutation mutation={SIGNUP_USER} variables={{ ...signUpData }}>
+      <Mutation
+        mutation={SIGNUP_USER}
+        variables={{ ...signUpData }}
+        refetchQueries={[
+          { query: AUTHORIZE_USER },
+          ...(props.refetchQueries || [])
+        ]}
+      >
         {(signupUser, { loading, error, called, data }) => {
           return (
             <>
@@ -108,14 +116,13 @@ const registerForm = () => {
                   </Button>
                 </fieldset>
               </form>
-              {/* <ResumeUploadForm /> */}
             </>
           );
         }}
       </Mutation>
       <style jsx>{`
         form {
-          margin-bottom: 30px;
+          margin: 0 auto 30px;
           width: 100%;
           max-width: 500px;
         }

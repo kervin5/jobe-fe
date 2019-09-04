@@ -9,7 +9,7 @@ const PopUp = props => {
         <div className="Content">
           <Card>
             <Card.Header>
-              <Title inline>Register</Title>
+              <Title inline>{props.title || ""}</Title>
               <Button
                 click={() => props.changeHandler(false)}
                 iconOnly
@@ -32,6 +32,11 @@ const PopUp = props => {
             display: flex;
             justify-content: center;
             align-items: center;
+          }
+
+          .PopUp :global(.card) {
+            width: 100% !important;
+            max-width: 500px;
           }
 
           .PopUp :global(.card .header) {

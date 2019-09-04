@@ -27,7 +27,7 @@ const CREATE_RESUME_MUTATION = gql`
   }
 `;
 
-const ResumeUploadForm = () => {
+const ResumeUploadForm = props => {
   const [fileToUpload, setFileToUpload] = useState(null);
   const [uploaded, setUploaded] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -60,7 +60,9 @@ const ResumeUploadForm = () => {
     setUploaded(true);
 
     //Redirects the user to the me page after the upload is complete
-    Router.push("/me");
+    if (!props.noredirect) {
+      Router.push("/me");
+    }
   };
 
   const {
@@ -118,7 +120,10 @@ const ResumeUploadForm = () => {
             if (loading) return <p>loading</p>;
             if (error) return <p>Something went wrong</p>;
             return (
-              <Mutation mutation={CREATE_RESUME_MUTATION}>
+              <Mutation
+                mutation={CREATE_RESUME_MUTATION}
+                refetchQueries={props.refetchQueries}
+              >
                 {(createResumeMutation, { error, loading, data }) => {
                   if (loading) return <p>uploading</p>;
                   if (error) return <p>Something went wrong</p>;
