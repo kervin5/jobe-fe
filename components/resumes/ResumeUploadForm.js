@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import variables from "../common/globalVariables";
 import Button from "../common/UI/Button";
 import { handleUpload } from "../../lib/upload";
+import Router from "next/router";
 
 const SIGN_UPLOAD_MUTATION = gql`
   mutation SIGN_UPLOAD_MUTATION($fileName: String!, $fileType: String!) {
@@ -38,8 +39,11 @@ const ResumeUploadForm = () => {
   }, []);
 
   const uploadFile = async (signUploadMutation, createResumeMutation) => {
+    //Requests signed url from backend to upload to AWS S3
     const result = await signUploadMutation();
     await setUploading(true);
+
+    //Uses the signed URL to put file with axios
     const uploadRes = await handleUpload(
       result.data.signFileUpload.signedRequest,
       fileToUpload,
@@ -48,11 +52,15 @@ const ResumeUploadForm = () => {
       result.data.signFileUpload.url
     );
     await setUploading(false);
-    setUploaded(true);
 
+    //Creates record of uploaded file once the upload is completed
     createResumeMutation({
       variables: { path: uploadRes.path, type: uploadRes.fileType }
     });
+    setUploaded(true);
+
+    //Redirects the user to the me page after the upload is complete
+    Router.push("/me");
   };
 
   const {
@@ -97,43 +105,44 @@ const ResumeUploadForm = () => {
           )}
         </div>
       </div>
-      <Mutation
-        mutation={SIGN_UPLOAD_MUTATION}
-        variables={
-          fileToUpload
-            ? { fileType: fileToUpload.type, fileName: fileToUpload.name }
-            : {}
-        }
-      >
-        {(signUploadMutation, { error, loading, data }) => {
-          if (loading) return <p>loading</p>;
-          if (error) return <p>Something went wrong</p>;
-          return (
-            <Mutation mutation={CREATE_RESUME_MUTATION}>
-              {(createResumeMutation, { error, loading, data }) => {
-                if (loading) return <p>uploading</p>;
-                if (error) return <p>Something went wrong</p>;
-                if (data) return <p>Uploaded</p>;
-                return (
-                  <Button
-                    disabled={acceptedFiles.length === 0 || loading}
-                    click={() =>
-                      uploadFile(signUploadMutation, createResumeMutation)
-                    }
-                    fullWidth
-                  >
-                    Upload
-                  </Button>
-                );
-              }}
-            </Mutation>
-          );
-        }}
-      </Mutation>
+      {acceptedFiles.length > 0 && (
+        <Mutation
+          mutation={SIGN_UPLOAD_MUTATION}
+          variables={
+            fileToUpload
+              ? { fileType: fileToUpload.type, fileName: fileToUpload.name }
+              : {}
+          }
+        >
+          {(signUploadMutation, { error, loading, data }) => {
+            if (loading) return <p>loading</p>;
+            if (error) return <p>Something went wrong</p>;
+            return (
+              <Mutation mutation={CREATE_RESUME_MUTATION}>
+                {(createResumeMutation, { error, loading, data }) => {
+                  if (loading) return <p>uploading</p>;
+                  if (error) return <p>Something went wrong</p>;
+                  if (data) return <p>Uploaded</p>;
+                  return (
+                    <Button
+                      disabled={acceptedFiles.length === 0 || loading}
+                      click={() =>
+                        uploadFile(signUploadMutation, createResumeMutation)
+                      }
+                      fullWidth
+                    >
+                      Upload
+                    </Button>
+                  );
+                }}
+              </Mutation>
+            );
+          }}
+        </Mutation>
+      )}
       <style jsx>{`
         .ResumeUploadForm {
           width: 100%;
-          max-width: 500px;
           margin: 0 auto;
         }
 

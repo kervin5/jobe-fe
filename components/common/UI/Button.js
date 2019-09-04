@@ -53,6 +53,7 @@ const Button = props => {
           display: flex;
           justify-content: space-around;
           align-items: center;
+          float: ${props.float || "inherit"};
           ${customColor}
         }
 

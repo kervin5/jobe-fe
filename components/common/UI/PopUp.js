@@ -9,7 +9,12 @@ const PopUp = props => {
         <div className="Content">
           <Card>
             <Card.Header>
-              <Button click={() => props.changeHandler(false)}>X</Button>
+              <Button
+                click={() => props.changeHandler(false)}
+                iconOnly
+                icon="close"
+                float={"right"}
+              />
             </Card.Header>
             <Card.Content>{props.children}</Card.Content>
           </Card>
@@ -26,6 +31,10 @@ const PopUp = props => {
             display: flex;
             justify-content: center;
             align-items: center;
+          }
+
+          .PopUp :global(.card .header) {
+            margin: 10px;
           }
 
           .Content {
