@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
 import { AUTHORIZE_USER } from "../hoc/WithAuth";
+import { CHECK_USER_APPLICATION_STATUS_QUERY } from "../common/UI/ApplyToJobButton";
 import Router from "next/router";
 // import { logInUser } from "../../data/auth";
 
@@ -55,7 +56,8 @@ const loginForm = props => {
 
       if (res.data.login && !props.noredirect) {
         // logInUser(res.data.login);
-        Router.push("/dashboard");
+
+        Router.push("/me");
       }
     }
   };
@@ -90,6 +92,7 @@ const loginForm = props => {
         }}
         refetchQueries={[
           { query: AUTHORIZE_USER },
+          { query: CHECK_USER_APPLICATION_STATUS_QUERY },
           ...(props.refetchQueries || [])
         ]}
       >
