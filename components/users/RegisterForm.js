@@ -3,9 +3,8 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
-import Title from "../common/UI/Title";
 import Router from "next/router";
-import ResumeUploadForm from "../resumes/ResumeUploadForm";
+
 // import { logInUser } from "../../../data/auth";
 
 const SIGNUP_USER = gql`
@@ -102,7 +101,6 @@ const registerForm = () => {
             <>
               <form>
                 <fieldset disabled={loading} aria-busy={loading}>
-                  <Title center>Register</Title>
                   {fieldsToRender}
                   <br />
                   <Button click={e => submitHandler(signupUser, e)} fullWidth>

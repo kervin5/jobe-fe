@@ -15,6 +15,7 @@ const Title = props => {
           color: ${variables.darkColor};
           position: relative;
           margin-bottom: 10px;
+          display: ${props.inline ? "inline-block" : "block"};
           ${extraStyles};
         }
 
