@@ -29,7 +29,7 @@ const registerForm = () => {
     email: {
       value: "",
       valid: false,
-      type: "text",
+      type: "email",
       label: "Email",
       placeholder: "jdoe@myemail.com",
       icon: "mail"

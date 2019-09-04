@@ -38,6 +38,7 @@ const layout = props => {
           min-height: 100%;
           width: 100%;
           overflow-x: hidden;
+          background-color: ${variables.mutedColor1};
         }
 
         p {

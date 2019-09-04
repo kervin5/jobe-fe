@@ -21,8 +21,8 @@ const sideMenu = props => {
       </Sidebar>
       <style jsx>{`
         .Sidebar {
-          position: relative;
-          top: 10;
+          position: sticky;
+          z-index: 999;
         }
 
         .Sidebar :global(.sidebar.menu) {
@@ -30,7 +30,7 @@ const sideMenu = props => {
           top: 60px;
           height: auto !important;
           border-top-right-radius: 10px !important;
-          border-top-bottom-radius: 10px !important;
+          border-bottom-right-radius: 10px !important;
         }
       `}</style>
     </div>

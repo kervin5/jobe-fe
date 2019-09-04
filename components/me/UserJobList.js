@@ -113,6 +113,14 @@ const userJobList = () => {
             <Icon icon="check" />
             &nbsp; Applied
           </Menu.Item>
+          <Menu.Item
+            name="resumes"
+            active={activeItem === "resumes"}
+            onClick={handleItemClick}
+          >
+            <Icon icon="file alternate outline" />
+            &nbsp; Resumes
+          </Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item>
               <Input

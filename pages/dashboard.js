@@ -41,13 +41,13 @@ const dashboardPage = props => {
 
   return (
     <WithAuth>
-      <SideMenu
-        click={handleItemClick}
-        options={Object.keys(sections).map(
-          sectionName => sections[sectionName]
-        )}
-      />
-      <PageSection className="DashboardPage">
+      <PageSection column className="DashboardPage">
+        <SideMenu
+          click={handleItemClick}
+          options={Object.keys(sections).map(
+            sectionName => sections[sectionName]
+          )}
+        />
         {/* <ButtonsBar /> */}
         <Container>{componentInView.component}</Container>
       </PageSection>
