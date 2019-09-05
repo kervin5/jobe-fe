@@ -41,7 +41,7 @@ const ApplyToJobButton = props => {
       {({ error, loading, data }) => {
         if (loading) return <Loader active inline="centered" />;
         if (error) return <p>Something went wrong</p>;
-        console.log(data);
+
         //Check if the user has previously applied
         if (!data.me || data.me.resumes.length === 0)
           return <RegisterToApplyButton jobId={props.jobId} />;

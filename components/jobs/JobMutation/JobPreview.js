@@ -3,6 +3,7 @@ import { Query } from "react-apollo";
 import JobListing from "../JobListing/JobListing";
 import { SINGLE_JOB_QUERY } from "../JobListing/SingleJobListing";
 import EditOrPublishButtons from "./EditOrPublishButtons";
+import Title from "../../common/UI/Title";
 
 export class JobPreview extends Component {
   render() {
@@ -15,6 +16,7 @@ export class JobPreview extends Component {
           const singleJob = data.job;
           return (
             <React.Fragment>
+              <Title>Job Preview</Title>
               <EditOrPublishButtons jobId={singleJob.id} />
               <JobListing
                 title={singleJob.title}

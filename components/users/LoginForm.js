@@ -92,7 +92,6 @@ const loginForm = props => {
         }}
         refetchQueries={[
           { query: AUTHORIZE_USER },
-          { query: CHECK_USER_APPLICATION_STATUS_QUERY },
           ...(props.refetchQueries || [])
         ]}
       >

@@ -47,6 +47,7 @@ const layout = props => {
 
         main {
           height: 100%;
+          margin-top: 55px;
         }
 
         button:focus {
