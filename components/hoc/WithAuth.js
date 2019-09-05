@@ -2,6 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
+import Router from "next/router";
 
 export const AUTHORIZE_USER = gql`
   query AUTHORIZE_USER {
@@ -15,6 +16,7 @@ const WithAuth = props => {
       {({ error, loading, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Something went wrong</p>;
+        if (!data.authorize) Router.push("/user/login");
         if (!data.authorize)
           return (
             <p>

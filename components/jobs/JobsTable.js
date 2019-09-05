@@ -14,6 +14,7 @@ const USER_JOBS_QUERY = gql`
       jobs(first: $perPage, skip: $skip) {
         id
         title
+        status
         location {
           name
         }
@@ -113,6 +114,7 @@ const injectActionsColumn = data => {
           <Button
             icon="eye"
             color="green"
+            disabled={record.status !== "POSTED"}
             onClick={e => Router.push(`/jobs/${record.id}`)}
           />
           <Button

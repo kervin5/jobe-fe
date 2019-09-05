@@ -6,6 +6,7 @@ import variables from "../common/globalVariables";
 import Button from "../common/UI/Button";
 import { handleUpload } from "../../lib/upload";
 import Router from "next/router";
+import InputField from "../common/UI/Input/InputField";
 
 const SIGN_UPLOAD_MUTATION = gql`
   mutation SIGN_UPLOAD_MUTATION($fileName: String!, $fileType: String!) {
@@ -31,6 +32,7 @@ const ResumeUploadForm = props => {
   const [fileToUpload, setFileToUpload] = useState(null);
   const [uploaded, setUploaded] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [resumeTitle, setResumeTitle] = useState({ valid: false });
 
   const maxSize = 1048576;
 
@@ -43,7 +45,7 @@ const ResumeUploadForm = props => {
     const result = await signUploadMutation();
     await setUploading(true);
 
-    //Uses the signed URL to put file with axios
+    //Uses the signed URL to put file with axios to AWS S3
     const uploadRes = await handleUpload(
       result.data.signFileUpload.signedRequest,
       fileToUpload,
@@ -55,7 +57,11 @@ const ResumeUploadForm = props => {
 
     //Creates record of uploaded file once the upload is completed
     createResumeMutation({
-      variables: { path: uploadRes.path, type: uploadRes.fileType }
+      variables: {
+        path: uploadRes.path,
+        type: uploadRes.fileType,
+        title: resumeTitle
+      }
     });
     setUploaded(true);
 
@@ -92,88 +98,104 @@ const ResumeUploadForm = props => {
   }
 
   return (
-    <div className="ResumeUploadForm">
-      <div className="DropZoneContainer">
-        <div className={"DropArea"} {...getRootProps()}>
-          <input className={"DropArea"} {...getInputProps()} />
-          {!isDragActive &&
-            acceptedFiles.length === 0 &&
-            "Click here or drop a file to upload!"}
-          {isDragActive && !isDragReject && "Drop it like it's hot!"}
-          {isDragReject && "File type not accepted, sorry!"}
-          {acceptedFiles.length > 0 && "It worked"}
-          {isFileTooLarge && (
-            <div className="text-danger mt-2">File is too large.</div>
-          )}
+    <>
+      {/* Input field to enter a title for the resume */}
+      <InputField
+        type="text"
+        change={setResumeTitle}
+        label="Resume Title"
+        placeholder="Please enter a title for this resume"
+        name="resumeTitle"
+        required
+        rounded
+      />
+      <div className="ResumeUploadForm">
+        <div className="DropZoneContainer">
+          <div className={"DropArea"} {...getRootProps()}>
+            <input className={"DropArea"} {...getInputProps()} />
+            {!isDragActive &&
+              acceptedFiles.length === 0 &&
+              "Click here or drop a file to upload!"}
+            {isDragActive && !isDragReject && "Drop it like it's hot!"}
+            {isDragReject && "File type not accepted, sorry!"}
+            {acceptedFiles.length > 0 && "It worked"}
+            {isFileTooLarge && (
+              <div className="text-danger mt-2">File is too large.</div>
+            )}
+          </div>
         </div>
-      </div>
-      {acceptedFiles.length > 0 && (
-        <Mutation
-          mutation={SIGN_UPLOAD_MUTATION}
-          variables={
-            fileToUpload
-              ? { fileType: fileToUpload.type, fileName: fileToUpload.name }
-              : {}
+        {acceptedFiles.length > 0 && (
+          <Mutation
+            mutation={SIGN_UPLOAD_MUTATION}
+            variables={
+              fileToUpload
+                ? { fileType: fileToUpload.type, fileName: fileToUpload.name }
+                : {}
+            }
+          >
+            {(signUploadMutation, { error, loading, data }) => {
+              if (loading) return <p>loading</p>;
+              if (error) return <p>Something went wrong</p>;
+              return (
+                <Mutation
+                  mutation={CREATE_RESUME_MUTATION}
+                  refetchQueries={props.refetchQueries}
+                >
+                  {(createResumeMutation, { error, loading, data }) => {
+                    if (loading) return <p>uploading</p>;
+                    if (error) return <p>Something went wrong</p>;
+                    if (data) return <p>Uploaded</p>;
+                    return (
+                      <Button
+                        disabled={
+                          acceptedFiles.length === 0 ||
+                          loading ||
+                          !resumeTitle.valid
+                        }
+                        click={() =>
+                          uploadFile(signUploadMutation, createResumeMutation)
+                        }
+                        fullWidth
+                      >
+                        Upload
+                      </Button>
+                    );
+                  }}
+                </Mutation>
+              );
+            }}
+          </Mutation>
+        )}
+        <style jsx>{`
+          .ResumeUploadForm {
+            width: 100%;
+            margin: 0 auto;
           }
-        >
-          {(signUploadMutation, { error, loading, data }) => {
-            if (loading) return <p>loading</p>;
-            if (error) return <p>Something went wrong</p>;
-            return (
-              <Mutation
-                mutation={CREATE_RESUME_MUTATION}
-                refetchQueries={props.refetchQueries}
-              >
-                {(createResumeMutation, { error, loading, data }) => {
-                  if (loading) return <p>uploading</p>;
-                  if (error) return <p>Something went wrong</p>;
-                  if (data) return <p>Uploaded</p>;
-                  return (
-                    <Button
-                      disabled={acceptedFiles.length === 0 || loading}
-                      click={() =>
-                        uploadFile(signUploadMutation, createResumeMutation)
-                      }
-                      fullWidth
-                    >
-                      Upload
-                    </Button>
-                  );
-                }}
-              </Mutation>
-            );
-          }}
-        </Mutation>
-      )}
-      <style jsx>{`
-        .ResumeUploadForm {
-          width: 100%;
-          margin: 0 auto;
-        }
 
-        .DropZoneContainer {
-          height: 200px;
-          width: 100%;
-          border: 2px dashed ${variables.accentColor1};
-          background-color: ${variables.clearColor};
-          padding: 20px;
-          border-radius: ${variables.roundedRadius};
-          transform: scale(${isDragActive ? 1.2 : 1});
-          transition: 200ms;
-          animation-timing-function: ease-in;
-          margin-bottom: 25px;
-        }
+          .DropZoneContainer {
+            height: 200px;
+            width: 100%;
+            border: 2px dashed ${variables.accentColor1};
+            background-color: ${variables.clearColor};
+            padding: 20px;
+            border-radius: ${variables.roundedRadius};
+            transform: scale(${isDragActive ? 1.2 : 1});
+            transition: 200ms;
+            animation-timing-function: ease-in;
+            margin-bottom: 25px;
+          }
 
-        .DropZoneContainer .DropArea {
-          height: 100%;
-          width: 100%;
-        }
+          .DropZoneContainer .DropArea {
+            height: 100%;
+            width: 100%;
+          }
 
-        input {
-          outline: none;
-        }
-      `}</style>
-    </div>
+          input {
+            outline: none;
+          }
+        `}</style>
+      </div>
+    </>
   );
 };
 

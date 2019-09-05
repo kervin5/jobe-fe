@@ -159,6 +159,11 @@ const inputField = props => {
           flex-grow: 1;
         }
 
+        .InputField label {
+          font-weight: bold;
+          font-size: 1.1rem;
+        }
+
         .InputContainer {
           position: relative;
           padding-left: 15px;

@@ -17,6 +17,7 @@ const navigationItem = props => {
             padding-left: 20px;
             padding-right: 20px;
             padding-top: 15px;
+            padding-bottom: 15px;
             transition-timing-function: ease-in-out;
             border-bottom: 5px solid transparent;
             font-weight: bold;

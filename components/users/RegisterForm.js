@@ -64,7 +64,7 @@ const registerForm = props => {
 
       if (res.data.signup && !props.noredirect) {
         // logInUser(res.data.signup);
-        console.log("Registered");
+
         Router.push("/resumes/upload");
       }
     }
@@ -103,7 +103,6 @@ const registerForm = props => {
         variables={{ ...signUpData }}
         refetchQueries={[
           { query: AUTHORIZE_USER },
-          { query: CHECK_USER_APPLICATION_STATUS_QUERY },
           ...(props.refetchQueries || [])
         ]}
       >

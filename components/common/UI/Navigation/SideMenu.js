@@ -21,16 +21,12 @@ const sideMenu = props => {
       </Sidebar>
       <style jsx>{`
         .Sidebar {
-          position: sticky;
           z-index: 999;
         }
 
         .Sidebar :global(.sidebar.menu) {
           background: ${variables.mutedColor1};
-          top: 60px;
-          height: auto !important;
-          border-top-right-radius: 10px !important;
-          border-bottom-right-radius: 10px !important;
+          top: 54px;
         }
       `}</style>
     </div>
