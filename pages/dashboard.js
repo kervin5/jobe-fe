@@ -6,6 +6,7 @@ import ButtonsBar from "../components/common/UI/Navigation/ButtonsBar";
 
 import Container from "../components/common/Layout/Container";
 import DashboardHome from "../components/dashboard/DashboardHome/DashboardHome";
+import ApplicantPage from "../components/dashboard/DashboardHome/ApplicantPage";
 
 import SideMenu from "../components/common/UI/Navigation/SideMenu";
 
@@ -18,7 +19,7 @@ const dashboardPage = props => {
     },
     Applications: {
       label: "Applications",
-      component: <p>Applications</p>,
+      component: <ApplicantPage />,
       icon: "copy outline"
     },
     Jobs: {

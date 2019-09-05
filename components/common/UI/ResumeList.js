@@ -13,7 +13,7 @@ const resumeList = props => {
           <List.Item key={list.id}>
             <List.Content>
               <List.Header as="a">
-                <p>{list.file.id}</p>
+                <p>{list.title}</p>
               </List.Header>
               <List.Description as="a">
                 <p>

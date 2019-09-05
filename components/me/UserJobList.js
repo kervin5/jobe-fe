@@ -83,6 +83,7 @@ const RESUME_LIST_QUERY = gql`
       name
       resumes {
         id
+        title
         file {
           id
           path
