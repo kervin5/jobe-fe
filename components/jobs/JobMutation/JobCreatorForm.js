@@ -61,6 +61,7 @@ const JobCreatorForm = props => {
           if (loading) return <p>Processing</p>;
           return (
             <JobMutationBaseForm
+              create
               mutation={{
                 execute: createJobMutation,
                 setVariables: setFormData
