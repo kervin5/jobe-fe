@@ -22,7 +22,7 @@ const CREATE_RESUME_MUTATION = gql`
   mutation CREATE_RESUME_MUTATION(
     $path: String!
     $type: String!
-    $title: String
+    $title: String!
   ) {
     createResume(path: $path, type: $type, title: $title) {
       file {
@@ -64,7 +64,7 @@ const ResumeUploadForm = props => {
       variables: {
         path: uploadRes.path,
         type: uploadRes.fileType,
-        title: resumeTitle
+        title: resumeTitle.value
       }
     });
     setUploaded(true);

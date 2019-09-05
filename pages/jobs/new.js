@@ -14,16 +14,14 @@ background-color: #F9F7F7;
 
 const newJobPage = props => {
   return (
-    <PageSection styles={pageSytles}>
-      <Container>
-        <JobCreatorForm />
-      </Container>
-    </PageSection>
+    <WithAuth>
+      <PageSection styles={pageSytles}>
+        <Container>
+          <JobCreatorForm />
+        </Container>
+      </PageSection>
+    </WithAuth>
   );
-};
-
-newJobPage.getInitialProps = async function(props) {
-  await withAuth(props);
 };
 
 export default newJobPage;
