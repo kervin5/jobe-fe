@@ -19,8 +19,12 @@ const SIGN_UPLOAD_MUTATION = gql`
 `;
 
 const CREATE_RESUME_MUTATION = gql`
-  mutation CREATE_RESUME_MUTATION($path: String!, $type: String!) {
-    createResume(path: $path, type: $type) {
+  mutation CREATE_RESUME_MUTATION(
+    $path: String!
+    $type: String!
+    $title: String
+  ) {
+    createResume(path: $path, type: $type, title: $title) {
       file {
         createdAt
       }
