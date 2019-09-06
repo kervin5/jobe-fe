@@ -4,20 +4,26 @@ import gql from "graphql-tag";
 import Link from "next/link";
 import Router from "next/router";
 
-export const AUTHORIZE_USER = gql`
-  query AUTHORIZE_USER {
-    authorize
+export const ME_USER_QUERY = gql`
+  query ME_USER_QUERY {
+    me {
+      id
+      role {
+        id
+        name
+      }
+    }
   }
 `;
 
 const WithAuth = props => {
   return (
-    <Query query={AUTHORIZE_USER} fetchPolicy={"network-only"}>
+    <Query query={ME_USER_QUERY} fetchPolicy={"network-only"}>
       {({ error, loading, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Something went wrong</p>;
-        if (!data.authorize) Router.push("/user/login");
-        if (!data.authorize)
+        if (!data.me) Router.push("/user/login");
+        if (!data.me)
           return (
             <p>
               You need to login to access this page{" "}

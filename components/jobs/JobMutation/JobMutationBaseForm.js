@@ -157,7 +157,9 @@ class JobMutationBaseForm extends Component {
   };
 
   formIsValid = () => {
-    const invalid = Object.keys(this.state.touchedFields).filter(key => {
+    const invalid = Object.keys(
+      this.props.create ? this.state.formData : this.state.touchedFields
+    ).filter(key => {
       return (
         (this.state.formData[key].touched && !this.state.formData[key].valid) ||
         (!this.state.formData.touched &&

@@ -6,23 +6,25 @@ import JobCreatorForm from "../../jobs/JobMutation/JobCreatorForm";
 
 class DashboardHome extends React.Component {
   state = {
-    componentToRender: <JobsInformationSection />
-  };
-
-  AddNewClickHandler = () => {
-    this.setState({ componentToRender: <JobCreatorForm smallHeader /> });
+    addJob: false
   };
 
   render() {
     return (
       <React.Fragment>
         <div className="Header">
-          <Title>Jobs</Title>
-          <Button icon="add" click={this.AddNewClickHandler}>
-            Add New
-          </Button>
+          <Title>Home</Title>
+          {this.state.addJob ? (
+            <Button click={() => this.setState({ addJob: false })} color="3">
+              Cancel
+            </Button>
+          ) : (
+            <Button icon="add" click={() => this.setState({ addJob: true })}>
+              Add New
+            </Button>
+          )}
         </div>
-        {this.state.componentToRender}
+        {this.state.addJob ? <JobCreatorForm /> : <JobsInformationSection />}
 
         <style jsx>{`
           .Header {
