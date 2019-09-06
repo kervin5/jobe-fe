@@ -4,7 +4,6 @@ import moment from "moment";
 import Title from "../UI/Title";
 
 const resumeList = props => {
-  console.log(props.list);
   return (
     <List divided relaxed>
       <List.Icon name="" size="large" verticalAlign="middle" />
