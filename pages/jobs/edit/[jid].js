@@ -5,6 +5,7 @@ import Container from "../../../components/common/Layout/Container";
 import JobEditorForm from "../../../components/jobs/JobMutation/JobEditorForm";
 import WithAuth from "../../../components/hoc/WithAuth";
 import PageSection from "../../../components/common/Layout/PageSection";
+import SideMenu from "../../../components/common/UI/Navigation/SideMenu";
 
 const pageSytles = `
 padding-left: 30px;
@@ -36,6 +37,7 @@ const EditJobPage = props => {
   return (
     <WithAuth>
       <PageSection styles={pageSytles}>
+        <SideMenu />
         <Container>
           <Query
             query={SINGLE_JOB_DETAILS_QUERY}

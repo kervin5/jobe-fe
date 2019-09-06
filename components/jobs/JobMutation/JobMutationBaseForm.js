@@ -322,7 +322,7 @@ class JobMutationBaseForm extends Component {
             />
 
             <Button click={this.submitFormHandler} fullWidth>
-              Post
+              Save Job
             </Button>
           </fieldset>
         </form>

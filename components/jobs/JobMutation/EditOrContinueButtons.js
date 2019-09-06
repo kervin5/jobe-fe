@@ -41,7 +41,7 @@ function EditOrPublishButtons({ jobId }) {
               labelPosition="right"
               onClick={postJobMutation}
             >
-              Publish
+              Continue
               <Icon name="right arrow" />
             </Button>
           );
