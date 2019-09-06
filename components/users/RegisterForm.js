@@ -10,7 +10,13 @@ import { ME_USER_QUERY } from "../hoc/WithAuth";
 
 const SIGNUP_USER = gql`
   mutation SIGNUP_USER($name: String!, $password: String!, $email: String!) {
-    signup(email: $email, password: $password, name: $name)
+    signup(email: $email, password: $password, name: $name) {
+      id
+      role {
+        id
+        name
+      }
+    }
   }
 `;
 
@@ -63,8 +69,12 @@ const registerForm = props => {
 
       if (res.data.signup && !props.noredirect) {
         // logInUser(res.data.signup);
-
-        Router.push("/resumes/upload");
+        Router.push(
+          res.data.signup.role.name !== "CANDIDATE"
+            ? "/dashboard"
+            : "/resumes/upload"
+        );
+        // Router.push("/resumes/upload");
       }
     }
   };
