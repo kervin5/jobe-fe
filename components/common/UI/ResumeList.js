@@ -1,6 +1,7 @@
 import React from "react";
 import { List, Button, Icon } from "semantic-ui-react";
 import moment from "moment";
+import Title from "../UI/Title";
 
 const resumeList = props => {
   return (
@@ -11,7 +12,7 @@ const resumeList = props => {
           <List.Item key={list.id}>
             <List.Content>
               <List.Header as="a">
-                <p>{list.file.id}</p>
+                <p>{list.title}</p>
               </List.Header>
               <List.Description as="a">
                 <p>
