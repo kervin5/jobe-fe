@@ -14,9 +14,13 @@ const navigationItems = () => {
         <NavigationItem href={"/user/login"}>Log In</NavigationItem>
         <NavigationItem href={"/user/register"}>Register</NavigationItem>
       </RenderIfLoggedOut>
-      <RenderIfLoggedIn>
+      <RenderIfLoggedIn access={["RECRUITER"]}>
         <NavigationItem href={"/dashboard"}>Dashboard</NavigationItem>
+      </RenderIfLoggedIn>
+      <RenderIfLoggedIn access={["CANDIDATE"]}>
         <NavigationItem href={"/me"}>Me</NavigationItem>
+      </RenderIfLoggedIn>
+      <RenderIfLoggedIn>
         <LogoutButton />
       </RenderIfLoggedIn>
       <style jsx>{`
