@@ -9,8 +9,9 @@ const RenderIfLoggedIn = ({ children, access }) => {
       {({ error, loading, data }) => {
         if (error) return <p>Something went wrong</p>;
         if (loading) return <Loader active inline="centered" />;
+        if (!data.me) return null;
         if (access && !access.includes(data.me.role.name)) return null;
-        return data.me ? <React.Fragment>{children}</React.Fragment> : null;
+        return <React.Fragment>{children}</React.Fragment>;
       }}
     </Query>
   );
