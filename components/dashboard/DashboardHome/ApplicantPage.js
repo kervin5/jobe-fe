@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import { perPage } from "../../../config";
 
 import Table from "../../common/UI/Table";
 import Loader from "../../common/UI/Animated/Loader";
+import Button from "../../common/UI/Button";
 
-const APPLICATION_COUNT_QUERY = gql`
-  query APPLICATION_COUNT_QUERY($perPage: Int!, $skip: Int!) {
+const APPLICATIONS_QUERY = gql`
+  query APPLICATIONS_QUERY($perPage: Int!, $skip: Int!) {
     me {
       id
       jobs {
@@ -21,17 +23,17 @@ const APPLICATION_COUNT_QUERY = gql`
             location {
               name
             }
-            resumes {
-              title
+          }
+          resume {
+            title
+            id
+            file {
+              path
+              createdAt
               id
-              file {
-                path
-                createdAt
-                id
-              }
-              user {
-                id
-              }
+            }
+            user {
+              id
             }
           }
         }
@@ -62,23 +64,44 @@ const ApplicantPage = () => {
       {userApplicationData => {
         if (userApplicationData.error) return <p>Something went wrong ...</p>;
         if (userApplicationData.loading) return <Loader />;
-        console.log(userApplicationData.error);
+
         return (
           <Query
-            query={APPLICATION_COUNT_QUERY}
+            query={APPLICATIONS_QUERY}
             variables={{ perPage, skip: (currentPage - 1) * perPage }}
           >
             {({ error, loading, data }) => {
-              console.log(error);
               if (error) return <p>Something went wrong...</p>;
               if (loading) return <Loader />;
-              let applicantData = data.me.jobs[0];
-              console.log(data);
-              console.log(applicantData);
-              console.log(count);
+              let applications = [];
+
+              data.me.jobs.forEach(job => {
+                job.applications.forEach(application => {
+                  console.log(application);
+                  applications.push({
+                    name: application.user.name,
+                    email: application.user.email,
+                    resume: (
+                      <Button
+                        click={e => {
+                          e.preventDefault();
+                          window.open(application.resume.file.path);
+                        }}
+                      >
+                        Download
+                      </Button>
+                    )
+                  });
+                });
+              });
+
+              // console.log(userApplicationData.data.applicationsConnection.aggregate.count);
+              const count =
+                userApplicationData.data.applicationsConnection.aggregate.count;
+              console.log(currentPage, count, perPage);
               return (
                 <Table
-                  data={applicantData}
+                  data={applications}
                   page={currentPage}
                   loading={loading}
                   count={count}
