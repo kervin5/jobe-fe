@@ -10,7 +10,8 @@ const RedirectIfAuth = props => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Something went wrong</p>;
         if (!data.me) return <React.Fragment>{props.children}</React.Fragment>;
-        if (data.authorize) Router.push("/me");
+        if (data.me)
+          Router.push(data.me.role.name !== "CANDIDATE" ? "/dashboard" : "/me");
         return <p>You are being redirected</p>;
       }}
     </Query>
