@@ -40,11 +40,12 @@ const APPLICATION_COUNT_QUERY = gql`
   }
 `;
 
-const USER_JOBS_CONNECTION_QUERY = gql`
-query USER_JOBS_CONNECTION_QUERY
-  jobsConnectionPerUser {
-    aggregate {
-      count
+const USER_APPLICATION_CONNECTION_QUERY = gql`
+  query USER_APPLICATION_CONNECTION_QUERY {
+    applicationsConnection {
+      aggregate {
+        count
+      }
     }
   }
 `;
@@ -57,10 +58,11 @@ const ApplicantPage = () => {
   };
 
   return (
-    <Query query={USER_JOBS_CONNECTION_QUERY} ssr={false}>
+    <Query query={USER_APPLICATION_CONNECTION_QUERY} ssr={false}>
       {userApplicationData => {
         if (userApplicationData.error) return <p>Something went wrong ...</p>;
         if (userApplicationData.loading) return <Loader />;
+        console.log(userApplicationData.error);
         return (
           <Query
             query={APPLICATION_COUNT_QUERY}
@@ -71,8 +73,19 @@ const ApplicantPage = () => {
               if (error) return <p>Something went wrong...</p>;
               if (loading) return <Loader />;
               let applicantData = data.me.jobs[0];
+              console.log(data);
               console.log(applicantData);
-              return <Table data={applicantData} page />;
+              console.log(count);
+              return (
+                <Table
+                  data={applicantData}
+                  page={currentPage}
+                  loading={loading}
+                  count={count}
+                  perPage={perPage}
+                  turnPageHandler={turnPageHandler}
+                />
+              );
             }}
           </Query>
         );
