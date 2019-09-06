@@ -9,7 +9,12 @@ import Router from "next/router";
 
 const LOGIN_USER = gql`
   mutation LOGIN_USER($email: String!, $password: String!) {
-    login(email: $email, password: $password)
+    login(email: $email, password: $password) {
+      role {
+        id
+        name
+      }
+    }
   }
 `;
 
@@ -56,7 +61,9 @@ const loginForm = props => {
       if (res.data.login && !props.noredirect) {
         // logInUser(res.data.login);
 
-        Router.push("/me");
+        Router.push(
+          res.data.login.role.name !== "CANDIDATE" ? "/dashboard" : "/me"
+        );
       }
     }
   };
