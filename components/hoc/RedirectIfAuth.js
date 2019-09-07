@@ -5,7 +5,8 @@ import Router from "next/router";
 
 const RedirectIfAuth = props => {
   return (
-    <Query query={ME_USER_QUERY} fetchPolicy={"network-only"}>
+    // <Query query={ME_USER_QUERY} fetchPolicy={"network-only"}>
+    <Query query={ME_USER_QUERY}>
       {({ error, loading, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Something went wrong</p>;

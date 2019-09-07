@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { perPage } from "../../../config";
+import { perPage } from "../../config";
 
-import Table from "../../common/UI/Table";
-import Loader from "../../common/UI/Animated/Loader";
-import Button from "../../common/UI/Button";
+import Table from "../common/UI/Table";
+import Loader from "../common/UI/Animated/Loader";
+import Button from "../common/UI/Button";
 
 const APPLICATIONS_QUERY = gql`
   query APPLICATIONS_QUERY($perPage: Int!, $skip: Int!) {
@@ -77,7 +77,6 @@ const ApplicantPage = () => {
 
               data.me.jobs.forEach(job => {
                 job.applications.forEach(application => {
-                  console.log(application);
                   applications.push({
                     name: application.user.name,
                     email: application.user.email,
@@ -94,11 +93,9 @@ const ApplicantPage = () => {
                   });
                 });
               });
-
-              // console.log(userApplicationData.data.applicationsConnection.aggregate.count);
               const count =
                 userApplicationData.data.applicationsConnection.aggregate.count;
-              console.log(currentPage, count, perPage);
+
               return (
                 <Table
                   data={applications}

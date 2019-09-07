@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import { Query } from "react-apollo";
 import { Button, Placeholder, Loader } from "semantic-ui-react";
+
 import gql from "graphql-tag";
 import { perPage } from "../../config";
 // import Loader from "../common/UI/Animated/Loader";
@@ -111,17 +113,25 @@ const injectActionsColumn = data => {
       applications: record.applications.length,
       actions: (
         <Button.Group>
-          <Button
-            icon="eye"
-            color="green"
-            disabled={record.status !== "POSTED"}
-            onClick={e => Router.push(`/jobs/${record.id}`)}
-          />
-          <Button
-            icon="edit"
-            color="yellow"
-            onClick={e => Router.push(`/jobs/edit/${record.id}`)}
-          />
+          <Link {...getPreviewLink(record)}>
+            <Button
+              as="a"
+              icon="eye"
+              color={record.status === "DRAFT" ? "grey" : "green"}
+              href={getPreviewLink(record).as}
+            />
+          </Link>
+          <Link
+            href="/dashboard/jobs/edit/[jid]"
+            as={`/dashboard/jobs/edit/${record.id}`}
+          >
+            <Button
+              as="a"
+              icon="edit"
+              color="yellow"
+              href={`/dashboard/jobs/edit/${record.id}`}
+            />
+          </Link>
           <Button
             icon="trash"
             color="red"
@@ -131,6 +141,17 @@ const injectActionsColumn = data => {
       )
     };
   });
+};
+
+const getPreviewLink = job => {
+  if (job.status === "DRAFT") {
+    return {
+      href: "/dashboard/jobs/preview/[jid]",
+      as: `/dashboard/jobs/preview/${job.id}`
+    };
+  } else {
+    return { href: "/jobs/[jid]", as: `/jobs/${job.id}` };
+  }
 };
 
 export default JobsTable;

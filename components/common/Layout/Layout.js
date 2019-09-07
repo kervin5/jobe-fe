@@ -66,7 +66,7 @@ const layout = props => {
         #nprogress .bar {
           background: ${variables.accentColor1};
           position: fixed;
-          z-index: 1031;
+          z-index: 2031;
           top: 0;
           left: 0;
 

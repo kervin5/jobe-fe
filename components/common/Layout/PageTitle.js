@@ -4,7 +4,7 @@ import Head from "next/head";
 const PageTitle = props => {
   return (
     <Head>
-      <title>{props.title || ""}</title>
+      <title>{props.title || props.children || ""}</title>
     </Head>
   );
 };
