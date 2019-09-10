@@ -1,10 +1,11 @@
 import DashboardPage from "../../../../components/dashboard/DashboardPage";
 import SingleJobListing from "../../../../components/jobs/JobListing/SingleJobListing";
+import JobPreview from "../../../../components/jobs/JobMutation/JobPreview";
 
 const SingleJobView = props => {
   return (
     <DashboardPage title="Job Preview">
-      <SingleJobListing jobId={props.jobId} preview />
+      <JobPreview jobId={props.jobId} />
     </DashboardPage>
   );
 }; //eof

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
@@ -17,13 +17,21 @@ export const ME_USER_QUERY = gql`
 `;
 
 const WithAuth = props => {
+  const [redirect, setRedirect] = useState(false);
+
+  useEffect(() => {
+    if (redirect) {
+      Router.push("/user/login");
+    }
+  }, [redirect]);
+
   return (
     // <Query query={ME_USER_QUERY} fetchPolicy={"network-only"}>
     <Query query={ME_USER_QUERY}>
       {({ error, loading, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Something went wrong</p>;
-        if (!data.me) Router.push("/user/login");
+        if (!data.me) setRedirect(true);
         if (!data.me)
           return (
             <p>

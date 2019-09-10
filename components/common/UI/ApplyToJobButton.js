@@ -21,6 +21,10 @@ export const CHECK_USER_APPLICATION_STATUS_QUERY = gql`
   query CHECK_USER_APPLICATION_STATUS_QUERY($jobId: ID!) {
     me {
       id
+      role {
+        id
+        name
+      }
       applications(where: { job: { id: $jobId } }) {
         id
       }
@@ -40,8 +44,9 @@ const ApplyToJobButton = props => {
     >
       {({ error, loading, data }) => {
         if (loading) return <Loader active inline="centered" />;
+        if (error) console.log(error);
         if (error) return <p>Something went wrong</p>;
-
+        if (data.me && data.me.role.name !== "CANDIDATE") return null;
         //Check if the user has previously applied
         if (!data.me || data.me.resumes.length === 0)
           return <RegisterToApplyButton jobId={props.jobId} />;

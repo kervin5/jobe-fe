@@ -16,7 +16,6 @@ export class JobPreview extends Component {
           const singleJob = data.job;
           return (
             <React.Fragment>
-              <Title>Job Preview</Title>
               <EditOrContinueButtons jobId={singleJob.id} />
               <JobListing
                 title={singleJob.title}

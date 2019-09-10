@@ -117,7 +117,7 @@ const injectActionsColumn = data => {
             <Button
               as="a"
               icon="eye"
-              color={record.status === "DRAFT" ? "grey" : "green"}
+              color={record.status !== "POSTED" ? "blue" : "green"}
               href={getPreviewLink(record).as}
             />
           </Link>
@@ -144,7 +144,7 @@ const injectActionsColumn = data => {
 };
 
 const getPreviewLink = job => {
-  if (job.status === "DRAFT") {
+  if (job.status !== "POSTED") {
     return {
       href: "/dashboard/jobs/preview/[jid]",
       as: `/dashboard/jobs/preview/${job.id}`

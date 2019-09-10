@@ -3,6 +3,7 @@ import { Mutation } from "react-apollo";
 import { Button, Icon } from "semantic-ui-react";
 import Router from "next/router";
 import gql from "graphql-tag";
+import RenderIfLoggedIn from "../../hoc/RenderIfLoggedIn";
 
 const POST_JOB_MUTATION = gql`
   mutation POST_JOB_MUTATION($jobId: ID!) {
@@ -23,30 +24,40 @@ function EditOrPublishButtons({ jobId }) {
       <Button
         icon
         labelPosition="left"
-        onClick={() => Router.push(`/jobs/edit/${jobId}`)}
+        onClick={() => Router.push(`/dashboard/jobs/edit/${jobId}`)}
       >
         <Icon name="left arrow" />
         Edit
       </Button>
-      <Button.Or />
-      <Mutation mutation={POST_JOB_MUTATION} variables={{ jobId }}>
-        {(postJobMutation, { error, loading, data }) => {
-          if (error) return <p>Something went wrong!</p>;
-          if (loading) return <p>Loading...</p>;
-          if (data) return <p>Job published</p>;
-          return (
-            <Button
-              positive
-              icon
-              labelPosition="right"
-              onClick={postJobMutation}
-            >
-              Continue
-              <Icon name="right arrow" />
-            </Button>
-          );
-        }}
-      </Mutation>
+      <RenderIfLoggedIn access={["SUPERVISOR", "ADMIN"]}>
+        <Mutation mutation={POST_JOB_MUTATION} variables={{ jobId }}>
+          {(postJobMutation, { error, loading, data }) => {
+            if (error) return <p>Something went wrong!</p>;
+            if (loading) return <p>Loading...</p>;
+            if (data) return <p>Job published</p>;
+            return (
+              <Button
+                positive
+                icon
+                labelPosition="right"
+                onClick={postJobMutation}
+              >
+                Publish
+                <Icon name="right arrow" />
+              </Button>
+            );
+          }}
+        </Mutation>
+      </RenderIfLoggedIn>
+      <Button
+        positive
+        icon
+        labelPosition="right"
+        onClick={() => Router.push("/dashboard")}
+      >
+        Dashboard
+        <Icon name="right arrow" />
+      </Button>
     </Button.Group>
   );
 }

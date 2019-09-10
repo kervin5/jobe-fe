@@ -14,6 +14,10 @@ const USER_IS_REGISTERED_QUERY = gql`
       resumes {
         id
       }
+      role {
+        id
+        name
+      }
     }
   }
 `;
@@ -27,11 +31,20 @@ const RegisterToApplyButton = props => {
 
   return (
     <>
-      <div>
-        <Button fullWidth click={() => setShowPopUp(true)}>
-          Apply Now 😀
-        </Button>
-      </div>
+      <Query query={USER_IS_REGISTERED_QUERY}>
+        {({ error, loading, data }) => {
+          if (error) return <p>Something went wrong</p>;
+          if (loading) return <p>Loading</p>;
+          if (data.me && data.me.role.name !== "CANDIDATE") return null;
+          return (
+            <div>
+              <Button fullWidth click={() => setShowPopUp(true)}>
+                Apply Now 😀
+              </Button>
+            </div>
+          );
+        }}
+      </Query>
 
       <PopUp show={showPopUp} changeHandler={setShowPopUp} title={popUpTitle}>
         <p>{caption} 😊</p>
