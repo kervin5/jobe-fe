@@ -49,6 +49,15 @@ const WithAuth = props => {
           setRedirect(true);
           return <p>Access denied</p>;
         }
+
+        if (
+          props.nonadmin &&
+          data.me &&
+          (!data.me.role || data.me.role !== "CANDIDATE")
+        ) {
+          setRedirect(true);
+          return <p>Access denied</p>;
+        }
         return <React.Fragment>{props.children}</React.Fragment>;
       }}
     </Query>

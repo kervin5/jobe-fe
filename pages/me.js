@@ -10,7 +10,7 @@ import UserJobList from "../components/me/UserJobList";
 const MePage = props => {
   const [componentInView, setComponentInView] = useState(<p>Dashboard</p>);
   return (
-    <WithAuth>
+    <WithAuth nonadmin>
       <PageSection className="DashboardPage" column>
         {/* <ButtonsBar /> */}
         {/* {componentInView} */}

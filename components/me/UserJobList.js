@@ -156,7 +156,7 @@ const userJobList = () => {
               {({ error, loading, data }) => {
                 if (error) return <p>Something went wrong</p>;
                 if (loading) return <p>Loading Awesome Jobs</p>;
-                if (!data.me) return <p>Please wait</p>;
+
                 return <JobList jobs={formatJobs(data)} />;
               }}
             </Query>
@@ -186,6 +186,7 @@ const userJobList = () => {
                 if (error) return <p>There was an error</p>;
                 if (loading) return <p>Loading your resumes</p>;
                 let list = data.me.resumes;
+
                 return <ResumeList list={list} />;
               }}
             </Query>
