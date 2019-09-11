@@ -14,7 +14,7 @@ const navigationItems = () => {
         <NavigationItem href={"/user/login"}>Log In</NavigationItem>
         <NavigationItem href={"/user/register"}>Register</NavigationItem>
       </RenderIfLoggedOut>
-      <RenderIfLoggedIn access={["RECRUITER"]}>
+      <RenderIfLoggedIn access={["ADMIN", "SUPERVISOR", "RECRUITER"]}>
         <NavigationItem href={"/dashboard"}>Dashboard</NavigationItem>
       </RenderIfLoggedIn>
       <RenderIfLoggedIn access={["CANDIDATE"]}>

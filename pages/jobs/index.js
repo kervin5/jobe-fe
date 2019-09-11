@@ -35,14 +35,6 @@ const SearchPage = props => {
             </Button>
           </ButtonGroup>
           <Jobs location={props.location} q={props.q} />
-          {/* {jobs ? <JobList jobs={jobs} /> : <Loader />}
-          {showMoreButton ? (
-            <Button fullWidth click={handleViewMoreButton}>
-              View More
-            </Button>
-          ) : (
-            <p>That's all for now 😊</p>
-          )} */}
         </div>
       </PageSection>
 

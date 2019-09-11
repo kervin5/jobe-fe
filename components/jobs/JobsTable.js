@@ -2,28 +2,35 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Query } from "react-apollo";
 import { Button, Placeholder, Loader } from "semantic-ui-react";
-
 import gql from "graphql-tag";
 import { perPage } from "../../config";
-// import Loader from "../common/UI/Animated/Loader";
 import Table from "../common/UI/Table";
-import Router from "next/router";
+
+const JOBS_FIELDS = `(first: $perPage, skip: $skip) {
+  id
+  title
+  status
+  author {
+    name
+  }
+  location {
+    name
+  }
+  status
+  applications {
+    id
+  }
+}`;
 
 const USER_JOBS_QUERY = gql`
   query USER_JOBS_QUERY($perPage: Int!, $skip: Int!) {
     me {
       id
-      jobs(first: $perPage, skip: $skip) {
+      jobs ${JOBS_FIELDS}
+
+      branch {
         id
-        title
-        status
-        location {
-          name
-        }
-        status
-        applications {
-          id
-        }
+        jobs ${JOBS_FIELDS}
       }
     }
   }
@@ -31,7 +38,7 @@ const USER_JOBS_QUERY = gql`
 
 const USER_JOBS_CONNECTION_QUERY = gql`
   query USER_JOBS_CONNECTION_QUERY {
-    jobsConnectionPerUser {
+    jobsConnection {
       aggregate {
         count
       }
@@ -51,7 +58,7 @@ const JobsTable = props => {
       {userJobsData => {
         if (userJobsData.error) return <p>Something went wrong...</p>;
         if (userJobsData.loading) return <Loader />;
-
+        if (!userJobsData.data) return <p>Please wait</p>;
         return (
           <Query
             query={USER_JOBS_QUERY}
@@ -77,9 +84,13 @@ const JobsTable = props => {
                   </Placeholder>
                 );
               if (error) return <p>Something Failed...</p>;
-              if (!userJobsData.data) return <p>Please wait</p>;
               if (!data.me) return <p>Please wait</p>;
-              const dataForTable = data.me.jobs.map(job => {
+
+              //Get jobs from branch if user has access
+              const dataForTable = (data.me.branch
+                ? data.me.branch
+                : data.me
+              ).jobs.map(job => {
                 return {
                   ...job,
                   location: job.location.name
@@ -87,7 +98,7 @@ const JobsTable = props => {
               });
 
               const jobsCount =
-                userJobsData.data.jobsConnectionPerUser.aggregate.count;
+                userJobsData.data.jobsConnection.aggregate.count;
               return (
                 <Table
                   page={currentPage}
@@ -110,7 +121,18 @@ const injectActionsColumn = data => {
   return data.map(record => {
     return {
       ...record,
-      applications: record.applications.length,
+      applications:
+        record.applications.length > 0 ? (
+          <Link
+            href={"/dashboard/applications/[jid]"}
+            as={"/dashboard/applications/" + record.id}
+          >
+            <a>{record.applications.length}</a>
+          </Link>
+        ) : (
+          record.applications.length
+        ),
+      author: record.author.name,
       actions: (
         <Button.Group>
           <Link {...getPreviewLink(record)}>

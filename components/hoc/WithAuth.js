@@ -21,7 +21,7 @@ const WithAuth = props => {
 
   useEffect(() => {
     if (redirect) {
-      Router.push("/user/login");
+      Router.push(props.redirect || "/user/login");
     }
   }, [redirect]);
 
@@ -41,6 +41,23 @@ const WithAuth = props => {
               </Link>
             </p>
           );
+        if (
+          props.admin &&
+          data.me &&
+          (!data.me.role || data.me.role.name === "CANDIDATE")
+        ) {
+          setRedirect(true);
+          return <p>Access denied</p>;
+        }
+
+        if (
+          props.nonadmin &&
+          data.me &&
+          (!data.me.role || data.me.role !== "CANDIDATE")
+        ) {
+          setRedirect(true);
+          return <p>Access denied</p>;
+        }
         return <React.Fragment>{props.children}</React.Fragment>;
       }}
     </Query>

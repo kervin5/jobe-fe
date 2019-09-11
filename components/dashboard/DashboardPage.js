@@ -22,11 +22,6 @@ const dashboardPage = props => {
       label: "Jobs",
       path: "/dashboard/jobs",
       icon: "briefcase"
-    },
-    Users: {
-      label: "Users",
-      path: "/dashboard/admin/users",
-      icon: "user"
     }
   };
 
@@ -35,7 +30,7 @@ const dashboardPage = props => {
   };
 
   return (
-    <WithAuth>
+    <WithAuth redirect="/me" admin>
       <PageSection column className="DashboardPage">
         <PageTitle>
           {(props.title && `${props.title} - Dashboard `) || "Dashboard"}

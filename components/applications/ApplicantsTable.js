@@ -8,10 +8,10 @@ import Loader from "../common/UI/Animated/Loader";
 import Button from "../common/UI/Button";
 
 const APPLICATIONS_QUERY = gql`
-  query APPLICATIONS_QUERY($perPage: Int!, $skip: Int!) {
+  query APPLICATIONS_QUERY($perPage: Int!, $skip: Int!, $jobId: ID) {
     me {
       id
-      jobs {
+      jobs(where: { id: $jobId }) {
         title
         id
         applications(first: $perPage, skip: $skip) {
@@ -52,7 +52,7 @@ const USER_APPLICATION_CONNECTION_QUERY = gql`
   }
 `;
 
-const ApplicantPage = () => {
+const ApplicantTable = props => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const turnPageHandler = pageNumber => {
@@ -68,7 +68,11 @@ const ApplicantPage = () => {
         return (
           <Query
             query={APPLICATIONS_QUERY}
-            variables={{ perPage, skip: (currentPage - 1) * perPage }}
+            variables={{
+              perPage,
+              skip: (currentPage - 1) * perPage,
+              jobId: "" || props.jobId
+            }}
           >
             {({ error, loading, data }) => {
               if (error) return <p>Something went wrong...</p>;
@@ -114,4 +118,4 @@ const ApplicantPage = () => {
   );
 };
 
-export default ApplicantPage;
+export default ApplicantTable;
