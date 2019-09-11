@@ -108,7 +108,6 @@ const userJobList = () => {
             name="recommended"
             active={activeItem === "recommended"}
             onClick={handleItemClick}
-            headertext={"These are the recommended jobs based on your Skills."}
           >
             <Icon icon="video camera" />
             &nbsp; Recommended
@@ -117,7 +116,6 @@ const userJobList = () => {
             name="favorites"
             active={activeItem === "favorites"}
             onClick={handleItemClick}
-            sectiontext={"These are the jobs you have set as favorite."}
           >
             <Icon icon="star" />
             &nbsp; Favorites
@@ -126,7 +124,6 @@ const userJobList = () => {
             name="applied"
             active={activeItem === "applied"}
             onClick={handleItemClick}
-            headertext={"These are the jobs you have applied to."}
           >
             <Icon icon="check" />
             &nbsp; Applied
@@ -135,7 +132,6 @@ const userJobList = () => {
             name="resumes"
             active={activeItem === "resumes"}
             onClick={handleItemClick}
-            headertext={"These are your current Resumes."}
           >
             <Icon icon="file alternate outline" />
             &nbsp; Resumes
