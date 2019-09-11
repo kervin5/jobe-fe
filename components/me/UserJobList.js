@@ -103,10 +103,6 @@ const userJobList = () => {
   return (
     <div>
       <div>
-        <h5>
-          Based on your skills, here is what we think would be a great choice
-          for you
-        </h5>
         <Menu attached="top" tabular>
           <Menu.Item
             name="recommended"
