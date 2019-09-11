@@ -53,7 +53,7 @@ const WithAuth = props => {
         if (
           props.nonadmin &&
           data.me &&
-          (!data.me.role || data.me.role !== "CANDIDATE")
+          (!data.me.role || data.me.role.name !== "CANDIDATE")
         ) {
           setRedirect(true);
           return <p>Access denied</p>;
