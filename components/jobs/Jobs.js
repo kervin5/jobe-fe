@@ -32,7 +32,7 @@ const ALL_JOBS_QUERY = gql`
 const SEARCH_JOBS_QUERY = gql`
   query SEARCH_JOBS_QUERY($q: String!, $location: String!) {
     jobs(
-      where: { title_contains: $q, location: { name_starts_with: $location } }
+      where: { title_contains: $q, location: { name_contains: $location } }
     ) {
       id
       title

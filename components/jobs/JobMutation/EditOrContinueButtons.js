@@ -14,6 +14,7 @@ const POST_JOB_MUTATION = gql`
     ) {
       id
       title
+      status
     }
   }
 `;
@@ -34,7 +35,14 @@ function EditOrPublishButtons({ jobId }) {
           {(postJobMutation, { error, loading, data }) => {
             if (error) return <p>Something went wrong!</p>;
             if (loading) return <p>Loading...</p>;
+            if (data)
+              Router.push(
+                `/jobs/${data.updateJob.title.replace(" ", "-")}-${
+                  data.updateJob.id
+                }`
+              );
             if (data) return <p>Job published</p>;
+
             return (
               <Button
                 positive

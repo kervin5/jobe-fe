@@ -3,7 +3,7 @@ import variables from "../../common/globalVariables";
 import PropTypes from "prop-types";
 
 const SearchBar = ({ terms = "Awesome", location, onClick }) => {
-  const shortLocationName = location.split(",")[0];
+  const shortLocationName = location ? location.split(",")[0] : "Your Area";
 
   const clickHandler = () => {
     if (onClick) {

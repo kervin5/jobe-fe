@@ -1,5 +1,5 @@
-import ApplicantsTable from "../../components/applications/ApplicantsTable";
-import DashboardPage from "../../components/dashboard/DashboardPage";
+import ApplicantsTable from "../../../components/applications/ApplicantsTable";
+import DashboardPage from "../../../components/dashboard/DashboardPage";
 
 const dashboardApplicationsPage = props => {
   return (
