@@ -36,13 +36,13 @@ const bottomNav = () => (
       </RenderIfLoggedIn>
     </nav>
     <style jsx>{`
-      nav {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-      }
-
       @media (max-width: 900px) {
+        nav {
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+        }
+
         .BottomNav {
           margin-top: 20px;
           display: block;
