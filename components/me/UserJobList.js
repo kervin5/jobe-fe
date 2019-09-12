@@ -6,6 +6,7 @@ import ResumeList from "../common/UI/ResumeList";
 
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import Title from "../common/UI/Title";
 
 const USER_RECOMMENDED_JOBS = gql`
   query USER_RECOMMENDED_JOBS {
@@ -148,44 +149,56 @@ const userJobList = () => {
         </Menu>
         <Segment attached="bottom">
           {activeItem === "recommended" && (
-            <Query query={USER_RECOMMENDED_JOBS}>
-              {({ error, loading, data }) => {
-                if (error) return <p>Something went wrong</p>;
-                if (loading) return <p>Loading Awesome Jobs</p>;
+            <>
+              <Title size="s">These are your Reccommended Jobs.</Title>
+              <Query query={USER_RECOMMENDED_JOBS}>
+                {({ error, loading, data }) => {
+                  if (error) return <p>Something went wrong</p>;
+                  if (loading) return <p>Loading Awesome Jobs</p>;
 
-                return <JobList jobs={formatJobs(data)} />;
-              }}
-            </Query>
+                  return <JobList jobs={formatJobs(data)} />;
+                }}
+              </Query>
+            </>
           )}
           {activeItem === "favorites" && (
-            <Query query={USER_FAVORITED_JOBS}>
-              {({ error, loading, data }) => {
-                if (error) return <p>Something went wrong</p>;
-                if (loading) return <p>Loading Awesome Jobs</p>;
-                if (!data.me) return <p>Please wait</p>;
-                return <JobList jobs={formatJobs(data)} />;
-              }}
-            </Query>
+            <>
+              <Title size="s">These are your Favorited Jobs.</Title>
+              <Query query={USER_FAVORITED_JOBS}>
+                {({ error, loading, data }) => {
+                  if (error) return <p>Something went wrong</p>;
+                  if (loading) return <p>Loading Awesome Jobs</p>;
+                  if (!data.me) return <p>Please wait</p>;
+                  return <JobList jobs={formatJobs(data)} />;
+                }}
+              </Query>
+            </>
           )}
           {activeItem === "applied" && (
-            <Query query={USER_APPLIED_JOBS}>
-              {({ error, loading, data }) => {
-                if (error) return <p>Something went wrong</p>;
-                if (loading) return <p>Loading Awesome Jobs</p>;
-                return <JobList jobs={formatJobs(data)} />;
-              }}
-            </Query>
+            <>
+              <Title size="s">You have applied to these Jobs.</Title>
+              <Query query={USER_APPLIED_JOBS}>
+                {({ error, loading, data }) => {
+                  if (error) return <p>Something went wrong</p>;
+                  if (loading) return <p>Loading Awesome Jobs</p>;
+                  return <JobList jobs={formatJobs(data)} />;
+                }}
+              </Query>
+            </>
           )}
           {activeItem === "resumes" && (
-            <Query query={RESUME_LIST_QUERY}>
-              {({ error, loading, data }) => {
-                if (error) return <p>There was an error</p>;
-                if (loading) return <p>Loading your resumes</p>;
-                let list = data.me.resumes;
+            <>
+              <Title size="s">These are your resumes.</Title>
+              <Query query={RESUME_LIST_QUERY}>
+                {({ error, loading, data }) => {
+                  if (error) return <p>There was an error</p>;
+                  if (loading) return <p>Loading your resumes</p>;
+                  let list = data.me.resumes;
 
-                return <ResumeList list={list} />;
-              }}
-            </Query>
+                  return <ResumeList list={list} />;
+                }}
+              </Query>
+            </>
           )}
         </Segment>
       </div>
