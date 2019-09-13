@@ -5,7 +5,7 @@ import JobListingHeader from "./JobListingHeader/JobListingHeader";
 import PageTitle from "../../common/Layout/PageTitle";
 import Title from "../../common/UI/Title";
 import ApplyToJobButton from "../../common/UI/ApplyToJobButton";
-import HtmlRenderer from "../../hoc/HtmlRenderer";
+import HtmlRenderer from "../../common/UI/HtmlRenderer";
 import SocialMedia from "../../common/UI/SocialMedia";
 import StucturedJobListing from "./StructuredJobListing";
 

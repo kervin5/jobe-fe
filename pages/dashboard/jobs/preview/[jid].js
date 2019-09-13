@@ -1,6 +1,6 @@
 import DashboardPage from "../../../../components/dashboard/DashboardPage";
-import SingleJobListing from "../../../../components/jobs/JobListing/SingleJobListing";
 import JobPreview from "../../../../components/jobs/JobMutation/JobPreview";
+import WithAuth from "../../../../components/hoc/WithAuth";
 
 const SingleJobView = props => {
   return (
@@ -18,4 +18,4 @@ SingleJobView.getInitialProps = async function({ query }) {
   return { jobId };
 };
 
-export default SingleJobView;
+export default WithAuth(SingleJobView);

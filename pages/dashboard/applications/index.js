@@ -1,5 +1,6 @@
 import ApplicantsTable from "../../../components/applications/ApplicantsTable";
 import DashboardPage from "../../../components/dashboard/DashboardPage";
+import WithAuth from "../../../components/hoc/WithAuth";
 
 const dashboardApplicationsPage = props => {
   return (
@@ -9,4 +10,4 @@ const dashboardApplicationsPage = props => {
   );
 };
 
-export default dashboardApplicationsPage;
+export default WithAuth(dashboardApplicationsPage);

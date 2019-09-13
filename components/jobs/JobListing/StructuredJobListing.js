@@ -20,7 +20,7 @@ const StructuredJobListing = ({
     "description": "${description}",
     "datePosted": "${updatedAt}",
     "employmentType": "${type}",
-    "baseSalary": "${minCompensation}",
+    "baseSalary": ${minCompensation},
     "industry": "${categories.map(category => category.name).join(",")}",
     "jobLocation": {
         "@type": "Place",

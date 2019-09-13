@@ -3,7 +3,7 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
-import { ME_USER_QUERY } from "../hoc/WithAuth";
+import { ME_USER_QUERY } from "../../lib/auth";
 import Router from "next/router";
 // import { logInUser } from "../../data/auth";
 
@@ -60,6 +60,7 @@ const loginForm = props => {
 
       if (res.data.login && !props.noredirect) {
         // logInUser(res.data.login);
+        console.log("Logged In");
 
         Router.push(
           res.data.login.role.name !== "CANDIDATE" ? "/dashboard" : "/me"

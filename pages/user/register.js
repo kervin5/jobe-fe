@@ -2,7 +2,7 @@ import React from "react";
 import variables from "../../components/common/globalVariables";
 import PageSection from "../../components/common/Layout/PageSection";
 import RegisterForm from "../../components/users/RegisterForm";
-import RedirectIfAuth from "../../components/hoc/RedirectIfAuth";
+import WithoutAuth from "../../components/hoc/WithoutAuth";
 import Title from "../../components/common/UI/Title";
 import Link from "next/link";
 
@@ -14,27 +14,25 @@ const pageStyles = ` background-color: ${variables.mutedColor1};
 
 const registerPage = () => {
   return (
-    <RedirectIfAuth>
-      <PageSection styles={pageStyles}>
-        <Title center>Register</Title>
-        <RegisterForm />
-        <p>
-          Already have an account?
-          <Link href="/user/register">
-            <a> Sign In</a>
-          </Link>
-        </p>
-        <br />
-        <img src={friendsImgUrl} />
-        <style jsx>{`
-          img {
-            width: 310px;
-            opacity: 0.3;
-          }
-        `}</style>
-      </PageSection>
-    </RedirectIfAuth>
+    <PageSection styles={pageStyles}>
+      <Title center>Register</Title>
+      <RegisterForm />
+      <p>
+        Already have an account?
+        <Link href="/user/register">
+          <a> Sign In</a>
+        </Link>
+      </p>
+      <br />
+      <img src={friendsImgUrl} />
+      <style jsx>{`
+        img {
+          width: 310px;
+          opacity: 0.3;
+        }
+      `}</style>
+    </PageSection>
   );
 };
 
-export default registerPage;
+export default WithoutAuth(registerPage);
