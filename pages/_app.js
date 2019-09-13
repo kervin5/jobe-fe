@@ -1,27 +1,18 @@
 import React from "react";
-import App, { Container } from "next/app";
+import App from "next/app";
+import withApollo from "../components/hoc/WithApollo";
 import { ApolloProvider } from "react-apollo";
-import WithApollo from "../components/hoc/WithApollo";
 import Page from "../components/Page";
 import "semantic-ui-css/semantic.min.css";
 import "./app.css";
 
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    return { pageProps };
-  }
+  static displayName = "MyApp";
 
   render() {
-    const { Component, pageProps, apollo } = this.props;
-
+    const { Component, pageProps, apolloClient } = this.props;
     return (
-      <ApolloProvider client={apollo}>
+      <ApolloProvider client={apolloClient}>
         <Page>
           <Component {...pageProps} />
         </Page>
@@ -30,4 +21,4 @@ class MyApp extends App {
   }
 }
 
-export default WithApollo(MyApp);
+export default withApollo(MyApp);
