@@ -102,106 +102,112 @@ const userJobList = () => {
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
   return (
-    <div>
-      <div>
-        <Menu attached="top" tabular>
-          <Menu.Item
-            name="recommended"
-            active={activeItem === "recommended"}
-            onClick={handleItemClick}
-          >
-            <Icon icon="video camera" />
-            &nbsp; Recommended
+    <div className="UserJobList">
+      <Menu attached="top" tabular className={"hide"}>
+        <Menu.Item
+          name="recommended"
+          active={activeItem === "recommended"}
+          onClick={handleItemClick}
+        >
+          <Icon icon="video camera" />
+          <span>&nbsp; Recommended</span>
+        </Menu.Item>
+        <Menu.Item
+          name="favorites"
+          active={activeItem === "favorites"}
+          onClick={handleItemClick}
+        >
+          <Icon icon="star" />
+          <span>&nbsp; Favorites</span>
+        </Menu.Item>
+        <Menu.Item
+          name="applied"
+          active={activeItem === "applied"}
+          onClick={handleItemClick}
+        >
+          <Icon icon="check" />
+          <span>&nbsp; Applied</span>
+        </Menu.Item>
+        <Menu.Item
+          name="resumes"
+          active={activeItem === "resumes"}
+          onClick={handleItemClick}
+        >
+          <Icon icon="file alternate outline" />
+          <span>&nbsp; Resumes</span>
+        </Menu.Item>
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <Input
+              transparent
+              icon={{ name: "search", link: true }}
+              placeholder="Search jobs..."
+            />
           </Menu.Item>
-          <Menu.Item
-            name="favorites"
-            active={activeItem === "favorites"}
-            onClick={handleItemClick}
-          >
-            <Icon icon="star" />
-            &nbsp; Favorites
-          </Menu.Item>
-          <Menu.Item
-            name="applied"
-            active={activeItem === "applied"}
-            onClick={handleItemClick}
-          >
-            <Icon icon="check" />
-            &nbsp; Applied
-          </Menu.Item>
-          <Menu.Item
-            name="resumes"
-            active={activeItem === "resumes"}
-            onClick={handleItemClick}
-          >
-            <Icon icon="file alternate outline" />
-            &nbsp; Resumes
-          </Menu.Item>
-          <Menu.Menu position="right">
-            <Menu.Item>
-              <Input
-                transparent
-                icon={{ name: "search", link: true }}
-                placeholder="Search jobs..."
-              />
-            </Menu.Item>
-          </Menu.Menu>
-        </Menu>
-        <Segment attached="bottom">
-          {activeItem === "recommended" && (
-            <>
-              <Title size="s">These are your Reccommended Jobs.</Title>
-              <Query query={USER_RECOMMENDED_JOBS}>
-                {({ error, loading, data }) => {
-                  if (error) return <p>Something went wrong</p>;
-                  if (loading) return <p>Loading Awesome Jobs</p>;
+        </Menu.Menu>
+      </Menu>
+      <Segment attached="bottom">
+        {activeItem === "recommended" && (
+          <>
+            <Title size="s">These are your Reccommended Jobs.</Title>
+            <Query query={USER_RECOMMENDED_JOBS}>
+              {({ error, loading, data }) => {
+                if (error) return <p>Something went wrong</p>;
+                if (loading) return <p>Loading Awesome Jobs</p>;
 
-                  return <JobList jobs={formatJobs(data)} />;
-                }}
-              </Query>
-            </>
-          )}
-          {activeItem === "favorites" && (
-            <>
-              <Title size="s">These are your Favorited Jobs.</Title>
-              <Query query={USER_FAVORITED_JOBS}>
-                {({ error, loading, data }) => {
-                  if (error) return <p>Something went wrong</p>;
-                  if (loading) return <p>Loading Awesome Jobs</p>;
-                  if (!data.me) return <p>Please wait</p>;
-                  return <JobList jobs={formatJobs(data)} />;
-                }}
-              </Query>
-            </>
-          )}
-          {activeItem === "applied" && (
-            <>
-              <Title size="s">You have applied to these Jobs.</Title>
-              <Query query={USER_APPLIED_JOBS}>
-                {({ error, loading, data }) => {
-                  if (error) return <p>Something went wrong</p>;
-                  if (loading) return <p>Loading Awesome Jobs</p>;
-                  return <JobList jobs={formatJobs(data)} />;
-                }}
-              </Query>
-            </>
-          )}
-          {activeItem === "resumes" && (
-            <>
-              <Title size="s">These are your resumes.</Title>
-              <Query query={RESUME_LIST_QUERY}>
-                {({ error, loading, data }) => {
-                  if (error) return <p>There was an error</p>;
-                  if (loading) return <p>Loading your resumes</p>;
-                  let list = data.me.resumes;
+                return <JobList jobs={formatJobs(data)} />;
+              }}
+            </Query>
+          </>
+        )}
+        {activeItem === "favorites" && (
+          <>
+            <Title size="s">These are your Favorited Jobs.</Title>
+            <Query query={USER_FAVORITED_JOBS}>
+              {({ error, loading, data }) => {
+                if (error) return <p>Something went wrong</p>;
+                if (loading) return <p>Loading Awesome Jobs</p>;
+                if (!data.me) return <p>Please wait</p>;
+                return <JobList jobs={formatJobs(data)} />;
+              }}
+            </Query>
+          </>
+        )}
+        {activeItem === "applied" && (
+          <>
+            <Title size="s">You have applied to these Jobs.</Title>
+            <Query query={USER_APPLIED_JOBS}>
+              {({ error, loading, data }) => {
+                if (error) return <p>Something went wrong</p>;
+                if (loading) return <p>Loading Awesome Jobs</p>;
+                return <JobList jobs={formatJobs(data)} />;
+              }}
+            </Query>
+          </>
+        )}
+        {activeItem === "resumes" && (
+          <>
+            <Title size="s">These are your resumes.</Title>
+            <Query query={RESUME_LIST_QUERY}>
+              {({ error, loading, data }) => {
+                if (error) return <p>There was an error</p>;
+                if (loading) return <p>Loading your resumes</p>;
+                let list = data.me.resumes;
 
-                  return <ResumeList list={list} />;
-                }}
-              </Query>
-            </>
-          )}
-        </Segment>
-      </div>
+                return <ResumeList list={list} />;
+              }}
+            </Query>
+          </>
+        )}
+      </Segment>
+
+      <style jsx>{`
+        @media (max-width: 550px) {
+          .UserJobList :global(.menu .item:not(.active) > *:not(.Icon)) {
+            display: none;
+          }
+        }
+      `}</style>
     </div>
   );
 };

@@ -36,6 +36,10 @@ const bottomNav = () => (
       </RenderIfLoggedIn>
     </nav>
     <style jsx>{`
+      nav {
+        display: none;
+      }
+
       @media (max-width: 900px) {
         nav {
           position: fixed;
