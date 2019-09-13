@@ -3,6 +3,8 @@ import { Input, Menu, Segment } from "semantic-ui-react";
 import Icon from "../common/UI/Icon";
 import JobList from "../jobs/JobList/JobList";
 import ResumeList from "../common/UI/ResumeList";
+import Button from "../common/UI/Button";
+import Upload from "../../pages/resumes/upload";
 
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
@@ -101,6 +103,10 @@ const userJobList = () => {
   const [activeItem, setActiveItem] = useState("recommended");
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
+  const addResume = () => {
+    <Upload />;
+  };
+
   return (
     <div className="UserJobList">
       <Menu attached="top" tabular className={"hide"}>
@@ -187,7 +193,10 @@ const userJobList = () => {
         )}
         {activeItem === "resumes" && (
           <>
-            <Title size="s">These are your resumes.</Title>
+            <div className="resumeHeader">
+              <Title size="s">These are your resumes.</Title>
+              <Button click={addResume}> Add New</Button>
+            </div>
             <Query query={RESUME_LIST_QUERY}>
               {({ error, loading, data }) => {
                 if (error) return <p>There was an error</p>;
@@ -202,6 +211,12 @@ const userJobList = () => {
       </Segment>
 
       <style jsx>{`
+        .resumeHeader {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+
         @media (max-width: 550px) {
           .UserJobList :global(.menu .item:not(.active) > *:not(.Icon)) {
             display: none;
