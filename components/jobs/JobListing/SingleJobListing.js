@@ -13,10 +13,14 @@ export const SINGLE_JOB_QUERY = gql`
       minCompensation
       maxCompensation
       type
-      qualifications
-      requirements
-      createdAt
       status
+      createdAt
+      updatedAt
+      categories {
+        id
+        name
+      }
+
       location {
         name
         latitude
@@ -26,6 +30,10 @@ export const SINGLE_JOB_QUERY = gql`
         id
         name
         description
+        company {
+          id
+          name
+        }
       }
     }
   }
@@ -42,18 +50,12 @@ const SingleJobListing = ({ jobId, preview }) => {
 
         return (
           <JobListing
-            title={singleJob.title}
-            location={singleJob.location.name}
-            company={"Target"} //change later
-            about={singleJob.description}
-            description={singleJob.description}
-            minAmount={singleJob.minCompensation}
-            maxAmount={singleJob.maxCompensation}
-            type={singleJob.type}
-            qualifications={singleJob.qualifications}
-            requirements={singleJob.requirements}
-            jobId={singleJob.id}
-            aboutCompany={singleJob.branch.description}
+            data={{
+              ...singleJob,
+              location: singleJob.location.name,
+              aboutCompany: singleJob.branch.description,
+              company: singleJob.branch.company.name
+            }}
             preview={preview || !(singleJob.status === "POSTED")}
           />
         );

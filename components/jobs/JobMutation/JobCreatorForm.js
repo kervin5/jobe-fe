@@ -12,8 +12,6 @@ const CREATE_JOB_MUTATION = gql`
     $location: LocationCreateWithoutJobsInput!
     $categories: [String!]!
     $skills: [String!]!
-    $qualifications: String!
-    $requirements: String!
     $type: String!
     $minCompensation: Float!
     $maxCompensation: Float!
@@ -25,8 +23,6 @@ const CREATE_JOB_MUTATION = gql`
       location: { create: $location }
       categories: $categories
       skills: $skills
-      qualifications: $qualifications
-      requirements: $requirements
       type: $type
       minCompensation: $minCompensation
       maxCompensation: $maxCompensation
@@ -38,8 +34,6 @@ const CREATE_JOB_MUTATION = gql`
         name
       }
       description
-      qualifications
-      requirements
       type
       minCompensation
       maxCompensation

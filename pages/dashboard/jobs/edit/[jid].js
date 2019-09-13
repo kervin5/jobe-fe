@@ -12,8 +12,6 @@ const SINGLE_JOB_DETAILS_QUERY = gql`
       minCompensation
       maxCompensation
       type
-      qualifications
-      requirements
       createdAt
       location {
         name

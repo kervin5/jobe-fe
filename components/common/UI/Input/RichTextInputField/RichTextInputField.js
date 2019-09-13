@@ -90,9 +90,9 @@ const RichTextInputFields = props => {
         wrapperClassName="wrapperClassName"
         editorClassName="editorClassName"
         onEditorStateChange={changeHandler}
-        toolbar={{
-          options: props.toolbarOptions || ["emoji", "remove", "history"]
-        }}
+        // toolbar={{
+        //   options: props.toolbarOptions || ["emoji", "remove", "history"]
+        // }}
       />
     </NoSSR>
   );

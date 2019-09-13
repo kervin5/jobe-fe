@@ -25,7 +25,7 @@ const header = props => (
     <div className="JobListingHeaderBar">
       <div className="JobListingJobType">
         <Bubble color="1">
-          ${props.minAmount}-{props.maxAmount}
+          ${props.minCompensation}-{props.maxCompensation}
         </Bubble>
         <Bubble color="2">{props.type}</Bubble>
       </div>

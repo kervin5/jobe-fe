@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import variables from "../../../components/common/globalVariables";
 import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
@@ -7,39 +7,32 @@ import Title from "../../common/UI/Title";
 import ApplyToJobButton from "../../common/UI/ApplyToJobButton";
 import HtmlRenderer from "../../hoc/HtmlRenderer";
 import SocialMedia from "../../common/UI/SocialMedia";
+import StucturedJobListing from "./StructuredJobListing";
 
 const jobListing = props => {
   return (
     <TransformerContainer data-test="job-listing">
-      <PageTitle title={props.title + " at " + props.location} />
+      <PageTitle title={props.data.title + " at " + props.data.location} />
       <JobListingHeader
-        title={props.title}
-        location={props.location}
-        minAmount={props.minAmount}
-        maxAmount={props.maxAmount}
-        type={props.type}
+        title={props.data.title}
+        location={props.data.location}
+        minCompensation={props.data.minCompensation}
+        maxCompensation={props.data.maxCompensation}
+        type={props.data.type}
         data-test="title-section"
         hideFavoriteButton={props.preview}
-        jobId={props.jobId}
+        jobId={props.data.id}
       />
 
       <div className="Body" data-test="main-content-section">
         <Title size={"m"}>Job Description:</Title>
-        <p>{props.description}</p>
-        <br />
-
-        <Title size={"m"}>Responsabilities:</Title>
-        <HtmlRenderer html={props.qualifications} />
-        <br />
-
-        <Title size={"m"}>Qualilfications:</Title>
-        <HtmlRenderer html={props.requirements} />
+        <HtmlRenderer html={props.data.description} />
         <br />
 
         <Title size={"m"} data-test="company-information-section">
           About the Company:
         </Title>
-        <p>{props.aboutCompany}</p>
+        <p>{props.data.aboutCompany}</p>
         <br />
 
         {props.preview ? null : (
@@ -47,15 +40,15 @@ const jobListing = props => {
           <SocialMedia
             url={
               "https://myexactjobsstaging.herokuapp.com/jobs/" +
-              props.title +
+              props.data.title +
               "-" +
-              props.jobId
+              props.data.id
             }
           />
         )}
         <br />
 
-        {props.preview ? null : <ApplyToJobButton jobId={props.jobId} />}
+        {props.preview ? null : <ApplyToJobButton jobId={props.data.id} />}
       </div>
       <style jsx>{`
 
@@ -105,6 +98,7 @@ const jobListing = props => {
 
             }
         `}</style>
+      <StucturedJobListing data={props.data} />
     </TransformerContainer>
   );
 };

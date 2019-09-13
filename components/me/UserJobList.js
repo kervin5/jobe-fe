@@ -41,8 +41,6 @@ const USER_FAVORITED_JOBS = gql`
           minCompensation
           maxCompensation
           type
-          qualifications
-          requirements
           createdAt
           location {
             name
@@ -67,8 +65,6 @@ const USER_APPLIED_JOBS = gql`
           minCompensation
           maxCompensation
           type
-          qualifications
-          requirements
           createdAt
           location {
             name
