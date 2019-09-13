@@ -105,7 +105,7 @@ const userJobList = () => {
 
   return (
     <div className="UserJobList">
-      <Menu attached="top" tabular className={"hide"}>
+      <Menu attached="top" tabular>
         <Menu.Item
           name="recommended"
           active={activeItem === "recommended"}
