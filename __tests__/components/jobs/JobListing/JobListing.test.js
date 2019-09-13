@@ -4,7 +4,7 @@ import JobListing from "../../../../components/jobs/JobListing/JobListing";
 import { findByTestAttr } from "../../../../testUtils/testUtils";
 
 const WrapperComponent = JobListing;
-const defaultProps = { success: false };
+const defaultProps = { data: {} };
 
 const setup = (props = {}) => {
   const setupProps = { ...defaultProps, ...props };
