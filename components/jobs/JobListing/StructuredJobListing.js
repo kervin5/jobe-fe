@@ -6,7 +6,8 @@ const StructuredJobListing = ({
     type,
     categories,
     location,
-    minCompensation
+    minCompensation,
+    company
   }
 }) => (
   <script
@@ -28,7 +29,8 @@ const StructuredJobListing = ({
           "addressLocality": "${location.split(",")[0]}",
           "addressRegion": "${location.split(",")[1]}"
         }
-      }
+      },
+      "hiringOrganization": "${company}"
   }`
     }}
   />
