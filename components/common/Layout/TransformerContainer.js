@@ -2,7 +2,7 @@ import variables from "../globalVariables";
 
 const TransformerContainer = props => {
   return (
-    <div className="TransformerContainer">
+    <div className="TransformerContainer" {...props}>
       {props.children}
 
       <style jsx>{`

@@ -60,14 +60,6 @@ class JobMutationBaseForm extends Component {
         value: "",
         valid: false
       },
-      requirements: {
-        value: "",
-        valid: false
-      },
-      qualifications: {
-        value: "",
-        valid: false
-      },
       skills: {
         value: "",
         valid: false,
@@ -139,9 +131,7 @@ class JobMutationBaseForm extends Component {
           categories: formatedCategories,
           type: this.state.formData.type.value,
           description: this.state.formData.description.value,
-          skills: formatedSkills,
-          requirements: this.state.formData.requirements.value,
-          qualifications: this.state.formData.qualifications.value
+          skills: formatedSkills
         };
 
         let dataToSend = {};
@@ -267,18 +257,6 @@ class JobMutationBaseForm extends Component {
               name={"type"}
               required
             />
-            <InputField
-              validate={this.state.validate}
-              type="textarea"
-              placeholder="Required Skills, Experience, etc."
-              value={this.state.formData.description.value}
-              label="Job Description"
-              change={this.changeHandler}
-              name={"description"}
-              value={this.state.formData.description.value}
-              required
-            />
-
             <Query query={ALL_SKILLS_QUERY}>
               {({ data, error, loading }) => {
                 if (error) return <p>Something went wrong!</p>;
@@ -303,21 +281,11 @@ class JobMutationBaseForm extends Component {
             <InputField
               validate={this.state.validate}
               type="richTextLimited"
-              placeholder="Please enter the job requirements such as experience and education"
+              placeholder="Required Skills, Experience, etc."
               label="Job Requirements"
               change={this.changeHandler}
-              name={"requirements"}
-              value={this.state.formData.requirements.value}
-              required
-            />
-            <InputField
-              validate={this.state.validate}
-              type="richTextLimited"
-              placeholder="Please enter the job qualifications"
-              label="Job Qualifications"
-              change={this.changeHandler}
-              name={"qualifications"}
-              value={this.state.formData.qualifications.value}
+              name={"description"}
+              value={this.state.formData.description.value}
               required
             />
 
