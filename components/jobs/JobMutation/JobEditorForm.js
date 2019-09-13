@@ -23,8 +23,6 @@ const SINGLE_JOB_ALL_DATA_QUERY = gql`
         id
         name
       }
-      qualifications
-      requirements
       createdAt
       location {
         name
@@ -44,8 +42,6 @@ const UPDATE_JOB_MUTATION = gql`
     $compensationType: String
     $maxCompensation: Float
     $minCompensation: Float
-    $qualifications: String
-    $requirements: String
     $location: LocationCreateWithoutJobsInput
     $categories: [String!]
     $skills: [String!]
@@ -60,8 +56,6 @@ const UPDATE_JOB_MUTATION = gql`
         type: $type
         maxCompensation: $maxCompensation
         minCompensation: $minCompensation
-        qualifications: $qualifications
-        requirements: $requirements
         location: { create: $location }
         categories: $categories
         skills: $skills
@@ -139,12 +133,6 @@ const formatFormData = jobQueryData => {
     },
     description: {
       value: jobQueryData.description
-    },
-    requirements: {
-      value: jobQueryData.requirements
-    },
-    qualifications: {
-      value: jobQueryData.qualifications
     },
     skills: {
       value: jobQueryData.skills
