@@ -37,7 +37,8 @@ const SEARCH_JOBS_QUERY = gql`
       orderBy: createdAt_DESC
       where: {
         title_contains: $q
-        location: { name_contains: $location, status: POSTED }
+        status: POSTED
+        location: { name_contains: $location }
       }
     ) {
       id
