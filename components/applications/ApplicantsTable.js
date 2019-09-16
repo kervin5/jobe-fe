@@ -83,7 +83,11 @@ const ApplicantTable = props => {
                 job.applications.forEach(application => {
                   applications.push({
                     name: application.user.name,
-                    email: application.user.email,
+                    email: (
+                      <Link href={`mailto:${application.user.email}`}>
+                        <a>{application.user.email}</a>
+                      </Link>
+                    ),
                     resume: (
                       <Button
                         click={e => {
