@@ -38,6 +38,9 @@ SingleJobView.getInitialProps = async function({ query, apolloClient, res }) {
     variables: { id: jobId }
   });
 
+  console.log(jobData);
+  console.log(jobId);
+
   if (jobData.data.job.status !== "POSTED") {
     redirect({ res }, "/");
   }
