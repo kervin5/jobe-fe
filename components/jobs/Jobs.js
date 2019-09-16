@@ -30,7 +30,12 @@ const ALL_JOBS_QUERY = gql`
 `;
 
 const SEARCH_JOBS_QUERY = gql`
-  query SEARCH_JOBS_QUERY($q: String!, $location: String!) {
+  query SEARCH_JOBS_QUERY(
+    $q: String!
+    $location: String!
+    $perPage: Int!
+    $skip: Int!
+  ) {
     jobs(
       first: $perPage
       skip: $skip
