@@ -108,7 +108,7 @@ const loginForm = props => {
             <fieldset disabled={loading} aria-busy={loading}>
               {fieldsToRender}
               <br />
-              <Button click={e => submitHandler(e, loginUser)} fullWidth>
+              <Button onClick={e => submitHandler(e, loginUser)} fullWidth>
                 Sign In
               </Button>
             </fieldset>

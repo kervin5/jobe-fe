@@ -15,7 +15,7 @@ const searchForm = props => {
       type: "text",
       placeholder: "Job Title, Keywords, or Company Name",
       focused: true,
-      required: true
+      required: false
     },
     searchLocation: {
       value: props.location || "",
@@ -66,7 +66,6 @@ const searchForm = props => {
         centerPlaceholder
         icon={fieldData.icon}
         change={handleChange}
-        required={fieldData.required}
         focused
         name={key}
         value={fieldData.value}
@@ -78,7 +77,7 @@ const searchForm = props => {
   return (
     <form>
       {InputFields}
-      <Button styles={buttonStyles} click={submitFormHandler} fullWidth>
+      <Button styles={buttonStyles} onClick={submitFormHandler} fullWidth>
         Search
       </Button>
       <style jsx>{`

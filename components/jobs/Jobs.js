@@ -51,9 +51,9 @@ class Jobs extends PureComponent {
   render() {
     let query = ALL_JOBS_QUERY;
 
-    if (this.props.q && this.props.location) {
-      query = SEARCH_JOBS_QUERY;
-    }
+    // if (this.props.q && this.props.location) {
+    query = SEARCH_JOBS_QUERY;
+    // }
 
     return (
       <div>
@@ -76,7 +76,7 @@ class Jobs extends PureComponent {
                 {!endReached && data.jobs.length > 0 && (
                   <Button
                     fullWidth
-                    click={() => {
+                    onClick={() => {
                       fetchMore({
                         variables: {
                           skip: data.jobs.length,

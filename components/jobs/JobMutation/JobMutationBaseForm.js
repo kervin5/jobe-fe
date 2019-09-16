@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import Link from "next/link";
 import InputField from "../../common/UI/Input/InputField";
 import InputGroup from "../../common/UI/Input/InputGroup";
-import { Progress } from "semantic-ui-react";
+import ButtonGroup from "../../common/UI/ButtonGroup";
 import Button from "../../common/UI/Button";
 
 const ALL_CATEGORIES_QUERY = gql`
@@ -289,9 +290,17 @@ class JobMutationBaseForm extends Component {
               required
             />
 
-            <Button click={this.submitFormHandler} fullWidth>
-              Preview Job
-            </Button>
+            <ButtonGroup>
+              <Link href="/dashboard">
+                <Button color="2" fullWidth>
+                  Cancel
+                </Button>
+              </Link>
+
+              <Button onClick={this.submitFormHandler} fullWidth>
+                Preview Job
+              </Button>
+            </ButtonGroup>
           </fieldset>
         </form>
 

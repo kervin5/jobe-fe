@@ -18,7 +18,7 @@ const LogoutButton = () => {
         if (loading) return <Loader />;
         return (
           <Button
-            click={async () => {
+            onClick={async () => {
               await logOutMutation();
               location.reload();
             }}

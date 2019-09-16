@@ -156,7 +156,7 @@ const ResumeUploadForm = props => {
                           loading ||
                           !resumeTitle.valid
                         }
-                        click={() =>
+                        onClick={() =>
                           uploadFile(signUploadMutation, createResumeMutation)
                         }
                         fullWidth

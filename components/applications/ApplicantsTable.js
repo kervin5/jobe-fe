@@ -86,7 +86,7 @@ const ApplicantTable = props => {
                     email: application.user.email,
                     resume: (
                       <Button
-                        click={e => {
+                        onClick={e => {
                           e.preventDefault();
                           window.open(application.resume.file.path);
                         }}

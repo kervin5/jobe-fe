@@ -29,7 +29,7 @@ const SearchPage = props => {
               size={{ height: "30px" }}
               icon="filter"
               color="2"
-              click={() => setShowFilters(!showFilters)}
+              onClick={() => setShowFilters(!showFilters)}
             >
               Filter
             </Button>

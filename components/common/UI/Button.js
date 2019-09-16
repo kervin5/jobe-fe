@@ -14,11 +14,16 @@ const Button = props => {
       ? variables["accentColor" + props.color]
       : variables.accentColor1 + ";");
 
+  const parentProps = { ...props };
+
+  delete parentProps.fullWidth;
+
   return (
     <button
-      onClick={props.click}
+      onClick={props.onClick}
       className={["Button", iconOnly, disabled].join(" ")}
       disabled={props.disabled}
+      {...parentProps}
     >
       {props.icon ? <Icon icon={props.icon} /> : null}
       {props.iconOnly ? null : props.loading ? <Loader /> : props.children}
