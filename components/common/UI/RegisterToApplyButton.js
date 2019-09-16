@@ -31,7 +31,7 @@ const RegisterToApplyButton = props => {
 
   return (
     <>
-      <Query query={USER_IS_REGISTERED_QUERY} ssr={false}>
+      <Query query={USER_IS_REGISTERED_QUERY}>
         {({ error, loading, data }) => {
           if (error) return <p>Something went wrong</p>;
           if (loading) return <p>Loading</p>;

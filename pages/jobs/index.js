@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { withRouter } from "next/router";
 import variables from "../../components/common/globalVariables";
 

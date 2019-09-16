@@ -2,6 +2,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import DashboardPage from "../../../../components/dashboard/DashboardPage";
 import JobEditorForm from "../../../../components/jobs/JobMutation/JobEditorForm";
+import WithAuth from "../../../../components/hoc/WithAuth";
 
 const SINGLE_JOB_DETAILS_QUERY = gql`
   query SINGLE_JOB_DETAILS_QUERY($id: ID!) {
@@ -41,4 +42,4 @@ DashboardEditJobPage.getInitialProps = async args => {
   return { jobId };
 };
 
-export default DashboardEditJobPage;
+export default WithAuth(DashboardEditJobPage);

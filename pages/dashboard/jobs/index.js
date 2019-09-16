@@ -1,3 +1,5 @@
+import WithAuth from "../../../components/hoc/WithAuth";
+
 const DashboardJobsIndex = () => null;
 
-export default DashboardJobsIndex;
+export default WithAuth(DashboardJobsIndex);
