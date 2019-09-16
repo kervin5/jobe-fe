@@ -59,7 +59,6 @@ class Jobs extends PureComponent {
       <div>
         <Query
           query={query}
-          ssr={false}
           variables={{
             location: this.props.location || "",
             q: this.props.q || "",

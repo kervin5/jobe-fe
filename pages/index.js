@@ -3,7 +3,6 @@ import PageTitle from "../components/common/Layout/PageTitle";
 
 import UserLocator from "../data/UserLocator";
 import variables from "../components/common/globalVariables.js";
-import { randomInt } from "../lib/random";
 
 import PageSection from "../components/common/Layout/PageSection";
 import Container from "../components/common/Layout/Container";

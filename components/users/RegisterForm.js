@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
 import Router from "next/router";
-import { ME_USER_QUERY } from "../hoc/WithAuth";
+import { ME_USER_QUERY } from "../../lib/auth";
 
 // import { logInUser } from "../../../data/auth";
 

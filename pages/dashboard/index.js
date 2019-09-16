@@ -1,5 +1,6 @@
 import DashboardHome from "../../components/dashboard/DashboardHome/DashboardHome";
 import DashboardPage from "../../components/dashboard/DashboardPage";
+import WithAuth from "../../components/hoc/WithAuth";
 
 const dashboardPage = props => {
   return (
@@ -9,5 +10,4 @@ const dashboardPage = props => {
   );
 };
 
-export default dashboardPage;
-// export default dashboardPage;
+export default WithAuth(dashboardPage);

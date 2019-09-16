@@ -40,7 +40,6 @@ const ApplyToJobButton = props => {
     <Query
       query={CHECK_USER_APPLICATION_STATUS_QUERY}
       variables={{ jobId: props.jobId }}
-      ssr={false}
     >
       {({ error, loading, data }) => {
         if (loading) return <Loader active inline="centered" />;

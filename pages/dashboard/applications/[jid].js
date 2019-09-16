@@ -1,5 +1,6 @@
 import ApplicantsTable from "../../../components/applications/ApplicantsTable";
 import DashboardPage from "../../../components/dashboard/DashboardPage";
+import WithAuth from "../../../components/hoc/WithAuth";
 
 const dashboardApplicationsPerJobPage = props => {
   return (
@@ -14,4 +15,4 @@ dashboardApplicationsPerJobPage.getInitialProps = async args => {
   return { jobId: jid };
 };
 
-export default dashboardApplicationsPerJobPage;
+export default WithAuth(dashboardApplicationsPerJobPage);

@@ -30,23 +30,21 @@ const dashboardPage = props => {
   };
 
   return (
-    <WithAuth redirect="/me" admin>
-      <PageSection column className="DashboardPage">
-        <PageTitle>
-          {(props.title && `${props.title} - Dashboard `) || "Dashboard"}
-        </PageTitle>
-        <SideMenu
-          click={handleItemClick}
-          options={Object.keys(sections).map(
-            sectionName => sections[sectionName]
-          )}
-        />
-        <Container>
-          <Title>{props.title || "Dashboard"}</Title>
-          {props.children}
-        </Container>
-      </PageSection>
-    </WithAuth>
+    <PageSection column className="DashboardPage">
+      <PageTitle>
+        {(props.title && `${props.title} - Dashboard `) || "Dashboard"}
+      </PageTitle>
+      <SideMenu
+        click={handleItemClick}
+        options={Object.keys(sections).map(
+          sectionName => sections[sectionName]
+        )}
+      />
+      <Container>
+        <Title>{props.title || "Dashboard"}</Title>
+        {props.children}
+      </Container>
+    </PageSection>
   );
 };
 

@@ -1,5 +1,6 @@
 import JobCreatorForm from "../../../components/jobs/JobMutation/JobCreatorForm";
 import DashboardPage from "../../../components/dashboard/DashboardPage";
+import WithAuth from "../../../components/hoc/WithAuth";
 
 const newJobPage = props => {
   return (
@@ -9,4 +10,4 @@ const newJobPage = props => {
   );
 };
 
-export default newJobPage;
+export default WithAuth(newJobPage);
