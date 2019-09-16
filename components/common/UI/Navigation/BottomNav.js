@@ -15,10 +15,15 @@ const bottomNav = () => (
       </NavigationItem>
       <RenderIfLoggedOut>
         <NavigationItem href={"/user/login"}>
-          <Icon name="sign-in" inverted color="grey" size="large" />
+          <Icon name="key" inverted color="grey" size="large" />
         </NavigationItem>
         <NavigationItem href={"/user/register"}>
-          <Icon name="wpforms" inverted color="grey" size="large" />
+          <Icon
+            name="file alternate outline"
+            inverted
+            color="grey"
+            size="large"
+          />
         </NavigationItem>
       </RenderIfLoggedOut>
       <RenderIfLoggedIn access={["ADMIN", "SUPERVISOR", "RECRUITER"]}>

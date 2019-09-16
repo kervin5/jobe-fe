@@ -100,7 +100,13 @@ const userJobList = () => {
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
   const addResume = () => {
-    <Upload />;
+    return (
+      <Button
+        click={() => {
+          return <Upload />;
+        }}
+      />
+    );
   };
 
   return (
@@ -191,7 +197,7 @@ const userJobList = () => {
           <>
             <div className="resumeHeader">
               <Title size="s">These are your resumes.</Title>
-              <Button click={addResume}> Add New</Button>
+              {addResume}
             </div>
             <Query query={RESUME_LIST_QUERY}>
               {({ error, loading, data }) => {
