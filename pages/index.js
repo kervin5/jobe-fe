@@ -11,6 +11,7 @@ import DynamicImageBg from "../components/common/UI/DynamicImageBg";
 import SearchArea from "../components/jobs/Search/SearchArea";
 
 import Jobs from "../components/jobs/Jobs";
+import PopularTerms from "../components/jobs/PopularTerms";
 
 // const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
 const landingLogo = "../static/images/LandingLogo.svg";
@@ -53,6 +54,7 @@ const homePage = props => {
         <Title size={"m"} center>
           What's Poppin' 😎
         </Title>
+        <PopularTerms />
         <Jobs />
       </Container>
       <style jsx>{`

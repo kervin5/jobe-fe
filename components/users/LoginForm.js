@@ -61,10 +61,12 @@ const loginForm = props => {
       if (res.data.login && !props.noredirect) {
         // logInUser(res.data.login);
         console.log("Logged In");
+        console.log(res.data.login.role.name !== "CANDIDATE");
 
-        Router.push(
-          res.data.login.role.name !== "CANDIDATE" ? "/dashboard" : "/me"
-        );
+        //  await Router.push(
+        //     res.data.login.role.name !== "CANDIDATE" ? "/dashboard" : "/me"
+        //   );
+        Router.push("/me");
       }
     }
   };
@@ -108,7 +110,7 @@ const loginForm = props => {
             <fieldset disabled={loading} aria-busy={loading}>
               {fieldsToRender}
               <br />
-              <Button click={e => submitHandler(e, loginUser)} fullWidth>
+              <Button onClick={e => submitHandler(e, loginUser)} fullWidth>
                 Sign In
               </Button>
             </fieldset>

@@ -8,7 +8,7 @@ const endpoint = `http://localhost:4444/`;
 const prodEndpoint = `https://myexactjobs-graphql-api.herokuapp.com/`;
 
 const backendUri =
-  process.env.NODE_ENV === "development" ? endpoint : prodEndpoint;
+  process.env.NODE_ENV === "production" ? prodEndpoint : endpoint;
 
 app.prepare().then(() => {
   const server = express();

@@ -11,7 +11,7 @@ const sideMenu = props => {
             <Menu.Item
               key={option.label + index}
               as="a"
-              onClick={() => props.click(option.label)}
+              onClick={() => props.onClick(option.label)}
             >
               <Icon name={option.icon} />
               {option.label}

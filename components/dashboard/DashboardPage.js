@@ -35,7 +35,7 @@ const dashboardPage = props => {
         {(props.title && `${props.title} - Dashboard `) || "Dashboard"}
       </PageTitle>
       <SideMenu
-        click={handleItemClick}
+        onClick={handleItemClick}
         options={Object.keys(sections).map(
           sectionName => sections[sectionName]
         )}

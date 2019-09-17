@@ -11,7 +11,7 @@ const PopUp = props => {
             <Card.Header>
               <Title inline>{props.title || ""}</Title>
               <Button
-                click={() => props.changeHandler(false)}
+                onClick={() => props.changeHandler(false)}
                 iconOnly
                 icon="close"
                 float={"right"}

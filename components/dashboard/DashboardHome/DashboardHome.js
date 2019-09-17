@@ -8,7 +8,7 @@ class DashboardHome extends React.Component {
     return (
       <React.Fragment>
         <div className="Header">
-          <Button click={() => Router.push("/dashboard/jobs/new")}>
+          <Button onClick={() => Router.push("/dashboard/jobs/new")}>
             Add New Job
           </Button>
         </div>

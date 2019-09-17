@@ -1,47 +1,37 @@
 import React from "react";
 import { Grid } from "semantic-ui-react";
 import CounterCard from "../../common/UI/CounterCard";
+import JobStatusCard from "./JobStatusCard";
+import ApplicationStatusCard from "./ApplicationsStatusCard";
 import JobsTable from "../../jobs/JobsTable";
 
 class JobsInformationSection extends React.Component {
-  state = {
-    jobsCount: {
-      draft: 0,
-      posted: 0
-    }
-  };
-
   render() {
     return (
       <React.Fragment>
         <div className="Summary">
           <Grid columns={4}>
             <Grid.Column>
-              <CounterCard label="Posted" value={this.state.jobsCount.posted} />
+              <JobStatusCard label="Posted" status="POSTED" />
             </Grid.Column>
             <Grid.Column>
-              <CounterCard
+              <JobStatusCard
                 label="Draft"
-                value={this.state.jobsCount.draft}
-                color="2"
+                status="DRAFT"
                 icon="pencil"
+                color="2"
               />
             </Grid.Column>
             <Grid.Column>
-              <CounterCard
+              <JobStatusCard
                 label="Expired"
-                value={this.state.jobsCount.draft}
-                color="3"
+                status="EXPIRED"
                 icon="clock"
+                color="3"
               />
             </Grid.Column>
             <Grid.Column>
-              <CounterCard
-                label="Applicants"
-                value={this.state.jobsCount.draft}
-                color="4"
-                icon="smile"
-              />
+              <ApplicationStatusCard color="4" icon="smile" />
             </Grid.Column>
           </Grid>
         </div>

@@ -16,6 +16,7 @@ const APPLICATIONS_QUERY = gql`
         id
         applications(first: $perPage, skip: $skip) {
           id
+          createdAt
           user {
             name
             id
@@ -90,7 +91,7 @@ const ApplicantTable = props => {
                     ),
                     resume: (
                       <Button
-                        click={e => {
+                        onClick={e => {
                           e.preventDefault();
                           window.open(application.resume.file.path);
                         }}

@@ -5,6 +5,7 @@ import axios from "axios";
 
 const DynamicImageBg = props => {
   const [imgUrl, setImgUrl] = useState("");
+  const bgNumber = randomInt(1, 4);
 
   useEffect(() => {
     if (props.query !== "") {
@@ -13,13 +14,17 @@ const DynamicImageBg = props => {
           `https://api.unsplash.com/photos/search?client_id=6b3443da3cd476fda43efed0e145250702d95e2f6372309d511825442fc7c646&query=${props.query}&orientation=landscape`
         )
         .then(res => {
-          setImgUrl(res.data[randomInt(0, res.data.length - 1)].urls.regular);
+          setImgUrl(
+            res.data.length > 0
+              ? res.data[randomInt(0, res.data.length - 1)].urls.regular
+              : ""
+          );
         });
     }
   }, [props.query]);
 
   return (
-    <div className={"DynamicImageBg"}>
+    <div className={"DynamicImageBg "}>
       <div className={"ImgContainer"}></div>
       <div className={"Content"}>{props.children}</div>
 
@@ -27,10 +32,10 @@ const DynamicImageBg = props => {
             .DynamicImageBg {
                 width: 100%;               
                 position: relative;
+                background-color: ${variables.accentColor1}
             }
 
             .ImgContainer {
-                background-color: ${variables.accentColor2};
                 background-image: url('${imgUrl}');
                 width: 100%;
                 background-size: cover;
@@ -52,7 +57,7 @@ const DynamicImageBg = props => {
             }
 
             @media(max-width: ${variables.mediumScreen}) {
-                .ImgContainer {
+              .ImgContainer {
                   
                     filter: blur(4px);
                   

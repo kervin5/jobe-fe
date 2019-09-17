@@ -30,9 +30,21 @@ const ALL_JOBS_QUERY = gql`
 `;
 
 const SEARCH_JOBS_QUERY = gql`
-  query SEARCH_JOBS_QUERY($q: String!, $location: String!) {
+  query SEARCH_JOBS_QUERY(
+    $q: String!
+    $location: String!
+    $perPage: Int!
+    $skip: Int!
+  ) {
     jobs(
-      where: { title_contains: $q, location: { name_contains: $location } }
+      first: $perPage
+      skip: $skip
+      orderBy: createdAt_DESC
+      where: {
+        title_contains: $q
+        status: POSTED
+        location: { name_contains: $location }
+      }
     ) {
       id
       title
@@ -51,9 +63,9 @@ class Jobs extends PureComponent {
   render() {
     let query = ALL_JOBS_QUERY;
 
-    if (this.props.q && this.props.location) {
-      query = SEARCH_JOBS_QUERY;
-    }
+    // if (this.props.q && this.props.location) {
+    query = SEARCH_JOBS_QUERY;
+    // }
 
     return (
       <div>
@@ -76,7 +88,7 @@ class Jobs extends PureComponent {
                 {!endReached && data.jobs.length > 0 && (
                   <Button
                     fullWidth
-                    click={() => {
+                    onClick={() => {
                       fetchMore({
                         variables: {
                           skip: data.jobs.length,

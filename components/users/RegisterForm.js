@@ -122,7 +122,7 @@ const registerForm = props => {
                 <fieldset disabled={loading} aria-busy={loading}>
                   {fieldsToRender}
                   <br />
-                  <Button click={e => submitHandler(signupUser, e)} fullWidth>
+                  <Button onClick={e => submitHandler(signupUser, e)} fullWidth>
                     Register
                   </Button>
                 </fieldset>
