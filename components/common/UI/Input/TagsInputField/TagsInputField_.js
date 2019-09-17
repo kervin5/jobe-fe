@@ -99,9 +99,10 @@ class TagsInputField extends React.Component {
         <ReactTags
           tags={this.state.tags}
           suggestions={this.state.suggestions}
-          onAddition={this.handleAddition.bind(this)}
-          onDelete={this.handleDelete.bind(this)}
+          handleDelete={this.handleDelete.bind(this)}
           minQueryLength={1}
+          autofocus={false}
+          handleAddition={this.handleAddition.bind(this)}
         />
         <style jsx global>{`
           .react-tags {
