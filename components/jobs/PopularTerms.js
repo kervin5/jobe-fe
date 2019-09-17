@@ -66,7 +66,7 @@ const PopularTerms = () => {
           }
 
           .Term .TermContent {
-            padding: 30px;
+            padding: 30px 10px;
             font-weight: bold;
             color: white;
             text-align: center;

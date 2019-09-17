@@ -85,6 +85,7 @@ const searchForm = props => {
           width: 100%;
           max-width: 400px;
           padding ${props.noPadding ? "0px" : "0 15px"};
+          margin: auto;
         }
 
         form * {

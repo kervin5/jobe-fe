@@ -61,10 +61,12 @@ const loginForm = props => {
       if (res.data.login && !props.noredirect) {
         // logInUser(res.data.login);
         console.log("Logged In");
+        console.log(res.data.login.role.name !== "CANDIDATE");
 
-        Router.push(
-          res.data.login.role.name !== "CANDIDATE" ? "/dashboard" : "/me"
-        );
+        //  await Router.push(
+        //     res.data.login.role.name !== "CANDIDATE" ? "/dashboard" : "/me"
+        //   );
+        Router.push("/me");
       }
     }
   };

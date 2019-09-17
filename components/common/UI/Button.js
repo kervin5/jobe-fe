@@ -17,6 +17,8 @@ const Button = props => {
   const parentProps = { ...props };
 
   delete parentProps.fullWidth;
+  delete parentProps.iconOnly;
+  delete parentProps.loading;
 
   return (
     <button

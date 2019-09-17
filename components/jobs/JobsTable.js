@@ -5,6 +5,7 @@ import { Button, Placeholder, Loader } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { perPage } from "../../config";
 import Table from "../common/UI/Table";
+import variables from "../common/globalVariables";
 
 const JOBS_FIELDS = `(first: $perPage, skip: $skip) {
   id
@@ -121,6 +122,21 @@ const injectActionsColumn = data => {
   return data.map(record => {
     return {
       ...record,
+
+      status: (
+        <p>
+          {record.status.toLowerCase()}
+          <style jsx>{`
+            p {
+              font-weight: bold;
+              color: ${record.status !== "POSTED"
+                ? variables.accentColor2
+                : variables.accentColor1};
+              text-transform: capitalize;
+            }
+          `}</style>
+        </p>
+      ),
       applications:
         record.applications.length > 0 ? (
           <Link

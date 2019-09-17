@@ -75,7 +75,6 @@ const ApplyToJobButton = props => {
 
                 return (
                   <Button
-                    className="button"
                     onClick={applyToJobMutation}
                     fullWidth
                     disabled={userApplied || loading}

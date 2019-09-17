@@ -16,6 +16,7 @@ const APPLICATIONS_QUERY = gql`
         id
         applications(first: $perPage, skip: $skip) {
           id
+          createdAt
           user {
             name
             id
@@ -84,6 +85,8 @@ const ApplicantTable = props => {
                   applications.push({
                     name: application.user.name,
                     email: application.user.email,
+                    position: job.title,
+                    applied: application.createdAt,
                     resume: (
                       <Button
                         onClick={e => {

@@ -21,13 +21,13 @@ const POST_JOB_MUTATION = gql`
 
 function EditOrPublishButtons({ jobId }) {
   return (
-    <Button.Group floated="right">
+    <div className="EditOrPublishButtons">
       <Button
         icon
         labelPosition="left"
         onClick={() => Router.push(`/dashboard/jobs/edit/${jobId}`)}
       >
-        <Icon name="left arrow" />
+        <Icon name="pencil" />
         Edit
       </Button>
       <RenderIfLoggedIn access={["SUPERVISOR", "ADMIN"]}>
@@ -47,11 +47,11 @@ function EditOrPublishButtons({ jobId }) {
               <Button
                 positive
                 icon
-                labelPosition="right"
+                labelPosition="left"
                 onClick={postJobMutation}
               >
+                <Icon name="check" />
                 Publish
-                <Icon name="right arrow" />
               </Button>
             );
           }}
@@ -60,13 +60,20 @@ function EditOrPublishButtons({ jobId }) {
       <Button
         positive
         icon
-        labelPosition="right"
+        labelPosition="left"
         onClick={() => Router.push("/dashboard")}
       >
+        <Icon name="desktop" />
         Dashboard
-        <Icon name="right arrow" />
       </Button>
-    </Button.Group>
+      <style jsx>{`
+        .EditOrPublishButtons {
+          margin-bottom: 15px;
+          display: flex;
+          justify-content: flex-end;
+        }
+      `}</style>
+    </div>
   );
 }
 
