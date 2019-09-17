@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { perPage } from "../../config";
+import Link from "next/link";
 
 import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
@@ -84,9 +85,11 @@ const ApplicantTable = props => {
                 job.applications.forEach(application => {
                   applications.push({
                     name: application.user.name,
-                    email: application.user.email,
-                    position: job.title,
-                    applied: application.createdAt,
+                    email: (
+                      <Link href={`mailto:${application.user.email}`}>
+                        <a>{application.user.email}</a>
+                      </Link>
+                    ),
                     resume: (
                       <Button
                         onClick={e => {

@@ -7,7 +7,6 @@ const resumeList = props => {
   console.log(props.headertext);
   return (
     <>
-      <Title size={"s"}>{props.headertext}</Title>
       <List divided relaxed>
         <List.Icon name="" size="large" verticalAlign="middle" />
         {props.list.map((list, index) => {

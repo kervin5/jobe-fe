@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Router from "next/router";
 import NProgress from "nprogress";
 import NavigationBar from "../UI/Navigation/NavigationBar";
+import BottomNav from "../UI/Navigation/BottomNav";
 // import NavigationDrawer from "../UI/Navigation/NavigationDrawer";
 import variables from "../globalVariables";
 
@@ -26,6 +27,7 @@ const layout = props => {
         <NavigationBar menuButtonClick={handleMenuClick} />
       )}
       <main>{props.children}</main>
+      <BottomNav />
       <style jsx global>{`
         * {
           box-sizing: border-box;
@@ -143,6 +145,12 @@ const layout = props => {
           }
           100% {
             transform: rotate(360deg);
+          }
+        }
+
+        @media (max-width: 900px) {
+          .Layout {
+            margin-bottom: ${variables.bottomNav};
           }
         }
       `}</style>

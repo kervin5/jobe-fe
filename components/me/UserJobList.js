@@ -3,9 +3,12 @@ import { Input, Menu, Segment } from "semantic-ui-react";
 import Icon from "../common/UI/Icon";
 import JobList from "../jobs/JobList/JobList";
 import ResumeList from "../common/UI/ResumeList";
+import Button from "../common/UI/Button";
+import Upload from "../../pages/resumes/upload";
 
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import Title from "../common/UI/Title";
 
 const USER_RECOMMENDED_JOBS = gql`
   query USER_RECOMMENDED_JOBS {
@@ -96,54 +99,65 @@ const userJobList = () => {
   const [activeItem, setActiveItem] = useState("recommended");
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
+  const addResume = () => {
+    return (
+      <Button
+        click={() => {
+          return <Upload />;
+        }}
+      />
+    );
+  };
+
   return (
-    <div>
-      <div>
-        <Menu attached="top" tabular>
-          <Menu.Item
-            name="recommended"
-            active={activeItem === "recommended"}
-            onClick={handleItemClick}
-          >
-            <Icon icon="video camera" />
-            &nbsp; Recommended
+    <div className="UserJobList">
+      <Menu attached="top" tabular>
+        <Menu.Item
+          name="recommended"
+          active={activeItem === "recommended"}
+          onClick={handleItemClick}
+        >
+          <Icon icon="video camera" />
+          <span>&nbsp; Recommended</span>
+        </Menu.Item>
+        <Menu.Item
+          name="favorites"
+          active={activeItem === "favorites"}
+          onClick={handleItemClick}
+        >
+          <Icon icon="star" />
+          <span>&nbsp; Favorites</span>
+        </Menu.Item>
+        <Menu.Item
+          name="applied"
+          active={activeItem === "applied"}
+          onClick={handleItemClick}
+        >
+          <Icon icon="check" />
+          <span>&nbsp; Applied</span>
+        </Menu.Item>
+        <Menu.Item
+          name="resumes"
+          active={activeItem === "resumes"}
+          onClick={handleItemClick}
+        >
+          <Icon icon="file alternate outline" />
+          <span>&nbsp; Resumes</span>
+        </Menu.Item>
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <Input
+              transparent
+              icon={{ name: "search", link: true }}
+              placeholder="Search jobs..."
+            />
           </Menu.Item>
-          <Menu.Item
-            name="favorites"
-            active={activeItem === "favorites"}
-            onClick={handleItemClick}
-          >
-            <Icon icon="star" />
-            &nbsp; Favorites
-          </Menu.Item>
-          <Menu.Item
-            name="applied"
-            active={activeItem === "applied"}
-            onClick={handleItemClick}
-          >
-            <Icon icon="check" />
-            &nbsp; Applied
-          </Menu.Item>
-          <Menu.Item
-            name="resumes"
-            active={activeItem === "resumes"}
-            onClick={handleItemClick}
-          >
-            <Icon icon="file alternate outline" />
-            &nbsp; Resumes
-          </Menu.Item>
-          <Menu.Menu position="right">
-            <Menu.Item>
-              <Input
-                transparent
-                icon={{ name: "search", link: true }}
-                placeholder="Search jobs..."
-              />
-            </Menu.Item>
-          </Menu.Menu>
-        </Menu>
-        <Segment attached="bottom">
-          {activeItem === "recommended" && (
+        </Menu.Menu>
+      </Menu>
+      <Segment attached="bottom">
+        {activeItem === "recommended" && (
+          <>
+            <Title size="s">These are your Reccommended Jobs.</Title>
             <Query query={USER_RECOMMENDED_JOBS}>
               {({ error, loading, data }) => {
                 if (error) return <p>Something went wrong</p>;
@@ -152,8 +166,11 @@ const userJobList = () => {
                 return <JobList jobs={formatJobs(data)} />;
               }}
             </Query>
-          )}
-          {activeItem === "favorites" && (
+          </>
+        )}
+        {activeItem === "favorites" && (
+          <>
+            <Title size="s">These are your Favorited Jobs.</Title>
             <Query query={USER_FAVORITED_JOBS}>
               {({ error, loading, data }) => {
                 if (error) return <p>Something went wrong</p>;
@@ -162,8 +179,11 @@ const userJobList = () => {
                 return <JobList jobs={formatJobs(data)} />;
               }}
             </Query>
-          )}
-          {activeItem === "applied" && (
+          </>
+        )}
+        {activeItem === "applied" && (
+          <>
+            <Title size="s">You have applied to these Jobs.</Title>
             <Query query={USER_APPLIED_JOBS}>
               {({ error, loading, data }) => {
                 if (error) return <p>Something went wrong</p>;
@@ -171,8 +191,14 @@ const userJobList = () => {
                 return <JobList jobs={formatJobs(data)} />;
               }}
             </Query>
-          )}
-          {activeItem === "resumes" && (
+          </>
+        )}
+        {activeItem === "resumes" && (
+          <>
+            <div className="resumeHeader">
+              <Title size="s">These are your resumes.</Title>
+              {addResume}
+            </div>
             <Query query={RESUME_LIST_QUERY}>
               {({ error, loading, data }) => {
                 if (error) return <p>There was an error</p>;
@@ -182,9 +208,23 @@ const userJobList = () => {
                 return <ResumeList list={list} />;
               }}
             </Query>
-          )}
-        </Segment>
-      </div>
+          </>
+        )}
+      </Segment>
+
+      <style jsx>{`
+        .resumeHeader {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+
+        @media (max-width: 550px) {
+          .UserJobList :global(.menu .item:not(.active) > *:not(.Icon)) {
+            display: none;
+          }
+        }
+      `}</style>
     </div>
   );
 };
