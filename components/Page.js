@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Head from "next/head";
+import Head from "./Head";
 import Layout from "./common/Layout/Layout";
 
 class Page extends Component {
