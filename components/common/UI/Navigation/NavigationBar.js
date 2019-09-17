@@ -17,7 +17,7 @@ const NavigationBar = () => {
       <style jsx>{`
         .NavigationBar {
           display: flex;
-          padding: 0px 10px 0px 10px;
+          padding: 5px 10px 5px 10px;
           justify-content: space-between;
           background-color: ${variables.mutedColor1};
           position: fixed;

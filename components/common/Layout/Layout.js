@@ -52,6 +52,12 @@ const layout = props => {
           margin-top: 55px;
         }
 
+        @media (max-width: 720px) {
+          main {
+            margin-top: 48px;
+          }
+        }
+
         button:focus {
           outline: 0;
         }
