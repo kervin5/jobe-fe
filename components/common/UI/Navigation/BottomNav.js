@@ -2,7 +2,7 @@ import React from "react";
 
 import { Icon } from "semantic-ui-react";
 import NavigationItem from "./NavigationItems/NavigationItem";
-import LogoutButtonMobile from "../LogoutButtonMobile";
+import LogoutButtonMobile from "../LogOutButtonMobile";
 import RenderIfLoggedIn from "../../../hoc/RenderIfLoggedIn";
 import RenderIfLoggedOut from "../../../hoc/RenderIfLoggedOut";
 import variables from "../../globalVariables";
