@@ -50,10 +50,10 @@ const bottomNav = () => (
           position: fixed;
           bottom: 0;
           width: 100%;
+          z-index: 1;
         }
 
         .BottomNav {
-          margin-top: 20px;
           display: block;
           background-color: ${variables.accentColor1};
           color: ${variables.clearColor};
@@ -61,7 +61,6 @@ const bottomNav = () => (
           justify-content: space-evenly;
           align-items: baseline;
           align-content: center;
-          z-index: 999;
         }
 
         a:hover {

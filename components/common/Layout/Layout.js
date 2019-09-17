@@ -141,6 +141,12 @@ const layout = props => {
             transform: rotate(360deg);
           }
         }
+
+        @media (max-width: 900px) {
+          .Layout {
+            margin-bottom: ${variables.bottomNav};
+          }
+        }
       `}</style>
     </div>
   );
