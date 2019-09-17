@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { perPage } from "../../config";
+import Link from "next/link";
 
 import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
