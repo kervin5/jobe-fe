@@ -34,7 +34,7 @@ const homePage = props => {
   }, []);
 
   return (
-    <PageSection className="HomePage" column data-test="indexPage">
+    <PageSection className="HomePage" column nopadding data-test="indexPage">
       <PageTitle title="Home Page" />
       <DynamicImageBg
         query={

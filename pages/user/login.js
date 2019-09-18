@@ -18,7 +18,7 @@ const loginPage = () => {
       <Title center>Login</Title>
       <LoginForm />
 
-      <Link href="/user/login">
+      <Link href="/user/password/request">
         <a className="forgoPasswordLink">Forgot Password?</a>
       </Link>
       <p>
