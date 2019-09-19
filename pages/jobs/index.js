@@ -34,7 +34,11 @@ const SearchPage = props => {
               Filter
             </Button>
           </ButtonGroup>
-          <Jobs location={props.location} q={props.q} />
+          <Jobs
+            location={props.location}
+            q={props.q}
+            category={props.category}
+          />
         </div>
       </PageSection>
 
@@ -54,8 +58,8 @@ const SearchPage = props => {
 
 SearchPage.getInitialProps = async function({ query }) {
   // console.log(query);
-  const { q, location } = query;
-  return { q, location };
+  const { q, location, category } = query;
+  return { q, location, category };
 };
 
 export default withRouter(SearchPage);

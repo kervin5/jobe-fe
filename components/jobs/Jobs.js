@@ -33,6 +33,7 @@ const SEARCH_JOBS_QUERY = gql`
   query SEARCH_JOBS_QUERY(
     $q: String!
     $location: String!
+    $category: String
     $perPage: Int!
     $skip: Int!
   ) {
@@ -44,6 +45,7 @@ const SEARCH_JOBS_QUERY = gql`
         title_contains: $q
         status: POSTED
         location: { name_contains: $location }
+        categories_some: { name_contains: $category }
       }
     ) {
       id
@@ -74,6 +76,7 @@ class Jobs extends PureComponent {
           variables={{
             location: this.props.location || "",
             q: this.props.q || "",
+            category: this.props.category || "",
             perPage,
             skip: 0
           }}
