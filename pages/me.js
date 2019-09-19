@@ -17,4 +17,8 @@ const MePage = props => {
   );
 };
 
-export default WithAuth(MePage);
+export default WithAuth(
+  MePage,
+  [{ object: "APPLICATION", action: "CREATE" }],
+  "/dashboard"
+);

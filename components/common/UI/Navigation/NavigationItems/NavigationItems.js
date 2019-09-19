@@ -14,10 +14,12 @@ const navigationItems = () => {
         <NavigationItem href={"/user/login"}>Log In</NavigationItem>
         <NavigationItem href={"/user/register"}>Register</NavigationItem>
       </RenderIfLoggedOut>
-      <RenderIfLoggedIn access={["ADMIN", "SUPERVISOR", "RECRUITER"]}>
+      <RenderIfLoggedIn permissions={[{ object: "JOB", action: "CREATE" }]}>
         <NavigationItem href={"/dashboard"}>Dashboard</NavigationItem>
       </RenderIfLoggedIn>
-      <RenderIfLoggedIn access={["CANDIDATE"]}>
+      <RenderIfLoggedIn
+        permissions={[{ object: "APPLICATION", action: "CREATE" }]}
+      >
         <NavigationItem href={"/me"}>Me</NavigationItem>
       </RenderIfLoggedIn>
       <RenderIfLoggedIn>
