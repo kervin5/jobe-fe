@@ -3,16 +3,21 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
-import { ME_USER_QUERY } from "../../lib/auth";
+import { ME_USER_QUERY, userHasAccess } from "../../lib/auth";
 import Router from "next/router";
 // import { logInUser } from "../../data/auth";
 
 const LOGIN_USER = gql`
   mutation LOGIN_USER($email: String!, $password: String!) {
     login(email: $email, password: $password) {
+      id
       role {
         id
         name
+        permissions {
+          object
+          actions
+        }
       }
     }
   }
@@ -59,14 +64,13 @@ const loginForm = props => {
       const res = await loginUserMutation();
 
       if (res.data.login && !props.noredirect) {
-        // logInUser(res.data.login);
-        console.log("Logged In");
-        console.log(res.data.login.role.name !== "CANDIDATE");
-
-        //  await Router.push(
-        //     res.data.login.role.name !== "CANDIDATE" ? "/dashboard" : "/me"
-        //   );
-        Router.push("/me");
+        const route = userHasAccess(
+          [{ object: "JOB", action: "CREATE" }],
+          res.data.login.role.permissions
+        )
+          ? "/dashboard"
+          : "/me";
+        Router.push(route);
       }
     }
   };

@@ -12,7 +12,7 @@ const RenderIfLoggedIn = ({ children, permissions }) => {
         if (!data.me) return null;
         if (
           permissions &&
-          !userHasAccess(permissions, data.me.role.permissions, "debug2")
+          !userHasAccess(permissions, data.me.role.permissions)
         )
           return null;
         return <React.Fragment>{children}</React.Fragment>;
