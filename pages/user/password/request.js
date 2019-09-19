@@ -12,7 +12,6 @@ const passwordRequest = props => {
   return (
     <PageSection style={pageStyles}>
       <PasswordResetRequestForm />
-      <style jsx>{``}</style>
     </PageSection>
   );
 };

@@ -3,6 +3,7 @@ import InputField from "../common/UI/Input/InputField";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import Button from "../common/UI/Button";
+import Title from "../common/UI/Title";
 
 const REQUEST_PASSWORD_MUTATION = gql`
   mutation REQUEST_PASSWORD_MUTATION($email: String!) {
@@ -36,11 +37,8 @@ const passwordRequestForm = props => {
     e.preventDefault();
     await setValidate(true);
     const { email } = formData;
-    console.log(email);
     if (email.valid) {
       const res = await resetPasswordMutation();
-
-      console.log(res);
     }
   };
 
@@ -72,7 +70,13 @@ const passwordRequestForm = props => {
       {(requestPasswordChange, { error, loading, data }) => {
         return (
           <form>
-            {error && <p>Something went wrong</p>}
+            <Title size={"l"} center>
+              Forgot Password? 🤔
+            </Title>
+            <Title center size={"s"}>
+              Enter your email to create a new password
+            </Title>
+            {error && <p className="error">Cannot find that email address</p>}
             {!error && data && !loading && (
               <p>Please your mailbox with a reset link</p>
             )}
@@ -95,6 +99,10 @@ const passwordRequestForm = props => {
 
               fieldset {
                 border: none;
+              }
+
+              .error {
+                color: red;
               }
             `}</style>
           </form>
