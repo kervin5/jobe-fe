@@ -6,7 +6,6 @@ import Container from "../components/common/Layout/Container";
 import UserJobList from "../components/me/UserJobList";
 
 const MePage = props => {
-  const [componentInView, setComponentInView] = useState(<p>Dashboard</p>);
   return (
     <PageSection className="DashboardPage" column>
       <Container>
