@@ -15,11 +15,13 @@ const dropdownInputField = props => {
     }
   });
   const [touched, setTouched] = useState(false);
-  const optionsToRender = props.options.map((optionValue, index) => (
-    <option value={optionValue} key={optionValue + index}>
-      {optionValue}
-    </option>
-  ));
+  const optionsToRender =
+    props.options &&
+    props.options.map((optionValue, index) => (
+      <option value={optionValue} key={optionValue + index}>
+        {optionValue}
+      </option>
+    ));
 
   const handleOptionClick = e => {
     const newValue = e.target.value;
