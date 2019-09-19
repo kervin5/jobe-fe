@@ -1,5 +1,6 @@
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import Link from "next/link";
 import DynamicImageBg from "../common/UI/DynamicImageBg";
 
 const POPULAR_TERMS_QUERY = gql`
@@ -22,9 +23,13 @@ const PopularTerms = () => {
           if (data)
             return data.popularTerms.map(term => (
               <div key={term.id} className="Term">
-                <DynamicImageBg query={term.label}>
-                  <p className="TermContent">{term.label}</p>
-                </DynamicImageBg>
+                <Link href={`/jobs?category=${term.label}`}>
+                  <a>
+                    <DynamicImageBg query={term.label}>
+                      <p className="TermContent">{term.label}</p>
+                    </DynamicImageBg>
+                  </a>
+                </Link>
               </div>
             ));
         }}

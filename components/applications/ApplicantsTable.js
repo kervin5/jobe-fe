@@ -86,9 +86,9 @@ const ApplicantTable = props => {
                   applications.push({
                     name: application.user.name,
                     email: (
-                      <Link href={`mailto:${application.user.email}`}>
-                        <a>{application.user.email}</a>
-                      </Link>
+                      <a href={`mailto:${application.user.email}`}>
+                        {application.user.email}
+                      </a>
                     ),
                     resume: (
                       <Button
