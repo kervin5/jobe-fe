@@ -28,7 +28,7 @@ const loginForm = props => {
     email: {
       value: "",
       valid: false,
-      type: "text",
+      type: "email",
       label: "Email",
       placeholder: "jdoe@myemail.com",
       icon: "mail"
