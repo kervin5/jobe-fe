@@ -10,7 +10,7 @@ const friendsImgUrl = "../../static/images/friends-with-bg.png";
 const PasswordResetPage = props => {
   return (
     <PageSection column>
-      <Title center>Password Reset</Title>
+      <Title center>Enter New Password</Title>
       <PasswordResetForm token={props.query.resetToken} />
 
       <p>

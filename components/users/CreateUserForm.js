@@ -2,10 +2,33 @@ import gql from "graphql-tag";
 import Form from "../common/UI/Form";
 
 const CREATE_USER_MUTATION = gql`
-  mutation CREATE_USER_MUTATION($email: String, $name: String!) {
-    createUser(name: $name, email: $email) {
+  mutation CREATE_USER_MUTATION(
+    $email: String!
+    $name: String!
+    $role: ID!
+    $branch: ID!
+  ) {
+    createUser(name: $name, email: $email, role: $role, branch: $branch) {
       id
       email
+    }
+  }
+`;
+
+const ROLES_QUERY = gql`
+  query ROLES_QUERY {
+    roles {
+      id
+      name
+    }
+  }
+`;
+
+const BRANCHES_QUERY = gql`
+  query BRANCHES_QUERY {
+    branches {
+      id
+      name
     }
   }
 `;
@@ -24,12 +47,12 @@ const CreateUserForm = () => {
     branch: {
       type: "dropdown",
       placeholder: "Please select a branch",
-      options: ["Woodland Hills"]
+      options: { query: BRANCHES_QUERY, label: "name", value: "id" }
     },
     role: {
       type: "dropdown",
       placeholder: "Please select a role",
-      options: ["Recruiter"]
+      options: { query: ROLES_QUERY, label: "name", value: "id" }
     }
   };
 
