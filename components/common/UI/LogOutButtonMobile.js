@@ -19,15 +19,16 @@ const LogoutButton = () => {
           if (error) return <p>Logged out</p>;
           if (loading) return <Loader />;
           return (
-            <button
-              className="logout"
+            <Icon
+              name="sign-out"
+              inverted
+              color="grey"
+              size="large"
               onClick={async () => {
                 await logOutMutation();
                 location.reload();
               }}
-            >
-              <Icon name="sign-out" inverted color="grey" size="big" />
-            </button>
+            />
           );
         }}
       </Mutation>
