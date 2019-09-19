@@ -28,6 +28,12 @@ const pageSection = props => {
         .PageSection:first-child {
           min-height: calc(100vh - 56px);
         }
+
+        @media (max-width: 720px) {
+          .PageSection:first-child {
+            min-height: calc(100vh - 100px);
+          }
+        }
       `}</style>
     </div>
   );

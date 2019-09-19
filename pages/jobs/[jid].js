@@ -20,7 +20,7 @@ const SINGLE_JOB_QUERY = gql`
 
 const SingleJobView = props => {
   return (
-    <PageSection styles={pageStyles} column>
+    <PageSection styles={pageStyles} nopadding column>
       <Container nopadding>
         <SingleJobListing jobId={props.jobId} />
       </Container>
