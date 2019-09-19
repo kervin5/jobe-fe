@@ -26,7 +26,7 @@ const bottomNav = () => (
           />
         </NavigationItem>
       </RenderIfLoggedOut>
-      <RenderIfLoggedIn access={[{ object: "JOB", action: "CREATE" }]}>
+      <RenderIfLoggedIn permissions={[{ object: "JOB", action: "CREATE" }]}>
         <NavigationItem href={"/dashboard"}>
           <Icon name="dashboard" inverted color="grey" size="large" />
         </NavigationItem>
