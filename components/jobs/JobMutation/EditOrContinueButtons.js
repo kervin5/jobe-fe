@@ -30,7 +30,7 @@ function EditOrPublishButtons({ jobId }) {
         <Icon name="pencil" />
         Edit
       </Button>
-      <RenderIfLoggedIn access={["SUPERVISOR", "ADMIN"]}>
+      <RenderIfLoggedIn permissions={[{ object: "JOB", action: "PUBLISH" }]}>
         <Mutation mutation={POST_JOB_MUTATION} variables={{ jobId }}>
           {(postJobMutation, { error, loading, data }) => {
             if (error) return <p>Something went wrong!</p>;
