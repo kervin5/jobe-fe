@@ -20,6 +20,7 @@ const TransformerContainer = props => {
             max-width: 100%;
             margin: 0 auto;
             border-radius: 0px;
+            box-shadow: none;
           }
         }
       `}</style>

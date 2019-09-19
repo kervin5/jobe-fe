@@ -15,11 +15,19 @@ const dropdownInputField = props => {
     }
   });
   const [touched, setTouched] = useState(false);
-  const optionsToRender = props.options.map((optionValue, index) => (
-    <option value={optionValue} key={optionValue + index}>
-      {optionValue}
-    </option>
-  ));
+  const optionsToRender =
+    props.options &&
+    props.options.map((option, index) => {
+      return isObject(option) ? (
+        <option value={option.value} key={option.value + index}>
+          {option.label}
+        </option>
+      ) : (
+        <option value={option} key={option + index}>
+          {option}
+        </option>
+      );
+    });
 
   const handleOptionClick = e => {
     const newValue = e.target.value;
@@ -70,6 +78,10 @@ const dropdownInputField = props => {
       `}</style>
     </select>
   );
+};
+
+const isObject = function(a) {
+  return !!a && a.constructor === Object;
 };
 
 export default React.memo(dropdownInputField);

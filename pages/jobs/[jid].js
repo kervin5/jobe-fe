@@ -7,7 +7,7 @@ import SingleJobListing from "../../components/jobs/JobListing/SingleJobListing"
 
 import PageSection from "../../components/common/Layout/PageSection";
 
-const pageStyles = `background-color:${variables.mutedColor1};justify-content: center;`;
+const pageStyles = `background-color:${variables.mutedColor1};`;
 
 const SINGLE_JOB_QUERY = gql`
   query SINGLE_JOB_QUERY($id: ID!) {
@@ -20,8 +20,8 @@ const SINGLE_JOB_QUERY = gql`
 
 const SingleJobView = props => {
   return (
-    <PageSection styles={pageStyles}>
-      <Container>
+    <PageSection styles={pageStyles} nopadding column>
+      <Container nopadding>
         <SingleJobListing jobId={props.jobId} />
       </Container>
     </PageSection>
