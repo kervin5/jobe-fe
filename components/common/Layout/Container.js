@@ -13,7 +13,7 @@ const container = props => {
           margin: 0 auto;
           max-width: ${props.maxWidth || "970px"};
           width: 100%;
-          padding: 15px;
+          padding: ${props.nopadding ? "0px" : "15px"};
           ${props.styles || ""};
         }
       `}</style>

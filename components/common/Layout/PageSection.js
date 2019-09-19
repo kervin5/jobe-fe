@@ -11,6 +11,7 @@ const pageSection = props => {
       <style jsx>{`
         .PageSection {
           min-height: 100vh;
+          padding-top: ${props.nopadding ? "0px" : "30px"};
           width: 100%;
           position: relative;
           display: flex;
