@@ -37,7 +37,11 @@ const bottomNav = () => (
         </NavigationItem>
       </RenderIfLoggedIn>
       <RenderIfLoggedIn>
-        <LogoutButtonMobile />
+        {/* <LogoutButtonMobile> */}
+        <NavigationItem>
+          {/* <Icon name="sign-out" inverted color="grey" size="large"/> */}
+          <LogoutButtonMobile click />
+        </NavigationItem>
       </RenderIfLoggedIn>
     </nav>
     <style jsx>{`
@@ -58,7 +62,7 @@ const bottomNav = () => (
           background-color: ${variables.accentColor1};
           color: ${variables.clearColor};
           display: flex;
-          justify-content: space-evenly;
+          justify-content: space-around;
           align-items: baseline;
           align-content: center;
         }
