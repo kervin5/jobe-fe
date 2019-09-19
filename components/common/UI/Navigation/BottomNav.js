@@ -26,12 +26,14 @@ const bottomNav = () => (
           />
         </NavigationItem>
       </RenderIfLoggedOut>
-      <RenderIfLoggedIn access={["ADMIN", "SUPERVISOR", "RECRUITER"]}>
+      <RenderIfLoggedIn access={[{ object: "JOB", action: "CREATE" }]}>
         <NavigationItem href={"/dashboard"}>
           <Icon name="dashboard" inverted color="grey" size="large" />
         </NavigationItem>
       </RenderIfLoggedIn>
-      <RenderIfLoggedIn access={["CANDIDATE"]}>
+      <RenderIfLoggedIn
+        permissions={[{ object: "APPLICATION", action: "CREATE" }]}
+      >
         <NavigationItem href={"/me"}>
           <Icon name="user" inverted color="grey" size="large" />
         </NavigationItem>

@@ -4,12 +4,14 @@ import variables from "../../../components/common/globalVariables";
 import PageSection from "../../../components/common/Layout/PageSection";
 import PasswordResetForm from "../../../components/users/PasswordResetForm";
 import Title from "../../../components/common/UI/Title";
+import redirect from "../../../lib/redirect";
 
 const friendsImgUrl = "../../static/images/friends-with-bg.png";
+const pageStyles = `padding: 30px;`;
 
 const PasswordResetPage = props => {
   return (
-    <PageSection column>
+    <PageSection column styles={pageStyles}>
       <Title center>Enter New Password</Title>
       <PasswordResetForm token={props.query.resetToken} />
 
@@ -52,6 +54,13 @@ const PasswordResetPage = props => {
       `}</style>
     </PageSection>
   );
+};
+
+PasswordResetPage.getInitialProps = async context => {
+  const { resetToken } = context.query;
+
+  if (!resetToken) redirect(context, "/user/password/request");
+  return {};
 };
 
 export default PasswordResetPage;
