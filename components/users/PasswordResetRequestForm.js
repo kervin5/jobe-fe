@@ -11,6 +11,8 @@ const REQUEST_PASSWORD_MUTATION = gql`
   }
 `;
 
+const friendImage = "../../../static/images/";
+
 const passwordRequestForm = props => {
   const [validate, setValidate] = useState(false);
   const [formData, setFormData] = useState({
