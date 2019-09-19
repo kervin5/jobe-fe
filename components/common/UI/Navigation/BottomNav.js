@@ -37,10 +37,8 @@ const bottomNav = () => (
         </NavigationItem>
       </RenderIfLoggedIn>
       <RenderIfLoggedIn>
-        {/* <LogoutButtonMobile> */}
         <NavigationItem>
-          {/* <Icon name="sign-out" inverted color="grey" size="large"/> */}
-          <LogoutButtonMobile click />
+          <LogoutButtonMobile />
         </NavigationItem>
       </RenderIfLoggedIn>
     </nav>
