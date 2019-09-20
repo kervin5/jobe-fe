@@ -17,7 +17,6 @@ const LogoutButton = () => {
       <Mutation mutation={LOG_OUT_MUTATION}>
         {(logOutMutation, { error, loading, data }) => {
           if (error) return <p>Logged out</p>;
-          if (loading) return <Loader />;
           return (
             <Icon
               name="sign-out"
