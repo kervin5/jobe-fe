@@ -10,7 +10,7 @@ class JobsInformationSection extends React.Component {
     return (
       <React.Fragment>
         <div className="Summary">
-          <Grid columns={4}>
+          <Grid stackable columns={4}>
             <Grid.Column>
               <JobStatusCard label="Posted" status="POSTED" />
             </Grid.Column>

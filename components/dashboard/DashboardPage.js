@@ -46,8 +46,15 @@ const dashboardPage = props => {
         )}
       />
       <Container>
-        <Title>{props.title || "Dashboard"}</Title>
-        {props.children}
+        <div className="PageContent">
+          <Title>{props.title || "Dashboard"}</Title>
+          {props.children}
+          <style jsx>{`
+            .PageContent {
+              padding-left: 55px;
+            }
+          `}</style>
+        </div>
       </Container>
     </PageSection>
   );
