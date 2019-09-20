@@ -30,7 +30,7 @@ const jobListing = props => {
         <br />
 
         <Title size={"m"} data-test="company-information-section">
-          About the Company:
+          About the Company: {props.data.company}
         </Title>
         <p>{props.data.aboutCompany}</p>
         <br />
