@@ -21,12 +21,6 @@ const container = props => {
           padding-top: 30px;
           ${props.styles || ""};
         }
-
-        @media (max-width: 720px) {
-          div {
-            padding-top: 0px;
-          }
-        }
       `}</style>
     </div>
   );
