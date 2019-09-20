@@ -21,9 +21,24 @@ const SINGLE_JOB_QUERY = gql`
 const SingleJobView = props => {
   return (
     <PageSection styles={pageStyles} nopadding column>
-      <Container nopadding>
+      <div className="JobContainer">
         <SingleJobListing jobId={props.jobId} />
-      </Container>
+        <style jsx>
+          {`
+            .JobContainer {
+              width: 100%;
+              max-width: 970px;
+              padding-top: 30px;
+            }
+
+            @media (max-width: 720px) {
+              .JobContainer {
+                padding-top: 0;
+              }
+            }
+          `}
+        </style>
+      </div>
     </PageSection>
   );
 }; //eof

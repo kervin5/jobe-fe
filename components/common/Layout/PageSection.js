@@ -31,7 +31,7 @@ const pageSection = props => {
 
         @media (max-width: 720px) {
           .PageSection:first-child {
-            min-height: calc(100vh - 100px);
+            min-height: calc(100vh - 88px);
           }
         }
       `}</style>
