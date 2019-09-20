@@ -63,7 +63,6 @@ const loginForm = props => {
     if (email.valid && password.valid) {
       const res = await loginUserMutation();
 
-      console.log(res);
       if (res.data.login && !props.noredirect) {
         const route = userHasAccess(
           [{ object: "JOB", action: "CREATE" }],
