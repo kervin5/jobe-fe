@@ -55,6 +55,9 @@ const homePage = props => {
           What's Poppin' 😎
         </Title>
         <PopularTerms />
+        <Title size={"m"} center margin>
+          New Jobs 🔥
+        </Title>
         <Jobs />
       </Container>
       <style jsx>{`
