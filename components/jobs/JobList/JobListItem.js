@@ -107,6 +107,31 @@ const jobListItem = props => {
           font-weight: bold;
           color: ${variables.accentColor1};
         }
+
+        @media (max-width: 720px) {
+          .JobListItemHeader {
+            margin-top: 10px;
+          }
+
+          .JobListItemMainInfo {
+            position: absolute;
+            right: 0;
+            top: 0;
+          }
+
+          .JobListItemMainInfo :global(> span:nth-child(2)) {
+            margin-left: 0;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+
+          .JobListItemMainInfo :global(> span:nth-child(1)) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-top-left-radius: 0;
+          }
+        }
       `}</style>
     </Card>
   );

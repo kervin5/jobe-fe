@@ -6,10 +6,10 @@ const container = props => {
   // const customWidth = props.maxWidth || "900px";
 
   return (
-    <div>
+    <div className="Container">
       {props.children}
       <style jsx>{`
-        div {
+        .Container {
           margin: 0 auto;
           max-width: ${props.maxWidth || "970px"};
           width: 100%;
@@ -18,7 +18,7 @@ const container = props => {
             : props.padding
             ? props.padding
             : "15px"};
-          padding-top: 30px;
+          padding-top: 15px;
           ${props.styles || ""};
         }
       `}</style>

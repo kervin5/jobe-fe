@@ -6,8 +6,8 @@ import variables from "../../../globalVariables";
 const navigationItem = props => {
   return (
     <Link href={props.href || "#"}>
-      <a>
-        <div>{props.children}</div>
+      <a className="NavigationItem">
+        <div className="NavigationItemContent">{props.children}</div>
         <style jsx>{`
           div {
             background-color: transparent;

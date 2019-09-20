@@ -43,18 +43,20 @@ const bottomNav = () => (
       </NavigationItem>
     </RenderIfLoggedIn>
     <style jsx>{`
-      nav {
+      .BottomNav {
         display: none;
       }
 
-      @media (max-width: 900px) {
-        nav {
-          position: fixed;
-          bottom: 0;
-          width: 100%;
-          z-index: 1999;
-        }
+      .BottomNav :global(.NavigationItem .NavigationItemContent) {
+        padding-top: 6px;
+        padding-bottom: 6px;
+      }
 
+      .BottomNav :global(.NavigationItem i) {
+        color: ${variables.clearColor} !important;
+      }
+
+      @media (max-width: 900px) {
         .BottomNav {
           display: block;
           background-color: ${variables.accentColor1};
@@ -63,10 +65,10 @@ const bottomNav = () => (
           justify-content: space-around;
           align-items: baseline;
           align-content: center;
-        }
-
-        a:hover {
-          background-color: black;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          z-index: 1999;
         }
       }
     `}</style>

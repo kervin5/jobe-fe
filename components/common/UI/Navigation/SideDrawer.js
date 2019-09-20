@@ -23,7 +23,7 @@ const sideDrawer = props => {
           background-color: ${variables.clearColor};
           overflow-x: scroll;
           position: fixed;
-          top: 0;
+          top: 50px;
           bottom: 0;
           z-index: 999;
           padding: 20px;
