@@ -283,7 +283,7 @@ class JobMutationBaseForm extends Component {
               validate={this.state.validate}
               type="richTextLimited"
               placeholder="Required Skills, Experience, etc."
-              label="Job Requirements"
+              label="Job Description"
               change={this.changeHandler}
               name={"description"}
               value={this.state.formData.description.value}
