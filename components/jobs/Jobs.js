@@ -54,6 +54,7 @@ const SEARCH_JOBS_QUERY = gql`
       minCompensation
       maxCompensation
       type
+      createdAt
       location {
         name
       }
