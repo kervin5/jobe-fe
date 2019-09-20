@@ -33,6 +33,7 @@ export const SINGLE_JOB_QUERY = gql`
         company {
           id
           name
+          description
         }
       }
     }
@@ -53,7 +54,9 @@ const SingleJobListing = ({ jobId, preview }) => {
             data={{
               ...singleJob,
               location: singleJob.location.name,
-              aboutCompany: singleJob.branch.description,
+              aboutCompany:
+                singleJob.branch.description ||
+                singleJob.branch.company.description,
               company: singleJob.branch.company.name
             }}
             preview={preview || !(singleJob.status === "POSTED")}
