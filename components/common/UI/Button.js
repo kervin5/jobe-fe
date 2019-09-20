@@ -15,17 +15,16 @@ const Button = props => {
       : variables.accentColor1 + ";");
 
   const parentProps = { ...props };
-
+  const ElementToRender = props.as || "button";
   delete parentProps.fullWidth;
   delete parentProps.iconOnly;
   delete parentProps.loading;
 
   return (
-    <button
+    <ElementToRender
       onClick={props.onClick}
       className={["Button", iconOnly, disabled].join(" ")}
       disabled={props.disabled}
-      {...parentProps}
     >
       {props.icon ? <Icon icon={props.icon} /> : null}
       {props.iconOnly ? null : props.loading ? <Loader /> : props.children}
@@ -109,7 +108,7 @@ const Button = props => {
 
         ${props.styles || ""}
       `}</style>
-    </button>
+    </ElementToRender>
   );
 };
 
