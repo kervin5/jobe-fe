@@ -20,12 +20,13 @@ const socialMedia = props => {
     },
     mailto: {
       name: "Email",
-      url: "mailto:change@thisaddress.com?&subject=&body=",
+      url:
+        "mailto:change@this.com?subject=Amazing Career opportunity @ myExactJobs&body=",
       icon: "mail outline",
       color: "grey"
     }
   };
-  let newUrl = url.replace(" ", "-");
+  let newUrl = url.split(" ").join("-");
 
   return (
     <div className="SocialButtons">
