@@ -20,8 +20,7 @@ const socialMedia = props => {
     },
     mailto: {
       name: "Email",
-      url:
-        "mailto:change@this.com?subject=Amazing Career opportunity @ myExactJobs&body=",
+      url: "mailto: ?subject=Amazing Career opportunity @ myExactJobs&body=",
       icon: "mail outline",
       color: "grey"
     }
