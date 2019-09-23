@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import Link from "next/link";
 import InputField from "../../common/UI/Input/InputField";
 import InputGroup from "../../common/UI/Input/InputGroup";
 import ButtonGroup from "../../common/UI/ButtonGroup";
 import Button from "../../common/UI/Button";
+import { Router } from "next/router";
 
 const ALL_CATEGORIES_QUERY = gql`
   query ALL_CATEGORIES_QUERY {
@@ -283,7 +283,7 @@ class JobMutationBaseForm extends Component {
               validate={this.state.validate}
               type="richTextLimited"
               placeholder="Required Skills, Experience, etc."
-              label="Job Requirements"
+              label="Job Description"
               change={this.changeHandler}
               name={"description"}
               value={this.state.formData.description.value}
@@ -291,12 +291,13 @@ class JobMutationBaseForm extends Component {
             />
 
             <ButtonGroup>
-              <Link href="/dashboard">
-                <Button color="2" fullWidth>
-                  Cancel
-                </Button>
-              </Link>
-
+              <Button
+                color="2"
+                fullWidth
+                onClick={() => Router.push("/dashboard")}
+              >
+                Cancel
+              </Button>
               <Button onClick={this.submitFormHandler} fullWidth>
                 Preview Job
               </Button>

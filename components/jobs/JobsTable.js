@@ -108,6 +108,7 @@ const JobsTable = props => {
                   perPage={perPage}
                   turnPageHandler={handleTurnPage}
                   data={injectActionsColumn(dataForTable)}
+                  noid
                 />
               );
             }}

@@ -39,7 +39,7 @@ const homePage = props => {
       <DynamicImageBg
         query={
           userLocation.name !== "Loading..."
-            ? userLocation.name
+            ? userLocation.country || userLocation.name
             : "Los Angeles, CA"
         }
       >

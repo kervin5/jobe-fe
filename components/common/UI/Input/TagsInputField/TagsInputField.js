@@ -99,9 +99,12 @@ class TagsInputField extends React.Component {
         <ReactTags
           tags={this.state.tags}
           suggestions={this.state.suggestions}
-          onAddition={this.handleAddition.bind(this)}
-          onDelete={this.handleDelete.bind(this)}
+          handleAddition={this.handleAddition.bind(this)}
+          handleDelete={this.handleDelete.bind(this)}
           minQueryLength={1}
+          autofocus={false}
+          maxSuggestionsLength={10}
+          clearInputOnDelete={false}
         />
         <style jsx global>{`
           .react-tags {
@@ -147,6 +150,11 @@ class TagsInputField extends React.Component {
 
           .react-tags__suggestions li:hover {
             background-color: ${variables.accentColor2};
+            color: ${variables.clearColor};
+          }
+
+          .react-tags__suggestions .is-active {
+            background-color: ${variables.accentColor3};
             color: ${variables.clearColor};
           }
 

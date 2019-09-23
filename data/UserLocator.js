@@ -39,7 +39,10 @@ class UserLocator {
               const locationData = {
                 lat: latitude,
                 lon: longitude,
-                name: res.data.features[0].context[0].text
+                name: res.data.features[0].context[0].text,
+                country: res.data.features[0].context.filter(loc =>
+                  loc.id.includes("country")
+                )[0].text
               };
               this.setLocationData(locationData);
               resolve(locationData);
@@ -63,10 +66,12 @@ class UserLocator {
           `https://api.ipgeolocation.io/ipgeo?apiKey=1503b8dbdf444bb786093ea0bbbd39fb`
         )
         .then(res => {
+          console.log(res);
           const locationData = {
             lat: res.data.latitude,
             lon: res.data.longitude,
-            name: res.data.city
+            name: res.data.city,
+            country: res.data.country_name
           };
 
           this.setLocationData(locationData);

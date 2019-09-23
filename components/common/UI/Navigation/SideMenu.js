@@ -14,7 +14,7 @@ const sideMenu = props => {
               onClick={() => props.onClick(option.label)}
             >
               <Icon name={option.icon} />
-              {option.label}
+              <span>{option.label}</span>
             </Menu.Item>
           );
         })}
@@ -26,7 +26,23 @@ const sideMenu = props => {
 
         .Sidebar :global(.sidebar.menu) {
           background: ${variables.mutedColor1};
-          top: 54px;
+          top: 64px;
+        }
+
+        @media (max-width: 900px) {
+          .Sidebar :global(.sidebar.menu) {
+            top: 45px;
+            width: 60px;
+          }
+
+          .Sidebar :global(.sidebar.menu .item) {
+            padding: 13px 10px;
+            min-width: auto;
+          }
+
+          .Sidebar :global(.sidebar.menu .item span) {
+            display: none;
+          }
         }
       `}</style>
     </div>

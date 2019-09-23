@@ -38,7 +38,7 @@ const variables = {
   smallScreen: "520px",
   mediumScreen: "920px",
 
-  bottomNav: "50px"
+  bottomNav: "40px"
 };
 
 export default variables;
