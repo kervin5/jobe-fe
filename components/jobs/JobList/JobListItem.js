@@ -1,6 +1,4 @@
 import React from "react";
-
-// import classes from './JobListItem.module.scss';
 import variables from "../../common/globalVariables";
 import moment from "moment";
 import Bubble from "../../common/UI/Bubble";
@@ -8,6 +6,7 @@ import Icon from "../../common/UI/Icon";
 import FavoriteButton from "../../common/UI/FavoriteButton";
 import Card from "../../common/UI/Card";
 import Link from "next/link";
+import HtmlRenderer from "../../common/UI/HtmlRenderer";
 
 const styles = ` background-color: ${variables.clearColor};
                 margin: 20px auto;
@@ -39,7 +38,9 @@ const jobListItem = props => {
         </div>
       </div>
       <Link href="/jobs/[jid]" as={jobUrl}>
-        <a className="Content">{props.description.substr(1, 200)}...</a>
+        <a className="Content">
+          <HtmlRenderer html={props.description.substr(0, 200) + "..."} />
+        </a>
       </Link>
 
       <div className="JobListItemFooter">

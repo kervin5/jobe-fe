@@ -43,12 +43,12 @@ const TableWithPagination = ({
               {Object.keys(row)
                 .filter(
                   rowName =>
-                    (rowName && rowName === "id") ||
+                    (withid && rowName === "id") ||
                     (rowName !== "__typename" && rowName !== "id")
                 )
                 .map((column, index) => {
                   return (
-                    <Table.Cell key={row + key + column + index}>
+                    <Table.Cell key={"Column" + key + column + index}>
                       {row[column]}
                     </Table.Cell>
                   );
