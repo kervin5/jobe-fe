@@ -14,15 +14,10 @@ const bottomNav = () => (
     </NavigationItem>
     <RenderIfLoggedOut>
       <NavigationItem href={"/user/login"}>
-        <Icon name="key" inverted color="grey" size="large" />
+        <Icon name="sign in" inverted color="grey" size="large" />
       </NavigationItem>
       <NavigationItem href={"/user/register"}>
-        <Icon
-          name="file alternate outline"
-          inverted
-          color="grey"
-          size="large"
-        />
+        <Icon name="signup" inverted color="grey" size="large" />
       </NavigationItem>
     </RenderIfLoggedOut>
     <RenderIfLoggedIn permissions={[{ object: "JOB", action: "CREATE" }]}>
