@@ -1,6 +1,4 @@
 import axios from "axios";
-import { resolve } from "url";
-import { rejects } from "assert";
 
 class UserLocator {
   locationName = "Unavailable";
