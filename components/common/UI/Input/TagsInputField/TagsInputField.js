@@ -81,15 +81,17 @@ class TagsInputField extends React.Component {
   };
 
   updateSuggestions = (tag, action) => {
-    if (action === "remove") {
-      const updatedSuggestions = this.state.suggestions.filter(suggestion => {
-        return suggestion.id !== tag.id;
-      });
+    if (tag) {
+      if (action === "remove") {
+        const updatedSuggestions = this.state.suggestions.filter(suggestion => {
+          return suggestion.id !== tag.id;
+        });
 
-      this.setState({ suggestions: updatedSuggestions });
-    } else {
-      const updatedSuggestions = this.state.suggestions.concat(tag);
-      this.setState({ suggestions: updatedSuggestions });
+        this.setState({ suggestions: updatedSuggestions });
+      } else {
+        const updatedSuggestions = this.state.suggestions.concat(tag);
+        this.setState({ suggestions: updatedSuggestions });
+      }
     }
   };
 

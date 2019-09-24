@@ -59,7 +59,7 @@ const PopularTerms = () => {
             background: rgba(0, 0, 0, 0.2);
             position: absolute;
             display: block;
-            z-index: 5;
+            z-index: 4;
             left: 0;
             right: 0;
             bottom: 0;
@@ -71,10 +71,12 @@ const PopularTerms = () => {
           }
 
           .Term .TermContent {
+            position: relative;
             padding: 30px 10px;
             font-weight: bold;
             color: white;
             text-align: center;
+            z-index: 4;
           }
         `}
       </style>

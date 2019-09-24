@@ -6,21 +6,52 @@ import JobList from "./JobList/JobList";
 import Button from "../common/UI/Button";
 import Loader from "../common/UI/Animated/Loader";
 
+// const ALL_JOBS_QUERY = gql`
+//   query ALL_JOBS_QUERY($perPage: Int!, $skip: Int!) {
+//     jobs(
+//       first: $perPage
+//       skip: $skip
+//       orderBy: createdAt_DESC
+//       where: { status: POSTED }
+//     ) {
+//       id
+//       title
+//       description
+//       compensationType
+//       type
+//       minCompensation
+//       maxCompensation
+//       createdAt
+//       location {
+//         name
+//       }
+//     }
+//   }
+// `;
+
 const ALL_JOBS_QUERY = gql`
-  query ALL_JOBS_QUERY($perPage: Int!, $skip: Int!) {
+  query SEARCH_JOBS_QUERY(
+    $query: String!
+    $category: String
+    $perPage: Int!
+    $skip: Int!
+  ) {
     jobs(
       first: $perPage
       skip: $skip
       orderBy: createdAt_DESC
-      where: { status: POSTED }
+      where: {
+        title_contains: $query
+        status: POSTED
+        categories_some: { name_contains: $category }
+      }
     ) {
       id
       title
       description
-      compensationType
-      type
       minCompensation
       maxCompensation
+      type
       createdAt
       location {
         name
@@ -31,22 +62,19 @@ const ALL_JOBS_QUERY = gql`
 
 const SEARCH_JOBS_QUERY = gql`
   query SEARCH_JOBS_QUERY(
-    $q: String!
+    $query: String!
     $location: String!
     $category: String
     $perPage: Int!
     $skip: Int!
   ) {
-    jobs(
+    searchJobs(
+      query: $query
+      location: $location
+      where: { status: POSTED, categories_some: { name_contains: $category } }
       first: $perPage
       skip: $skip
       orderBy: createdAt_DESC
-      where: {
-        title_contains: $q
-        status: POSTED
-        location: { name_contains: $location }
-        categories_some: { name_contains: $category }
-      }
     ) {
       id
       title
@@ -66,9 +94,9 @@ class Jobs extends PureComponent {
   render() {
     let query = ALL_JOBS_QUERY;
 
-    // if (this.props.q && this.props.location) {
-    query = SEARCH_JOBS_QUERY;
-    // }
+    if ((this.props.q && this.props.location) || this.props.location) {
+      query = SEARCH_JOBS_QUERY;
+    }
 
     return (
       <div>
@@ -76,7 +104,7 @@ class Jobs extends PureComponent {
           query={query}
           variables={{
             location: this.props.location || "",
-            q: this.props.q || "",
+            query: this.props.q || "",
             category: this.props.category || "",
             perPage,
             skip: 0
@@ -85,24 +113,36 @@ class Jobs extends PureComponent {
           {({ data, error, loading, fetchMore }) => {
             if (loading) return <Loader />;
             if (error) return <p>Error: {error.message}</p>;
-            const endReached = data.jobs.length % perPage !== 0;
+            const jobs = data.jobs || data.searchJobs;
+            const endReached = jobs.length % perPage !== 0;
+
             return (
               <React.Fragment>
-                <JobList jobs={data.jobs} />
-                {!endReached && data.jobs.length > 0 && (
+                <JobList jobs={jobs} />
+                {!endReached && jobs.length > 0 && (
                   <Button
                     fullWidth
                     onClick={() => {
                       fetchMore({
                         variables: {
-                          skip: data.jobs.length,
+                          skip: jobs.length,
                           perPage
                         },
                         updateQuery(prev, { fetchMoreResult }) {
                           if (!fetchMoreResult) return prev;
-                          return Object.assign({}, prev, {
-                            jobs: [...prev.jobs, ...fetchMoreResult.jobs]
-                          });
+                          console.log(fetchMoreResult);
+                          if (fetchMoreResult.jobs) {
+                            return Object.assign({}, prev, {
+                              jobs: [...prev.jobs, ...fetchMoreResult.jobs]
+                            });
+                          } else {
+                            return Object.assign({}, prev, {
+                              searchJobs: [
+                                ...searchJobs.jobs,
+                                ...[fetchMoreResult.searchJobs]
+                              ]
+                            });
+                          }
                         }
                       });
                     }}

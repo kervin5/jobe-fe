@@ -66,7 +66,7 @@ const SearchBar = ({ terms = "Awesome", location, onClick }) => {
 
 SearchBar.propTypes = {
   terms: PropTypes.string,
-  location: PropTypes.string.isRequired
+  location: PropTypes.string
 };
 
 export default SearchBar;

@@ -10,6 +10,14 @@ const prodEndpoint = `https://myexactjobs-graphql-api.herokuapp.com/`;
 const backendUri =
   process.env.NODE_ENV === "production" ? prodEndpoint : endpoint;
 
+const mapboxUrl = location => {
+  return (
+    "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+    location +
+    ".json?access_token=pk.eyJ1Ijoia3Zhc3F1ZXppdCIsImEiOiJjandzNWtjcjUwMHh2NDJxa2toeWJ6N2FlIn0.Qa-IM4Em_QMvC2QWlMvieQ&types=country,region,postcode,place"
+  );
+};
+
 app.prepare().then(() => {
   const server = express();
 
@@ -27,6 +35,14 @@ app.prepare().then(() => {
       }
     })
   );
+
+  server.use("/location/:name", (req, res, next) => {
+    return proxy({
+      target: mapboxUrl(req.params.name),
+      changeOrigin: true,
+      pathRewrite: () => ""
+    })(req, res, next);
+  });
 
   server.get("*", (req, res) => {
     return handle(req, res);
