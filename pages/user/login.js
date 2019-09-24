@@ -19,9 +19,9 @@ const loginPage = () => {
       <LoginForm />
 
       <Link href="/user/password/request">
-        <a className="forgoPasswordLink">Forgot Password?</a>
+        <a className="forgoPasswordLink Link">Forgot Password?</a>
       </Link>
-      <p>
+      <p className="Link">
         Don't have an account?
         <Link href="/user/register">
           <a> Sign Up</a>
@@ -46,12 +46,12 @@ const loginPage = () => {
 
         a,
         p {
-          font-size: 0.8em;
+          font-size: 1em;
         }
 
-        // a {
-        //   color: ${variables.accentColor1};
-        // }
+        a {
+          font-weight: bold;
+        }
 
         p a {
           font-size: 1em;

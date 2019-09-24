@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import Router from "next/router";
+import ErrorMessage from "../common/UI/ErrorMessage";
 import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
 import { ME_USER_QUERY, userHasAccess } from "../../lib/auth";
-import Router from "next/router";
 // import { logInUser } from "../../data/auth";
 
 const LOGIN_USER = gql`
@@ -110,7 +111,7 @@ const loginForm = props => {
       >
         {(loginUser, { loading, error, called, data }) => (
           <form>
-            {error && <p>Something went wrong</p>}
+            <ErrorMessage error={error} />
             <fieldset disabled={loading} aria-busy={loading}>
               {fieldsToRender}
               <br />
