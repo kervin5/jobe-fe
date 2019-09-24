@@ -39,7 +39,10 @@ const jobListItem = props => {
       </div>
       <Link href="/jobs/[jid]" as={jobUrl}>
         <a className="Content">
-          <HtmlRenderer html={props.description.substr(0, 200) + "..."} />
+          <HtmlRenderer
+            html={props.description.substr(0, 200) + "..."}
+            options={["p"]}
+          />
         </a>
       </Link>
 

@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Query } from "react-apollo";
-import { Button, Placeholder, Loader } from "semantic-ui-react";
+import { Button, Placeholder, Loader, Input } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { perPage } from "../../config";
-import Table from "../common/UI/Table";
+import SortableTable from "../common/UI/SortableTable";
 import variables from "../common/globalVariables";
+import moment from "moment";
 
-const JOBS_FIELDS = `(first: $perPage, skip: $skip) {
+const JOBS_FIELDS = `(first: $perPage, skip: $skip where: { title_contains: $query }) {
   id
   title
   status
+  updatedAt
   author {
     name
   }
@@ -24,7 +26,7 @@ const JOBS_FIELDS = `(first: $perPage, skip: $skip) {
 }`;
 
 const USER_JOBS_QUERY = gql`
-  query USER_JOBS_QUERY($perPage: Int!, $skip: Int!) {
+  query USER_JOBS_QUERY($perPage: Int!, $skip: Int! $query: String!) {
     me {
       id
       jobs ${JOBS_FIELDS}
@@ -38,8 +40,8 @@ const USER_JOBS_QUERY = gql`
 `;
 
 const USER_JOBS_CONNECTION_QUERY = gql`
-  query USER_JOBS_CONNECTION_QUERY {
-    jobsConnection {
+  query USER_JOBS_CONNECTION_QUERY($query: String!) {
+    jobsConnection(where: { title_contains: $query }) {
       aggregate {
         count
       }
@@ -49,72 +51,93 @@ const USER_JOBS_CONNECTION_QUERY = gql`
 
 const JobsTable = props => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
 
   const handleTurnPage = pageNumber => {
     setCurrentPage(parseInt(pageNumber));
   };
 
+  const handleSearchFieldChange = e => {
+    setSearchValue(e.target.value);
+  };
+
   return (
-    <Query query={USER_JOBS_CONNECTION_QUERY} ssr={false}>
-      {userJobsData => {
-        if (userJobsData.error) return <p>Something went wrong...</p>;
-        if (userJobsData.loading) return <Loader />;
-        if (!userJobsData.data) return <p>Please wait</p>;
-        return (
-          <Query
-            query={USER_JOBS_QUERY}
-            variables={{
-              perPage,
-              skip: (currentPage - 1) * perPage
-            }}
-            ssr={false}
-          >
-            {({ data, error, loading }) => {
-              if (loading)
+    <>
+      <Input
+        icon="search"
+        placeholder="Search..."
+        onChange={handleSearchFieldChange}
+      />
+      <Query
+        query={USER_JOBS_CONNECTION_QUERY}
+        ssr={false}
+        variables={{ query: searchValue }}
+      >
+        {userJobsData => {
+          if (userJobsData.error) return <p>Something went wrong...</p>;
+          if (userJobsData.loading) return <Loader />;
+          if (!userJobsData.data) return <p>Please wait</p>;
+          return (
+            <Query
+              query={USER_JOBS_QUERY}
+              variables={{
+                perPage,
+                skip: (currentPage - 1) * perPage,
+                query: searchValue
+              }}
+              ssr={false}
+            >
+              {({ data, error, loading }) => {
+                if (loading)
+                  return (
+                    <Placeholder fluid>
+                      <Placeholder.Header>
+                        <Placeholder.Line />
+                        <Placeholder.Line />
+                      </Placeholder.Header>
+                      <Placeholder.Paragraph>
+                        <Placeholder.Line />
+                        <Placeholder.Line />
+                        <Placeholder.Line />
+                      </Placeholder.Paragraph>
+                    </Placeholder>
+                  );
+                if (error) return <p>Something Failed...</p>;
+                if (!data.me) return <p>Please wait</p>;
+
+                //Get jobs from branch if user has access
+                const dataForTable = (data.me.branch
+                  ? data.me.branch
+                  : data.me
+                ).jobs.map(job => {
+                  return {
+                    ...job,
+                    location: job.location.name
+                  };
+                });
+
+                const jobsCount =
+                  userJobsData.data.jobsConnection.aggregate.count;
                 return (
-                  <Placeholder fluid>
-                    <Placeholder.Header>
-                      <Placeholder.Line />
-                      <Placeholder.Line />
-                    </Placeholder.Header>
-                    <Placeholder.Paragraph>
-                      <Placeholder.Line />
-                      <Placeholder.Line />
-                      <Placeholder.Line />
-                    </Placeholder.Paragraph>
-                  </Placeholder>
+                  <>
+                    <SortableTable
+                      page={currentPage}
+                      loading={loading}
+                      count={jobsCount}
+                      perPage={perPage}
+                      turnPageHandler={handleTurnPage}
+                      data={injectActionsColumn(dataForTable)}
+                      onSearchFieldChange={handleSearchFieldChange}
+                      exclude={["updatedAt"]}
+                    />
+                  </>
                 );
-              if (error) return <p>Something Failed...</p>;
-              if (!data.me) return <p>Please wait</p>;
-
-              //Get jobs from branch if user has access
-              const dataForTable = (data.me.branch
-                ? data.me.branch
-                : data.me
-              ).jobs.map(job => {
-                return {
-                  ...job,
-                  location: job.location.name
-                };
-              });
-
-              const jobsCount =
-                userJobsData.data.jobsConnection.aggregate.count;
-              return (
-                <Table
-                  page={currentPage}
-                  loading={loading}
-                  count={jobsCount}
-                  perPage={perPage}
-                  turnPageHandler={handleTurnPage}
-                  data={injectActionsColumn(dataForTable)}
-                />
-              );
-            }}
-          </Query>
-        );
-      }}
-    </Query>
+              }}
+            </Query>
+          );
+        }}
+      </Query>
+    </>
   );
 };
 
@@ -122,7 +145,7 @@ const injectActionsColumn = data => {
   return data.map(record => {
     return {
       ...record,
-
+      updated: moment(record.updatedAt).format("MM/DD/YYYY"),
       status: (
         <p>
           {record.status.toLowerCase()}
