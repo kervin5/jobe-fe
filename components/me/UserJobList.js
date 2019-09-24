@@ -7,8 +7,8 @@ import Icon from "../common/UI/Icon";
 import JobList from "../jobs/JobList/JobList";
 import Jobs from "../jobs/Jobs";
 import ResumeList from "../common/UI/ResumeList";
-import Button from "../common/UI/Button";
-import Upload from "../../pages/resumes/upload";
+import ResumeUploadButton from "../common/UI/ResumeUploadButton";
+
 import Title from "../common/UI/Title";
 
 const USER_FAVORITED_JOBS = gql`
@@ -59,7 +59,7 @@ const USER_APPLIED_JOBS = gql`
   }
 `;
 
-const RESUME_LIST_QUERY = gql`
+export const RESUME_LIST_QUERY = gql`
   query RESUME_LIST_QUERY {
     me {
       id
@@ -182,7 +182,7 @@ const userJobList = () => {
             <>
               <div className="resumeHeader">
                 <Title size="s">These are your resumes.</Title>
-                {addResume}
+                <ResumeUploadButton />
               </div>
               <Query query={RESUME_LIST_QUERY}>
                 {({ error, loading, data }) => {
