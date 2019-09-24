@@ -32,9 +32,7 @@ class UserLocator {
           const { latitude, longitude } = position.coords;
 
           axios
-            .get(
-              `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=pk.eyJ1Ijoia3Zhc3F1ZXppdCIsImEiOiJjandzNWtjcjUwMHh2NDJxa2toeWJ6N2FlIn0.Qa-IM4Em_QMvC2QWlMvieQ`
-            )
+            .get(`/location/${longitude},${latitude}`)
             .then(res => {
               const locationData = {
                 lat: latitude,

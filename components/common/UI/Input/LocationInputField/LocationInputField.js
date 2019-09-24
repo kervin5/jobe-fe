@@ -43,17 +43,9 @@ const locationInputField = props => {
 
   useEffect(() => {
     if (!isTyping && uri !== "") {
-      axios
-        .get(
-          "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-            uri +
-            ".json" +
-            "?access_token=pk.eyJ1Ijoia3Zhc3F1ZXppdCIsImEiOiJjandzNWtjcjUwMHh2NDJxa2toeWJ6N2FlIn0.Qa-IM4Em_QMvC2QWlMvieQ" +
-            "&types=country,region,postcode,place"
-        )
-        .then(res => {
-          setLocations(res.data.features);
-        });
+      axios.get("/location/" + uri).then(res => {
+        setLocations(res.data.features);
+      });
     }
   }, [isTyping, uri]);
 
