@@ -3,8 +3,7 @@ import { Input, Menu, Segment } from "semantic-ui-react";
 import Icon from "../common/UI/Icon";
 import JobList from "../jobs/JobList/JobList";
 import ResumeList from "../common/UI/ResumeList";
-import Button from "../common/UI/Button";
-import Upload from "../../pages/resumes/upload";
+import ResumeUploadButton from "../common/UI/ResumeUploadButton";
 
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
@@ -75,7 +74,7 @@ const USER_APPLIED_JOBS = gql`
   }
 `;
 
-const RESUME_LIST_QUERY = gql`
+export const RESUME_LIST_QUERY = gql`
   query RESUME_LIST_QUERY {
     me {
       id
@@ -98,16 +97,6 @@ const userJobList = () => {
   const [jobsTorender, setJobsToRender] = useState([]);
   const [activeItem, setActiveItem] = useState("recommended");
   const handleItemClick = (e, { name }) => setActiveItem(name);
-
-  const addResume = () => {
-    return (
-      <Button
-        click={() => {
-          return <Upload />;
-        }}
-      />
-    );
-  };
 
   return (
     <div className="UserJobList">
@@ -158,7 +147,9 @@ const userJobList = () => {
         <>
           {activeItem === "recommended" && (
             <>
-              <Title size="s">These are your Reccommended Jobs.</Title>
+              <Title size="s">
+                Your Reccommended Jobs based on your skill.
+              </Title>
               <Query query={USER_RECOMMENDED_JOBS}>
                 {({ error, loading, data }) => {
                   if (error) return <p>Something went wrong</p>;
@@ -198,7 +189,7 @@ const userJobList = () => {
             <>
               <div className="resumeHeader">
                 <Title size="s">These are your resumes.</Title>
-                {addResume}
+                <ResumeUploadButton />
               </div>
               <Query query={RESUME_LIST_QUERY}>
                 {({ error, loading, data }) => {

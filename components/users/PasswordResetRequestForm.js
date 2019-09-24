@@ -11,8 +11,6 @@ const REQUEST_PASSWORD_MUTATION = gql`
   }
 `;
 
-const friendImage = "../../../static/images/";
-
 const passwordRequestForm = props => {
   const [validate, setValidate] = useState(false);
   const [formData, setFormData] = useState({
@@ -73,12 +71,9 @@ const passwordRequestForm = props => {
         return (
           <form>
             <Title size={"l"} center>
-              Forgot Password? 🤔
+              Forgot Password?
             </Title>
-            <Title center size={"s"}>
-              Enter your email to create a new password
-            </Title>
-            {error && <p className="error">Cannot find that email address</p>}
+            {error && <p className={"error"}>Cannot find that email address</p>}
             {!error && data && !loading && (
               <p>Please your mailbox with a reset link</p>
             )}
