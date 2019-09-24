@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import gql from "graphql-tag";
 import redirect from "../../lib/redirect";
 import variables from "../../components/common/globalVariables";
-import Container from "../../components/common/Layout/Container";
 import SingleJobListing from "../../components/jobs/JobListing/SingleJobListing";
 
 import PageSection from "../../components/common/Layout/PageSection";

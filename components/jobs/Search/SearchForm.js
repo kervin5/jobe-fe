@@ -43,17 +43,25 @@ const searchForm = props => {
   const submitFormHandler = async e => {
     e.preventDefault();
     await setValidate(true);
-    setSubmitted(true);
-  };
 
-  useEffect(() => {
     const { searchTerms, searchLocation } = formData;
-    if (searchTerms.valid && searchLocation.valid && submitted) {
+    if (searchTerms.valid && searchLocation.valid) {
       Router.push(
         `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`
       );
     }
-  }, [formData.searchTerms.valid, formData.searchLocation.valid, submitted]);
+  };
+
+  // useEffect(() => {
+  //   const { searchTerms, searchLocation } = formData;
+  //   if (searchTerms.valid && searchLocation.valid && submitted) {
+
+  //     Router.push(
+  //       `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`
+  //     );
+  //   }
+  //   console.log(searchTerms, submitted);
+  // }, [formData.searchTerms.valid, formData.searchLocation.valid, submitted]);
 
   const InputFields = ["searchTerms", "searchLocation"].map(key => {
     const fieldData = formData[key];

@@ -120,7 +120,7 @@ class AutoCompleteInputField extends React.PureComponent {
         });
       }
 
-      if (!this.state.hasValueFromOptions) {
+      if (!this.state.hasValueFromOptions && this.props.required) {
         this.handleStateChange({
           errors: ["Please select an option from the dropdown"],
           options: []

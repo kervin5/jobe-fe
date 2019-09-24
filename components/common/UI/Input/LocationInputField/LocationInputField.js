@@ -28,10 +28,12 @@ const locationInputField = props => {
       //Gets the location details if the location selected is valid, this is needed for the Backend when setting a location
       if (typeof selectedLocation !== "undefined") {
         const [longitude, latitude] = selectedLocation.geometry.coordinates;
+
         locationDetails = {
           name: selectedLocation.place_name,
           latitude: parseFloat(latitude),
-          longitude: parseFloat(longitude)
+          longitude: parseFloat(longitude),
+          boundary: selectedLocation.bbox
         };
       }
     }

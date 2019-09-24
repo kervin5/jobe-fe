@@ -26,6 +26,10 @@ const APPLICATIONS_QUERY = gql`
               name
             }
           }
+          job {
+            id
+            title
+          }
           resume {
             title
             id
@@ -85,6 +89,11 @@ const ApplicantTable = props => {
                 job.applications.forEach(application => {
                   applications.push({
                     name: application.user.name,
+                    job: (
+                      <Link href={"/jobs/" + application.job.id}>
+                        <a target="_blank">{application.job.title}</a>
+                      </Link>
+                    ),
                     email: (
                       <a href={`mailto:${application.user.email}`}>
                         {application.user.email}

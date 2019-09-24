@@ -9,7 +9,7 @@ const CREATE_JOB_MUTATION = gql`
   mutation CREATE_JOB_MUTATION(
     $title: String!
     $description: String!
-    $location: LocationCreateWithoutJobsInput!
+    $location: LocationInput!
     $categories: [String!]!
     $skills: [String!]!
     $type: String!
@@ -20,7 +20,7 @@ const CREATE_JOB_MUTATION = gql`
     createJob(
       title: $title
       description: $description
-      location: { create: $location }
+      location: $location
       categories: $categories
       skills: $skills
       type: $type

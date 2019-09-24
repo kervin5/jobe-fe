@@ -8,7 +8,7 @@ const TableWithPagination = ({
   turnPageHandler,
   page,
   loading,
-  noid
+  withid
 }) => {
   const pages = Math.ceil(count / perPage);
   const handlePaginationChange = (e, { activePage }) => {
@@ -22,7 +22,9 @@ const TableWithPagination = ({
         <Table.Row>
           {Object.keys(data[0])
             .filter(
-              header => header !== "__typename" && (noid && header !== "id")
+              header =>
+                (withid && header === "id") ||
+                (header !== "__typename" && header !== "id")
             )
             .map((header, key) => (
               <Table.HeaderCell key={header + key}>
@@ -41,7 +43,8 @@ const TableWithPagination = ({
               {Object.keys(row)
                 .filter(
                   rowName =>
-                    rowName !== "__typename" && (noid && rowName !== "id")
+                    (rowName && rowName === "id") ||
+                    (rowName !== "__typename" && rowName !== "id")
                 )
                 .map((column, index) => {
                   return (
