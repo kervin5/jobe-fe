@@ -61,21 +61,23 @@ const Candidates = props => {
             {({ error, loading, data }) => {
               if (error) return <p>Something Went Wrong...</p>;
               if (loading) return <Loader />;
+
               let candidates = [];
+              // const resumes = (data.users[0].resume)
 
               data.users.forEach(user => {
-                let resume = user.resumes;
-                console.log(resume);
-
                 candidates.push({
                   name: user.name,
                   email: <a href={`malito:${user.email}`}>{user.email}</a>,
-                  title: user.resumes.title,
+                  title: console.log(user.resumes.title),
                   resume: (
                     <Button
                       onClick={e => {
                         e.preventDefault();
-                        window.open(user.resumes.file.path);
+                        window.open(
+                          "/resumes/" +
+                            user[1].resumes.file.path.split("/").pop()
+                        );
                       }}
                     >
                       Download Resume
@@ -105,3 +107,11 @@ const Candidates = props => {
 };
 
 export default Candidates;
+
+// let resume = () =>{
+//   if (user.resumes.title.length === 0) {
+//     return <p>No resume</p>
+//   } else {
+//     user.resumes.title
+// };
+// };
