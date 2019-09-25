@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Mutation } from "react-apollo";
+import Router from "next/router";
 import gql from "graphql-tag";
 import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
-import Router from "next/router";
+import ErrorMessage from "../common/UI/ErrorMessage";
 import { ME_USER_QUERY } from "../../lib/auth";
 
 // import { logInUser } from "../../../data/auth";
@@ -119,6 +120,7 @@ const registerForm = props => {
           return (
             <>
               <form>
+                <ErrorMessage error={error} />
                 <fieldset disabled={loading} aria-busy={loading}>
                   {fieldsToRender}
                   <br />

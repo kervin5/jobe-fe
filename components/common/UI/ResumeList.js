@@ -24,7 +24,7 @@ const resumeList = props => {
                 <Button
                   icon
                   labelPosition="left"
-                  href={list.file.path}
+                  href={`/resumes/${list.file.path.split("/").pop()}`}
                   target="_blank"
                   floated="right"
                   color="green"

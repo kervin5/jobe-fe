@@ -67,6 +67,7 @@ const SEARCH_JOBS_QUERY = gql`
     $category: String
     $perPage: Int!
     $skip: Int!
+    $radius: Int
   ) {
     searchJobs(
       query: $query
@@ -75,6 +76,7 @@ const SEARCH_JOBS_QUERY = gql`
       first: $perPage
       skip: $skip
       orderBy: createdAt_DESC
+      radius: $radius
     ) {
       id
       title
@@ -106,6 +108,7 @@ class Jobs extends PureComponent {
             location: this.props.location || "",
             query: this.props.q || "",
             category: this.props.category || "",
+            radius: this.props.radius || 10,
             perPage,
             skip: 0
           }}

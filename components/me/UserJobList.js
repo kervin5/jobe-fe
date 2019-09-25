@@ -1,30 +1,15 @@
 import { useState, useEffect } from "react";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 import { Input, Menu, Segment } from "semantic-ui-react";
+import UserLocator from "../../data/UserLocator";
 import Icon from "../common/UI/Icon";
 import JobList from "../jobs/JobList/JobList";
+import Jobs from "../jobs/Jobs";
 import ResumeList from "../common/UI/ResumeList";
 import ResumeUploadButton from "../common/UI/ResumeUploadButton";
 
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import Title from "../common/UI/Title";
-
-const USER_RECOMMENDED_JOBS = gql`
-  query USER_RECOMMENDED_JOBS {
-    jobs(first: 10) {
-      id
-      title
-      description
-      createdAt
-      location {
-        name
-      }
-      minCompensation
-      maxCompensation
-      type
-    }
-  }
-`;
 
 const USER_FAVORITED_JOBS = gql`
   query USER_FAVORITED_JOBS {
@@ -94,9 +79,26 @@ export const RESUME_LIST_QUERY = gql`
 `;
 
 const userJobList = () => {
-  const [jobsTorender, setJobsToRender] = useState([]);
+  const [userLocation, setUserLocation] = useState("");
   const [activeItem, setActiveItem] = useState("recommended");
   const handleItemClick = (e, { name }) => setActiveItem(name);
+
+  useEffect(() => {
+    new UserLocator().getLocation().then(res => {
+      setUserLocation(res.name);
+    });
+  }, []);
+  // console.log(userLocation);
+
+  const addResume = () => {
+    return (
+      <Button
+        click={() => {
+          return <Upload />;
+        }}
+      />
+    );
+  };
 
   return (
     <div className="UserJobList">
@@ -147,22 +149,13 @@ const userJobList = () => {
         <>
           {activeItem === "recommended" && (
             <>
-              <Title size="s">
-                Your Reccommended Jobs based on your skill.
-              </Title>
-              <Query query={USER_RECOMMENDED_JOBS}>
-                {({ error, loading, data }) => {
-                  if (error) return <p>Something went wrong</p>;
-                  if (loading) return <p>Loading Awesome Jobs</p>;
-
-                  return <JobList jobs={formatJobs(data)} />;
-                }}
-              </Query>
+              <Title size="s">These are your recommended jobs</Title>
+              <Jobs location={userLocation} radius={30} />
             </>
           )}
           {activeItem === "favorites" && (
             <>
-              <Title size="s">These are your Favorited Jobs.</Title>
+              <Title size="s">These are jobs that you have saved</Title>
               <Query query={USER_FAVORITED_JOBS}>
                 {({ error, loading, data }) => {
                   if (error) return <p>Something went wrong</p>;
