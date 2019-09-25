@@ -103,7 +103,10 @@ const ApplicantTable = props => {
                       <Button
                         onClick={e => {
                           e.preventDefault();
-                          window.open(application.resume.file.path);
+                          window.open(
+                            "/resumes/" +
+                              application.resume.file.path.split("/").pop()
+                          );
                         }}
                       >
                         Download
