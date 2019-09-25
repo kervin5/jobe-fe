@@ -61,10 +61,12 @@ const Candidates = props => {
             {({ error, loading, data }) => {
               if (error) return <p>Something Went Wrong...</p>;
               if (loading) return <Loader />;
-
               let candidates = [];
 
               data.users.forEach(user => {
+                let resume = user.resumes;
+                console.log(resume);
+
                 candidates.push({
                   name: user.name,
                   email: <a href={`malito:${user.email}`}>{user.email}</a>,
