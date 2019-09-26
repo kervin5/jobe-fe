@@ -41,6 +41,8 @@ const PopularTerms = () => {
             display: grid;
             grid-template-columns: auto auto auto;
             grid-gap: 1em;
+            position: relative;
+            z-index: 2;
           }
 
           .Term {
@@ -56,10 +58,10 @@ const PopularTerms = () => {
 
           .Term:before {
             content: "";
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.4);
             position: absolute;
             display: block;
-            z-index: 4;
+            z-index: 5;
             left: 0;
             right: 0;
             bottom: 0;

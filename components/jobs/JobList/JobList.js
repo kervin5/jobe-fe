@@ -7,7 +7,8 @@ import PropTypes from "prop-types";
  * @returns {React.JSX} list of Job nodes
  */
 
-const jobList = ({ jobs }) => {
+const jobList = props => {
+  const { jobs } = props;
   let elementToRender = <h3>No jobs found</h3>;
 
   if (jobs && jobs.length > 0) {
