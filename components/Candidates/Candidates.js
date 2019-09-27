@@ -63,13 +63,12 @@ const Candidates = props => {
               if (loading) return <Loader />;
 
               let candidates = [];
-              // const resumes = (data.users[0].resume)
 
               data.users.forEach(user => {
-                candidates.push({
+                return candidates.push({
                   name: user.name,
                   email: <a href={`malito:${user.email}`}>{user.email}</a>,
-                  title: console.log(user.resumes.title),
+                  title: user.name,
                   resume: (
                     <Button
                       onClick={e => {
@@ -85,6 +84,7 @@ const Candidates = props => {
                   )
                 });
               });
+
               const count =
                 userConnectionData.data.usersConnection.aggregate.count;
 
