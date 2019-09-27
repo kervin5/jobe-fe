@@ -65,17 +65,19 @@ const Candidates = props => {
               let candidates = [];
 
               data.users.forEach(user => {
+                const hasResume = user.resumes.length > 0;
+
                 return candidates.push({
                   name: user.name,
                   email: <a href={`malito:${user.email}`}>{user.email}</a>,
-                  title: user.name,
-                  resume: (
+                  title: hasResume ? user.resumes[0].title : <p>No Resume</p>,
+                  resume: hasResume && (
                     <Button
                       onClick={e => {
                         e.preventDefault();
                         window.open(
                           "/resumes/" +
-                            user[1].resumes.file.path.split("/").pop()
+                            user.resumes[0].file.path.split("/").pop()
                         );
                       }}
                     >
