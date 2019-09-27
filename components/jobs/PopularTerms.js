@@ -14,16 +14,21 @@ const POPULAR_TERMS_QUERY = gql`
 `;
 
 const PopularTerms = () => {
+  const getLinkPath = term => {
+    if (term.type === "location") return "/jobs?location=" + term.label;
+    if (term.type === "category") return "/jobs?category=" + term.label;
+  };
+
   return (
     <div className="PopularTerms">
-      <Query query={POPULAR_TERMS_QUERY}>
+      <Query query={POPULAR_TERMS_QUERY} ssr={false}>
         {({ error, loading, data }) => {
           if (error) return <p>Something went wrong</p>;
           if (loading) return <p>Loading</p>;
           if (data)
             return data.popularTerms.map(term => (
               <div key={term.id} className="Term">
-                <Link href={`/jobs?category=${term.label}`}>
+                <Link href={getLinkPath(term)}>
                   <a>
                     <DynamicImageBg query={term.label}>
                       <p className="TermContent">{term.label}</p>
@@ -41,6 +46,8 @@ const PopularTerms = () => {
             display: grid;
             grid-template-columns: auto auto auto;
             grid-gap: 1em;
+            position: relative;
+            z-index: 2;
           }
 
           .Term {
@@ -56,10 +63,10 @@ const PopularTerms = () => {
 
           .Term:before {
             content: "";
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.4);
             position: absolute;
             display: block;
-            z-index: 4;
+            z-index: 5;
             left: 0;
             right: 0;
             bottom: 0;

@@ -133,7 +133,6 @@ class Jobs extends PureComponent {
                         },
                         updateQuery(prev, { fetchMoreResult }) {
                           if (!fetchMoreResult) return prev;
-                          console.log(fetchMoreResult);
                           if (fetchMoreResult.jobs) {
                             return Object.assign({}, prev, {
                               jobs: [...prev.jobs, ...fetchMoreResult.jobs]
@@ -141,8 +140,8 @@ class Jobs extends PureComponent {
                           } else {
                             return Object.assign({}, prev, {
                               searchJobs: [
-                                ...searchJobs.jobs,
-                                ...[fetchMoreResult.searchJobs]
+                                ...prev.searchJobs,
+                                ...fetchMoreResult.searchJobs
                               ]
                             });
                           }
