@@ -31,6 +31,7 @@ const DynamicImageBg = props => {
       <style jsx>{`
             .DynamicImageBg {
                 width: 100%;               
+                height: 100%;
                 position: relative;
                 background-color: ${variables.accentColor1}
             }
@@ -46,20 +47,20 @@ const DynamicImageBg = props => {
                 left: 0;
                 right: 0;
                 bottom: 0;
-                // filter: blur(4px);
+
                 z-index: 4;
                 transition: 300ms;
             }
 
             .Content {
                 z-index: 5;
-                position: relative;
+                position: ${props.absolute ? "absolute" : "relative"};
             }
 
             @media(max-width: ${variables.mediumScreen}) {
               .ImgContainer {
                   
-                    filter: blur(4px);
+                    filter: blur(${props.noblur ? "0px" : "4px"});
                   
                 }
             }

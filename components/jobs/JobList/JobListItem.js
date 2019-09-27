@@ -77,6 +77,7 @@ const jobListItem = props => {
         .Location {
           font-size: 0.9em;
           font-weight: bold;
+          margin: 5px 0 0;
         }
 
         .Content {
