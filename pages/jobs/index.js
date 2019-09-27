@@ -23,7 +23,7 @@ const SearchPage = props => {
           <SearchFieldSection terms={props.q} location={props.location} />
           <ButtonGroup>
             <Button size={{ height: "30px" }} icon="alarm">
-              Create Alert
+              Add Alert
             </Button>
             <Button
               size={{ height: "30px" }}
