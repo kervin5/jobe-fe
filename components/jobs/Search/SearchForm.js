@@ -45,11 +45,10 @@ const searchForm = props => {
     await setValidate(true);
 
     const { searchTerms, searchLocation } = formData;
-    if (searchTerms.valid && searchLocation.valid) {
-      Router.push(
-        `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`
-      );
-    }
+
+    Router.push(
+      `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`
+    );
   };
 
   // useEffect(() => {
