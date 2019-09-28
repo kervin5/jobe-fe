@@ -149,13 +149,17 @@ const userJobList = () => {
         <>
           {activeItem === "recommended" && (
             <>
-              <Title size="s">These are your recommended jobs</Title>
+              <Title center size="s">
+                These are your recommended jobs
+              </Title>
               <Jobs location={userLocation} radius={30} />
             </>
           )}
           {activeItem === "favorites" && (
             <>
-              <Title size="s">These are jobs that you have saved</Title>
+              <Title center size="s">
+                These are jobs that you have saved
+              </Title>
               <Query query={USER_FAVORITED_JOBS}>
                 {({ error, loading, data }) => {
                   if (error) return <p>Something went wrong</p>;
@@ -168,7 +172,9 @@ const userJobList = () => {
           )}
           {activeItem === "applied" && (
             <>
-              <Title size="s">You have applied to these Jobs.</Title>
+              <Title center size="s">
+                You have applied to these Jobs.
+              </Title>
               <Query query={USER_APPLIED_JOBS}>
                 {({ error, loading, data }) => {
                   if (error) return <p>Something went wrong</p>;
@@ -181,7 +187,9 @@ const userJobList = () => {
           {activeItem === "resumes" && (
             <>
               <div className="resumeHeader">
-                <Title size="s">These are your resumes.</Title>
+                <Title center size="s">
+                  These are your resumes.
+                </Title>
                 <ResumeUploadButton />
               </div>
               <Query query={RESUME_LIST_QUERY}>
