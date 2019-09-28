@@ -7,17 +7,32 @@ import PageSection from "../../components/common/Layout/PageSection";
 import SearchFieldSection from "../../components/jobs/Search/SearchFieldSection";
 import Button from "../../components/common/UI/Button";
 import ButtonGroup from "../../components/common/UI/ButtonGroup";
-import SideDrawer from "../../components/common/UI/Navigation/SideDrawer";
 import Jobs from "../../components/jobs/Jobs";
+import SearchFilters from "../../components/jobs/Search/SearchFilters";
+
 const styles = `background-color: ${variables.mutedColor1}; padding: 30px; align-items: flex-start;`;
 
 const SearchPage = props => {
+  const [variables, setVariables] = useState({
+    distance: 10,
+    category: "",
+    type: ""
+  });
   const [showFilters, setShowFilters] = useState(false);
+  const handleFiltersChange = vars => {
+    setVariables({
+      ...variables,
+      ...vars
+    });
+  };
+
   return (
     <>
-      <SideDrawer show={showFilters} close={() => setShowFilters(false)}>
-        <h3>Filter</h3>
-      </SideDrawer>
+      <SearchFilters
+        showFilters={showFilters}
+        setShowFilters={setShowFilters}
+        onChange={handleFiltersChange}
+      />
       <PageSection styles={styles}>
         <div className="Container">
           <SearchFieldSection terms={props.q} location={props.location} />
@@ -37,7 +52,8 @@ const SearchPage = props => {
           <Jobs
             location={props.location}
             q={props.q}
-            category={props.category}
+            category={props.category || variables.category}
+            radius={parseInt(variables.distance)}
           />
         </div>
       </PageSection>

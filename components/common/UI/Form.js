@@ -4,7 +4,7 @@ import InputField from "./Input/InputField";
 import { Query, Mutation } from "react-apollo";
 import { Dimmer, Loader, Image, Segment } from "semantic-ui-react";
 
-const Form = ({ fields, method, graphql, mutation }) => {
+const Form = ({ fields, method, graphql, mutation, buttonText, onSubmit }) => {
   const [formId, setFormId] = useState(generateFormId());
   const [formFields, setFomFields] = useState({ ...fields });
   const [variables, setVariables] = useState(null);
@@ -22,8 +22,9 @@ const Form = ({ fields, method, graphql, mutation }) => {
     setFormId(generateFormId());
   };
 
-  const handleFormSubmit = async mutation => {
-    const res = await mutation();
+  const handleFormSubmit = async e => {
+    e.preventDefault();
+    onSubmit(variables);
   };
 
   const fieldsToRenders = Object.keys(formFields).map((fieldKey, index) => {
@@ -53,6 +54,7 @@ const Form = ({ fields, method, graphql, mutation }) => {
               options={options}
               change={handleFieldChange}
               name={fieldData.name || fieldKey}
+              value={fieldData.value}
             />
           );
         }}
@@ -67,6 +69,7 @@ const Form = ({ fields, method, graphql, mutation }) => {
         options={fieldData.options}
         change={handleFieldChange}
         name={fieldData.name || fieldKey}
+        value={fieldData.value}
       />
     );
   });
@@ -93,7 +96,7 @@ const Form = ({ fields, method, graphql, mutation }) => {
               onClick={() => handleGraphqlFormSubmit(formMutation)}
               disabled={loading}
             >
-              Submit
+              {buttonText || "Submit"}
             </Button>
           </form>
         );
@@ -103,7 +106,7 @@ const Form = ({ fields, method, graphql, mutation }) => {
     <form method={method || "POST"} onSubmit={e => e.preventDefault()}>
       {fieldsToRenders}
       <Button fullWidth onClick={handleFormSubmit}>
-        Submit
+        {buttonText || "Submit"}
       </Button>
     </form>
   );

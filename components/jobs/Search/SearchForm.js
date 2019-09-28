@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import variables from "../../common/globalVariables";
 import Router from "next/router";
+import variables from "../../common/globalVariables";
+import SearchFilters from "./SearchFilters";
 import InputField from "../../common/UI/Input/InputField";
 import Button from "../../common/UI/Button";
 
@@ -28,7 +29,6 @@ const searchForm = props => {
     }
   });
   const [validate, setValidate] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = fieldData => {
     setFormData({
@@ -50,17 +50,6 @@ const searchForm = props => {
       `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`
     );
   };
-
-  // useEffect(() => {
-  //   const { searchTerms, searchLocation } = formData;
-  //   if (searchTerms.valid && searchLocation.valid && submitted) {
-
-  //     Router.push(
-  //       `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`
-  //     );
-  //   }
-  //   console.log(searchTerms, submitted);
-  // }, [formData.searchTerms.valid, formData.searchLocation.valid, submitted]);
 
   const InputFields = ["searchTerms", "searchLocation"].map(key => {
     const fieldData = formData[key];

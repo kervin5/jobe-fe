@@ -126,7 +126,7 @@ const formatFormData = jobQueryData => {
     },
     type: {
       value: jobQueryData.type,
-      options: ["Full-Time", "Part-time", "Temp", "Per-diem"]
+      options: ["Full Time", "Part Time", "Temp", "Per Diem"]
     },
     categories: {
       value: jobQueryData.categories

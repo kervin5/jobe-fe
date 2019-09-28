@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import variables from "../../globalVariables";
 import PropTypes from "prop-types";
 
@@ -29,6 +28,8 @@ const sideDrawer = props => {
           padding: 20px;
           transition: 300ms;
           max-width: 350px;
+          box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+            0 10px 10px rgba(0, 0, 0, 0.22);
         }
 
         .SideDrawer.Hidden {
@@ -40,8 +41,9 @@ const sideDrawer = props => {
           font-weight: bold;
           position: absolute;
           right: 30px;
-          top: 8px;
+          top: 30px;
           font-size: 2em;
+          cursor: pointer;
         }
       `}</style>
     </div>

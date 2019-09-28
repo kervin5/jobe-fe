@@ -7,9 +7,10 @@ import ButtonGroup from "../../common/UI/ButtonGroup";
 import Button from "../../common/UI/Button";
 import { Router } from "next/router";
 
-const ALL_CATEGORIES_QUERY = gql`
+export const ALL_CATEGORIES_QUERY = gql`
   query ALL_CATEGORIES_QUERY {
-    categories {
+    categories(orderBy: name_ASC) {
+      id
       name
     }
   }
@@ -18,6 +19,7 @@ const ALL_CATEGORIES_QUERY = gql`
 const ALL_SKILLS_QUERY = gql`
   query ALL_SKILLS_QUERY {
     skills {
+      id
       name
     }
   }
@@ -50,7 +52,7 @@ class JobMutationBaseForm extends Component {
       type: {
         value: "",
         valid: false,
-        options: ["Full-Time", "Part-time", "Temp", "Per-diem"]
+        options: ["Full Time", "Part Time", "Temp", "Per Diem"]
       },
       categories: {
         value: "",
