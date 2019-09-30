@@ -25,7 +25,7 @@ const PrompToRegister = props => {
         {({ error, loading, data }) => {
           if (error) return <p>Error...</p>;
           if (loading) return <p>Loading...</p>;
-          if (!data.me) setLoggedIn(false);
+          if (data.me) setLoggedIn(true);
           return (
             <div
               className={"PromptToRegister " + (loggedin ? "" : "Nulled")}
