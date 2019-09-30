@@ -8,27 +8,23 @@ import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
 // import Button from "../common/UI/Button";
 
-const CANDIDATE_QUERY = gql`
-  query CANDIDATE_QUERY($perPage: Int!, $skip: Int!, $query: String!) {
+const USER_QUERY = gql`
+  query USER_QUERY($perPage: Int!, $skip: Int!, $query: String!) {
     users(
       first: $perPage
       skip: $skip
-      where: {
-        role: { name: "CANDIDATE" }
-        OR: [{ name_contains: $query }, { email_contains: $query }]
-      }
+      where: { OR: [{ name_contains: $query }, { email_contains: $query }] }
     ) {
       id
       name
       email
-      resumes(last: 1) {
-        file {
-          id
-          path
-        }
+      role {
         id
-        title
-        createdAt
+        name
+      }
+      branch {
+        id
+        name
       }
     }
   }
@@ -37,10 +33,7 @@ const CANDIDATE_QUERY = gql`
 const USERS_CONNECTION_QUERY = gql`
   query USERS_CONNECTION_QUERY($query: String!) {
     usersConnection(
-      where: {
-        role: { name: "CANDIDATE" }
-        OR: [{ name_contains: $query }, { email_contains: $query }]
-      }
+      where: { OR: [{ name_contains: $query }, { email_contains: $query }] }
     ) {
       aggregate {
         count
@@ -49,7 +42,7 @@ const USERS_CONNECTION_QUERY = gql`
   }
 `;
 
-const Candidates = props => {
+const UsersTable = props => {
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
 
@@ -75,7 +68,7 @@ const Candidates = props => {
 
           return (
             <Query
-              query={CANDIDATE_QUERY}
+              query={USER_QUERY}
               variables={{
                 perPage,
                 skip: (currentPage - 1) * perPage,
@@ -87,29 +80,14 @@ const Candidates = props => {
                 if (error) return <p>Something Went Wrong...</p>;
                 if (loading) return <Loader />;
 
-                let candidates = [];
+                let users = [];
 
                 data.users.forEach(user => {
-                  const hasResume = user.resumes.length > 0;
-
-                  return candidates.push({
+                  return users.push({
                     name: user.name,
                     email: <a href={`malito:${user.email}`}>{user.email}</a>,
-                    title: hasResume ? user.resumes[0].title : <p>No Resume</p>,
-                    resume: hasResume && (
-                      <Button
-                        color="green"
-                        onClick={e => {
-                          e.preventDefault();
-                          window.open(
-                            "/resumes/" +
-                              user.resumes[0].file.path.split("/").pop()
-                          );
-                        }}
-                      >
-                        Download Resume
-                      </Button>
-                    )
+                    role: user.role.name,
+                    branch: user.branch ? user.branch.name : ""
                   });
                 });
 
@@ -118,7 +96,7 @@ const Candidates = props => {
 
                 return (
                   <Table
-                    data={candidates}
+                    data={users}
                     page={currentPage}
                     loading={loading}
                     count={count}
@@ -135,12 +113,5 @@ const Candidates = props => {
   );
 };
 
-export default Candidates;
-
-// let resume = () =>{
-//   if (user.resumes.title.length === 0) {
-//     return <p>No resume</p>
-//   } else {
-//     user.resumes.title
-// };
+export default UsersTable;
 // };

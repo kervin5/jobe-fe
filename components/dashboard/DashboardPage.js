@@ -23,15 +23,16 @@ const dashboardPage = props => {
       path: "/dashboard/jobs",
       icon: "briefcase"
     },
-    Users: {
-      label: "Users",
-      path: "/dashboard/users",
-      icon: "user"
-    },
     Candidates: {
       label: "Candidates",
       path: "/dashboard/candidates",
       icon: "users"
+    },
+    Users: {
+      label: "Users",
+      path: "/dashboard/users",
+      icon: "user",
+      permissions: [{ action: "READ", object: "USER" }]
     }
   };
 

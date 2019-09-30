@@ -1,10 +1,10 @@
-import Candidates from "../../../components/Candidates/Candidates";
+import Candidates from "../../../components/candidates/Candidates";
 import DashboardPage from "../../../components/dashboard/DashboardPage";
 import WithAuth from "../../../components/hoc/WithAuth";
 
 const dashboardCandidatePage = props => {
   return (
-    <DashboardPage>
+    <DashboardPage title="Candidates">
       <Candidates />
     </DashboardPage>
   );

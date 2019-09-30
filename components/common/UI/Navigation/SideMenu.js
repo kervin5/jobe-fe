@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import RenderIfLoggedIn from "../../../hoc/RenderIfLoggedIn";
 import { Sidebar, Menu, Icon } from "semantic-ui-react";
 import variables from "../../globalVariables";
 
@@ -8,14 +9,15 @@ const sideMenu = props => {
       <Sidebar as={Menu} icon="labeled" vertical visible>
         {props.options.map((option, index) => {
           return (
-            <Menu.Item
+            <RenderIfLoggedIn
               key={option.label + index}
-              as="a"
-              onClick={() => props.onClick(option.label)}
+              permissions={option.permissions}
             >
-              <Icon name={option.icon} />
-              <span>{option.label}</span>
-            </Menu.Item>
+              <Menu.Item as="a" onClick={() => props.onClick(option.label)}>
+                <Icon name={option.icon} />
+                <span>{option.label}</span>
+              </Menu.Item>
+            </RenderIfLoggedIn>
           );
         })}
       </Sidebar>
