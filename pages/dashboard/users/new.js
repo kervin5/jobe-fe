@@ -10,4 +10,4 @@ const newJobPage = props => {
   );
 };
 
-export default WithAuth(newJobPage);
+export default WithAuth(newJobPage, [{ object: "USER", action: "CREATE" }]);

@@ -11,4 +11,6 @@ const dashboardCandidatePage = props => {
   );
 };
 
-export default WithAuth(dashboardCandidatePage);
+export default WithAuth(dashboardCandidatePage, [
+  { object: "USER", action: "CREATE" }
+]);
