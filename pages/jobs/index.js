@@ -53,6 +53,7 @@ const SearchPage = props => {
             location={props.location}
             q={props.q}
             category={props.category || variables.category}
+            type={variables.type}
             radius={parseInt(variables.distance)}
           />
         </div>

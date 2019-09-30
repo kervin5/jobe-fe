@@ -1,12 +1,13 @@
 import React from "react";
-import variables from "../../common/globalVariables";
+import Link from "next/link";
 import moment from "moment";
+import variables from "../../common/globalVariables";
 import Bubble from "../../common/UI/Bubble";
 import Icon from "../../common/UI/Icon";
 import FavoriteButton from "../../common/UI/FavoriteButton";
 import Card from "../../common/UI/Card";
-import Link from "next/link";
 import HtmlRenderer from "../../common/UI/HtmlRenderer";
+import PrompToRegister from "../../users/PrompToRegister";
 
 const styles = ` background-color: ${variables.clearColor};
                 margin: 20px auto;
@@ -21,7 +22,7 @@ const jobListItem = props => {
   const shortLocation = props.location.name;
   const jobUrl = "/jobs/" + props.title.split(" ").join("-") + "-" + props.id;
   return (
-    <Card styles={styles} animate>
+    <Card styles={styles}>
       <div className="JobListItemHeader">
         <div>
           <Link href="/jobs/[jid]" as={jobUrl}>
@@ -48,7 +49,9 @@ const jobListItem = props => {
 
       <div className="JobListItemFooter">
         <p className="PostDate">{moment(props.date).fromNow()}</p>
-        <FavoriteButton jobId={props.id} />
+        <PrompToRegister>
+          <FavoriteButton jobId={props.id} />
+        </PrompToRegister>
       </div>
       <style jsx>{`
         a {

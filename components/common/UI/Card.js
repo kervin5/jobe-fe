@@ -2,8 +2,6 @@ import React from "react";
 // import classes from './Card.module.scss';
 
 const card = props => {
-  const animateHover = props.animate ? "1.05" : "1";
-
   return (
     <div className="Card">
       {props.children}
@@ -14,10 +12,6 @@ const card = props => {
           padding: 10px;
           border-radius: 5px;
           ${props.styles || ""}
-        }
-
-        .Card:hover {
-          transform: scale(${animateHover});
         }
       `}</style>
     </div>

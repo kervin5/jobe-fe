@@ -93,16 +93,18 @@ const FavoriteButton = props => (
 
     <style jsx>{`
       .favoriteButton {
-        position: relative;
+        position: absolute;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 10px;
+        right: 50px;
       }
 
       .favoriteButton :global(> *) {
         position: absolute;
         font-size: 1.5rem;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
       }
 
       .favoriteButton :global(.baseIcon i) {
