@@ -24,13 +24,12 @@ const registerPage = () => {
         </Link>
       </p>
       <br />
-      {/* <img src={friendsImgUrl} /> */}
-      {/* <style jsx>{`
+      <img src={friendsImgUrl} />
+      <style jsx>{`
         img {
-          width: 310px;
-          opacity: 0.3;
+          width: 200px;
         }
-      `}</style> */}
+      `}</style>
     </PageSection>
   );
 };

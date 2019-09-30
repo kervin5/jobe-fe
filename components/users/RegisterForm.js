@@ -51,8 +51,6 @@ const registerForm = props => {
     }
   });
 
-  const friendsImgUrl = "../../static/images/friends-with-bg.png";
-
   const changeHandler = fieldData => {
     setFormData({
       ...formData,
@@ -131,7 +129,6 @@ const registerForm = props => {
                   </Button>
                 </fieldset>
               </form>
-              <img className={"BgImage"} src={friendsImgUrl}></img>
             </>
           );
         }}
@@ -141,16 +138,6 @@ const registerForm = props => {
           margin: 0 auto 30px;
           width: 100%;
           max-width: 500px;
-        }
-
-        .BgImage {
-          width: 100%;
-          max-width: 400px;
-          margin: 0 auto;
-        }
-
-        .BgImage img {
-          width: 100%;
         }
       `}</style>
     </React.Fragment>
