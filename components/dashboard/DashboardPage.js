@@ -31,7 +31,7 @@ const dashboardPage = props => {
     Candidates: {
       label: "Candidates",
       path: "/dashboard/candidates",
-      icon: "user"
+      icon: "users"
     }
   };
 
