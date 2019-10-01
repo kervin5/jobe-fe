@@ -79,6 +79,10 @@ const jobListing = props => {
                 margin-bottom: 5px;
             }
 
+            .Body :global(div){
+              line-height: 1.7em;
+            }
+
             @media only screen and (max-width: 520px){
            
                 .Body{

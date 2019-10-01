@@ -20,7 +20,7 @@ const SearchFilters = props => {
       type: "dropdown",
       placeholder: "Job Type",
       value: "Full Time",
-      options: ["Full Time", "Part Type", "Temp", "Per Diem"]
+      options: ["Full Time", "Part Type"]
     },
     category: {
       type: "dropdown",

@@ -84,9 +84,9 @@ const FavoriteButton = props => (
     onClick={props.onClick}
     className={["favoriteButton", props.className].join(" ")}
   >
-    <Icon icon={"star"} size={props.size || "lg"} className="baseIcon"></Icon>
+    <Icon icon={"heart"} size={props.size || "lg"} className="baseIcon"></Icon>
     <Icon
-      icon={"star"}
+      icon={"heart"}
       size={props.size || "lg"}
       className="iconOverlay"
     ></Icon>
@@ -108,7 +108,7 @@ const FavoriteButton = props => (
       }
 
       .favoriteButton :global(.baseIcon i) {
-        color: ${variables.accentColor1};
+        color: ${variables.accentColor3};
       }
 
       .favoriteButton :global(.iconOverlay i) {
