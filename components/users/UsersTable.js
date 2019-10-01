@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { Button, Input } from "semantic-ui-react";
+import { Input } from "semantic-ui-react";
 import { perPage } from "../../config";
 
 import Table from "../common/UI/Table";

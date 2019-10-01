@@ -66,13 +66,18 @@ const SEARCH_JOBS_QUERY = gql`
     $location: String!
     $category: String
     $perPage: Int!
+    $type: String
     $skip: Int!
     $radius: Int
   ) {
     searchJobs(
       query: $query
       location: $location
-      where: { status: POSTED, categories_some: { name_contains: $category } }
+      where: {
+        status: POSTED
+        categories_some: { name_contains: $category }
+        type_contains: $type
+      }
       first: $perPage
       skip: $skip
       orderBy: createdAt_DESC
@@ -108,6 +113,7 @@ class Jobs extends PureComponent {
             location: this.props.location || "",
             query: this.props.q || "",
             category: this.props.category || "",
+            type: this.props.type || "",
             radius: this.props.radius || 10,
             perPage,
             skip: 0
