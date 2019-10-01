@@ -36,7 +36,6 @@ const PrompToRegister = props => {
               <style jsx>{`
                 .PromptToRegister {
                   display: inline-block;
-                  background-color: red;
                 }
 
                 .Nulled {

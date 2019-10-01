@@ -86,7 +86,7 @@ const UsersTable = props => {
                   return users.push({
                     name: user.name,
                     email: <a href={`malito:${user.email}`}>{user.email}</a>,
-                    role: user.role.name,
+                    role: user.role ? user.role.name : "",
                     branch: user.branch ? user.branch.name : ""
                   });
                 });

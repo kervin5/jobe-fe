@@ -108,12 +108,10 @@ const FavoriteButton = props => (
       }
 
       .favoriteButton :global(.baseIcon i) {
-        color: red;
         color: ${variables.accentColor1};
       }
 
       .favoriteButton :global(.iconOverlay i) {
-        color: red;
         color: ${variables.mutedColor2};
       }
 
