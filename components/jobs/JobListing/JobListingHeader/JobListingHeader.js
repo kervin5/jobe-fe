@@ -45,6 +45,7 @@ const header = props => (
       .JobListingHeaderBar {
         display: flex;
         justify-content: space-between;
+        position: relative;
       }
 
       @media only screen and (max-width: 520px) {
