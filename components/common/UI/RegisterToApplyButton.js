@@ -26,7 +26,7 @@ const RegisterToApplyButton = props => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpTitle, setPopUpTitle] = useState("Register");
   const [caption, setCaption] = useState(
-    "Before applying for this position you need to create a profile. It will only take a few minutes"
+    "Before applying for this job you need to create a profile. It will only take a few minutes"
   );
 
   return (

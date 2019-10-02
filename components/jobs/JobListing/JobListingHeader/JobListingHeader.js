@@ -4,6 +4,7 @@ import Bubble from "../../../common/UI/Bubble";
 import Icon from "../../../common/UI/Icon";
 import Title from "../../../common/UI/Title";
 import FavoriteButton from "../../../common/UI/FavoriteButton";
+import PrompToRegister from "../../../users/PrompToRegister";
 
 const jobListingTitleStyles = `color: ${variables.clearColor};`;
 const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
@@ -29,7 +30,11 @@ const header = props => (
         </Bubble>
         <Bubble color="2">{props.type}</Bubble>
       </div>
-      {props.hideFavoriteButton ? null : <FavoriteButton jobId={props.jobId} />}
+      {props.hideFavoriteButton ? null : (
+        <PrompToRegister>
+          <FavoriteButton jobId={props.jobId} />
+        </PrompToRegister>
+      )}
     </div>
     <style jsx>{`
       .header {
