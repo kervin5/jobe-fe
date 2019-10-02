@@ -32,6 +32,7 @@ const NavigationBar = () => {
           width: 180px;
           margin: auto;
           margin-left: 10px;
+          z-index: 10001;
         }
       `}</style>
     </nav>

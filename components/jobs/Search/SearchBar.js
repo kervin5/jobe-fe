@@ -14,7 +14,7 @@ const SearchBar = ({ terms = "Awesome", location, onClick }) => {
   return (
     <div onClick={clickHandler}>
       <h3>
-        {terms} <span className="connector">Jobs in</span>{" "}
+        {terms} <span className="connector">Jobs near</span>{" "}
         <span className="location">{shortLocationName}</span>
       </h3>
       <span className="SearchIcon">
