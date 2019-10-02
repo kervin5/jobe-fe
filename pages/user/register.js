@@ -19,7 +19,7 @@ const registerPage = () => {
       <RegisterForm />
       <p>
         Already have an account?
-        <Link href="/user/register">
+        <Link href="/user/login">
           <a> Sign In</a>
         </Link>
       </p>
