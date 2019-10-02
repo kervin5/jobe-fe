@@ -48,7 +48,7 @@ const navigationItems = () => {
               position: fixed;
               flex-direction: column;
               top: 0;
-              left: 110vw;
+              left: 130vw;
               right: 0;
               bottom: 0;
               z-index: 999;

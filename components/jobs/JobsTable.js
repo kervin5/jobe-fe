@@ -5,6 +5,7 @@ import { Button, Placeholder, Loader, Input } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { perPage } from "../../config";
 import SortableTable from "../common/UI/SortableTable";
+import DeleteJobButton from "../jobs/JobMutation/DeleteJobButton";
 import variables from "../common/globalVariables";
 import moment from "moment";
 
@@ -32,7 +33,7 @@ const JOBS_FIELDS = `(first: $perPage, skip: $skip where: { title_contains: $que
 }`;
 
 const USER_JOBS_QUERY = gql`
-  query USER_JOBS_QUERY($perPage: Int!, $skip: Int! $query: String!) {
+  query USER_JOBS_QUERY($perPage: Int!, $skip: Int! $query: String = "") {
     me {
       id
       jobs ${JOBS_FIELDS}
@@ -46,7 +47,7 @@ const USER_JOBS_QUERY = gql`
 `;
 
 const USER_JOBS_CONNECTION_QUERY = gql`
-  query USER_JOBS_CONNECTION_QUERY($query: String!) {
+  query USER_JOBS_CONNECTION_QUERY($query: String = "") {
     jobsConnection(where: { title_contains: $query }) {
       aggregate {
         count
@@ -200,10 +201,15 @@ const injectActionsColumn = data => {
               href={`/dashboard/jobs/edit/${record.id}`}
             />
           </Link>
-          <Button
-            icon="trash"
-            color="red"
-            onClick={() => alert("Are you sure?")}
+          <DeleteJobButton
+            jobId={record.id}
+            refetchQueries={[
+              { query: USER_JOBS_CONNECTION_QUERY, variables: { query: " " } },
+              {
+                query: USER_JOBS_CONNECTION_QUERY,
+                variables: { perPage, skip: 0, query: " " }
+              }
+            ]}
           />
         </Button.Group>
       )
