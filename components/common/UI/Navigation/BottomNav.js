@@ -51,11 +51,15 @@ const bottomNav = () => (
         color: ${variables.clearColor} !important;
       }
 
+      .BottomNav :global(.NavigationItem:hover i) {
+        color: ${variables.accentColor3} !important;
+      }
+
       @media (max-width: 900px) {
         .BottomNav {
           display: block;
           background-color: ${variables.accentColor1};
-          color: ${variables.clearColor};
+          color: ${variables.clearColor1};
           display: flex;
           justify-content: space-around;
           align-items: baseline;
