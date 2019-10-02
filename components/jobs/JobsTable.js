@@ -14,14 +14,20 @@ const JOBS_FIELDS = `(first: $perPage, skip: $skip where: { title_contains: $que
   status
   updatedAt
   author {
-    name
+    id
+    name 
   }
   location {
+    id
     name
   }
   status
   applications {
     id
+  }
+  branch {
+    id
+    name
   }
 }`;
 
@@ -146,6 +152,7 @@ const injectActionsColumn = data => {
     return {
       ...record,
       updated: moment(record.updatedAt).format("MM/DD/YYYY"),
+      branch: record.branch.name,
       status: (
         <p>
           {record.status.toLowerCase()}
