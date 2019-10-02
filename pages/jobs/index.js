@@ -20,6 +20,7 @@ const SearchPage = props => {
   });
   const [showFilters, setShowFilters] = useState(false);
   const handleFiltersChange = vars => {
+    console.log(vars);
     setVariables({
       ...variables,
       ...vars
@@ -37,9 +38,9 @@ const SearchPage = props => {
         <div className="Container">
           <SearchFieldSection terms={props.q} location={props.location} />
           <ButtonGroup>
-            <Button size={{ height: "30px" }} icon="alarm">
+            {/* <Button size={{ height: "30px" }} icon="alarm">
               Add Alert
-            </Button>
+            </Button> */}
             <Button
               size={{ height: "30px" }}
               icon="filter"
