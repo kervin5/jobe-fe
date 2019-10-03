@@ -3,8 +3,8 @@ import gql from "graphql-tag";
 import CounterCard from "../../common/UI/CounterCard";
 
 const JOB_STATUS_QUERY = gql`
-  query JOB_STATUS_QUERY($status: String!) {
-    jobsConnection(status: $status) {
+  query JOB_STATUS_QUERY($status: Status!) {
+    protectedJobsConnection(where: { status: $status }) {
       aggregate {
         count
       }
@@ -24,7 +24,7 @@ const JobStatusCard = props => {
         return (
           <CounterCard
             label={props.label}
-            value={data.jobsConnection.aggregate.count}
+            value={data.protectedJobsConnection.aggregate.count}
             color={props.color}
             icon={props.icon}
           />

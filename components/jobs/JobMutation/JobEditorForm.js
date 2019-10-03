@@ -25,6 +25,7 @@ const SINGLE_JOB_ALL_DATA_QUERY = gql`
       }
       createdAt
       location {
+        id
         name
         latitude
         longitude

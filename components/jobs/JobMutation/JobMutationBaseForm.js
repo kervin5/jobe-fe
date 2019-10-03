@@ -289,6 +289,7 @@ class JobMutationBaseForm extends Component {
               change={this.changeHandler}
               name={"description"}
               value={this.state.formData.description.value}
+              height="600px"
               required
             />
 

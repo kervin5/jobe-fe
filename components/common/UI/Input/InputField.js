@@ -179,7 +179,7 @@ const inputField = props => {
         }
 
         .InputContainer :global(.DraftEditor-root) {
-          height: 200px;
+          height: ${props.height || "200px"};
         }
 
         .InputContainer :global(.wrapperClassName) {

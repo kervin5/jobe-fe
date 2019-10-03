@@ -15,6 +15,7 @@ const SINGLE_JOB_DETAILS_QUERY = gql`
       type
       createdAt
       location {
+        id
         name
       }
     }
@@ -26,7 +27,7 @@ const DashboardEditJobPage = props => {
     <DashboardPage>
       <Query query={SINGLE_JOB_DETAILS_QUERY} variables={{ id: props.jobId }}>
         {({ error, loading, data }) => {
-          if (error) return <p>Something went wrong</p>;
+          if (error) return <p>Something went wrong here</p>;
           if (loading) return <p>Loading Job...</p>;
           return <JobEditorForm jobId={props.jobId} />;
         }}

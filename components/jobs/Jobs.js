@@ -130,6 +130,7 @@ class Jobs extends PureComponent {
                 <JobList jobs={jobs} />
                 {!endReached && jobs.length > 0 && (
                   <Button
+                    disabled={loading}
                     fullWidth
                     onClick={() => {
                       fetchMore({
