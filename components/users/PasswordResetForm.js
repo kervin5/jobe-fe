@@ -5,6 +5,7 @@ import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
 import { ME_USER_QUERY } from "../../lib/auth";
 import Router from "next/router";
+import ErrorMessage from "../common/UI/ErrorMessage";
 // import { logInUser } from "../../data/auth";
 
 const LOGIN_USER = gql`
@@ -118,7 +119,7 @@ const passwordResetForm = props => {
       >
         {(resetPassword, { loading, error, called, data }) => (
           <form>
-            {error && <p>Something went wrong</p>}
+            {error && <ErrorMessage error={error} />}
             <fieldset disabled={loading} aria-busy={loading}>
               {fieldsToRender}
               <br />
