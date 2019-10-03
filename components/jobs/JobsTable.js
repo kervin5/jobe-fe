@@ -33,14 +33,31 @@ const JOBS_FIELDS = `(first: $perPage, skip: $skip where: { title_contains: $que
 }`;
 
 const USER_JOBS_QUERY = gql`
-  query USER_JOBS_QUERY($perPage: Int!, $skip: Int! $query: String = "") {
-    me {
+  query USER_JOBS_QUERY($perPage: Int!, $skip: Int!, $query: String = "") {
+    protectedJobs(
+      first: $perPage
+      skip: $skip
+      where: { title_contains: $query }
+    ) {
       id
-      jobs ${JOBS_FIELDS}
-
+      title
+      status
+      updatedAt
+      author {
+        id
+        name
+      }
+      location {
+        id
+        name
+      }
+      status
+      applications {
+        id
+      }
       branch {
         id
-        jobs ${JOBS_FIELDS}
+        name
       }
     }
   }
@@ -48,7 +65,7 @@ const USER_JOBS_QUERY = gql`
 
 const USER_JOBS_CONNECTION_QUERY = gql`
   query USER_JOBS_CONNECTION_QUERY($query: String = "") {
-    jobsConnection(where: { title_contains: $query }) {
+    protectedJobsConnection(where: { title_contains: $query }) {
       aggregate {
         count
       }
@@ -110,13 +127,9 @@ const JobsTable = props => {
                     </Placeholder>
                   );
                 if (error) return <p>Something Failed...</p>;
-                if (!data.me) return <p>Please wait</p>;
 
                 //Get jobs from branch if user has access
-                const dataForTable = (data.me.branch
-                  ? data.me.branch
-                  : data.me
-                ).jobs.map(job => {
+                const dataForTable = data.protectedJobs.map(job => {
                   return {
                     ...job,
                     location: job.location.name
@@ -124,7 +137,7 @@ const JobsTable = props => {
                 });
 
                 const jobsCount =
-                  userJobsData.data.jobsConnection.aggregate.count;
+                  userJobsData.data.protectedJobsConnection.aggregate.count;
                 return (
                   <>
                     <SortableTable

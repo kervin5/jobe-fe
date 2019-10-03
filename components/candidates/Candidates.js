@@ -10,13 +10,10 @@ import Loader from "../common/UI/Animated/Loader";
 
 const CANDIDATE_QUERY = gql`
   query CANDIDATE_QUERY($perPage: Int!, $skip: Int!, $query: String!) {
-    users(
+    candidates(
       first: $perPage
       skip: $skip
-      where: {
-        role: { name: "CANDIDATE" }
-        OR: [{ name_contains: $query }, { email_contains: $query }]
-      }
+      where: { OR: [{ name_contains: $query }, { email_contains: $query }] }
     ) {
       id
       name
@@ -36,11 +33,8 @@ const CANDIDATE_QUERY = gql`
 
 const USERS_CONNECTION_QUERY = gql`
   query USERS_CONNECTION_QUERY($query: String!) {
-    usersConnection(
-      where: {
-        role: { name: "CANDIDATE" }
-        OR: [{ name_contains: $query }, { email_contains: $query }]
-      }
+    candidatesConnection(
+      where: { OR: [{ name_contains: $query }, { email_contains: $query }] }
     ) {
       aggregate {
         count
@@ -89,13 +83,21 @@ const Candidates = props => {
 
                 let candidates = [];
 
-                data.users.forEach(user => {
-                  const hasResume = user.resumes.length > 0;
+                data.candidates.forEach(candidate => {
+                  const hasResume = candidate.resumes.length > 0;
 
                   return candidates.push({
-                    name: user.name,
-                    email: <a href={`malito:${user.email}`}>{user.email}</a>,
-                    title: hasResume ? user.resumes[0].title : <p>No Resume</p>,
+                    name: candidate.name,
+                    email: (
+                      <a href={`malito:${candidate.email}`}>
+                        {candidate.email}
+                      </a>
+                    ),
+                    title: hasResume ? (
+                      candidate.resumes[0].title
+                    ) : (
+                      <p>No Resume</p>
+                    ),
                     resume: hasResume && (
                       <Button
                         color="green"
@@ -103,7 +105,7 @@ const Candidates = props => {
                           e.preventDefault();
                           window.open(
                             "/resumes/" +
-                              user.resumes[0].file.path.split("/").pop()
+                              candidate.resumes[0].file.path.split("/").pop()
                           );
                         }}
                       >
@@ -114,7 +116,7 @@ const Candidates = props => {
                 });
 
                 const count =
-                  userConnectionData.data.usersConnection.aggregate.count;
+                  userConnectionData.data.candidatesConnection.aggregate.count;
 
                 return (
                   <Table
