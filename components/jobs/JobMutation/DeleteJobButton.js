@@ -19,8 +19,6 @@ const DeleteJobButton = ({ jobId, refetchQueries }) => {
     }
   };
 
-  console.log(refetchQueries);
-
   return (
     <Mutation
       mutation={DELETE_JOB_MUTATION}

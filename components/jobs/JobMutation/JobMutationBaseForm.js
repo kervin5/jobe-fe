@@ -5,7 +5,7 @@ import InputField from "../../common/UI/Input/InputField";
 import InputGroup from "../../common/UI/Input/InputGroup";
 import ButtonGroup from "../../common/UI/ButtonGroup";
 import Button from "../../common/UI/Button";
-import { Router } from "next/router";
+import Router from "next/router";
 
 export const ALL_CATEGORIES_QUERY = gql`
   query ALL_CATEGORIES_QUERY {

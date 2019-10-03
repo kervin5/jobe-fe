@@ -54,6 +54,7 @@ const ALL_JOBS_QUERY = gql`
       type
       createdAt
       location {
+        id
         name
       }
     }
@@ -91,6 +92,7 @@ const SEARCH_JOBS_QUERY = gql`
       type
       createdAt
       location {
+        id
         name
       }
     }
