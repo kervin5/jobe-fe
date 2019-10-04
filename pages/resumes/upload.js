@@ -3,6 +3,8 @@ import PageSection from "../../components/common/Layout/PageSection";
 import Title from "../../components/common/UI/Title";
 import Container from "../../components/common/Layout/Container";
 import ResumeUploadForm from "../../components/resumes/ResumeUploadForm";
+import Button from "../../components/common/UI/Button";
+import Link from "next/link";
 
 const ResumeUploadPage = props => {
   return (
@@ -14,6 +16,9 @@ const ResumeUploadPage = props => {
           click! 😮👉
         </p>
         <ResumeUploadForm />
+        <Link href="/me">
+          <Button as="a">Do it later 🕑</Button>
+        </Link>
       </Container>
     </PageSection>
   );

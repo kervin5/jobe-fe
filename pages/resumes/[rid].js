@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import variables from "../../components/common/globalVariables";
 import PageSection from "../../components/common/Layout/PageSection";
 import ResumeViewer from "../../components/resumes/ResumeViewer";
+import WithAuth from "../../components/hoc/WithAuth";
 
 const pageStyles = `background-color:${variables.mutedColor1};`;
 
@@ -45,4 +46,4 @@ SingleJobView.getInitialProps = async function({ query, apolloClient, res }) {
   return { rid };
 };
 
-export default SingleJobView;
+export default WithAuth(SingleJobView, [{ object: "RESUME", action: "READ" }]);
