@@ -89,7 +89,7 @@ const Candidates = props => {
                   return candidates.push({
                     name: candidate.name,
                     email: (
-                      <a href={`malito:${candidate.email}`}>
+                      <a href={`mailto:${candidate.email}`}>
                         {candidate.email}
                       </a>
                     ),
