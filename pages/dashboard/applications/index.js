@@ -11,5 +11,5 @@ const dashboardApplicationsPage = props => {
 };
 
 export default WithAuth(dashboardApplicationsPage, [
-  { object: "APPLICATION", action: "READ" }
+  { object: "JOB", action: "CREATE" }
 ]);
