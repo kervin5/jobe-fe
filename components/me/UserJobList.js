@@ -27,6 +27,7 @@ const USER_FAVORITED_JOBS = gql`
           type
           createdAt
           location {
+            id
             name
           }
         }
