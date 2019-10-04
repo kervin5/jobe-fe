@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import Icon from "./Icon";
 import variables from "../globalVariables";
-import CircularProgress from "@material-ui/core/CircularProgress";
+
+import { Loader } from "semantic-ui-react";
 
 const Button = props => {
   const height = props.size ? props.size.height : variables.inputHeight;
@@ -13,18 +14,20 @@ const Button = props => {
       ? variables["accentColor" + props.color]
       : variables.accentColor1 + ";");
 
+  const parentProps = { ...props };
+  const ElementToRender = props.as || "button";
+  delete parentProps.fullWidth;
+  delete parentProps.iconOnly;
+  delete parentProps.loading;
+
   return (
-    <button
-      onClick={props.click}
+    <ElementToRender
+      onClick={props.onClick}
       className={["Button", iconOnly, disabled].join(" ")}
       disabled={props.disabled}
     >
       {props.icon ? <Icon icon={props.icon} /> : null}
-      {props.iconOnly ? null : props.loading ? (
-        <CircularProgress />
-      ) : (
-        props.children
-      )}
+      {props.iconOnly ? null : props.loading ? <Loader /> : props.children}
       <style jsx>{`
         li {
           list-style: none;
@@ -43,7 +46,8 @@ const Button = props => {
         .Button {
           height: ${height};
           border-radius: ${variables.roundedRadius};
-
+          font-size: 1.2em;
+          font-weight: bold;
           border: none;
           color: ${variables.clearColor};
           box-shadow: 0px 5px 15px -9px rgba(0, 0, 0, 0.66);
@@ -54,6 +58,8 @@ const Button = props => {
           width: ${props.fullWidth ? "100%" : "auto"};
           display: flex;
           justify-content: space-around;
+          align-items: center;
+          float: ${props.float || "inherit"};
           ${customColor}
         }
 
@@ -73,7 +79,7 @@ const Button = props => {
           padding: 5px;
         }
 
-        .Button :global(.MuiCircularProgress-root svg) {
+        .Button :global(.Icon i) {
           color: ${variables.clearColor};
         }
 
@@ -102,7 +108,7 @@ const Button = props => {
 
         ${props.styles || ""}
       `}</style>
-    </button>
+    </ElementToRender>
   );
 };
 

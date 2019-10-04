@@ -1,44 +1,16 @@
-import { Component } from "react";
-import axios from "../../data/api";
-import Router from "next/router";
+import protectPage from "../../lib/auth";
 
-export default function HiddenIfAuth(ComponentToProtect) {
-  return class extends Component {
-    state = { loading: true, redirect: false };
-    componentDidMount() {
-      axios({
-        url: "/auth",
-        method: "get",
-        headers: {
-          Authorization: window.sessionStorage.getItem("token")
-        }
-      })
-        .then(res => {
-          if (res.status !== 200) {
-            this.setState({ redirect: true });
-          }
-          this.setState({ loading: false });
-        })
-        .catch(err => {
-          this.setState({ loading: false, redirect: true });
-        });
-    }
+const WithAuth = (WrappedComponent, permissions, fallbackRoute) => {
+  const getOriginalProps =
+    WrappedComponent.getInitialProps || (() => ({ auth: true }));
 
-    render() {
-      // return (<ComponentToProtect {...this.props} />);
-      const { loading, redirect } = this.state;
-      if (loading) {
-        return <p>loading</p>;
-      } else if (redirect) {
-        Router.push("/user/login", "user/login");
-        return <p>Redirect</p>;
-      } else {
-        return (
-          <React.Fragment>
-            <ComponentToProtect {...this.props} />
-          </React.Fragment>
-        );
-      }
-    }
+  WrappedComponent.getInitialProps = async context => {
+    const OriginalInitialProps = await getOriginalProps(context);
+    await protectPage(context, permissions, fallbackRoute);
+    return { ...(OriginalInitialProps || {}) };
   };
-}
+
+  return WrappedComponent;
+};
+
+export default WithAuth;

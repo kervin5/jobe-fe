@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import variables from "../../common/globalVariables";
 import Router from "next/router";
+import variables from "../../common/globalVariables";
+import SearchFilters from "./SearchFilters";
 import InputField from "../../common/UI/Input/InputField";
 import Button from "../../common/UI/Button";
 
@@ -9,20 +10,22 @@ const buttonStyles = `margin-top:10px;`;
 const searchForm = props => {
   const [formData, setFormData] = useState({
     searchTerms: {
-      value: "",
+      value: props.terms || "",
       valid: false,
-      icon: "Search",
+      icon: "search",
       type: "text",
       placeholder: "Job Title, Keywords, or Company Name",
-      focused: true
+      focused: true,
+      required: false
     },
     searchLocation: {
-      value: "",
+      value: props.location || "",
       valid: false,
-      icon: "LocationOn",
+      icon: "map marker",
       type: "location",
       placeholder: "Location",
-      focused: false
+      focused: false,
+      required: false
     }
   });
   const [validate, setValidate] = useState(false);
@@ -37,21 +40,19 @@ const searchForm = props => {
     });
   };
 
-  const submitFormHandler = e => {
+  const submitFormHandler = async e => {
     e.preventDefault();
-    setValidate(true);
+    await setValidate(true);
+
     const { searchTerms, searchLocation } = formData;
 
-    if (searchTerms.valid && searchLocation.valid) {
-      Router.push(
-        `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`
-      );
-    }
+    Router.push(
+      `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`
+    );
   };
 
   const InputFields = ["searchTerms", "searchLocation"].map(key => {
     const fieldData = formData[key];
-
     return (
       <InputField
         validate={validate}
@@ -61,9 +62,9 @@ const searchForm = props => {
         centerPlaceholder
         icon={fieldData.icon}
         change={handleChange}
-        required
         focused
         name={key}
+        value={fieldData.value}
         key={key + "SearchField"}
       />
     );
@@ -72,7 +73,7 @@ const searchForm = props => {
   return (
     <form>
       {InputFields}
-      <Button styles={buttonStyles} click={submitFormHandler} fullWidth>
+      <Button styles={buttonStyles} onClick={submitFormHandler} fullWidth>
         Search
       </Button>
       <style jsx>{`
@@ -80,7 +81,7 @@ const searchForm = props => {
           width: 100%;
           max-width: 400px;
           padding ${props.noPadding ? "0px" : "0 15px"};
-         
+          margin: auto;
         }
 
         form * {

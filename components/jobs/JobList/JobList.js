@@ -1,20 +1,28 @@
 import React from "react";
 import JobListItem from "./JobListItem";
+import PropTypes from "prop-types";
+
+/**
+ * @param {Object[]} jobs - Array of jobs object
+ * @returns {React.JSX} list of Job nodes
+ */
 
 const jobList = props => {
+  const { jobs } = props;
   let elementToRender = <h3>No jobs found</h3>;
 
-  if (props.jobs.length > 0) {
-    elementToRender = props.jobs.map(job => {
+  if (jobs && jobs.length > 0) {
+    elementToRender = jobs.map(job => {
       return (
         <JobListItem
-          key={job._id}
+          key={job.id}
           title={job.title}
           description={job.description}
           location={job.location}
           compensation={job.minCompensation}
           type={job.type}
-          id={job._id}
+          id={job.id}
+          date={job.createdAt}
         />
       );
     });
@@ -25,6 +33,10 @@ const jobList = props => {
       <div>{elementToRender}</div>
     </React.Fragment>
   );
+};
+
+jobList.propTypes = {
+  jobs: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default jobList;

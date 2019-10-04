@@ -18,23 +18,34 @@ const locationInputField = props => {
   };
   // const [localValue, setLocalValue] = useState("");
 
-  const changeHandler = fieldData => {
-    props.change(fieldData);
-    // setLocalValue(value);
+  const changeHandler = async fieldData => {
+    let locationDetails = {};
+    if (fieldData.valid) {
+      const selectedLocation = locations.filter(
+        loc => loc.place_name === fieldData.value
+      )[0];
+
+      //Gets the location details if the location selected is valid, this is needed for the Backend when setting a location
+      if (typeof selectedLocation !== "undefined") {
+        const [longitude, latitude] = selectedLocation.geometry.coordinates;
+
+        locationDetails = {
+          name: selectedLocation.place_name,
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
+          boundary: selectedLocation.bbox
+        };
+      }
+    }
+
+    props.change({ ...fieldData, details: locationDetails });
   };
 
   useEffect(() => {
     if (!isTyping && uri !== "") {
-      axios
-        .get(
-          "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-            uri +
-            ".json" +
-            "?access_token=pk.eyJ1Ijoia3Zhc3F1ZXppdCIsImEiOiJjandzNWtjcjUwMHh2NDJxa2toeWJ6N2FlIn0.Qa-IM4Em_QMvC2QWlMvieQ"
-        )
-        .then(res => {
-          setLocations(res.data.features);
-        });
+      axios.get("/location/" + uri).then(res => {
+        setLocations(res.data.features);
+      });
     }
   }, [isTyping, uri]);
 

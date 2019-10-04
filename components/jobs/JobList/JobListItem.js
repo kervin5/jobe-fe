@@ -1,11 +1,13 @@
 import React from "react";
-
-// import classes from './JobListItem.module.scss';
+import Link from "next/link";
+import moment from "moment";
 import variables from "../../common/globalVariables";
 import Bubble from "../../common/UI/Bubble";
 import Icon from "../../common/UI/Icon";
+import FavoriteButton from "../../common/UI/FavoriteButton";
 import Card from "../../common/UI/Card";
-import Link from "next/link";
+import HtmlRenderer from "../../common/UI/HtmlRenderer";
+import PrompToRegister from "../../users/PrompToRegister";
 
 const styles = ` background-color: ${variables.clearColor};
                 margin: 20px auto;
@@ -17,22 +19,25 @@ const styles = ` background-color: ${variables.clearColor};
                 `;
 
 const jobListItem = props => {
-  const shortLocation =
-    props.location.split(",")[0] + ", " + props.location.split(",")[1];
-
+  const shortLocation = props.location.name;
+  const jobUrl =
+    "/jobs/" +
+    props.title
+      .split(" ")
+      .join("-")
+      .split("/")
+      .join("-") +
+    "-" +
+    props.id;
   return (
-    <Card styles={styles} animate>
+    <Card styles={styles}>
       <div className="JobListItemHeader">
         <div>
-          <Link
-            href={
-              "/jobs/view/" + props.title.split(" ").join("-") + "-" + props.id
-            }
-          >
-            <a>{props.title}</a>
+          <Link href="/jobs/[jid]" as={jobUrl}>
+            <a className="JobTitle">{props.title}</a>
           </Link>
           <p className="Location">
-            <Icon icon="map-marker-alt" size="sm" className="LocationIcon" />{" "}
+            <Icon icon="marker" size="sm" className="LocationIcon" />{" "}
             {shortLocation}
           </p>
         </div>
@@ -41,14 +46,20 @@ const jobListItem = props => {
           <Bubble color="2">{props.type}</Bubble>
         </div>
       </div>
-      <Link
-        href={"/jobs/view/" + props.title.split(" ").join("-") + "-" + props.id}
-      >
-        <a className="Content">{props.description.substr(1, 200)}...</a>
+      <Link href="/jobs/[jid]" as={jobUrl}>
+        <a className="Content">
+          <HtmlRenderer
+            html={props.description.substr(0, 200) + "..."}
+            options={["p"]}
+          />
+        </a>
       </Link>
 
       <div className="JobListItemFooter">
-        <Icon icon="heart" size="lg" className="LikeIcon" />
+        <p className="PostDate">{moment(props.date).fromNow()}</p>
+        <PrompToRegister>
+          <FavoriteButton jobId={props.id} />
+        </PrompToRegister>
       </div>
       <style jsx>{`
         a {
@@ -63,19 +74,26 @@ const jobListItem = props => {
           margin-bottom: 10px;
         }
 
-        .JobListItemHeader a {
+        .JobListItemHeader .JobTitle {
           font-weight: bold;
           text-decoration: none;
           color: ${variables.accentColor2};
+          font-size: 1.2em;
+        }
+
+        .JobListItemHeader .JobTitle:hover {
+          border-bottom: 1px solid red;
         }
 
         .Location {
           font-size: 0.9em;
+          font-weight: bold;
+          margin: 5px 0 0;
         }
 
         .Content {
           font-weight: normal;
-          font-size: 0.9em;
+          font-size: 1em;
           // letter-spacing: 0.1em;
           line-height: 1.4em;
         }
@@ -90,13 +108,45 @@ const jobListItem = props => {
 
         .JobListItemFooter {
           display: flex;
-          justify-content: flex-end;
+          justify-content: space-between;
           margin-bottom: 5px;
+          margin-top: 5px;
         }
 
         .JobListItemFooter a {
           font-weight: bold;
           text-decoration: none;
+        }
+
+        .PostDate {
+          font-size: 0.9em;
+          font-weight: bold;
+          color: ${variables.accentColor1};
+        }
+
+        @media (max-width: 720px) {
+          .JobListItemHeader {
+            margin-top: 10px;
+          }
+
+          .JobListItemMainInfo {
+            position: absolute;
+            right: 0;
+            top: 0;
+          }
+
+          .JobListItemMainInfo :global(> span:nth-child(2)) {
+            margin-left: 0;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+
+          .JobListItemMainInfo :global(> span:nth-child(1)) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-top-left-radius: 0;
+          }
         }
       `}</style>
     </Card>

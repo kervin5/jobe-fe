@@ -1,150 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import variables from "../../../components/common/globalVariables";
-import { getUserInfo, userIsLoggedIn } from "../../../data/auth";
-import axios from "../../../data/api";
-import { getAuthToken } from "../../../data/auth";
-import RegisterForm from "../../users/RegisterForm/RegisterForm";
 import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
-import PopUp from "../../common/UI/PopUp";
+import PageTitle from "../../common/Layout/PageTitle";
 import Title from "../../common/UI/Title";
-import Button from "../../common/UI/Button";
-import HtmlRenderer from "../../hoc/HtmlRenderer";
-
-// import BottomNav from '../../common/UI/BottomNav/BottomNav';
+import ApplyToJobButton from "../../common/UI/ApplyToJobButton";
+import HtmlRenderer from "../../common/UI/HtmlRenderer";
+import SocialMedia from "../../common/UI/SocialMedia";
+import StucturedJobListing from "./StructuredJobListing";
 
 const jobListing = props => {
-  const [showPopUp, setShowPopUp] = useState(false);
-  const [buttonData, setButtonData] = useState({
-    text: "Apply",
-    disabled: true,
-    loading: true
-  });
-  const [applicationStatus, setApplicationStatus] = useState("loading");
-
-  const applyBtnClicHandler = () => {
-    if (!userIsLoggedIn()) {
-      setShowPopUp(true);
-    } else {
-      axios
-        .post(
-          `/jobs/apply`,
-          { jobId: props.jobId },
-          {
-            headers: {
-              Authorization: getAuthToken()
-            }
-          }
-        )
-        .then(result => {
-          setButtonData({ text: "Applied 😁", disabled: true, loading: false });
-          console.log(result);
-        })
-        .catch(err => {
-          console.log(err);
-          setButtonData({ text: "Apply", disabled: false, loading: false });
-        });
-    }
-  };
-
-  useEffect(() => {
-    if (userIsLoggedIn()) {
-      axios
-        .post(
-          "/jobs/application/status",
-          { jobId: props.jobId },
-          {
-            headers: {
-              Authorization: getAuthToken()
-            }
-          }
-        )
-        .then(response => {
-          console.log(response);
-          if (response.data.status === "applied") {
-            setButtonData({
-              text: "Applied 😁",
-              disabled: true,
-              loading: false
-            });
-          } else {
-            setButtonData({ text: "Apply", disabled: false, loading: false });
-          }
-        });
-    } else {
-      setButtonData({ text: "Apply", disabled: false, loading: false });
-    }
-  }, []);
-
-  const applicationCompleteHandler = async registed => {
-    if (registed) {
-      setShowPopUp(false);
-      setButtonData({ text: "Applying", disabled: true });
-
-      axios
-        .post(
-          `/jobs/apply`,
-          { jobId: props.jobId },
-          {
-            headers: {
-              Authorization: getAuthToken()
-            }
-          }
-        )
-        .then(result => {
-          setButtonData({ text: "Applied 😁", disabled: true, loading: false });
-          console.log(result);
-        })
-        .catch(err => {
-          console.log(err);
-          setButtonData({ text: "Apply", disabled: false, loading: false });
-        });
-    }
-  };
-
   return (
     <TransformerContainer data-test="job-listing">
+      <PageTitle title={props.data.title + " at " + props.data.location} />
       <JobListingHeader
-        title={props.title}
-        location={props.location}
-        minAmount={props.minAmount}
-        maxAmount={props.maxAmount}
-        type={props.type}
+        title={props.data.title}
+        location={props.data.location}
+        minCompensation={props.data.minCompensation}
+        maxCompensation={props.data.maxCompensation}
+        type={props.data.type}
         data-test="title-section"
+        hideFavoriteButton={props.preview}
+        jobId={props.data.id}
       />
 
       <div className="Body" data-test="main-content-section">
         <Title size={"m"}>Job Description:</Title>
-        <p>{props.description}</p>
-        <br />
-
-        <Title size={"m"}>Responsabilities:</Title>
-        <HtmlRenderer html={props.qualifications} />
-        <br />
-
-        <Title size={"m"}>Qualilfications:</Title>
-        <HtmlRenderer html={props.requirements} />
+        <HtmlRenderer html={props.data.description} />
         <br />
 
         <Title size={"m"} data-test="company-information-section">
-          About the Company:
+          About the Company: {props.data.company}
         </Title>
-        <p>{props.aboutCompany}</p>
+        <p>{props.data.aboutCompany}</p>
         <br />
 
-        <Button
-          className="button"
-          click={applyBtnClicHandler}
-          data-test="appy-button"
-          fullWidth
-          disabled={buttonData.disabled}
-          loading={buttonData.loading}
-        >
-          {buttonData.text}
-        </Button>
-        <PopUp show={showPopUp}>
-          <RegisterForm onSubmit={applicationCompleteHandler} />
-        </PopUp>
+        {props.preview ? null : (
+          //PLEASE CHANGE THE LINK BEFORE IT GOES LIVE
+          <SocialMedia
+            url={
+              "https://myexactjobsstaging.herokuapp.com/jobs/" +
+              props.data.title +
+              "-" +
+              props.data.id
+            }
+          />
+        )}
+        <br />
+
+        {props.preview ? null : <ApplyToJobButton jobId={props.data.id} />}
       </div>
       <style jsx>{`
 
@@ -175,6 +79,10 @@ const jobListing = props => {
                 margin-bottom: 5px;
             }
 
+            .Body :global(div){
+              line-height: 1.7em;
+            }
+
             @media only screen and (max-width: 520px){
            
                 .Body{
@@ -183,6 +91,7 @@ const jobListing = props => {
                     width: 100%;
                     border-bottom-right-radius: 0px;
                     border-bottom-left-radius: 0px;
+                   
                 }
                   
                 .Body button{
@@ -193,6 +102,7 @@ const jobListing = props => {
 
             }
         `}</style>
+      <StucturedJobListing data={props.data} />
     </TransformerContainer>
   );
 };

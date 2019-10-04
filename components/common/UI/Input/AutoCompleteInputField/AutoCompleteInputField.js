@@ -11,7 +11,7 @@ class AutoCompleteInputField extends React.PureComponent {
     hasValueFromOptions: false,
     showMenu: false,
     isManagingFocus: false,
-    valid: false,
+    valid: this.props.value,
     errors: [],
     name: this.props.name || "",
     touched: false,
@@ -71,20 +71,23 @@ class AutoCompleteInputField extends React.PureComponent {
   };
 
   validate = () => {
-    if (this.props.required && !this.state.hasValueFromOptions) {
-      this.handleStateChange({
-        hasValueFromOptions: false,
-        errors: ["Please select an option from the dropdown"],
-        options: [],
-        valid: false,
-        touched: true
-      });
-    } else if (!this.props.required && this.props.value === "") {
+    if (
+      !this.props.required ||
+      (this.props.value && this.props.value !== "" && !this.state.touched)
+    ) {
       this.handleStateChange({
         hasValueFromOptions: false,
         errors: [],
         options: [],
         valid: true,
+        touched: true
+      });
+    } else if (this.props.required && !this.state.hasValueFromOptions) {
+      this.handleStateChange({
+        hasValueFromOptions: false,
+        errors: ["Please select an option from the dropdown"],
+        options: [],
+        valid: false,
         touched: true
       });
     }
@@ -117,7 +120,7 @@ class AutoCompleteInputField extends React.PureComponent {
         });
       }
 
-      if (!this.state.hasValueFromOptions) {
+      if (!this.state.hasValueFromOptions && this.props.required) {
         this.handleStateChange({
           errors: ["Please select an option from the dropdown"],
           options: []

@@ -1,14 +1,22 @@
 const next = require("next");
+const proxy = require("http-proxy-middleware");
 const app = next({ dev: process.env.NODE_ENV !== "production" });
-// const handler = routes.getRequestHandler(app);
 const express = require("express");
 const compression = require("compression");
 const handle = app.getRequestHandler();
+const endpoint = `http://localhost:4444/`;
+const prodEndpoint = `https://myexactjobs-graphql-api.herokuapp.com/`;
 
-// const {createServer} = require('http');
-// app.prepare().then(() => {
-//   createServer(handler).listen( process.env.PORT || 3000);
-// });
+const backendUri =
+  process.env.NODE_ENV === "production" ? prodEndpoint : endpoint;
+
+const mapboxUrl = location => {
+  return (
+    "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+    location +
+    ".json?access_token=pk.eyJ1Ijoia3Zhc3F1ZXppdCIsImEiOiJjandzNWtjcjUwMHh2NDJxa2toeWJ6N2FlIn0.Qa-IM4Em_QMvC2QWlMvieQ&types=country,region,postcode,place"
+  );
+};
 
 app.prepare().then(() => {
   const server = express();
@@ -17,16 +25,28 @@ app.prepare().then(() => {
     server.use(compression());
   }
 
-  server.get("/jobs/view/:slug", (req, res) => {
-    const actualPage = "/jobs/view";
-    const queryParams = { slug: req.params.slug };
-    app.render(req, res, actualPage, queryParams);
+  server.use(
+    "/graphql",
+    proxy({
+      target: backendUri,
+      changeOrigin: true,
+      pathRewrite: {
+        "^/graphql": "/" // remove base path
+      }
+    })
+  );
+
+  server.use("/location/:name", (req, res, next) => {
+    return proxy({
+      target: mapboxUrl(req.params.name),
+      changeOrigin: true,
+      pathRewrite: () => ""
+    })(req, res, next);
   });
 
   server.get("*", (req, res) => {
     return handle(req, res);
   });
-  // server.use(handler);
 
   server.listen(process.env.PORT || 3000);
 });

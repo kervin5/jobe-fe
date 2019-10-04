@@ -1,96 +1,62 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { withRouter } from "next/router";
-import axios from "../../data/api";
 import variables from "../../components/common/globalVariables";
 
-import Layout from "../../components/common/Layout/Layout";
 import PageSection from "../../components/common/Layout/PageSection";
 
-import JobList from "../../components/jobs/JobList/JobList";
 import SearchFieldSection from "../../components/jobs/Search/SearchFieldSection";
 import Button from "../../components/common/UI/Button";
 import ButtonGroup from "../../components/common/UI/ButtonGroup";
-import Loader from "../../components/common/UI/Animated/Loader";
-import SideDrawer from "../../components/common/UI/Navigation/SideDrawer";
+import Jobs from "../../components/jobs/Jobs";
+import SearchFilters from "../../components/jobs/Search/SearchFilters";
 
 const styles = `background-color: ${variables.mutedColor1}; padding: 30px; align-items: flex-start;`;
 
-const SearchContext = React.createContext();
-
 const SearchPage = props => {
-  const {
-    router: { query }
-  } = props;
-
-  const [jobs, setJobs] = useState(null);
-  const [page, setPage] = useState(1);
-  const [showMoreButton, setShowMoreButton] = useState(true);
+  const [variables, setVariables] = useState({
+    distance: 10,
+    category: "",
+    type: ""
+  });
   const [showFilters, setShowFilters] = useState(false);
-
-  useEffect(() => {
-    fetchData(query.q, query.location, page, true);
-  }, [props.router]);
-
-  const fetchData = (terms, location, page, refreshAll) => {
-    axios
-      .get(`/jobs?q=${terms}&location=${location}&page=${page}`)
-      .then(res => {
-        let listOfJobs = [];
-        if (refreshAll) {
-          listOfJobs = res.data;
-        } else {
-          listOfJobs =
-            jobs == null ? [].concat(res.data) : jobs.concat(res.data);
-        }
-        setJobs(listOfJobs);
-      });
+  const handleFiltersChange = vars => {
+    console.log(vars);
+    setVariables({
+      ...variables,
+      ...vars
+    });
   };
-
-  const handleViewMoreButton = () => {
-    setPage(page + 1);
-  };
-
-  useEffect(() => {
-    if (page !== 1) {
-      fetchData(query.q, query.location, page);
-    }
-  }, [page]);
-
-  useEffect(() => {
-    if (jobs && jobs.length > 0 && jobs.length % page !== 0) {
-      setShowMoreButton(false);
-    }
-  }, [jobs]);
 
   return (
-    <Layout>
-      <SideDrawer show={showFilters} close={() => setShowFilters(false)}>
-        <h3>Filter</h3>
-      </SideDrawer>
+    <>
+      <SearchFilters
+        showFilters={showFilters}
+        setShowFilters={setShowFilters}
+        onChange={handleFiltersChange}
+      />
       <PageSection styles={styles}>
         <div className="Container">
-          <SearchFieldSection terms={query.q} location={query.location} />
+          <SearchFieldSection terms={props.q} location={props.location} />
           <ButtonGroup>
-            <Button size={{ height: "30px" }} icon="AddAlert">
-              Create Alert
-            </Button>
+            {/* <Button size={{ height: "30px" }} icon="alarm">
+              Add Alert
+            </Button> */}
             <Button
               size={{ height: "30px" }}
-              icon="Tune"
+              icon="filter"
               color="2"
-              click={() => setShowFilters(!showFilters)}
+              onClick={() => setShowFilters(!showFilters)}
             >
               Filter
             </Button>
           </ButtonGroup>
-          {jobs ? <JobList jobs={jobs} /> : <Loader />}
-          {showMoreButton ? (
-            <Button fullWidth click={handleViewMoreButton}>
-              View More
-            </Button>
-          ) : (
-            <p>That's all for now 😊</p>
-          )}
+          <Jobs
+            location={props.location}
+            q={props.q}
+            category={props.category || variables.category}
+            type={variables.type}
+            radius={parseInt(variables.distance)}
+          />
         </div>
       </PageSection>
 
@@ -104,8 +70,14 @@ const SearchPage = props => {
           text-align: center;
         }
       `}</style>
-    </Layout>
+    </>
   );
+};
+
+SearchPage.getInitialProps = async function({ query }) {
+  // console.log(query);
+  const { q, location, category } = query;
+  return { q, location, category };
 };
 
 export default withRouter(SearchPage);

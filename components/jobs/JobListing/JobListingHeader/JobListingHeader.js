@@ -3,7 +3,8 @@ import variables from "../../../../components/common/globalVariables";
 import Bubble from "../../../common/UI/Bubble";
 import Icon from "../../../common/UI/Icon";
 import Title from "../../../common/UI/Title";
-import FavoriteIcon from "../../../common/UI/favoriteIcon";
+import FavoriteButton from "../../../common/UI/FavoriteButton";
+import PrompToRegister from "../../../users/PrompToRegister";
 
 const jobListingTitleStyles = `color: ${variables.clearColor};`;
 const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
@@ -19,25 +20,29 @@ const header = props => (
       weight="400"
       data-test="location-section"
     >
-      <Icon icon="map-marker-alt" /> {props.location}
+      <Icon icon="map marker alternate" /> {props.location}
     </Title>
 
     <div className="JobListingHeaderBar">
       <div className="JobListingJobType">
         <Bubble color="1">
-          ${props.minAmount}-{props.maxAmount}
+          ${props.minCompensation}-{props.maxCompensation}
         </Bubble>
         <Bubble color="2">{props.type}</Bubble>
       </div>
-      <FavoriteIcon />
+      {props.hideFavoriteButton ? null : (
+        <PrompToRegister>
+          <FavoriteButton jobId={props.jobId} />
+        </PrompToRegister>
+      )}
     </div>
     <style jsx>{`
       .header {
         width: 100%;
         max-width: 1200px;
-        padding: 50px 40px;
+        padding: 40px;
         background-color: ${variables.accentColor2};
-        border-top-right-radius: ${variables.roundedRadius};
+        border-top-right-radius: 30px;
         border-top-left-radius: ${variables.roundedRadius};
         z-index: 800;
       }
@@ -45,6 +50,7 @@ const header = props => (
       .JobListingHeaderBar {
         display: flex;
         justify-content: space-between;
+        position: relative;
       }
 
       @media only screen and (max-width: 520px) {

@@ -1,31 +1,34 @@
 import React from "react";
-import App, { Container } from "next/app";
-import withReduxStore from "../lib/with-redux-store";
-import { Provider } from "react-redux";
+import App from "next/app";
+import withApollo from "../components/hoc/WithApollo";
+import { ApolloProvider } from "react-apollo";
+import Page from "../components/Page";
+import "semantic-ui-css/semantic.min.css";
 import "./app.css";
 
 class MyApp extends App {
+  static displayName = "MyApp";
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
-
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
 
+    // this exposes the query to the user
+    pageProps.query = ctx.query;
     return { pageProps };
   }
 
   render() {
-    const { Component, pageProps, reduxStore } = this.props;
-
+    const { Component, pageProps, apolloClient } = this.props;
     return (
-      <Container>
-        <Provider store={reduxStore}>
+      <ApolloProvider client={apolloClient}>
+        <Page>
           <Component {...pageProps} />
-        </Provider>
-      </Container>
+        </Page>
+      </ApolloProvider>
     );
   }
 }
 
-export default withReduxStore(MyApp);
+export default withApollo(MyApp);

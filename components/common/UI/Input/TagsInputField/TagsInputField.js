@@ -19,7 +19,7 @@ class TagsInputField extends React.Component {
       suggestions: props.options ? suggestions : [],
       valid: false,
       touched: false,
-      value: "",
+      value: props.value || "",
       errors: []
     };
   }
@@ -81,15 +81,17 @@ class TagsInputField extends React.Component {
   };
 
   updateSuggestions = (tag, action) => {
-    if (action === "remove") {
-      const updatedSuggestions = this.state.suggestions.filter(suggestion => {
-        return suggestion.id !== tag.id;
-      });
+    if (tag) {
+      if (action === "remove") {
+        const updatedSuggestions = this.state.suggestions.filter(suggestion => {
+          return suggestion.id !== tag.id;
+        });
 
-      this.setState({ suggestions: updatedSuggestions });
-    } else {
-      const updatedSuggestions = this.state.suggestions.concat(tag);
-      this.setState({ suggestions: updatedSuggestions });
+        this.setState({ suggestions: updatedSuggestions });
+      } else {
+        const updatedSuggestions = this.state.suggestions.concat(tag);
+        this.setState({ suggestions: updatedSuggestions });
+      }
     }
   };
 
@@ -99,10 +101,12 @@ class TagsInputField extends React.Component {
         <ReactTags
           tags={this.state.tags}
           suggestions={this.state.suggestions}
+          handleAddition={this.handleAddition.bind(this)}
           handleDelete={this.handleDelete.bind(this)}
           minQueryLength={1}
           autofocus={false}
-          handleAddition={this.handleAddition.bind(this)}
+          maxSuggestionsLength={10}
+          clearInputOnDelete={false}
         />
         <style jsx global>{`
           .react-tags {
@@ -148,6 +152,11 @@ class TagsInputField extends React.Component {
 
           .react-tags__suggestions li:hover {
             background-color: ${variables.accentColor2};
+            color: ${variables.clearColor};
+          }
+
+          .react-tags__suggestions .is-active {
+            background-color: ${variables.accentColor3};
             color: ${variables.clearColor};
           }
 

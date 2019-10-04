@@ -9,12 +9,13 @@ const Title = props => {
   const weight = props.weight || "bold";
   return (
     <div className={classesToRender} data-test="title-component">
-      {titleGenerator(props.size, props.children, weight)}
+      {titleGenerator(props.size, props.children, weight, props)}
       <style jsx>{`
         .Title {
           color: ${variables.darkColor};
           position: relative;
-          margin-bottom: 10px;
+          margin: ${props.margin ? "20px" : "0 0 10px"};
+          display: ${props.inline ? "inline-block" : "block"};
           ${extraStyles};
         }
 
@@ -34,35 +35,27 @@ const Title = props => {
   );
 };
 
-const titleGenerator = (size, text, weight) => {
+const titleGenerator = (size, text, weight, props) => {
+  let TagForTitle = "h1";
+
   switch (size) {
     case "s":
-      return (
-        <h5 style={{ fontWeight: weight }} data-test="title-text">
-          {text}
-        </h5>
-      );
+      TagForTitle = "h4";
+      break;
     case "m":
-      return (
-        <h3 style={{ fontWeight: weight }} data-test="title-text">
-          {text}
-        </h3>
-      );
+      TagForTitle = "h3";
+      break;
     case "l":
-      return (
-        <h2 style={{ fontWeight: weight }} data-test="title-text">
-          {text}
-        </h2>
-      );
+      TagForTitle = "h2";
+      break;
     default:
-      return (
-        <h1
-          style={{ fontWeight: weight, fontSize: "2.5em" }}
-          data-test="title-text"
-        >
-          {text}
-        </h1>
-      );
+      TagForTitle = "h1";
   }
+
+  return (
+    <TagForTitle style={{ fontWeight: weight }} data-test="title-text">
+      {text}
+    </TagForTitle>
+  );
 };
 export default Title;

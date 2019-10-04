@@ -12,9 +12,10 @@ import InputErrors from "./InputErrors";
 
 const inputField = props => {
   const [valid, setValid] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(props.value || "");
   const [touched, setTouched] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [details, setDetails] = useState(null);
 
   const validation = {
     required: props.required || false,
@@ -36,6 +37,9 @@ const inputField = props => {
     setValue(fieldData.value);
     setTouched(fieldData.touched);
     setErrors(fieldData.errors);
+    if (fieldData.details) {
+      setDetails(fieldData.details);
+    }
   };
 
   useEffect(() => {
@@ -43,7 +47,14 @@ const inputField = props => {
       if (!props.name) {
         props.change(value);
       } else {
-        props.change({ name: props.name, valid, value, touched, errors });
+        props.change({
+          name: props.name,
+          valid,
+          value,
+          touched,
+          errors,
+          details
+        });
       }
     }
   }, [valid, value, touched, errors]);
@@ -57,7 +68,7 @@ const inputField = props => {
       <TextField
         inputType={props.type}
         placeholder={props.placeholder}
-        value={props.value}
+        value={value}
         change={changeHandler}
         focused={props.focused}
         validate={props.validate}
@@ -79,6 +90,7 @@ const inputField = props => {
         options={props.options}
         change={changeHandler}
         validate={props.validate}
+        value={props.value}
         {...validation}
       />
     );
@@ -99,6 +111,7 @@ const inputField = props => {
         placeholder={props.placeholder}
         change={changeHandler}
         validate={props.validate}
+        value={props.value}
         {...validation}
       />
     );
@@ -109,6 +122,7 @@ const inputField = props => {
         toolbarOptions={["list", "emoji", "remove", "history"]}
         change={changeHandler}
         validate={props.validate}
+        value={props.value}
         {...validation}
       />
     );
@@ -119,6 +133,8 @@ const inputField = props => {
         change={changeHandler}
         validation={{ required: props.required }}
         validate={props.validate}
+        value={props.value}
+        tags={props.value}
       />
     );
   }
@@ -143,6 +159,11 @@ const inputField = props => {
           flex-grow: 1;
         }
 
+        .InputField label {
+          font-weight: bold;
+          font-size: 1.1rem;
+        }
+
         .InputContainer {
           position: relative;
           padding-left: 15px;
@@ -158,7 +179,7 @@ const inputField = props => {
         }
 
         .InputContainer :global(.DraftEditor-root) {
-          height: 200px;
+          height: ${props.height || "200px"};
         }
 
         .InputContainer :global(.wrapperClassName) {

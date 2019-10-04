@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import NoSSR from "react-no-ssr";
 import { Editor } from "react-draft-wysiwyg";
 import { stateToHTML } from "draft-js-export-html";
-import { EditorState } from "draft-js";
+import { EditorState, ContentState } from "draft-js";
+import htmlToDraft from "html-to-draftjs";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import useInput from "../useInput";
 
@@ -12,14 +13,17 @@ const RichTextInputFields = props => {
     maxLength: props.maxLength,
     minLength: props.minLength
   };
+
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
   const [touched, setTouched] = useState(false);
   const [richTextFieldState, setRichTextFieldState] = useInput({
     type: props.inputType,
     value: props.value,
     placeholder: props.placeholder,
     name: props.name,
-    validation: validation
+    validation: validation,
+    editorState: null
   });
 
   const changeHandler = editorState => {
@@ -40,6 +44,20 @@ const RichTextInputFields = props => {
     setRichTextFieldState(html);
     setEditorState(editorState);
   };
+
+  useEffect(() => {
+    if (props.value) {
+      const html = props.value;
+      const contentBlock = htmlToDraft(html);
+      if (contentBlock) {
+        const contentState = ContentState.createFromBlockArray(
+          contentBlock.contentBlocks
+        );
+        const editorState = EditorState.createWithContent(contentState);
+        setEditorState(editorState);
+      }
+    }
+  }, []);
 
   const handleBlur = e => {
     setTouched(true);
@@ -72,9 +90,9 @@ const RichTextInputFields = props => {
         wrapperClassName="wrapperClassName"
         editorClassName="editorClassName"
         onEditorStateChange={changeHandler}
-        toolbar={{
-          options: props.toolbarOptions || ["emoji", "remove", "history"]
-        }}
+        // toolbar={{
+        //   options: props.toolbarOptions || ["emoji", "remove", "history"]
+        // }}
       />
     </NoSSR>
   );

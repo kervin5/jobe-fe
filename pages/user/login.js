@@ -1,36 +1,35 @@
 import React from "react";
 import Link from "next/link";
 import variables from "../../components/common/globalVariables";
-import Layout from "../../components/common/Layout/Layout";
 import PageSection from "../../components/common/Layout/PageSection";
-import LoginForm from "../../components/users/LoginForm/LoginForm";
-import HiddenIfAuth from "../../components/hoc/HiddenIfAuth";
+import LoginForm from "../../components/users/LoginForm";
+import Title from "../../components/common/UI/Title";
+import WithoutAuth from "../../components/hoc/WithoutAuth";
 
 const friendsImgUrl = "../../static/images/friends-with-bg.png";
-const pageStyles = ` background-color: ${variables.mutedColor1};
+const pageStyles = `background-color: ${variables.mutedColor1};
                     padding: 30px;
                     display: flex;
                     flex-direction: column;`;
 
-const login = () => {
+const loginPage = () => {
   return (
-    <Layout title={"Login"}>
-      <PageSection styles={pageStyles}>
-        <LoginForm />
+    <PageSection styles={pageStyles}>
+      <Title center>Login</Title>
+      <LoginForm />
 
-        <Link href="/users/recover">
-          <a className="forgoPasswordLink">Forgot Password?</a>
+      <Link href="/user/password/request">
+        <a className="forgoPasswordLink Link">Forgot Password?</a>
+      </Link>
+      <p className="Link">
+        Don't have an account?
+        <Link href="/user/register">
+          <a> Sign Up</a>
         </Link>
-        <p>
-          Don't have an account?
-          <Link href="/users/register">
-            <a> Sign Up</a>
-          </Link>
-        </p>
-        <div className="BgImage">
-          <img src={friendsImgUrl} />
-        </div>
-      </PageSection>
+      </p>
+      <div className="BgImage">
+        <img src={friendsImgUrl} />
+      </div>
       <style jsx>{`
         .BgImage {
           width: 100%;
@@ -47,11 +46,11 @@ const login = () => {
 
         a,
         p {
-          font-size: 0.8em;
+          font-size: 1em;
         }
 
         a {
-          color: ${variables.accentColor1};
+          font-weight: bold;
         }
 
         p a {
@@ -59,11 +58,8 @@ const login = () => {
           font-weight: bold;
         }
       `}</style>
-    </Layout>
+    </PageSection>
   );
 };
 
-export default HiddenIfAuth(login, "/dashboard");
-// export default login;
-
-// export default () => <p>Login</p>
+export default WithoutAuth(loginPage);
