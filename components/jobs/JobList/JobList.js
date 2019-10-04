@@ -22,7 +22,7 @@ const jobList = props => {
           compensation={job.minCompensation}
           type={job.type}
           id={job.id}
-          date={job.createdAt}
+          date={job.updatedAt}
         />
       );
     });

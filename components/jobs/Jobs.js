@@ -53,6 +53,7 @@ const ALL_JOBS_QUERY = gql`
       maxCompensation
       type
       createdAt
+      updatedAt
       location {
         id
         name
@@ -91,6 +92,7 @@ const SEARCH_JOBS_QUERY = gql`
       maxCompensation
       type
       createdAt
+      updatedAt
       location {
         id
         name
