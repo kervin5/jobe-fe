@@ -9,9 +9,9 @@ const PrompToRegister = props => {
   const [showPopup, setShowPopup] = useState(false);
 
   const handleClick = e => {
-    e.preventDefault();
-    e.stopPropagation();
     if (!loggedin) {
+      e.preventDefault();
+      e.stopPropagation();
       setShowPopup(true);
     }
   };
