@@ -5,7 +5,7 @@ import InputField from "../../common/UI/Input/InputField";
 import InputGroup from "../../common/UI/Input/InputGroup";
 import ButtonGroup from "../../common/UI/ButtonGroup";
 import Button from "../../common/UI/Button";
-import Router from "next/router";
+import Link from "next/link";
 
 export const ALL_CATEGORIES_QUERY = gql`
   query ALL_CATEGORIES_QUERY {
@@ -294,13 +294,11 @@ class JobMutationBaseForm extends Component {
             />
 
             <ButtonGroup>
-              <Button
-                color="2"
-                fullWidth
-                onClick={() => Router.push("/dashboard")}
-              >
-                Cancel
-              </Button>
+              <Link href="/dashboard">
+                <Button as="a" color="2" fullWidth>
+                  Cancel
+                </Button>
+              </Link>
               <Button onClick={this.submitFormHandler} fullWidth>
                 Preview Job
               </Button>

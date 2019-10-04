@@ -126,7 +126,7 @@ class Jobs extends PureComponent {
             if (error) return <p>Error: {error.message}</p>;
             const jobs = data.jobs || data.searchJobs;
             const endReached = jobs.length % perPage !== 0;
-
+            console.log(loading);
             return (
               <React.Fragment>
                 <JobList jobs={jobs} />

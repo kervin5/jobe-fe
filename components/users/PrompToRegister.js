@@ -10,6 +10,7 @@ const PrompToRegister = props => {
 
   const handleClick = e => {
     e.preventDefault();
+    e.stopPropagation();
     if (!loggedin) {
       setShowPopup(true);
     }
@@ -27,19 +28,12 @@ const PrompToRegister = props => {
           if (loading) return <p>Loading...</p>;
           if (data.me) setLoggedIn(true);
           return (
-            <div
-              className={"PromptToRegister " + (loggedin ? "" : "Nulled")}
-              onClick={handleClick}
-            >
+            <div className={"PromptToRegister"} onClickCapture={handleClick}>
               {props.children}
 
               <style jsx>{`
                 .PromptToRegister {
                   display: inline-block;
-                }
-
-                .Nulled {
-                  pointer-events: "none";
                 }
               `}</style>
             </div>
