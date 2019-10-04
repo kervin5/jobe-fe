@@ -15,4 +15,6 @@ dashboardApplicationsPerJobPage.getInitialProps = async args => {
   return { jobId: jid };
 };
 
-export default WithAuth(dashboardApplicationsPerJobPage);
+export default WithAuth(dashboardApplicationsPerJobPage, [
+  { object: "APPLICATION", action: "READ" }
+]);
