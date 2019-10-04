@@ -51,6 +51,7 @@ const USER_APPLIED_JOBS = gql`
           type
           createdAt
           location {
+            id
             name
           }
         }
@@ -88,7 +89,6 @@ const userJobList = () => {
       setUserLocation(res.name);
     });
   }, []);
-  // console.log(userLocation);
 
   const addResume = () => {
     return (
@@ -163,7 +163,6 @@ const userJobList = () => {
               <Query query={USER_FAVORITED_JOBS}>
                 {({ error, loading, data }) => {
                   if (error) return <p>Something went wrong</p>;
-                  if (error) console.log(error);
                   if (loading) return <p>Loading Awesome Jobs</p>;
                   if (!data.me) return <p>Please wait</p>;
                   return <JobList jobs={formatJobs(data)} />;
@@ -178,8 +177,7 @@ const userJobList = () => {
               </Title>
               <Query query={USER_APPLIED_JOBS}>
                 {({ error, loading, data }) => {
-                  if (error) return <p>Something went wrong</p>;
-                  if (error) console.log(error);
+                  if (error) return <p>Unable to process this request</p>;
                   if (loading) return <p>Loading Awesome Jobs</p>;
                   return <JobList jobs={formatJobs(data)} />;
                 }}
