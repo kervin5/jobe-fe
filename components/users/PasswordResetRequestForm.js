@@ -75,7 +75,7 @@ const passwordRequestForm = props => {
             </Title>
             {error && <p className={"error"}>Cannot find that email address</p>}
             {!error && data && !loading && (
-              <p>Please your mailbox with a reset link</p>
+              <p>Please check your mailbox with a reset link</p>
             )}
             <fieldset disabled={loading} aria-busy={loading}>
               {fieldsToRender}
