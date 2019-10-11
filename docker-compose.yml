@@ -1,0 +1,15 @@
+version: "3.6"
+
+services:
+  # Backend API
+  jobboard-fe:
+    container_name: jobboard-fe
+    build: ./
+    command: npm run dev
+    working_dir: /usr/src/jobboard-fe
+    ports:
+      - "3000:3000"
+    environment:
+      PLACEHOLDER: asdf
+    volumes:
+      - ./:/usr/src/jobboard-fe
