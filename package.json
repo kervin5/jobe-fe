@@ -1,7 +1,7 @@
 {
   "name": "myexact-jobs",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
     "heroku-postbuild": "npm run build",
@@ -12,8 +12,9 @@
   },
   "dependencies": {
     "@apollo/react-ssr": "^3.1.0",
+    "@ckeditor/ckeditor5-build-decoupled-document": "^12.4.0",
+    "@ckeditor/ckeditor5-react": "^1.1.3",
     "@zeit/next-css": "^1.0.1",
-    "alloyeditor": "^2.11.0",
     "apollo-boost": "^0.4.4",
     "apollo-link-context": "^1.0.19",
     "apollo-link-http": "^1.5.16",

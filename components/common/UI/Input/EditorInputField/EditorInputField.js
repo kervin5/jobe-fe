@@ -1,30 +1,26 @@
 import React from "react";
-import AlloyEditorComponent from "./alloyeditor";
+import dynamic from "next/dynamic";
+const CKEditor = dynamic(() => import("./CKEditor"), {
+  ssr: false
+});
 
-const EditorInputField = () => {
-  return (
-    <>
-      <AlloyEditorComponent container="title">
-        <h1>AlloyEditor will make this content editable</h1>
-      </AlloyEditorComponent>
-      <AlloyEditorComponent container="editable">
-        <p>
-          To install React, follow the instructions on{" "}
-          <a href="https://github.com/facebook/react/">GitHub</a>.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel
-          metus nunc. Maecenas rhoncus congue faucibus. Sed finibus ultrices
-          turpis. Mauris nulla ante, aliquam a euismod ut, scelerisque nec sem.
-          Nam dapibus ac nulla non ullamcorper. Sed vestibulum a velit non
-          lobortis. Proin sit amet imperdiet urna. Aenean interdum urna augue,
-          vel mollis tortor dictum vitae. Cum sociis natoque penatibus et magnis
-          dis parturient montes, nascetur ridiculus mus. Mauris vitae suscipit
-          magna.
-        </p>
-      </AlloyEditorComponent>
-    </>
-  );
-};
+const EditorInputField = () => (
+  <div className="App">
+    <h2>Using CKEditor 5 build in React</h2>
+    <CKEditor
+      data="<p>Hello from CKEditor 5!</p>"
+      onChange={(event, editor) => {
+        const data = editor.getData();
+        console.log({ event, editor, data });
+      }}
+      onBlur={(event, editor) => {
+        console.log("Blur.", editor);
+      }}
+      onFocus={(event, editor) => {
+        console.log("Focus.", editor);
+      }}
+    />
+  </div>
+);
 
 export default EditorInputField;
