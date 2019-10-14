@@ -12,7 +12,6 @@ import SearchArea from "../components/jobs/Search/SearchArea";
 
 import Jobs from "../components/jobs/Jobs";
 import PopularTerms from "../components/jobs/PopularTerms/PopularTerms";
-import EditorInputField from "../components/common/UI/Input/EditorInputField/EditorInputField";
 
 // const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
 const landingLogo = "../static/images/LandingLogo.svg";
@@ -60,7 +59,6 @@ const homePage = props => {
           Latest Jobs
         </Title>
         <Jobs />
-        <EditorInputField />
       </Container>
       <style jsx>{`
         .Logos {

@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
-import NoSSR from "react-no-ssr";
-import { Editor } from "react-draft-wysiwyg";
-import { stateToHTML } from "draft-js-export-html";
-import { EditorState, ContentState } from "draft-js";
-import htmlToDraft from "html-to-draftjs";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import dynamic from "next/dynamic";
 import useInput from "../useInput";
+const CKEditor = dynamic(() => import("./CKEditor"), {
+  ssr: false
+});
 
-const RichTextInputFields = props => {
+const RichTextInputField = props => {
   const validation = {
     required: props.required,
     maxLength: props.maxLength,
     minLength: props.minLength
   };
-
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const [touched, setTouched] = useState(false);
   const [richTextFieldState, setRichTextFieldState] = useInput({
@@ -26,14 +22,10 @@ const RichTextInputFields = props => {
     editorState: null
   });
 
-  const changeHandler = editorState => {
-    let html = stateToHTML(editorState.getCurrentContent());
-
-    html = "<p><br></p>" === html ? "" : html;
-
+  const changeHandler = data => {
     if (props.change) {
       props.change({
-        value: html,
+        value: data,
         errors: richTextFieldState.errors,
         touched,
         valid: richTextFieldState.valid
@@ -41,23 +33,8 @@ const RichTextInputFields = props => {
     }
 
     setTouched(true);
-    setRichTextFieldState(html);
-    setEditorState(editorState);
+    setRichTextFieldState(data);
   };
-
-  useEffect(() => {
-    if (props.value) {
-      const html = props.value;
-      const contentBlock = htmlToDraft(html);
-      if (contentBlock) {
-        const contentState = ContentState.createFromBlockArray(
-          contentBlock.contentBlocks
-        );
-        const editorState = EditorState.createWithContent(contentState);
-        setEditorState(editorState);
-      }
-    }
-  }, []);
 
   const handleBlur = e => {
     setTouched(true);
@@ -81,23 +58,24 @@ const RichTextInputFields = props => {
   ]);
 
   return (
-    <NoSSR>
-      <Editor
-        onBlur={handleBlur}
-        placeholder={props.placeholder}
-        editorState={editorState}
-        toolbarClassName="toolbarClassName"
-        wrapperClassName="wrapperClassName"
-        editorClassName="editorClassName"
-        onEditorStateChange={changeHandler}
-        // toolbar={{
-        //   options: props.toolbarOptions || ["emoji", "remove", "history"]
-        // }}
+    <div className="Editor">
+      <CKEditor
+        data={richTextFieldState.value}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          console.log({ event, editor, data });
+          changeHandler(data);
+        }}
+        onBlur={(event, editor) => {
+          console.log("Blur.", editor);
+          handleBlur();
+        }}
+        onFocus={(event, editor) => {
+          console.log("Focus.", editor);
+        }}
       />
-    </NoSSR>
+    </div>
   );
 };
 
-// options: props.toolbarOptions || ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'emoji', 'remove', 'history']
-
-export default RichTextInputFields;
+export default RichTextInputField;
