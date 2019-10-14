@@ -28,7 +28,9 @@ const SanitizeHTML = ({ html, options }) => {
     __html: sanitizeHtml(dirty, (options = { ...defaultOptions }))
   });
 
-  return <div dangerouslySetInnerHTML={sanitize(html)} />;
+  return (
+    <div dangerouslySetInnerHTML={sanitize(html.split(`\n`).join("</br>"))} />
+  );
 };
 
 export default SanitizeHTML;
