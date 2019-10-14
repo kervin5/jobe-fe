@@ -77,6 +77,7 @@ const JobEditorForm = props => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Something went wrong</p>;
         const jobData = data;
+
         return (
           <Mutation
             mutation={UPDATE_JOB_MUTATION}
