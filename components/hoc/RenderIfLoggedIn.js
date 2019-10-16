@@ -7,7 +7,6 @@ const RenderIfLoggedIn = ({ children, permissions }) => {
   return (
     <Query query={ME_USER_QUERY}>
       {({ error, loading, data }) => {
-        console.log(data);
         if (error) return <p>Something went wrong</p>;
         if (loading) return <Loader active inline="centered" />;
         if (!data.me) return null;
