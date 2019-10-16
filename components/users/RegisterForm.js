@@ -71,7 +71,7 @@ const registerForm = props => {
       if (res.data.signup && !props.noredirect) {
         // logInUser(res.data.signup);
         Router.push(
-          res.data.signup.role.name !== "CANDIDATE"
+          res.data.signup.role.name !== "candidate"
             ? "/dashboard"
             : "/resumes/upload"
         );
