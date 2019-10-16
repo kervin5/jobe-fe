@@ -52,6 +52,8 @@ class CKEditorWrapper extends Component {
             .CKEditor :global(.ck-content) {
               min-height: 600px;
               background: ${variables.clearColor};
+              padding-left: 20px;
+              padding-right: 20px;
             }
           `}
         </style>
