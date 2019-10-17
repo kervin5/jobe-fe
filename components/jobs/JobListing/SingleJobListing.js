@@ -3,6 +3,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import JobListing from "./JobListing";
 import Loader from "../../common/UI/Animated/Loader";
+import Head from "../../Head";
 
 export const SINGLE_JOB_QUERY = gql`
   query SINGLE_JOB_QUERY($id: ID!) {
@@ -52,18 +53,21 @@ const SingleJobListing = ({ jobId, preview }) => {
         const singleJob = data.job;
 
         return (
-          <JobListing
-            data={{
-              ...singleJob,
-              location: singleJob.location.name,
-              aboutCompany:
-                singleJob.disclaimer ||
-                singleJob.branch.description ||
-                singleJob.branch.company.description,
-              company: singleJob.branch.company.name
-            }}
-            preview={preview || !(singleJob.status === "POSTED")}
-          />
+          <>
+          <Head description={singleJob.description.substring(0,240)} />
+            <JobListing
+              data={{
+                ...singleJob,
+                location: singleJob.location.name,
+                aboutCompany:
+                  singleJob.disclaimer ||
+                  singleJob.branch.description ||
+                  singleJob.branch.company.description,
+                company: singleJob.branch.company.name
+              }}
+              preview={preview || !(singleJob.status === "POSTED")}
+            />
+          </>
         );
       }}
     </Query>
