@@ -4,8 +4,8 @@ const app = next({ dev: process.env.NODE_ENV !== "production" });
 const express = require("express");
 const compression = require("compression");
 const handle = app.getRequestHandler();
-const endpoint = `http://host.docker.internal:4444/`;
-const prodEndpoint = `https://myexactjobs-graphql-api.herokuapp.com/`;
+const endpoint = `http://localhost:4444/`;
+const prodEndpoint = `https://myexactjobs-backend.herokuapp.com/`;
 
 const backendUri =
   process.env.NODE_ENV === "production" ? prodEndpoint : endpoint;
