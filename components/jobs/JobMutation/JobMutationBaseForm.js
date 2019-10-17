@@ -63,6 +63,10 @@ class JobMutationBaseForm extends Component {
         value: "",
         valid: false
       },
+      disclaimer: {
+        value: "",
+        valid: false
+      },
       skills: {
         value: "",
         valid: false,
@@ -134,6 +138,7 @@ class JobMutationBaseForm extends Component {
           categories: formatedCategories,
           type: this.state.formData.type.value,
           description: this.state.formData.description.value,
+          disclaimer: this.state.formData.disclaimer.value,
           skills: formatedSkills
         };
 
@@ -289,6 +294,18 @@ class JobMutationBaseForm extends Component {
               change={this.changeHandler}
               name={"description"}
               value={this.state.formData.description.value}
+              height="600px"
+              required
+            />
+
+            <InputField
+              validate={this.state.validate}
+              type="text"
+              placeholder="Use this field to override the default disclaimer of the job"
+              label="Job Disclaimer"
+              change={this.changeHandler}
+              name={"disclaimer"}
+              value={this.state.formData.disclaimer.value}
               height="600px"
               required
             />

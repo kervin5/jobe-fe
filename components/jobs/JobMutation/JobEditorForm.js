@@ -11,6 +11,7 @@ const SINGLE_JOB_ALL_DATA_QUERY = gql`
       id
       title
       description
+      disclaimer
       minCompensation
       maxCompensation
       compensationType
@@ -39,6 +40,7 @@ const UPDATE_JOB_MUTATION = gql`
     $jobId: ID!
     $title: String
     $description: String
+    $disclaimer: String
     $type: String
     $compensationType: String
     $maxCompensation: Float
@@ -54,6 +56,7 @@ const UPDATE_JOB_MUTATION = gql`
         title: $title
         compensationType: $compensationType
         description: $description
+        disclaimer: $disclaimer
         type: $type
         maxCompensation: $maxCompensation
         minCompensation: $minCompensation

@@ -10,6 +10,7 @@ export const SINGLE_JOB_QUERY = gql`
       id
       title
       description
+      disclaimer
       minCompensation
       maxCompensation
       type
@@ -56,6 +57,7 @@ const SingleJobListing = ({ jobId, preview }) => {
               ...singleJob,
               location: singleJob.location.name,
               aboutCompany:
+                singleJob.disclaimer ||
                 singleJob.branch.description ||
                 singleJob.branch.company.description,
               company: singleJob.branch.company.name
