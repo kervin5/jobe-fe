@@ -300,7 +300,7 @@ class JobMutationBaseForm extends Component {
 
             <InputField
               validate={this.state.validate}
-              type="text"
+              type="textarea"
               placeholder="Use this field to override the default disclaimer of the job"
               label="Job Disclaimer"
               change={this.changeHandler}
