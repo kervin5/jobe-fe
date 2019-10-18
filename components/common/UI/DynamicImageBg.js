@@ -10,7 +10,7 @@ const GET_IMAGE_QUERY = gql`
 `;
 
 const staticImages = Array.from(Array(3).keys());
-const randonInt = (min, max) =>
+const randomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
 const DynamicImageBg = ({ absolute, noblur, query, children, staticImage }) => {
@@ -23,7 +23,7 @@ const DynamicImageBg = ({ absolute, noblur, query, children, staticImage }) => {
   if (staticImage) {
     const getRandomImage = () =>
       `../../../static/bg/bg (${
-        staticImages[randonInt(0, staticImages.length - 1)]
+        staticImages[randomInt(0, staticImages.length - 1)]
       }).jpeg`;
     return <ImageBg src={getRandomImage()} {...baseProps} />;
   }
