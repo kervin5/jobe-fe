@@ -4,9 +4,12 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import variables from "../common/globalVariables";
 import Button from "../common/UI/Button";
+import ButtonGroup from "../common/UI/ButtonGroup";
 import { handleUpload } from "../../lib/upload";
 import Router from "next/router";
 import InputField from "../common/UI/Input/InputField";
+import Link from "next/link";
+import Route from "next/router";
 
 const SIGN_UPLOAD_MUTATION = gql`
   mutation SIGN_UPLOAD_MUTATION($fileName: String!, $fileType: String!) {
@@ -98,7 +101,7 @@ const ResumeUploadForm = props => {
   }
 
   if (uploaded) {
-    return <p>Uploaded</p>;
+    return <p>Resume ready to be uploaded</p>;
   }
 
   return (
@@ -122,54 +125,60 @@ const ResumeUploadForm = props => {
               "Click here or drop a file to upload!"}
             {isDragActive && !isDragReject && "Drop it like it's hot!"}
             {isDragReject && "File type not accepted, sorry!"}
-            {acceptedFiles.length > 0 && "Uploaded"}
+            {acceptedFiles.length > 0 && "Resume selected!"}
             {isFileTooLarge && (
               <div className="text-danger mt-2">File is too large.</div>
             )}
           </div>
         </div>
-        {acceptedFiles.length > 0 && (
-          <Mutation
-            mutation={SIGN_UPLOAD_MUTATION}
-            variables={
-              fileToUpload
-                ? { fileType: fileToUpload.type, fileName: fileToUpload.name }
-                : {}
-            }
-          >
-            {(signUploadMutation, { error, loading, data }) => {
-              if (loading) return <p>loading</p>;
-              if (error) return <p>Something went wrong</p>;
-              return (
-                <Mutation
-                  mutation={CREATE_RESUME_MUTATION}
-                  refetchQueries={props.refetchQueries}
-                >
-                  {(createResumeMutation, { error, loading, data }) => {
-                    if (loading) return <p>uploading</p>;
-                    if (error) return <p>Something went wrong</p>;
-                    if (data) return <p>Uploaded</p>;
-                    return (
-                      <Button
-                        disabled={
-                          acceptedFiles.length === 0 ||
-                          loading ||
-                          !resumeTitle.valid
-                        }
-                        onClick={() =>
-                          uploadFile(signUploadMutation, createResumeMutation)
-                        }
-                        fullWidth
-                      >
-                        Upload
-                      </Button>
-                    );
-                  }}
-                </Mutation>
-              );
-            }}
-          </Mutation>
-        )}
+        <ButtonGroup>
+          <Button onClick={() => Router.push("/me")} fullWidth color="2">
+            Do it later 🕑
+          </Button>
+
+          {acceptedFiles.length > 0 && (
+            <Mutation
+              mutation={SIGN_UPLOAD_MUTATION}
+              variables={
+                fileToUpload
+                  ? { fileType: fileToUpload.type, fileName: fileToUpload.name }
+                  : {}
+              }
+            >
+              {(signUploadMutation, { error, loading, data }) => {
+                if (loading) return <p>loading</p>;
+                if (error) return <p>Something went wrong</p>;
+                return (
+                  <Mutation
+                    mutation={CREATE_RESUME_MUTATION}
+                    refetchQueries={props.refetchQueries}
+                  >
+                    {(createResumeMutation, { error, loading, data }) => {
+                      if (loading) return <p>uploading</p>;
+                      if (error) return <p>Something went wrong</p>;
+                      if (data) return <p>Uploaded</p>;
+                      return (
+                        <Button
+                          disabled={
+                            acceptedFiles.length === 0 ||
+                            loading ||
+                            !resumeTitle.valid
+                          }
+                          onClick={() =>
+                            uploadFile(signUploadMutation, createResumeMutation)
+                          }
+                          fullWidth
+                        >
+                          {resumeTitle.valid ? "Upload" : "Enter a title"}
+                        </Button>
+                      );
+                    }}
+                  </Mutation>
+                );
+              }}
+            </Mutation>
+          )}
+        </ButtonGroup>
         <style jsx>{`
           .ResumeUploadForm {
             width: 100%;
