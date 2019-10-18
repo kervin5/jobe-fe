@@ -29,7 +29,7 @@ const SanitizeHTML = ({ html, options }) => {
   });
 
   return (
-    <div dangerouslySetInnerHTML={sanitize(html.split(`\n`).join("<br/>"))} />
+    <div dangerouslySetInnerHTML={sanitize(html.split(`\n`).join("</br>"))} />
   );
 };
 

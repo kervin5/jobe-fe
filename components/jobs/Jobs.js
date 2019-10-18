@@ -30,7 +30,7 @@ import Loader from "../common/UI/Animated/Loader";
 // `;
 
 const ALL_JOBS_QUERY = gql`
-  query SEARCH_JOBS_QUERY(
+  query ALL_JOBS_QUERY(
     $query: String!
     $category: String
     $perPage: Int!
@@ -42,7 +42,6 @@ const ALL_JOBS_QUERY = gql`
       orderBy: createdAt_DESC
       where: {
         title_contains: $query
-        status: POSTED
         categories_some: { name_contains: $category }
       }
     ) {
@@ -53,6 +52,7 @@ const ALL_JOBS_QUERY = gql`
       maxCompensation
       type
       createdAt
+      updatedAt
       location {
         id
         name
@@ -75,7 +75,6 @@ const SEARCH_JOBS_QUERY = gql`
       query: $query
       location: $location
       where: {
-        status: POSTED
         categories_some: { name_contains: $category }
         type_contains: $type
       }
@@ -91,6 +90,7 @@ const SEARCH_JOBS_QUERY = gql`
       maxCompensation
       type
       createdAt
+      updatedAt
       location {
         id
         name

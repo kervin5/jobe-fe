@@ -60,7 +60,7 @@ const favoriteButtonWrapper = props => {
               }
             >
               {(alterFavoriteMutation, { data, loading, error, called }) => {
-                if (error) return <p>Something went wrong</p>;
+                if (error) return <FavoriteButton className={"untouched"} />;
                 return (
                   <FavoriteButton
                     className={classes}

@@ -18,4 +18,4 @@ SingleJobView.getInitialProps = async function({ query }) {
   return { jobId };
 };
 
-export default WithAuth(SingleJobView);
+export default WithAuth(SingleJobView, [{ object: "JOB", action: "CREATE" }]);

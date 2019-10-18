@@ -10,4 +10,6 @@ const dashboardApplicationsPage = props => {
   );
 };
 
-export default WithAuth(dashboardApplicationsPage);
+export default WithAuth(dashboardApplicationsPage, [
+  { object: "JOB", action: "CREATE" }
+]);

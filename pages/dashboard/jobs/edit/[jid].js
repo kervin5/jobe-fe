@@ -43,4 +43,6 @@ DashboardEditJobPage.getInitialProps = async args => {
   return { jobId };
 };
 
-export default WithAuth(DashboardEditJobPage);
+export default WithAuth(DashboardEditJobPage, [
+  { object: "JOB", action: "UPDATE" }
+]);
