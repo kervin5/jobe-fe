@@ -8,6 +8,7 @@ import ApplyToJobButton from "../../common/UI/ApplyToJobButton";
 import HtmlRenderer from "../../common/UI/HtmlRenderer";
 import SocialMedia from "../../common/UI/SocialMedia";
 import StucturedJobListing from "./StructuredJobListing";
+import {basePath} from "../../../config";
 
 const jobListing = props => {
   return (
@@ -39,7 +40,7 @@ const jobListing = props => {
           //PLEASE CHANGE THE LINK BEFORE IT GOES LIVE
           <SocialMedia
             url={
-              "https://myexactjobsstaging.herokuapp.com/jobs/" +
+              `${basePath}/jobs/` +
               props.data.title +
               "-" +
               props.data.id
