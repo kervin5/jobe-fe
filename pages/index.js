@@ -37,6 +37,7 @@ const homePage = props => {
     <PageSection className="HomePage" column nopadding data-test="indexPage">
       <PageTitle title="Home Page" />
       <DynamicImageBg
+        staticImage
         query={
           userLocation.name !== "Loading..."
             ? userLocation.country || userLocation.name

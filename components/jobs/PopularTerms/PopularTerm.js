@@ -27,7 +27,7 @@ const PopularTerm = ({ term }) => {
     <div key={term.id} className="Term">
       <Link href={getLinkPath(term)}>
         <a>
-          <DynamicImageBg query={term.label} noblur hide>
+          <DynamicImageBg query={term.label} noblur hide staticImage>
             <p className="TermContent">{getLabel(term)}</p>
           </DynamicImageBg>
         </a>
