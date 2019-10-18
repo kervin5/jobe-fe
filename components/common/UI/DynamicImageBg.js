@@ -48,7 +48,7 @@ const ImageBg = props => {
         width: 100%;               
         height: 100%;
         position: relative;
-        background-color: ${variables.accentColor1}
+        background-color: ${variables.mutedColor2}
     }
 
     .ImgContainer {
