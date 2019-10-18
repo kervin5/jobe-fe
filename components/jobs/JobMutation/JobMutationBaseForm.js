@@ -307,7 +307,6 @@ class JobMutationBaseForm extends Component {
               name={"disclaimer"}
               value={this.state.formData.disclaimer.value}
               height="600px"
-              required
             />
 
             <ButtonGroup>
