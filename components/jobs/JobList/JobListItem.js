@@ -50,7 +50,7 @@ const jobListItem = props => {
         <a className="Content">
           <HtmlRenderer
             html={props.description.substr(0, 200) + "..."}
-            options={["p"]}
+            options={[]}
           />
         </a>
       </Link>

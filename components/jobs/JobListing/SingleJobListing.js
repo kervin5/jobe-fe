@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import JobListing from "./JobListing";
 import Loader from "../../common/UI/Animated/Loader";
 import Head from "../../Head";
+import HtmlRenderer from "../../common/UI/HtmlRenderer";
 
 export const SINGLE_JOB_QUERY = gql`
   query SINGLE_JOB_QUERY($id: ID!) {
@@ -54,7 +55,9 @@ const SingleJobListing = ({ jobId, preview }) => {
 
         return (
           <>
-          <Head description={singleJob.description.substring(0,240)} />
+          <Head description={(()=><HtmlRenderer
+            html={singleJob.description.substring(0,240) + "..."}
+            options={[]}>)} />
             <JobListing
               data={{
                 ...singleJob,
