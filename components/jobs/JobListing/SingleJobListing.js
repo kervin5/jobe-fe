@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import JobListing from "./JobListing";
 import Loader from "../../common/UI/Animated/Loader";
-import Head from "../../Head";
+import SEO from "../../SEO";
 import HtmlRenderer from "../../common/UI/HtmlRenderer";
 
 export const SINGLE_JOB_QUERY = gql`
@@ -55,9 +55,8 @@ const SingleJobListing = ({ jobId, preview }) => {
 
         return (
           <>
-          <Head description={(()=><HtmlRenderer
-            html={singleJob.description.substring(0,240) + "..."}
-            options={[]}>)} />
+          <SEO description={()=><HtmlRenderer  html={singleJob.description.substr(0, 200) + "..."}
+            options={[]} />} />
             <JobListing
               data={{
                 ...singleJob,
