@@ -20,7 +20,7 @@ const PrompToRegister = props => {
     <>
       <PopUp show={showPopup} title="Register" changeHandler={setShowPopup}>
         <p>Please register or login to use this and other amazing features</p>
-        <AuthForm />
+        <AuthForm popup />
       </PopUp>
       <Query query={ME_USER_QUERY}>
         {({ error, loading, data }) => {
