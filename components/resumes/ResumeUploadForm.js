@@ -132,10 +132,11 @@ const ResumeUploadForm = props => {
           </div>
         </div>
         <ButtonGroup>
-          <Button onClick={() => Router.push("/me")} fullWidth color="2">
-            Do it later 🕑
-          </Button>
-
+          {!props.noredirect && (
+            <Button onClick={() => Router.push("/me")} fullWidth color="2">
+              Do it later 🕑
+            </Button>
+          )}
           {acceptedFiles.length > 0 && (
             <Mutation
               mutation={SIGN_UPLOAD_MUTATION}
