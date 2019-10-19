@@ -6,29 +6,6 @@ import JobList from "./JobList/JobList";
 import Button from "../common/UI/Button";
 import Loader from "../common/UI/Animated/Loader";
 
-// const ALL_JOBS_QUERY = gql`
-//   query ALL_JOBS_QUERY($perPage: Int!, $skip: Int!) {
-//     jobs(
-//       first: $perPage
-//       skip: $skip
-//       orderBy: createdAt_DESC
-//       where: { status: POSTED }
-//     ) {
-//       id
-//       title
-//       description
-//       compensationType
-//       type
-//       minCompensation
-//       maxCompensation
-//       createdAt
-//       location {
-//         name
-//       }
-//     }
-//   }
-// `;
-
 const ALL_JOBS_QUERY = gql`
   query ALL_JOBS_QUERY(
     $query: String!
@@ -116,7 +93,7 @@ class Jobs extends PureComponent {
             query: this.props.q || "",
             category: this.props.category || "",
             type: this.props.type || "",
-            radius: this.props.radius || 10,
+            radius: this.props.radius || 5,
             perPage,
             skip: 0
           }}
