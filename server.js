@@ -7,8 +7,8 @@ const handle = app.getRequestHandler();
 const endpoint = `http://localhost:4444/`;
 const prodEndpoint = `https://myexactjobs-backend.herokuapp.com/`;
 
-const backendUri =
-  process.env.NODE_ENV === "production" ? prodEndpoint : endpoint;
+const isProduction = process.env.NODE_ENV === "production";
+const backendUri = isProduction ? prodEndpoint : endpoint;
 
 const mapboxUrl = location => {
   return (
@@ -44,9 +44,15 @@ app.prepare().then(() => {
     })(req, res, next);
   });
 
-  server.get("*", (req, res) => {
-    return handle(req, res);
-  });
+  if (isProduction) {
+    server.get("*", (req, res) => {
+      return handle(req, res);
+    });
+  } else {
+    server.get("*", function(request, response) {
+      response.redirect("https://" + request.headers.host + request.url);
+    });
+  }
 
   server.listen(process.env.PORT || 3000);
 });
