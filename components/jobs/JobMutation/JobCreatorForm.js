@@ -17,6 +17,7 @@ const CREATE_JOB_MUTATION = gql`
     $minCompensation: Float!
     $maxCompensation: Float!
     $compensationType: String!
+    $author: String
   ) {
     createJob(
       title: $title
@@ -29,6 +30,7 @@ const CREATE_JOB_MUTATION = gql`
       minCompensation: $minCompensation
       maxCompensation: $maxCompensation
       compensationType: $compensationType
+      author: $author
     ) {
       title
       id
