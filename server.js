@@ -44,7 +44,7 @@ app.prepare().then(() => {
     })(req, res, next);
   });
 
-  if (isProduction) {
+  if (!isProduction) {
     server.get("*", (req, res) => {
       return handle(req, res);
     });
