@@ -1,27 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NextHead from "next/head";
 import { string } from "prop-types";
+import { initGA, logPageView } from "./analytics";
 
-const defaultDescription = "";
-const defaultOGURL = "";
-const defaultOGImage = "";
+const Head = props => {
+  useEffect(() => {
+    if (!window.GA_INITIALIZED) {
+      initGA();
+      window.GA_INITIALIZED = true;
+    }
+    logPageView();
+  }, []);
 
-const Head = props => (
-  <NextHead>
-    <meta charSet="UTF-8" />
-    <title>{props.title || ""}</title>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-    />
-    <link rel="icon" href="/static/favicon.ico" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
-      rel="stylesheet"
-    />
- 
-  </NextHead>
-);
+  return (
+    <NextHead>
+      <meta charSet="UTF-8" />
+      <title>{props.title || ""}</title>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      />
+      <link rel="icon" href="/static/favicon.ico" />
+      <link
+        href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
+        rel="stylesheet"
+      />
+    </NextHead>
+  );
+};
 
 Head.propTypes = {
   title: string,

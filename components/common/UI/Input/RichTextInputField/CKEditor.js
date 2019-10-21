@@ -9,7 +9,7 @@ class CKEditorWrapper extends Component {
       <div className="CKEditor">
         <CKEditor
           onInit={editor => {
-            console.log("Editor is ready to use!", editor);
+            // console.log("Editor is ready to use!", editor);
 
             // Insert the toolbar before the editable area.
             editor.ui

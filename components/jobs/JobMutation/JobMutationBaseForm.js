@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import Link from "next/link";
 import InputField from "../../common/UI/Input/InputField";
 import InputGroup from "../../common/UI/Input/InputGroup";
 import ButtonGroup from "../../common/UI/ButtonGroup";
 import Button from "../../common/UI/Button";
-import Link from "next/link";
+import RenderIfLoggedIn from "../../hoc/RenderIfLoggedIn";
 
 export const ALL_CATEGORIES_QUERY = gql`
   query ALL_CATEGORIES_QUERY {
@@ -20,6 +21,33 @@ const ALL_SKILLS_QUERY = gql`
   query ALL_SKILLS_QUERY {
     skills {
       id
+      name
+    }
+  }
+`;
+
+const ALL_USERS_QUERY = gql`
+  query ALL_USERS_QUERY {
+    users(orderBy: name_ASC) {
+      id
+      email
+      branch {
+        id
+        name
+        company {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const ME_USER_QUERY = gql`
+  query ME_USER_QUERY {
+    me {
+      id
+      email
       name
     }
   }
@@ -53,6 +81,11 @@ class JobMutationBaseForm extends Component {
         value: "",
         valid: false,
         options: ["Full Time", "Part Time", "Temp", "Per Diem"]
+      },
+      author: {
+        value: "",
+        valid: false,
+        options: []
       },
       categories: {
         value: "",
@@ -139,7 +172,8 @@ class JobMutationBaseForm extends Component {
           type: this.state.formData.type.value,
           description: this.state.formData.description.value,
           disclaimer: this.state.formData.disclaimer.value,
-          skills: formatedSkills
+          skills: formatedSkills,
+          author: this.state.formData.author.value
         };
 
         let dataToSend = {};
@@ -286,6 +320,44 @@ class JobMutationBaseForm extends Component {
               }}
             </Query>
 
+            <RenderIfLoggedIn
+              permissions={[{ object: "JOB", action: "PUBLISH" }]}
+            >
+              <Query query={ALL_USERS_QUERY}>
+                {({ data, error, loading }) => {
+                  if (error) return <p>Something went wrong!</p>;
+                  if (loading) return <p>Loading</p>;
+                  const users = data.users.map(user => ({
+                    label: user.email,
+                    value: user.id
+                  }));
+                  return (
+                    <Query query={ME_USER_QUERY}>
+                      {({ error, loading, data }) => {
+                        if (error) return <p>Something went wrong!</p>;
+                        if (loading) return <p>Loading</p>;
+
+                        return (
+                          <InputField
+                            validate={this.state.validate}
+                            type="dropdown"
+                            placeholder="Please select an author for this job"
+                            label="Author"
+                            change={this.changeHandler}
+                            name={"author"}
+                            options={users}
+                            value={
+                              this.state.formData.author.value || data.me.id
+                            }
+                            required
+                          />
+                        );
+                      }}
+                    </Query>
+                  );
+                }}
+              </Query>
+            </RenderIfLoggedIn>
             <InputField
               validate={this.state.validate}
               type="richTextLimited"

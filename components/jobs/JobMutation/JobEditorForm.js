@@ -16,6 +16,10 @@ const SINGLE_JOB_ALL_DATA_QUERY = gql`
       maxCompensation
       compensationType
       type
+      author {
+        id
+        email
+      }
       skills {
         id
         name
@@ -48,6 +52,7 @@ const UPDATE_JOB_MUTATION = gql`
     $location: LocationCreateWithoutJobsInput
     $categories: [String!]
     $skills: [String!]
+    $author: String
   ) {
     updateJob(
       where: { id: $jobId }
@@ -63,6 +68,7 @@ const UPDATE_JOB_MUTATION = gql`
         location: { create: $location }
         categories: $categories
         skills: $skills
+        author: $author
       }
     ) {
       id
@@ -141,6 +147,9 @@ const formatFormData = jobQueryData => {
     },
     skills: {
       value: jobQueryData.skills
+    },
+    author: {
+      value: jobQueryData.author.id
     }
   };
   return formData;
