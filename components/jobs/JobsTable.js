@@ -38,6 +38,7 @@ const USER_JOBS_QUERY = gql`
       first: $perPage
       skip: $skip
       where: { title_contains: $query }
+      orderBy: updatedAt_DESC
     ) {
       id
       title
