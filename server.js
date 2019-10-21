@@ -44,15 +44,9 @@ app.prepare().then(() => {
     })(req, res, next);
   });
 
-  if (!isProduction) {
-    server.get("*", (req, res) => {
-      return handle(req, res);
-    });
-  } else {
-    server.get("*", function(request, response) {
-      response.redirect("https://" + request.headers.host + request.url);
-    });
-  }
+  server.get("*", (req, res) => {
+    return handle(req, res);
+  });
 
   server.listen(process.env.PORT || 3000);
 });
