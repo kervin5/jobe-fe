@@ -32,7 +32,7 @@ const JOBS_FIELDS = `(first: $perPage, skip: $skip where: { title_contains: $que
   }
 }`;
 
-const USER_JOBS_QUERY = gql`
+export const USER_JOBS_QUERY = gql`
   query USER_JOBS_QUERY($perPage: Int!, $skip: Int!, $query: String = "") {
     protectedJobs(
       first: $perPage

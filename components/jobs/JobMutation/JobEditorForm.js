@@ -4,6 +4,8 @@ import { Mutation, Query } from "react-apollo";
 import JobMutationBaseForm from "./JobMutationBaseForm";
 import Title from "../../common/UI/Title";
 import JobPreview from "../../jobs/JobMutation/JobPreview";
+import { USER_JOBS_QUERY } from "../JobsTable";
+import { perPage } from "../../../config";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
   query SINGLE_JOB_ALL_DATA_QUERY($id: ID!) {
@@ -81,7 +83,18 @@ const JobEditorForm = props => {
   const [formData, setFormData] = useState({});
 
   return (
-    <Query query={SINGLE_JOB_ALL_DATA_QUERY} variables={{ id: props.jobId }}>
+    <Query
+      query={SINGLE_JOB_ALL_DATA_QUERY}
+      variables={{ id: props.jobId }}
+      refetchQueries={[
+        {
+          query: USER_JOBS_QUERY,
+          variables: perPage,
+          skip: 0,
+          query: ""
+        }
+      ]}
+    >
       {({ error, loading, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Something went wrong</p>;
