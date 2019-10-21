@@ -53,7 +53,7 @@ const homePage = props => {
       </DynamicImageBg>
       <Container>
         <Title size={"l"} center margin>
-          What's Poppin' 😎
+          What's Trending 😎
         </Title>
         <PopularTerms />
         <Title size={"l"} center margin>

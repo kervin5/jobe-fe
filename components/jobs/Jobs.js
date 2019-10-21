@@ -150,6 +150,10 @@ class Jobs extends PureComponent {
             font-weight: bold;
             font-size: 1.2em;
           }
+
+          div {
+            padding-bottom: 30px;
+          }
         `}</style>
       </div>
     );
