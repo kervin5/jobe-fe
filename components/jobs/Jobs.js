@@ -57,7 +57,7 @@ const SEARCH_JOBS_QUERY = gql`
       }
       first: $perPage
       skip: $skip
-      orderBy: createdAt_DESC
+      orderBy: updatedAt_DESC
       radius: $radius
     ) {
       id
