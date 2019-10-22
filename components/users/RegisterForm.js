@@ -47,7 +47,8 @@ const registerForm = props => {
       type: "password",
       label: "Password",
       placeholder: "Password",
-      icon: "key"
+      icon: "key",
+      minLength: 6
     }
   });
 
@@ -95,6 +96,7 @@ const registerForm = props => {
         label={fieldData.label}
         icon={fieldData.icon}
         required
+        minLength={fieldData.minLength || 0}
         validate={validate}
       />
     );
