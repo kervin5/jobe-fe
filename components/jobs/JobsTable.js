@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Query } from "react-apollo";
-import {
-  Button,
-  Placeholder,
-  Loader,
-  Input,
-  Dropdown
-} from "semantic-ui-react";
+import { Button, Placeholder, Loader, Input, Select } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { perPage } from "../../config";
 import SortableTable from "../common/UI/SortableTable";
