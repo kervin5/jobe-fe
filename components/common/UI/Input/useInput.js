@@ -24,7 +24,7 @@ const useInput = ({
     ...validation
   });
 
-  const validate = value => {
+  const validate = async value => {
     const result = validateField(type, value, inputValidation, {
       ...customErrorMessages
     });

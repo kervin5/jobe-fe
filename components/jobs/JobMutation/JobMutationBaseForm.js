@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Link from "next/link";
@@ -53,364 +53,330 @@ const ME_USER_QUERY = gql`
   }
 `;
 
-class JobMutationBaseForm extends Component {
-  state = {
-    formData: {
-      title: {
-        value: "",
-        valid: false
-      },
-      location: {
-        value: "",
-        valid: false
-      },
-      minCompensation: {
-        value: "",
-        valid: false
-      },
-      maxCompensation: {
-        value: "",
-        valid: false
-      },
-      compensationType: {
-        value: "",
-        valid: false,
-        options: ["Hourly", "Salary"]
-      },
-      type: {
-        value: "",
-        valid: false,
-        options: ["Full Time", "Part Time", "Temp", "Per Diem"]
-      },
-      author: {
-        value: "",
-        valid: false,
-        options: []
-      },
-      categories: {
-        value: "",
-        valid: false,
-        options: []
-      },
-      description: {
-        value: "",
-        valid: false
-      },
-      disclaimer: {
-        value: "",
-        valid: false
-      },
-      skills: {
-        value: "",
-        valid: false,
-        options: []
-      },
-      ...this.props.jobData
+const JobMutationBaseForm = props => {
+  const [formData, setFormData] = useState({
+    title: {
+      value: "",
+      valid: false
     },
-    status: "filling",
-    validate: false,
-    touchedFields: {}
+    location: {
+      value: "",
+      valid: false
+    },
+    minCompensation: {
+      value: "",
+      valid: false
+    },
+    maxCompensation: {
+      value: "",
+      valid: false
+    },
+    compensationType: {
+      value: "",
+      valid: false,
+      options: ["Hourly", "Salary"]
+    },
+    type: {
+      value: "",
+      valid: false,
+      options: ["Full Time", "Part Time", "Temp", "Per Diem"]
+    },
+    author: {
+      value: "",
+      valid: true,
+      options: []
+    },
+    categories: {
+      value: "",
+      valid: false,
+      options: []
+    },
+    description: {
+      value: "",
+      valid: false
+    },
+    disclaimer: {
+      value: "",
+      valid: false
+    },
+    skills: {
+      value: "",
+      valid: false,
+      options: []
+    },
+    ...props.jobData
+  });
+
+  const [validate, setValidate] = useState(false);
+  const [touchedFields, setTouchedFields] = useState(false);
+
+  const changeHandler = async fieldData => {
+    await setFormData({
+      ...formData,
+      [fieldData.name]: {
+        ...formData[fieldData.name],
+        ...fieldData
+      }
+    });
+
+    if (fieldData.touched) {
+      await setTouchedFields({
+        ...touchedFields,
+        [fieldData.name]: {
+          ...formData[fieldData.name],
+          ...fieldData
+        }
+      });
+    }
   };
 
-  changeHandler = fieldData => {
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          formData: {
-            ...prevState.formData,
-            [fieldData.name]: {
-              ...prevState.formData[fieldData.name],
-              ...fieldData
-            }
-          }
-        };
-      },
-      () => {
-        this.setState(prevState => {
-          if (fieldData.touched) {
-            return {
-              ...prevState,
-              touchedFields: {
-                ...prevState.touchedFields,
-                [fieldData.name]: {
-                  ...prevState.formData[fieldData.name],
-                  ...fieldData
-                }
-              }
-            };
-          }
-        });
+  const submitFormHandler = async e => {
+    e.preventDefault();
+    await setValidate(true);
+    if (formIsValid()) {
+      const formatedCategories = Array.isArray(formData.categories.value)
+        ? formData.categories.value.map(skill => skill.name)
+        : formData.categories.value.split(",");
+      const formatedSkills = Array.isArray(formData.skills.value)
+        ? formData.skills.value.map(skill => skill.name)
+        : formData.skills.value.split(",");
+
+      let jobData = {
+        title: formData.title.value,
+        location: { ...formData.location.details },
+        minCompensation: parseFloat(formData.minCompensation.value),
+        maxCompensation: parseFloat(formData.maxCompensation.value),
+        compensationType: formData.compensationType.value,
+        categories: formatedCategories,
+        type: formData.type.value,
+        description: formData.description.value,
+        disclaimer: formData.disclaimer.value,
+        skills: formatedSkills,
+        author: formData.author.value
+      };
+
+      let dataToSend = {};
+
+      Object.keys(touchedFields).forEach(key => {
+        dataToSend[key] = jobData[key];
+      });
+
+      await props.mutation.setVariables(dataToSend);
+      props.mutation.execute();
+    }
+  };
+
+  const formIsValid = () => {
+    const invalid = Object.keys(props.create ? formData : touchedFields).filter(
+      key => {
+        return (
+          (formData[key].touched && !formData[key].valid) ||
+          (!formData.touched && validate && !formData[key].valid)
+        );
       }
     );
-  };
-
-  submitFormHandler = e => {
-    e.preventDefault();
-    this.setState({ validate: true }, async () => {
-      if (this.formIsValid()) {
-        const formatedCategories = Array.isArray(
-          this.state.formData.categories.value
-        )
-          ? this.state.formData.categories.value.map(skill => skill.name)
-          : this.state.formData.categories.value.split(",");
-        const formatedSkills = Array.isArray(this.state.formData.skills.value)
-          ? this.state.formData.skills.value.map(skill => skill.name)
-          : this.state.formData.skills.value.split(",");
-
-        let jobData = {
-          title: this.state.formData.title.value,
-          location: { ...this.state.formData.location.details },
-          minCompensation: parseFloat(
-            this.state.formData.minCompensation.value
-          ),
-          maxCompensation: parseFloat(
-            this.state.formData.maxCompensation.value
-          ),
-          compensationType: this.state.formData.compensationType.value,
-          categories: formatedCategories,
-          type: this.state.formData.type.value,
-          description: this.state.formData.description.value,
-          disclaimer: this.state.formData.disclaimer.value,
-          skills: formatedSkills,
-          author: this.state.formData.author.value
-        };
-
-        let dataToSend = {};
-
-        Object.keys(this.state.touchedFields).forEach(key => {
-          dataToSend[key] = jobData[key];
-        });
-
-        await this.props.mutation.setVariables(dataToSend);
-        this.props.mutation.execute();
-      }
-    });
-  };
-
-  formIsValid = () => {
-    const invalid = Object.keys(
-      this.props.create ? this.state.formData : this.state.touchedFields
-    ).filter(key => {
-      return (
-        (this.state.formData[key].touched && !this.state.formData[key].valid) ||
-        (!this.state.formData.touched &&
-          this.state.validate &&
-          !this.state.formData[key].valid)
-      );
-    });
-
+    console.log(invalid);
     return invalid.length === 0;
   };
 
-  render() {
-    return (
-      <React.Fragment>
-        <form className={"JobCreatorForm"}>
-          <fieldset
-            disabled={this.props.loading}
-            aria-busy={this.props.loading}
-          >
+  return (
+    <React.Fragment>
+      <form className={"JobCreatorForm"}>
+        <fieldset disabled={props.loading} aria-busy={props.loading}>
+          <InputField
+            validate={validate}
+            type="text"
+            placeholder="Warehouse Manager"
+            label="Job Title"
+            name={"title"}
+            change={changeHandler}
+            value={formData.title.value}
+            required
+          />
+          <InputField
+            validate={validate}
+            type="location"
+            placeholder="Los Angeles, CA"
+            label="Location"
+            value={formData.location.value}
+            name={"location"}
+            change={changeHandler}
+            required
+          />
+
+          <InputGroup inline title="Compensation">
             <InputField
-              validate={this.state.validate}
-              type="text"
-              placeholder="Warehouse Manager"
-              label="Job Title"
-              name={"title"}
-              change={this.changeHandler}
-              value={this.state.formData.title.value}
+              validate={validate}
+              type="number"
+              placeholder="$0"
+              label="From"
+              value={formData.minCompensation.value}
+              change={changeHandler}
+              name={"minCompensation"}
               required
             />
             <InputField
-              validate={this.state.validate}
-              type="location"
-              placeholder="Los Angeles, CA"
-              label="Location"
-              value={this.state.formData.location.value}
-              name={"location"}
-              change={this.changeHandler}
+              validate={validate}
+              type="number"
+              placeholder="$0"
+              label="To"
+              value={formData.maxCompensation.value}
+              change={changeHandler}
+              name={"maxCompensation"}
               required
             />
-
-            <InputGroup inline title="Compensation">
-              <InputField
-                validate={this.state.validate}
-                type="number"
-                placeholder="$0"
-                label="From"
-                value={this.state.formData.minCompensation.value}
-                change={this.changeHandler}
-                name={"minCompensation"}
-                required
-              />
-              <InputField
-                validate={this.state.validate}
-                type="number"
-                placeholder="$0"
-                label="To"
-                value={this.state.formData.maxCompensation.value}
-                change={this.changeHandler}
-                name={"maxCompensation"}
-                required
-              />
-              <InputField
-                validate={this.state.validate}
-                type="dropdown"
-                options={this.state.formData.compensationType.options}
-                placeholder={"Select an option"}
-                label={"Compensation Type"}
-                value={this.state.formData.compensationType.value}
-                change={this.changeHandler}
-                name={"compensationType"}
-                required
-              />
-            </InputGroup>
-
-            <Query query={ALL_CATEGORIES_QUERY}>
-              {({ data, error, loading }) => {
-                if (error) return <p>Something went wrong</p>;
-                if (loading) return <p>Loading</p>;
-                const categories = data.categories.map(
-                  category => category.name
-                );
-                return (
-                  <InputField
-                    validate={this.state.validate}
-                    type="tags"
-                    placeholder="Warehouse, Clerical"
-                    label="Job Category"
-                    options={categories}
-                    change={this.changeHandler}
-                    name={"categories"}
-                    value={this.state.formData.categories.value}
-                    required
-                  />
-                );
-              }}
-            </Query>
             <InputField
-              validate={this.state.validate}
+              validate={validate}
               type="dropdown"
-              options={this.state.formData.type.options}
-              value={this.state.formData.type.value}
+              options={formData.compensationType.options}
               placeholder={"Select an option"}
-              label={"Job Type"}
-              change={this.changeHandler}
-              name={"type"}
+              label={"Compensation Type"}
+              value={formData.compensationType.value}
+              change={changeHandler}
+              name={"compensationType"}
               required
             />
-            <Query query={ALL_SKILLS_QUERY}>
+          </InputGroup>
+
+          <Query query={ALL_CATEGORIES_QUERY}>
+            {({ data, error, loading }) => {
+              if (error) return <p>Something went wrong</p>;
+              if (loading) return <p>Loading</p>;
+              const categories = data.categories.map(category => category.name);
+              return (
+                <InputField
+                  validate={validate}
+                  type="tags"
+                  placeholder="Warehouse, Clerical"
+                  label="Job Category"
+                  options={categories}
+                  change={changeHandler}
+                  name={"categories"}
+                  value={formData.categories.value}
+                  required
+                />
+              );
+            }}
+          </Query>
+          <InputField
+            validate={validate}
+            type="dropdown"
+            options={formData.type.options}
+            value={formData.type.value}
+            placeholder={"Select an option"}
+            label={"Job Type"}
+            change={changeHandler}
+            name={"type"}
+            required
+          />
+          <Query query={ALL_SKILLS_QUERY}>
+            {({ data, error, loading }) => {
+              if (error) return <p>Something went wrong!</p>;
+              if (loading) return <p>Loading</p>;
+              const skills = data.skills.map(skills => skills.name);
+              return (
+                <InputField
+                  validate={validate}
+                  type="tags"
+                  placeholder="Please enter the job skills"
+                  label="Skills"
+                  change={changeHandler}
+                  name={"skills"}
+                  options={skills}
+                  value={formData.skills.value}
+                  required
+                />
+              );
+            }}
+          </Query>
+
+          <RenderIfLoggedIn
+            permissions={[{ object: "JOB", action: "PUBLISH" }]}
+          >
+            <Query query={ALL_USERS_QUERY}>
               {({ data, error, loading }) => {
                 if (error) return <p>Something went wrong!</p>;
                 if (loading) return <p>Loading</p>;
-                const skills = data.skills.map(skills => skills.name);
+                const users = data.users.map(user => ({
+                  label: user.email,
+                  value: user.id
+                }));
                 return (
-                  <InputField
-                    validate={this.state.validate}
-                    type="tags"
-                    placeholder="Please enter the job skills"
-                    label="Skills"
-                    change={this.changeHandler}
-                    name={"skills"}
-                    options={skills}
-                    value={this.state.formData.skills.value}
-                    required
-                  />
+                  <Query query={ME_USER_QUERY}>
+                    {({ error, loading, data }) => {
+                      if (error) return <p>Something went wrong!</p>;
+                      if (loading) return <p>Loading</p>;
+
+                      return (
+                        <InputField
+                          validate={validate}
+                          type="dropdown"
+                          placeholder="Please select an author for this job"
+                          label="Author"
+                          change={changeHandler}
+                          name={"author"}
+                          options={users}
+                          value={formData.author.value || data.me.id}
+                        />
+                      );
+                    }}
+                  </Query>
                 );
               }}
             </Query>
+          </RenderIfLoggedIn>
+          <InputField
+            validate={validate}
+            type="richTextLimited"
+            placeholder="Required Skills, Experience, etc."
+            label="Job Description"
+            change={changeHandler}
+            name={"description"}
+            value={formData.description.value}
+            height="600px"
+            required
+          />
 
-            <RenderIfLoggedIn
-              permissions={[{ object: "JOB", action: "PUBLISH" }]}
-            >
-              <Query query={ALL_USERS_QUERY}>
-                {({ data, error, loading }) => {
-                  if (error) return <p>Something went wrong!</p>;
-                  if (loading) return <p>Loading</p>;
-                  const users = data.users.map(user => ({
-                    label: user.email,
-                    value: user.id
-                  }));
-                  return (
-                    <Query query={ME_USER_QUERY}>
-                      {({ error, loading, data }) => {
-                        if (error) return <p>Something went wrong!</p>;
-                        if (loading) return <p>Loading</p>;
+          <InputField
+            validate={validate}
+            type="textarea"
+            placeholder="Use this field to override the default disclaimer of the job"
+            label="Job Disclaimer(optional)"
+            change={changeHandler}
+            name={"disclaimer"}
+            value={formData.disclaimer.value}
+            height="600px"
+          />
 
-                        return (
-                          <InputField
-                            validate={this.state.validate}
-                            type="dropdown"
-                            placeholder="Please select an author for this job"
-                            label="Author"
-                            change={this.changeHandler}
-                            name={"author"}
-                            options={users}
-                            value={
-                              this.state.formData.author.value || data.me.id
-                            }
-                            required
-                          />
-                        );
-                      }}
-                    </Query>
-                  );
-                }}
-              </Query>
-            </RenderIfLoggedIn>
-            <InputField
-              validate={this.state.validate}
-              type="richTextLimited"
-              placeholder="Required Skills, Experience, etc."
-              label="Job Description"
-              change={this.changeHandler}
-              name={"description"}
-              value={this.state.formData.description.value}
-              height="600px"
-              required
-            />
-
-            <InputField
-              validate={this.state.validate}
-              type="textarea"
-              placeholder="Use this field to override the default disclaimer of the job"
-              label="Job Disclaimer(optional)"
-              change={this.changeHandler}
-              name={"disclaimer"}
-              value={this.state.formData.disclaimer.value}
-              height="600px"
-            />
-
-            <ButtonGroup>
-              <Link href="/dashboard">
-                <Button as="a" color="2" fullWidth>
-                  Cancel
-                </Button>
-              </Link>
-              <Button onClick={this.submitFormHandler} fullWidth>
-                Preview Job
+          <ButtonGroup>
+            <Link href="/dashboard">
+              <Button as="a" color="2" fullWidth>
+                Cancel
               </Button>
-            </ButtonGroup>
-          </fieldset>
-        </form>
+            </Link>
+            <Button onClick={submitFormHandler} fullWidth>
+              Preview Job
+            </Button>
+          </ButtonGroup>
+        </fieldset>
+      </form>
 
-        <style jsx global>{`
-          form {
-            width: 100%;
-            flex-wrap: wrap;
-            padding-bottom: 30px;
-          }
+      <style jsx global>{`
+        form {
+          width: 100%;
+          flex-wrap: wrap;
+          padding-bottom: 30px;
+        }
 
-          .Center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-          }
-        `}</style>
-      </React.Fragment>
-    );
-  }
-}
+        .Center {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+      `}</style>
+    </React.Fragment>
+  );
+};
 
 export default JobMutationBaseForm;
