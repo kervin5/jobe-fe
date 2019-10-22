@@ -24,9 +24,9 @@ class JobsInformationSection extends React.Component {
             </Grid.Column>
             <Grid.Column>
               <JobStatusCard
-                label="Oudated"
-                status="EXPIRED"
-                icon="clock"
+                label="Pending"
+                status="PENDING"
+                icon="comments"
                 color="3"
               />
             </Grid.Column>
