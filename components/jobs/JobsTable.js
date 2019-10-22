@@ -9,29 +9,6 @@ import DeleteJobButton from "../jobs/JobMutation/DeleteJobButton";
 import variables from "../common/globalVariables";
 import moment from "moment";
 
-const JOBS_FIELDS = `(first: $perPage, skip: $skip where: { title_contains: $query }) {
-  id
-  title
-  status
-  updatedAt
-  author {
-    id
-    name 
-  }
-  location {
-    id
-    name
-  }
-  status
-  applications {
-    id
-  }
-  branch {
-    id
-    name
-  }
-}`;
-
 export const USER_JOBS_QUERY = gql`
   query USER_JOBS_QUERY(
     $perPage: Int!
@@ -70,8 +47,10 @@ export const USER_JOBS_QUERY = gql`
 `;
 
 const USER_JOBS_CONNECTION_QUERY = gql`
-  query USER_JOBS_CONNECTION_QUERY($query: String = "") {
-    protectedJobsConnection(where: { title_contains: $query }) {
+  query USER_JOBS_CONNECTION_QUERY($query: String = "", $status: [Status!]) {
+    protectedJobsConnection(
+      where: { title_contains: $query, status_in: $status }
+    ) {
       aggregate {
         count
       }
@@ -80,6 +59,11 @@ const USER_JOBS_CONNECTION_QUERY = gql`
 `;
 
 const allStatus = ["DRAFT", "POSTED", "EXPIRED", "PENDING"];
+const options = ["ALL", ...allStatus].map((stat, index) => ({
+  key: stat + index,
+  text: stat,
+  value: stat
+}));
 
 const JobsTable = props => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -94,10 +78,10 @@ const JobsTable = props => {
     if (field === "query") {
       setSearchValue(e.target.value);
     } else {
-      if (e.target.value === "ALL") {
+      if (e.value === "ALL") {
         setStatus(allStatus);
       } else {
-        setStatus([e.target.value]);
+        setStatus([e.value]);
       }
     }
   };
@@ -110,19 +94,14 @@ const JobsTable = props => {
         onChange={e => handleFieldChange(e)}
       />
       <Select
-        compact
-        options={["ALL", allStatus].map((stat, index) => ({
-          key: stat + index,
-          text: stat,
-          value: stat
-        }))}
-        defaultValue="all"
-        onChange={e => handleFieldChange(e, "status")}
+        options={options}
+        defaultValue="ALL"
+        onChange={(e, data) => handleFieldChange(data, "status")}
       />
       <Query
         query={USER_JOBS_CONNECTION_QUERY}
         ssr={false}
-        variables={{ query: searchValue }}
+        variables={{ query: searchValue, status }}
       >
         {userJobsData => {
           if (userJobsData.error) return <p>Something went wrong...</p>;
@@ -134,7 +113,8 @@ const JobsTable = props => {
               variables={{
                 perPage,
                 skip: (currentPage - 1) * perPage,
-                query: searchValue
+                query: searchValue,
+                status
               }}
               ssr={false}
             >
