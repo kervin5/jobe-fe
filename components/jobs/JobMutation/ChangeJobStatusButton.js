@@ -5,7 +5,7 @@ import Router from "next/router";
 import gql from "graphql-tag";
 
 const POST_JOB_MUTATION = gql`
-  mutation POST_JOB_MUTATION($jobId: ID!, $status: String!) {
+  mutation POST_JOB_MUTATION($jobId: ID!, $status: Status!) {
     updateJob(
       where: { id: $jobId }
 
