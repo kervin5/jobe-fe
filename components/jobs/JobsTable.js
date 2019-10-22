@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Query } from "react-apollo";
-import { Button, Placeholder, Loader, Input } from "semantic-ui-react";
+import {
+  Button,
+  Placeholder,
+  Loader,
+  Input,
+  Dropdown
+} from "semantic-ui-react";
 import gql from "graphql-tag";
 import { perPage } from "../../config";
 import SortableTable from "../common/UI/SortableTable";
@@ -107,20 +113,18 @@ const JobsTable = props => {
       <Input
         icon="search"
         placeholder="Search..."
-        onChange={handleFieldChange}
+        onChange={e => handleFieldChange(e)}
       />
-      <div>
-        <Input
-          list="statuses"
-          placeholder="Filter Status..."
-          onChange={handleFieldChange}
-        />
-        <datalist id="statuses">
-          {["ALL", ...allStatus].map((stat, index) => (
-            <option value={stat} key={stat + index} />
-          ))}
-        </datalist>
-      </div>
+      <Select
+        compact
+        options={["ALL", allStatus].map((stat, index) => ({
+          key: stat + index,
+          text: stat,
+          value: stat
+        }))}
+        defaultValue="all"
+        onChange={e => handleFieldChange(e, "status")}
+      />
       <Query
         query={USER_JOBS_CONNECTION_QUERY}
         ssr={false}
