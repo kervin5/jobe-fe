@@ -24,7 +24,7 @@ class JobsInformationSection extends React.Component {
             </Grid.Column>
             <Grid.Column>
               <JobStatusCard
-                label="Expired"
+                label="Oudated"
                 status="EXPIRED"
                 icon="clock"
                 color="3"
