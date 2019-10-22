@@ -23,6 +23,12 @@ app.prepare().then(() => {
 
   if (process.env.NODE_ENV === "production") {
     server.use(compression());
+
+    app.use(function(request, response) {
+      if (!request.secure) {
+        response.redirect("https://" + request.headers.host + request.url);
+      }
+    });
   }
 
   server.use(
