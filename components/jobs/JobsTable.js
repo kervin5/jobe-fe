@@ -107,13 +107,13 @@ const JobsTable = props => {
       <Input
         icon="search"
         placeholder="Search..."
-        onChange={handleSearchFieldChange}
+        onChange={handleFieldChange}
       />
       <div>
         <Input
           list="statuses"
           placeholder="Filter Status..."
-          onChange={handleSearchFieldChange}
+          onChange={handleFieldChange}
         />
         <datalist id="statuses">
           {["ALL", ...allStatus].map((stat, index) => (
