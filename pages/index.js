@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PageTitle from "../components/common/Layout/PageTitle";
 import SEO from "../components/SEO";
 import UserLocator from "../data/UserLocator";
 import variables from "../components/common/globalVariables.js";
@@ -39,7 +38,6 @@ const homePage = props => {
         description="The staffing experts at My Exact Jobs are serious about finding you the most challenging, highest paying and rewarding career opportunities. Our Career Agents ..."
         title="MyExactJobs - Your career continues here, find jobs and great opportunities"
       />
-      <PageTitle title="Home Page" />
       <DynamicImageBg
         staticImage
         query={
