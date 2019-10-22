@@ -26,9 +26,10 @@ const PublishJobButton = ({ jobId, status, children }) => {
         if (loading) return <p>Loading...</p>;
         if (data)
           Router.push(
-            `/jobs/${data.updateJob.title.replace(" ", "-")}-${
-              data.updateJob.id
-            }`
+            `/dashboard/jobs/preview/${data.updateJob.title.replace(
+              " ",
+              "-"
+            )}-${data.updateJob.id}`
           );
         if (data) return <p>Success!</p>;
 
