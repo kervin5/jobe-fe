@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import { Loader } from "semantic-ui-react";
 import { ME_USER_QUERY, userHasAccess } from "../../lib/auth";
 
-const RenderIfLoggedIn = ({ children, permissions }) => {
+const RenderIfLoggedIn = ({ children, permissions, fallback }) => {
   return (
     <Query query={ME_USER_QUERY}>
       {({ error, loading, data }) => {
@@ -14,7 +14,7 @@ const RenderIfLoggedIn = ({ children, permissions }) => {
           permissions &&
           !userHasAccess(permissions, data.me.role.permissions)
         )
-          return null;
+          return fallback ? fallback : null;
         return <React.Fragment>{children}</React.Fragment>;
       }}
     </Query>

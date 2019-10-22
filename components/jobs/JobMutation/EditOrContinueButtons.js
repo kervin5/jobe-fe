@@ -30,35 +30,36 @@ function EditOrPublishButtons({ jobId }) {
         <Icon name="pencil" />
         Edit
       </Button>
-      {(
-        <RenderIfLoggedIn permissions={[{ object: "JOB", action: "PUBLISH" }]}>
-          <Mutation mutation={POST_JOB_MUTATION} variables={{ jobId }}>
-            {(postJobMutation, { error, loading, data }) => {
-              if (error) return <p>Something went wrong!</p>;
-              if (loading) return <p>Loading...</p>;
-              if (data)
-                Router.push(
-                  `/jobs/${data.updateJob.title.replace(" ", "-")}-${
-                    data.updateJob.id
-                  }`
-                );
-              if (data) return <p>Job published</p>;
-
-              return (
-                <Button
-                  positive
-                  icon
-                  labelPosition="left"
-                  onClick={postJobMutation}
-                >
-                  <Icon name="check" />
-                  Publish
-                </Button>
+      <RenderIfLoggedIn
+        permissions={[{ object: "JOB", action: "PUBLISH" }]}
+        fallback={<p>Test</p>}
+      >
+        <Mutation mutation={POST_JOB_MUTATION} variables={{ jobId }}>
+          {(postJobMutation, { error, loading, data }) => {
+            if (error) return <p>Something went wrong!</p>;
+            if (loading) return <p>Loading...</p>;
+            if (data)
+              Router.push(
+                `/jobs/${data.updateJob.title.replace(" ", "-")}-${
+                  data.updateJob.id
+                }`
               );
-            }}
-          </Mutation>
-        </RenderIfLoggedIn>
-      ) || <p>Testing</p>}
+            if (data) return <p>Job published</p>;
+
+            return (
+              <Button
+                positive
+                icon
+                labelPosition="left"
+                onClick={postJobMutation}
+              >
+                <Icon name="check" />
+                Publish
+              </Button>
+            );
+          }}
+        </Mutation>
+      </RenderIfLoggedIn>
       <Button
         positive
         icon
