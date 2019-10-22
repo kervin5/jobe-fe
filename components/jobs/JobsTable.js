@@ -33,11 +33,16 @@ const JOBS_FIELDS = `(first: $perPage, skip: $skip where: { title_contains: $que
 }`;
 
 export const USER_JOBS_QUERY = gql`
-  query USER_JOBS_QUERY($perPage: Int!, $skip: Int!, $query: String = "") {
+  query USER_JOBS_QUERY(
+    $perPage: Int!
+    $skip: Int!
+    $query: String = ""
+    $status: [Status!]
+  ) {
     protectedJobs(
       first: $perPage
       skip: $skip
-      where: { title_contains: $query }
+      where: { title_contains: $query, status_in: $status }
       orderBy: updatedAt_DESC
     ) {
       id
@@ -74,16 +79,27 @@ const USER_JOBS_CONNECTION_QUERY = gql`
   }
 `;
 
+const allStatus = ["DRAFT", "POSTED", "EXPIRED", "PENDING"];
+
 const JobsTable = props => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
+  const [status, setStatus] = useState(allStatus);
 
   const handleTurnPage = pageNumber => {
     setCurrentPage(parseInt(pageNumber));
   };
 
-  const handleSearchFieldChange = e => {
-    setSearchValue(e.target.value);
+  const handleFieldChange = (e, field = "query") => {
+    if (field === "query") {
+      setSearchValue(e.target.value);
+    } else {
+      if (e.target.value === "ALL") {
+        setStatus(allStatus);
+      } else {
+        setStatus([e.target.value]);
+      }
+    }
   };
 
   return (
@@ -93,6 +109,18 @@ const JobsTable = props => {
         placeholder="Search..."
         onChange={handleSearchFieldChange}
       />
+      <div>
+        <Input
+          list="statuses"
+          placeholder="Filter Status..."
+          onChange={handleSearchFieldChange}
+        />
+        <datalist id="statuses">
+          {["ALL", ...allStatus].map((stat, index) => (
+            <option value={stat} key={stat + index} />
+          ))}
+        </datalist>
+      </div>
       <Query
         query={USER_JOBS_CONNECTION_QUERY}
         ssr={false}
@@ -148,7 +176,6 @@ const JobsTable = props => {
                       perPage={perPage}
                       turnPageHandler={handleTurnPage}
                       data={injectActionsColumn(dataForTable)}
-                      onSearchFieldChange={handleSearchFieldChange}
                       exclude={["updatedAt"]}
                     />
                   </>
