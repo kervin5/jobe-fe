@@ -16,7 +16,7 @@ const ALL_JOBS_QUERY = gql`
     jobs(
       first: $perPage
       skip: $skip
-      orderBy: createdAt_DESC
+      orderBy: updatedAt_DESC
       where: {
         title_contains: $query
         categories_some: { name_contains: $category }
