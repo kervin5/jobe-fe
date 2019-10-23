@@ -45,9 +45,6 @@ const validateField = (type, value, validation, customMessages) => {
     !valueIsValid(value)
   ) {
     addError(errorMessages.allowed);
-    console.log("invalid");
-  } else {
-    console.log({ validation, errors });
   }
 
   if (value.length > validation.maxLength) {
