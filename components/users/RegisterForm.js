@@ -98,7 +98,7 @@ const registerForm = props => {
         icon={fieldData.icon}
         required
         minLength={fieldData.minLength || 0}
-        allowed={fieldData.allowed || "all"}
+        allowed={fieldData.allowed}
         validate={validate}
       />
     );

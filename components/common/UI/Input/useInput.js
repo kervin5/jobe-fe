@@ -21,6 +21,7 @@ const useInput = ({
     required: false,
     minLength: 0,
     maxLength: 9999999,
+    allowed: "all",
     ...validation
   });
 
