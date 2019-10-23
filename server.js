@@ -3,7 +3,9 @@ const proxy = require("http-proxy-middleware");
 const app = next({ dev: process.env.NODE_ENV !== "production" });
 const express = require("express");
 const compression = require("compression");
+var path = require("path");
 const handle = app.getRequestHandler();
+const generateSitemap = require("./lib/sitemap");
 const endpoint = `http://localhost:4444/`;
 const prodEndpoint = `https://myexactjobs-backend.herokuapp.com/`;
 
@@ -42,6 +44,18 @@ app.prepare().then(() => {
       changeOrigin: true,
       pathRewrite: () => ""
     })(req, res, next);
+  });
+
+  server.get("/sitemap.xml", function(req, res) {
+    res.header("Content-Type", "application/xml");
+    (async function sendXML() {
+      await generateSitemap();
+
+      // Send it to the browser
+      res.sendFile(path.join(__dirname + "/static/sitemap.xml"));
+      // Create a file on the selected destination
+      // fs.writeFileSync(DESTINATION, xmlFile);
+    })();
   });
 
   server.get("*", (req, res) => {
