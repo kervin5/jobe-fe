@@ -20,7 +20,8 @@ const inputField = props => {
   const validation = {
     required: props.required || false,
     minLength: props.minLength || 0,
-    maxLength: props.maxLength || 9999999
+    maxLength: props.maxLength || 9999999,
+    allowed: props.allowed || "all"
   };
   // const [fieldName, setFieldName] = useState(props.value || "");
   let FieldToRender = null;
