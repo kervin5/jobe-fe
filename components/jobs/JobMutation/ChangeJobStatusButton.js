@@ -24,13 +24,7 @@ const PublishJobButton = ({ jobId, status, children }) => {
       {(postJobMutation, { error, loading, data }) => {
         if (error) return <p>Something went wrong!</p>;
         if (loading) return <p>Loading...</p>;
-        if (data)
-          Router.push(
-            `/dashboard/jobs/preview/${data.updateJob.title.replace(
-              " ",
-              "-"
-            )}-${data.updateJob.id}`
-          );
+        if (data) Router.push(`/dashboard`);
         if (data) return <p>Success!</p>;
 
         return (
