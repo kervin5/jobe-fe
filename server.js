@@ -3,6 +3,7 @@ const proxy = require("http-proxy-middleware");
 const app = next({ dev: process.env.NODE_ENV !== "production" });
 const express = require("express");
 const compression = require("compression");
+const axios = require("axios");
 var path = require("path");
 const handle = app.getRequestHandler();
 const generateSitemap = require("./lib/sitemap");
@@ -46,6 +47,8 @@ app.prepare().then(() => {
     })(req, res, next);
   });
 
+  server.use(express.json());
+
   server.get("/sitemap.xml", function(req, res) {
     res.header("Content-Type", "application/xml");
     (async function sendXML() {
@@ -56,6 +59,25 @@ app.prepare().then(() => {
       // Create a file on the selected destination
       // fs.writeFileSync(DESTINATION, xmlFile);
     })();
+  });
+
+  server.all("/translate", async (req, res, next) => {
+    try {
+      const result = await axios.post(
+        "https://exactstafftranslate.cognitiveservices.azure.com/sts/v1.0/issuetoken?Subscription-Key=23f89154a2b64b9c86a3ba511e5c6acb"
+      );
+      const translationResult = await axios({
+        method: req.method,
+        url: req.query.url || req.body.url,
+        data: req.body.data || {},
+        headers: { Authorization: `Bearer ${result.data}` }
+      });
+
+      res.send({ data: translationResult.data });
+    } catch (ex) {
+      console.log(ex);
+      next();
+    }
   });
 
   server.get("*", (req, res) => {

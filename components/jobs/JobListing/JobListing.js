@@ -8,7 +8,8 @@ import ApplyToJobButton from "../../common/UI/ApplyToJobButton";
 import HtmlRenderer from "../../common/UI/HtmlRenderer";
 import SocialMedia from "../../common/UI/SocialMedia";
 import StucturedJobListing from "./StructuredJobListing";
-import {basePath} from "../../../config";
+import { basePath } from "../../../config";
+import Translator, { ListOfLanguages } from "../../hoc/Translator";
 
 const jobListing = props => {
   return (
@@ -26,25 +27,26 @@ const jobListing = props => {
       />
 
       <div className="Body" data-test="main-content-section">
-        <Title size={"m"}>Job Description:</Title>
-        <HtmlRenderer html={props.data.description} />
+        <ListOfLanguages />
+        <Title size={"m"}>
+          <Translator>Job Description</Translator>:
+        </Title>
+        <Translator>
+          <HtmlRenderer html={props.data.description} />
+        </Translator>
         <br />
 
         <Title size={"m"} data-test="company-information-section">
-          About the Company: {props.data.company}
+          <Translator>About the Company: {props.data.company}</Translator>
         </Title>
-        <p>{props.data.aboutCompany}</p>
+        <div>
+          <Translator>{props.data.aboutCompany}</Translator>
+        </div>
         <br />
 
         {props.preview ? null : (
-          //PLEASE CHANGE THE LINK BEFORE IT GOES LIVE
           <SocialMedia
-            url={
-              `${basePath}/jobs/` +
-              props.data.title +
-              "-" +
-              props.data.id
-            }
+            url={`${basePath}/jobs/` + props.data.title + "-" + props.data.id}
           />
         )}
         <br />
@@ -56,7 +58,7 @@ const jobListing = props => {
             .Body{
                 margin: 0 auto;
                 padding: 40px 40px 60px 40px;
-                
+                position: relative;
                 border-bottom-right-radius: ${variables.roundedRadius};
                 border-bottom-left-radius: ${variables.roundedRadius};
                 color: ${variables.baseTextColor};
@@ -83,6 +85,13 @@ const jobListing = props => {
             .Body :global(div){
               line-height: 1.7em;
             }
+
+            .Body :global(.ListOfLanguages) {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 99;
+      }
 
             @media only screen and (max-width: 520px){
            
