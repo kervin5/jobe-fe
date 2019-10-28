@@ -6,37 +6,37 @@ import JobList from "./JobList/JobList";
 import Button from "../common/UI/Button";
 import Loader from "../common/UI/Animated/Loader";
 
-const ALL_JOBS_QUERY = gql`
-  query ALL_JOBS_QUERY(
-    $query: String!
-    $category: String
-    $perPage: Int!
-    $skip: Int!
-  ) {
-    jobs(
-      first: $perPage
-      skip: $skip
-      orderBy: updatedAt_DESC
-      where: {
-        title_contains: $query
-        categories_some: { name_contains: $category }
-      }
-    ) {
-      id
-      title
-      description
-      minCompensation
-      maxCompensation
-      type
-      createdAt
-      updatedAt
-      location {
-        id
-        name
-      }
-    }
-  }
-`;
+// const ALL_JOBS_QUERY = gql`
+//   query ALL_JOBS_QUERY(
+//     $query: String!
+//     $category: String
+//     $perPage: Int!
+//     $skip: Int!
+//   ) {
+//     jobs(
+//       first: $perPage
+//       skip: $skip
+//       orderBy: updatedAt_DESC
+//       where: {
+//         title_contains: $query
+//         categories_some: { name_contains: $category }
+//       }
+//     ) {
+//       id
+//       title
+//       description
+//       minCompensation
+//       maxCompensation
+//       type
+//       createdAt
+//       updatedAt
+//       location {
+//         id
+//         name
+//       }
+//     }
+//   }
+// `;
 
 const SEARCH_JOBS_QUERY = gql`
   query SEARCH_JOBS_QUERY(
@@ -78,11 +78,11 @@ const SEARCH_JOBS_QUERY = gql`
 
 class Jobs extends PureComponent {
   render() {
-    let query = ALL_JOBS_QUERY;
+    let query = SEARCH_JOBS_QUERY;
 
-    if ((this.props.q && this.props.location) || this.props.location) {
-      query = SEARCH_JOBS_QUERY;
-    }
+    // if ((this.props.q && this.props.location) || this.props.location) {
+    //   query = SEARCH_JOBS_QUERY;
+    // }
 
     return (
       <div>
