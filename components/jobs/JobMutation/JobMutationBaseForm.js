@@ -28,7 +28,7 @@ const ALL_SKILLS_QUERY = gql`
 
 const ALL_USERS_QUERY = gql`
   query ALL_USERS_QUERY {
-    users(orderBy: name_ASC) {
+    users(where: { role: { name_not: "candidate" } }, orderBy: name_ASC) {
       id
       email
       branch {

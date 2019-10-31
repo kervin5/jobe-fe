@@ -190,8 +190,8 @@ const injectActionsColumn = data => {
       applications:
         record.applications.length > 0 ? (
           <Link
-            href={"/dashboard/applications/[jid]"}
-            as={"/dashboard/applications/" + record.id}
+            href={"/dashboard/applications/job/[jid]"}
+            as={"/dashboard/applications/job/" + record.id}
           >
             <a>{record.applications.length}</a>
           </Link>

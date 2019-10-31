@@ -1,11 +1,11 @@
-import ApplicantsTable from "../../../components/applications/ApplicantsTable";
+import ApplicantionsTable from "../../../components/applications/ApplicantionsTable";
 import DashboardPage from "../../../components/dashboard/DashboardPage";
 import WithAuth from "../../../components/hoc/WithAuth";
 
 const dashboardApplicationsPage = props => {
   return (
     <DashboardPage>
-      <ApplicantsTable />
+      <ApplicantionsTable />
     </DashboardPage>
   );
 };
