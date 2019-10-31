@@ -34,6 +34,10 @@ const ALL_APPLICATIONS_QUERY = gql`
       job {
         id
         title
+        location {
+          id
+          name
+        }
       }
     }
   }
@@ -90,12 +94,13 @@ const ApplicantTable = props => {
                       <a target="_blank">{application.job.title}</a>
                     </Link>
                   ),
+                  location: application.job.location.name,
                   email: (
                     <a href={`mailto:${application.user.email}`}>
                       {application.user.email}
                     </a>
                   ),
-                  resume: (
+                  application: (
                     <Button
                       onClick={e => {
                         e.preventDefault();
