@@ -38,9 +38,6 @@ const APPLICATIONS_QUERY = gql`
               createdAt
               id
             }
-            user {
-              id
-            }
           }
         }
       }
