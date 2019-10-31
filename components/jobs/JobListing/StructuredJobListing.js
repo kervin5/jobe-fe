@@ -17,7 +17,7 @@ const StructuredJobListing = ({
     "@context": "http://schema.org/",
     "@type": "JobPosting",
     "title": "${title}",
-    "description": "${description}",
+    "description": "${description.replace(/\"/g, '\\"')}",
     "datePosted": "${updatedAt}",
     "employmentType": "${type}",
     "baseSalary": ${minCompensation},
