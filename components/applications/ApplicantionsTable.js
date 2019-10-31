@@ -90,7 +90,10 @@ const ApplicantTable = props => {
                 applications.push({
                   name: application.user.name,
                   job: (
-                    <Link href={"/jobs/" + application.job.id}>
+                    <Link
+                      href={"/jobs/[jid]"}
+                      as={"/jobs/" + application.job.id}
+                    >
                       <a target="_blank">{application.job.title}</a>
                     </Link>
                   ),
