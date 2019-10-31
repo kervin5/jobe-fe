@@ -20,7 +20,7 @@ const ApplicationsStatusCard = props => {
         if (loading) return <p>Loading...</p>;
         return (
           <CounterCard
-            label="Applicants"
+            label="Apps"
             value={data.applicationsConnection.aggregate.count}
             color={props.color}
             icon={props.icon}
