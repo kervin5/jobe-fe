@@ -30,7 +30,7 @@ const resumeList = props => {
                   color="green"
                 >
                   <Icon name="download" />
-                  Download
+                  View
                 </Button>
               </List.Content>
             </List.Item>

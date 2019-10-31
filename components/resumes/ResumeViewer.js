@@ -18,6 +18,13 @@ const ResumeViewer = ({ url }) => {
           return (
             <object data={data.getSignedFileUrl} type="application/pdf">
               <embed src={data.getSignedFileUrl} type="application/pdf" />
+              <p>
+                It appears you don't have a the proper plugin to load this in
+                your browser. You can{" "}
+                <a href={data.getSignedFileUrl}>
+                  click here to access the resource.
+                </a>
+              </p>
               <style jsx>{`
                 object {
                   width: 100%;
