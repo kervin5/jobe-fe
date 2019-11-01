@@ -181,7 +181,12 @@ const JobMutationBaseForm = props => {
 
   return (
     <React.Fragment>
-      <form className={"JobCreatorForm"}>
+      <form
+        className={"JobCreatorForm"}
+        onSubmit={e => {
+          e.preventDefault();
+        }}
+      >
         <fieldset disabled={props.loading} aria-busy={props.loading}>
           <InputField
             validate={validate}
