@@ -52,7 +52,8 @@ const UPDATE_APPLICATION_STATUS_MUTATION = gql`
 const JobApplicationStatusDropdown = ({
   applicationId,
   status,
-  refetchQueries
+  refetchQueries,
+  absolute
 }) => {
   return (
     <Mutation
@@ -61,10 +62,14 @@ const JobApplicationStatusDropdown = ({
     >
       {(changeApplicationStatusMutation, { error, loading, data }) => {
         return (
-          <div className={!status || status === "NEW" ? "New" : ""}>
+          <div
+            className={
+              "ApplicationStatusDropdown " +
+              (!status || status === "NEW" ? "New" : "")
+            }
+          >
             <Dropdown
               placeholder="Application Status"
-              fluid
               selection
               options={applicationStatusOptions}
               defaultValue={status || "NEW"}
@@ -75,12 +80,20 @@ const JobApplicationStatusDropdown = ({
               }
             />
             <style jsx>{`
-              div {
+              .ApplicationStatusDropdown {
                 min-width: 150px;
+                display: inline-block;
+                position: ${absolute ? "absolute" : "static"};
+                top: 0;
+                right: 0;
               }
 
               .New {
                 box-shadow: 0px 0px 5px -2px rgba(13, 125, 145, 1);
+              }
+
+              .ApplicationStatusDropdown :global(.ui.dropdown > .text) {
+                font-weight: bold;
               }
             `}</style>
           </div>

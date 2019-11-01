@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, Input } from "semantic-ui-react";
 import { perPage } from "../../config";
 import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 
@@ -17,9 +17,29 @@ const ALL_APPLICATIONS_QUERY = gql`
     $skip: Int!
     $jobId: ID
     $status: [ApplicationStatus!]
+    $terms: String!
   ) {
     applications(
-      where: { job: { id: $jobId }, status_in: $status }
+      where: {
+        job: { id: $jobId }
+        status_in: $status
+        OR: [
+          {
+            job: {
+              OR: [
+                { title_contains: $terms }
+                { location: { name_contains: $terms } }
+                { branch: { name_contains: $terms } }
+              ]
+            }
+          }
+          {
+            user: {
+              OR: [{ name_contains: $terms }, { email_contains: $terms }]
+            }
+          }
+        ]
+      }
       first: $perPage
       skip: $skip
     ) {
@@ -51,6 +71,10 @@ const ALL_APPLICATIONS_QUERY = gql`
           id
           name
         }
+        branch {
+          id
+          name
+        }
       }
     }
   }
@@ -60,8 +84,30 @@ const USER_APPLICATION_CONNECTION_QUERY = gql`
   query USER_APPLICATION_CONNECTION_QUERY(
     $jobId: ID
     $status: [ApplicationStatus!]
+    $terms: String!
   ) {
-    applicationsConnection(where: { job: { id: $jobId }, status_in: $status }) {
+    applicationsConnection(
+      where: {
+        job: { id: $jobId }
+        status_in: $status
+        OR: [
+          {
+            job: {
+              OR: [
+                { title_contains: $terms }
+                { location: { name_contains: $terms } }
+                { branch: { name_contains: $terms } }
+              ]
+            }
+          }
+          {
+            user: {
+              OR: [{ name_contains: $terms }, { email_contains: $terms }]
+            }
+          }
+        ]
+      }
+    ) {
       aggregate {
         count
       }
@@ -69,13 +115,13 @@ const USER_APPLICATION_CONNECTION_QUERY = gql`
   }
 `;
 
-const queriesToRefetch = ({ jobId, skip }) => {
+const queriesToRefetch = ({ jobId, skip, terms }) => {
   const queries = [];
   ["NEW", "VIEWED", "REVIEWING", "CONTACTED", "HIRED", "ARCHIVED"].forEach(
     defaultStatus => {
       queries.push({
         query: USER_APPLICATION_CONNECTION_QUERY,
-        variables: { jobId, status: [defaultStatus] }
+        variables: { jobId, status: [defaultStatus], terms }
       });
 
       queries.push({
@@ -83,7 +129,8 @@ const queriesToRefetch = ({ jobId, skip }) => {
         variables: {
           perPage,
           skip,
-          status: [defaultStatus]
+          status: [defaultStatus],
+          terms
         }
       });
     }
@@ -91,7 +138,11 @@ const queriesToRefetch = ({ jobId, skip }) => {
 
   queries.push({
     query: USER_APPLICATION_CONNECTION_QUERY,
-    variables: { jobId, status: ["NEW", "VIEWED", "REVIEWING", "CONTACTED"] }
+    variables: {
+      jobId,
+      status: ["NEW", "VIEWED", "REVIEWING", "CONTACTED"],
+      terms
+    }
   });
 
   queries.push({
@@ -99,16 +150,17 @@ const queriesToRefetch = ({ jobId, skip }) => {
     variables: {
       perPage,
       skip,
-      status: ["NEW", "VIEWED", "REVIEWING", "CONTACTED"]
+      status: ["NEW", "VIEWED", "REVIEWING", "CONTACTED"],
+      terms
     }
   });
 
-  console.log(queries);
   return queries;
 };
 
 const ApplicantTable = props => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [terms, setTerms] = useState("");
   const [status, setStatus] = useState([
     "NEW",
     "VIEWED",
@@ -130,9 +182,14 @@ const ApplicantTable = props => {
 
   return (
     <>
+      {" "}
+      <Input
+        icon="search"
+        placeholder="Search..."
+        onChange={e => setTerms(e.target.value)}
+      />
       <Dropdown
         placeholder="Application Status"
-        fluid
         selection
         options={[
           { key: "All", text: "All", value: "ALL" },
@@ -146,7 +203,8 @@ const ApplicantTable = props => {
         ssr={false}
         variables={{
           jobId: "" || props.jobId,
-          status
+          status,
+          terms
         }}
       >
         {userApplicationData => {
@@ -160,7 +218,8 @@ const ApplicantTable = props => {
                 perPage,
                 skip: (currentPage - 1) * perPage,
                 jobId: "" || props.jobId,
-                status
+                status,
+                terms
               }}
             >
               {({ error, loading, data }) => {
@@ -180,6 +239,7 @@ const ApplicantTable = props => {
                       </Link>
                     ),
                     location: application.job.location.name,
+                    branch: application.job.branch.name,
                     email: (
                       <a href={`mailto:${application.user.email}`}>
                         {application.user.email}
@@ -192,7 +252,8 @@ const ApplicantTable = props => {
                         status={application.status}
                         refetchQueries={queriesToRefetch({
                           jobId: props.jobId || "",
-                          skip: (currentPage - 1) * perPage
+                          skip: (currentPage - 1) * perPage,
+                          terms
                         })}
                       />
                     ),
