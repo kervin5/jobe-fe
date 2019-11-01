@@ -14,7 +14,7 @@ export const USER_JOBS_QUERY = gql`
     $perPage: Int!
     $skip: Int!
     $query: String = ""
-    $status: [Status!]
+    $status: [JobStatus!]
   ) {
     protectedJobs(
       first: $perPage
@@ -47,7 +47,7 @@ export const USER_JOBS_QUERY = gql`
 `;
 
 const USER_JOBS_CONNECTION_QUERY = gql`
-  query USER_JOBS_CONNECTION_QUERY($query: String = "", $status: [Status!]) {
+  query USER_JOBS_CONNECTION_QUERY($query: String = "", $status: [JobStatus!]) {
     protectedJobsConnection(
       where: { title_contains: $query, status_in: $status }
     ) {
