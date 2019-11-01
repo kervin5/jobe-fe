@@ -51,7 +51,7 @@ const dashboardPage = props => {
           sectionName => sections[sectionName]
         )}
       />
-      <Container>
+      <Container maxWidth="1200px">
         <div className="PageContent">
           <Title>{props.title || "Dashboard"}</Title>
           {props.children}

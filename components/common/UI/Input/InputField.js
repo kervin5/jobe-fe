@@ -147,7 +147,12 @@ const inputField = props => {
   ].join(" ");
 
   return (
-    <div className="InputField">
+    <div
+      className="InputField"
+      onKeyPress={e => {
+        e.key === "Enter" && e.preventDefault();
+      }}
+    >
       <label>{props.label}</label>
       <div className={inputClasses}>
         {props.type !== "textarea" ? inputOrnaments : null}
