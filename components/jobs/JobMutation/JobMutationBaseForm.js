@@ -171,11 +171,11 @@ const JobMutationBaseForm = props => {
       key => {
         return (
           (formData[key].touched && !formData[key].valid) ||
-          (!formData.touched && validate && !formData[key].valid)
+          (!formData.touched && !formData[key].valid)
         );
       }
     );
-    console.log(invalid);
+
     return invalid.length === 0;
   };
 
@@ -332,7 +332,7 @@ const JobMutationBaseForm = props => {
           </RenderIfLoggedIn>
           <InputField
             validate={validate}
-            type="richTextLimited"
+            type="richText"
             placeholder="Required Skills, Experience, etc."
             label="Job Description"
             change={changeHandler}

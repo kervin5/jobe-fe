@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import JobMutationBaseForm from "./JobMutationBaseForm";
 import Title from "../../common/UI/Title";
+import ErrorMessage from "../../common/UI/ErrorMessage";
 
 const CREATE_JOB_MUTATION = gql`
   mutation CREATE_JOB_MUTATION(
@@ -56,18 +57,20 @@ const JobCreatorForm = props => {
       </p>
       <Mutation mutation={CREATE_JOB_MUTATION} variables={{ ...formData }}>
         {(createJobMutation, { error, loading, data }) => {
-          if (error) return <p>Something went wrong</p>;
           if (loading) return <p>Processing</p>;
           if (data) Router.push("/dashboard/jobs/preview/" + data.createJob.id);
           if (data) return <p>Job Created, plase wait</p>;
           return (
-            <JobMutationBaseForm
-              create
-              mutation={{
-                execute: createJobMutation,
-                setVariables: setFormData
-              }}
-            />
+            <>
+              {error && <ErrorMessage error={error} />}
+              <JobMutationBaseForm
+                create
+                mutation={{
+                  execute: createJobMutation,
+                  setVariables: setFormData
+                }}
+              />
+            </>
           );
         }}
       </Mutation>

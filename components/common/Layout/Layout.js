@@ -5,7 +5,7 @@ import NavigationBar from "../UI/Navigation/NavigationBar";
 import BottomNav from "../UI/Navigation/BottomNav";
 // import NavigationDrawer from "../UI/Navigation/NavigationDrawer";
 import variables from "../globalVariables";
-import { initGA, logPageView } from "../../analytics";
+import { initGA, logPageView } from "../../../lib/analytics";
 
 Router.onRouteChangeStart = () => {
   NProgress.start();

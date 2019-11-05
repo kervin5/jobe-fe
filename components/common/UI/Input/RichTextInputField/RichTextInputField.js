@@ -49,13 +49,7 @@ const RichTextInputField = props => {
       setRichTextFieldState(richTextFieldState.value);
       props.change({ ...richTextFieldState, touched });
     }
-  }, [
-    touched,
-    props.validate,
-    richTextFieldState.valid,
-    richTextFieldState.value,
-    richTextFieldState.valid
-  ]);
+  }, [touched, props.validate, richTextFieldState.value]);
 
   return (
     <div className="Editor">
