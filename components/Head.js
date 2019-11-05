@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import NextHead from "next/head";
 import { string } from "prop-types";
-import { initGA, logPageView } from "./analytics";
+import { initGA, logPageView } from "../lib/analytics";
 
 const Head = props => {
   useEffect(() => {

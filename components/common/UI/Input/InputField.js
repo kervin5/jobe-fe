@@ -116,17 +116,6 @@ const inputField = props => {
         {...validation}
       />
     );
-  } else if (props.type === "richTextLimited") {
-    FieldToRender = (
-      <RichTextInputField
-        placeholder={props.placeholder}
-        toolbarOptions={["list", "emoji", "remove", "history"]}
-        change={changeHandler}
-        validate={props.validate}
-        value={props.value}
-        {...validation}
-      />
-    );
   } else if (props.type === "tags") {
     FieldToRender = (
       <TagsInputField
