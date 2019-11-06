@@ -6,6 +6,7 @@ import Title from "../../common/UI/Title";
 import JobPreview from "../../jobs/JobMutation/JobPreview";
 import { USER_JOBS_QUERY } from "../JobsTable";
 import { perPage } from "../../../config";
+import ErrorMessage from "../../common/UI/ErrorMessage";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
   query SINGLE_JOB_ALL_DATA_QUERY($id: ID!) {
@@ -106,13 +107,13 @@ const JobEditorForm = props => {
             variables={{ jobId: props.jobId, ...formData }}
           >
             {(EditJobMutation, { error, loading, data }) => {
-              if (error) return <p>Something went wrong</p>;
               if (loading) return <p>Processing</p>;
               if (data) return <JobPreview jobId={data.updateJob.id} />;
               return (
                 <React.Fragment>
                   <Title size={props.smallTitle ? "m" : "l"}>Edit Job</Title>
                   <p className={"Instructions"}>Enter the job details</p>
+                  {error && <ErrorMessage error={error} />}
                   <JobMutationBaseForm
                     mutation={{
                       execute: EditJobMutation,
