@@ -111,15 +111,7 @@ const JobMutationBaseForm = props => {
   const [touchedFields, setTouchedFields] = useState(false);
 
   const changeHandler = async fieldData => {
-    await setFormData({
-      ...formData,
-      [fieldData.name]: {
-        ...formData[fieldData.name],
-        ...fieldData
-      }
-    });
-
-    if (fieldData.touched) {
+    if (fieldData.touched && fieldData.value !== formData[fieldData.name]) {
       await setTouchedFields({
         ...touchedFields,
         [fieldData.name]: {
@@ -128,6 +120,14 @@ const JobMutationBaseForm = props => {
         }
       });
     }
+
+    await setFormData({
+      ...formData,
+      [fieldData.name]: {
+        ...formData[fieldData.name],
+        ...fieldData
+      }
+    });
   };
 
   const submitFormHandler = async e => {
@@ -163,6 +163,8 @@ const JobMutationBaseForm = props => {
 
       await props.mutation.setVariables(dataToSend);
       props.mutation.execute();
+    } else {
+      console.log("Invalid");
     }
   };
 
@@ -176,6 +178,7 @@ const JobMutationBaseForm = props => {
       }
     );
 
+    console.log(invalid, formData);
     return invalid.length === 0;
   };
 
