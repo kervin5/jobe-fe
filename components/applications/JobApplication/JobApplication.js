@@ -9,7 +9,7 @@ const JobApplication = props => {
   return (
     <TransformerContainer>
       <JobApplicationHeader
-        title={`${props.data.user.name} | ${props.data.job.title} in ${props.data.job.location.name}`}
+        title={`${props.data.job.title} in ${props.data.job.location.name}`}
         subtitle={props.data.user.email}
       />
 

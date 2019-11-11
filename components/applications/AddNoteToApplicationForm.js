@@ -45,9 +45,6 @@ export default function AddNoteToApplicationForm({
             )}
             loading={loading}
           >
-            <label htmlFor="noteContent">
-              <strong>Notes</strong>
-            </label>
             <textarea
               name="noteContent"
               ref={register({ required: true })}
