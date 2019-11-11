@@ -1,95 +1,89 @@
-import React, { useEffect } from "react";
-import { Form, Button, TextArea } from "semantic-ui-react";
+import React, { useState } from "react";
 import useForm from "react-hook-form";
+import { Form, Button } from "semantic-ui-react";
+import gql from "graphql-tag";
+import { Mutation } from "react-apollo";
+import { APPLICATION_NOTES_QUERY } from "./ApplicationHistoryFeed";
 
-const options = [
-  { key: "m", text: "Male", value: "male" },
-  { key: "f", text: "Female", value: "female" },
-  { key: "o", text: "Other", value: "other" }
-];
+const CREACTE_APPLICATION_NOTE_MUTATION = gql`
+  mutation CREACTE_APPLICATION_NOTE_MUTATION($id: ID!, $content: String!) {
+    createApplicationNote(id: $id, content: $content) {
+      id
+      content
+    }
+  }
+`;
 
-const FormExampleFieldError = () => {
-  useEffect(() => {
-    register({ name: "firstName" }, { required: true });
-    register({ name: "lastName" }, { required: true });
-    register({ name: "genderSelect" }, { required: true });
-    register({ name: "checkBox" }, { required: true });
-    register({ name: "NoteContent" }, { required: true });
-  }, []);
-
-  const {
-    register,
-    errors,
-    handleSubmit,
-    setValue,
-    triggerValidation
-  } = useForm();
-  const onSubmit = (data, e) => {
-    console.log("Submit event", e);
-    alert(JSON.stringify(data));
+export default function AddNoteToApplicationForm({
+  applicationId,
+  refetchQueries
+}) {
+  const { register, handleSubmit, watch, errors } = useForm();
+  const [noteContent, setNoteContent] = useState("");
+  const onSubmit = async (createApplicationNoteMutation, data) => {
+    const result = await createApplicationNoteMutation({
+      variables: { id: applicationId, content: data.noteContent },
+      refetchQueries: [
+        { query: APPLICATION_NOTES_QUERY, variables: { id: applicationId } }
+      ]
+    });
+    console.log(result);
+    if (result.data.createApplicationNote) {
+      setNoteContent("");
+    }
   };
 
-  console.log(errors);
+  //   console.log(watch('noteContent')) // watch input value by passing the name of it
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <TextArea
-        placeholder="Add Note"
-        name="NoteContent"
-        fluid
-        style={{ minHeight: 100 }}
-        onChange={async (e, { name, value }) => {
-          setValue(name, value);
-          await triggerValidation({ name });
-        }}
-        error={errors.NoteContent ? true : false}
-      />
-      <Form.Group widths="equal">
-        <Form.Input
-          name="firstName"
-          fluid
-          label="First name"
-          placeholder="First name"
-          onChange={async (e, { name, value }) => {
-            setValue(name, value);
-            await triggerValidation({ name });
-          }}
-          error={errors.firstName ? true : false}
-        />
-        <Form.Input
-          name="lastName"
-          fluid
-          label="Last name"
-          placeholder="Last name"
-          onChange={async (e, { name, value }) => {
-            setValue(name, value);
-            await triggerValidation({ name });
-          }}
-          error={errors.lastName ? true : false}
-        />
-      </Form.Group>
-      <Form.Select
-        name="genderSelect"
-        options={options}
-        placeholder="Gender"
-        onChange={async (e, { name, value }) => {
-          setValue(name, value);
-          await triggerValidation({ name });
-        }}
-        error={errors.genderSelect ? true : false}
-      />
-      <Form.Checkbox
-        name="checkBox"
-        label="I agree to the Terms and Conditions"
-        onChange={async (e, { name, checked }) => {
-          setValue(name, checked);
-          await triggerValidation({ name });
-        }}
-        error={errors.checkBox ? true : false}
-      />
-      <Button type="submit">Submit</Button>
-    </Form>
-  );
-};
+    <Mutation mutation={CREACTE_APPLICATION_NOTE_MUTATION}>
+      {(createApplicationNoteMutation, { error, loading, data }) => {
+        return (
+          <Form
+            onSubmit={handleSubmit(data =>
+              onSubmit(createApplicationNoteMutation, data)
+            )}
+            loading={loading}
+          >
+            <label htmlFor="noteContent">
+              <strong>Notes</strong>
+            </label>
+            <textarea
+              name="noteContent"
+              ref={register({ required: true })}
+              value={noteContent}
+              onChange={e => setNoteContent(e.target.value)}
+              placeholder="Enter note content"
+            />
+            <div className="BottomArea">
+              <div className="Errors">
+                {errors.noteContent && <span>This field is required</span>}
+                {error && <span>{error}</span>}
+                {data && !data.createApplicationNote && (
+                  <span>Something went wrong!</span>
+                )}
+                {data && data.createApplicationNote && <span>Note Added!</span>}
+              </div>
+              <Button type="submit">Add</Button>
+            </div>
+            <style jsx>{`
+              .BottomArea {
+                display: flex;
+                width: 100%;
+                margin-top: 10px;
+              }
 
-export default FormExampleFieldError;
+              textarea {
+                max-height: 100px !important;
+              }
+
+              .Errors {
+                flex: 1;
+              }
+            `}</style>
+          </Form>
+        );
+      }}
+    </Mutation>
+  );
+}

@@ -1,7 +1,6 @@
 import React from "react";
 import { List, Button, Icon } from "semantic-ui-react";
 import moment from "moment";
-import Title from "../UI/Title";
 
 const resumeList = props => {
   return (

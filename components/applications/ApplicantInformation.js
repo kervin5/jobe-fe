@@ -1,7 +1,7 @@
 import React from "react";
 
 const ApplicantInformation = () => {
-  return <div></div>;
+  return <div>Applicant</div>;
 };
 
 export default ApplicantInformation;

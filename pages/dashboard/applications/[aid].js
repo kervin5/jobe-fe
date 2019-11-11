@@ -11,7 +11,7 @@ const dashboardApplicationsPerJobPage = props => {
           <SingleJobApplication applicationId={props.applicationId} />
         </div>
         <div className="ApplicationInformation">
-          <ApplicationInformation />
+          <ApplicationInformation applicationId={props.applicationId} />
         </div>
       </div>
 

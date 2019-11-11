@@ -4,7 +4,6 @@ import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobApplicationHeader from "./JobApplicationHeader";
 import Title from "../../common/UI/Title";
 import ResumeViewer from "../../resumes/ResumeViewer";
-import ApplicationStatusDropdown from "../ApplicationStatusDropdown";
 
 const JobApplication = props => {
   return (
@@ -15,13 +14,6 @@ const JobApplication = props => {
       />
 
       <div className="Body">
-        <Title size={"m"}>Status</Title>
-        <ApplicationStatusDropdown
-          status={props.data.status}
-          applicationId={props.data.id}
-        />
-        <br />
-        <br />
         <Title size={"m"}>Resume</Title>
         <br />
         <ResumeViewer url={props.data.resume.file.path.split("/").pop()} />

@@ -1,19 +1,53 @@
 import React from "react";
 import { Feed } from "semantic-ui-react";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import moment from "moment";
 
-const image = "https://react.semantic-ui.com/images/avatar/small/jenny.jpg";
-const date = "3 days ago";
-const summary = "You added Jenny Hess to your coworker group.";
+export const APPLICATION_NOTES_QUERY = gql`
+  query APPLICATION_NOTES($id: ID!) {
+    applicationNotes(id: $id) {
+      id
+      user {
+        name
+      }
+      createdAt
+      type
+      content
+    }
+  }
+`;
 
-const FeedExampleContentDateShorthand = () => (
-  <Feed>
-    <Feed.Event image={image} date={date} summary={summary} />
+const actionPerformed = ({ type, content, user }) => {
+  if (type === "NOTE") {
+    return {
+      summary: `${user.name} added a note`,
+      extraText: content
+    };
+  } else {
+    return {
+      summary: `${user.name} changed the ${type.toLowerCase()} to ${content}`
+    };
+  }
+};
 
-    <Feed.Event>
-      <Feed.Label image={image} />
-      <Feed.Content date={date} summary={summary} />
-    </Feed.Event>
-  </Feed>
-);
+const ApplicationHistoryFeed = ({ applicationId }) => {
+  return (
+    <Query query={APPLICATION_NOTES_QUERY} variables={{ id: applicationId }}>
+      {({ error, loading, data }) => {
+        if (loading) return <p>Loading!</p>;
+        if (error) return <p>Error!</p>;
 
-export default FeedExampleContentDateShorthand;
+        const feedData = data.applicationNotes.map((feedItem, index) => ({
+          key: "FeedItem" + index,
+          date: moment(feedItem.createdAt).fromNow(),
+          image: "/static/images/avatar.PNG",
+          ...actionPerformed(feedItem)
+        }));
+        return <Feed events={feedData} />;
+      }}
+    </Query>
+  );
+};
+
+export default ApplicationHistoryFeed;
