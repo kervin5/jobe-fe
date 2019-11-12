@@ -24,6 +24,11 @@ export const SINGLE_JOB_QUERY = gql`
         name
       }
 
+      skills {
+        id
+        name
+      }
+
       location {
         id
         name
