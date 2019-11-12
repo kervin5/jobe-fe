@@ -157,7 +157,9 @@ const inputField = props => {
         .InputField label {
           font-weight: bold;
           font-size: ${props.boldLabel ? "1.8rem" : "1.1rem"};
-          color: ${variables.clearColor};
+          color: ${props.boldLabel
+            ? variables.clearColor
+            : variables.darkColor};
           text-shadow: 1px 2px 3px #666;
         }
 
