@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Dropdown, Input } from "semantic-ui-react";
 import { perPage } from "../../config";
 import { applicationStatusOptions } from "./ApplicationStatusDropdown";
+import moment from "moment";
 
 import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
@@ -241,7 +242,7 @@ const ApplicantTable = props => {
                     ),
                     location: application.job.location.name,
                     branch: application.job.branch.name,
-                    applied: application.createdAt,
+                    applied: moment(application.createdAt).format("MM/DD/YYYY"),
                     email: (
                       <a href={`mailto:${application.user.email}`}>
                         {application.user.email}
