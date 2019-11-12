@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { Loader } from "semantic-ui-react";
 import { Button, Icon, Image, Item, Label } from "semantic-ui-react";
+import EempactStatusLabel from "../users/EempactStatusLabel";
 
 const APPLICANT_INFORMATION_QUERY = gql`
   query APPLICANT_INFORMATION_QUERY($id: ID!) {
@@ -37,6 +38,9 @@ const ApplicantInformation = ({ applicationId }) => (
                   </a>
                 </span>
               </Item.Meta>
+              <Item.Extra>
+                <EempactStatusLabel email={data.application.user.email} />
+              </Item.Extra>
               {/* <Item.Description>{paragraph}</Item.Description>
             <Item.Extra>
               <Label>IMAX</Label>
