@@ -6,9 +6,13 @@ const EempactStatusLabel = ({ email }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [data, setData] = useState(null);
-  const [label, setLabel] = useState("Loaddding");
+  const [label, setLabel] = useState("Loading");
   useEffect(() => {
     setLoading(true);
+    setData(null);
+    setError(false);
+    setLabel("Loading");
+
     axios({
       method: "post",
       url: "https://api.exactstaff.com/status",
@@ -24,13 +28,12 @@ const EempactStatusLabel = ({ email }) => {
         setLoading(false);
         setError(true);
       });
-  }, []);
+  }, [email]);
 
   useEffect(() => {
     if (loading) {
       setLabel("Loading");
     } else if (data && data.user) {
-      console.log(data.assignments);
       if (data.assignments > 0) {
         setLabel(
           <>
