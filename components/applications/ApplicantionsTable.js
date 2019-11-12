@@ -3,9 +3,10 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
 import { Dropdown, Input } from "semantic-ui-react";
+import moment from "moment";
+import EempactStatusLabel from "../users/EempactStatusLabel";
 import { perPage } from "../../config";
 import { applicationStatusOptions } from "./ApplicationStatusDropdown";
-import moment from "moment";
 
 import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
@@ -266,6 +267,9 @@ const ApplicantTable = props => {
                           terms
                         })}
                       />
+                    ),
+                    eempact: (
+                      <EempactStatusLabel email={application.user.email} />
                     ),
                     application: (
                       <Button

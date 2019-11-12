@@ -17,9 +17,11 @@ const EempactStatusLabel = ({ email }) => {
       }
     })
       .then(res => {
+        setLoading(false);
         setData(res.data);
       })
       .catch(e => {
+        setLoading(false);
         setError(true);
       });
   }, []);
@@ -28,16 +30,16 @@ const EempactStatusLabel = ({ email }) => {
     console.log("effect");
     if (loading) {
       setLabel("Loading");
-    } else if (data) {
+    } else if (data && data.user) {
       if (data.assigments > 0) {
         setLabel(
           <>
             <Label color="green">
-              <Icon name="mail" />
+              <Icon name="thumbs up outline" />
               eEmpact
             </Label>
             <Label color="blue">
-              <Icon name="mail" />
+              <Icon name="eye" />
               Active Assigment
             </Label>
           </>
@@ -46,7 +48,7 @@ const EempactStatusLabel = ({ email }) => {
         setLabel(
           <>
             <Label color="green">
-              <Icon name="mail" />
+              <Icon name="thumbs up outline" />
               eEmpact
             </Label>
           </>
@@ -55,7 +57,7 @@ const EempactStatusLabel = ({ email }) => {
     } else if (!data) {
       setLabel(
         <Label>
-          <Icon name="mail" />
+          <Icon name="hand point right outline" />
           No eEmpact
         </Label>
       );
@@ -66,7 +68,7 @@ const EempactStatusLabel = ({ email }) => {
     }
   }, [data, loading, error]);
 
-  return <p>{label}</p>;
+  return <div>{label}</div>;
 };
 
 export default EempactStatusLabel;
