@@ -34,19 +34,6 @@ const APPLICANT_OTHER_JOBS_APPLICATIONS_QUERY = gql`
   }
 `;
 
-// const actionPerformed = ({ type, content, user }) => {
-//   if (type === "NOTE") {
-//     return {
-//       summary: `${user.name} added a note`,
-//       extraText: content
-//     };
-//   } else {
-//     return {
-//       summary: `${user.name} changed the ${type.toLowerCase()} to ${content}`
-//     };
-//   }
-// };
-
 const OtherApplicationsList = ({ userId, applicationId }) => {
   return (
     <Query
