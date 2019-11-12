@@ -40,6 +40,7 @@ const ALL_APPLICATIONS_QUERY = gql`
           }
         ]
       }
+      orderBy: createdAt_ASC
       first: $perPage
       skip: $skip
     ) {
@@ -240,6 +241,7 @@ const ApplicantTable = props => {
                     ),
                     location: application.job.location.name,
                     branch: application.job.branch.name,
+                    applied: application.createdAt,
                     email: (
                       <a href={`mailto:${application.user.email}`}>
                         {application.user.email}
