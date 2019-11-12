@@ -4,7 +4,7 @@ import WithAuth from "../../../components/hoc/WithAuth";
 
 const dashboardApplicationsPage = props => {
   return (
-    <DashboardPage>
+    <DashboardPage maxwidth="1600px">
       <ApplicantionsTable />
     </DashboardPage>
   );
