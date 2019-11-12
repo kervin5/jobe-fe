@@ -4,7 +4,7 @@ import WithAuth from "../../../../components/hoc/WithAuth";
 
 const dashboardApplicationsPerJobPage = props => {
   return (
-    <DashboardPage>
+    <DashboardPage maxwidth="1600px">
       <ApplicantsTable jobId={props.jobId} />
     </DashboardPage>
   );
