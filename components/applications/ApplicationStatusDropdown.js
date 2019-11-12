@@ -2,6 +2,7 @@ import React from "react";
 import { Dropdown } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import { APPLICATION_NOTES_QUERY } from "./ApplicationHistoryFeed";
 
 export const applicationStatusOptions = [
   {
@@ -58,7 +59,10 @@ const JobApplicationStatusDropdown = ({
   return (
     <Mutation
       mutation={UPDATE_APPLICATION_STATUS_MUTATION}
-      refetchQueries={refetchQueries || []}
+      refetchQueries={(refetchQueries || []).concat({
+        query: APPLICATION_NOTES_QUERY,
+        variables: { id: applicationId }
+      })}
     >
       {(changeApplicationStatusMutation, { error, loading, data }) => {
         return (

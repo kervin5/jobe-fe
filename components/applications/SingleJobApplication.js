@@ -9,6 +9,7 @@ export const SINGLE_JOB_APPLICATION_QUERY = gql`
   query SINGLE_JOB_APPLICATION_QUERY($id: ID!) {
     application(where: { id: $id }) {
       id
+      status
       job {
         id
         title

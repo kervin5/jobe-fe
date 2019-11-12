@@ -42,6 +42,7 @@
     "react-draft-wysiwyg": "^1.13.2",
     "react-dropzone": "^10.1.8",
     "react-ga": "^2.7.0",
+    "react-hook-form": "^3.26.5",
     "react-no-ssr": "^1.1.0",
     "react-tag-autocomplete": "^5.11.1",
     "redux-devtools-extension": "^2.13.8",
