@@ -160,7 +160,7 @@ const inputField = props => {
           color: ${props.boldLabel
             ? variables.clearColor
             : variables.darkColor};
-          text-shadow: 1px 2px 3px #666;
+          text-shadow: ${props.boldLabel ? "1px 2px 3px #666" : "none"}; 
         }
 
         .InputContainer {
