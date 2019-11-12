@@ -77,6 +77,12 @@ const ALL_APPLICATIONS_QUERY = gql`
           id
           name
         }
+
+        author {
+          id
+          name
+          email
+        }
       }
     }
   }
@@ -242,7 +248,9 @@ const ApplicantTable = props => {
                     ),
                     location: application.job.location.name,
                     branch: application.job.branch.name,
+                    owner: application.job.author.email,
                     applied: moment(application.createdAt).format("MM/DD/YYYY"),
+
                     email: (
                       <a href={`mailto:${application.user.email}`}>
                         {application.user.email}
