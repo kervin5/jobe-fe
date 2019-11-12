@@ -27,11 +27,11 @@ const EempactStatusLabel = ({ email }) => {
   }, []);
 
   useEffect(() => {
-    console.log("effect");
     if (loading) {
       setLabel("Loading");
     } else if (data && data.user) {
-      if (data.assigments > 0) {
+      console.log(data.assignments);
+      if (data.assignments > 0) {
         setLabel(
           <>
             <Label color="green">
