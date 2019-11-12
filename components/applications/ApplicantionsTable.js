@@ -256,7 +256,6 @@ const ApplicantTable = props => {
                         {application.user.email}
                       </a>
                     ),
-
                     status: (
                       <ApplicationStatusDropdown
                         applicationId={application.id}
