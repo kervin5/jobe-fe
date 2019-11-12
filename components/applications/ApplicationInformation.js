@@ -5,6 +5,7 @@ import { Loader, Tab } from "semantic-ui-react";
 import { Query } from "react-apollo";
 import variables from "../common/globalVariables";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
+import OtherApplicationsList from "./OtherApplicationsList";
 import { SINGLE_JOB_APPLICATION_QUERY } from "./SingleJobApplication";
 import Title from "../common/UI/Title";
 
@@ -38,7 +39,14 @@ const ApplicationInformation = ({ applicationId }) => {
             },
             {
               menuItem: "Other Applications",
-              render: () => <Tab.Pane>Tab 2 Content</Tab.Pane>
+              render: () => (
+                <Tab.Pane>
+                  <OtherApplicationsList
+                    applicationId={applicationId}
+                    userId={data.application.user.id}
+                  />
+                </Tab.Pane>
+              )
             }
           ];
           return (
