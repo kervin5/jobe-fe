@@ -3,10 +3,24 @@ import { Mutation } from "react-apollo";
 import { Button, Placeholder, Loader, Input } from "semantic-ui-react";
 import gql from "graphql-tag";
 
+// const DELETE_JOB_MUTATION = gql`
+//   mutation DELETE_JOB_MUTATIO($jobId: ID!) {
+//     deleteJob(id: $jobId) {
+//       id
+//     }
+//   }
+// `;
+
 const DELETE_JOB_MUTATION = gql`
-  mutation DELETE_JOB_MUTATIO($jobId: ID!) {
-    deleteJob(id: $jobId) {
+  mutation POST_JOB_MUTATION($jobId: ID!) {
+    updateJob(
+      where: { id: $jobId }
+
+      data: { status: DELETED }
+    ) {
       id
+      title
+      status
     }
   }
 `;
