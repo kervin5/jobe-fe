@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dropdown } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
@@ -56,6 +56,7 @@ const JobApplicationStatusDropdown = ({
   refetchQueries,
   absolute
 }) => {
+  const [currentStatus, setCurrentStatus] = useState(status || "NEW");
   return (
     <Mutation
       mutation={UPDATE_APPLICATION_STATUS_MUTATION}
@@ -76,12 +77,13 @@ const JobApplicationStatusDropdown = ({
               placeholder="Application Status"
               selection
               options={applicationStatusOptions}
-              defaultValue={status || "NEW"}
-              onChange={(e, data) =>
+              value={status}
+              onChange={(e, data) => {
+                setCurrentStatus(data.value);
                 changeApplicationStatusMutation({
                   variables: { id: applicationId, status: data.value }
-                })
-              }
+                });
+              }}
             />
             <style jsx>{`
               .ApplicationStatusDropdown {
