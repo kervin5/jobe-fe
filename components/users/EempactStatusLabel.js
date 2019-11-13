@@ -67,7 +67,7 @@ const EempactStatusLabel = ({ email }) => {
     } else if (error) {
       setLabel("Unable to check");
     } else {
-      console.log("test");
+      // console.log("no data");
     }
   }, [data, loading, error]);
 

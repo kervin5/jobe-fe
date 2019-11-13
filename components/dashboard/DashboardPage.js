@@ -57,7 +57,14 @@ const dashboardPage = props => {
           {props.children}
           <style jsx>{`
             .PageContent {
-              padding-left: 55px;
+              overflow-x: scroll;
+              overflow-y: hidden;
+            }
+
+            @media (max-width: 1800px) {
+              .PageContent {
+                padding-left: 100px;
+              }
             }
           `}</style>
         </div>

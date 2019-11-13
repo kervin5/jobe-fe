@@ -78,6 +78,7 @@ const JobApplicationStatusDropdown = ({
               selection
               options={applicationStatusOptions}
               value={status}
+              fluid
               onChange={(e, data) => {
                 setCurrentStatus(data.value);
                 changeApplicationStatusMutation({
@@ -87,7 +88,7 @@ const JobApplicationStatusDropdown = ({
             />
             <style jsx>{`
               .ApplicationStatusDropdown {
-                min-width: 150px;
+                min-width: 100px;
                 display: inline-block;
                 position: ${absolute ? "absolute" : "static"};
                 top: 0;
