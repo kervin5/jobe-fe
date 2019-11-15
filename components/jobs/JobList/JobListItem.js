@@ -45,7 +45,9 @@ const jobListItem = props => {
           </p>
         </div>
         <div className="JobListItemMainInfo">
-          <Bubble color="1">${props.compensation}</Bubble>
+          <Bubble color="1">
+            {props.compensation > 0 ? "$" + props.compensation : "DOE"}
+          </Bubble>
           <Bubble color="2">
             <Translator>{props.type}</Translator>
           </Bubble>
