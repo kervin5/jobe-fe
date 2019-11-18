@@ -28,7 +28,9 @@ const JobListingHeader = props => (
       <div className="JobListingJobType">
         <Bubble color="1">
           {props.minCompensation > 0 && props.maxCompensation > 0
-            ? `$${props.minCompensation}-${props.maxCompensation}`
+            ? `$${parseFloat(props.minCompensation).toFixed(2)}-${parseFloat(
+                props.maxCompensation
+              ).toFixed(2)}`
             : "DOE"}
         </Bubble>
         <Bubble color="2">
