@@ -9,12 +9,14 @@ const LocationInput = ({
   options,
   label,
   onSearchChange,
-  multiple
+  multiple,
+  loading
 }) => {
   return (
     <div className={`field ${error ? "error" : ""}`}>
       <label htmlFor={name}>{label}</label>
       <Dropdown
+        loading={loading}
         id={name}
         placeholder={placeholder}
         fluid

@@ -45,6 +45,7 @@ const LocationInput = ({ placeholder, onChange, error, name, label }) => {
         }
         return (
           <Dropdown
+            loading={loading}
             placeholder={placeholder}
             onChange={onChange}
             error={error}

@@ -55,6 +55,7 @@ const LocationInput = ({
             error={error}
             name={name}
             label={label}
+            loading={loading}
             onSearchChange={handleSearchChange}
             options={format(fetchedOptions, {
               id: "id",

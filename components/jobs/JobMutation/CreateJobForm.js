@@ -56,24 +56,24 @@ const FormExampleFieldError = () => {
   console.log(errors);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <Form.Group widths="equal">
-        <Form.Input
-          name="jobTitle"
-          fluid
-          label="Job Title"
-          placeholder="Warehouse Manager"
-          onChange={handleInputChange}
-          error={errors.jobTitle ? true : false}
-        />
+    <Form onSubmit={handleSubmit(onSubmit)} size={"large"}>
+      <Form.Input
+        name="jobTitle"
+        fluid
+        label="Job Title"
+        placeholder="Warehouse Manager"
+        onChange={handleInputChange}
+        error={errors.jobTitle ? true : false}
+      />
+      <div className="field">
         <Checkbox
           toggle
-          label="Featured Job"
+          label="Recurring Job"
           onChange={handleInputChange}
           error={errors.jobIsRecurring ? "true" : "false"}
           name="jobIsRecurring"
         />
-      </Form.Group>
+      </div>
 
       <LocationInput
         name="jobLocation"

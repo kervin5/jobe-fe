@@ -1,4 +1,3 @@
-import JobCreatorForm from "../../../components/jobs/JobMutation/JobCreatorForm";
 import DashboardPage from "../../../components/dashboard/DashboardPage";
 import WithAuth from "../../../components/hoc/WithAuth";
 import CreateJobForm from "../../../components/jobs/JobMutation/CreateJobForm";
@@ -6,7 +5,6 @@ import CreateJobForm from "../../../components/jobs/JobMutation/CreateJobForm";
 const newJobPage = props => {
   return (
     <DashboardPage nooverflow maxwidth="920px">
-      {/* <JobCreatorForm /> */}
       <CreateJobForm />
     </DashboardPage>
   );
