@@ -19,20 +19,26 @@ const LocationInput = ({
   name,
   label,
   graphql,
-  multiple
+  multiple,
+  defaultValue
 }) => {
   const [query, setQuery] = useState("");
   const [fetchedOptions, setFetchedOptions] = useState([]);
   const propsError = error;
 
   const handleSearchChange = (e, { searchQuery }) => {
-    setQuery(searchQuery);
+    // setQuery(searchQuery); TODO: Implement dynamic options fetch
   };
 
   const handleChangeOfOptions = options => {
     if (options.length > 0) {
       setFetchedOptions(options);
     }
+  };
+
+  const onChangeHandler = (e, data) => {
+    // console.log({e,data});
+    onChange(e, data);
   };
 
   return (
@@ -51,7 +57,7 @@ const LocationInput = ({
           <Dropdown
             multiple={multiple}
             placeholder={placeholder}
-            onChange={onChange}
+            onChange={onChangeHandler}
             error={error}
             name={name}
             label={label}
@@ -63,6 +69,7 @@ const LocationInput = ({
               text: "name"
             })}
             error={propsError}
+            defaultValue={defaultValue}
           />
         );
       }}

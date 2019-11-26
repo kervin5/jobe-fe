@@ -5,11 +5,11 @@ const JoditEditor = dynamic(() => import("jodit-react"), {
   ssr: false
 });
 
-export default class Example extends Component {
+export default class RichTextEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: ""
+      content: props.defaultValue || ""
     };
   }
 

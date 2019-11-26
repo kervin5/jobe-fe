@@ -10,7 +10,9 @@ const LocationInput = ({
   label,
   onSearchChange,
   multiple,
-  loading
+  loading,
+  defaultValue,
+  defaultSearchQuery
 }) => {
   return (
     <div className={`field ${error ? "error" : ""}`}>
@@ -26,6 +28,8 @@ const LocationInput = ({
         options={options}
         onSearchChange={onSearchChange}
         multiple={multiple}
+        defaultValue={defaultValue}
+        defaultSearchQuery={defaultSearchQuery}
       />
     </div>
   );

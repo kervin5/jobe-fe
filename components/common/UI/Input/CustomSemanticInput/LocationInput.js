@@ -21,7 +21,14 @@ const formatLocations = locations => {
   }));
 };
 
-const LocationInput = ({ placeholder, onChange, error, name, label }) => {
+const LocationInput = ({
+  placeholder,
+  onChange,
+  error,
+  name,
+  label,
+  defaultValue
+}) => {
   const [query, setQuery] = useState("");
   const [fetchedOptions, setFetchedOptions] = useState([]);
   const propsError = error;
@@ -54,6 +61,8 @@ const LocationInput = ({ placeholder, onChange, error, name, label }) => {
             onSearchChange={handleSearchChange}
             options={formatLocations(fetchedOptions)}
             error={propsError}
+            defaultValue={defaultValue}
+            defaultSearchQuery={defaultValue}
           />
         );
       }}
