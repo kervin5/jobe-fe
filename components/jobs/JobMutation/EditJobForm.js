@@ -183,7 +183,7 @@ const EditJobForm = ({ data, jobId }) => {
                 onSubmit(touchedFields, updateJobMutation, event)
               )}
               size={"large"}
-              loading={mutationState.loading || mutationState.data}
+              loading={mutationState.loading || !!mutationState.data}
             >
               <ErrorMessage error={mutationState.error} />
               <Form.Input
