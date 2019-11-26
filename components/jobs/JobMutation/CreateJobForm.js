@@ -22,7 +22,7 @@ const CREATE_JOB_MUTATION = gql`
     $skills: [String!]!
     $type: String!
     $minCompensation: Float!
-    $maxCompensation: Float!
+    $maxCompensation: Float
     $compensationType: String!
     $author: String
   ) {
@@ -70,7 +70,7 @@ const FormExampleFieldError = () => {
     register({ name: "jobTitle" }, { required: true });
     register({ name: "jobLocation" }, { required: true });
     register({ name: "jobMinCompensation" }, { required: true });
-    register({ name: "jobMaxCompensation" }, { required: true });
+    register({ name: "jobMaxCompensation" });
     register({ name: "jobCompensationType" }, { required: true });
     register({ name: "jobCategories" }, { required: true });
     register({ name: "jobType" }, { required: true });

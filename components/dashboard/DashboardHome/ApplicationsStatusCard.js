@@ -4,7 +4,7 @@ import CounterCard from "../../common/UI/CounterCard";
 
 const APPLICATION_STATUS_QUERY = gql`
   query APPLICATION_STATUS_QUERY {
-    applicationsConnection {
+    applicationsConnection(where: { status_not: NEW }) {
       aggregate {
         count
       }

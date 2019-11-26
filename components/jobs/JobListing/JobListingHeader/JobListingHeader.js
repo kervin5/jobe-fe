@@ -6,6 +6,7 @@ import Title from "../../../common/UI/Title";
 import FavoriteButton from "../../../common/UI/FavoriteButton";
 import PrompToRegister from "../../../users/PrompToRegister";
 import Translator from "../../../hoc/Translator";
+import JobCompensationBubbles from "../../JobCompensationBubbles";
 
 const jobListingTitleStyles = `color: ${variables.clearColor};`;
 const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
@@ -26,13 +27,10 @@ const JobListingHeader = props => (
     </Title>
     <div className="JobListingHeaderBar">
       <div className="JobListingJobType">
-        <Bubble color="1">
-          {props.minCompensation > 0 && props.maxCompensation > 0
-            ? `$${parseFloat(props.minCompensation).toFixed(2)}-${parseFloat(
-                props.maxCompensation
-              ).toFixed(2)}`
-            : "DOE"}
-        </Bubble>
+        <JobCompensationBubbles
+          minCompensation={props.minCompensation}
+          maxCompensation={props.maxCompensation}
+        />
         <Bubble color="2">
           <Translator>{props.type}</Translator>
         </Bubble>

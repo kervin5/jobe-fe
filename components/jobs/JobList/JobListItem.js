@@ -9,6 +9,7 @@ import Card from "../../common/UI/Card";
 import HtmlRenderer from "../../common/UI/HtmlRenderer";
 import PrompToRegister from "../../users/PrompToRegister";
 import Translator from "../../hoc/Translator";
+import { numberWithCommas } from "../JobCompensationBubbles";
 
 const styles = ` background-color: ${variables.clearColor};
                 margin: 20px auto;
@@ -47,7 +48,8 @@ const jobListItem = props => {
         <div className="JobListItemMainInfo">
           <Bubble color="1">
             {props.compensation > 0
-              ? "$" + parseFloat(props.compensation).toFixed(2)
+              ? "$" +
+                numberWithCommas(parseFloat(props.compensation).toFixed(2))
               : "DOE"}
           </Bubble>
           <Bubble color="2">

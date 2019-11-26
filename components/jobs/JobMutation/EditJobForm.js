@@ -108,10 +108,7 @@ const EditJobForm = ({ data, jobId }) => {
       { name: "jobMinCompensation", value: data.minCompensation },
       { required: true }
     );
-    register(
-      { name: "jobMaxCompensation", value: data.maxCompensation },
-      { required: true }
-    );
+    register({ name: "jobMaxCompensation", value: data.maxCompensation });
     register(
       { name: "jobCompensationType", value: data.compensationType },
       { required: true }
