@@ -57,8 +57,8 @@ const dashboardPage = props => {
           {props.children}
           <style jsx>{`
             .PageContent {
-              overflow-x: scroll;
-              overflow-y: hidden;
+              overflow-x: ${props.nooverflow ? "initial" : "auto"};
+              overflow-y: ${props.nooverflow ? "initial" : "hidden"};
             }
 
             @media (max-width: 1800px) {
