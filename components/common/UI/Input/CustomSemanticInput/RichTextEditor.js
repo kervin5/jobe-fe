@@ -13,6 +13,10 @@ export default class RichTextEditor extends Component {
     };
   }
 
+  shouldComponentUpdate() {
+    return false;
+  }
+
   updateContent = value => {
     this.props.onChange(null, { name: this.props.name, value });
     this.setState({ content: value });

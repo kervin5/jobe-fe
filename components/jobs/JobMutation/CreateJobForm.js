@@ -132,7 +132,7 @@ const FormExampleFieldError = () => {
                 onSubmit(data, createJobMutation, event)
               )}
               size={"large"}
-              loading={loading || data}
+              loading={loading || !!data}
             >
               <ErrorMessage error={error} />
               <Form.Input
