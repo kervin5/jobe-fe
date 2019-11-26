@@ -29,7 +29,7 @@ export default class RichTextEditor extends Component {
   };
   render() {
     return (
-      <div className="field">
+      <div className="field JoditEditor">
         <label>{this.props.label}</label>
         <JoditEditor
           editorRef={this.setRef}
@@ -37,6 +37,11 @@ export default class RichTextEditor extends Component {
           config={this.config}
           onChange={this.updateContent}
         />
+        <style jsx>{`
+          .JoditEditor :global(.jodit_wysiwyg ul, .jodit_wysiwyg ol) {
+            padding-left: 40px;
+          }
+        `}</style>
       </div>
     );
   }
