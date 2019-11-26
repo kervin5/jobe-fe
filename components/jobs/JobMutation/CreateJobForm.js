@@ -3,7 +3,7 @@ import { Mutation } from "react-apollo";
 import ErrorMessage from "../../common/UI/ErrorMessage";
 import gql from "graphql-tag";
 import useForm from "react-hook-form";
-import { Form, Button, Checkbox } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
 import Router from "next/router";
 import LocationInput from "../../common/UI/Input/CustomSemanticInput/LocationInput";
 import DropdownGraphqlInput from "../../common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
@@ -25,6 +25,7 @@ const CREATE_JOB_MUTATION = gql`
     $maxCompensation: Float
     $compensationType: String!
     $author: String
+    $isRecurring: Boolean
   ) {
     createJob(
       title: $title
@@ -38,6 +39,7 @@ const CREATE_JOB_MUTATION = gql`
       maxCompensation: $maxCompensation
       compensationType: $compensationType
       author: $author
+      isRecurring: $isRecurring
     ) {
       title
       id
@@ -78,7 +80,7 @@ const FormExampleFieldError = () => {
     register({ name: "jobAuthor" });
     register({ name: "jobDescription" }, { required: true });
     register({ name: "jobDisclaimer" });
-    // register({ name: "jobIsRecurring" });
+    register({ name: "jobIsRecurring" });
   }, []);
 
   const {
@@ -101,7 +103,8 @@ const FormExampleFieldError = () => {
       maxCompensation: parseFloat(data.jobMaxCompensation),
       compensationType: data.jobCompensationType,
       author: data.jobAuthor,
-      disclaimer: data.jobDisclaimer
+      disclaimer: data.jobDisclaimer,
+      isRecurring: data.isRecurring
     };
     const {
       data: { createJob }
@@ -143,15 +146,15 @@ const FormExampleFieldError = () => {
                 onChange={handleInputChange}
                 error={errors.jobTitle ? true : false}
               />
-              {/* <div className="field">
-              <Checkbox
-                toggle
-                label="Recurring Job"
-                onChange={handleInputChange}
-                error={errors.jobIsRecurring ? "true" : "false"}
-                name="jobIsRecurring"
-              />
-            </div> */}
+              <div className="field">
+                <Form.Checkbox
+                  name="jobIsRecurring"
+                  toggle
+                  label="Recurring Job"
+                  onChange={handleInputChange}
+                  error={errors.jobIsRecurring ? true : false}
+                />
+              </div>
 
               <LocationInput
                 name="jobLocation"
