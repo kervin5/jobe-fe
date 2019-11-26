@@ -153,6 +153,15 @@ const EditJobForm = ({ data, jobId }) => {
         fieldName.charAt(0).toLowerCase() + fieldName.slice(1);
       variables[variableName] = data[field];
     }
+
+    if (variables.minCompensation) {
+      variables.minCompensation = parseFloat(variables.minCompensation);
+    }
+
+    if (variables.maxCompensation) {
+      variables.maxCompensation = parseFloat(variables.maxCompensation);
+    }
+
     const {
       data: { updateJob }
     } = await updateJobMutation({ variables: { ...variables, jobId } });
@@ -219,6 +228,7 @@ const EditJobForm = ({ data, jobId }) => {
                   error={errors.jobMinCompensation ? true : false}
                   type="number"
                   defaultValue={data.minCompensation}
+                  step="0.01"
                 />
                 <Form.Input
                   name="jobMaxCompensation"
@@ -229,6 +239,7 @@ const EditJobForm = ({ data, jobId }) => {
                   error={errors.jobMaxCompensation ? true : false}
                   type="number"
                   defaultValue={data.maxCompensation}
+                  step="0.01"
                 />
                 <Form.Select
                   name="jobCompensationType"

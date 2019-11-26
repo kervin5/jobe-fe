@@ -2,6 +2,7 @@ import React from "react";
 import variables from "../../../components/common/globalVariables";
 import Icon from "../../common/UI/Icon";
 import Title from "../../common/UI/Title";
+import Link from "next/link";
 
 const jobListingTitleStyles = `color: ${variables.clearColor};`;
 const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
@@ -9,7 +10,9 @@ const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`
 const JobApplicationHeader = props => (
   <div className="JobApplicationHeader">
     <Title size={"l"} styles={jobListingTitleStyles}>
-      {props.title}
+      <Link href="/jobs/[jid]" as={`/jobs/${props.jobId}`}>
+        <a className="LinkToJob">{props.title}</a>
+      </Link>
     </Title>
     <Title size={"m"} styles={JobListingLocationStyles} weight="400">
       <Icon icon="envelope" /> {props.subtitle}
@@ -24,6 +27,15 @@ const JobApplicationHeader = props => (
         border-top-left-radius: ${variables.roundedRadius};
         z-index: 800;
         position: relative;
+      }
+
+      .JobApplicationHeader a {
+        color: white;
+        transition: 300ms;
+      }
+
+      .JobApplicationHeader a:hover {
+        color: ${variables.accentColor1};
       }
 
       @media only screen and (max-width: 520px) {

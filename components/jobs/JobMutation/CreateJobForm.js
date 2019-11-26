@@ -177,6 +177,7 @@ const FormExampleFieldError = () => {
                   onChange={handleInputChange}
                   error={errors.jobMaxCompensation ? true : false}
                   type="number"
+                  step="0.01"
                 />
                 <Form.Select
                   name="jobCompensationType"

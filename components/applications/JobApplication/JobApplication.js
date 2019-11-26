@@ -11,6 +11,7 @@ const JobApplication = props => {
       <JobApplicationHeader
         title={`${props.data.job.title} in ${props.data.job.location.name}`}
         subtitle={props.data.user.email}
+        jobId={props.data.job.id}
       />
 
       <div className="Body">
