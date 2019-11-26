@@ -3,11 +3,14 @@ import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Form, Button, Checkbox, Loader } from "semantic-ui-react";
 import useForm from "react-hook-form";
+import Router from "next/router";
 import ErrorMessage from "../../common/UI/ErrorMessage";
 import LocationInput from "../../common/UI/Input/CustomSemanticInput/LocationInput";
 import DropdownGraphqlInput from "../../common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
 import RichTextEditor from "../../common/UI/Input/CustomSemanticInput/RichTextEditor";
 import TextArea from "../../common/UI/Input/CustomSemanticInput/TextArea";
+import AuthorDropdown from "../../common/UI/Input/CustomSemanticInput/AuthorDropdown";
+import Title from "../../common/UI/Title";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
   query SINGLE_JOB_ALL_DATA_QUERY($id: ID!) {
@@ -125,16 +128,13 @@ const EditJobForm = ({ data, jobId }) => {
       { name: "jobSkills", value: data.skills.map(skill => skill.id) },
       { required: true }
     );
-    register({ name: "jobAuthor", value: data.author.id }, { required: true });
+    register({ name: "jobAuthor", value: data.author.id });
     register(
       { name: "jobDescription", value: data.description },
       { required: true }
     );
-    register(
-      { name: "jobDisclaimer", value: data.disclaimer },
-      { required: true }
-    );
-    register({ name: "jobIsRecurring" });
+    register({ name: "jobDisclaimer", value: data.disclaimer });
+    // register({ name: "jobIsRecurring" });
   }, []);
 
   const {
@@ -156,7 +156,13 @@ const EditJobForm = ({ data, jobId }) => {
         fieldName.charAt(0).toLowerCase() + fieldName.slice(1);
       variables[variableName] = data[field];
     }
-    await updateJobMutation({ variables: { ...variables, jobId } });
+    const {
+      data: { updateJob }
+    } = await updateJobMutation({ variables: { ...variables, jobId } });
+
+    if (updateJob) {
+      Router.push("/dashboard/jobs/preview/" + updateJob.id);
+    }
   };
 
   const handleInputChange = async (e, { name, value }) => {
@@ -166,27 +172,30 @@ const EditJobForm = ({ data, jobId }) => {
   };
 
   return (
-    <Mutation mutation={UPDATE_JOB_MUTATION}>
-      {(updateJobMutation, { error, loading }) => {
-        return (
-          <Form
-            onSubmit={handleSubmit((data, event) =>
-              onSubmit(touchedFields, updateJobMutation, event)
-            )}
-            size={"large"}
-            loading={loading}
-          >
-            <ErrorMessage error={error} />
-            <Form.Input
-              name="jobTitle"
-              fluid
-              label="Job Title"
-              placeholder="Warehouse Manager"
-              onChange={handleInputChange}
-              error={errors.jobTitle ? true : false}
-              defaultValue={data.title}
-            />
-            <div className="field">
+    <>
+      <Title size={"l"}>Edit Job</Title>
+      <p className={"Instructions"}>Enter the job details</p>
+      <Mutation mutation={UPDATE_JOB_MUTATION}>
+        {(updateJobMutation, mutationState) => {
+          return (
+            <Form
+              onSubmit={handleSubmit((data, event) =>
+                onSubmit(touchedFields, updateJobMutation, event)
+              )}
+              size={"large"}
+              loading={mutationState.loading || mutationState.data}
+            >
+              <ErrorMessage error={mutationState.error} />
+              <Form.Input
+                name="jobTitle"
+                fluid
+                label="Job Title"
+                placeholder="Warehouse Manager"
+                onChange={handleInputChange}
+                error={errors.jobTitle ? true : false}
+                defaultValue={data.title}
+              />
+              {/* <div className="field">
               <Checkbox
                 toggle
                 label="Recurring Job"
@@ -195,120 +204,123 @@ const EditJobForm = ({ data, jobId }) => {
                 name="jobIsRecurring"
                 defaultValue={false}
               />
-            </div>
+            </div> */}
 
-            <LocationInput
-              name="jobLocation"
-              onChange={handleInputChange}
-              error={errors.jobLocation ? true : false}
-              defaultValue={data.location.name}
-            />
-            <Form.Group widths="equal">
-              <Form.Input
-                name="jobMinCompensation"
-                fluid
-                label="Minimum Compensation"
-                placeholder="10.99"
+              <LocationInput
+                name="jobLocation"
                 onChange={handleInputChange}
-                error={errors.jobMinCompensation ? true : false}
-                type="number"
-                defaultValue={data.minCompensation}
+                error={errors.jobLocation ? true : false}
+                defaultValue={data.location.name}
               />
-              <Form.Input
-                name="jobMaxCompensation"
-                fluid
-                label="Maximum Compensation"
-                placeholder="20.99"
+              <Form.Group widths="equal">
+                <Form.Input
+                  name="jobMinCompensation"
+                  fluid
+                  label="Minimum Compensation"
+                  placeholder="10.99"
+                  onChange={handleInputChange}
+                  error={errors.jobMinCompensation ? true : false}
+                  type="number"
+                  defaultValue={data.minCompensation}
+                />
+                <Form.Input
+                  name="jobMaxCompensation"
+                  fluid
+                  label="Maximum Compensation"
+                  placeholder="20.99"
+                  onChange={handleInputChange}
+                  error={errors.jobMaxCompensation ? true : false}
+                  type="number"
+                  defaultValue={data.maxCompensation}
+                />
+                <Form.Select
+                  name="jobCompensationType"
+                  options={compensationTypeOptions}
+                  label="Compensation Type"
+                  placeholder="Select an option"
+                  onChange={handleInputChange}
+                  error={errors.jobCompensationType ? true : false}
+                  defaultValue={data.compensationType}
+                />
+              </Form.Group>
+
+              <DropdownGraphqlInput
                 onChange={handleInputChange}
-                error={errors.jobMaxCompensation ? true : false}
-                type="number"
-                defaultValue={data.maxCompensation}
+                name="jobCategories"
+                label="Job Categories"
+                placeholder="Select a category"
+                multiple
+                graphql={{
+                  query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name_contains: $query}) { id name } }`
+                }}
+                error={errors.jobCategories ? true : false}
+                defaultValue={data.categories.map(category => category.id)}
               />
               <Form.Select
-                name="jobCompensationType"
-                options={compensationTypeOptions}
-                label="Compensation Type"
+                name="jobType"
+                options={jobTypeOptions}
+                label="Job Type"
                 placeholder="Select an option"
                 onChange={handleInputChange}
-                error={errors.jobCompensationType ? true : false}
-                defaultValue={data.compensationType}
+                error={errors.jobType ? true : false}
+                defaultValue={data.type}
               />
-            </Form.Group>
 
-            <DropdownGraphqlInput
-              onChange={handleInputChange}
-              name="jobCategories"
-              label="Job Categories"
-              placeholder="Select a category"
-              multiple
-              graphql={{
-                query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name_contains: $query}) { id name } }`
-              }}
-              error={errors.jobCategories ? true : false}
-              defaultValue={data.categories.map(category => category.id)}
-            />
-            <Form.Select
-              name="jobType"
-              options={jobTypeOptions}
-              label="Job Type"
-              placeholder="Select an option"
-              onChange={handleInputChange}
-              error={errors.jobType ? true : false}
-              defaultValue={data.type}
-            />
+              <DropdownGraphqlInput
+                onChange={handleInputChange}
+                name="jobSkills"
+                label="Job Skills"
+                placeholder="Select at least one skill"
+                multiple
+                graphql={{
+                  query: `query ALL_SKILLS( $query: String! ) { skills(where: {name_contains: $query} orderBy: name_ASC) { id name } }`
+                }}
+                error={errors.jobSkills ? true : false}
+                defaultValue={data.skills.map(skill => skill.id)}
+              />
 
-            <DropdownGraphqlInput
-              onChange={handleInputChange}
-              name="jobSkills"
-              label="Job Skills"
-              placeholder="Select at least one skill"
-              multiple
-              graphql={{
-                query: `query ALL_SKILLS( $query: String! ) { skills(where: {name_contains: $query} orderBy: name_ASC) { id name } }`
-              }}
-              error={errors.jobSkills ? true : false}
-              defaultValue={data.skills.map(skill => skill.id)}
-            />
+              <AuthorDropdown
+                onChange={handleInputChange}
+                name="jobAuthor"
+                label="Job Author"
+                placeholder="Select an option"
+                error={errors.jobAuthor ? true : false}
+                defaultValue={data.author.id}
+              />
 
-            <DropdownGraphqlInput
-              onChange={handleInputChange}
-              name="jobAuthor"
-              label="Job Author"
-              placeholder="Select an option"
-              graphql={{
-                query: `query ALL_AUTHORS( $query: String! ) { 
-      users(where: { AND: [{role: { name_not: "candidate" }},{name_contains: $query}] }, orderBy: name_ASC) {
-        id
-        email
-        name
-      }
-    } `
-              }}
-              error={errors.jobAuthor ? true : false}
-              defaultValue={data.author.id}
-            />
+              <RichTextEditor
+                name="jobDescription"
+                onChange={handleInputChange}
+                label="Job Description"
+                error={errors.jobDescription ? true : false}
+                defaultValue={data.description}
+              />
 
-            <RichTextEditor
-              name="jobDescription"
-              onChange={handleInputChange}
-              label="Job Description"
-              error={errors.jobDescription ? true : false}
-              defaultValue={data.description}
-            />
-
-            <TextArea
-              placeholder="Leave empty if you want use default disclaimer"
-              label="Job Disclaimer"
-              name={"jobDisclaimer"}
-              onChange={handleInputChange}
-              error={errors.jobDisclaimer ? true : false}
-              defaultValue={data.disclaimer}
-            />
-            <Button type="submit">Save Job</Button>
-          </Form>
-        );
-      }}
-    </Mutation>
+              <TextArea
+                placeholder="Leave empty if you want use default disclaimer"
+                label="Job Disclaimer"
+                name={"jobDisclaimer"}
+                onChange={handleInputChange}
+                error={errors.jobDisclaimer ? true : false}
+                defaultValue={data.disclaimer}
+              />
+              <Button.Group widths="2">
+                <Button
+                  type="button"
+                  size="big"
+                  onClick={() => Router.push("/dashboard")}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" size="big" positive>
+                  Save and Preview
+                </Button>
+              </Button.Group>
+            </Form>
+          );
+        }}
+      </Mutation>
+    </>
   );
 };
 
