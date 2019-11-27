@@ -3,7 +3,7 @@ import { Mutation } from "react-apollo";
 import ErrorMessage from "../../common/UI/ErrorMessage";
 import gql from "graphql-tag";
 import useForm from "react-hook-form";
-import { Form, Button } from "semantic-ui-react";
+import { Form, Button, Checkbox } from "semantic-ui-react";
 import Router from "next/router";
 import LocationInput from "../../common/UI/Input/CustomSemanticInput/LocationInput";
 import DropdownGraphqlInput from "../../common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
@@ -11,6 +11,7 @@ import RichTextEditor from "../../common/UI/Input/CustomSemanticInput/RichTextEd
 import TextArea from "../../common/UI/Input/CustomSemanticInput/TextArea";
 import AuthorDropdown from "../../common/UI/Input/CustomSemanticInput/AuthorDropdown";
 import Title from "../../common/UI/Title";
+import InformationButton from "../../common/UI/InformationButton";
 
 const CREATE_JOB_MUTATION = gql`
   mutation CREATE_JOB_MUTATION(
@@ -115,6 +116,7 @@ const FormExampleFieldError = () => {
   };
 
   const handleInputChange = async (e, data) => {
+    console.log(data);
     if (data.type === "checkbox") {
       setValue(data.name, data.checked);
     } else {
@@ -151,13 +153,13 @@ const FormExampleFieldError = () => {
                 error={errors.jobTitle ? true : false}
               />
               <div className="field">
-                <Form.Checkbox
+                <Checkbox
                   name="jobIsRecurring"
                   toggle
                   label="Recurring Job"
                   onChange={handleInputChange}
-                  error={errors.jobIsRecurring ? true : false}
                 />
+                <InformationButton />
               </div>
 
               <LocationInput
