@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
-import { Form, Button, Checkbox, Loader } from "semantic-ui-react";
+import { Form, Button, Loader } from "semantic-ui-react";
 import useForm from "react-hook-form";
 import Router from "next/router";
 import ErrorMessage from "../../common/UI/ErrorMessage";
@@ -11,6 +11,7 @@ import RichTextEditor from "../../common/UI/Input/CustomSemanticInput/RichTextEd
 import TextArea from "../../common/UI/Input/CustomSemanticInput/TextArea";
 import AuthorDropdown from "../../common/UI/Input/CustomSemanticInput/AuthorDropdown";
 import Title from "../../common/UI/Title";
+import CronJobToggle from "../../jobs/JobMutation/CronJobToggle";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
   query SINGLE_JOB_ALL_DATA_QUERY($id: ID!) {
@@ -211,6 +212,7 @@ const EditJobForm = ({ data, jobId }) => {
                 defaultValue={false}
               />
             </div> */}
+              <CronJobToggle jobId={jobId} />
 
               <LocationInput
                 name="jobLocation"
