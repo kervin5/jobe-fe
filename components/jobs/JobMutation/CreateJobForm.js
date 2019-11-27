@@ -104,7 +104,7 @@ const FormExampleFieldError = () => {
       compensationType: data.jobCompensationType,
       author: data.jobAuthor,
       disclaimer: data.jobDisclaimer,
-      isRecurring: data.isRecurring
+      isRecurring: data.jobIsRecurring
     };
     const {
       data: { createJob }
@@ -114,9 +114,13 @@ const FormExampleFieldError = () => {
     }
   };
 
-  const handleInputChange = async (e, { name, value }) => {
-    setValue(name, value);
-    await triggerValidation({ name });
+  const handleInputChange = async (e, data) => {
+    if (data.type === "checkbox") {
+      setValue(data.name, data.checked);
+    } else {
+      setValue(data.name, data.value);
+    }
+    await triggerValidation({ name: data.name });
   };
 
   // console.log(errors);
