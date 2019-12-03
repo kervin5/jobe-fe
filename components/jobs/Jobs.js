@@ -7,59 +7,36 @@ import Button from "../common/UI/Button";
 import Loader from "../common/UI/Animated/Loader";
 
 // const ALL_JOBS_QUERY = gql`
-//   query ALL_JOBS_QUERY($perPage: Int!, $skip: Int!) {
+//   query ALL_JOBS_QUERY(
+//     $query: String!
+//     $category: String
+//     $perPage: Int!
+//     $skip: Int!
+//   ) {
 //     jobs(
 //       first: $perPage
 //       skip: $skip
-//       orderBy: createdAt_DESC
-//       where: { status: POSTED }
+//       orderBy: updatedAt_DESC
+//       where: {
+//         title_contains: $query
+//         categories_some: { name_contains: $category }
+//       }
 //     ) {
 //       id
 //       title
 //       description
-//       compensationType
-//       type
 //       minCompensation
 //       maxCompensation
+//       type
 //       createdAt
+//       updatedAt
 //       location {
+//         id
 //         name
 //       }
 //     }
 //   }
 // `;
-
-const ALL_JOBS_QUERY = gql`
-  query ALL_JOBS_QUERY(
-    $query: String!
-    $category: String
-    $perPage: Int!
-    $skip: Int!
-  ) {
-    jobs(
-      first: $perPage
-      skip: $skip
-      orderBy: createdAt_DESC
-      where: {
-        title_contains: $query
-        categories_some: { name_contains: $category }
-      }
-    ) {
-      id
-      title
-      description
-      minCompensation
-      maxCompensation
-      type
-      createdAt
-      updatedAt
-      location {
-        id
-        name
-      }
-    }
-  }
-`;
 
 const SEARCH_JOBS_QUERY = gql`
   query SEARCH_JOBS_QUERY(
@@ -80,7 +57,7 @@ const SEARCH_JOBS_QUERY = gql`
       }
       first: $perPage
       skip: $skip
-      orderBy: createdAt_DESC
+      orderBy: updatedAt_DESC
       radius: $radius
     ) {
       id
@@ -101,11 +78,11 @@ const SEARCH_JOBS_QUERY = gql`
 
 class Jobs extends PureComponent {
   render() {
-    let query = ALL_JOBS_QUERY;
+    let query = SEARCH_JOBS_QUERY;
 
-    if ((this.props.q && this.props.location) || this.props.location) {
-      query = SEARCH_JOBS_QUERY;
-    }
+    // if ((this.props.q && this.props.location) || this.props.location) {
+    //   query = SEARCH_JOBS_QUERY;
+    // }
 
     return (
       <div>
@@ -116,7 +93,7 @@ class Jobs extends PureComponent {
             query: this.props.q || "",
             category: this.props.category || "",
             type: this.props.type || "",
-            radius: this.props.radius || 10,
+            radius: this.props.radius || 5,
             perPage,
             skip: 0
           }}
@@ -172,6 +149,10 @@ class Jobs extends PureComponent {
             text-align: center;
             font-weight: bold;
             font-size: 1.2em;
+          }
+
+          div {
+            padding-bottom: 30px;
           }
         `}</style>
       </div>

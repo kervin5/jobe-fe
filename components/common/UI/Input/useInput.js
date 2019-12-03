@@ -21,10 +21,11 @@ const useInput = ({
     required: false,
     minLength: 0,
     maxLength: 9999999,
+    allowed: "all",
     ...validation
   });
 
-  const validate = value => {
+  const validate = async value => {
     const result = validateField(type, value, inputValidation, {
       ...customErrorMessages
     });

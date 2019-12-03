@@ -3,6 +3,8 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import JobListing from "./JobListing";
 import Loader from "../../common/UI/Animated/Loader";
+import SEO from "../../SEO";
+import sanitize from "../../../lib/html";
 
 export const SINGLE_JOB_QUERY = gql`
   query SINGLE_JOB_QUERY($id: ID!) {
@@ -10,6 +12,7 @@ export const SINGLE_JOB_QUERY = gql`
       id
       title
       description
+      disclaimer
       minCompensation
       maxCompensation
       type
@@ -17,6 +20,11 @@ export const SINGLE_JOB_QUERY = gql`
       createdAt
       updatedAt
       categories {
+        id
+        name
+      }
+
+      skills {
         id
         name
       }
@@ -51,17 +59,27 @@ const SingleJobListing = ({ jobId, preview }) => {
         const singleJob = data.job;
 
         return (
-          <JobListing
-            data={{
-              ...singleJob,
-              location: singleJob.location.name,
-              aboutCompany:
-                singleJob.branch.description ||
-                singleJob.branch.company.description,
-              company: singleJob.branch.company.name
-            }}
-            preview={preview || !(singleJob.status === "POSTED")}
-          />
+          <>
+            <SEO
+              description={
+                sanitize(singleJob.description, []).__html.substr(0, 200) +
+                "..."
+              }
+              title={singleJob.title}
+            />
+            <JobListing
+              data={{
+                ...singleJob,
+                location: singleJob.location.name,
+                aboutCompany:
+                  singleJob.disclaimer ||
+                  singleJob.branch.description ||
+                  singleJob.branch.company.description,
+                company: singleJob.branch.company.name
+              }}
+              preview={preview || !(singleJob.status === "POSTED")}
+            />
+          </>
         );
       }}
     </Query>

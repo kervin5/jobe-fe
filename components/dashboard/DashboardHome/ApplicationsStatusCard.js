@@ -4,7 +4,7 @@ import CounterCard from "../../common/UI/CounterCard";
 
 const APPLICATION_STATUS_QUERY = gql`
   query APPLICATION_STATUS_QUERY {
-    applicationsConnection {
+    applicationsConnection(where: { status_not: NEW }) {
       aggregate {
         count
       }
@@ -20,7 +20,7 @@ const ApplicationsStatusCard = props => {
         if (loading) return <p>Loading...</p>;
         return (
           <CounterCard
-            label="Applicants"
+            label="Apps"
             value={data.applicationsConnection.aggregate.count}
             color={props.color}
             icon={props.icon}

@@ -5,14 +5,16 @@ import Icon from "../../../common/UI/Icon";
 import Title from "../../../common/UI/Title";
 import FavoriteButton from "../../../common/UI/FavoriteButton";
 import PrompToRegister from "../../../users/PrompToRegister";
+import Translator from "../../../hoc/Translator";
+import JobCompensationBubbles from "../../JobCompensationBubbles";
 
 const jobListingTitleStyles = `color: ${variables.clearColor};`;
 const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
 
-const header = props => (
-  <div className="header" data-test="job-listing-header">
+const JobListingHeader = props => (
+  <div className="JobListingHeader" data-test="job-listing-header">
     <Title size={"l"} styles={jobListingTitleStyles} data-test="title-section">
-      {props.title}
+      <Translator>{props.title}</Translator>
     </Title>
     <Title
       size={"m"}
@@ -20,15 +22,18 @@ const header = props => (
       weight="400"
       data-test="location-section"
     >
-      <Icon icon="map marker alternate" /> {props.location}
+      <Icon icon="map marker alternate" />{" "}
+      <Translator>{props.location}</Translator>
     </Title>
-
     <div className="JobListingHeaderBar">
       <div className="JobListingJobType">
-        <Bubble color="1">
-          ${props.minCompensation}-{props.maxCompensation}
+        <JobCompensationBubbles
+          minCompensation={props.minCompensation}
+          maxCompensation={props.maxCompensation}
+        />
+        <Bubble color="2">
+          <Translator>{props.type}</Translator>
         </Bubble>
-        <Bubble color="2">{props.type}</Bubble>
       </div>
       {props.hideFavoriteButton ? null : (
         <PrompToRegister>
@@ -37,7 +42,7 @@ const header = props => (
       )}
     </div>
     <style jsx>{`
-      .header {
+      .JobListingHeader {
         width: 100%;
         max-width: 1200px;
         padding: 40px;
@@ -45,6 +50,7 @@ const header = props => (
         border-top-right-radius: 30px;
         border-top-left-radius: ${variables.roundedRadius};
         z-index: 800;
+        position: relative;
       }
 
       .JobListingHeaderBar {
@@ -54,14 +60,14 @@ const header = props => (
       }
 
       @media only screen and (max-width: 520px) {
-        .header {
+        .JobListingHeader {
           width: 100%;
           padding: 40px 40px;
           border-top-right-radius: 0px;
           border-top-left-radius: 0px;
         }
 
-        .header p {
+        .JobListingHeader p {
           padding-bottom: 30px;
         }
       }
@@ -69,4 +75,4 @@ const header = props => (
   </div>
 );
 
-export default header;
+export default JobListingHeader;

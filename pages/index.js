@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PageTitle from "../components/common/Layout/PageTitle";
-
+import SEO from "../components/SEO";
 import UserLocator from "../data/UserLocator";
 import variables from "../components/common/globalVariables.js";
 
@@ -35,8 +34,12 @@ const homePage = props => {
 
   return (
     <PageSection className="HomePage" column nopadding data-test="indexPage">
-      <PageTitle title="Home Page" />
+      <SEO
+        description="Start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for so Apply Today!"
+        title="Exact Staff National Job Board: Find a Job Today! "
+      />
       <DynamicImageBg
+        staticImage
         query={
           userLocation.name !== "Loading..."
             ? userLocation.country || userLocation.name
@@ -52,7 +55,7 @@ const homePage = props => {
       </DynamicImageBg>
       <Container>
         <Title size={"l"} center margin>
-          What's Poppin' 😎
+          What's Trending 😎
         </Title>
         <PopularTerms />
         <Title size={"l"} center margin>

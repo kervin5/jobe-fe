@@ -20,7 +20,8 @@ const inputField = props => {
   const validation = {
     required: props.required || false,
     minLength: props.minLength || 0,
-    maxLength: props.maxLength || 9999999
+    maxLength: props.maxLength || 9999999,
+    allowed: props.allowed || "all"
   };
   // const [fieldName, setFieldName] = useState(props.value || "");
   let FieldToRender = null;
@@ -115,17 +116,6 @@ const inputField = props => {
         {...validation}
       />
     );
-  } else if (props.type === "richTextLimited") {
-    FieldToRender = (
-      <RichTextInputField
-        placeholder={props.placeholder}
-        toolbarOptions={["list", "emoji", "remove", "history"]}
-        change={changeHandler}
-        validate={props.validate}
-        value={props.value}
-        {...validation}
-      />
-    );
   } else if (props.type === "tags") {
     FieldToRender = (
       <TagsInputField
@@ -146,7 +136,12 @@ const inputField = props => {
   ].join(" ");
 
   return (
-    <div className="InputField">
+    <div
+      className="InputField"
+      onKeyPress={e => {
+        e.key === "Enter" && e.preventDefault();
+      }}
+    >
       <label>{props.label}</label>
       <div className={inputClasses}>
         {props.type !== "textarea" ? inputOrnaments : null}
@@ -161,7 +156,11 @@ const inputField = props => {
 
         .InputField label {
           font-weight: bold;
-          font-size: 1.1rem;
+          font-size: ${props.boldLabel ? "1.8rem" : "1.1rem"};
+          color: ${props.boldLabel
+            ? variables.clearColor
+            : variables.darkColor};
+          text-shadow: ${props.boldLabel ? "1px 2px 3px #666" : "none"}; 
         }
 
         .InputContainer {

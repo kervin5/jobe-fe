@@ -1,7 +1,6 @@
 import React from "react";
 import { List, Button, Icon } from "semantic-ui-react";
 import moment from "moment";
-import Title from "../UI/Title";
 
 const resumeList = props => {
   return (
@@ -30,7 +29,7 @@ const resumeList = props => {
                   color="green"
                 >
                   <Icon name="download" />
-                  Download
+                  View
                 </Button>
               </List.Content>
             </List.Item>

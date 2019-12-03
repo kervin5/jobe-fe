@@ -4,6 +4,9 @@ import { Mutation, Query } from "react-apollo";
 import JobMutationBaseForm from "./JobMutationBaseForm";
 import Title from "../../common/UI/Title";
 import JobPreview from "../../jobs/JobMutation/JobPreview";
+import { USER_JOBS_QUERY } from "../JobsTable";
+import { perPage } from "../../../config";
+import ErrorMessage from "../../common/UI/ErrorMessage";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
   query SINGLE_JOB_ALL_DATA_QUERY($id: ID!) {
@@ -11,10 +14,15 @@ const SINGLE_JOB_ALL_DATA_QUERY = gql`
       id
       title
       description
+      disclaimer
       minCompensation
       maxCompensation
       compensationType
       type
+      author {
+        id
+        email
+      }
       skills {
         id
         name
@@ -39,6 +47,7 @@ const UPDATE_JOB_MUTATION = gql`
     $jobId: ID!
     $title: String
     $description: String
+    $disclaimer: String
     $type: String
     $compensationType: String
     $maxCompensation: Float
@@ -46,6 +55,7 @@ const UPDATE_JOB_MUTATION = gql`
     $location: LocationCreateWithoutJobsInput
     $categories: [String!]
     $skills: [String!]
+    $author: String
   ) {
     updateJob(
       where: { id: $jobId }
@@ -54,12 +64,14 @@ const UPDATE_JOB_MUTATION = gql`
         title: $title
         compensationType: $compensationType
         description: $description
+        disclaimer: $disclaimer
         type: $type
         maxCompensation: $maxCompensation
         minCompensation: $minCompensation
         location: { create: $location }
         categories: $categories
         skills: $skills
+        author: $author
       }
     ) {
       id
@@ -72,7 +84,18 @@ const JobEditorForm = props => {
   const [formData, setFormData] = useState({});
 
   return (
-    <Query query={SINGLE_JOB_ALL_DATA_QUERY} variables={{ id: props.jobId }}>
+    <Query
+      query={SINGLE_JOB_ALL_DATA_QUERY}
+      variables={{ id: props.jobId }}
+      refetchQueries={[
+        {
+          query: USER_JOBS_QUERY,
+          variables: perPage,
+          skip: 0,
+          query: ""
+        }
+      ]}
+    >
       {({ error, loading, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Something went wrong</p>;
@@ -84,13 +107,13 @@ const JobEditorForm = props => {
             variables={{ jobId: props.jobId, ...formData }}
           >
             {(EditJobMutation, { error, loading, data }) => {
-              if (error) return <p>Something went wrong</p>;
               if (loading) return <p>Processing</p>;
               if (data) return <JobPreview jobId={data.updateJob.id} />;
               return (
                 <React.Fragment>
                   <Title size={props.smallTitle ? "m" : "l"}>Edit Job</Title>
                   <p className={"Instructions"}>Enter the job details</p>
+                  {error && <ErrorMessage error={error} />}
                   <JobMutationBaseForm
                     mutation={{
                       execute: EditJobMutation,
@@ -138,6 +161,9 @@ const formatFormData = jobQueryData => {
     },
     skills: {
       value: jobQueryData.skills
+    },
+    author: {
+      value: jobQueryData.author.id
     }
   };
   return formData;

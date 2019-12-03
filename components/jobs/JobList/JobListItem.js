@@ -8,6 +8,8 @@ import FavoriteButton from "../../common/UI/FavoriteButton";
 import Card from "../../common/UI/Card";
 import HtmlRenderer from "../../common/UI/HtmlRenderer";
 import PrompToRegister from "../../users/PrompToRegister";
+import Translator from "../../hoc/Translator";
+import { numberWithCommas } from "../JobCompensationBubbles";
 
 const styles = ` background-color: ${variables.clearColor};
                 margin: 20px auto;
@@ -34,7 +36,9 @@ const jobListItem = props => {
       <div className="JobListItemHeader">
         <div>
           <Link href="/jobs/[jid]" as={jobUrl}>
-            <a className="JobTitle">{props.title}</a>
+            <a className="JobTitle">
+              <Translator>{props.title}</Translator>
+            </a>
           </Link>
           <p className="Location">
             <Icon icon="marker" size="sm" className="LocationIcon" />{" "}
@@ -42,16 +46,25 @@ const jobListItem = props => {
           </p>
         </div>
         <div className="JobListItemMainInfo">
-          <Bubble color="1">${props.compensation}</Bubble>
-          <Bubble color="2">{props.type}</Bubble>
+          <Bubble color="1">
+            {props.compensation > 0
+              ? "$" +
+                numberWithCommas(parseFloat(props.compensation).toFixed(2))
+              : "DOE"}
+          </Bubble>
+          <Bubble color="2">
+            <Translator>{props.type}</Translator>
+          </Bubble>
         </div>
       </div>
       <Link href="/jobs/[jid]" as={jobUrl}>
         <a className="Content">
-          <HtmlRenderer
-            html={props.description.substr(0, 200) + "..."}
-            options={["p"]}
-          />
+          <Translator>
+            <HtmlRenderer
+              html={props.description.substr(0, 200) + "..."}
+              options={[]}
+            />
+          </Translator>
         </a>
       </Link>
 

@@ -49,13 +49,7 @@ const RichTextInputField = props => {
       setRichTextFieldState(richTextFieldState.value);
       props.change({ ...richTextFieldState, touched });
     }
-  }, [
-    touched,
-    props.validate,
-    richTextFieldState.valid,
-    richTextFieldState.value,
-    richTextFieldState.valid
-  ]);
+  }, [touched, props.validate, richTextFieldState.value]);
 
   return (
     <div className="Editor">
@@ -63,15 +57,15 @@ const RichTextInputField = props => {
         data={richTextFieldState.value}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log({ event, editor, data });
+          // console.log({ event, editor, data });
           changeHandler(data);
         }}
         onBlur={(event, editor) => {
-          console.log("Blur.", editor);
+          // console.log("Blur.", editor);
           handleBlur();
         }}
         onFocus={(event, editor) => {
-          console.log("Focus.", editor);
+          // console.log("Focus.", editor);
         }}
       />
     </div>

@@ -6,7 +6,8 @@ const textInputField = props => {
   const validation = {
     required: props.required,
     maxLength: props.maxLength,
-    minLength: props.minLength
+    minLength: props.minLength,
+    allowed: props.allowed
   };
   const [textFieldState, setTextFieldState] = useInput({
     type: props.inputType,

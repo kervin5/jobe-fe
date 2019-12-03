@@ -103,9 +103,9 @@ class TagsInputField extends React.Component {
           suggestions={this.state.suggestions}
           handleAddition={this.handleAddition.bind(this)}
           handleDelete={this.handleDelete.bind(this)}
-          minQueryLength={1}
+          minQueryLength={0}
           autofocus={false}
-          maxSuggestionsLength={10}
+          maxSuggestionsLength={15}
           clearInputOnDelete={false}
         />
         <style jsx global>{`

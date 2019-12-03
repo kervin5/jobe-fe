@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Router from "next/router";
 import variables from "../../common/globalVariables";
-import SearchFilters from "./SearchFilters";
+import Title from "../../common/UI/Title";
 import InputField from "../../common/UI/Input/InputField";
 import Button from "../../common/UI/Button";
 
@@ -16,7 +16,8 @@ const searchForm = props => {
       type: "text",
       placeholder: "Job Title, Keywords, or Company Name",
       focused: true,
-      required: false
+      required: false,
+      label: "What"
     },
     searchLocation: {
       value: props.location || "",
@@ -25,7 +26,8 @@ const searchForm = props => {
       type: "location",
       placeholder: "Location",
       focused: false,
-      required: false
+      required: false,
+      label: "Where"
     }
   });
   const [validate, setValidate] = useState(false);
@@ -58,6 +60,7 @@ const searchForm = props => {
         validate={validate}
         type={fieldData.type}
         placeholder={fieldData.placeholder}
+        label={fieldData.label}
         rounded
         centerPlaceholder
         icon={fieldData.icon}
@@ -66,6 +69,7 @@ const searchForm = props => {
         name={key}
         value={fieldData.value}
         key={key + "SearchField"}
+        boldLabel
       />
     );
   });
@@ -82,6 +86,7 @@ const searchForm = props => {
           max-width: 400px;
           padding ${props.noPadding ? "0px" : "0 15px"};
           margin: auto;
+          align-items: flex-end;
         }
 
         form * {

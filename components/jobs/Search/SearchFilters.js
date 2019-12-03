@@ -9,8 +9,9 @@ const SearchFilters = props => {
     distance: {
       type: "dropdown",
       placeholder: "Radius",
-      value: 10,
+      value: 0,
       options: [
+        { value: 0, label: "5 miles" },
         { value: 10, label: "10 miles" },
         { value: 20, label: "20 miles" },
         { value: 30, label: "30 miles" }

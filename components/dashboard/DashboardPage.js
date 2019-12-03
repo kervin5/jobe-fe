@@ -51,13 +51,20 @@ const dashboardPage = props => {
           sectionName => sections[sectionName]
         )}
       />
-      <Container>
+      <Container maxWidth={props.maxwidth || "1200px"}>
         <div className="PageContent">
           <Title>{props.title || "Dashboard"}</Title>
           {props.children}
           <style jsx>{`
             .PageContent {
-              padding-left: 55px;
+              overflow-x: ${props.nooverflow ? "initial" : "auto"};
+              overflow-y: ${props.nooverflow ? "initial" : "hidden"};
+            }
+
+            @media (max-width: 1800px) {
+              .PageContent {
+                padding-left: 100px;
+              }
             }
           `}</style>
         </div>

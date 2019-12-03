@@ -1,17 +1,21 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Head from "./Head";
 import Layout from "./common/Layout/Layout";
+import ApplicationContext from "../context/applicationContext";
 
-class Page extends Component {
-  render() {
-    return (
-      <div>
+const Page = props => {
+  const defaultLanguage = "en";
+  const [language, setLanguage] = useState(defaultLanguage);
+
+  return (
+    <div>
+      <ApplicationContext.Provider value={{ language, setLanguage }}>
         <Head />
         {/* <Header /> */}
-        <Layout>{this.props.children}</Layout>
-      </div>
-    );
-  }
-}
+        <Layout>{props.children}</Layout>
+      </ApplicationContext.Provider>
+    </div>
+  );
+};
 
 export default Page;

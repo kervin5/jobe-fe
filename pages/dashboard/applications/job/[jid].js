@@ -1,10 +1,10 @@
-import ApplicantsTable from "../../../components/applications/ApplicantsTable";
-import DashboardPage from "../../../components/dashboard/DashboardPage";
-import WithAuth from "../../../components/hoc/WithAuth";
+import ApplicantsTable from "../../../../components/applications/ApplicantionsTable";
+import DashboardPage from "../../../../components/dashboard/DashboardPage";
+import WithAuth from "../../../../components/hoc/WithAuth";
 
 const dashboardApplicationsPerJobPage = props => {
   return (
-    <DashboardPage>
+    <DashboardPage maxwidth="1600px">
       <ApplicantsTable jobId={props.jobId} />
     </DashboardPage>
   );

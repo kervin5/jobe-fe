@@ -1,19 +1,23 @@
 import { useState } from "react";
+import PopUpContext from "../common/UI/PopUp/PopUpContext";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-
 import React from "react";
 
 const AuthForm = props => {
   const [componentInView, setComponentInView] = useState("register");
   const toggleView = () =>
     setComponentInView(componentInView === "register" ? "login" : "register");
+
   const options = {
     register: {
       link: (
         <p>
           Already have an account?{" "}
-          <DynamicLink onClick={toggleView}>Click here</DynamicLink> to sign in.
+          <DynamicLink onClick={toggleView} title="Sign In">
+            Click here
+          </DynamicLink>{" "}
+          to sign in.
         </p>
       )
     },
@@ -21,8 +25,10 @@ const AuthForm = props => {
       link: (
         <p>
           Do you need an account?{" "}
-          <DynamicLink onClick={toggleView}>Click here</DynamicLink> to
-          register.
+          <DynamicLink onClick={toggleView} title="Register">
+            Click here
+          </DynamicLink>{" "}
+          to register.
         </p>
       )
     }
@@ -39,14 +45,21 @@ const AuthForm = props => {
 };
 
 const DynamicLink = props => (
-  <a
-    onClick={e => {
-      e.preventDefault();
-      props.onClick();
+  <PopUpContext.Consumer>
+    {context => {
+      return (
+        <a
+          onClick={e => {
+            e.preventDefault();
+            props.onClick();
+            context.setTitle(props.title);
+          }}
+        >
+          {props.children}
+        </a>
+      );
     }}
-  >
-    {props.children}
-  </a>
+  </PopUpContext.Consumer>
 );
 
 export default AuthForm;

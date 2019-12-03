@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import CounterCard from "../../common/UI/CounterCard";
 
 const JOB_STATUS_QUERY = gql`
-  query JOB_STATUS_QUERY($status: Status!) {
+  query JOB_STATUS_QUERY($status: JobStatus!) {
     protectedJobsConnection(where: { status: $status }) {
       aggregate {
         count
