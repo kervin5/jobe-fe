@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import UserLocator from "../../data/UserLocator";
 import { Query } from "react-apollo";
-import { Button, Icon, Image, Item, Label } from "semantic-ui-react";
+import { Item } from "semantic-ui-react";
+import UserSkills from "./UserSkills";
 import Card from "../common/UI/Card";
 import Avatar from "../common/UI/Avatar";
 import { ME_USER_QUERY } from "../../lib/auth";
@@ -24,19 +25,26 @@ const UserInfo = () => {
               <>
                 <Item.Group divided>
                   <Item>
-                    <Avatar />
-
                     <Item.Content>
                       <Item.Header>{data ? data.me.name : ""}</Item.Header>
                       <Item.Meta>
-                        <span className="cinema">Member since 2019</span>
+                        <span className="cinema">
+                          Member since{" "}
+                          {data && new Date(data.me.createdAt).getFullYear()}
+                        </span>
                       </Item.Meta>
-                      <Item.Description>{userLocation}</Item.Description>
+                      <Item.Description>
+                        <strong>{userLocation}</strong>
+                      </Item.Description>
                       <Item.Extra>
-                        <Label>IMAX</Label>
-                        <Label icon="globe" content="Additional Languages" />
+                        {/* <Label>IMAX</Label>
+                        <Label icon="globe" content="Additional Languages" /> */}
+                        {data && <UserSkills userId={data.me.id} />}
                       </Item.Extra>
                     </Item.Content>
+                    <span className="Avatar">
+                      <Avatar />
+                    </span>
                   </Item>
                 </Item.Group>
               </>
@@ -48,6 +56,12 @@ const UserInfo = () => {
       <style jsx>{`
         .UserInfo {
           margin-bottom: 30px;
+        }
+
+        .Avatar {
+          position: absolute;
+          right: 0;
+          top: 10px;
         }
       `}</style>
     </div>
