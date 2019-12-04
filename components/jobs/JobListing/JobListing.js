@@ -53,11 +53,15 @@ const jobListing = props => {
         <br />
 
         {props.preview ? null : <ApplyToJobButton jobId={props.data.id} />}
-        <Label.Group tag>
-          {props.data.skills.map((category, index) => {
-            return <Label key={"CategoryLabel" + index}>{category.name}</Label>;
-          })}
-        </Label.Group>
+        <div className="Labels">
+          <Label.Group tag>
+            {props.data.skills.map((category, index) => {
+              return (
+                <Label key={"CategoryLabel" + index}>{category.name}</Label>
+              );
+            })}
+          </Label.Group>
+        </div>
       </div>
 
       <style jsx>{`
@@ -117,6 +121,10 @@ const jobListing = props => {
                     float: right;
                 }
 
+            }
+
+            .Labels {
+              margin-top: 30px;
             }
         `}</style>
       <StucturedJobListing data={props.data} />
