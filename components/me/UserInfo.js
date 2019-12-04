@@ -50,7 +50,7 @@ const UserInfo = () => {
                       </Item.Extra>
                     </Item.Content>
                     <span className="Avatar">
-                      <Avatar />
+                      <Avatar name={data ? data.me.name : undefined} />
                     </span>
                   </Item>
                 </Item.Group>
