@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import UserLocator from "../../data/UserLocator";
 import { Query } from "react-apollo";
 import { Item } from "semantic-ui-react";
-import UserSkills from "./UserSkills";
+import UserCategories from "./UserCategories";
 import Card from "../common/UI/Card";
 import Avatar from "../common/UI/Avatar";
 import { ME_USER_QUERY } from "../../lib/auth";
+import Title from "../common/UI/Title";
 
 const UserInfo = () => {
   const [userLocation, setUserLocation] = useState("Loading");
@@ -37,9 +38,15 @@ const UserInfo = () => {
                         <strong>{userLocation}</strong>
                       </Item.Description>
                       <Item.Extra>
-                        {/* <Label>IMAX</Label>
-                        <Label icon="globe" content="Additional Languages" /> */}
-                        {data && <UserSkills userId={data.me.id} />}
+                        <Title size="xs" color="1">
+                          Favorite categories:
+                        </Title>
+                        {data && (
+                          <UserCategories
+                            userId={data.me.id}
+                            location={userLocation}
+                          />
+                        )}
                       </Item.Extra>
                     </Item.Content>
                     <span className="Avatar">

@@ -2,15 +2,16 @@ import React from "react";
 import { Label, Loader } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import Link from "next/link";
 
 // skills(where: { job: { application: { user: {id: $userId} } } }) {
 //     id
 //     name
 // }
 
-const USER_SKILLS_QUERY = gql`
-  query USER_SKILLS_QUERY($userId: ID!) {
-    skills(
+const USER_CATEGORIES_QUERY = gql`
+  query USER_CATEGORIES_QUERY($userId: ID!) {
+    categories(
       first: 12
       where: {
         OR: [
@@ -24,14 +25,24 @@ const USER_SKILLS_QUERY = gql`
     }
   }
 `;
-const UserSkills = ({ userId }) => {
+const UserCategories = ({ userId, location }) => {
   return (
-    <Query query={USER_SKILLS_QUERY} variables={{ userId }}>
+    <Query query={USER_CATEGORIES_QUERY} variables={{ userId }}>
       {({ error, loading, data }) => {
         if (loading) return <Loader />;
 
-        return data.skills.map((skill, index) => (
-          <Label key={"SkillLabel" + index + skill.name}>{skill.name}</Label>
+        return data.categories.map((category, index) => (
+          <Link
+            key={"categoryLabel" + index + category.name}
+            href={`/jobs?category=${category.name}&location=${location}`}
+          >
+            <Label
+              as="a"
+              href={`/jobs?category=${category.name}&location=${location}`}
+            >
+              {category.name}
+            </Label>
+          </Link>
         ));
         //   return(<> <Label>IMAX</Label>
         //     <Label icon="globe" content="Additional Languages" /></>);
@@ -40,4 +51,4 @@ const UserSkills = ({ userId }) => {
   );
 };
 
-export default UserSkills;
+export default UserCategories;

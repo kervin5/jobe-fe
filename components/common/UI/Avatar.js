@@ -17,10 +17,10 @@ const Avatar = ({ name = "Kervin Vasquez" }) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 60px;
-          height: 60px;
-          border-radius: 30px;
-          font-size: 1.2em;
+          width: 40px;
+          height: 40px;
+          border-radius: 20px;
+          font-size: 1em;
           margin: auto 10px;
         }
       `}</style>
