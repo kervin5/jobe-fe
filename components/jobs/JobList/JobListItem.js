@@ -4,7 +4,7 @@ import moment from "moment";
 import variables from "../../common/globalVariables";
 import Bubble from "../../common/UI/Bubble";
 import Icon from "../../common/UI/Icon";
-import FavoriteButton from "../../common/UI/FavoriteButton";
+import FavoriteButton from "../JobFavoriteButton/FavoriteButton";
 import Card from "../../common/UI/Card";
 import HtmlRenderer from "../../common/UI/HtmlRenderer";
 import PrompToRegister from "../../users/PrompToRegister";

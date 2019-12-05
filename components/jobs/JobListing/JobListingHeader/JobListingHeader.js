@@ -3,7 +3,7 @@ import variables from "../../../../components/common/globalVariables";
 import Bubble from "../../../common/UI/Bubble";
 import Icon from "../../../common/UI/Icon";
 import Title from "../../../common/UI/Title";
-import FavoriteButton from "../../../common/UI/FavoriteButton";
+import FavoriteButton from "../../JobFavoriteButton/FavoriteButton";
 import PrompToRegister from "../../../users/PrompToRegister";
 import Translator from "../../../hoc/Translator";
 import JobCompensationBubbles from "../../JobCompensationBubbles";
