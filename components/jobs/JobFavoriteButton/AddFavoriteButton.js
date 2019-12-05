@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import Icon from "../../common/UI/Icon";
 import variables from "../../common/globalVariables";
 import { USER_FAVORITE_STATUS_QUERY } from "./FavoriteButton";
+import { CSSTransition } from "react-transition-group";
 
 const USER_ADD_FAVORITE_MUTATION = gql`
   mutation USER_FAVORITE_STATUS_QUERY($jobId: ID!) {
@@ -45,7 +46,17 @@ const favoriteButtonWrapper = ({ jobId }) => {
     >
       {(alterFavoriteMutation, { data, loading, error, called }) => {
         if (error) return <p>Error</p>;
-        return <FavoriteButton onClick={alterFavoriteMutation} />;
+        return (
+          <CSSTransition
+            unmountOnExit
+            className="AddFavorite"
+            classNames="AddFavorite"
+            key={jobId + "Add"}
+            timeout={{ enter: 4000, exit: 4000 }}
+          >
+            <FavoriteButton onClick={alterFavoriteMutation} />
+          </CSSTransition>
+        );
       }}
     </Mutation>
   );

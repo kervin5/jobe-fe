@@ -3,6 +3,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import AddFavoriteButton from "./AddFavoriteButton";
 import RemoveFavoriteButton from "./RemoveFavoriteButton";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 export const USER_FAVORITE_STATUS_QUERY = gql`
   query USER_FAVORITE_STATUS_QUERY($jobId: ID!) {
@@ -28,11 +29,12 @@ const favoriteButtonWrapper = props => {
         if (error) return <FavoriteButton className={"untouched"} />;
         if (loading) return <p>Loading...</p>;
         let touched = data.me.favorites.length > 0;
-        return touched ? (
+        const componentToRender = touched ? (
           <RemoveFavoriteButton jobId={props.jobId} />
         ) : (
           <AddFavoriteButton jobId={props.jobId} />
         );
+        return <TransitionGroup>{componentToRender}</TransitionGroup>;
       }}
     </Query>
   );
