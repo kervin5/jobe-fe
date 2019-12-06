@@ -33,7 +33,7 @@ const update = (cache, payload) => {
   });
 };
 
-const favoriteButtonWrapper = ({ jobId }) => {
+const favoriteButtonWrapper = ({ jobId, show }) => {
   return (
     <Mutation
       mutation={USER_ADD_FAVORITE_MUTATION}
@@ -49,10 +49,10 @@ const favoriteButtonWrapper = ({ jobId }) => {
         return (
           <CSSTransition
             unmountOnExit
+            in={show}
             className="AddFavorite"
-            classNames="AddFavorite"
             key={jobId + "Add"}
-            timeout={{ enter: 4000, exit: 4000 }}
+            timeout={{ enter: 300, exit: 300 }}
           >
             <FavoriteButton onClick={alterFavoriteMutation} />
           </CSSTransition>
@@ -63,47 +63,28 @@ const favoriteButtonWrapper = ({ jobId }) => {
 };
 
 const FavoriteButton = props => (
-  <span onClick={props.onClick} className={"favoriteButton"}>
+  <span onClick={props.onClick} className={"addFavoriteButton FavoriteButton"}>
     <Icon icon={"heart"} size={props.size || "lg"} className="baseIcon"></Icon>
-    <Icon
-      icon={"heart"}
-      size={props.size || "lg"}
-      className="iconOverlay"
-    ></Icon>
 
     <style jsx>{`
-      .favoriteButton {
-        position: absolute;
-        display: flex;
-        right: 50px;
-      }
-
-      .favoriteButton :global(> *) {
-        position: absolute;
-        font-size: 1.5rem;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-      }
-
-      .favoriteButton :global(.baseIcon i) {
-        color: ${variables.accentColor3};
-      }
-
-      .favoriteButton :global(.iconOverlay i) {
+      .addFavoriteButton :global(.baseIcon i) {
         color: ${variables.mutedColor2};
       }
 
-      .favoriteButton :global(.iconOverlay) {
-        opacity: 1;
-        transition: 200ms;
+      .addFavoriteButton.enter :global(.baseIcon i) {
         transform: scale(1);
       }
 
-      .favoriteButton.touched :global(.iconOverlay) {
-        opacity: 0;
-        transform: scale(5);
+      .addFavoriteButton.enter-active :global(.baseIcon i) {
+        transform: scale(2);
+      }
+
+      .addFavoriteButton.enter-done :global(.baseIcon i) {
+        transform: scale(1);
+      }
+
+      .addFavoriteButton.exit :global(.baseIcon i) {
+        transform: scale(0);
       }
     `}</style>
   </span>

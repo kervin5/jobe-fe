@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import AddFavoriteButton from "./AddFavoriteButton";
 import RemoveFavoriteButton from "./RemoveFavoriteButton";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { TransitionGroup } from "react-transition-group";
 
 export const USER_FAVORITE_STATUS_QUERY = gql`
   query USER_FAVORITE_STATUS_QUERY($jobId: ID!) {
@@ -29,12 +29,36 @@ const favoriteButtonWrapper = props => {
         if (error) return <FavoriteButton className={"untouched"} />;
         if (loading) return <p>Loading...</p>;
         let touched = data.me.favorites.length > 0;
-        const componentToRender = touched ? (
-          <RemoveFavoriteButton jobId={props.jobId} />
-        ) : (
-          <AddFavoriteButton jobId={props.jobId} />
+        return (
+          <span className="FavoriteButtonWrapper">
+            <TransitionGroup>
+              <RemoveFavoriteButton jobId={props.jobId} show={touched} />{" "}
+              <AddFavoriteButton jobId={props.jobId} show={!touched} />
+            </TransitionGroup>
+            <style jsx>{`
+              .FavoriteButtonWrapper {
+                position: absolute;
+                bottom: 50px;
+                right: 50px;
+                cursor: pointer;
+              }
+
+              .FavoriteButtonWrapper :global(.baseIcon i) {
+                transition: 100ms;
+                font-size: 1.5rem;
+              }
+
+              .FavoriteButtonWrapper :global(.FavoriteButton) {
+                position: absolute;
+
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+              }
+            `}</style>
+          </span>
         );
-        return <TransitionGroup>{componentToRender}</TransitionGroup>;
       }}
     </Query>
   );

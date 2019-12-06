@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import Icon from "../../common/UI/Icon";
 import variables from "../../common/globalVariables";
 import { USER_FAVORITE_STATUS_QUERY } from "./FavoriteButton";
+import { CSSTransition } from "react-transition-group";
 
 const USER_DELETE_FAVORITE_MUTATION = gql`
   mutation USER_DELETE_FAVORITE_MUTATION($jobId: ID!) {
@@ -28,7 +29,7 @@ const update = (cache, payload) => {
   });
 };
 
-const favoriteButtonWrapper = ({ jobId }) => {
+const favoriteButtonWrapper = ({ jobId, show }) => {
   return (
     <Mutation
       mutation={USER_DELETE_FAVORITE_MUTATION}
@@ -41,10 +42,15 @@ const favoriteButtonWrapper = ({ jobId }) => {
       {(removeFavoriteMutation, { data, loading, error, called }) => {
         if (error) return <p>Error</p>;
         return (
-          <FavoriteButton
-            className={"touched"}
-            onClick={removeFavoriteMutation}
-          />
+          <CSSTransition
+            unmountOnExit
+            in={show}
+            className="RemoveFavorite"
+            key={jobId + "Remove"}
+            timeout={{ enter: 300, exit: 300 }}
+          >
+            <FavoriteButton onClick={removeFavoriteMutation} />
+          </CSSTransition>
         );
       }}
     </Mutation>
@@ -54,48 +60,31 @@ const favoriteButtonWrapper = ({ jobId }) => {
 const FavoriteButton = props => (
   <span
     onClick={props.onClick}
-    className={["favoriteButton", props.className].join(" ")}
+    className={"removeFavoriteButton FavoriteButton"}
   >
     <Icon icon={"heart"} size={props.size || "lg"} className="baseIcon"></Icon>
-    <Icon
-      icon={"heart"}
-      size={props.size || "lg"}
-      className="iconOverlay"
-    ></Icon>
 
     <style jsx>{`
-      .favoriteButton {
-        position: absolute;
-        display: flex;
-        right: 50px;
-      }
-
-      .favoriteButton :global(> *) {
-        position: absolute;
-        font-size: 1.5rem;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-      }
-
-      .favoriteButton :global(.baseIcon i) {
+      .removeFavoriteButton :global(.baseIcon i) {
         color: ${variables.accentColor3};
       }
 
-      .favoriteButton :global(.iconOverlay i) {
+      .removeFavoriteButton.enter :global(.baseIcon i) {
         color: ${variables.mutedColor2};
-      }
-
-      .favoriteButton :global(.iconOverlay) {
-        opacity: 1;
-        transition: 200ms;
         transform: scale(1);
       }
 
-      .favoriteButton.touched :global(.iconOverlay) {
-        opacity: 0;
-        transform: scale(5);
+      .removeFavoriteButton.enter-active :global(.baseIcon i) {
+        color: ${variables.accentColor3};
+        transform: scale(2);
+      }
+
+      .removeFavoriteButton.enter-done :global(.baseIcon i) {
+        transform: scale(1);
+      }
+
+      .removeFavoriteButton.exit :global(.baseIcon i) {
+        transform: scale(0);
       }
     `}</style>
   </span>
