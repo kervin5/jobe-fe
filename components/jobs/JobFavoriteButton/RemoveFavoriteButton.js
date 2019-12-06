@@ -19,14 +19,16 @@ const update = (cache, payload) => {
     variables: { jobId }
   });
 
-  data.me.favorites = data.me.favorites.filter(
-    favorite => favorite.job.id !== jobId
-  );
-  cache.writeQuery({
-    query: USER_FAVORITE_STATUS_QUERY,
-    variables: { jobId },
-    data
-  });
+  if (data.me) {
+    data.me.favorites = data.me.favorites.filter(
+      favorite => favorite.job.id !== jobId
+    );
+    cache.writeQuery({
+      query: USER_FAVORITE_STATUS_QUERY,
+      variables: { jobId },
+      data
+    });
+  }
 };
 
 const favoriteButtonWrapper = ({ jobId, show }) => {
