@@ -28,7 +28,7 @@ const favoriteButtonWrapper = props => {
       {({ error, loading, data }) => {
         if (error) return <FavoriteButton className={"untouched"} />;
         if (loading) return <p>Loading...</p>;
-        let touched = data.me.favorites.length > 0;
+        let touched = data && data.me ? data.me.favorites.length > 0 : false;
         return (
           <span className="FavoriteButtonWrapper">
             <TransitionGroup>
