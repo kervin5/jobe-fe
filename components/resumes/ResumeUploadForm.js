@@ -86,7 +86,11 @@ const ResumeUploadForm = props => {
     isDragAccept
   } = useDropzone({
     onDrop,
-    accept: ["application/pdf"],
+    accept: [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ],
     minSize: 0,
     maxSize
   });
