@@ -8,8 +8,6 @@ import ButtonGroup from "../common/UI/ButtonGroup";
 import { handleUpload } from "../../lib/upload";
 import Router from "next/router";
 import InputField from "../common/UI/Input/InputField";
-import Link from "next/link";
-import Route from "next/router";
 
 const SIGN_UPLOAD_MUTATION = gql`
   mutation SIGN_UPLOAD_MUTATION($fileName: String!, $fileType: String!) {
