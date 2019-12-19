@@ -103,7 +103,7 @@ const ResumeUploadForm = props => {
   }
 
   if (uploaded) {
-    return <p>Resume ready to be uploaded</p>;
+    return <p>Resume uploaded</p>;
   }
 
   return (
