@@ -9,6 +9,7 @@ class UserLocator {
   }
 
   getLocation = () => {
+    return this.setLocationByIp();
     if (this.geoLocationIsVailable) {
       // navigator.geolocation.getCurrentPosition(this.setLocationByGeolocation, this.setLocationByIp);
       return this.setLocationByGeolocation();
