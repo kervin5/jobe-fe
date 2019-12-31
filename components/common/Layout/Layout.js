@@ -3,6 +3,7 @@ import Router from "next/router";
 import NProgress from "nprogress";
 import NavigationBar from "../UI/Navigation/NavigationBar";
 import BottomNav from "../UI/Navigation/BottomNav";
+import Footer from "./Footer";
 // import NavigationDrawer from "../UI/Navigation/NavigationDrawer";
 import variables from "../globalVariables";
 import { initGA, logPageView } from "../../../lib/analytics";
@@ -33,6 +34,7 @@ const layout = props => {
         <NavigationBar menuButtonClick={handleMenuClick} />
       )}
       <main>{props.children}</main>
+      <Footer />
       <BottomNav />
       <style jsx global>{`
         * {
