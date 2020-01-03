@@ -106,6 +106,7 @@ const JobsTable = props => {
     if (field === "query") {
       setSearchValue(e.target.value);
     } else {
+      setCurrentPage(1);
       if (e.value === "ALL") {
         setStatus(allStatus);
       } else {
