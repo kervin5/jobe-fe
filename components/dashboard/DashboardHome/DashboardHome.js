@@ -2,6 +2,7 @@ import Router from "next/router";
 import React from "react";
 import Button from "../../common/UI/Button";
 import JobsInformationSection from "./JobsInformationSection";
+import ApplicationsCountWarning from "../../applications/ApplicationsCountWarning";
 
 class DashboardHome extends React.Component {
   render() {
@@ -12,7 +13,9 @@ class DashboardHome extends React.Component {
             Add New Job
           </Button>
         </div>
+        <ApplicationsCountWarning />
         <JobsInformationSection />
+
         <style jsx>{`
           .Header {
             display: flex;

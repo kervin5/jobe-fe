@@ -12,6 +12,7 @@ import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
 import Button from "../common/UI/Button";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
+import ApplicationsCountWarning from "./ApplicationsCountWarning";
 
 const ALL_APPLICATIONS_QUERY = gql`
   query ALL_APPLICATIONS_QUERY(
@@ -89,7 +90,7 @@ const ALL_APPLICATIONS_QUERY = gql`
   }
 `;
 
-const USER_APPLICATION_CONNECTION_QUERY = gql`
+export const USER_APPLICATION_CONNECTION_QUERY = gql`
   query USER_APPLICATION_CONNECTION_QUERY(
     $jobId: ID
     $status: [ApplicationStatus!]
@@ -191,7 +192,7 @@ const ApplicantTable = props => {
 
   return (
     <>
-      {" "}
+      <ApplicationsCountWarning />
       <Input
         icon="search"
         placeholder="Search..."

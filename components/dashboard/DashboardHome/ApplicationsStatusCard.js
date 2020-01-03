@@ -2,9 +2,11 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import CounterCard from "../../common/UI/CounterCard";
 
-const APPLICATION_STATUS_QUERY = gql`
+export const APPLICATION_STATUS_QUERY = gql`
   query APPLICATION_STATUS_QUERY {
-    applicationsConnection(where: { status_not: NEW }) {
+    applicationsConnection(
+      where: { AND: [{ status_not: ARCHIVED }, { status_not: HIRED }] }
+    ) {
       aggregate {
         count
       }
