@@ -15,7 +15,7 @@ const ApplicationsCountWarning = () => {
           open && (
             <Message
               icon="inbox"
-              warning
+              error
               onDismiss={() => setOpen(false)}
               header={`There are ${data.applicationsConnection.aggregate.count} applications in your queue that require attention!`}
               content={
