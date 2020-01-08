@@ -22,7 +22,7 @@ const styles = ` background-color: ${variables.clearColor};
 
 const jobListItem = props => {
   const shortLocation = props.location.name;
-  const jobUrl =
+  const oldjobUrl =
     "/jobs/" +
     props.title
       .split(" ")
@@ -31,6 +31,11 @@ const jobListItem = props => {
       .join("-") +
     "-" +
     props.id;
+
+  const jobUrl = `/jobs/${props.title.replace(
+    /[\W_]+/g,
+    "-"
+  )}-${props.location.name.replace(/[\W_]+/g, "-")}-${props.id}`;
   return (
     <Card styles={styles}>
       <div className="JobListItemHeader">
