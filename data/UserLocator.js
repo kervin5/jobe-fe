@@ -9,7 +9,7 @@ class UserLocator {
   }
 
   getLocation = () => {
-    return this.setLocationByIp();
+    return this.setLocationByLocalStorage();
     if (this.geoLocationIsVailable) {
       // navigator.geolocation.getCurrentPosition(this.setLocationByGeolocation, this.setLocationByIp);
       return this.setLocationByGeolocation();
@@ -22,6 +22,24 @@ class UserLocator {
     this.locationName = name;
     this.latitude = lat;
     this.longitude = lon;
+  };
+
+  setLocationByLocalStorage = () => {
+    return new Promise((resolve, reject) => {
+      const locationData = {
+        lat: 0,
+        lon: 0,
+        name: ""
+      };
+
+      const location = localStorage.getItem("lastLocation");
+      if (location) {
+        locationData.name = location;
+        return resolve(locationData);
+      } else {
+        return resolve(this.setLocationByIp());
+      }
+    });
   };
 
   setLocationByGeolocation = () => {
@@ -74,8 +92,6 @@ class UserLocator {
           resolve(locationData);
         })
         .catch(err => {
-          console.log("Geolocation Error");
-          console.log(err);
           resolve(this.setUnknownLocation());
         });
     });
