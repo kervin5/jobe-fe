@@ -77,9 +77,7 @@ class UserLocator {
   setLocationByIp = () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(
-          `https://api.ipgeolocation.io/ipgeo?apiKey=1503b8dbdf444bb786093ea0bbbd39fb`
-        )
+        .get(`https://freegeoip.app/json`)
         .then(res => {
           const locationData = {
             lat: res.data.latitude,
