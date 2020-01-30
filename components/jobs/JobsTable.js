@@ -164,7 +164,6 @@ const JobsTable = props => {
                   );
                 if (error) return <p>Something Failed...</p>;
 
-                console.log(data.protectedJobs);
                 //Get jobs from branch if user has access
                 const dataForTable = data.protectedJobs.map(job => {
                   // job.recurring  = !!job.cronTask;

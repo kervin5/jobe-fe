@@ -5,7 +5,7 @@ import variables from "../../globalVariables";
 
 const sideMenu = props => {
   return (
-    <div className={"Sidebar"}>
+    <div className="Sidebar">
       <Sidebar as={Menu} icon="labeled" vertical visible>
         {props.options.map((option, index) => {
           return (

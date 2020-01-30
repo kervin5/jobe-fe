@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
-import { Dropdown, Input } from "semantic-ui-react";
+import { Dropdown, Input, Button } from "semantic-ui-react";
 import moment from "moment";
 import EempactStatusLabel from "../users/EempactStatusLabel";
 import { perPage } from "../../config";
@@ -10,7 +10,6 @@ import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 
 import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
-import Button from "../common/UI/Button";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
 import ApplicationsCountWarning from "./ApplicationsCountWarning";
 
@@ -272,17 +271,18 @@ const ApplicantTable = props => {
                     eempact: (
                       <EempactStatusLabel email={application.user.email} />
                     ),
-                    application: (
+                    actions: (
                       <Button
+                        as="a"
+                        icon="eye"
+                        color="green"
                         onClick={e => {
                           e.preventDefault();
                           window.open(
                             "/dashboard/applications/" + application.id
                           );
                         }}
-                      >
-                        View
-                      </Button>
+                      />
                     )
                   });
                 });
