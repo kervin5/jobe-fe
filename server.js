@@ -40,16 +40,15 @@ app.prepare().then(() => {
     })
   );
 
-  server.use(
-    "/iplocation",
-    proxy({
-      target: "https://freegeoip.app/json/",
+  server.use("/iplocation", (req, res, next) => {
+    return proxy({
+      target:
+        "https://freegeoip.app/json/" +
+        (req.headers["x-forwarded-for"] || req.connection.remoteAddress),
       changeOrigin: true,
-      pathRewrite: {
-        "^/iplocation": "/" // remove base path
-      }
-    })
-  );
+      pathRewrite: () => ""
+    })(req, res, next);
+  });
 
   server.use("/location/:name", (req, res, next) => {
     return proxy({
