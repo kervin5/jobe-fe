@@ -40,6 +40,17 @@ app.prepare().then(() => {
     })
   );
 
+  server.use(
+    "/iplocation",
+    proxy({
+      target: "https://freegeoip.app/json/",
+      changeOrigin: true,
+      pathRewrite: {
+        "^/iplocation": "/" // remove base path
+      }
+    })
+  );
+
   server.use("/location/:name", (req, res, next) => {
     return proxy({
       target: mapboxUrl(req.params.name),
