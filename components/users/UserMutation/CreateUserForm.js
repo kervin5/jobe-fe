@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import Form from "../common/UI/Form";
+import Form from "../../common/UI/Form";
 
 const CREATE_USER_MUTATION = gql`
   mutation CREATE_USER_MUTATION(

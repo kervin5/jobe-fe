@@ -6,6 +6,7 @@ import { perPage } from "../../config";
 
 import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
+import UserActionButtons from "./UserActionButtons/UserActionButtons";
 // import Button from "../common/UI/Button";
 
 const USER_QUERY = gql`
@@ -87,7 +88,8 @@ const UsersTable = props => {
                     name: user.name,
                     email: <a href={`malito:${user.email}`}>{user.email}</a>,
                     role: user.role ? user.role.name : "",
-                    branch: user.branch ? user.branch.name : ""
+                    branch: user.branch ? user.branch.name : "",
+                    actions: <UserActionButtons userId={user.id} />
                   });
                 });
 
