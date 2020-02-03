@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { Button, Input } from "semantic-ui-react";
+import { Button, Input, Label } from "semantic-ui-react";
 import { perPage } from "../../config";
 
 import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
-// import Button from "../common/UI/Button";
+import DropdownGraphqlInput from "../common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
+import InputGroup from "../common/UI/Input/InputGroup";
 
 const CANDIDATE_QUERY = gql`
-  query CANDIDATE_QUERY($perPage: Int!, $skip: Int!, $query: String!) {
+  query CANDIDATE_QUERY(
+    $perPage: Int!
+    $skip: Int!
+    $query: String!
+    $skills: [ID!]
+  ) {
     candidates(
       first: $perPage
       skip: $skip
-      where: { OR: [{ name_contains: $query }, { email_contains: $query }] }
+      where: {
+        OR: [{ name_contains: $query }, { email_contains: $query }]
+        resumes_some: { skills_some: { id_in: $skills } }
+      }
     ) {
       id
       name
@@ -26,15 +35,22 @@ const CANDIDATE_QUERY = gql`
         id
         title
         createdAt
+        skills {
+          id
+          name
+        }
       }
     }
   }
 `;
 
-const USERS_CONNECTION_QUERY = gql`
-  query USERS_CONNECTION_QUERY($query: String!) {
+const CANDIDATES_CONNECTION_QUERY = gql`
+  query CANDIDATES_CONNECTION_QUERY($query: String!, $skills: [ID!]) {
     candidatesConnection(
-      where: { OR: [{ name_contains: $query }, { email_contains: $query }] }
+      where: {
+        OR: [{ name_contains: $query }, { email_contains: $query }]
+        resumes_some: { skills_some: { id_in: $skills } }
+      }
     ) {
       aggregate {
         count
@@ -46,23 +62,52 @@ const USERS_CONNECTION_QUERY = gql`
 const Candidates = props => {
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
+  const [skills, setSkills] = useState([]);
 
   const turnPageHandler = pageNumber => {
     setCurrentPage(parseInt(pageNumber));
   };
 
   const inputChangeHandler = e => {
+    console.log(e);
     setQuery(e.target.value);
   };
 
   return (
     <>
-      <Input
-        icon="search"
-        placeholder="Search..."
-        onChange={inputChangeHandler}
-      />
-      <Query query={USERS_CONNECTION_QUERY} ssr={false} variables={{ query }}>
+      <div className="Toolbar">
+        <Input
+          icon="search"
+          placeholder="Search..."
+          onChange={inputChangeHandler}
+        />
+        <DropdownGraphqlInput
+          onChange={(e, data) => setSkills(data.value)}
+          name="jobSkills"
+          label="Candidate Skills"
+          placeholder="Filter by skills"
+          multiple
+          nolabel
+          graphql={{
+            query: `query ALL_SKILLS( $query: String! ) { skills(where: {name_contains: $query} orderBy: name_ASC) { id name } }`
+          }}
+        />
+        <style jsx>{`
+          .Toolbar {
+            margin: 10px auto;
+          }
+
+          .Toolbar :global(> *) {
+            margin-bottom: 10px;
+          }
+        `}</style>
+      </div>
+
+      <Query
+        query={CANDIDATES_CONNECTION_QUERY}
+        ssr={false}
+        variables={{ query, ...(skills.length ? { skills } : {}) }}
+      >
         {userConnectionData => {
           if (userConnectionData.error) return <p>Something went wrong ...</p>;
           if (userConnectionData.loading) return <Loader />;
@@ -74,7 +119,8 @@ const Candidates = props => {
                 perPage,
                 skip: (currentPage - 1) * perPage,
                 jobId: "" || props.jobId,
-                query
+                query,
+                ...(skills.length ? { skills } : {})
               }}
             >
               {({ error, loading, data }) => {
@@ -111,7 +157,14 @@ const Candidates = props => {
                       >
                         Download Resume
                       </Button>
-                    )
+                    ),
+                    skills:
+                      !!skills.length &&
+                      candidate.resumes[0].skills
+                        .filter(skill => skills.includes(skill.id))
+                        .map(skill => (
+                          <Label content={skill.name} color="blue" />
+                        ))
                   });
                 });
 

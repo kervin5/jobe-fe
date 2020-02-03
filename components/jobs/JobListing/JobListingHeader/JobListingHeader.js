@@ -1,4 +1,4 @@
-import React, { setState } from "react";
+import React from "react";
 import variables from "../../../../components/common/globalVariables";
 import Bubble from "../../../common/UI/Bubble";
 import Icon from "../../../common/UI/Icon";

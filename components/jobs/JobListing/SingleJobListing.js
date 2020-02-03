@@ -66,6 +66,7 @@ const SingleJobListing = ({ jobId, preview }) => {
                 "..."
               }
               title={singleJob.title}
+              ogImage="/static/images/exactstaffsquare.jfif"
             />
             <JobListing
               data={{
