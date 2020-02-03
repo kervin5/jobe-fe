@@ -44,7 +44,7 @@ const JobListingHeader = props => (
     <style jsx>{`
       .JobListingHeader {
         width: 100%;
-        max-width: 1200px;
+
         padding: 40px;
         background-color: ${variables.accentColor2};
         border-top-right-radius: 30px;
