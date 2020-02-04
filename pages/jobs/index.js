@@ -72,15 +72,15 @@ const SearchPage = props => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: `{
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "url": "https://www.myexactjobs.com/",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://www.myexactjobs.com/jobs?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
-      }`
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "url": "https://www.myexactjobs.com/",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://www.myexactjobs.com/jobs?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }`
         }}
       />
       <style jsx>{`
