@@ -67,7 +67,7 @@ const jobListItem = props => {
       <Link href="/jobs/[jid]" as={jobUrl}>
         <a className="Content">
           <Translator>
-            {sanitize(props.description, [])["__html"].substring(0, 500)}...
+            {sanitize(props.description, [])["__html"].substring(0, 300)}...
           </Translator>
         </a>
       </Link>
