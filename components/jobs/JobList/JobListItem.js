@@ -7,6 +7,7 @@ import Icon from "../../common/UI/Icon";
 import FavoriteButton from "../JobFavoriteButton/FavoriteButton";
 import Card from "../../common/UI/Card";
 import HtmlRenderer from "../../common/UI/HtmlRenderer";
+import sanitize from "../../../lib/html";
 import PrompToRegister from "../../users/PrompToRegister";
 import Translator from "../../hoc/Translator";
 import { numberWithCommas } from "../JobCompensationBubbles";
@@ -36,6 +37,7 @@ const jobListItem = props => {
     /[\W_]+/g,
     "-"
   )}-${props.location.name.replace(/[\W_]+/g, "-")}-${props.id}`;
+
   return (
     <Card styles={styles}>
       <div className="JobListItemHeader">
@@ -65,10 +67,7 @@ const jobListItem = props => {
       <Link href="/jobs/[jid]" as={jobUrl}>
         <a className="Content">
           <Translator>
-            <HtmlRenderer
-              html={props.description.substr(0, 300) + "..."}
-              options={[]}
-            />
+            {sanitize(props.description, [])["__html"].substring(0, 500)}...
           </Translator>
         </a>
       </Link>
