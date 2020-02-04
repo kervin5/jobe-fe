@@ -68,26 +68,21 @@ const SearchPage = props => {
           />
         </div>
       </PageSection>
-      <div itemscope itemtype="https://schema.org/WebSite">
-        <meta itemprop="url" content="https://www.myexactjobs.com/" />
-        <form
-          itemprop="potentialAction"
-          itemscope
-          itemtype="https://schema.org/SearchAction"
-        >
-          <meta
-            itemprop="target"
-            content="https://www.myexactjobs.com/jobs?q={search_term_string}"
-          />
-          <input
-            itemprop="query-input"
-            type="text"
-            name="search_term_string"
-            required
-          />
-          <input type="submit" />
-        </form>
-      </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: `{
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": "https://www.myexactjobs.com/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.myexactjobs.com/jobs?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }`
+        }}
+      />
       <style jsx>{`
         .Container {
           max-width: 600px;
