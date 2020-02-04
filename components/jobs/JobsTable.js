@@ -48,6 +48,7 @@ export const USER_JOBS_QUERY = gql`
       status
       applications {
         id
+        status
       }
       branch {
         id
@@ -204,6 +205,10 @@ const JobsTable = props => {
 
 const injectActionsColumn = data => {
   return data.map(record => {
+    const activeApplications = record.applications.filter(
+      application => !["HIRED", "ARCHIVED"].includes(application.status)
+    );
+
     return {
       ...record,
 
@@ -227,10 +232,25 @@ const injectActionsColumn = data => {
             href={"/dashboard/applications/job/[jid]"}
             as={"/dashboard/applications/job/" + record.id}
           >
-            <a>{record.applications.length}</a>
+            <a>
+              {activeApplications.length > 0 ? (
+                <Label
+                  content={`${activeApplications.length}`}
+                  color={
+                    activeApplications.length < 30
+                      ? "green"
+                      : activeApplications.length < 40
+                      ? "yellow"
+                      : "red"
+                  }
+                />
+              ) : (
+                <Label content={0} color="grey" />
+              )}
+            </a>
           </Link>
         ) : (
-          record.applications.length
+          <Label content={record.applications.length} color="grey" />
         ),
       author: record.author.name,
       actions: (
