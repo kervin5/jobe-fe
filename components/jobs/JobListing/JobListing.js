@@ -3,7 +3,6 @@ import { Label } from "semantic-ui-react";
 import variables from "../../../components/common/globalVariables";
 import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
-import PageTitle from "../../common/Layout/PageTitle";
 import SEO from "../../SEO";
 import sanitize from "../../../lib/html";
 import Title from "../../common/UI/Title";
@@ -17,7 +16,6 @@ import Translator, { ListOfLanguages } from "../../hoc/Translator";
 const jobListing = props => {
   return (
     <TransformerContainer data-test="job-listing">
-      <PageTitle />
       <SEO
         description={
           sanitize(props.data.description, []).__html.substr(0, 400) + "..."
