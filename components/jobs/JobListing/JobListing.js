@@ -18,7 +18,8 @@ const jobListing = props => {
     <TransformerContainer data-test="job-listing">
       <SEO
         description={
-          sanitize(props.data.description, []).__html.substr(0, 400) + "..."
+          sanitize(props.data.description, []).__html.substr(0, 400) +
+          "... Start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for "
         }
         title={
           props.data.title +
