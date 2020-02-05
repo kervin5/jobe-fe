@@ -187,7 +187,7 @@ const ApplicantTable = props => {
     } else {
       setStatus([status]);
     }
-    setCurrentPage(0);
+    setCurrentPage(1);
   };
 
   return (
