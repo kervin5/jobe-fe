@@ -4,6 +4,8 @@ import variables from "../../../components/common/globalVariables";
 import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
 import PageTitle from "../../common/Layout/PageTitle";
+import SEO from "../../SEO";
+import sanitize from "../../../lib/html";
 import Title from "../../common/UI/Title";
 import ApplyToJobButton from "../../common/UI/ApplyToJobButton";
 import HtmlRenderer from "../../common/UI/HtmlRenderer";
@@ -15,7 +17,19 @@ import Translator, { ListOfLanguages } from "../../hoc/Translator";
 const jobListing = props => {
   return (
     <TransformerContainer data-test="job-listing">
-      <PageTitle title={props.data.title + " at " + props.data.location} />
+      <PageTitle />
+      <SEO
+        description={
+          sanitize(props.data.description, []).__html.substr(0, 400) + "..."
+        }
+        title={
+          props.data.title +
+          " at " +
+          props.data.location +
+          "- My Exact Jobs - Exact Staff"
+        }
+        ogImage="/static/images/exactstaffsquare.jfif"
+      />
       <JobListingHeader
         title={props.data.title}
         location={props.data.location}

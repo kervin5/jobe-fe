@@ -3,8 +3,6 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import JobListing from "./JobListing";
 import Loader from "../../common/UI/Animated/Loader";
-import SEO from "../../SEO";
-import sanitize from "../../../lib/html";
 
 export const SINGLE_JOB_QUERY = gql`
   query SINGLE_JOB_QUERY($id: ID!) {
@@ -60,14 +58,6 @@ const SingleJobListing = ({ jobId, preview }) => {
 
         return (
           <>
-            <SEO
-              description={
-                sanitize(singleJob.description, []).__html.substr(0, 200) +
-                "..."
-              }
-              title={singleJob.title}
-              ogImage="/static/images/exactstaffsquare.jfif"
-            />
             <JobListing
               data={{
                 ...singleJob,
