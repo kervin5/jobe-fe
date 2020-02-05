@@ -36,7 +36,7 @@ export const SINGLE_JOB_APPLICATION_QUERY = gql`
   }
 `;
 
-const SingleJobApplication = ({ applicationId }) => {
+const SingleJobApplication = ({ applicationId, client }) => {
   return (
     <Query
       query={SINGLE_JOB_APPLICATION_QUERY}

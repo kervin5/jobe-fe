@@ -80,10 +80,12 @@ const JobApplicationStatusDropdown = ({
               value={status}
               fluid
               onChange={(e, data) => {
-                setCurrentStatus(data.value);
-                changeApplicationStatusMutation({
-                  variables: { id: applicationId, status: data.value }
-                });
+                if (data.value !== "NEW" && data.value !== "VIEWED") {
+                  setCurrentStatus(data.value);
+                  changeApplicationStatusMutation({
+                    variables: { id: applicationId, status: data.value }
+                  });
+                }
               }}
             />
             <style jsx>{`
