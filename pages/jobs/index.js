@@ -32,7 +32,7 @@ const SearchPage = props => {
     <>
       <SEO
         description="Start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for so Apply Today!"
-        title={`${props.q} Jobs Near ${
+        title={`${props.q || props.category} Jobs Near ${
           props.location ? props.location : "You"
         } - My Exact
         Jobs Search`}

@@ -57,7 +57,7 @@ const SEARCH_JOBS_QUERY = gql`
       }
       first: $perPage
       skip: $skip
-      orderBy: updatedAt_DESC
+                   : updatedAt_DESC
       radius: $radius
     ) {
       id
@@ -79,10 +79,6 @@ const SEARCH_JOBS_QUERY = gql`
 class Jobs extends PureComponent {
   render() {
     let query = SEARCH_JOBS_QUERY;
-
-    // if ((this.props.q && this.props.location) || this.props.location) {
-    //   query = SEARCH_JOBS_QUERY;
-    // }
 
     return (
       <div>
