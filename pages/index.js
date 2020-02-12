@@ -12,7 +12,7 @@ import SearchArea from "../components/jobs/Search/SearchArea";
 import Jobs from "../components/jobs/Jobs";
 import PopularTerms from "../components/jobs/PopularTerms/PopularTerms";
 
-// const peopleImage = "../public/images/334809-PAIXKS-603.ai.png";
+// const peopleImage = "../images/334809-PAIXKS-603.ai.png";
 const landingLogo = "/images/LandingLogo.svg";
 
 // const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.mutedColor1} 40%);`;

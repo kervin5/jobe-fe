@@ -1,25 +1,22 @@
 import React from "react";
 
 import classes from "./BackgroundChanger.modules.scss";
-const accounting = "../../../../public/images/CategoryImages/Accounting.jpg";
-const aerospace = "../../../../public/images/CategoryImages/aerospace.jpg";
-const customerservice =
-  "../../../../public/images/CategoryImages/customeService.jpg";
-const engineering = "../../../../public/images/CategoryImages/Engineering.jpg";
-const entertainment =
-  "../../../../public/images/CategoryImages/entertainment.jpg";
-const foodIndustry =
-  "../../../../public/images/CategoryImages/foodindustry.jpg";
-const health = "../../../../public/images/CategoryImages/health.jpg";
-const helpdesk = "../../../../public/images/CategoryImages/Helpdesk.jpg";
-const hr = "../../../../public/images/CategoryImages/HR.jpg";
-const insurance = "../../../../public/images/CategoryImages/insurance.jpg";
-const it = "../../../../public/images/CategoryImages/IT.jpg";
-const language = "../../../../public/images/CategoryImages/language.jpg";
-const legal = "../../../../public/images/CategoryImages/legal.jpg";
-const marketing = "../../../../public/images/CategoryImages/marketing.jpg";
-const other = "../../../../public/images/CategoryImages/Other.jpg";
-const warehouse = "../../../../public/images/CategoryImages/Warehouse.jpg";
+const accounting = "../../../../images/CategoryImages/Accounting.jpg";
+const aerospace = "../../../../images/CategoryImages/aerospace.jpg";
+const customerservice = "../../../../images/CategoryImages/customeService.jpg";
+const engineering = "../../../../images/CategoryImages/Engineering.jpg";
+const entertainment = "../../../../images/CategoryImages/entertainment.jpg";
+const foodIndustry = "../../../../images/CategoryImages/foodindustry.jpg";
+const health = "../../../../images/CategoryImages/health.jpg";
+const helpdesk = "../../../../images/CategoryImages/Helpdesk.jpg";
+const hr = "../../../../images/CategoryImages/HR.jpg";
+const insurance = "../../../../images/CategoryImages/insurance.jpg";
+const it = "../../../../images/CategoryImages/IT.jpg";
+const language = "../../../../images/CategoryImages/language.jpg";
+const legal = "../../../../images/CategoryImages/legal.jpg";
+const marketing = "../../../../images/CategoryImages/marketing.jpg";
+const other = "../../../../images/CategoryImages/Other.jpg";
+const warehouse = "../../../../images/CategoryImages/Warehouse.jpg";
 
 const backgroundImage = props => {
   return (

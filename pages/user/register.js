@@ -6,7 +6,7 @@ import WithoutAuth from "../../components/hoc/WithoutAuth";
 import Title from "../../components/common/UI/Title";
 import Link from "next/link";
 
-const friendsImgUrl = "../../public/images/friends-with-bg.png";
+const friendsImgUrl = "../../images/friends-with-bg.png";
 const pageStyles = ` background-color: ${variables.mutedColor1};
                 padding: 30px;
                 display: flex;

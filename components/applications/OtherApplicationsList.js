@@ -48,7 +48,7 @@ const OtherApplicationsList = ({ userId, applicationId }) => {
         const feedData = data.applications.map((feedItem, index) => ({
           key: "FeedItem" + index,
           date: moment(feedItem.createdAt).fromNow(),
-          image: "/public/images/avatar.PNG",
+          image: "/images/avatar.PNG",
           summary: (
             <Link
               href={"/dashboard/applications/[aid]"}

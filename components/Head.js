@@ -20,7 +20,7 @@ const Head = props => {
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
       />
-      <link rel="icon" href="/public/favicon.ico" />
+      <link rel="icon" href="/favicon.ico" />
       <link
         href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
         rel="stylesheet"
