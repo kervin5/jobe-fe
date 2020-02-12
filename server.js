@@ -70,17 +70,6 @@ app.prepare().then(() => {
       fs.writeFileSync(DESTINATION, xmlFile);
     })();
   });
-  // server.get("/sitemap.xml", function(req, res) {
-  //   res.header("Content-Type", "application/xml");
-  //   (async function sendXML() {
-  //     await generateSitemap();
-
-  //     // Send it to the browser
-  //     res.sendFile(path.join(__dirname + "/static/sitemap.xml"));
-  //     // Create a file on the selected destination
-  //     // fs.writeFileSync(DESTINATION, xmlFile);
-  //   })();
-  // });
 
   server.all("/translate", async (req, res, next) => {
     try {

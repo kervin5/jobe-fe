@@ -8,7 +8,7 @@ const list = props => {
   let itemsToRender = null;
 
   const bulletStyle = {
-    listStyleImage: "url(../../../../static/images/ExactStaffArrow.svg)",
+    listStyleImage: "url(/images/ExactStaffArrow.svg)",
     padding: "5px"
   };
 

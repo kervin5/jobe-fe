@@ -136,7 +136,7 @@ const userJobList = () => {
           <Icon icon="file alternate outline" />
           <span>&nbsp; Resumes</span>
         </Menu.Item>
-        <Menu.Menu position="right">
+        {/* <Menu.Menu position="right">
           <Menu.Item>
             <Input
               transparent
@@ -144,7 +144,7 @@ const userJobList = () => {
               placeholder="Search jobs..."
             />
           </Menu.Item>
-        </Menu.Menu>
+        </Menu.Menu> */}
       </Menu>
       <Segment attached="bottom">
         <>

@@ -3,7 +3,7 @@ import React from "react";
 import PageSection from "../components/common/Layout/PageSection.js";
 
 // Page: Landing Page
-const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
+const peopleImage = "../images/334809-PAIXKS-603.ai.png";
 
 const pageStyles = `background: linear-gradient(0deg, rgba(255,255,255,1) 40%, rgba(244,244,244,1) 40%);
 flex-wrap: wrap;
