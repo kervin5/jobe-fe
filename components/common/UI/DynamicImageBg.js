@@ -22,9 +22,7 @@ const DynamicImageBg = ({ absolute, noblur, query, children, staticImage }) => {
 
   if (staticImage) {
     const getRandomImage = () =>
-      `../../../static/bg/bg (${
-        staticImages[randomInt(0, staticImages.length - 1)]
-      }).jpeg`;
+      `/bg/bg (${staticImages[randomInt(0, staticImages.length - 1)]}).jpeg`;
     return <ImageBg src={getRandomImage()} {...baseProps} />;
   }
 

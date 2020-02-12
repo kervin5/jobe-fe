@@ -27,7 +27,7 @@ const jobListing = props => {
           props.data.location +
           "- My Exact Jobs - Exact Staff"
         }
-        ogImage="/static/images/exactstaffsquare.jfif"
+        ogImage="/public/images/exactstaffsquare.jfif"
       />
       <JobListingHeader
         title={props.data.title}
@@ -101,7 +101,7 @@ const jobListing = props => {
 
             .Body :global(li) {
        
-                list-style-image: url('${"../../../static/images/ExactStaffArrow.png"}');
+                list-style-image: url('${"../../../public/images/ExactStaffArrow.png"}');
                 // padding: 5px;
                 margin-bottom: 5px;
             }

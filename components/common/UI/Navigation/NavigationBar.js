@@ -1,7 +1,7 @@
 import variables from "../../globalVariables";
 import Link from "next/link";
 import NavigationItems from "./NavigationItems/NavigationItems";
-const CompanyLogo = "../../../../static/images/LandingLogo.svg";
+const CompanyLogo = "/images/LandingLogo.svg";
 
 const NavigationBar = () => {
   return (

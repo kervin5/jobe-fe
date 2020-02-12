@@ -43,7 +43,7 @@ const JobApplication = props => {
 
             .Body :global(li) {
        
-                list-style-image: url('${"../../../static/images/ExactStaffArrow.png"}');
+                list-style-image: url('${"../../../public/images/ExactStaffArrow.png"}');
                 // padding: 5px;
                 margin-bottom: 5px;
             }

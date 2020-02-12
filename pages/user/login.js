@@ -6,7 +6,7 @@ import LoginForm from "../../components/users/LoginForm";
 import Title from "../../components/common/UI/Title";
 import WithoutAuth from "../../components/hoc/WithoutAuth";
 
-const friendsImgUrl = "../../static/images/friends-with-bg.png";
+const friendsImgUrl = "../../public/images/friends-with-bg.png";
 const pageStyles = `background-color: ${variables.mutedColor1};
                     padding: 30px;
                     display: flex;

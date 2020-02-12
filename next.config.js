@@ -9,8 +9,8 @@ module.exports = withCSS({
         loader: "url-loader",
         options: {
           limit: 8192,
-          publicPath: "/_next/static/",
-          outputPath: "static/",
+          publicPath: "/",
+          outputPath: "public/",
           name: "[name].[ext]"
         }
       }
