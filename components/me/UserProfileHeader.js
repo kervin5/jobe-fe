@@ -65,6 +65,7 @@ const UserProfileHeader = () => {
         .UserInformation {
           width: 100%;
           display: flex;
+          padding: 20px;
         }
 
         .Avatar {
@@ -72,7 +73,6 @@ const UserProfileHeader = () => {
         }
 
         .MainContent {
-          padding: 30px;
           width: 100%;
         }
 
