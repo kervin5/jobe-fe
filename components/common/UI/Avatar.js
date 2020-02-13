@@ -17,10 +17,10 @@ const Avatar = ({ name = "Unknown" }) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 40px;
-          height: 40px;
+          width: 100px;
+          height: 100px;
           border-radius: 20px;
-          font-size: 1em;
+          font-size: 2em;
           margin: auto 10px;
         }
       `}</style>

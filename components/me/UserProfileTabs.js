@@ -80,7 +80,7 @@ export const RESUME_LIST_QUERY = gql`
   }
 `;
 
-const userJobList = () => {
+const userProfileTabs = () => {
   const [userLocation, setUserLocation] = useState("");
   const [activeItem, setActiveItem] = useState("recommended");
   const handleItemClick = (e, { name }) => setActiveItem(name);
@@ -102,7 +102,7 @@ const userJobList = () => {
   };
 
   return (
-    <div className="UserJobList">
+    <div className="userProfileTabs">
       <Menu attached="top" tabular>
         <Menu.Item
           name="recommended"
@@ -215,7 +215,7 @@ const userJobList = () => {
         }
 
         @media (max-width: 550px) {
-          .UserJobList :global(.menu .item:not(.active) > *:not(.Icon)) {
+          .userProfileTabs :global(.menu .item:not(.active) > *:not(.Icon)) {
             display: none;
           }
         }
@@ -241,4 +241,4 @@ const formatJobs = data => {
   return jobs;
 };
 
-export default userJobList;
+export default userProfileTabs;
