@@ -72,17 +72,14 @@ const UsersTable = props => {
         {userConnectionData => {
           if (userConnectionData.error) return <p>Something went wrong ...</p>;
           if (userConnectionData.loading) return <Loader />;
-
+          const queryVariables = {
+            perPage,
+            skip: (currentPage - 1) * perPage,
+            jobId: "" || props.jobId,
+            query
+          };
           return (
-            <Query
-              query={USER_QUERY}
-              variables={{
-                perPage,
-                skip: (currentPage - 1) * perPage,
-                jobId: "" || props.jobId,
-                query
-              }}
-            >
+            <Query query={USER_QUERY} variables={{ ...queryVariables }}>
               {({ error, loading, data }) => {
                 if (error) return <p>Something Went Wrong...</p>;
                 if (loading) return <Loader />;
@@ -96,7 +93,21 @@ const UsersTable = props => {
                     role: user.role ? user.role.name : "",
                     status: user.status,
                     branch: user.branch ? user.branch.name : "",
-                    actions: <UserActionButtons user={user} />
+                    actions: (
+                      <UserActionButtons
+                        user={user}
+                        refetchQueries={[
+                          {
+                            query: USER_QUERY,
+                            variables: { ...queryVariables }
+                          },
+                          {
+                            query: USERS_CONNECTION_QUERY,
+                            variables: { query }
+                          }
+                        ]}
+                      />
+                    )
                   });
                 });
 

@@ -11,30 +11,7 @@ const DELETE_USER_MUTATION = gql`
   }
 `;
 
-const updateUserList = (cache, payload) => {
-  const jobId = payload.data.addFavorite;
-  const data = cache.readQuery({
-    query: USER_FAVORITE_STATUS_QUERY,
-    variables: { jobId }
-  });
-
-  if (data.me) {
-    data.me.favorites = [
-      {
-        __typename: "Favorite",
-        id: "TempId",
-        job: { __typename: "Job", id: jobId }
-      }
-    ];
-    cache.writeQuery({
-      query: USER_FAVORITE_STATUS_QUERY,
-      variables: { jobId },
-      data
-    });
-  }
-};
-
-const DeleteUserButton = ({ message, userId }) => {
+const DeleteUserButton = ({ message, userId, refetchQueries }) => {
   const [open, setOpen] = useState(false);
 
   const openModal = () => setOpen(true);
@@ -44,14 +21,7 @@ const DeleteUserButton = ({ message, userId }) => {
     <Mutation
       mutation={DELETE_USER_MUTATION}
       variables={{ id: userId }}
-      optimisticResponse={{
-        __typename: "Mutation",
-        deleteUser: {
-          id: userId,
-          __typename: "User"
-        }
-      }}
-      udpate={updateUserList}
+      refetchQueries={refetchQueries}
     >
       {(deleteUserMutation, { error, loading, data }) => {
         return (
@@ -72,7 +42,6 @@ const DeleteUserButton = ({ message, userId }) => {
                 negative: true,
                 onClick: () => {
                   deleteUserMutation().then(res => {
-                    console.log(res);
                     if (res.data.deleteUser.id) {
                       closeModal();
                     }

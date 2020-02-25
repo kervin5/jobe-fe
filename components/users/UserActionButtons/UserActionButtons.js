@@ -4,13 +4,14 @@ import { Button } from "semantic-ui-react";
 import EditUserButton from "./EditUserButton";
 import DeleteUserButton from "./DeleteUserButton";
 
-const UserActionButtons = ({ user }) => (
+const UserActionButtons = ({ user, refetchQueries }) => (
   <div className="UserActionButtons">
     <Button.Group>
-      <EditUserButton userId={user.id} />
+      <EditUserButton userId={user.id} refetchQueries={refetchQueries || []} />
       <DeleteUserButton
         userId={user.id}
-        message={`Are you sure that you want to delete ${user.name}?`}
+        message={`Are you sure that you want to delete ${user.name}? This action is not reversible.`}
+        refetchQueries={refetchQueries || []}
       />
     </Button.Group>
     <style jsx>{`
