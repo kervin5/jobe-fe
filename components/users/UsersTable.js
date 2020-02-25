@@ -14,11 +14,17 @@ const USER_QUERY = gql`
     users(
       first: $perPage
       skip: $skip
-      where: { OR: [{ name_contains: $query }, { email_contains: $query }] }
+      where: {
+        AND: [
+          { OR: [{ name_contains: $query }, { email_contains: $query }] }
+          { status_not: DELETED }
+        ]
+      }
     ) {
       id
       name
       email
+      status
       role {
         id
         name
@@ -66,17 +72,14 @@ const UsersTable = props => {
         {userConnectionData => {
           if (userConnectionData.error) return <p>Something went wrong ...</p>;
           if (userConnectionData.loading) return <Loader />;
-
+          const queryVariables = {
+            perPage,
+            skip: (currentPage - 1) * perPage,
+            jobId: "" || props.jobId,
+            query
+          };
           return (
-            <Query
-              query={USER_QUERY}
-              variables={{
-                perPage,
-                skip: (currentPage - 1) * perPage,
-                jobId: "" || props.jobId,
-                query
-              }}
-            >
+            <Query query={USER_QUERY} variables={{ ...queryVariables }}>
               {({ error, loading, data }) => {
                 if (error) return <p>Something Went Wrong...</p>;
                 if (loading) return <Loader />;
@@ -88,8 +91,23 @@ const UsersTable = props => {
                     name: user.name,
                     email: <a href={`malito:${user.email}`}>{user.email}</a>,
                     role: user.role ? user.role.name : "",
+                    status: user.status,
                     branch: user.branch ? user.branch.name : "",
-                    actions: <UserActionButtons userId={user.id} />
+                    actions: (
+                      <UserActionButtons
+                        user={user}
+                        refetchQueries={[
+                          {
+                            query: USER_QUERY,
+                            variables: { ...queryVariables }
+                          },
+                          {
+                            query: USERS_CONNECTION_QUERY,
+                            variables: { query }
+                          }
+                        ]}
+                      />
+                    )
                   });
                 });
 
