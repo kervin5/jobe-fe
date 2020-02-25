@@ -14,11 +14,17 @@ const USER_QUERY = gql`
     users(
       first: $perPage
       skip: $skip
-      where: { OR: [{ name_contains: $query }, { email_contains: $query }] }
+      where: {
+        AND: [
+          { OR: [{ name_contains: $query }, { email_contains: $query }] }
+          { status_not: DELETED }
+        ]
+      }
     ) {
       id
       name
       email
+      status
       role {
         id
         name
@@ -88,8 +94,9 @@ const UsersTable = props => {
                     name: user.name,
                     email: <a href={`malito:${user.email}`}>{user.email}</a>,
                     role: user.role ? user.role.name : "",
+                    status: user.status,
                     branch: user.branch ? user.branch.name : "",
-                    actions: <UserActionButtons userId={user.id} />
+                    actions: <UserActionButtons user={user} />
                   });
                 });
 
