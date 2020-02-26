@@ -24,7 +24,7 @@ const RecommendedJobsList = () => {
           return (
             <Query query={USER_CATEGORIES_QUERY} variables={{ userId: me.id }}>
               {({ error, loading, data }) => {
-                if (me)
+                if (me && location)
                   return (
                     <Jobs
                       {...(data && data.categories.length
