@@ -9,7 +9,7 @@ import Link from "next/link";
 //     name
 // }
 
-const USER_CATEGORIES_QUERY = gql`
+export const USER_CATEGORIES_QUERY = gql`
   query USER_CATEGORIES_QUERY($userId: ID!) {
     categories(
       first: 12

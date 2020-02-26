@@ -136,15 +136,6 @@ const userProfileTabs = () => {
           <Icon icon="file alternate outline" />
           <span>&nbsp; Resumes</span>
         </Menu.Item>
-        {/* <Menu.Menu position="right">
-          <Menu.Item>
-            <Input
-              transparent
-              icon={{ name: "search", link: true }}
-              placeholder="Search jobs..."
-            />
-          </Menu.Item>
-        </Menu.Menu> */}
       </Menu>
       <Segment attached="bottom">
         <>

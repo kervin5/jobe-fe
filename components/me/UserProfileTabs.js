@@ -1,30 +1,35 @@
 import React from "react";
-import { Label, Menu, Tab } from "semantic-ui-react";
+import { Tab } from "semantic-ui-react";
 import UserBadgesTab from "./Tabs/UserBadgesTab";
+import UserJobsTab from "./Tabs/UserJobsTab";
+import UserResumesTab from "./Tabs/UserResumesTab";
 
 const panes = [
   {
-    menuItem: { key: "users", icon: "users", content: "Users" },
-    render: () => <Tab.Pane>Tab 1 Content</Tab.Pane>
-  },
-  {
-    menuItem: (
-      <Menu.Item key="messages">
-        Messages<Label>15</Label>
-      </Menu.Item>
-    ),
-    render: () => <Tab.Pane>Tab 2 Content</Tab.Pane>
-  },
-  {
-    menuItem: (
-      <Menu.Item key="badges">
-        Badges<Label>15</Label>
-      </Menu.Item>
-    ),
+    menuItem: { key: "users", icon: "handshake outline", content: "Jobs" },
     render: () => (
       <Tab.Pane>
-        Tab 3 Content
-        <UserBadgesTab />
+        <UserJobsTab />
+      </Tab.Pane>
+    )
+  },
+  // {
+  //   menuItem: { key: "badges", icon: "star outline", content: "Badges" },
+  //   render: () => (
+  //     <Tab.Pane>
+  //       <UserBadgesTab />
+  //     </Tab.Pane>
+  //   )
+  // },
+  {
+    menuItem: {
+      key: "resumes",
+      icon: "file alternate outline",
+      content: "Resumes"
+    },
+    render: () => (
+      <Tab.Pane>
+        <UserResumesTab />
       </Tab.Pane>
     )
   }
