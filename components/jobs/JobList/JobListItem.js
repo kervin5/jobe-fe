@@ -4,9 +4,10 @@ import moment from "moment";
 import variables from "../../common/globalVariables";
 import Bubble from "../../common/UI/Bubble";
 import Icon from "../../common/UI/Icon";
-import FavoriteButton from "../../common/UI/FavoriteButton";
+import FavoriteButton from "../JobFavoriteButton/FavoriteButton";
 import Card from "../../common/UI/Card";
 import HtmlRenderer from "../../common/UI/HtmlRenderer";
+import sanitize from "../../../lib/html";
 import PrompToRegister from "../../users/PrompToRegister";
 import Translator from "../../hoc/Translator";
 import { numberWithCommas } from "../JobCompensationBubbles";
@@ -22,7 +23,7 @@ const styles = ` background-color: ${variables.clearColor};
 
 const jobListItem = props => {
   const shortLocation = props.location.name;
-  const jobUrl =
+  const oldjobUrl =
     "/jobs/" +
     props.title
       .split(" ")
@@ -31,6 +32,12 @@ const jobListItem = props => {
       .join("-") +
     "-" +
     props.id;
+
+  const jobUrl = `/jobs/${props.title.replace(
+    /[\W_]+/g,
+    "-"
+  )}-${props.location.name.replace(/[\W_]+/g, "-")}-${props.id}`;
+
   return (
     <Card styles={styles}>
       <div className="JobListItemHeader">
@@ -60,10 +67,7 @@ const jobListItem = props => {
       <Link href="/jobs/[jid]" as={jobUrl}>
         <a className="Content">
           <Translator>
-            <HtmlRenderer
-              html={props.description.substr(0, 200) + "..."}
-              options={[]}
-            />
+            {sanitize(props.description, [])["__html"].substring(0, 300)}...
           </Translator>
         </a>
       </Link>

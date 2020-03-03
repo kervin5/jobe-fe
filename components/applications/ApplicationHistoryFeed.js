@@ -41,7 +41,7 @@ const ApplicationHistoryFeed = ({ applicationId }) => {
         const feedData = data.applicationNotes.map((feedItem, index) => ({
           key: "FeedItem" + index,
           date: moment(feedItem.createdAt).fromNow(),
-          image: "/static/images/avatar.PNG",
+          image: "/images/avatar.PNG",
           ...actionPerformed(feedItem)
         }));
         return <Feed events={feedData} />;

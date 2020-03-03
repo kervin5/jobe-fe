@@ -50,7 +50,7 @@ const Button = props => {
           font-weight: bold;
           border: none;
           color: ${variables.clearColor};
-          box-shadow: 0px 5px 15px -9px rgba(0, 0, 0, 0.66);
+          box-shadow: 0px 9px 5px -10px rgba(0, 0, 0, 0.75);
           transition: 300ms;
           min-width: 100px;
           padding-left: 15px;

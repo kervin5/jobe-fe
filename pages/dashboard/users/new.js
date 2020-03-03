@@ -1,4 +1,4 @@
-import CreateUserForm from "../../../components/users/CreateUserForm";
+import CreateUserForm from "../../../components/users/UserMutation/CreateUserForm";
 import DashboardPage from "../../../components/dashboard/DashboardPage";
 import WithAuth from "../../../components/hoc/WithAuth";
 

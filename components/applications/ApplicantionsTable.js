@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
-import { Dropdown, Input } from "semantic-ui-react";
+import { Dropdown, Input, Button } from "semantic-ui-react";
 import moment from "moment";
 import EempactStatusLabel from "../users/EempactStatusLabel";
 import { perPage } from "../../config";
@@ -10,8 +10,8 @@ import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 
 import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
-import Button from "../common/UI/Button";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
+import ApplicationsCountWarning from "./ApplicationsCountWarning";
 
 const ALL_APPLICATIONS_QUERY = gql`
   query ALL_APPLICATIONS_QUERY(
@@ -89,7 +89,7 @@ const ALL_APPLICATIONS_QUERY = gql`
   }
 `;
 
-const USER_APPLICATION_CONNECTION_QUERY = gql`
+export const USER_APPLICATION_CONNECTION_QUERY = gql`
   query USER_APPLICATION_CONNECTION_QUERY(
     $jobId: ID
     $status: [ApplicationStatus!]
@@ -187,11 +187,12 @@ const ApplicantTable = props => {
     } else {
       setStatus([status]);
     }
+    setCurrentPage(1);
   };
 
   return (
     <>
-      {" "}
+      <ApplicationsCountWarning />
       <Input
         icon="search"
         placeholder="Search..."
@@ -271,17 +272,18 @@ const ApplicantTable = props => {
                     eempact: (
                       <EempactStatusLabel email={application.user.email} />
                     ),
-                    application: (
+                    actions: (
                       <Button
+                        as="a"
+                        icon="eye"
+                        color="green"
                         onClick={e => {
                           e.preventDefault();
                           window.open(
                             "/dashboard/applications/" + application.id
                           );
                         }}
-                      >
-                        View
-                      </Button>
+                      />
                     )
                   });
                 });

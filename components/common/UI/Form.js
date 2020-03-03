@@ -4,15 +4,26 @@ import InputField from "./Input/InputField";
 import { Query, Mutation } from "react-apollo";
 import { Dimmer, Loader, Image, Segment } from "semantic-ui-react";
 
-const Form = ({ fields, method, graphql, mutation, buttonText, onSubmit }) => {
+const Form = ({
+  fields,
+  method,
+  graphql,
+  mutation,
+  buttonText,
+  onSubmit,
+  extraVariables,
+  refetchQueries
+}) => {
   const [formId, setFormId] = useState(generateFormId());
   const [formFields, setFomFields] = useState({ ...fields });
   const [variables, setVariables] = useState(null);
   const handleFieldChange = async field => {
-    setVariables({
-      ...variables,
-      [field.name]: field.value
-    });
+    if (!field.disabled) {
+      setVariables({
+        ...variables,
+        [field.name]: field.value
+      });
+    }
   };
 
   const handleGraphqlFormSubmit = async mutation => {
@@ -29,7 +40,6 @@ const Form = ({ fields, method, graphql, mutation, buttonText, onSubmit }) => {
 
   const fieldsToRenders = Object.keys(formFields).map((fieldKey, index) => {
     const fieldData = formFields[fieldKey];
-
     return fieldData.options && fieldData.options.hasOwnProperty("query") ? (
       <Query query={fieldData.options.query} key={fieldKey + index + formId}>
         {({ error, loading, data }) => {
@@ -55,6 +65,7 @@ const Form = ({ fields, method, graphql, mutation, buttonText, onSubmit }) => {
               change={handleFieldChange}
               name={fieldData.name || fieldKey}
               value={fieldData.value}
+              disabled={fieldData.disabled}
             />
           );
         }}
@@ -70,12 +81,17 @@ const Form = ({ fields, method, graphql, mutation, buttonText, onSubmit }) => {
         change={handleFieldChange}
         name={fieldData.name || fieldKey}
         value={fieldData.value}
+        disabled={fieldData.disabled}
       />
     );
   });
 
   const formToRender = graphql ? (
-    <Mutation mutation={mutation} variables={variables}>
+    <Mutation
+      mutation={mutation}
+      variables={{ ...variables, ...extraVariables }}
+      refetchQueries={refetchQueries}
+    >
       {(formMutation, { error, loading, data }) => {
         if (loading)
           return (

@@ -3,7 +3,8 @@ import { Label } from "semantic-ui-react";
 import variables from "../../../components/common/globalVariables";
 import TransformerContainer from "../../common/Layout/TransformerContainer";
 import JobListingHeader from "./JobListingHeader/JobListingHeader";
-import PageTitle from "../../common/Layout/PageTitle";
+import SEO from "../../SEO";
+import sanitize from "../../../lib/html";
 import Title from "../../common/UI/Title";
 import ApplyToJobButton from "../../common/UI/ApplyToJobButton";
 import HtmlRenderer from "../../common/UI/HtmlRenderer";
@@ -15,7 +16,19 @@ import Translator, { ListOfLanguages } from "../../hoc/Translator";
 const jobListing = props => {
   return (
     <TransformerContainer data-test="job-listing">
-      <PageTitle title={props.data.title + " at " + props.data.location} />
+      <SEO
+        description={
+          sanitize(props.data.description, []).__html.substr(0, 400) +
+          "... Start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for "
+        }
+        title={
+          props.data.title +
+          " at " +
+          props.data.location +
+          "- My Exact Jobs - Exact Staff"
+        }
+        ogImage="/images/exactstaffsquare.jfif"
+      />
       <JobListingHeader
         title={props.data.title}
         location={props.data.location}
@@ -53,11 +66,15 @@ const jobListing = props => {
         <br />
 
         {props.preview ? null : <ApplyToJobButton jobId={props.data.id} />}
-        <Label.Group tag>
-          {props.data.skills.map((category, index) => {
-            return <Label key={"CategoryLabel" + index}>{category.name}</Label>;
-          })}
-        </Label.Group>
+        <div className="Labels">
+          <Label.Group tag>
+            {props.data.skills.map((category, index) => {
+              return (
+                <Label key={"CategoryLabel" + index}>{category.name}</Label>
+              );
+            })}
+          </Label.Group>
+        </div>
       </div>
 
       <style jsx>{`
@@ -84,7 +101,7 @@ const jobListing = props => {
 
             .Body :global(li) {
        
-                list-style-image: url('${"../../../static/images/ExactStaffArrow.png"}');
+                list-style-image: url('${"../../../images/ExactStaffArrow.png"}');
                 // padding: 5px;
                 margin-bottom: 5px;
             }
@@ -117,6 +134,10 @@ const jobListing = props => {
                     float: right;
                 }
 
+            }
+
+            .Labels {
+              margin-top: 30px;
             }
         `}</style>
       <StucturedJobListing data={props.data} />

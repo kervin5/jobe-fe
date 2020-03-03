@@ -12,8 +12,8 @@ import SearchArea from "../components/jobs/Search/SearchArea";
 import Jobs from "../components/jobs/Jobs";
 import PopularTerms from "../components/jobs/PopularTerms/PopularTerms";
 
-// const peopleImage = "../static/images/334809-PAIXKS-603.ai.png";
-const landingLogo = "../static/images/LandingLogo.svg";
+// const peopleImage = "../images/334809-PAIXKS-603.ai.png";
+const landingLogo = "/images/LandingLogo.svg";
 
 // const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.mutedColor1} 40%);`;
 
@@ -63,6 +63,21 @@ const homePage = props => {
         </Title>
         <Jobs />
       </Container>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: `{
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "url": "https://www.myexactjobs.com/",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://www.myexactjobs.com/jobs?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }`
+        }}
+      />
       <style jsx>{`
         .Logos {
           display: flex;

@@ -5,7 +5,7 @@ import Button from "./Button";
 import PopUp from "./PopUp";
 import AuthForm from "../../users/AuthForm";
 import ResumeUploadForm from "../../resumes/ResumeUploadForm";
-import { RESUME_LIST_QUERY } from "../../me/UserJobList";
+import { RESUME_LIST_QUERY } from "../../me/Tabs/UserResumesTab";
 
 const USER_IS_REGISTERED_QUERY = gql`
   query USER_IS_REGISTERED_QUERY {

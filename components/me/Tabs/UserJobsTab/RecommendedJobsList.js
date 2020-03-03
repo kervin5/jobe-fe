@@ -1,0 +1,49 @@
+import React, { useState, useEffect } from "react";
+import { Query } from "react-apollo";
+import Jobs from "../../../jobs/Jobs";
+import Title from "../../../common/UI/Title";
+import UserLocator from "../../../../data/UserLocator";
+import { USER_CATEGORIES_QUERY } from "../../UserCategories";
+import UserInfo from "../../../hoc/UserInfo";
+
+const RecommendedJobsList = () => {
+  const [location, setLocation] = useState(undefined);
+
+  useEffect(() => {
+    new UserLocator().getLocation().then(res => {
+      setLocation(res.name);
+    });
+  }, []);
+
+  return (
+    <>
+      <Title size="m">Recommended Jobs</Title>
+      <UserInfo>
+        {({ me, loading }) => {
+          if (loading) return <p>Loading</p>;
+          return (
+            <Query query={USER_CATEGORIES_QUERY} variables={{ userId: me.id }}>
+              {({ error, loading, data }) => {
+                if (me && location)
+                  return (
+                    <Jobs
+                      {...(data && data.categories.length
+                        ? { category: getRandom(data.categories).name }
+                        : {})}
+                      location={location}
+                    />
+                  );
+                return null;
+              }}
+            </Query>
+          );
+        }}
+      </UserInfo>
+    </>
+  );
+};
+
+function getRandom(list) {
+  return list[Math.floor(Math.random() * list.length)];
+}
+export default RecommendedJobsList;

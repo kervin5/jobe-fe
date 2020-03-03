@@ -19,6 +19,7 @@ const CounterCard = ({ icon, label, value, color }) => {
         .CounterCard {
           border-radius: 15px;
           margin-top: 1em;
+          margin-bottom: 0 !important;
         }
 
         .CounterCard .content {

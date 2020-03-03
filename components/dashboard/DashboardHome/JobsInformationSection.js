@@ -1,41 +1,22 @@
 import React from "react";
-import { Grid } from "semantic-ui-react";
-import CounterCard from "../../common/UI/CounterCard";
 import JobStatusCard from "./JobStatusCard";
 import ApplicationStatusCard from "./ApplicationsStatusCard";
-import JobsTable from "../../jobs/JobsTable";
 
 class JobsInformationSection extends React.Component {
   render() {
     return (
       <React.Fragment>
         <div className="Summary">
-          <Grid stackable columns={4}>
-            <Grid.Column>
-              <JobStatusCard label="Posted" status="POSTED" />
-            </Grid.Column>
-            <Grid.Column>
-              <JobStatusCard
-                label="Draft"
-                status="DRAFT"
-                icon="pencil"
-                color="2"
-              />
-            </Grid.Column>
-            <Grid.Column>
-              <JobStatusCard
-                label="Pending"
-                status="PENDING"
-                icon="comments"
-                color="3"
-              />
-            </Grid.Column>
-            <Grid.Column>
-              <ApplicationStatusCard color="4" icon="smile" />
-            </Grid.Column>
-          </Grid>
+          <JobStatusCard label="Posted" status="POSTED" />
+          <JobStatusCard label="Draft" status="DRAFT" icon="pencil" color="2" />
+          <JobStatusCard
+            label="Pending"
+            status="PENDING"
+            icon="comments"
+            color="3"
+          />
+          <ApplicationStatusCard color="4" icon="smile" />
         </div>
-        <JobsTable />
 
         <style jsx>{`
           .Summary {
@@ -43,11 +24,6 @@ class JobsInformationSection extends React.Component {
             margin-bottom: 20px;
             margin-top: 20px;
             justify-content: space-between;
-            flex-wrap: wrap;
-          }
-
-          .Summary > * {
-            min-width: 600px;
           }
         `}</style>
       </React.Fragment>
@@ -55,4 +31,5 @@ class JobsInformationSection extends React.Component {
   }
 }
 
+// export default JobsInformationSection;
 export default JobsInformationSection;

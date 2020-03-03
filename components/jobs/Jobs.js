@@ -80,10 +80,6 @@ class Jobs extends PureComponent {
   render() {
     let query = SEARCH_JOBS_QUERY;
 
-    // if ((this.props.q && this.props.location) || this.props.location) {
-    //   query = SEARCH_JOBS_QUERY;
-    // }
-
     return (
       <div>
         <Query

@@ -80,7 +80,7 @@ export const RESUME_LIST_QUERY = gql`
   }
 `;
 
-const userJobList = () => {
+const userProfileTabs = () => {
   const [userLocation, setUserLocation] = useState("");
   const [activeItem, setActiveItem] = useState("recommended");
   const handleItemClick = (e, { name }) => setActiveItem(name);
@@ -102,7 +102,7 @@ const userJobList = () => {
   };
 
   return (
-    <div className="UserJobList">
+    <div className="userProfileTabs">
       <Menu attached="top" tabular>
         <Menu.Item
           name="recommended"
@@ -136,15 +136,6 @@ const userJobList = () => {
           <Icon icon="file alternate outline" />
           <span>&nbsp; Resumes</span>
         </Menu.Item>
-        <Menu.Menu position="right">
-          <Menu.Item>
-            <Input
-              transparent
-              icon={{ name: "search", link: true }}
-              placeholder="Search jobs..."
-            />
-          </Menu.Item>
-        </Menu.Menu>
       </Menu>
       <Segment attached="bottom">
         <>
@@ -215,7 +206,7 @@ const userJobList = () => {
         }
 
         @media (max-width: 550px) {
-          .UserJobList :global(.menu .item:not(.active) > *:not(.Icon)) {
+          .userProfileTabs :global(.menu .item:not(.active) > *:not(.Icon)) {
             display: none;
           }
         }
@@ -241,4 +232,4 @@ const formatJobs = data => {
   return jobs;
 };
 
-export default userJobList;
+export default userProfileTabs;

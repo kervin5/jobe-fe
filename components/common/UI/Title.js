@@ -7,14 +7,24 @@ const Title = props => {
   const alignment = props.center ? "Center" : props.right ? "Right" : "Left";
   const classesToRender = ["Title", alignment].join(" ");
   const weight = props.weight || "bold";
+
+  const color =
+    props.color && variables["accentColor" + props.color]
+      ? variables["accentColor" + props.color]
+      : variables.darkColor;
+
   return (
     <div className={classesToRender} data-test="title-component">
       {titleGenerator(props.size, props.children, weight, props)}
       <style jsx>{`
         .Title {
-          color: ${variables.darkColor};
+          color: ${color};
           position: relative;
-          margin: ${props.margin ? "20px" : "0 0 10px"};
+          margin: ${props.nomargin
+            ? "0px"
+            : props.margin
+            ? "20px"
+            : "0 0 10px"};
           display: ${props.inline ? "inline-block" : "block"};
           ${extraStyles};
         }
@@ -39,6 +49,9 @@ const titleGenerator = (size, text, weight, props) => {
   let TagForTitle = "h1";
 
   switch (size) {
+    case "xs":
+      TagForTitle = "h5";
+      break;
     case "s":
       TagForTitle = "h4";
       break;

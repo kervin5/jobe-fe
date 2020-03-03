@@ -8,8 +8,6 @@ import ButtonGroup from "../common/UI/ButtonGroup";
 import { handleUpload } from "../../lib/upload";
 import Router from "next/router";
 import InputField from "../common/UI/Input/InputField";
-import Link from "next/link";
-import Route from "next/router";
 
 const SIGN_UPLOAD_MUTATION = gql`
   mutation SIGN_UPLOAD_MUTATION($fileName: String!, $fileType: String!) {
@@ -88,7 +86,11 @@ const ResumeUploadForm = props => {
     isDragAccept
   } = useDropzone({
     onDrop,
-    accept: ["application/pdf"],
+    accept: [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ],
     minSize: 0,
     maxSize
   });
@@ -101,7 +103,7 @@ const ResumeUploadForm = props => {
   }
 
   if (uploaded) {
-    return <p>Resume ready to be uploaded</p>;
+    return <p>Resume uploaded</p>;
   }
 
   return (

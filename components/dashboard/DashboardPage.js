@@ -42,33 +42,29 @@ const dashboardPage = props => {
 
   return (
     <PageSection column className="DashboardPage">
-      <PageTitle>
-        {(props.title && `${props.title} - Dashboard `) || "Dashboard"}
-      </PageTitle>
       <SideMenu
         onClick={handleItemClick}
         options={Object.keys(sections).map(
           sectionName => sections[sectionName]
         )}
       />
-      <Container maxWidth={props.maxwidth || "1200px"}>
-        <div className="PageContent">
-          <Title>{props.title || "Dashboard"}</Title>
-          {props.children}
-          <style jsx>{`
-            .PageContent {
-              overflow-x: ${props.nooverflow ? "initial" : "auto"};
-              overflow-y: ${props.nooverflow ? "initial" : "hidden"};
-            }
 
-            @media (max-width: 1800px) {
-              .PageContent {
-                padding-left: 100px;
-              }
-            }
-          `}</style>
-        </div>
-      </Container>
+      <div className="PageContent">
+        <PageTitle>
+          {(props.title && `${props.title} - Dashboard `) || "Dashboard"}
+        </PageTitle>
+        <Title>{props.title || "Dashboard"}</Title>
+        {props.children}
+      </div>
+      <style jsx>
+        {`
+          .PageContent {
+            padding-left: 150px;
+            padding-right: 50px;
+            width: 100%;
+          }
+        `}
+      </style>
     </PageSection>
   );
 };

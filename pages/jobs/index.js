@@ -9,6 +9,7 @@ import Button from "../../components/common/UI/Button";
 import ButtonGroup from "../../components/common/UI/ButtonGroup";
 import Jobs from "../../components/jobs/Jobs";
 import SearchFilters from "../../components/jobs/Search/SearchFilters";
+import SEO from "../../components/SEO";
 
 const styles = `background-color: ${variables.mutedColor1}; padding: 30px; align-items: flex-start;`;
 
@@ -29,6 +30,13 @@ const SearchPage = props => {
 
   return (
     <>
+      <SEO
+        description="Start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for so Apply Today!"
+        title={`${props.q || props.category} Jobs Near ${
+          props.location ? props.location : "You"
+        } - My Exact
+        Jobs Search`}
+      />
       <SearchFilters
         showFilters={showFilters}
         setShowFilters={setShowFilters}
@@ -59,7 +67,21 @@ const SearchPage = props => {
           />
         </div>
       </PageSection>
-
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: `{
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "url": "https://www.myexactjobs.com/",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://www.myexactjobs.com/jobs?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }`
+        }}
+      />
       <style jsx>{`
         .Container {
           max-width: 600px;

@@ -8,7 +8,10 @@ const dashboardApplicationsPerJobPage = props => {
     <DashboardPage title="Application" maxwidth="1400px">
       <div className="Sections">
         <div className="ApplicationResume">
-          <SingleJobApplication applicationId={props.applicationId} />
+          <SingleJobApplication
+            applicationId={props.applicationId}
+            client={props.client}
+          />
         </div>
         <div className="ApplicationInformation">
           <ApplicationInformation applicationId={props.applicationId} />
@@ -30,7 +33,9 @@ const dashboardApplicationsPerJobPage = props => {
 
 dashboardApplicationsPerJobPage.getInitialProps = async args => {
   const { aid } = args.query;
-  return { applicationId: aid };
+  const client = args.apolloClient;
+
+  return { applicationId: aid, client: () => client };
 };
 
 export default WithAuth(dashboardApplicationsPerJobPage, [

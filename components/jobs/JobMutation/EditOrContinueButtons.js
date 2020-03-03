@@ -4,9 +4,9 @@ import Router from "next/router";
 import RenderIfLoggedIn from "../../hoc/RenderIfLoggedIn";
 import ChangeJobStatusButton from "./ChangeJobStatusButton";
 
-function EditOrPublishButtons({ jobId }) {
+function EditOrContinueButtons({ jobId }) {
   return (
-    <div className="EditOrPublishButtons">
+    <div className="EditOrContinueButtons">
       <Button
         icon
         labelPosition="left"
@@ -37,7 +37,7 @@ function EditOrPublishButtons({ jobId }) {
         Dashboard
       </Button>
       <style jsx>{`
-        .EditOrPublishButtons {
+        .EditOrContinueButtons {
           margin-bottom: 15px;
           display: flex;
           justify-content: flex-end;
@@ -47,4 +47,4 @@ function EditOrPublishButtons({ jobId }) {
   );
 }
 
-export default EditOrPublishButtons;
+export default EditOrContinueButtons;

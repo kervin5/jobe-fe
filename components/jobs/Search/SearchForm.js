@@ -40,6 +40,10 @@ const searchForm = props => {
         ...fieldData
       }
     });
+
+    if (fieldData.name === "searchLocation") {
+      localStorage.setItem("lastLocation", fieldData.value);
+    }
   };
 
   const submitFormHandler = async e => {

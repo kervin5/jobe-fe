@@ -19,7 +19,7 @@ const TableWithPagination = ({
   if (!data || data.length === 0) return <p>No Data To Show</p>;
   return (
     <div className="CustomTable">
-      <Table celled>
+      <Table selectable>
         <Table.Header>
           <Table.Row>
             {Object.keys(data[0])

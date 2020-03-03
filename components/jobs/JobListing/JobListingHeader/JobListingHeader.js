@@ -1,9 +1,9 @@
-import React, { setState } from "react";
+import React from "react";
 import variables from "../../../../components/common/globalVariables";
 import Bubble from "../../../common/UI/Bubble";
 import Icon from "../../../common/UI/Icon";
 import Title from "../../../common/UI/Title";
-import FavoriteButton from "../../../common/UI/FavoriteButton";
+import FavoriteButton from "../../JobFavoriteButton/FavoriteButton";
 import PrompToRegister from "../../../users/PrompToRegister";
 import Translator from "../../../hoc/Translator";
 import JobCompensationBubbles from "../../JobCompensationBubbles";
@@ -44,7 +44,7 @@ const JobListingHeader = props => (
     <style jsx>{`
       .JobListingHeader {
         width: 100%;
-        max-width: 1200px;
+
         padding: 40px;
         background-color: ${variables.accentColor2};
         border-top-right-radius: 30px;

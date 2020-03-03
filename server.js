@@ -40,6 +40,16 @@ app.prepare().then(() => {
     })
   );
 
+  server.use("/iplocation", (req, res, next) => {
+    return proxy({
+      target:
+        "https://freegeoip.app/json/" +
+        (req.headers["x-forwarded-for"] || req.connection.remoteAddress),
+      changeOrigin: true,
+      pathRewrite: () => ""
+    })(req, res, next);
+  });
+
   server.use("/location/:name", (req, res, next) => {
     return proxy({
       target: mapboxUrl(req.params.name),
@@ -60,17 +70,6 @@ app.prepare().then(() => {
       fs.writeFileSync(DESTINATION, xmlFile);
     })();
   });
-  // server.get("/sitemap.xml", function(req, res) {
-  //   res.header("Content-Type", "application/xml");
-  //   (async function sendXML() {
-  //     await generateSitemap();
-
-  //     // Send it to the browser
-  //     res.sendFile(path.join(__dirname + "/static/sitemap.xml"));
-  //     // Create a file on the selected destination
-  //     // fs.writeFileSync(DESTINATION, xmlFile);
-  //   })();
-  // });
 
   server.all("/translate", async (req, res, next) => {
     try {

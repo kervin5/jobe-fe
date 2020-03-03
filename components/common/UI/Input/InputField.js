@@ -23,7 +23,7 @@ const inputField = props => {
     maxLength: props.maxLength || 9999999,
     allowed: props.allowed || "all"
   };
-  // const [fieldName, setFieldName] = useState(props.value || "");
+
   let FieldToRender = null;
   const inputOrnaments = (
     <React.Fragment>
@@ -137,7 +137,7 @@ const inputField = props => {
 
   return (
     <div
-      className="InputField"
+      className={`InputField ${props.disabled ? "disabled" : ""}`}
       onKeyPress={e => {
         e.key === "Enter" && e.preventDefault();
       }}
@@ -160,7 +160,11 @@ const inputField = props => {
           color: ${props.boldLabel
             ? variables.clearColor
             : variables.darkColor};
-          text-shadow: ${props.boldLabel ? "1px 2px 3px #666" : "none"}; 
+          text-shadow: ${props.boldLabel ? "1px 2px 3px #666" : "none"};
+        }
+
+        div.disabled {
+          pointer-events: none;
         }
 
         .InputContainer {
@@ -175,6 +179,10 @@ const inputField = props => {
           align-items: center;
           transition: 300ms;
           margin: 10px auto;
+        }
+
+        .InputContainer:hover {
+          border: 1px solid ${variables.accentColor2};
         }
 
         .InputContainer :global(.DraftEditor-root) {

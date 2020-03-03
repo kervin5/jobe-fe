@@ -6,6 +6,7 @@ import InputField from "../common/UI/Input/InputField";
 import Button from "../common/UI/Button";
 import ErrorMessage from "../common/UI/ErrorMessage";
 import { ME_USER_QUERY } from "../../lib/auth";
+import PrivacyPolicyLink from "../common/UI/PrivacyPolicyLink";
 
 // import { logInUser } from "../../../data/auth";
 
@@ -128,6 +129,7 @@ const registerForm = props => {
                 <fieldset disabled={loading} aria-busy={loading}>
                   {fieldsToRender}
                   <br />
+                  <PrivacyPolicyLink />
                   <Button onClick={e => submitHandler(signupUser, e)} fullWidth>
                     Register
                   </Button>
