@@ -49,8 +49,13 @@ const ALL_APPLICATIONS_QUERY = gql`
       id
       createdAt
       status
+
       user {
         name
+        eEmpact {
+          id
+          assignments
+        }
         id
         email
         location {
@@ -270,7 +275,7 @@ const ApplicantTable = props => {
                       />
                     ),
                     eempact: (
-                      <EempactStatusLabel email={application.user.email} />
+                      <EempactStatusLabel data={application.user.eEmpact} />
                     ),
                     actions: (
                       <Button

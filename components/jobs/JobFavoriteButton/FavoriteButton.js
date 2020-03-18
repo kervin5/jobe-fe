@@ -26,7 +26,7 @@ const favoriteButtonWrapper = props => {
       variables={{ jobId: props.jobId }}
     >
       {({ error, loading, data }) => {
-        if (error) return <FavoriteButton className={"untouched"} />;
+        if (error) return <AddFavoriteButton show={true} />;
         if (loading) return <p>Loading...</p>;
         let touched = data && data.me ? data.me.favorites.length > 0 : false;
         return (

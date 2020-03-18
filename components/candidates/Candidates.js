@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { Button, Input, Label } from "semantic-ui-react";
 import { perPage } from "../../config";
 
+import EempactStatusLabel from "../users/EempactStatusLabel";
 import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
 import DropdownGraphqlInput from "../common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
@@ -27,6 +28,10 @@ const CANDIDATE_QUERY = gql`
       id
       name
       email
+      eEmpact {
+        id
+        assignments
+      }
       resumes(last: 1) {
         file {
           id
@@ -164,7 +169,8 @@ const Candidates = props => {
                         .filter(skill => skills.includes(skill.id))
                         .map(skill => (
                           <Label content={skill.name} color="blue" />
-                        ))
+                        )),
+                    eEmpact: <EempactStatusLabel data={candidate.eEmpact} />
                   });
                 });
 
