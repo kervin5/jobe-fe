@@ -13,6 +13,10 @@ const APPLICANT_INFORMATION_QUERY = gql`
         id
         name
         email
+        eEmpact {
+          id
+          assignment
+        }
       }
     }
   }
@@ -39,7 +43,7 @@ const ApplicantInformation = ({ applicationId }) => (
                 </span>
               </Item.Meta>
               <Item.Extra>
-                <EempactStatusLabel email={data.application.user.email} />
+                <EempactStatusLabel email={data.application.user.eEmpact} />
               </Item.Extra>
               {/* <Item.Description>{paragraph}</Item.Description>
             <Item.Extra>
