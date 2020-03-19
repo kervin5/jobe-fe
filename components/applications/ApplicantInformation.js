@@ -15,7 +15,7 @@ const APPLICANT_INFORMATION_QUERY = gql`
         email
         eEmpact {
           id
-          assignment
+          assignments
         }
       }
     }
