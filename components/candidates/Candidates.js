@@ -74,7 +74,6 @@ const Candidates = props => {
   };
 
   const inputChangeHandler = e => {
-    console.log(e);
     setQuery(e.target.value);
   };
 
@@ -87,7 +86,10 @@ const Candidates = props => {
           onChange={inputChangeHandler}
         />
         <DropdownGraphqlInput
-          onChange={(e, data) => setSkills(data.value)}
+          onChange={(e, data) => {
+            setSkills(data.value);
+            setCurrentPage(0);
+          }}
           name="jobSkills"
           label="Candidate Skills"
           placeholder="Filter by skills"
