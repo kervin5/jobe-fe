@@ -43,7 +43,7 @@ const ApplicantInformation = ({ applicationId }) => (
                 </span>
               </Item.Meta>
               <Item.Extra>
-                <EempactStatusLabel email={data.application.user.eEmpact} />
+                <EempactStatusLabel data={data.application.user.eEmpact} />
               </Item.Extra>
               {/* <Item.Description>{paragraph}</Item.Description>
             <Item.Extra>
