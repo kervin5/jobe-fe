@@ -7,7 +7,7 @@ import Button from "./Button";
 
 const APPLY_TO_JOB_MUTATION = gql`
   mutation APPLY_TO_JOB_MUTATION($jobId: ID!) {
-    createApplication(job: { connect: { id: $jobId } }) {
+    createApplication(job: $jobId) {
       id
       job {
         id
