@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { perPage } from "../../config";
+import { first } from "../../config";
 import JobList from "./JobList/JobList";
 import Button from "../common/UI/Button";
 import Loader from "../common/UI/Animated/Loader";
@@ -10,11 +10,11 @@ import Loader from "../common/UI/Animated/Loader";
 //   query ALL_JOBS_QUERY(
 //     $query: String!
 //     $category: String
-//     $perPage: Int!
+//     $first: Int!
 //     $skip: Int!
 //   ) {
 //     jobs(
-//       first: $perPage
+//       first: $first
 //       skip: $skip
 //       orderBy: updatedAt_DESC
 //       where: {
@@ -43,7 +43,7 @@ const SEARCH_JOBS_QUERY = gql`
     $query: String!
     $location: String!
     $category: String
-    $perPage: Int!
+    $first: Int!
     $type: String
     $skip: Int!
     $radius: Int
@@ -52,12 +52,11 @@ const SEARCH_JOBS_QUERY = gql`
       query: $query
       location: $location
       where: {
-        categories_some: { name_contains: $category }
-        type_contains: $type
+        categories: { some: { name: { contains: $category } } }
+        type: { contains: $type }
       }
-      first: $perPage
+      first: $first
       skip: $skip
-      orderBy: updatedAt_DESC
       radius: $radius
     ) {
       id
@@ -90,7 +89,7 @@ class Jobs extends PureComponent {
             category: this.props.category || "",
             type: this.props.type || "",
             radius: this.props.radius || 5,
-            perPage,
+            first,
             skip: 0
           }}
         >
@@ -98,7 +97,7 @@ class Jobs extends PureComponent {
             if (loading) return <Loader />;
             if (error) return <p>Error: {error.message}</p>;
             const jobs = data.jobs || data.searchJobs;
-            const endReached = jobs.length % perPage !== 0;
+            const endReached = jobs.length % first !== 0;
             return (
               <React.Fragment>
                 <JobList jobs={jobs} />
@@ -110,7 +109,7 @@ class Jobs extends PureComponent {
                       fetchMore({
                         variables: {
                           skip: jobs.length,
-                          perPage
+                          first
                         },
                         updateQuery(prev, { fetchMoreResult }) {
                           if (!fetchMoreResult) return prev;

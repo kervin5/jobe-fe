@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Dropdown, Input, Button } from "semantic-ui-react";
 import moment from "moment";
 import EempactStatusLabel from "../users/EempactStatusLabel";
-import { perPage } from "../../config";
+import { first } from "../../config";
 import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 
 import Table from "../common/UI/Table";
@@ -15,7 +15,7 @@ import ApplicationsCountWarning from "./ApplicationsCountWarning";
 
 const ALL_APPLICATIONS_QUERY = gql`
   query ALL_APPLICATIONS_QUERY(
-    $perPage: Int!
+    $first: Int!
     $skip: Int!
     $jobId: ID
     $status: [ApplicationStatus!]
@@ -43,7 +43,7 @@ const ALL_APPLICATIONS_QUERY = gql`
         ]
       }
       orderBy: createdAt_ASC
-      first: $perPage
+      first: $first
       skip: $skip
     ) {
       id
@@ -141,7 +141,7 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
       queries.push({
         query: ALL_APPLICATIONS_QUERY,
         variables: {
-          perPage,
+          first,
           skip,
           status: [defaultStatus],
           terms
@@ -162,7 +162,7 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
   queries.push({
     query: ALL_APPLICATIONS_QUERY,
     variables: {
-      perPage,
+      first,
       skip,
       status: ["NEW", "VIEWED", "REVIEWING", "CONTACTED"],
       terms
@@ -230,8 +230,8 @@ const ApplicantTable = props => {
             <Query
               query={ALL_APPLICATIONS_QUERY}
               variables={{
-                perPage,
-                skip: (currentPage - 1) * perPage,
+                first,
+                skip: (currentPage - 1) * first,
                 jobId: "" || props.jobId,
                 status,
                 terms
@@ -269,7 +269,7 @@ const ApplicantTable = props => {
                         status={application.status}
                         refetchQueries={queriesToRefetch({
                           jobId: props.jobId || "",
-                          skip: (currentPage - 1) * perPage,
+                          skip: (currentPage - 1) * first,
                           terms
                         })}
                       />
@@ -303,7 +303,7 @@ const ApplicantTable = props => {
                     page={currentPage}
                     loading={loading}
                     count={count}
-                    perPage={perPage}
+                    first={first}
                     turnPageHandler={turnPageHandler}
                   />
                 );

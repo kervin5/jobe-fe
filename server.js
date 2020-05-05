@@ -6,7 +6,7 @@ const compression = require("compression");
 const axios = require("axios");
 const fs = require("fs");
 const handle = app.getRequestHandler();
-const endpoint = `http://localhost:4444/`;
+const endpoint = `http://localhost:4000/graphql`;
 const prodEndpoint = `https://myexactjobs-backend.herokuapp.com/`;
 
 const { DESTINATION, createSitemap } = require("./lib/sitemap");

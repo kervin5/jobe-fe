@@ -5,7 +5,7 @@ import JobMutationBaseForm from "./JobMutationBaseForm";
 import Title from "../../common/UI/Title";
 import JobPreview from "../../jobs/JobMutation/JobPreview";
 import { USER_JOBS_QUERY } from "../JobsTable";
-import { perPage } from "../../../config";
+import { first } from "../../../config";
 import ErrorMessage from "../../common/UI/ErrorMessage";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
@@ -90,7 +90,7 @@ const JobEditorForm = props => {
       refetchQueries={[
         {
           query: USER_JOBS_QUERY,
-          variables: perPage,
+          variables: first,
           skip: 0,
           query: ""
         }
