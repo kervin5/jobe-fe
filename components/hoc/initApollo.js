@@ -25,7 +25,7 @@ function create(initialState, { getToken, fetchOptions }) {
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : ""
+        Authorization: token ? `${token}` : ""
       }
     };
   });
