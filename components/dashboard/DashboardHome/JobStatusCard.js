@@ -4,11 +4,7 @@ import CounterCard from "../../common/UI/CounterCard";
 
 const JOB_STATUS_QUERY = gql`
   query JOB_STATUS_QUERY($status: JobStatus!) {
-    protectedJobsConnection(where: { status: $status }) {
-      aggregate {
-        count
-      }
-    }
+    protectedJobsConnection(where: { status: $status })
   }
 `;
 
@@ -24,7 +20,7 @@ const JobStatusCard = props => {
         return (
           <CounterCard
             label={props.label}
-            value={data.protectedJobsConnection.aggregate.count}
+            value={data.protectedJobsConnection}
             color={props.color}
             icon={props.icon}
           />

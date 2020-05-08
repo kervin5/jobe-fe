@@ -121,11 +121,7 @@ export const USER_APPLICATION_CONNECTION_QUERY = gql`
           }
         ]
       }
-    ) {
-      aggregate {
-        count
-      }
-    }
+    )
   }
 `;
 
@@ -293,9 +289,7 @@ const ApplicantTable = props => {
                   });
                 });
 
-                const count =
-                  userApplicationData.data.applicationsConnection.aggregate
-                    .count;
+                const count = userApplicationData.data.applicationsConnection;
 
                 return (
                   <Table

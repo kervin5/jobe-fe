@@ -5,12 +5,10 @@ import CounterCard from "../../common/UI/CounterCard";
 export const APPLICATION_STATUS_QUERY = gql`
   query APPLICATION_STATUS_QUERY {
     applicationsConnection(
-      where: { AND: [{ status_not: ARCHIVED }, { status_not: HIRED }] }
-    ) {
-      aggregate {
-        count
+      where: {
+        AND: [{ NOT: { status: ARCHIVED } }, { NOT: { status: HIRED } }]
       }
-    }
+    )
   }
 `;
 
@@ -23,7 +21,7 @@ const ApplicationsStatusCard = props => {
         return (
           <CounterCard
             label="Apps"
-            value={data.applicationsConnection.aggregate.count}
+            value={data.applicationsConnection}
             color={props.color}
             icon={props.icon}
           />

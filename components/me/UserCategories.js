@@ -10,13 +10,25 @@ import Link from "next/link";
 // }
 
 export const USER_CATEGORIES_QUERY = gql`
-  query USER_CATEGORIES_QUERY($userId: ID!) {
+  query USER_CATEGORIES_QUERY($userId: String!) {
     categories(
       first: 12
       where: {
         OR: [
-          { jobs_some: { applications_some: { user: { id: $userId } } } }
-          { jobs_some: { favorites_some: { user: { id: $userId } } } }
+          {
+            jobs: {
+              some: {
+                applications: { some: { user: { id: { equals: $userId } } } }
+              }
+            }
+          }
+          {
+            jobs: {
+              some: {
+                favorites: { some: { user: { id: { equals: $userId } } } }
+              }
+            }
+          }
         ]
       }
     ) {

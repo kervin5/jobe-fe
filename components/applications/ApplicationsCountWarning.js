@@ -10,14 +10,14 @@ const ApplicationsCountWarning = () => {
       {({ error, loading, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Ooops something went wrong</p>;
-        if (data.applicationsConnection.aggregate.count < 100) return null;
+        if (data.applicationsConnection < 100) return null;
         return (
           open && (
             <Message
               icon="inbox"
               error
               onDismiss={() => setOpen(false)}
-              header={`There are ${data.applicationsConnection.aggregate.count} applications in your queue that require attention!`}
+              header={`There are ${data.applicationsConnection} applications in your queue that require attention!`}
               content={
                 <p>
                   Please make sure to change to status of the applications to{" "}

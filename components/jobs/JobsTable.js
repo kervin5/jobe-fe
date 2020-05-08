@@ -61,12 +61,8 @@ export const USER_JOBS_QUERY = gql`
 const USER_JOBS_CONNECTION_QUERY = gql`
   query USER_JOBS_CONNECTION_QUERY($query: String = "", $status: [JobStatus!]) {
     protectedJobsConnection(
-      where: { title_contains: $query, status_in: $status }
-    ) {
-      aggregate {
-        count
-      }
-    }
+      where: { title: { contains: $query }, status_in: $status }
+    )
   }
 `;
 
@@ -179,8 +175,7 @@ const JobsTable = props => {
                   };
                 });
 
-                const jobsCount =
-                  userJobsData.data.protectedJobsConnection.aggregate.count;
+                const jobsCount = userJobsData.data.protectedJobsConnection;
                 return (
                   <>
                     <SortableTable
