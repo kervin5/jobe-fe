@@ -4,7 +4,7 @@ import CounterCard from "../../common/UI/CounterCard";
 
 const JOB_STATUS_QUERY = gql`
   query JOB_STATUS_QUERY($status: JobStatus!) {
-    protectedJobsConnection(where: { status: $status })
+    protectedJobsConnection(where: { status: { equals: $status } })
   }
 `;
 

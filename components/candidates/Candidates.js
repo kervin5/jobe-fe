@@ -15,14 +15,14 @@ const CANDIDATE_QUERY = gql`
     $first: Int!
     $skip: Int!
     $query: String!
-    $skills: [ID!]
+    $skills: [String!]
   ) {
     candidates(
       first: $first
       skip: $skip
       where: {
-        OR: [{ name_contains: $query }, { email_contains: $query }]
-        resumes_some: { skills_some: { id_in: $skills } }
+        OR: [{ name: { contains: $query } }, { email: { contains: $query } }]
+        resumes: { some: { skills: { some: { id: { in: $skills } } } } }
       }
     ) {
       id
@@ -50,17 +50,13 @@ const CANDIDATE_QUERY = gql`
 `;
 
 const CANDIDATES_CONNECTION_QUERY = gql`
-  query CANDIDATES_CONNECTION_QUERY($query: String!, $skills: [ID!]) {
+  query CANDIDATES_CONNECTION_QUERY($query: String!, $skills: [String!]) {
     candidatesConnection(
       where: {
-        OR: [{ name_contains: $query }, { email_contains: $query }]
-        resumes_some: { skills_some: { id_in: $skills } }
+        OR: [{ name: { contains: $query } }, { email: { contains: $query } }]
+        resumes: { some: { skills: { some: { id: { in: $skills } } } } }
       }
-    ) {
-      aggregate {
-        count
-      }
-    }
+    )
   }
 `;
 
@@ -96,7 +92,7 @@ const Candidates = props => {
           multiple
           nolabel
           graphql={{
-            query: `query ALL_SKILLS( $query: String! ) { skills(where: {name_contains: $query} orderBy: name_ASC) { id name } }`
+            query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
           }}
         />
         <style jsx>{`
@@ -176,8 +172,7 @@ const Candidates = props => {
                   });
                 });
 
-                const count =
-                  userConnectionData.data.candidatesConnection.aggregate.count;
+                const count = userConnectionData.data.candidatesConnection;
 
                 return (
                   <Table

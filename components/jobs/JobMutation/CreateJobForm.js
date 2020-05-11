@@ -205,7 +205,7 @@ const FormExampleFieldError = () => {
                 placeholder="Select a category"
                 multiple
                 graphql={{
-                  query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name_contains: $query}) { id name } }`
+                  query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name: {contains: $query}}) { id name } }`
                 }}
                 error={errors.jobCategories ? true : false}
               />
@@ -225,7 +225,7 @@ const FormExampleFieldError = () => {
                 placeholder="Select at least one skill"
                 multiple
                 graphql={{
-                  query: `query ALL_SKILLS( $query: String! ) { skills(where: {name_contains: $query} orderBy: name_ASC) { id name } }`
+                  query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
                 }}
                 error={errors.jobSkills ? true : false}
               />

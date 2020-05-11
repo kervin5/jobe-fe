@@ -6,7 +6,10 @@ export const APPLICATION_STATUS_QUERY = gql`
   query APPLICATION_STATUS_QUERY {
     applicationsConnection(
       where: {
-        AND: [{ NOT: { status: ARCHIVED } }, { NOT: { status: HIRED } }]
+        AND: [
+          { NOT: { status: { equals: ARCHIVED } } }
+          { NOT: { status: { equals: HIRED } } }
+        ]
       }
     )
   }

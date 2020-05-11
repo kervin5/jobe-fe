@@ -261,7 +261,7 @@ const EditJobForm = ({ data, jobId }) => {
                 placeholder="Select a category"
                 multiple
                 graphql={{
-                  query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name_contains: $query}) { id name } }`
+                  query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name: {contains: $query}}) { id name } }`
                 }}
                 error={errors.jobCategories ? true : false}
                 defaultValue={data.categories.map(category => category.id)}
@@ -283,7 +283,7 @@ const EditJobForm = ({ data, jobId }) => {
                 placeholder="Select at least one skill"
                 multiple
                 graphql={{
-                  query: `query ALL_SKILLS( $query: String! ) { skills(where: {name_contains: $query} orderBy: name_ASC) { id name } }`
+                  query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
                 }}
                 error={errors.jobSkills ? true : false}
                 defaultValue={data.skills.map(skill => skill.id)}

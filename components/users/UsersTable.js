@@ -16,8 +16,13 @@ const USER_QUERY = gql`
       skip: $skip
       where: {
         AND: [
-          { OR: [{ name_contains: $query }, { email_contains: $query }] }
-          { status_not: DELETED }
+          {
+            OR: [
+              { name: { contains: $query } }
+              { email: { contains: $query } }
+            ]
+          }
+          { NOT: { status: DELETED } }
         ]
       }
     ) {
@@ -40,12 +45,10 @@ const USER_QUERY = gql`
 const USERS_CONNECTION_QUERY = gql`
   query USERS_CONNECTION_QUERY($query: String!) {
     usersConnection(
-      where: { OR: [{ name_contains: $query }, { email_contains: $query }] }
-    ) {
-      aggregate {
-        count
+      where: {
+        OR: [{ name: { contains: $query } }, { email: { contains: $query } }]
       }
-    }
+    )
   }
 `;
 
@@ -111,8 +114,7 @@ const UsersTable = props => {
                   });
                 });
 
-                const count =
-                  userConnectionData.data.usersConnection.aggregate.count;
+                const count = userConnectionData.data.usersConnection;
 
                 return (
                   <Table

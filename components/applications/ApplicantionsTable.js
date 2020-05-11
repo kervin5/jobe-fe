@@ -17,32 +17,34 @@ const ALL_APPLICATIONS_QUERY = gql`
   query ALL_APPLICATIONS_QUERY(
     $first: Int!
     $skip: Int!
-    $jobId: ID
+    $jobId: String
     $status: [ApplicationStatus!]
     $terms: String!
   ) {
     applications(
       where: {
-        job: { id: $jobId }
-        status_in: $status
+        job: { id: { equals: $jobId } }
+        status: { in: $status }
         OR: [
           {
             job: {
               OR: [
-                { title_contains: $terms }
-                { location: { name_contains: $terms } }
-                { branch: { name_contains: $terms } }
+                { title: { contains: $terms } }
+                { location: { name: { contains: $terms } } }
+                { branch: { name: { contains: $terms } } }
               ]
             }
           }
           {
             user: {
-              OR: [{ name_contains: $terms }, { email_contains: $terms }]
+              OR: [
+                { name: { contains: $terms } }
+                { email: { contains: $terms } }
+              ]
             }
           }
         ]
       }
-      orderBy: createdAt_ASC
       first: $first
       skip: $skip
     ) {
@@ -96,27 +98,30 @@ const ALL_APPLICATIONS_QUERY = gql`
 
 export const USER_APPLICATION_CONNECTION_QUERY = gql`
   query USER_APPLICATION_CONNECTION_QUERY(
-    $jobId: ID
+    $jobId: String
     $status: [ApplicationStatus!]
     $terms: String!
   ) {
     applicationsConnection(
       where: {
-        job: { id: $jobId }
-        status_in: $status
+        job: { id: { equals: $jobId } }
+        status: { in: $status }
         OR: [
           {
             job: {
               OR: [
-                { title_contains: $terms }
-                { location: { name_contains: $terms } }
-                { branch: { name_contains: $terms } }
+                { title: { contains: $terms } }
+                { location: { name: { contains: $terms } } }
+                { branch: { name: { contains: $terms } } }
               ]
             }
           }
           {
             user: {
-              OR: [{ name_contains: $terms }, { email_contains: $terms }]
+              OR: [
+                { name: { contains: $terms } }
+                { email: { contains: $terms } }
+              ]
             }
           }
         ]

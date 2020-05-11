@@ -27,8 +27,7 @@ export const USER_JOBS_QUERY = gql`
     protectedJobs(
       first: $first
       skip: $skip
-      where: { title_contains: $query, status_in: $status }
-      orderBy: updatedAt_DESC
+      where: { title: { contains: $query }, status: { in: $status } }
     ) {
       id
       title
@@ -61,7 +60,7 @@ export const USER_JOBS_QUERY = gql`
 const USER_JOBS_CONNECTION_QUERY = gql`
   query USER_JOBS_CONNECTION_QUERY($query: String = "", $status: [JobStatus!]) {
     protectedJobsConnection(
-      where: { title: { contains: $query }, status_in: $status }
+      where: { title: { contains: $query }, status: { in: $status } }
     )
   }
 `;
