@@ -10,7 +10,7 @@ export const RESUME_LIST_QUERY = gql`
     me {
       id
       name
-      resumes {
+      resumes(orderBy: { createdAt: desc }) {
         id
         title
         file {
