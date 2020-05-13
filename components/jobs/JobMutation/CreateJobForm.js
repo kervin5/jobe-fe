@@ -116,7 +116,7 @@ const FormExampleFieldError = () => {
   };
 
   const handleInputChange = async (e, data) => {
-    console.log(data);
+    // console.log(data);
     if (data.type === "checkbox") {
       setValue(data.name, data.checked);
     } else {

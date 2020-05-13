@@ -14,7 +14,7 @@ import Title from "../../common/UI/Title";
 import CronJobToggle from "../../jobs/JobMutation/CronJobToggle";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
-  query SINGLE_JOB_ALL_DATA_QUERY($id: ID!) {
+  query SINGLE_JOB_ALL_DATA_QUERY($id: String!) {
     job(where: { id: $id }) {
       id
       title
@@ -49,7 +49,7 @@ const SINGLE_JOB_ALL_DATA_QUERY = gql`
 
 const UPDATE_JOB_MUTATION = gql`
   mutation UPDATE_JOB_MUTATION(
-    $jobId: ID!
+    $jobId: String!
     $title: String
     $description: String
     $disclaimer: String

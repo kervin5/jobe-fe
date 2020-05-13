@@ -42,7 +42,7 @@ const OtherApplicationsList = ({ userId, applicationId }) => {
     >
       {({ error, loading, data }) => {
         if (loading) return <p>Loading!</p>;
-        console.log(error);
+        // console.log(error);
         if (error) return <p>Error!</p>;
 
         const feedData = data.applications.map((feedItem, index) => ({
