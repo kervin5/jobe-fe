@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Button, Input, Label } from "semantic-ui-react";
-import { perPage } from "../../config";
+import { first } from "../../config";
 
 import EempactStatusLabel from "../users/EempactStatusLabel";
 import Table from "../common/UI/Table";
@@ -12,17 +12,17 @@ import InputGroup from "../common/UI/Input/InputGroup";
 
 const CANDIDATE_QUERY = gql`
   query CANDIDATE_QUERY(
-    $perPage: Int!
+    $first: Int!
     $skip: Int!
     $query: String!
-    $skills: [ID!]
+    $skills: [String!]
   ) {
     candidates(
-      first: $perPage
+      first: $first
       skip: $skip
       where: {
-        OR: [{ name_contains: $query }, { email_contains: $query }]
-        resumes_some: { skills_some: { id_in: $skills } }
+        OR: [{ name: { contains: $query } }, { email: { contains: $query } }]
+        resumes: { some: { skills: { some: { id: { in: $skills } } } } }
       }
     ) {
       id
@@ -50,17 +50,13 @@ const CANDIDATE_QUERY = gql`
 `;
 
 const CANDIDATES_CONNECTION_QUERY = gql`
-  query CANDIDATES_CONNECTION_QUERY($query: String!, $skills: [ID!]) {
+  query CANDIDATES_CONNECTION_QUERY($query: String!, $skills: [String!]) {
     candidatesConnection(
       where: {
-        OR: [{ name_contains: $query }, { email_contains: $query }]
-        resumes_some: { skills_some: { id_in: $skills } }
+        OR: [{ name: { contains: $query } }, { email: { contains: $query } }]
+        resumes: { some: { skills: { some: { id: { in: $skills } } } } }
       }
-    ) {
-      aggregate {
-        count
-      }
-    }
+    )
   }
 `;
 
@@ -96,7 +92,7 @@ const Candidates = props => {
           multiple
           nolabel
           graphql={{
-            query: `query ALL_SKILLS( $query: String! ) { skills(where: {name_contains: $query} orderBy: name_ASC) { id name } }`
+            query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
           }}
         />
         <style jsx>{`
@@ -123,8 +119,8 @@ const Candidates = props => {
             <Query
               query={CANDIDATE_QUERY}
               variables={{
-                perPage,
-                skip: (currentPage - 1) * perPage,
+                first,
+                skip: (currentPage - 1) * first,
                 jobId: "" || props.jobId,
                 query,
                 ...(skills.length ? { skills } : {})
@@ -176,8 +172,7 @@ const Candidates = props => {
                   });
                 });
 
-                const count =
-                  userConnectionData.data.candidatesConnection.aggregate.count;
+                const count = userConnectionData.data.candidatesConnection;
 
                 return (
                   <Table
@@ -185,7 +180,7 @@ const Candidates = props => {
                     page={currentPage}
                     loading={loading}
                     count={count}
-                    perPage={perPage}
+                    first={first}
                     turnPageHandler={turnPageHandler}
                   />
                 );

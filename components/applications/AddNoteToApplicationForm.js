@@ -27,7 +27,7 @@ export default function AddNoteToApplicationForm({
         { query: APPLICATION_NOTES_QUERY, variables: { id: applicationId } }
       ]
     });
-    console.log(result);
+    //console.log(result);
     if (result.data.createApplicationNote) {
       setNoteContent("");
     }

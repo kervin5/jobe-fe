@@ -35,7 +35,7 @@ const BRANCHES_QUERY = gql`
 `;
 
 const SINGLE_USER_QUERY = gql`
-  query SINGLE_USER_QUERY($id: ID!) {
+  query SINGLE_USER_QUERY($id: String!) {
     user(where: { id: $id }) {
       id
       name
@@ -80,6 +80,8 @@ const CreateUserForm = props => {
     <Query query={SINGLE_USER_QUERY} variables={{ id: props.userId }}>
       {({ error, loading, data }) => {
         if (loading) return null;
+        console.log({ error });
+        if (error) return <p>Something went wrong</p>;
         return (
           <Form
             fields={{

@@ -6,10 +6,10 @@ import RemoveFavoriteButton from "./RemoveFavoriteButton";
 import { TransitionGroup } from "react-transition-group";
 
 export const USER_FAVORITE_STATUS_QUERY = gql`
-  query USER_FAVORITE_STATUS_QUERY($jobId: ID!) {
+  query USER_FAVORITE_STATUS_QUERY($jobId: String!) {
     me {
       id
-      favorites(where: { job: { id: $jobId } }) {
+      favorites(where: { job: { id: { equals: $jobId } } }) {
         id
         job {
           id

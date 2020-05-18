@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Dropdown, Input, Button } from "semantic-ui-react";
 import moment from "moment";
 import EempactStatusLabel from "../users/EempactStatusLabel";
-import { perPage } from "../../config";
+import { first } from "../../config";
 import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 
 import Table from "../common/UI/Table";
@@ -15,35 +15,37 @@ import ApplicationsCountWarning from "./ApplicationsCountWarning";
 
 const ALL_APPLICATIONS_QUERY = gql`
   query ALL_APPLICATIONS_QUERY(
-    $perPage: Int!
+    $first: Int!
     $skip: Int!
-    $jobId: ID
+    $jobId: String
     $status: [ApplicationStatus!]
     $terms: String!
   ) {
     applications(
       where: {
-        job: { id: $jobId }
-        status_in: $status
+        job: { id: { equals: $jobId } }
+        status: { in: $status }
         OR: [
           {
             job: {
               OR: [
-                { title_contains: $terms }
-                { location: { name_contains: $terms } }
-                { branch: { name_contains: $terms } }
+                { title: { contains: $terms } }
+                { location: { name: { contains: $terms } } }
+                { branch: { name: { contains: $terms } } }
               ]
             }
           }
           {
             user: {
-              OR: [{ name_contains: $terms }, { email_contains: $terms }]
+              OR: [
+                { name: { contains: $terms } }
+                { email: { contains: $terms } }
+              ]
             }
           }
         ]
       }
-      orderBy: createdAt_ASC
-      first: $perPage
+      first: $first
       skip: $skip
     ) {
       id
@@ -96,36 +98,35 @@ const ALL_APPLICATIONS_QUERY = gql`
 
 export const USER_APPLICATION_CONNECTION_QUERY = gql`
   query USER_APPLICATION_CONNECTION_QUERY(
-    $jobId: ID
+    $jobId: String
     $status: [ApplicationStatus!]
     $terms: String!
   ) {
     applicationsConnection(
       where: {
-        job: { id: $jobId }
-        status_in: $status
+        job: { id: { equals: $jobId } }
+        status: { in: $status }
         OR: [
           {
             job: {
               OR: [
-                { title_contains: $terms }
-                { location: { name_contains: $terms } }
-                { branch: { name_contains: $terms } }
+                { title: { contains: $terms } }
+                { location: { name: { contains: $terms } } }
+                { branch: { name: { contains: $terms } } }
               ]
             }
           }
           {
             user: {
-              OR: [{ name_contains: $terms }, { email_contains: $terms }]
+              OR: [
+                { name: { contains: $terms } }
+                { email: { contains: $terms } }
+              ]
             }
           }
         ]
       }
-    ) {
-      aggregate {
-        count
-      }
-    }
+    )
   }
 `;
 
@@ -141,7 +142,7 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
       queries.push({
         query: ALL_APPLICATIONS_QUERY,
         variables: {
-          perPage,
+          first,
           skip,
           status: [defaultStatus],
           terms
@@ -162,7 +163,7 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
   queries.push({
     query: ALL_APPLICATIONS_QUERY,
     variables: {
-      perPage,
+      first,
       skip,
       status: ["NEW", "VIEWED", "REVIEWING", "CONTACTED"],
       terms
@@ -230,8 +231,8 @@ const ApplicantTable = props => {
             <Query
               query={ALL_APPLICATIONS_QUERY}
               variables={{
-                perPage,
-                skip: (currentPage - 1) * perPage,
+                first,
+                skip: (currentPage - 1) * first,
                 jobId: "" || props.jobId,
                 status,
                 terms
@@ -269,7 +270,7 @@ const ApplicantTable = props => {
                         status={application.status}
                         refetchQueries={queriesToRefetch({
                           jobId: props.jobId || "",
-                          skip: (currentPage - 1) * perPage,
+                          skip: (currentPage - 1) * first,
                           terms
                         })}
                       />
@@ -293,9 +294,7 @@ const ApplicantTable = props => {
                   });
                 });
 
-                const count =
-                  userApplicationData.data.applicationsConnection.aggregate
-                    .count;
+                const count = userApplicationData.data.applicationsConnection;
 
                 return (
                   <Table
@@ -303,7 +302,7 @@ const ApplicantTable = props => {
                     page={currentPage}
                     loading={loading}
                     count={count}
-                    perPage={perPage}
+                    first={first}
                     turnPageHandler={turnPageHandler}
                   />
                 );

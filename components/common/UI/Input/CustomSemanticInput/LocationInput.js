@@ -5,7 +5,7 @@ import Dropdown from "./DropdownInput";
 
 const GET_LOCATIONS_FROM_MAPBOX = gql`
   query GET_LOCATIONS_FROM_MAPBOX($query: String!) {
-    mapboxLocations(query: $query) {
+    mapBoxLocations(query: $query) {
       id
       name
     }
@@ -48,7 +48,7 @@ const LocationInput = ({
       {({ error, loading, data }) => {
         if (error) return <p>Something failed...</p>;
         if (data) {
-          handleChangeOfOptions(data.mapboxLocations);
+          handleChangeOfOptions(data.mapBoxLocations);
         }
         return (
           <Dropdown

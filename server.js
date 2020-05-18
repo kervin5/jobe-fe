@@ -6,8 +6,8 @@ const compression = require("compression");
 const axios = require("axios");
 const fs = require("fs");
 const handle = app.getRequestHandler();
-const endpoint = `http://localhost:4444/`;
-const prodEndpoint = `https://myexactjobs-backend.herokuapp.com/`;
+const endpoint = `https://localhost:4000/`;
+const prodEndpoint = `https://jobboard-be-gql.now.sh/`;
 
 const { DESTINATION, createSitemap } = require("./lib/sitemap");
 
@@ -33,10 +33,10 @@ app.prepare().then(() => {
     "/graphql",
     proxy({
       target: backendUri,
-      changeOrigin: true,
-      pathRewrite: {
+      changeOrigin: true
+      /*pathRewrite: {
         "^/graphql": "/" // remove base path
-      }
+      }*/
     })
   );
 

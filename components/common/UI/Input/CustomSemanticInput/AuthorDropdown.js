@@ -8,7 +8,7 @@ const AuthorDropdown = props => {
       <DropdownGraphqlInput
         graphql={{
           query: `query ALL_AUTHORS( $query: String! ) { 
-      users(where: { AND: [{role: { name_not: "candidate" }},{name_contains: $query}] }, orderBy: name_ASC) {
+      users(where: { AND: [{role: { NOT: {name: {equals: "candidate"}} }},{name: {contains: $query}}] }) {
         id
         email
         name

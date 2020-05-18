@@ -11,7 +11,7 @@ import {
   Label
 } from "semantic-ui-react";
 import gql from "graphql-tag";
-import { perPage } from "../../config";
+import { first } from "../../config";
 import SortableTable from "../common/UI/SortableTable";
 import DeleteJobButton from "../jobs/JobMutation/DeleteJobButton";
 import variables from "../common/globalVariables";
@@ -19,16 +19,15 @@ import moment from "moment";
 
 export const USER_JOBS_QUERY = gql`
   query USER_JOBS_QUERY(
-    $perPage: Int!
+    $first: Int!
     $skip: Int!
     $query: String = ""
     $status: [JobStatus!]
   ) {
     protectedJobs(
-      first: $perPage
+      first: $first
       skip: $skip
-      where: { title_contains: $query, status_in: $status }
-      orderBy: updatedAt_DESC
+      where: { title: { contains: $query }, status: { in: $status } }
     ) {
       id
       title
@@ -61,12 +60,8 @@ export const USER_JOBS_QUERY = gql`
 const USER_JOBS_CONNECTION_QUERY = gql`
   query USER_JOBS_CONNECTION_QUERY($query: String = "", $status: [JobStatus!]) {
     protectedJobsConnection(
-      where: { title_contains: $query, status_in: $status }
-    ) {
-      aggregate {
-        count
-      }
-    }
+      where: { title: { contains: $query }, status: { in: $status } }
+    )
   }
 `;
 
@@ -141,8 +136,8 @@ const JobsTable = props => {
             <Query
               query={USER_JOBS_QUERY}
               variables={{
-                perPage,
-                skip: (currentPage - 1) * perPage,
+                first,
+                skip: (currentPage - 1) * first,
                 query: searchValue,
                 status
               }}
@@ -179,15 +174,14 @@ const JobsTable = props => {
                   };
                 });
 
-                const jobsCount =
-                  userJobsData.data.protectedJobsConnection.aggregate.count;
+                const jobsCount = userJobsData.data.protectedJobsConnection;
                 return (
                   <>
                     <SortableTable
                       page={currentPage}
                       loading={loading}
                       count={jobsCount}
-                      perPage={perPage}
+                      first={first}
                       turnPageHandler={handleTurnPage}
                       data={injectActionsColumn(dataForTable)}
                       exclude={["updatedAt", "cronTask"]}
@@ -280,7 +274,7 @@ const injectActionsColumn = data => {
               { query: USER_JOBS_CONNECTION_QUERY, variables: { query: " " } },
               {
                 query: USER_JOBS_CONNECTION_QUERY,
-                variables: { perPage, skip: 0, query: " " }
+                variables: { first, skip: 0, query: " " }
               }
             ]}
           />

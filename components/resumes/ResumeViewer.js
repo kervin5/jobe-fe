@@ -16,6 +16,7 @@ const ResumeViewer = ({ url }) => {
         {({ error, loading, data }) => {
           if (error) return <p>Something went wrong</p>;
           if (loading) return <p>Loading...</p>;
+
           if (
             data.getSignedFileUrl.includes(".doc") ||
             data.getSignedFileUrl.includes(".docx")

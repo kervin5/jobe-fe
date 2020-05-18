@@ -9,7 +9,7 @@ import PageSection from "../../components/common/Layout/PageSection";
 const pageStyles = `background-color:${variables.mutedColor1};`;
 
 const SINGLE_JOB_QUERY = gql`
-  query SINGLE_JOB_QUERY($id: ID!) {
+  query SINGLE_JOB_QUERY($id: String!) {
     job(where: { id: $id }) {
       id
       status

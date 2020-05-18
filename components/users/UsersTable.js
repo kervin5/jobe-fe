@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Input } from "semantic-ui-react";
-import { perPage } from "../../config";
+import { first } from "../../config";
 
 import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
@@ -10,14 +10,19 @@ import UserActionButtons from "./UserActionButtons/UserActionButtons";
 // import Button from "../common/UI/Button";
 
 const USER_QUERY = gql`
-  query USER_QUERY($perPage: Int!, $skip: Int!, $query: String!) {
+  query USER_QUERY($first: Int!, $skip: Int!, $query: String!) {
     users(
-      first: $perPage
+      first: $first
       skip: $skip
       where: {
         AND: [
-          { OR: [{ name_contains: $query }, { email_contains: $query }] }
-          { status_not: DELETED }
+          {
+            OR: [
+              { name: { contains: $query } }
+              { email: { contains: $query } }
+            ]
+          }
+          { NOT: { status: DELETED } }
         ]
       }
     ) {
@@ -40,12 +45,10 @@ const USER_QUERY = gql`
 const USERS_CONNECTION_QUERY = gql`
   query USERS_CONNECTION_QUERY($query: String!) {
     usersConnection(
-      where: { OR: [{ name_contains: $query }, { email_contains: $query }] }
-    ) {
-      aggregate {
-        count
+      where: {
+        OR: [{ name: { contains: $query } }, { email: { contains: $query } }]
       }
-    }
+    )
   }
 `;
 
@@ -73,8 +76,8 @@ const UsersTable = props => {
           if (userConnectionData.error) return <p>Something went wrong ...</p>;
           if (userConnectionData.loading) return <Loader />;
           const queryVariables = {
-            perPage,
-            skip: (currentPage - 1) * perPage,
+            first,
+            skip: (currentPage - 1) * first,
             jobId: "" || props.jobId,
             query
           };
@@ -111,8 +114,7 @@ const UsersTable = props => {
                   });
                 });
 
-                const count =
-                  userConnectionData.data.usersConnection.aggregate.count;
+                const count = userConnectionData.data.usersConnection;
 
                 return (
                   <Table
@@ -120,7 +122,7 @@ const UsersTable = props => {
                     page={currentPage}
                     loading={loading}
                     count={count}
-                    perPage={perPage}
+                    first={first}
                     turnPageHandler={turnPageHandler}
                   />
                 );

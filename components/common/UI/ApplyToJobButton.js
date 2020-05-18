@@ -7,7 +7,7 @@ import Button from "./Button";
 
 const APPLY_TO_JOB_MUTATION = gql`
   mutation APPLY_TO_JOB_MUTATION($jobId: ID!) {
-    createApplication(job: { connect: { id: $jobId } }) {
+    createApplication(job: $jobId) {
       id
       job {
         id
@@ -18,14 +18,14 @@ const APPLY_TO_JOB_MUTATION = gql`
 `;
 
 export const CHECK_USER_APPLICATION_STATUS_QUERY = gql`
-  query CHECK_USER_APPLICATION_STATUS_QUERY($jobId: ID!) {
+  query CHECK_USER_APPLICATION_STATUS_QUERY($jobId: String!) {
     me {
       id
       role {
         id
         name
       }
-      applications(where: { job: { id: $jobId } }) {
+      applications(where: { job: { id: { equals: $jobId } } }) {
         id
       }
       resumes {
