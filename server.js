@@ -6,7 +6,7 @@ const compression = require("compression");
 const axios = require("axios");
 const fs = require("fs");
 const handle = app.getRequestHandler();
-const endpoint = `https://localhost:4000/`;
+const endpoint = `http://localhost:4000/`;
 const prodEndpoint = `https://jobboard-be-gql.now.sh/`;
 
 const { DESTINATION, createSitemap } = require("./lib/sitemap");
