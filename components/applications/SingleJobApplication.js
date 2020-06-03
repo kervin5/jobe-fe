@@ -6,7 +6,7 @@ import Loader from "../common/UI/Animated/Loader";
 import SEO from "../SEO";
 
 export const SINGLE_JOB_APPLICATION_QUERY = gql`
-  query SINGLE_JOB_APPLICATION_QUERY($id: ID!) {
+  query SINGLE_JOB_APPLICATION_QUERY($id: String!) {
     application(where: { id: $id }) {
       id
       status

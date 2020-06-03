@@ -6,7 +6,7 @@ import { Button, Icon, Image, Item, Label } from "semantic-ui-react";
 import EempactStatusLabel from "../users/EempactStatusLabel";
 
 const APPLICANT_INFORMATION_QUERY = gql`
-  query APPLICANT_INFORMATION_QUERY($id: ID!) {
+  query APPLICANT_INFORMATION_QUERY($id: String!) {
     application(where: { id: $id }) {
       id
       user {
