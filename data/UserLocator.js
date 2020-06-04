@@ -49,7 +49,7 @@ class UserLocator {
           const { latitude, longitude } = position.coords;
 
           axios
-            .get(`/location/${longitude},${latitude}`)
+            .get(`/api/location/${longitude},${latitude}`)
             .then(res => {
               const locationData = {
                 lat: latitude,
@@ -77,7 +77,7 @@ class UserLocator {
   setLocationByIp = () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(`/iplocation`)
+        .get(`/api/iplocation`)
         .then(res => {
           const locationData = {
             lat: res.data.latitude,

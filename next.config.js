@@ -1,4 +1,5 @@
 const withCSS = require("@zeit/next-css");
+const getBackendUrl = require("./lib/backend");
 
 module.exports = withCSS({
   webpack: config => {
@@ -17,5 +18,15 @@ module.exports = withCSS({
     });
 
     return config;
+  },
+  experimental: {
+    modern: true,
+    async rewrites() {
+      return [
+        { source: "/sitemap.xml", destination: "/api/sitemap" },
+        { source: "/graphql", destination: getBackendUrl() }
+      ];
+    },
+    catchAllRouting: true
   }
 });
