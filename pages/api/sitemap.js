@@ -3,10 +3,11 @@ import axios from "axios";
 import glob from "glob";
 import fs from "fs";
 import path from "path";
+import getBackendUrl from "../../lib/backend";
 
 const SITE_ROOT = process.env.SITE_ROOT || "https://www.myexactjobs.com";
 
-const API_SOURCE = process.env.API_SOURCE || "http://localhost:4000/graphql";
+const API_SOURCE = getBackendUrl();
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 const SOURCE =
