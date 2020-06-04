@@ -24,7 +24,10 @@ module.exports = withCSS({
     async rewrites() {
       return [
         { source: "/sitemap.xml", destination: "/api/sitemap" },
-        { source: "/graphql", destination: getBackendUrl() }
+        {
+          source: "/graphql",
+          destination: "https://jobboard-be-gql.now.sh/graphql"
+        }
       ];
     },
     catchAllRouting: true

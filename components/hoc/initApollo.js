@@ -15,7 +15,7 @@ const uri = process.env.NODE_ENV === "development" ? endpoint : prodEndpoint;
 
 function create(initialState, { getToken, fetchOptions }) {
   const httpLink = createHttpLink({
-    uri: "https://jobboard-be-gql.now.sh/graphql",
+    uri,
     credentials: "include",
     fetchOptions
   });
