@@ -2,6 +2,7 @@ import React from "react";
 import RenderIfLoggedIn from "../../../hoc/RenderIfLoggedIn";
 import { Sidebar, Menu, Icon } from "semantic-ui-react";
 import variables from "../../globalVariables";
+import Link from "next/link";
 
 const sideMenu = props => {
   return (
@@ -13,10 +14,12 @@ const sideMenu = props => {
               key={option.label + index}
               permissions={option.permissions}
             >
-              <Menu.Item as="a" onClick={() => props.onClick(option.label)}>
-                <Icon name={option.icon} />
-                <span>{option.label}</span>
-              </Menu.Item>
+              <Link href={`${option.path}`} passHref>
+                <Menu.Item as="a">
+                  <Icon name={option.icon} />
+                  <span>{option.label}</span>
+                </Menu.Item>
+              </Link>
             </RenderIfLoggedIn>
           );
         })}

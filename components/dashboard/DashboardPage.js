@@ -1,7 +1,5 @@
 import Router from "next/router";
 import PageSection from "../../components/common/Layout/PageSection";
-import WithAuth from "../../components/hoc/WithAuth";
-import Container from "../../components/common/Layout/Container";
 import SideMenu from "../../components/common/UI/Navigation/SideMenu";
 import Title from "../../components/common/UI/Title";
 import PageTitle from "../../components/common/Layout/PageTitle";
