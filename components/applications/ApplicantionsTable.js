@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Dropdown, Input, Button } from "semantic-ui-react";
 import moment from "moment";
 import EempactStatusLabel from "../users/EempactStatusLabel";
-import { first } from "../../config";
+import { take } from "../../config";
 import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 
 import Table from "../common/UI/Table";
@@ -15,7 +15,7 @@ import ApplicationsCountWarning from "./ApplicationsCountWarning";
 
 const ALL_APPLICATIONS_QUERY = gql`
   query ALL_APPLICATIONS_QUERY(
-    $first: Int!
+    $take: Int!
     $skip: Int!
     $jobId: String
     $status: [ApplicationStatus!]
@@ -45,7 +45,7 @@ const ALL_APPLICATIONS_QUERY = gql`
           }
         ]
       }
-      first: $first
+      take: $take
       skip: $skip
     ) {
       id
@@ -142,7 +142,7 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
       queries.push({
         query: ALL_APPLICATIONS_QUERY,
         variables: {
-          first,
+          take,
           skip,
           status: [defaultStatus],
           terms
@@ -163,7 +163,7 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
   queries.push({
     query: ALL_APPLICATIONS_QUERY,
     variables: {
-      first,
+      take,
       skip,
       status: ["NEW", "VIEWED", "REVIEWING", "CONTACTED"],
       terms
@@ -231,8 +231,8 @@ const ApplicantTable = props => {
             <Query
               query={ALL_APPLICATIONS_QUERY}
               variables={{
-                first,
-                skip: (currentPage - 1) * first,
+                take,
+                skip: (currentPage - 1) * take,
                 jobId: "" || props.jobId,
                 status,
                 terms
@@ -270,7 +270,7 @@ const ApplicantTable = props => {
                         status={application.status}
                         refetchQueries={queriesToRefetch({
                           jobId: props.jobId || "",
-                          skip: (currentPage - 1) * first,
+                          skip: (currentPage - 1) * take,
                           terms
                         })}
                       />
@@ -302,7 +302,7 @@ const ApplicantTable = props => {
                     page={currentPage}
                     loading={loading}
                     count={count}
-                    first={first}
+                    take={take}
                     turnPageHandler={turnPageHandler}
                   />
                 );

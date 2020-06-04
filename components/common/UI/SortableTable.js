@@ -3,7 +3,7 @@ import { Icon, Table, Pagination, Loader, Input } from "semantic-ui-react";
 
 const TableWithPagination = ({
   data,
-  first,
+  take,
   count,
   turnPageHandler,
   page,
@@ -11,7 +11,7 @@ const TableWithPagination = ({
   withid,
   exclude
 }) => {
-  const pages = Math.ceil(count / first);
+  const pages = Math.ceil(count / take);
   const handlePaginationChange = (e, { activePage }) => {
     turnPageHandler(activePage);
   };
@@ -31,7 +31,7 @@ const TableWithPagination = ({
               )
               .map((header, key) => (
                 <Table.HeaderCell key={header + key}>
-                  {jsUcfirst(header)}
+                  {jsCapitalizeInitial(header)}
                 </Table.HeaderCell>
               ))}
           </Table.Row>
@@ -93,7 +93,7 @@ const TableWithPagination = ({
   );
 };
 
-function jsUcfirst(string) {
+function jsCapitalizeInitial(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 

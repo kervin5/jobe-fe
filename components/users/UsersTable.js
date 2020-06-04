@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Input } from "semantic-ui-react";
-import { first } from "../../config";
+import { take } from "../../config";
 
 import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
@@ -10,9 +10,9 @@ import UserActionButtons from "./UserActionButtons/UserActionButtons";
 // import Button from "../common/UI/Button";
 
 const USER_QUERY = gql`
-  query USER_QUERY($first: Int!, $skip: Int!, $query: String!) {
+  query USER_QUERY($take: Int!, $skip: Int!, $query: String!) {
     users(
-      first: $first
+      take: $take
       skip: $skip
       where: {
         AND: [
@@ -76,8 +76,8 @@ const UsersTable = props => {
           if (userConnectionData.error) return <p>Something went wrong ...</p>;
           if (userConnectionData.loading) return <Loader />;
           const queryVariables = {
-            first,
-            skip: (currentPage - 1) * first,
+            take,
+            skip: (currentPage - 1) * take,
             jobId: "" || props.jobId,
             query
           };
@@ -122,7 +122,7 @@ const UsersTable = props => {
                     page={currentPage}
                     loading={loading}
                     count={count}
-                    first={first}
+                    take={take}
                     turnPageHandler={turnPageHandler}
                   />
                 );

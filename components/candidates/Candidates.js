@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Button, Input, Label } from "semantic-ui-react";
-import { first } from "../../config";
+import { take } from "../../config";
 
 import EempactStatusLabel from "../users/EempactStatusLabel";
 import Table from "../common/UI/Table";
@@ -12,13 +12,13 @@ import InputGroup from "../common/UI/Input/InputGroup";
 
 const CANDIDATE_QUERY = gql`
   query CANDIDATE_QUERY(
-    $first: Int!
+    $take: Int!
     $skip: Int!
     $query: String!
     $skills: [String!]
   ) {
     candidates(
-      first: $first
+      take: $take
       skip: $skip
       where: {
         OR: [{ name: { contains: $query } }, { email: { contains: $query } }]
@@ -32,7 +32,7 @@ const CANDIDATE_QUERY = gql`
         id
         assignments
       }
-      resumes(last: 1) {
+      resumes(take: -1) {
         file {
           id
           path
@@ -119,8 +119,8 @@ const Candidates = props => {
             <Query
               query={CANDIDATE_QUERY}
               variables={{
-                first,
-                skip: (currentPage - 1) * first,
+                take,
+                skip: (currentPage - 1) * take,
                 jobId: "" || props.jobId,
                 query,
                 ...(skills.length ? { skills } : {})
@@ -180,7 +180,7 @@ const Candidates = props => {
                     page={currentPage}
                     loading={loading}
                     count={count}
-                    first={first}
+                    take={take}
                     turnPageHandler={turnPageHandler}
                   />
                 );

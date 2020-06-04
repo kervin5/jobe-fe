@@ -12,7 +12,7 @@ import Link from "next/link";
 export const USER_CATEGORIES_QUERY = gql`
   query USER_CATEGORIES_QUERY($userId: String!) {
     categories(
-      first: 12
+      take: 12
       where: {
         OR: [
           {

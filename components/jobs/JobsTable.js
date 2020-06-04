@@ -11,7 +11,7 @@ import {
   Label
 } from "semantic-ui-react";
 import gql from "graphql-tag";
-import { first } from "../../config";
+import { take } from "../../config";
 import SortableTable from "../common/UI/SortableTable";
 import DeleteJobButton from "../jobs/JobMutation/DeleteJobButton";
 import variables from "../common/globalVariables";
@@ -19,13 +19,13 @@ import moment from "moment";
 
 export const USER_JOBS_QUERY = gql`
   query USER_JOBS_QUERY(
-    $first: Int!
+    $take: Int!
     $skip: Int!
     $query: String = ""
     $status: [JobStatus!]
   ) {
     protectedJobs(
-      first: $first
+      take: $take
       skip: $skip
       where: { title: { contains: $query }, status: { in: $status } }
     ) {
@@ -136,8 +136,8 @@ const JobsTable = props => {
             <Query
               query={USER_JOBS_QUERY}
               variables={{
-                first,
-                skip: (currentPage - 1) * first,
+                take,
+                skip: (currentPage - 1) * take,
                 query: searchValue,
                 status
               }}
@@ -181,7 +181,7 @@ const JobsTable = props => {
                       page={currentPage}
                       loading={loading}
                       count={jobsCount}
-                      first={first}
+                      take={take}
                       turnPageHandler={handleTurnPage}
                       data={injectActionsColumn(dataForTable)}
                       exclude={["updatedAt", "cronTask"]}
@@ -274,7 +274,7 @@ const injectActionsColumn = data => {
               { query: USER_JOBS_CONNECTION_QUERY, variables: { query: " " } },
               {
                 query: USER_JOBS_CONNECTION_QUERY,
-                variables: { first, skip: 0, query: " " }
+                variables: { take, skip: 0, query: " " }
               }
             ]}
           />
