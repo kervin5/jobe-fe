@@ -7,7 +7,7 @@ import getBackendUrl from "../../lib/backend";
 
 const SITE_ROOT = process.env.SITE_ROOT || "https://www.myexactjobs.com";
 
-const API_SOURCE = "";
+const API_SOURCE = getBackendUrl();
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 const SOURCE =
@@ -76,7 +76,7 @@ export default async (req, res) => {
 };
 
 async function fetchContentFromAPI() {
-  const result = await axios.post("https://jobboard-be-gql.now.sh/graphql", {
+  const result = await axios.post(API_SOURCE, {
     query: `{
         jobs {
             id 

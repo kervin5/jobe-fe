@@ -26,7 +26,7 @@ module.exports = withCSS({
         { source: "/sitemap.xml", destination: "/api/sitemap" },
         {
           source: "/graphql",
-          destination: "https://jobboard-be-gql.now.sh/graphql"
+          destination: getBackendUrl()
         }
       ];
     },
