@@ -12,7 +12,8 @@ const LocationInput = ({
   multiple,
   loading,
   defaultValue,
-  defaultSearchQuery
+  defaultSearchQuery,
+  allowAdditions
 }) => {
   return (
     <div className={`field ${error ? "error" : ""}`}>
@@ -30,6 +31,7 @@ const LocationInput = ({
         multiple={multiple}
         defaultValue={defaultValue}
         defaultSearchQuery={defaultSearchQuery}
+        allowAdditions={allowAdditions}
       />
     </div>
   );
@@ -37,7 +39,8 @@ const LocationInput = ({
 
 LocationInput.defaultProps = {
   placeholder: "Select a location",
-  options: []
+  options: [],
+  allowAdditions: false
 };
 
 export default LocationInput;
