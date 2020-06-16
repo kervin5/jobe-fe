@@ -21,7 +21,7 @@ const CREATE_JOB_MUTATION = gql`
     $location: String!
     $categories: [String!]!
     $skills: [String!]!
-    $perks: [String!]
+    $perks: [String]
     $type: String!
     $minCompensation: Float!
     $maxCompensation: Float

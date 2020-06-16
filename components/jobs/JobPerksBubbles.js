@@ -1,21 +1,15 @@
 import React from "react";
 import Bubble from "../common/UI/Bubble";
 
-const JobPerksBubbles = ({ perks }) => {
+const JobPerksBubbles = ({ perks, children }) => {
   return (
-    <div className="JobPerksBubbles">
+    <>
       {perks.map((perk, index) => (
         <Bubble color="1" key={perk.id ?? "Perk" + index}>
           {perk.name}
         </Bubble>
       ))}
-      <style jsx>{`
-        .JobPerksBubbles {
-          display: flex;
-          position: inline-block;
-        }
-      `}</style>
-    </div>
+    </>
   );
 };
 

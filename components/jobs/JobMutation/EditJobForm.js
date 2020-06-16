@@ -32,6 +32,10 @@ const SINGLE_JOB_ALL_DATA_QUERY = gql`
         id
         name
       }
+      perks {
+        id
+        name
+      }
       categories {
         id
         name
@@ -60,6 +64,7 @@ const UPDATE_JOB_MUTATION = gql`
     $location: String
     $categories: [String!]
     $skills: [String!]
+    $perks: [String!]
     $author: String
   ) {
     updateJob(
@@ -76,6 +81,7 @@ const UPDATE_JOB_MUTATION = gql`
         location: $location
         categories: $categories
         skills: $skills
+        perks: $perks
         author: $author
       }
     ) {
@@ -126,6 +132,7 @@ const EditJobForm = ({ data, jobId }) => {
       { name: "jobSkills", value: data.skills.map(skill => skill.id) },
       { required: true }
     );
+    register({ name: "jobPerkss", value: data.perks.map(perk => perk.id) });
     register({ name: "jobAuthor", value: data.author.id });
     register(
       { name: "jobDescription", value: data.description },
@@ -202,16 +209,7 @@ const EditJobForm = ({ data, jobId }) => {
                 error={errors.jobTitle ? true : false}
                 defaultValue={data.title}
               />
-              {/* <div className="field">
-              <Checkbox
-                toggle
-                label="Recurring Job"
-                onChange={handleInputChange}
-                error={errors.jobIsRecurring ? "true" : "false"}
-                name="jobIsRecurring"
-                defaultValue={false}
-              />
-            </div> */}
+
               <CronJobToggle jobId={jobId} />
 
               <LocationInput
@@ -287,6 +285,22 @@ const EditJobForm = ({ data, jobId }) => {
                 }}
                 error={errors.jobSkills ? true : false}
                 defaultValue={data.skills.map(skill => skill.id)}
+              />
+
+              <DropdownGraphqlInput
+                onChange={handleInputChange}
+                name="jobPerks"
+                label="Job Perks"
+                placeholder="Select all that apply"
+                multiple
+                graphql={{
+                  query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} orderBy: { name: asc }) { id name } }`
+                }}
+                error={errors.jobPerks ? true : false}
+                defaultValue={data.perks.map(perk => perk.id)}
+                allowAdditions
+                additionLabel="Create: "
+                additionWarning="Any new perks will be reviewed and are subject to approval"
               />
 
               <AuthorDropdown

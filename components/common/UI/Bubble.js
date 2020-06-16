@@ -33,7 +33,9 @@ const bubble = props => {
           color: ${props.fontColor === "dark"
             ? variables.darkColor
             : variables.clearColor};
-          display: inline-block;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
         }
 
         @media (min-width: 800px) {

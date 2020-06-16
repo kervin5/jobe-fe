@@ -61,6 +61,11 @@ const JobListingHeader = props => (
 
       .JobListingMeta {
         display: flex;
+        flex-wrap: wrap;
+      }
+
+      .JobListingMeta :global(> *) {
+        margin-bottom: 10px;
       }
 
       .JobListingHeaderBar {
