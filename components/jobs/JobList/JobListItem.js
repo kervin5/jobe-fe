@@ -52,17 +52,19 @@ const jobListItem = props => {
             {shortLocation}
           </p>
         </div>
-        <div className="JobListItemMainInfo">
-          <Bubble color="1">
-            {props.compensation > 0
-              ? "$" +
-                numberWithCommas(parseFloat(props.compensation).toFixed(2))
-              : "DOE"}
-          </Bubble>
-          <Bubble color="2">
-            <Translator>{props.type}</Translator>
-          </Bubble>
-        </div>
+        {props.showMainInfo && (
+          <div className="JobListItemMainInfo">
+            <Bubble color="1">
+              {props.compensation > 0
+                ? "$" +
+                  numberWithCommas(parseFloat(props.compensation).toFixed(2))
+                : "DOE"}
+            </Bubble>
+            <Bubble color="2">
+              <Translator>{props.type}</Translator>
+            </Bubble>
+          </div>
+        )}
       </div>
       <Link href="/jobs/[jid]" as={jobUrl}>
         <a className="Content">

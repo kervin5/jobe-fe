@@ -22,7 +22,11 @@ const LocationInput = ({
     setCustomOptions([...customOptions, { text: value, value: value }]);
   };
   return (
-    <div className={`DropdownInput field ${error ? "error" : ""}`}>
+    <div
+      className={`DropdownInput field ${error ? "error" : ""} ${
+        allowAdditions ? "DropdownInput--additions" : ""
+      }`}
+    >
       <label htmlFor={name}>{label}</label>
       <Dropdown
         loading={loading}
@@ -50,7 +54,7 @@ const LocationInput = ({
       )}
       <style jsx global>
         {`
-          .DropdownInput .ui.label:not([value^="c"]) {
+          .DropdownInput--additions .ui.label:not([value^="c"]) {
             background-color: #fff8db;
           }
 

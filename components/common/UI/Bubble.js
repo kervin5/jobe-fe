@@ -10,6 +10,8 @@ const bubble = props => {
       backgroundColor = variables.accentColor3;
     } else if (props.color === "3") {
       backgroundColor = variables.accentColor2;
+    } else if (props.color === "4") {
+      backgroundColor = variables.accentColor4;
     } else {
       backgroundColor = variables.accentColor1;
     }
@@ -28,7 +30,9 @@ const bubble = props => {
           background-color: ${backgroundColor};
           margin-left: 5px;
           border-radius: 15px;
-          color: ${variables.clearColor};
+          color: ${props.fontColor === "dark"
+            ? variables.darkColor
+            : variables.clearColor};
           display: inline-block;
         }
 

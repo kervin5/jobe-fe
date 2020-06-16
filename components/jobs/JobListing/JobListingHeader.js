@@ -1,12 +1,13 @@
 import React from "react";
-import variables from "../../../../components/common/globalVariables";
-import Bubble from "../../../common/UI/Bubble";
-import Icon from "../../../common/UI/Icon";
-import Title from "../../../common/UI/Title";
-import FavoriteButton from "../../JobFavoriteButton/FavoriteButton";
-import PrompToRegister from "../../../users/PrompToRegister";
-import Translator from "../../../hoc/Translator";
-import JobCompensationBubbles from "../../JobCompensationBubbles";
+import variables from "../../common/globalVariables";
+import Bubble from "../../common/UI/Bubble";
+import Icon from "../../common/UI/Icon";
+import Title from "../../common/UI/Title";
+import FavoriteButton from "../JobFavoriteButton/FavoriteButton";
+import PrompToRegister from "../../users/PrompToRegister";
+import Translator from "../../hoc/Translator";
+import JobCompensationBubbles from "../JobCompensationBubbles";
+import JobPerksBubbles from "../JobPerksBubbles";
 
 const jobListingTitleStyles = `color: ${variables.clearColor};`;
 const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
@@ -26,14 +27,19 @@ const JobListingHeader = props => (
       <Translator>{props.location}</Translator>
     </Title>
     <div className="JobListingHeaderBar">
-      <div className="JobListingJobType">
-        <JobCompensationBubbles
-          minCompensation={props.minCompensation}
-          maxCompensation={props.maxCompensation}
-        />
-        <Bubble color="2">
-          <Translator>{props.type}</Translator>
-        </Bubble>
+      <div className="JobListingMeta">
+        {(props.showCompensation || !props.perks) && (
+          <JobCompensationBubbles
+            minCompensation={props.minCompensation}
+            maxCompensation={props.maxCompensation}
+          />
+        )}
+        {props.showType && (
+          <Bubble color="2">
+            <Translator>{props.type}</Translator>
+          </Bubble>
+        )}
+        {props.showPerks && <JobPerksBubbles perks={props.perks} />}
       </div>
       {props.hideFavoriteButton ? null : (
         <PrompToRegister>
@@ -51,6 +57,10 @@ const JobListingHeader = props => (
         border-top-left-radius: ${variables.roundedRadius};
         z-index: 800;
         position: relative;
+      }
+
+      .JobListingMeta {
+        display: flex;
       }
 
       .JobListingHeaderBar {

@@ -21,6 +21,7 @@ const CREATE_JOB_MUTATION = gql`
     $location: String!
     $categories: [String!]!
     $skills: [String!]!
+    $perks: [String!]
     $type: String!
     $minCompensation: Float!
     $maxCompensation: Float
@@ -35,6 +36,7 @@ const CREATE_JOB_MUTATION = gql`
       location: $location
       categories: $categories
       skills: $skills
+      perks: $perks
       type: $type
       minCompensation: $minCompensation
       maxCompensation: $maxCompensation
@@ -109,13 +111,15 @@ const CreateJobForm = () => {
       isRecurring: data.jobIsRecurring,
       perks: data.jobPerks
     };
-    // const {
-    //   data: { createJob },
-    // } = await createJobMutation({ variables });
-    // if (createJob) {
-    //   Router.push("/dashboard/jobs/preview/" + createJob.id);
-    // }
-    console.log(variables);
+
+    const {
+      data: { createJob }
+    } = await createJobMutation({ variables });
+    if (createJob) {
+      Router.push("/dashboard/jobs/preview/" + createJob.id);
+    } else {
+      console.log("Something failed");
+    }
   };
 
   const handleInputChange = async (e, data) => {
@@ -225,7 +229,7 @@ const CreateJobForm = () => {
                 error={errors.jobPerks ? true : false}
                 allowAdditions
                 additionLabel="Create: "
-                additionWarning="Any new perks are subject to approval."
+                additionWarning="Any new perks will be reviewed and are subject to approval"
               />
               <Form.Select
                 name="jobType"

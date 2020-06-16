@@ -8,8 +8,9 @@ const variables = {
   accentColor1: "#1AAF4B",
   accentColor2: "#247BA0",
   accentColor3: "#EE6C4D",
+  accentColor4: "#F5A300",
 
-  baseTextColor: "#888888",
+  baseTextColor: "black",
   secondaryTextColor: "#C8C8C8",
 
   inputHeight: "45px",

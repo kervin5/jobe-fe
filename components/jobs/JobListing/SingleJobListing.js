@@ -27,6 +27,11 @@ export const SINGLE_JOB_QUERY = gql`
         name
       }
 
+      perks {
+        id
+        name
+      }
+
       location {
         id
         name
