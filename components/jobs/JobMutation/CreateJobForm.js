@@ -68,7 +68,15 @@ const jobTypeOptions = [
   { key: "perdiem", text: "Per Diem", value: "Per Diem" }
 ];
 
-const FormExampleFieldError = () => {
+const CreateJobForm = () => {
+  const {
+    register,
+    errors,
+    handleSubmit,
+    setValue,
+    triggerValidation
+  } = useForm();
+
   useEffect(() => {
     register({ name: "jobTitle" }, { required: true });
     register({ name: "jobLocation" }, { required: true });
@@ -79,18 +87,11 @@ const FormExampleFieldError = () => {
     register({ name: "jobType" }, { required: true });
     register({ name: "jobSkills" }, { required: true });
     register({ name: "jobAuthor" });
+    register({ name: "jobPerks" });
     register({ name: "jobDescription" }, { required: true });
     register({ name: "jobDisclaimer" });
     register({ name: "jobIsRecurring" });
   }, []);
-
-  const {
-    register,
-    errors,
-    handleSubmit,
-    setValue,
-    triggerValidation
-  } = useForm();
 
   const onSubmit = async (data, createJobMutation, e) => {
     const variables = {
@@ -105,14 +106,16 @@ const FormExampleFieldError = () => {
       compensationType: data.jobCompensationType,
       author: data.jobAuthor,
       disclaimer: data.jobDisclaimer,
-      isRecurring: data.jobIsRecurring
+      isRecurring: data.jobIsRecurring,
+      perks: data.jobPerks
     };
-    const {
-      data: { createJob }
-    } = await createJobMutation({ variables });
-    if (createJob) {
-      Router.push("/dashboard/jobs/preview/" + createJob.id);
-    }
+    // const {
+    //   data: { createJob },
+    // } = await createJobMutation({ variables });
+    // if (createJob) {
+    //   Router.push("/dashboard/jobs/preview/" + createJob.id);
+    // }
+    console.log(variables);
   };
 
   const handleInputChange = async (e, data) => {
@@ -202,12 +205,27 @@ const FormExampleFieldError = () => {
                 onChange={handleInputChange}
                 name="jobCategories"
                 label="Job Categories"
-                placeholder="Select a category"
+                placeholder="Select all that apply"
                 multiple
                 graphql={{
                   query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name: {contains: $query}}) { id name } }`
                 }}
                 error={errors.jobCategories ? true : false}
+              />
+
+              <DropdownGraphqlInput
+                onChange={handleInputChange}
+                name="jobPerks"
+                label="Job Perks"
+                placeholder="Select all that apply"
+                multiple
+                graphql={{
+                  query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} orderBy: { name: asc }) { id name } }`
+                }}
+                error={errors.jobPerks ? true : false}
+                allowAdditions
+                additionLabel="Create: "
+                additionWarning="Any new perks are subject to approval."
               />
               <Form.Select
                 name="jobType"
@@ -272,4 +290,4 @@ const FormExampleFieldError = () => {
   );
 };
 
-export default FormExampleFieldError;
+export default CreateJobForm;

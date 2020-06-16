@@ -1,5 +1,5 @@
-import React from "react";
-import { Dropdown } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Dropdown, Message } from "semantic-ui-react";
 
 const LocationInput = ({
   placeholder,
@@ -13,10 +13,16 @@ const LocationInput = ({
   loading,
   defaultValue,
   defaultSearchQuery,
-  allowAdditions
+  allowAdditions,
+  additionWarning,
+  additionLabel
 }) => {
+  const [customOptions, setCustomOptions] = useState([]);
+  const handleAddition = (e, { value }) => {
+    setCustomOptions([...customOptions, { text: value, value: value }]);
+  };
   return (
-    <div className={`field ${error ? "error" : ""}`}>
+    <div className={`DropdownInput field ${error ? "error" : ""}`}>
       <label htmlFor={name}>{label}</label>
       <Dropdown
         loading={loading}
@@ -25,14 +31,34 @@ const LocationInput = ({
         fluid
         search
         selection
+        onAddItem={handleAddition}
+        additionLabel={additionLabel}
         onChange={(e, data) => onChange(e, { ...data, name })}
-        options={options}
+        options={[...options, ...customOptions]}
         onSearchChange={onSearchChange}
         multiple={multiple}
         defaultValue={defaultValue}
         defaultSearchQuery={defaultSearchQuery}
         allowAdditions={allowAdditions}
       />
+      {!!additionWarning && !!customOptions.length && (
+        <Message color="yellow">
+          <p>
+            <strong>Reminder:</strong> {additionWarning}.
+          </p>
+        </Message>
+      )}
+      <style jsx global>
+        {`
+          .DropdownInput .ui.label:not([value^="c"]) {
+            background-color: #fff8db;
+          }
+
+          .DropdownInput .message {
+            padding: 0.5em 1.5em;
+          }
+        `}
+      </style>
     </div>
   );
 };
