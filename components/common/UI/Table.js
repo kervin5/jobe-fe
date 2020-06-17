@@ -9,7 +9,8 @@ const TableWithPagination = ({
   page,
   loading,
   withid,
-  exclude = []
+  exclude = [],
+  toolbar
 }) => {
   const pages = Math.ceil(count / take);
   const handlePaginationChange = (e, { activePage }) => {
@@ -19,6 +20,7 @@ const TableWithPagination = ({
   if (!data || data.length === 0) return <p>No Data To Show</p>;
   return (
     <div className="CustomTable">
+      <div className="CustomTable__tooblar">{toolbar}</div>
       <Table selectable>
         <Table.Header>
           <Table.Row>
@@ -89,7 +91,11 @@ const TableWithPagination = ({
           </Table.Row>
         </Table.Footer>
       </Table>
-      <style jsx>{``}</style>
+      <style jsx>{`
+        .CustomTable__tooblar {
+          margin-bottom: 20px;
+        }
+      `}</style>
     </div>
   );
 };

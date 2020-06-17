@@ -199,21 +199,7 @@ const ApplicantTable = props => {
   return (
     <>
       <ApplicationsCountWarning />
-      <Input
-        icon="search"
-        placeholder="Search..."
-        onChange={e => setTerms(e.target.value)}
-      />
-      <Dropdown
-        placeholder="Application Status"
-        selection
-        options={[
-          { key: "All", text: "All", value: "ALL" },
-          ...applicationStatusOptions
-        ]}
-        defaultValue={"ALL"}
-        onChange={(e, data) => statusChangeHandler(data.value)}
-      />
+
       <Query
         query={USER_APPLICATION_CONNECTION_QUERY}
         ssr={false}
@@ -304,6 +290,27 @@ const ApplicantTable = props => {
                     count={count}
                     take={take}
                     turnPageHandler={turnPageHandler}
+                    toolbar={
+                      <>
+                        <Input
+                          icon="search"
+                          placeholder="Search..."
+                          onChange={e => setTerms(e.target.value)}
+                        />
+                        <Dropdown
+                          placeholder="Application Status"
+                          selection
+                          options={[
+                            { key: "All", text: "All", value: "ALL" },
+                            ...applicationStatusOptions
+                          ]}
+                          defaultValue={"ALL"}
+                          onChange={(e, data) =>
+                            statusChangeHandler(data.value)
+                          }
+                        />
+                      </>
+                    }
                   />
                 );
               }}

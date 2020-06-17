@@ -1,7 +1,7 @@
 import React from "react";
 import Bubble from "../common/UI/Bubble";
 
-const JobPerksBubbles = ({ perks, children }) => {
+const JobPerksBubbles = ({ perks }) => {
   return (
     <>
       {perks.map((perk, index) => (

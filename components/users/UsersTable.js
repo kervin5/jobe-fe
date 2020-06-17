@@ -65,73 +65,73 @@ const UsersTable = props => {
   };
 
   return (
-    <>
-      <Input
-        icon="search"
-        placeholder="Search..."
-        onChange={inputChangeHandler}
-      />
-      <Query query={USERS_CONNECTION_QUERY} ssr={false} variables={{ query }}>
-        {userConnectionData => {
-          if (userConnectionData.error) return <p>Something went wrong ...</p>;
-          if (userConnectionData.loading) return <Loader />;
-          const queryVariables = {
-            take,
-            skip: (currentPage - 1) * take,
-            jobId: "" || props.jobId,
-            query
-          };
-          return (
-            <Query query={USER_QUERY} variables={{ ...queryVariables }}>
-              {({ error, loading, data }) => {
-                if (error) return <p>Something Went Wrong...</p>;
-                if (loading) return <Loader />;
+    <Query query={USERS_CONNECTION_QUERY} ssr={false} variables={{ query }}>
+      {userConnectionData => {
+        if (userConnectionData.error) return <p>Something went wrong ...</p>;
+        if (userConnectionData.loading) return <Loader />;
+        const queryVariables = {
+          take,
+          skip: (currentPage - 1) * take,
+          jobId: "" || props.jobId,
+          query
+        };
+        return (
+          <Query query={USER_QUERY} variables={{ ...queryVariables }}>
+            {({ error, loading, data }) => {
+              if (error) return <p>Something Went Wrong...</p>;
+              if (loading) return <Loader />;
 
-                let users = [];
+              let users = [];
 
-                data.users.forEach(user => {
-                  return users.push({
-                    name: user.name,
-                    email: <a href={`malito:${user.email}`}>{user.email}</a>,
-                    role: user.role ? user.role.name : "",
-                    status: user.status,
-                    branch: user.branch ? user.branch.name : "",
-                    actions: (
-                      <UserActionButtons
-                        user={user}
-                        refetchQueries={[
-                          {
-                            query: USER_QUERY,
-                            variables: { ...queryVariables }
-                          },
-                          {
-                            query: USERS_CONNECTION_QUERY,
-                            variables: { query }
-                          }
-                        ]}
-                      />
-                    )
-                  });
+              data.users.forEach(user => {
+                return users.push({
+                  name: user.name,
+                  email: <a href={`malito:${user.email}`}>{user.email}</a>,
+                  role: user.role ? user.role.name : "",
+                  status: user.status,
+                  branch: user.branch ? user.branch.name : "",
+                  actions: (
+                    <UserActionButtons
+                      user={user}
+                      refetchQueries={[
+                        {
+                          query: USER_QUERY,
+                          variables: { ...queryVariables }
+                        },
+                        {
+                          query: USERS_CONNECTION_QUERY,
+                          variables: { query }
+                        }
+                      ]}
+                    />
+                  )
                 });
+              });
 
-                const count = userConnectionData.data.usersConnection;
+              const count = userConnectionData.data.usersConnection;
 
-                return (
-                  <Table
-                    data={users}
-                    page={currentPage}
-                    loading={loading}
-                    count={count}
-                    take={take}
-                    turnPageHandler={turnPageHandler}
-                  />
-                );
-              }}
-            </Query>
-          );
-        }}
-      </Query>
-    </>
+              return (
+                <Table
+                  data={users}
+                  page={currentPage}
+                  loading={loading}
+                  count={count}
+                  take={take}
+                  turnPageHandler={turnPageHandler}
+                  toolbar={
+                    <Input
+                      icon="search"
+                      placeholder="Search..."
+                      onChange={inputChangeHandler}
+                    />
+                  }
+                />
+              );
+            }}
+          </Query>
+        );
+      }}
+    </Query>
   );
 };
 
