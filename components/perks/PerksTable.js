@@ -3,10 +3,11 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Input } from "semantic-ui-react";
 import { take } from "../../config";
-
+import Router from "next/router";
 import Table from "../common/UI/Table";
 import Loader from "../common/UI/Animated/Loader";
 import UserActionButtons from "../users/UserActionButtons/UserActionButtons";
+import Button from "../common/UI/Button";
 // import Button from "../common/UI/Button";
 
 const ALL_PERKS_QUERY = gql`
@@ -42,7 +43,6 @@ const PerksTable = props => {
       <Query query={PERKS_CONNECTION_QUERY} ssr={false} variables={{ query }}>
         {perksConnectionData => {
           if (perksConnectionData.error) return <p>Something went wrong ...</p>;
-          if (perksConnectionData.loading) return <Loader />;
           const queryVariables = {
             take,
             skip: (currentPage - 1) * take,
@@ -52,11 +52,10 @@ const PerksTable = props => {
             <Query query={ALL_PERKS_QUERY} variables={{ ...queryVariables }}>
               {({ error, loading, data }) => {
                 if (error) return <p>Something Went Wrong...</p>;
-                if (loading) return <Loader />;
 
                 let perks = [];
 
-                data.perks.forEach(perk => {
+                data?.perks.forEach(perk => {
                   return perks.push({
                     name: perk.name,
 
@@ -80,7 +79,7 @@ const PerksTable = props => {
                   });
                 });
 
-                const count = perksConnectionData.data.perksConnection;
+                const count = perksConnectionData?.data?.perksConnection ?? 0;
 
                 return (
                   <Table
@@ -91,11 +90,18 @@ const PerksTable = props => {
                     take={take}
                     turnPageHandler={turnPageHandler}
                     toolbar={
-                      <Input
-                        icon="search"
-                        placeholder="Search..."
-                        onChange={inputChangeHandler}
-                      />
+                      <>
+                        <Input
+                          icon="search"
+                          placeholder="Search..."
+                          onChange={inputChangeHandler}
+                        />
+                        <Button
+                          onClick={() => Router.push("/dashboard/users/new")}
+                        >
+                          Add Perk
+                        </Button>
+                      </>
                     }
                   />
                 );

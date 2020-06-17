@@ -1,9 +1,9 @@
-import Router from "next/router";
+// import Router from "next/router";
 import React from "react";
-import Button from "../../common/UI/Button";
+// import Button from "../../common/UI/Button";
 import JobsInformationSection from "./JobsInformationSection";
 import ApplicationsCountWarning from "../../applications/ApplicationsCountWarning";
-import DashboardPageHeader from "../DashboardPageHeader";
+// import DashboardPageHeader from "../DashboardPageHeader";
 import JobsTable from "../../jobs/JobsTable";
 
 class DashboardHome extends React.Component {
@@ -11,11 +11,9 @@ class DashboardHome extends React.Component {
     return (
       <React.Fragment>
         <ApplicationsCountWarning />
-        <DashboardPageHeader>
-          <Button onClick={() => Router.push("/dashboard/jobs/new")}>
-            Add New Job
-          </Button>
-        </DashboardPageHeader>
+        {/* <DashboardPageHeader>
+      
+        </DashboardPageHeader> */}
         <JobsInformationSection />
         <JobsTable />
       </React.Fragment>

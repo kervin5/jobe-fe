@@ -15,8 +15,10 @@ const pageSection = props => {
           width: 100%;
           position: relative;
           display: flex;
+
           justify-content: ${props.column ? "start" : "center"};
           align-items: center;
+          align-items: stretch;
           flex-direction: ${props.column ? "column" : "row"};
           background-color: ${variables.mutedColor1};
           max-width: ${props.maxWidth || "100%"};
@@ -26,7 +28,7 @@ const pageSection = props => {
         }
 
         .PageSection:first-child {
-          min-height: calc(100vh - 56px);
+          min-height: calc(100vh - 50px);
         }
 
         @media (max-width: 720px) {

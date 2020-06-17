@@ -39,7 +39,7 @@ const dashboardPage = props => {
   };
 
   return (
-    <PageSection column className="DashboardPage">
+    <PageSection className="DashboardPage" nopadding>
       <SideMenu
         onClick={handleItemClick}
         options={Object.keys(sections).map(
@@ -57,9 +57,7 @@ const dashboardPage = props => {
       <style jsx>
         {`
           .PageContent {
-            padding-left: 150px;
-            padding-right: 50px;
-            padding-bottom: 50px;
+            padding: 50px;
             width: 100%;
           }
         `}

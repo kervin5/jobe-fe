@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Icon, Table, Pagination, Loader } from "semantic-ui-react";
+import React from "react";
+import { Icon, Table, Pagination, Loader, Dimmer } from "semantic-ui-react";
 
 const TableWithPagination = ({
   data,
@@ -41,7 +41,11 @@ const TableWithPagination = ({
 
         <Table.Body>
           {loading ? (
-            <Loader />
+            <Table.Row>
+              <Table.Cell>
+                <Loader active inline="centered" />
+              </Table.Cell>
+            </Table.Row>
           ) : (
             data.map((row, key) => (
               <Table.Row key={"Row" + key}>
@@ -94,6 +98,8 @@ const TableWithPagination = ({
       <style jsx>{`
         .CustomTable__tooblar {
           margin-bottom: 20px;
+          display: flex;
+          justify-content: space-between;
         }
       `}</style>
     </div>

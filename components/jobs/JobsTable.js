@@ -12,7 +12,7 @@ import {
 } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { take } from "../../config";
-import SortableTable from "../common/UI/SortableTable";
+import Table from "../common/UI/Table";
 import DeleteJobButton from "../jobs/JobMutation/DeleteJobButton";
 import variables from "../common/globalVariables";
 import moment from "moment";
@@ -113,16 +113,6 @@ const JobsTable = props => {
 
   return (
     <>
-      <Input
-        icon="search"
-        placeholder="Search..."
-        onChange={e => handleFieldChange(e)}
-      />
-      <Select
-        options={options}
-        defaultValue="ALL"
-        onChange={(e, data) => handleFieldChange(data, "status")}
-      />
       <Query
         query={USER_JOBS_CONNECTION_QUERY}
         ssr={false}
@@ -130,8 +120,7 @@ const JobsTable = props => {
       >
         {userJobsData => {
           if (userJobsData.error) return <p>Something went wrong...</p>;
-          if (userJobsData.loading) return <Loader />;
-          if (!userJobsData.data) return <p>Please wait</p>;
+
           return (
             <Query
               query={USER_JOBS_QUERY}
@@ -144,24 +133,10 @@ const JobsTable = props => {
               ssr={false}
             >
               {({ data, error, loading }) => {
-                if (loading)
-                  return (
-                    <Placeholder fluid>
-                      <Placeholder.Header>
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                      </Placeholder.Header>
-                      <Placeholder.Paragraph>
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                      </Placeholder.Paragraph>
-                    </Placeholder>
-                  );
-                if (error) return <p>Something Failed...</p>;
+                if (loading) if (error) return <p>Something Failed...</p>;
 
                 //Get jobs from branch if user has access
-                const dataForTable = data.protectedJobs.map(job => {
+                const dataForTable = data?.protectedJobs.map(job => {
                   // job.recurring  = !!job.cronTask;
                   // delete job.cronTask;
                   return {
@@ -174,10 +149,35 @@ const JobsTable = props => {
                   };
                 });
 
-                const jobsCount = userJobsData.data.protectedJobsConnection;
+                const jobsCount =
+                  userJobsData?.data?.protectedJobsConnection || 0;
                 return (
                   <>
-                    <SortableTable
+                    <Table
+                      toolbar={
+                        <>
+                          <div>
+                            <Input
+                              icon="search"
+                              placeholder="Search..."
+                              onChange={e => handleFieldChange(e)}
+                            />
+                            <Select
+                              options={options}
+                              defaultValue="ALL"
+                              onChange={(e, data) =>
+                                handleFieldChange(data, "status")
+                              }
+                            />
+                          </div>
+                          <Button
+                            positive
+                            onClick={() => Router.push("/dashboard/jobs/new")}
+                          >
+                            Add New Job
+                          </Button>
+                        </>
+                      }
                       page={currentPage}
                       loading={loading}
                       count={jobsCount}
