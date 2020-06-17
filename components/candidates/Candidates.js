@@ -32,7 +32,7 @@ const CANDIDATE_QUERY = gql`
         id
         assignments
       }
-      resumes(first: 1) {
+      resumes(take: 1) {
         file {
           id
           path
