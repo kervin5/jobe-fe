@@ -198,6 +198,7 @@ const JobsTable = props => {
 };
 
 const injectActionsColumn = data => {
+  if (!data) return null;
   return data.map(record => {
     const activeApplications = record.applications.filter(
       application => !["HIRED", "ARCHIVED"].includes(application.status)

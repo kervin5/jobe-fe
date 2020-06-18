@@ -1,4 +1,4 @@
-import Candidates from "../../../components/candidates/Candidates";
+import Candidates from "../../../components/candidates/CandidatesTable";
 import DashboardPage from "../../../components/dashboard/DashboardPage";
 import WithAuth from "../../../components/hoc/WithAuth";
 

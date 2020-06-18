@@ -65,6 +65,7 @@ const sideMenu = props => {
 
         .Sidebar :global(> .menu) {
           height: 100%;
+          border-radius: 0;
         }
 
         @media (max-width: 900px) {
