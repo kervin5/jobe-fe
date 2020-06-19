@@ -6,11 +6,11 @@ import Bubble from "../../common/UI/Bubble";
 import Icon from "../../common/UI/Icon";
 import FavoriteButton from "../JobFavoriteButton/FavoriteButton";
 import Card from "../../common/UI/Card";
-import HtmlRenderer from "../../common/UI/HtmlRenderer";
 import sanitize from "../../../lib/html";
 import PrompToRegister from "../../users/PrompToRegister";
 import Translator from "../../hoc/Translator";
 import { numberWithCommas } from "../JobCompensationBubbles";
+import JobPerksBubbles from "../JobPerksBubbles";
 
 const styles = ` background-color: ${variables.clearColor};
                 margin: 20px auto;
@@ -52,19 +52,22 @@ const jobListItem = props => {
             {shortLocation}
           </p>
         </div>
-        {props.showMainInfo && (
-          <div className="JobListItemMainInfo">
+
+        <div className="JobListItemMainInfo">
+          {props.showPayRate && (
             <Bubble color="1">
               {props.compensation > 0
                 ? "$" +
                   numberWithCommas(parseFloat(props.compensation).toFixed(2))
                 : "DOE"}
             </Bubble>
+          )}
+          {props.showJobType && (
             <Bubble color="2">
               <Translator>{props.type}</Translator>
             </Bubble>
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <Link href="/jobs/[jid]" as={jobUrl}>
         <a className="Content">
@@ -75,10 +78,20 @@ const jobListItem = props => {
       </Link>
 
       <div className="JobListItemFooter">
-        <p className="PostDate">{moment(props.date).fromNow()}</p>
-        <PrompToRegister>
-          <FavoriteButton jobId={props.id} />
-        </PrompToRegister>
+        <div className="row">
+          <JobPerksBubbles perks={props.perks} />
+        </div>
+        <div className="row">
+          <p className="PostDate">{moment(props.date).fromNow()}</p>
+
+          <PrompToRegister>
+            <FavoriteButton
+              jobId={props.id}
+              count={props.favorites}
+              showFavoritesCount={props.showFavoritesCount}
+            />
+          </PrompToRegister>
+        </div>
       </div>
       <style jsx>{`
         a {
@@ -112,9 +125,11 @@ const jobListItem = props => {
 
         .Content {
           font-weight: normal;
-          font-size: 1em;
-          // letter-spacing: 0.1em;
+          font-size: 1.1em;
+
           line-height: 1.4em;
+          margin-bottom: 10px;
+          display: block;
         }
 
         .LocationIcon {
@@ -127,9 +142,15 @@ const jobListItem = props => {
 
         .JobListItemFooter {
           display: flex;
+          flex-direction: column;
+        }
+
+        .JobListItemFooter .row {
+          display: flex;
           justify-content: space-between;
           margin-bottom: 5px;
           margin-top: 5px;
+          width: 100%;
         }
 
         .JobListItemFooter a {

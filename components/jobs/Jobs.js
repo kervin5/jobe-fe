@@ -64,10 +64,18 @@ const SEARCH_JOBS_QUERY = gql`
       description
       minCompensation
       maxCompensation
+      favorites {
+        id
+      }
       type
       createdAt
       updatedAt
       location {
+        id
+        name
+      }
+
+      perks(where: { status: ACTIVE }) {
         id
         name
       }

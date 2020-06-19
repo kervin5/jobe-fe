@@ -28,6 +28,7 @@ const SingleJobView = props => {
               width: 100%;
               max-width: 970px;
               padding-top: 30px;
+              margin: auto;
             }
 
             @media (max-width: 720px) {

@@ -38,6 +38,10 @@ const bubble = props => {
           align-items: center;
         }
 
+        span:first-child {
+          margin-left: 0px;
+        }
+
         @media (min-width: 800px) {
           span {
             min-width: 85px;
