@@ -1,5 +1,6 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
+import LogoutButton from "../../LogoutButton";
 import Link from "next/link";
 import UserInfo from "../../../../me/UserInfo";
 
@@ -19,7 +20,7 @@ const NavigationItemUserMenu = () => {
                   {/* <Dropdown.Item>Bedroom</Dropdown.Item> */}
                   <Dropdown.Divider />
 
-                  <Dropdown.Item>Logout</Dropdown.Item>
+                  <LogoutButton />
                 </Dropdown.Menu>
               </Dropdown>
             </>
