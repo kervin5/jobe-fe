@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Query } from "react-apollo";
-import {
-  Button,
-  Placeholder,
-  Loader,
-  Input,
-  Select,
-  Icon,
-  Label
-} from "semantic-ui-react";
+import { Button, Input, Select, Icon, Label } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { take } from "../../config";
 import Table from "../common/UI/Table";
@@ -170,12 +162,11 @@ const JobsTable = props => {
                               }
                             />
                           </div>
-                          <Button
-                            positive
-                            onClick={() => Router.push("/dashboard/jobs/new")}
-                          >
-                            Add New Job
-                          </Button>
+                          <Link href="/dashboard/jobs/new" passHref>
+                            <Button positive as="a">
+                              Add New Job
+                            </Button>
+                          </Link>
                         </>
                       }
                       page={currentPage}
