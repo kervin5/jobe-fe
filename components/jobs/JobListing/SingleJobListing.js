@@ -27,7 +27,7 @@ export const SINGLE_JOB_QUERY = gql`
         name
       }
 
-      perks {
+      perks(where: { status: ACTIVE }) {
         id
         name
       }

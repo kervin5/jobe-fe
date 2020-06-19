@@ -5,17 +5,19 @@ import { Input } from "semantic-ui-react";
 import { take } from "../../config";
 import Router from "next/router";
 import Table from "../common/UI/Table";
-import Loader from "../common/UI/Animated/Loader";
-import UserActionButtons from "../users/UserActionButtons/UserActionButtons";
+import PerksActionButtons from "./PerksActionButtons";
 import Button from "../common/UI/Button";
 // import Button from "../common/UI/Button";
 
 const ALL_PERKS_QUERY = gql`
   query ALL_PERKS_QUERY($take: Int!, $skip: Int!) {
-    perks(take: $take, skip: $skip) {
+    perks(take: $take, skip: $skip, orderBy: { createdAt: desc }) {
       id
       name
       status
+      jobs {
+        id
+      }
     }
   }
 `;
@@ -59,23 +61,23 @@ const PerksTable = props => {
                   return perks.push({
                     name: perk.name,
 
-                    status: perk.status
-
-                    // actions: (
-                    //   <UserActionButtons
-                    //     user={user}
-                    //     refetchQueries={[
-                    //       {
-                    //         query: ALL_PERKS_QUERY,
-                    //         variables: { ...queryVariables },
-                    //       },
-                    //       {
-                    //         query: PERKS_CONNECTION_QUERY,
-                    //         variables: { query },
-                    //       },
-                    //     ]}
-                    //   />
-                    // ),
+                    status: perk.status,
+                    jobs: perk.jobs?.length,
+                    actions: (
+                      <PerksActionButtons
+                        perk={perk}
+                        refetchQueries={[
+                          {
+                            query: ALL_PERKS_QUERY,
+                            variables: { ...queryVariables }
+                          },
+                          {
+                            query: PERKS_CONNECTION_QUERY,
+                            variables: { query }
+                          }
+                        ]}
+                      />
+                    )
                   });
                 });
 
