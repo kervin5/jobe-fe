@@ -290,11 +290,11 @@ const EditJobForm = ({ data, jobId }) => {
               <DropdownGraphqlInput
                 onChange={handleInputChange}
                 name="jobPerks"
-                label="Job Perks"
+                label="Job Perks (optional)"
                 placeholder="Select all that apply"
                 multiple
                 graphql={{
-                  query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} ) { id name } }`
+                  query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
                 }}
                 error={errors.jobPerks ? true : false}
                 defaultValue={data.perks.map(perk => perk.id)}
