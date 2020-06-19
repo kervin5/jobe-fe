@@ -47,6 +47,7 @@ const favoriteButtonWrapper = props => {
               .CountOfFavorites {
                 margin-right: 10px;
                 font-weight: bold;
+                margin-bottom: 0;
               }
             `}</style>
           </div>
