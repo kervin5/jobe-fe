@@ -211,7 +211,6 @@ const ApplicantTable = props => {
       >
         {userApplicationData => {
           if (userApplicationData.error) return <p>Something went wrong ...</p>;
-          if (userApplicationData.loading) return <Loader />;
 
           return (
             <Query
@@ -226,10 +225,10 @@ const ApplicantTable = props => {
             >
               {({ error, loading, data }) => {
                 if (error) return <p>Something went wrong...</p>;
-                if (loading) return <Loader />;
+
                 let applications = [];
 
-                data.applications.forEach(application => {
+                data?.applications.forEach(application => {
                   applications.push({
                     name: application.user.name,
                     job: (
@@ -280,7 +279,8 @@ const ApplicantTable = props => {
                   });
                 });
 
-                const count = userApplicationData.data.applicationsConnection;
+                const count =
+                  userApplicationData?.data?.applicationsConnection ?? 0;
 
                 return (
                   <Table

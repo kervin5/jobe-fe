@@ -6,9 +6,7 @@ import { take } from "../../config";
 
 import EempactStatusLabel from "../users/EempactStatusLabel";
 import Table from "../common/UI/Table";
-import Loader from "../common/UI/Animated/Loader";
 import DropdownGraphqlInput from "../common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
-import InputGroup from "../common/UI/Input/InputGroup";
 
 const CANDIDATE_QUERY = gql`
   query CANDIDATE_QUERY(
@@ -70,126 +68,112 @@ const Candidates = props => {
   };
 
   const inputChangeHandler = e => {
+    setCurrentPage(1);
     setQuery(e.target.value);
   };
 
   return (
-    <>
-      <div className="Toolbar">
-        <Input
-          icon="search"
-          placeholder="Search..."
-          onChange={inputChangeHandler}
-        />
-        <DropdownGraphqlInput
-          onChange={(e, data) => {
-            setSkills(data.value);
-            setCurrentPage(0);
-          }}
-          name="jobSkills"
-          label="Candidate Skills"
-          placeholder="Filter by skills"
-          multiple
-          nolabel
-          graphql={{
-            query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
-          }}
-        />
-        <style jsx>{`
-          .Toolbar {
-            margin: 10px auto;
-          }
+    <Query
+      query={CANDIDATES_CONNECTION_QUERY}
+      ssr={false}
+      variables={{ query, ...(skills.length ? { skills } : {}) }}
+    >
+      {userConnectionData => {
+        if (userConnectionData.error) return <p>Something went wrong ...</p>;
 
-          .Toolbar :global(> *) {
-            margin-bottom: 10px;
-          }
-        `}</style>
-      </div>
+        return (
+          <Query
+            query={CANDIDATE_QUERY}
+            variables={{
+              take,
+              skip: (currentPage - 1) * take,
+              jobId: "" || props.jobId,
+              query,
+              ...(skills.length ? { skills } : {})
+            }}
+          >
+            {({ error, loading, data }) => {
+              if (error) return <p>Something Went Wrong...</p>;
 
-      <Query
-        query={CANDIDATES_CONNECTION_QUERY}
-        ssr={false}
-        variables={{ query, ...(skills.length ? { skills } : {}) }}
-      >
-        {userConnectionData => {
-          if (userConnectionData.error) return <p>Something went wrong ...</p>;
-          if (userConnectionData.loading) return <Loader />;
+              let candidates = [];
 
-          return (
-            <Query
-              query={CANDIDATE_QUERY}
-              variables={{
-                take,
-                skip: (currentPage - 1) * take,
-                jobId: "" || props.jobId,
-                query,
-                ...(skills.length ? { skills } : {})
-              }}
-            >
-              {({ error, loading, data }) => {
-                if (error) return <p>Something Went Wrong...</p>;
-                if (loading) return <Loader />;
+              data?.candidates.forEach(candidate => {
+                const hasResume = candidate.resumes.length > 0;
 
-                let candidates = [];
-
-                data.candidates.forEach(candidate => {
-                  const hasResume = candidate.resumes.length > 0;
-
-                  return candidates.push({
-                    name: candidate.name,
-                    email: (
-                      <a href={`mailto:${candidate.email}`}>
-                        {candidate.email}
-                      </a>
-                    ),
-                    title: hasResume ? (
-                      candidate.resumes[0].title
-                    ) : (
-                      <p>No Resume</p>
-                    ),
-                    resume: hasResume && (
-                      <Button
-                        color="green"
-                        onClick={e => {
-                          e.preventDefault();
-                          window.open(
-                            "/resumes/" +
-                              candidate.resumes[0].file.path.split("/").pop()
-                          );
-                        }}
-                      >
-                        Download Resume
-                      </Button>
-                    ),
-                    skills:
-                      !!skills.length &&
-                      candidate.resumes[0].skills
-                        .filter(skill => skills.includes(skill.id))
-                        .map(skill => (
-                          <Label content={skill.name} color="blue" />
-                        )),
-                    eEmpact: <EempactStatusLabel data={candidate.eEmpact} />
-                  });
+                return candidates.push({
+                  name: candidate.name,
+                  email: (
+                    <a href={`mailto:${candidate.email}`}>{candidate.email}</a>
+                  ),
+                  title: hasResume ? (
+                    candidate.resumes[0].title
+                  ) : (
+                    <p>No Resume</p>
+                  ),
+                  resume: hasResume && (
+                    <Button
+                      color="green"
+                      onClick={e => {
+                        e.preventDefault();
+                        window.open(
+                          "/resumes/" +
+                            candidate.resumes[0].file.path.split("/").pop()
+                        );
+                      }}
+                    >
+                      Download Resume
+                    </Button>
+                  ),
+                  skills:
+                    !!skills.length &&
+                    candidate.resumes[0].skills
+                      .filter(skill => skills.includes(skill.id))
+                      .map(skill => (
+                        <Label content={skill.name} color="blue" />
+                      )),
+                  eEmpact: <EempactStatusLabel data={candidate.eEmpact} />
                 });
+              });
 
-                const count = userConnectionData.data.candidatesConnection;
+              const count = userConnectionData?.data?.candidatesConnection ?? 0;
 
-                return (
-                  <Table
-                    data={candidates}
-                    page={currentPage}
-                    loading={loading}
-                    count={count}
-                    take={take}
-                    turnPageHandler={turnPageHandler}
-                  />
-                );
-              }}
-            </Query>
-          );
-        }}
-      </Query>
-    </>
+              return (
+                <Table
+                  data={candidates}
+                  page={currentPage}
+                  loading={loading}
+                  count={count}
+                  take={take}
+                  turnPageHandler={turnPageHandler}
+                  toolbar={
+                    <>
+                      <Input
+                        icon="search"
+                        placeholder="Search..."
+                        onChange={inputChangeHandler}
+                      />
+                      <DropdownGraphqlInput
+                        onChange={(e, data) => {
+                          setSkills(data.value);
+                          setCurrentPage(1);
+                        }}
+                        name="jobSkills"
+                        placeholder="Filter by skills"
+                        multiple
+                        nolabel
+                        graphql={{
+                          query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
+                        }}
+                      />
+                    </>
+                  }
+                />
+              );
+            }}
+          </Query>
+        );
+      }}
+    </Query>
   );
 };
 

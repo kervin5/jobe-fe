@@ -23,7 +23,8 @@ const DropdownGraphqlInput = ({
   defaultValue,
   allowAdditions,
   additionLabel,
-  additionWarning
+  additionWarning,
+  nolabel
 }) => {
   const [query, setQuery] = useState("");
   const [fetchedOptions, setFetchedOptions] = useState([]);
@@ -65,6 +66,7 @@ const DropdownGraphqlInput = ({
             name={name}
             label={label}
             loading={loading}
+            nolabel={nolabel}
             onSearchChange={handleSearchChange}
             options={format(fetchedOptions, {
               id: "id",

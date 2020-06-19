@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { Input } from "semantic-ui-react";
+import { Input, Button } from "semantic-ui-react";
 import { take } from "../../config";
 
 import Table from "../common/UI/Table";
-import Loader from "../common/UI/Animated/Loader";
 import UserActionButtons from "./UserActionButtons/UserActionButtons";
+import Link from "next/link";
 // import Button from "../common/UI/Button";
 
 const USER_QUERY = gql`
@@ -15,15 +15,7 @@ const USER_QUERY = gql`
       take: $take
       skip: $skip
       where: {
-        AND: [
-          {
-            OR: [
-              { name: { contains: $query } }
-              { email: { contains: $query } }
-            ]
-          }
-          { NOT: { status: DELETED } }
-        ]
+        OR: [{ name: { contains: $query } }, { email: { contains: $query } }]
       }
     ) {
       id
@@ -68,7 +60,7 @@ const UsersTable = props => {
     <Query query={USERS_CONNECTION_QUERY} ssr={false} variables={{ query }}>
       {userConnectionData => {
         if (userConnectionData.error) return <p>Something went wrong ...</p>;
-        if (userConnectionData.loading) return <Loader />;
+
         const queryVariables = {
           take,
           skip: (currentPage - 1) * take,
@@ -79,11 +71,10 @@ const UsersTable = props => {
           <Query query={USER_QUERY} variables={{ ...queryVariables }}>
             {({ error, loading, data }) => {
               if (error) return <p>Something Went Wrong...</p>;
-              if (loading) return <Loader />;
 
               let users = [];
 
-              data.users.forEach(user => {
+              data?.users.forEach(user => {
                 return users.push({
                   name: user.name,
                   email: <a href={`malito:${user.email}`}>{user.email}</a>,
@@ -108,7 +99,7 @@ const UsersTable = props => {
                 });
               });
 
-              const count = userConnectionData.data.usersConnection;
+              const count = userConnectionData?.data?.usersConnection ?? 0;
 
               return (
                 <Table
@@ -119,11 +110,18 @@ const UsersTable = props => {
                   take={take}
                   turnPageHandler={turnPageHandler}
                   toolbar={
-                    <Input
-                      icon="search"
-                      placeholder="Search..."
-                      onChange={inputChangeHandler}
-                    />
+                    <>
+                      <Input
+                        icon="search"
+                        placeholder="Search..."
+                        onChange={inputChangeHandler}
+                      />
+                      <Link href="/dashboard/users/new" passHref>
+                        <Button positive as="a">
+                          Add User
+                        </Button>
+                      </Link>
+                    </>
                   }
                 />
               );
