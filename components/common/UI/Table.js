@@ -17,7 +17,7 @@ const TableWithPagination = ({
     turnPageHandler(activePage);
   };
 
-  if (!data || data.length === 0) return <p>No Data To Show</p>;
+  if (!data) return <p>No Data To Show</p>;
   return (
     <div className="CustomTable">
       <div className="CustomTable__tooblar">{toolbar}</div>
