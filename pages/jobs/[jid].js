@@ -29,7 +29,10 @@ const SingleJobView = props => {
   return (
     <PageSection styles={pageStyles} nopadding column>
       <div className="JobContainer">
-        <SingleJobListing jobData={props.jobData} />
+        <SingleJobListing
+          jobData={props.jobData}
+          jobId={props.jobId ?? extractJobId(props.query.jid)}
+        />
         <style jsx>
           {`
             .JobContainer {
@@ -68,10 +71,19 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { jid } = params;
-  const slugParts = jid.split("-");
-  const jobId = slugParts[slugParts.length - 1];
+  const jobId = extractJobId(jid);
   const jobData = await getJob(jobId);
-  return { props: { jobData } };
+
+  return { props: { jobData, jobId } };
+}
+
+function extractJobId(slug) {
+  if (slug) {
+    const slugParts = slug.split("-");
+    const jobId = slugParts[slugParts.length - 1];
+    return jobId;
+  }
+  return undefined;
 }
 
 export default SingleJobView;
