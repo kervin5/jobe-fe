@@ -1,6 +1,6 @@
-import ApplicantsTable from "../../../../components/applications/ApplicantionsTable";
-import DashboardPage from "../../../../components/dashboard/DashboardPage";
-import WithAuth from "../../../../components/hoc/WithAuth";
+import ApplicantsTable from "@/components/applications/ApplicantionsTable";
+import DashboardPage from "@/components/admin/dashboard/DashboardPage";
+import WithAuth from "@/components/hoc/WithAuth";
 
 const dashboardApplicationsPerJobPage = props => {
   return (
