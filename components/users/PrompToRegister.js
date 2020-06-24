@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Query } from "react-apollo";
-import { ME_USER_QUERY } from "../../lib/auth";
-import PopUp from "../common/UI/PopUp";
+import { ME_USER_QUERY } from "@/lib/auth";
+import PopUp from "@/common/UI/PopUp";
 import AuthForm from "../users/AuthForm";
 
 const PrompToRegister = props => {

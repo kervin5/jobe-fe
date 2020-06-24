@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Head from "./Head";
-import Layout from "./common/Layout/Layout";
-import ApplicationContext from "../context/applicationContext";
+import Layout from "@/common/Layout/Layout";
+import ApplicationContext from "@/context/applicationContext";
 
 const Page = props => {
   const defaultLanguage = "en";

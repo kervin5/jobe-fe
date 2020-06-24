@@ -1,9 +1,9 @@
 import React from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import Title from "../../common/UI/Title";
-import ResumeUploadButton from "../../common/UI/ResumeUploadButton";
-import ResumeList from "../../common/UI/ResumeList";
+import Title from "@/common/UI/Title";
+import ResumeUploadButton from "@/common/UI/ResumeUploadButton";
+import ResumeList from "@/common/UI/ResumeList";
 
 export const RESUME_LIST_QUERY = gql`
   query RESUME_LIST_QUERY {

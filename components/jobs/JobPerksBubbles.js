@@ -1,5 +1,5 @@
 import React from "react";
-import Bubble from "../common/UI/Bubble";
+import Bubble from "@/common/UI/Bubble";
 
 const JobPerksBubbles = ({ perks }) => {
   return (

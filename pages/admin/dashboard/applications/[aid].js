@@ -1,7 +1,7 @@
-import DashboardPage from "../../../components/dashboard/DashboardPage";
-import WithAuth from "../../../components/hoc/WithAuth";
-import SingleJobApplication from "../../../components/applications/SingleJobApplication";
-import ApplicationInformation from "../../../components/applications/ApplicationInformation";
+import DashboardPage from "@/components/dashboard/DashboardPage";
+import WithAuth from "@/components/hoc/WithAuth";
+import SingleJobApplication from "@/components/applications/SingleJobApplication";
+import ApplicationInformation from "@/components/applications/ApplicationInformation";
 
 const dashboardApplicationsPerJobPage = props => {
   return (

@@ -1,9 +1,7 @@
-import Router from "next/router";
-import PerksTable from "../../../../components/perks/PerksTable";
-import DashboardPage from "../../../../components/dashboard/DashboardPage";
+import PerksTable from "@/components/perks/PerksTable";
+import DashboardPage from "@/components/dashboard/DashboardPage";
 // import DashboardPageHeader from "../../../../components/dashboard/DashboardPageHeader";
-import WithAuth from "../../../../components/hoc/WithAuth";
-// import Button from "../../../../components/common/UI/Button";
+import WithAuth from "@/components/hoc/WithAuth";
 
 const dashboardCandidatePage = props => {
   return (

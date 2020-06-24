@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import Form from "../../common/UI/Form";
+import Form from "@/common/UI/Form";
 
 const UPDATE_USER_MUTATION = gql`
   mutation UPDATE_USER_MUTATION(

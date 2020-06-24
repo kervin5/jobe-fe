@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import axios from "axios";
 import { Select } from "semantic-ui-react";
-import HtmlRenderer from "../common/UI/HtmlRenderer";
-import applicationContext from "../../context/applicationContext";
+import HtmlRenderer from "@/common/UI/HtmlRenderer";
+import applicationContext from "@/context/applicationContext";
 
 const Translator = ({ children }) => {
   const { language, setLanguage } = React.useContext(applicationContext);

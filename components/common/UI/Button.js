@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import Icon from "./Icon";
-import variables from "../globalVariables";
+import variables from "@/common/globalVariables";
 
 import { Loader } from "semantic-ui-react";
 

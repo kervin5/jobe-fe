@@ -270,7 +270,7 @@ const ApplicantTable = props => {
                         onClick={e => {
                           e.preventDefault();
                           window.open(
-                            "/dashboard/applications/" + application.id
+                            "/admin/dashboard/applications/" + application.id
                           );
                         }}
                       />

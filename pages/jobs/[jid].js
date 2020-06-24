@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import gql from "graphql-tag";
-import redirect from "../../lib/redirect";
-import variables from "../../components/common/globalVariables";
-import SingleJobListing from "../../components/jobs/JobListing/SingleJobListing";
+import redirect from "@/lib/redirect";
+import variables from "@/components/common/globalVariables";
+import SingleJobListing from "@/components/jobs/JobListing/SingleJobListing";
 
-import PageSection from "../../components/common/Layout/PageSection";
+import PageSection from "@/components/common/Layout/PageSection";
 
 const pageStyles = `background-color:${variables.mutedColor1};`;
 

@@ -1,14 +1,14 @@
 import React from "react";
 import Link from "next/link";
 import moment from "moment";
-import variables from "../../common/globalVariables";
-import Bubble from "../../common/UI/Bubble";
-import Icon from "../../common/UI/Icon";
+import variables from "@/common/globalVariables";
+import Bubble from "@/common/UI/Bubble";
+import Icon from "@/common/UI/Icon";
 import FavoriteButton from "../JobFavoriteButton/FavoriteButton";
-import Card from "../../common/UI/Card";
-import sanitize from "../../../lib/html";
-import PrompToRegister from "../../users/PrompToRegister";
-import Translator from "../../hoc/Translator";
+import Card from "@/common/UI/Card";
+import sanitize from "@/lib/html";
+import PrompToRegister from "@/components/users/PrompToRegister";
+import Translator from "@/components/hoc/Translator";
 import { numberWithCommas } from "../JobCompensationBubbles";
 import JobPerksBubbles from "../JobPerksBubbles";
 

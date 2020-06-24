@@ -3,7 +3,7 @@ import axios from "axios";
 import glob from "glob";
 import fs from "fs";
 import path from "path";
-import getBackendUrl from "../../lib/backend";
+import getBackendUrl from "@/lib/backend";
 
 const SITE_ROOT = process.env.SITE_ROOT || "https://www.myexactjobs.com";
 

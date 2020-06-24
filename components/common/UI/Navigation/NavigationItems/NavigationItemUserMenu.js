@@ -1,8 +1,8 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
-import LogoutButton from "../../LogoutButton";
+import LogoutButton from "@/components/common/UI/LogoutButton";
 import Link from "next/link";
-import UserInfo from "../../../../me/UserInfo";
+import UserInfo from "@/components/me/UserInfo";
 
 const NavigationItemUserMenu = () => {
   return (

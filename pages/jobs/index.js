@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { withRouter } from "next/router";
-import variables from "../../components/common/globalVariables";
-
-import PageSection from "../../components/common/Layout/PageSection";
-
-import SearchFieldSection from "../../components/jobs/Search/SearchFieldSection";
-import Button from "../../components/common/UI/Button";
-import ButtonGroup from "../../components/common/UI/ButtonGroup";
-import Jobs from "../../components/jobs/Jobs";
-import SearchFilters from "../../components/jobs/Search/SearchFilters";
-import SEO from "../../components/SEO";
+import variables from "@/components/common/globalVariables";
+import PageSection from "@/components/common/Layout/PageSection";
+import SearchFieldSection from "@/components/jobs/Search/SearchFieldSection";
+import Button from "@/components/common/UI/Button";
+import ButtonGroup from "@/components/common/UI/ButtonGroup";
+import Jobs from "@/components/jobs/JobsCards";
+import SearchFilters from "@/components/jobs/Search/SearchFilters";
+import SEO from "@/components/SEO";
 
 const styles = `background-color: ${variables.mutedColor1}; padding: 30px; align-items: flex-start;`;
 

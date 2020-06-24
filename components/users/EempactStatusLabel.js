@@ -3,32 +3,7 @@ import { Icon, Label } from "semantic-ui-react";
 import axios from "axios";
 
 const EempactStatusLabel = ({ data }) => {
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(false);
-  // const [data, setData] = useState(null);
   let label = "loading";
-  // useEffect(() => {
-  //   setLoading(true);
-  //   setData(null);
-  //   setError(false);
-  //   setLabel("Loading");
-
-  //   axios({
-  //     method: "post",
-  //     url: "https://api.exactstaff.com/status",
-  //     data: {
-  //       email
-  //     }
-  //   })
-  //     .then(res => {
-  //       setLoading(false);
-  //       setData(res.data);
-  //     })
-  //     .catch(e => {
-  //       setLoading(false);
-  //       setError(true);
-  //     });
-  // }, [email]);
 
   if (data && data.id) {
     if (data.assignments > 0) {

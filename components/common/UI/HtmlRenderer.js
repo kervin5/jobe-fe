@@ -1,4 +1,4 @@
-import sanitize from "../../../lib/html";
+import sanitize from "@/lib/html";
 
 const SanitizeHTML = ({ html, options }) => {
   return <div dangerouslySetInnerHTML={sanitize(html, options)} />;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Header, Image, Modal, Icon } from "semantic-ui-react";
-import EditUserForm from "../UserMutation/EditUserForm";
+import EditUserForm from "@/components/users/UserMutation/EditUserForm";
 
 const EditUserButton = props => (
   <Modal

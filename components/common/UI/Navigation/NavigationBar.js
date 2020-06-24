@@ -1,4 +1,4 @@
-import variables from "../../globalVariables";
+import variables from "@/common/globalVariables";
 import Link from "next/link";
 import NavigationItems from "./NavigationItems/NavigationItems";
 const CompanyLogo = "/images/LandingLogo.svg";

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import SEO from "../components/SEO";
+import SEO from "@/components/SEO";
 import UserLocator from "../data/UserLocator";
-import variables from "../components/common/globalVariables.js";
+import variables from "@/components/common/globalVariables.js";
 
-import PageSection from "../components/common/Layout/PageSection";
-import Container from "../components/common/Layout/Container";
-import Title from "../components/common/UI/Title";
-import DynamicImageBg from "../components/common/UI/DynamicImageBg";
-import SearchArea from "../components/jobs/Search/SearchArea";
+import PageSection from "@/components/common/Layout/PageSection";
+import Container from "@/components/common/Layout/Container";
+import Title from "@/components/common/UI/Title";
+import DynamicImageBg from "@/components/common/UI/DynamicImageBg";
+import SearchArea from "@/components/jobs/Search/SearchArea";
 
-import Jobs from "../components/jobs/Jobs";
-import PopularTerms from "../components/jobs/PopularTerms/PopularTerms";
+import Jobs from "@/components/jobs/JobsCards";
+import PopularTerms from "@/components/jobs/PopularTerms/PopularTerms";
 
 // const peopleImage = "../images/334809-PAIXKS-603.ai.png";
 const landingLogo = "/images/LandingLogo.svg";

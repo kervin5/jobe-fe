@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Input } from "semantic-ui-react";
-import { take } from "../../config";
+import { take } from "@/root/config";
 import Router from "next/router";
-import Table from "../common/UI/Table";
+import Table from "@/common/UI/Table";
 import PerksActionButtons from "./PerksActionButtons";
-import Button from "../common/UI/Button";
-// import Button from "../common/UI/Button";
+import Button from "@/common/UI/Button";
+// import Button from "@/common/UI/Button";
 
 const ALL_PERKS_QUERY = gql`
   query ALL_PERKS_QUERY($take: Int!, $skip: Int!) {
@@ -99,7 +99,9 @@ const PerksTable = props => {
                           onChange={inputChangeHandler}
                         />
                         <Button
-                          onClick={() => Router.push("/dashboard/users/new")}
+                          onClick={() =>
+                            Router.push("/admin/dashboard/users/new")
+                          }
                         >
                           Add Perk
                         </Button>

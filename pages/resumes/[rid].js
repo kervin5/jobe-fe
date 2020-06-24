@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import variables from "../../components/common/globalVariables";
-import PageSection from "../../components/common/Layout/PageSection";
-import ResumeViewer from "../../components/resumes/ResumeViewer";
-import WithAuth from "../../components/hoc/WithAuth";
+import variables from "@/components/common/globalVariables";
+import PageSection from "@/components/common/Layout/PageSection";
+import ResumeViewer from "@/components/resumes/ResumeViewer";
+import WithAuth from "@/components/hoc/WithAuth";
 
 const pageStyles = `background-color:${variables.mutedColor1};`;
 

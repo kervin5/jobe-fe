@@ -1,5 +1,5 @@
 import React from "react";
-import variables from "../globalVariables";
+import variables from "@/common/globalVariables";
 
 const Footer = () => {
   return (

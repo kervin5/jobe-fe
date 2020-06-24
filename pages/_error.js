@@ -1,6 +1,6 @@
 import React from "react";
 
-import PageSection from "../components/common/Layout/PageSection.js";
+import PageSection from "@/components/common/Layout/PageSection.js";
 
 // Page: Landing Page
 const peopleImage = "../images/334809-PAIXKS-603.ai.png";

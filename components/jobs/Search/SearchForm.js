@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Router from "next/router";
-import variables from "../../common/globalVariables";
-import Title from "../../common/UI/Title";
-import InputField from "../../common/UI/Input/InputField";
-import Button from "../../common/UI/Button";
+import variables from "@/common/globalVariables";
+import InputField from "@/common/UI/Input/InputField";
+import Button from "@/common/UI/Button";
 
 const buttonStyles = `margin-top:10px;`;
 

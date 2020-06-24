@@ -1,7 +1,6 @@
 import React from "react";
-import RenderIfLoggedIn from "../../../hoc/RenderIfLoggedIn";
-import { Sidebar, Menu, Icon, Dropdown } from "semantic-ui-react";
-import variables from "../../globalVariables";
+import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
+import { Menu, Icon, Dropdown } from "semantic-ui-react";
 import Link from "next/link";
 
 const sideMenu = props => {
@@ -26,7 +25,7 @@ const sideMenu = props => {
 
         <Dropdown item text="Dictionary">
           <Dropdown.Menu>
-            <Link href={`/dashboard/dictionary/perks`} passHref>
+            <Link href={`/admin/settings/dictionary/perks`} passHref>
               <Dropdown.Item icon="edit" text="Perks" as="a" />
             </Link>
             {/* <Dropdown.Item icon="globe" text="Choose Language" />

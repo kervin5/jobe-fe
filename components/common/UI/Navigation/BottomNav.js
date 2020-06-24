@@ -3,9 +3,9 @@ import React from "react";
 import { Icon } from "semantic-ui-react";
 import NavigationItem from "./NavigationItems/NavigationItem";
 import LogoutButtonMobile from "../LogOutButtonMobile";
-import RenderIfLoggedIn from "../../../hoc/RenderIfLoggedIn";
-import RenderIfLoggedOut from "../../../hoc/RenderIfLoggedOut";
-import variables from "../../globalVariables";
+import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
+import RenderIfLoggedOut from "@/components/hoc/RenderIfLoggedOut";
+import variables from "@/common/globalVariables";
 
 const bottomNav = () => (
   <nav className="BottomNav">
@@ -21,7 +21,7 @@ const bottomNav = () => (
       </NavigationItem>
     </RenderIfLoggedOut>
     <RenderIfLoggedIn permissions={[{ object: "JOB", action: "CREATE" }]}>
-      <NavigationItem href={"/dashboard"}>
+      <NavigationItem href={"/admin/dashboard"}>
         <Icon name="dashboard" inverted color="grey" size="large" />
       </NavigationItem>
     </RenderIfLoggedIn>

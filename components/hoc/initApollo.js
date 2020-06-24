@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache } from "apollo-boost";
 import { createHttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import fetch from "isomorphic-unfetch";
-import { endpoint, prodEndpoint } from "../../config";
+import { endpoint, prodEndpoint } from "@/root/config";
 
 let apolloClient = null;
 

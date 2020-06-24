@@ -1,42 +1,10 @@
 import React, { PureComponent } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { take } from "../../config";
+import { take } from "@/root/config";
 import JobList from "./JobList/JobList";
-import Button from "../common/UI/Button";
-import Loader from "../common/UI/Animated/Loader";
-
-// const ALL_JOBS_QUERY = gql`
-//   query ALL_JOBS_QUERY(
-//     $query: String!
-//     $category: String
-//     $take: Int!
-//     $skip: Int!
-//   ) {
-//     jobs(
-//       take: $take
-//       skip: $skip
-//       orderBy: updatedAt_DESC
-//       where: {
-//         title_contains: $query
-//         categories_some: { name_contains: $category }
-//       }
-//     ) {
-//       id
-//       title
-//       description
-//       minCompensation
-//       maxCompensation
-//       type
-//       createdAt
-//       updatedAt
-//       location {
-//         id
-//         name
-//       }
-//     }
-//   }
-// `;
+import Button from "@/common/UI/Button";
+import Loader from "@/common/UI/Animated/Loader";
 
 const SEARCH_JOBS_QUERY = gql`
   query SEARCH_JOBS_QUERY(

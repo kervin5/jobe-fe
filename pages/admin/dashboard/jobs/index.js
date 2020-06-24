@@ -1,6 +1,6 @@
-import JobsTable from "../../../components/jobs/JobsTable";
-import DashboardPage from "../../../components/dashboard/DashboardPage";
-import WithAuth from "../../../components/hoc/WithAuth";
+import JobsTable from "@/components/jobs/JobsTable";
+import DashboardPage from "@/components/dashboard/DashboardPage";
+import WithAuth from "@/components/hoc/WithAuth";
 
 const dashboardPage = props => {
   return (

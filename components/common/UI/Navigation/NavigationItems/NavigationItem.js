@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import variables from "../../../globalVariables";
+import variables from "@/common/globalVariables";
 // import classes from './NavigationItem.module.scss';
 
 const navigationItem = props => {

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Title from "../../../common/UI/Title";
+import Title from "@/common/UI/Title";
 
 const JobListingContentBlock = props => (
   <div>

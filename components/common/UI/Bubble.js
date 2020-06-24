@@ -1,6 +1,5 @@
 import React from "react";
-import variables from "../globalVariables";
-// import classes from './Bubble.module.scss';
+import variables from "@/common/globalVariables";
 
 const bubble = props => {
   let backgroundColor = variables.accentColor1;

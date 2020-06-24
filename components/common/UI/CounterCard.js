@@ -1,5 +1,5 @@
 import React from "react";
-import variables from "../globalVariables";
+import variables from "@/common/globalVariables";
 import { Card } from "semantic-ui-react";
 import Icon from "./Icon";
 

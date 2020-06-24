@@ -1,6 +1,6 @@
 import React from "react";
 import { Query } from "react-apollo";
-import { ME_USER_QUERY } from "../../lib/auth";
+import { ME_USER_QUERY } from "@/lib/auth";
 
 const UserInfo = ({ children }) => {
   return (

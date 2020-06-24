@@ -8,27 +8,27 @@ const dashboardPage = props => {
   const sections = {
     Home: {
       label: "Home",
-      path: "/dashboard",
+      path: "/admin/dashboard",
       icon: "home"
     },
     Applications: {
       label: "Applications",
-      path: "/dashboard/applications",
+      path: "/admin/dashboard/applications",
       icon: "copy outline"
     },
     Jobs: {
       label: "Jobs",
-      path: "/dashboard/jobs",
+      path: "/admin/dashboard/jobs",
       icon: "briefcase"
     },
     Candidates: {
       label: "Candidates",
-      path: "/dashboard/candidates",
+      path: "/admin/dashboard/candidates",
       icon: "users"
     },
     Users: {
       label: "Users",
-      path: "/dashboard/users",
+      path: "/admin/dashboard/users",
       icon: "user",
       permissions: [{ action: "READ", object: "USER" }]
     }

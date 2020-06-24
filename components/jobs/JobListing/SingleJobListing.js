@@ -2,7 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import JobListing from "./JobListing";
-import Loader from "../../common/UI/Animated/Loader";
+import Loader from "@/common/UI/Animated/Loader";
 
 export const SINGLE_JOB_QUERY = gql`
   query SINGLE_JOB_QUERY($id: String!) {

@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Mutation } from "react-apollo";
 import Router from "next/router";
 import gql from "graphql-tag";
-import InputField from "../common/UI/Input/InputField";
-import Button from "../common/UI/Button";
-import ErrorMessage from "../common/UI/ErrorMessage";
-import { ME_USER_QUERY } from "../../lib/auth";
-import PrivacyPolicyLink from "../common/UI/PrivacyPolicyLink";
+import InputField from "@/common/UI/Input/InputField";
+import Button from "@/common/UI/Button";
+import ErrorMessage from "@/common/UI/ErrorMessage";
+import { ME_USER_QUERY } from "@/lib/auth";
+import PrivacyPolicyLink from "@/common/UI/PrivacyPolicyLink";
 
 // import { logInUser } from "../../../data/auth";
 
@@ -75,7 +75,7 @@ const registerForm = props => {
         // logInUser(res.data.signup);
         Router.push(
           res.data.signup.role.name !== "candidate"
-            ? "/dashboard"
+            ? "/admin/dashboard"
             : "/resumes/upload"
         );
         // Router.push("/resumes/upload");
