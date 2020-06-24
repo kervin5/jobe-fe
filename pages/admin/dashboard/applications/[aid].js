@@ -1,4 +1,4 @@
-import DashboardPage from "@/components/dashboard/DashboardPage";
+import DashboardPage from "@/components/admin/dashboard/DashboardPage";
 import WithAuth from "@/components/hoc/WithAuth";
 import SingleJobApplication from "@/components/applications/SingleJobApplication";
 import ApplicationInformation from "@/components/applications/ApplicationInformation";

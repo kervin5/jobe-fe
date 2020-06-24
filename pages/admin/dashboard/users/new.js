@@ -1,5 +1,5 @@
 import CreateUserForm from "@/components/users/UserMutation/CreateUserForm";
-import DashboardPage from "@/components/dashboard/DashboardPage";
+import DashboardPage from "@/components/admin/dashboard/DashboardPage";
 import WithAuth from "@/components/hoc/WithAuth";
 
 const newJobPage = props => {

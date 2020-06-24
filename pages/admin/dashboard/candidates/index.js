@@ -1,5 +1,5 @@
 import Candidates from "@/components/candidates/CandidatesTable";
-import DashboardPage from "@/components/dashboard/DashboardPage";
+import DashboardPage from "@/components/admin/dashboard/DashboardPage";
 import WithAuth from "@/components/hoc/WithAuth";
 
 const dashboardCandidatePage = props => {

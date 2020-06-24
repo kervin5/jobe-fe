@@ -1,5 +1,5 @@
 import PerksTable from "@/components/perks/PerksTable";
-import DashboardPage from "@/components/dashboard/DashboardPage";
+import DashboardPage from "@/components/admin/dashboard/DashboardPage";
 // import DashboardPageHeader from "../../../../components/dashboard/DashboardPageHeader";
 import WithAuth from "@/components/hoc/WithAuth";
 

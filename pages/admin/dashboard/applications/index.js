@@ -1,5 +1,5 @@
 import ApplicantionsTable from "@/components/applications/ApplicantionsTable";
-import DashboardPage from "@/components/dashboard/DashboardPage";
+import DashboardPage from "@/components/admin/dashboard/DashboardPage";
 import WithAuth from "@/components/hoc/WithAuth";
 
 const dashboardApplicationsPage = props => {
