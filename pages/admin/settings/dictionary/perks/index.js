@@ -1,6 +1,6 @@
 import PerksTable from "@/components/perks/PerksTable";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
-// import DashboardPageHeader from "../../../../components/dashboard/DashboardPageHeader";
+// import DashboardPageHeader from "@/components/admin/dashboard/DashboardPageHeader";
 import WithAuth from "@/components/hoc/WithAuth";
 
 const dashboardCandidatePage = props => {

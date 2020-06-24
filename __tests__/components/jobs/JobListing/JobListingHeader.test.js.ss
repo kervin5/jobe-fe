@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import JobListingHeader from "../../../../components/jobs/JobListing/JobListingHeader/JobListingHeader";
+import JobListingHeader from "@/components/jobs/JobListing/JobListingHeader/JobListingHeader";
 import { findByTestAttr } from "../../../../testUtils/testUtils";
 
 const WrapperComponent = JobListingHeader;

@@ -1,6 +1,6 @@
-import DashboardPage from "../../../../components/dashboard/DashboardPage";
-import EditJobForm from "../../../../components/jobs/JobMutation/EditJobForm";
-import WithAuth from "../../../../components/hoc/WithAuth";
+import DashboardPage from "@/components/admin/dashboard/DashboardPage";
+import EditJobForm from "@/components/jobs/JobMutation/EditJobForm";
+import WithAuth from "@/components/hoc/WithAuth";
 
 const DashboardEditJobPage = props => {
   return (

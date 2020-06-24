@@ -1,6 +1,6 @@
-import DashboardPage from "../../../../components/dashboard/DashboardPage";
-import JobPreview from "../../../../components/jobs/JobMutation/JobPreview";
-import WithAuth from "../../../../components/hoc/WithAuth";
+import DashboardPage from "@/components/admin/dashboard/DashboardPage";
+import JobPreview from "@/components/jobs/JobMutation/JobPreview";
+import WithAuth from "@/components/hoc/WithAuth";
 
 const SingleJobView = props => {
   return (
