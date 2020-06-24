@@ -52,7 +52,22 @@ export const SINGLE_JOB_QUERY = gql`
   }
 `;
 
-const SingleJobListing = ({ jobId, preview }) => {
+const SingleJobListing = ({ jobId, preview, jobData }) => {
+  if (jobData)
+    return (
+      <JobListing
+        data={{
+          ...jobData,
+          location: jobData.location.name,
+          aboutCompany:
+            jobData.disclaimer ||
+            jobData.branch.description ||
+            jobData.branch.company.description,
+          company: jobData.branch.company.name
+        }}
+        preview={preview || !(jobData.status === "POSTED")}
+      />
+    );
   return (
     <Query query={SINGLE_JOB_QUERY} variables={{ id: jobId }}>
       {({ error, loading, data }) => {

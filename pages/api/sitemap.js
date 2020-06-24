@@ -1,13 +1,12 @@
 import { SitemapStream, streamToPromise } from "sitemap";
-import axios from "axios";
+
 import glob from "glob";
 import fs from "fs";
 import path from "path";
-import getBackendUrl from "@/lib/backend";
+import { fetchContentFromAPI } from "@/lib/backend";
 
 const SITE_ROOT = process.env.SITE_ROOT || "https://www.myexactjobs.com";
 
-const API_SOURCE = getBackendUrl();
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 const SOURCE =
@@ -74,19 +73,3 @@ export default async (req, res) => {
     res.end();
   }
 };
-
-async function fetchContentFromAPI() {
-  const result = await axios.post(API_SOURCE, {
-    query: `{
-        jobs {
-            id 
-            title
-            updatedAt
-            location {
-                name
-            }
-        } 
-      }`
-  });
-  return result.data.data.jobs;
-}

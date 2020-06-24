@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import gql from "graphql-tag";
 import redirect from "@/lib/redirect";
+import Router, { useRouter } from "next/router";
 import variables from "@/components/common/globalVariables";
 import SingleJobListing from "@/components/jobs/JobListing/SingleJobListing";
+import { fetchContentFromAPI, getJob } from "@/lib/backend";
 
 import PageSection from "@/components/common/Layout/PageSection";
 
@@ -18,10 +20,16 @@ const SINGLE_JOB_QUERY = gql`
 `;
 
 const SingleJobView = props => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <PageSection styles={pageStyles} nopadding column>
       <div className="JobContainer">
-        <SingleJobListing jobId={props.jobId} />
+        <SingleJobListing jobData={props.jobData} />
         <style jsx>
           {`
             .JobContainer {
@@ -43,21 +51,27 @@ const SingleJobView = props => {
   );
 }; //eof
 
-SingleJobView.getInitialProps = async function({ query, apolloClient, res }) {
-  const { jid } = query;
+export async function getStaticPaths() {
+  const jobs = await fetchContentFromAPI();
+  const jobsPaths = jobs.map(job => {
+    const jobPath = `${job.title.replace(
+      /[\W_]+/g,
+      "-"
+    )}-${job.location.name.replace(/[\W_]+/g, "-")}-${job.id}`;
+    return { params: { jid: jobPath } };
+  });
+  return {
+    paths: jobsPaths,
+    fallback: true // See the "fallback" section below
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const { jid } = params;
   const slugParts = jid.split("-");
   const jobId = slugParts[slugParts.length - 1];
-
-  const jobData = await apolloClient.query({
-    query: SINGLE_JOB_QUERY,
-    variables: { id: jobId }
-  });
-
-  if (jobData.data.job.status !== "POSTED") {
-    redirect({ res }, "/");
-  }
-
-  return { jobId };
-};
+  const jobData = await getJob(jobId);
+  return { props: { jobData } };
+}
 
 export default SingleJobView;

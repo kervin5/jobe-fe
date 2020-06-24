@@ -23,15 +23,6 @@ const styles = ` background-color: ${variables.clearColor};
 
 const jobListItem = props => {
   const shortLocation = props.location.name;
-  const oldjobUrl =
-    "/jobs/" +
-    props.title
-      .split(" ")
-      .join("-")
-      .split("/")
-      .join("-") +
-    "-" +
-    props.id;
 
   const jobUrl = `/jobs/${props.title.replace(
     /[\W_]+/g,
