@@ -1,5 +1,5 @@
 const withCSS = require("@zeit/next-css");
-const getBackendUrl = require("./lib/backend");
+const { getBackendUrl } = require("./lib/backend");
 
 module.exports = withCSS({
   webpack: config => {
