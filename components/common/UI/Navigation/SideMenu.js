@@ -37,6 +37,7 @@ const sideMenu = props => {
         .Sidebar {
           z-index: 999;
           padding-top: 10px;
+          align-self: stretch;
         }
 
         .Sidebar :global(> .menu) {
