@@ -9,7 +9,7 @@ const GET_IMAGE_QUERY = gql`
   }
 `;
 
-const staticImages = Array.from(Array(3).keys());
+const staticImages = Array.from(Array(7).keys());
 const randomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
