@@ -1,4 +1,4 @@
-import variables from "../globalVariables";
+import variables from "@/common/globalVariables";
 
 const TransformerContainer = props => {
   return (

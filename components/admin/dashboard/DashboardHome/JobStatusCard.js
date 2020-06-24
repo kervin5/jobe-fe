@@ -1,6 +1,6 @@
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import CounterCard from "../../common/UI/CounterCard";
+import CounterCard from "@/common/UI/CounterCard";
 
 const JOB_STATUS_QUERY = gql`
   query JOB_STATUS_QUERY($status: JobStatus!) {

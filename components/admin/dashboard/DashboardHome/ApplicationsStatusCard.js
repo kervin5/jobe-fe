@@ -1,6 +1,6 @@
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import CounterCard from "../../common/UI/CounterCard";
+import CounterCard from "@/common/UI/CounterCard";
 
 export const APPLICATION_STATUS_QUERY = gql`
   query APPLICATION_STATUS_QUERY {

@@ -1,5 +1,5 @@
 import React from "react";
-import variables from "../globalVariables";
+import variables from "@/common/globalVariables";
 
 const pageSection = props => {
   const fullHeight = props.fullHeight ? "min-height: 100vh !important;" : "";

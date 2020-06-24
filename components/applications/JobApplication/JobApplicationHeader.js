@@ -1,7 +1,7 @@
 import React from "react";
-import variables from "../../../components/common/globalVariables";
-import Icon from "../../common/UI/Icon";
-import Title from "../../common/UI/Title";
+import variables from "@/common/globalVariables";
+import Icon from "@/common/UI/Icon";
+import Title from "@/common/UI/Title";
 import Link from "next/link";
 
 const jobListingTitleStyles = `color: ${variables.clearColor};`;

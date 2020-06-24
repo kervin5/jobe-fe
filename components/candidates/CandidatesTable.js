@@ -4,9 +4,9 @@ import gql from "graphql-tag";
 import { Button, Input, Label } from "semantic-ui-react";
 import { take } from "../../config";
 
-import EempactStatusLabel from "../users/EempactStatusLabel";
-import Table from "../common/UI/Table";
-import DropdownGraphqlInput from "../common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
+import EempactStatusLabel from "@/components/users/EempactStatusLabel";
+import Table from "@/common/UI/Table";
+import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
 
 const CANDIDATE_QUERY = gql`
   query CANDIDATE_QUERY(

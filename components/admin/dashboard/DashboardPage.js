@@ -1,8 +1,8 @@
 import Router from "next/router";
-import PageSection from "../../components/common/Layout/PageSection";
-import SideMenu from "../../components/common/UI/Navigation/SideMenu";
-import Title from "../../components/common/UI/Title";
-import PageTitle from "../../components/common/Layout/PageTitle";
+import PageSection from "@/common/Layout/PageSection";
+import SideMenu from "@/common/UI/Navigation/SideMenu";
+import Title from "@/common/UI/Title";
+import PageTitle from "@/common/Layout/PageTitle";
 
 const dashboardPage = props => {
   const sections = {

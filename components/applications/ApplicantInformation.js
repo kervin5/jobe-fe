@@ -2,8 +2,8 @@ import React from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { Loader } from "semantic-ui-react";
-import { Button, Icon, Image, Item, Label } from "semantic-ui-react";
-import EempactStatusLabel from "../users/EempactStatusLabel";
+import { Image, Item } from "semantic-ui-react";
+import EempactStatusLabel from "@/components/users/EempactStatusLabel";
 
 const APPLICANT_INFORMATION_QUERY = gql`
   query APPLICANT_INFORMATION_QUERY($id: String!) {

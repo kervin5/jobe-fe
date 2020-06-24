@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Input, Button } from "semantic-ui-react";
-import { take } from "../../config";
+import { take } from "@/root/config";
 
-import Table from "../common/UI/Table";
+import Table from "@/common/UI/Table";
 import UserActionButtons from "./UserActionButtons/UserActionButtons";
 import Link from "next/link";
 // import Button from "../common/UI/Button";
