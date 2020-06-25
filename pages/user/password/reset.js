@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import variables from "@/components/common/globalVariables";
 import PageSection from "@/components/common/Layout/PageSection";
 import PasswordResetForm from "@/components/users/PasswordResetForm";
@@ -11,8 +11,14 @@ const pageStyles = `padding: 30px;`;
 
 const PasswordResetPage = props => {
   const router = useRouter();
-  const { resetToken } = router.query;
-  if (!resetToken) return Router.push("/user/password/request");
+
+  useEffect(() => {
+    const { resetToken } = router.query;
+    if (!resetToken) return router.push("/user/password/request");
+  }, [router.query]);
+
+  if (!router?.query?.resetToken) return null;
+
   return (
     <PageSection column styles={pageStyles}>
       <Title center>Enter New Password</Title>

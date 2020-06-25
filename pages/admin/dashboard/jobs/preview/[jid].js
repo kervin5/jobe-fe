@@ -6,15 +6,14 @@ import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 const SingleJobView = props => {
   const router = useRouter();
   const { jid } = router.query;
-  const slugParts = jid.split("-");
-  const jobId = slugParts[slugParts.length - 1];
+
   return (
     <RenderIfLoggedIn
       permissions={[{ object: "JOB", action: "CREATE" }]}
       redirect
     >
       <DashboardPage title="Job Preview">
-        <JobPreview jobId={jobId} />
+        <JobPreview jobId={jid} />
       </DashboardPage>
     </RenderIfLoggedIn>
   );
