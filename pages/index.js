@@ -19,6 +19,7 @@ const landingLogo = "/images/LandingLogo.svg";
 // const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.mutedColor1} 40%);`;
 
 const homePage = props => {
+  // return <p>Hello</p>;
   const [userLocation, setUserLocation] = useState({
     name: "Loading...",
     lat: 0,

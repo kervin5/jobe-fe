@@ -1,7 +1,5 @@
 import React from "react";
-import gql from "graphql-tag";
-import redirect from "@/lib/redirect";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import variables from "@/components/common/globalVariables";
 import SingleJobListing from "@/components/jobs/JobListing/SingleJobListing";
 import { getJobsFromAPI, getJob } from "@/lib/backend";
@@ -10,17 +8,10 @@ import PageSection from "@/components/common/Layout/PageSection";
 
 const pageStyles = `background-color:${variables.mutedColor1};`;
 
-const SINGLE_JOB_QUERY = gql`
-  query SINGLE_JOB_QUERY($id: String!) {
-    job(where: { id: $id }) {
-      id
-      status
-    }
-  }
-`;
-
 const SingleJobView = props => {
   const router = useRouter();
+  const { jid } = router.query;
+  const jobId = extractJobId(jid);
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -31,7 +22,7 @@ const SingleJobView = props => {
       <div className="JobContainer">
         <SingleJobListing
           jobData={props.jobData}
-          jobId={props.jobId ?? extractJobId(props.query.jid)}
+          jobId={extractJobId(jobId ?? props.query.jid)}
         />
         <style jsx>
           {`
