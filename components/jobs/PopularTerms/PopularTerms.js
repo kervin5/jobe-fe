@@ -14,22 +14,24 @@ const POPULAR_TERMS_QUERY = gql`
   }
 `;
 
-const PopularTerms = () => {
+const PopularTerms = ({ terms }) => {
   return (
     <div className="PopularTerms">
-      <Query query={POPULAR_TERMS_QUERY} ssr={false}>
+      <Query query={POPULAR_TERMS_QUERY}>
         {({ error, loading, data }) => {
-          if (error) return <p>Something went wrong</p>;
+          if (error && !terms) return <p>Something went wrong</p>;
 
-          if (loading)
+          if (loading && !terms)
             return (
               <>
                 <span></span>
                 <Loader active inline="centered" />
               </>
             );
-          if (data)
-            return data.popularTerms.map(term => (
+
+          const termsToRender = data?.popularTerms ?? terms;
+          if (termsToRender)
+            return termsToRender.map(term => (
               <PopularTerm key={term.label + "Term"} term={term} />
             ));
         }}

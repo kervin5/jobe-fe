@@ -9,8 +9,9 @@ import Title from "@/components/common/UI/Title";
 import DynamicImageBg from "@/components/common/UI/DynamicImageBg";
 import SearchArea from "@/components/jobs/Search/SearchArea";
 
-import Jobs from "@/components/jobs/JobsCards";
+import JobsCards from "@/components/jobs/JobsCards";
 import PopularTerms from "@/components/jobs/PopularTerms/PopularTerms";
+import { getJobsFromAPI, getTermsFromAPI } from "@/lib/backend";
 
 // const peopleImage = "../images/334809-PAIXKS-603.ai.png";
 const landingLogo = "/images/LandingLogo.svg";
@@ -18,6 +19,7 @@ const landingLogo = "/images/LandingLogo.svg";
 // const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.mutedColor1} 40%);`;
 
 const homePage = props => {
+  // return <p>Hello</p>;
   const [userLocation, setUserLocation] = useState({
     name: "Loading...",
     lat: 0,
@@ -57,11 +59,11 @@ const homePage = props => {
         <Title size={"l"} center margin>
           What's Trending 😎
         </Title>
-        <PopularTerms />
+        <PopularTerms terms={props.terms} />
         <Title size={"l"} center margin>
           Latest Jobs
         </Title>
-        <Jobs />
+        <JobsCards jobs={props.jobs} />
       </Container>
       <script
         type="application/ld+json"
@@ -118,5 +120,12 @@ const homePage = props => {
     </PageSection>
   );
 };
+
+export async function getStaticProps() {
+  const jobs = await getJobsFromAPI();
+  const terms = await getTermsFromAPI();
+
+  return { props: { jobs, terms }, unstable_revalidate: 1 };
+}
 
 export default homePage;

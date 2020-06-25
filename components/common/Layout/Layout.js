@@ -56,7 +56,7 @@ const layout = props => {
         }
 
         main {
-          min-height: 100%;
+          min-height: 100vh;
           margin-top: 55px;
         }
 

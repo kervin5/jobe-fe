@@ -1,49 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
+import { useRouter } from "next/router";
 import variables from "@/components/common/globalVariables";
 import PageSection from "@/components/common/Layout/PageSection";
 import ResumeViewer from "@/components/resumes/ResumeViewer";
-import WithAuth from "@/components/hoc/WithAuth";
+import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 
 const pageStyles = `background-color:${variables.mutedColor1};`;
 
-const SingleJobView = props => {
+const SingleResumeView = props => {
+  const router = useRouter();
+  const { rid } = router.query;
   return (
-    <PageSection styles={pageStyles} nopadding column>
-      <div className="JobContainer">
-        <ResumeViewer url={props.rid} />
-        <style jsx>
-          {`
-            .JobContainer {
-              width: 100%;
-              max-width: 970px;
-              padding-top: 30px;
-            }
-
-            @media (max-width: 720px) {
+    <RenderIfLoggedIn
+      redirect
+      permissions={[{ object: "RESUME", action: "READ" }]}
+    >
+      <PageSection styles={pageStyles} nopadding column>
+        <div className="JobContainer">
+          <ResumeViewer url={rid} />
+          <style jsx>
+            {`
               .JobContainer {
-                padding-top: 0;
+                width: 100%;
+                max-width: 970px;
+                padding-top: 30px;
               }
-            }
-          `}
-        </style>
-      </div>
-    </PageSection>
+
+              @media (max-width: 720px) {
+                .JobContainer {
+                  padding-top: 0;
+                }
+              }
+            `}
+          </style>
+        </div>
+      </PageSection>
+    </RenderIfLoggedIn>
   );
 }; //eof
 
-SingleJobView.getInitialProps = async function({ query, apolloClient, res }) {
-  const { rid } = query;
-
-  //   const jobData = await apolloClient.query({
-  //     query: SINGLE_JOB_QUERY,
-  //     variables: { id: jobId }
-  //   });
-
-  //   if (jobData.data.job.status !== "POSTED") {
-  //     redirect({ res }, "/");
-  //   }
-
-  return { rid };
-};
-
-export default WithAuth(SingleJobView, [{ object: "RESUME", action: "READ" }]);
+export default SingleResumeView;

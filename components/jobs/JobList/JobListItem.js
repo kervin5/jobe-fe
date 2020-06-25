@@ -23,15 +23,6 @@ const styles = ` background-color: ${variables.clearColor};
 
 const jobListItem = props => {
   const shortLocation = props.location.name;
-  const oldjobUrl =
-    "/jobs/" +
-    props.title
-      .split(" ")
-      .join("-")
-      .split("/")
-      .join("-") +
-    "-" +
-    props.id;
 
   const jobUrl = `/jobs/${props.title.replace(
     /[\W_]+/g,
@@ -78,7 +69,7 @@ const jobListItem = props => {
       </Link>
 
       <div className="JobListItemFooter">
-        <div className="row">
+        <div className="row wrap">
           <JobPerksBubbles perks={props.perks} />
         </div>
         <div className="row">
@@ -151,6 +142,11 @@ const jobListItem = props => {
           margin-bottom: 5px;
           margin-top: 5px;
           width: 100%;
+        }
+
+        .JobListItemFooter .row.wrap {
+          flex-wrap: wrap;
+          justify-content: flex-start;
         }
 
         .JobListItemFooter a {

@@ -28,6 +28,7 @@ const bubble = props => {
 
           background-color: ${backgroundColor};
           margin-left: 5px;
+          margin-bottom: 5px;
           border-radius: 15px;
           color: ${props.fontColor === "dark"
             ? variables.darkColor

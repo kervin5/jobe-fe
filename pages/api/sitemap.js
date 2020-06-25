@@ -1,13 +1,12 @@
 import { SitemapStream, streamToPromise } from "sitemap";
-import axios from "axios";
+
 import glob from "glob";
 import fs from "fs";
 import path from "path";
-import getBackendUrl from "@/lib/backend";
+import { getJobsFromAPI } from "@/lib/backend";
 
 const SITE_ROOT = process.env.SITE_ROOT || "https://www.myexactjobs.com";
 
-const API_SOURCE = getBackendUrl();
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 const SOURCE =
@@ -16,7 +15,7 @@ const SOURCE =
 export default async (req, res) => {
   res.setHeader("Content-Type", "text/xml");
   try {
-    const jobs = await fetchContentFromAPI(); // call the backend and fetch all jobs
+    const jobs = await getJobsFromAPI(); // call the backend and fetch all jobs
 
     const smStream = new SitemapStream({
       hostname: "http://" + req.headers.host
@@ -74,19 +73,3 @@ export default async (req, res) => {
     res.end();
   }
 };
-
-async function fetchContentFromAPI() {
-  const result = await axios.post(API_SOURCE, {
-    query: `{
-        jobs {
-            id 
-            title
-            updatedAt
-            location {
-                name
-            }
-        } 
-      }`
-  });
-  return result.data.data.jobs;
-}

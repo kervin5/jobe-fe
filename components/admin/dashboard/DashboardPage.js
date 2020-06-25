@@ -59,6 +59,7 @@ const dashboardPage = props => {
           .PageContent {
             padding: 50px;
             width: 100%;
+            min-height: 100%;
           }
         `}
       </style>

@@ -16,7 +16,7 @@ const pageSection = props => {
           position: relative;
           display: flex;
           justify-content: ${props.column ? "start" : "center"};
-          align-items: center;
+          align-items: baseline;
 
           flex-direction: ${props.column ? "column" : "row"};
           background-color: ${variables.mutedColor1};

@@ -1,21 +1,22 @@
+import { useRouter } from "next/router";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
 import JobPreview from "@/components/jobs/JobMutation/JobPreview";
-import WithAuth from "@/components/hoc/WithAuth";
+import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 
 const SingleJobView = props => {
+  const router = useRouter();
+  const { jid } = router.query;
+
   return (
-    <DashboardPage title="Job Preview">
-      <JobPreview jobId={props.jobId} />
-    </DashboardPage>
+    <RenderIfLoggedIn
+      permissions={[{ object: "JOB", action: "CREATE" }]}
+      redirect
+    >
+      <DashboardPage title="Job Preview">
+        <JobPreview jobId={jid} />
+      </DashboardPage>
+    </RenderIfLoggedIn>
   );
 }; //eof
 
-SingleJobView.getInitialProps = async function({ query }) {
-  const { jid } = query;
-  const slugParts = jid.split("-");
-  const jobId = slugParts[slugParts.length - 1];
-
-  return { jobId };
-};
-
-export default WithAuth(SingleJobView, [{ object: "JOB", action: "CREATE" }]);
+export default SingleJobView;

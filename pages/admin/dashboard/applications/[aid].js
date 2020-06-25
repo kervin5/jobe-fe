@@ -1,43 +1,39 @@
+import { useRouter } from "next/router";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
-import WithAuth from "@/components/hoc/WithAuth";
+import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 import SingleJobApplication from "@/components/applications/SingleJobApplication";
 import ApplicationInformation from "@/components/applications/ApplicationInformation";
 
 const dashboardApplicationsPerJobPage = props => {
+  const router = useRouter();
+  const { aid } = router.query;
   return (
-    <DashboardPage title="Application" maxwidth="1400px">
-      <div className="Sections">
-        <div className="ApplicationResume">
-          <SingleJobApplication
-            applicationId={props.applicationId}
-            client={props.client}
-          />
+    <RenderIfLoggedIn
+      permissions={[{ object: "APPLICATION", action: "READ" }]}
+      redirect
+    >
+      <DashboardPage title="Application" maxwidth="1400px">
+        <div className="Sections">
+          <div className="ApplicationResume">
+            <SingleJobApplication applicationId={aid} />
+          </div>
+          <div className="ApplicationInformation">
+            <ApplicationInformation applicationId={aid} />
+          </div>
         </div>
-        <div className="ApplicationInformation">
-          <ApplicationInformation applicationId={props.applicationId} />
-        </div>
-      </div>
 
-      <style jsx>{`
-        .Sections {
-          display: flex;
-        }
+        <style jsx>{`
+          .Sections {
+            display: flex;
+          }
 
-        .ApplicationResume {
-          width: 70%;
-        }
-      `}</style>
-    </DashboardPage>
+          .ApplicationResume {
+            width: 70%;
+          }
+        `}</style>
+      </DashboardPage>
+    </RenderIfLoggedIn>
   );
 };
 
-dashboardApplicationsPerJobPage.getInitialProps = async args => {
-  const { aid } = args.query;
-  const client = args.apolloClient;
-
-  return { applicationId: aid, client: () => client };
-};
-
-export default WithAuth(dashboardApplicationsPerJobPage, [
-  { object: "APPLICATION", action: "READ" }
-]);
+export default dashboardApplicationsPerJobPage;
