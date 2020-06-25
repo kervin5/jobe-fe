@@ -14,3 +14,5 @@ const dashboardCandidatePage = props => {
     </RenderIfLoggedIn>
   );
 };
+
+export default dashboardCandidatePage;
