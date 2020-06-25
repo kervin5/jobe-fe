@@ -5,7 +5,6 @@ import variables from "@/components/common/globalVariables";
 import PageSection from "@/components/common/Layout/PageSection";
 import PasswordResetForm from "@/components/users/PasswordResetForm";
 import Title from "@/components/common/UI/Title";
-import redirect from "@/lib/redirect";
 
 const friendsImgUrl = "../../images/friends-with-bg.png";
 const pageStyles = `padding: 30px;`;
