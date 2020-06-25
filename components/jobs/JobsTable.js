@@ -125,7 +125,7 @@ const JobsTable = props => {
               ssr={false}
             >
               {({ data, error, loading }) => {
-                if (loading) if (error) return <p>Something Failed...</p>;
+                if (error) return <p>Something Failed...</p>;
 
                 //Get jobs from branch if user has access
                 const dataForTable = data?.protectedJobs.map(job => {

@@ -17,12 +17,12 @@ const TableWithPagination = ({
     turnPageHandler(activePage);
   };
 
-  if (!data) return <p>Loading</p>;
   return (
     <div className="CustomTable">
       <div className="CustomTable__tooblar">{toolbar}</div>
-      {data.length === 0 && <p>No data to show</p>}
-      {data.length > 0 && (
+      {loading && <p>Loading...</p>}
+      {data?.length === 0 && !loading && <p>No data to show</p>}
+      {data?.length > 0 && (
         <Table selectable>
           <Table.Header>
             <Table.Row>

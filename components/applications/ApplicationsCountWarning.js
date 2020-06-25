@@ -8,7 +8,8 @@ const ApplicationsCountWarning = () => {
   return (
     <Query query={APPLICATION_STATUS_QUERY}>
       {({ error, loading, data }) => {
-        if (loading) return <p>Loading...</p>;
+        // if (loading) return <p>Loading...</p>;
+        if (loading) return null;
         if (error) return <p>Ooops something went wrong</p>;
         if (data.applicationsConnection < 100) return null;
         return (

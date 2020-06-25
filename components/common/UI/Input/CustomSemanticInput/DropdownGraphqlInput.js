@@ -24,6 +24,7 @@ const DropdownGraphqlInput = ({
   allowAdditions,
   additionLabel,
   additionWarning,
+  minWidth,
   nolabel
 }) => {
   const [query, setQuery] = useState("");
@@ -73,6 +74,7 @@ const DropdownGraphqlInput = ({
               value: "id",
               text: "name"
             })}
+            minWidth={minWidth}
             error={propsError}
             defaultValue={defaultValue}
             allowAdditions={allowAdditions}
