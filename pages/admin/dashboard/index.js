@@ -1,17 +1,18 @@
 import DashboardHome from "@/components/admin/dashboard/DashboardHome/DashboardHome";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
-import WithAuth from "@/components/hoc/WithAuth";
+import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 
 const dashboardPage = props => {
   return (
-    <DashboardPage>
-      <DashboardHome />
-    </DashboardPage>
+    <RenderIfLoggedIn
+      redirect="/user/login"
+      permissions={[{ object: "JOB", action: "CREATE" }]}
+    >
+      <DashboardPage>
+        <DashboardHome />
+      </DashboardPage>
+    </RenderIfLoggedIn>
   );
 };
 
-export default WithAuth(
-  dashboardPage,
-  [{ object: "JOB", action: "CREATE" }],
-  "/"
-);
+export default dashboardPage;

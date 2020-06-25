@@ -1,15 +1,18 @@
 import ApplicantionsTable from "@/components/applications/ApplicantionsTable";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
-import WithAuth from "@/components/hoc/WithAuth";
+import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 
 const dashboardApplicationsPage = props => {
   return (
-    <DashboardPage maxwidth="1600px" title="Applications">
-      <ApplicantionsTable />
-    </DashboardPage>
+    <RenderIfLoggedIn
+      permissions={[{ object: "JOB", action: "CREATE" }]}
+      redirect
+    >
+      <DashboardPage maxwidth="1600px" title="Applications">
+        <ApplicantionsTable />
+      </DashboardPage>
+    </RenderIfLoggedIn>
   );
 };
 
-export default WithAuth(dashboardApplicationsPage, [
-  { object: "JOB", action: "CREATE" }
-]);
+export default dashboardApplicationsPage;
