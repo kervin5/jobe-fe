@@ -19,7 +19,6 @@ const SearchPage = props => {
   });
   const [showFilters, setShowFilters] = useState(false);
   const handleFiltersChange = vars => {
-    console.log(vars);
     setVariables({
       ...variables,
       ...vars
