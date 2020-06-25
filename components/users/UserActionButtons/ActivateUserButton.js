@@ -3,15 +3,15 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { Button, Modal, Icon } from "semantic-ui-react";
 
-const DELETE_USER_MUTATION = gql`
-  mutation DELETE_USER_MUTATION($id: ID!) {
-    deleteUser(id: $id) {
+const ACTIVATE_USER_MUTATION = gql`
+  mutation ACTIVATE_USER_MUTATION($id: ID!) {
+    activateUser(id: $id) {
       id
     }
   }
 `;
 
-const DeleteUserButton = ({ message, userId, refetchQueries }) => {
+const ActivateUserButton = ({ message, userId, refetchQueries }) => {
   const [open, setOpen] = useState(false);
 
   const openModal = () => setOpen(true);
@@ -19,17 +19,17 @@ const DeleteUserButton = ({ message, userId, refetchQueries }) => {
 
   return (
     <Mutation
-      mutation={DELETE_USER_MUTATION}
+      mutation={ACTIVATE_USER_MUTATION}
       variables={{ id: userId }}
       refetchQueries={refetchQueries}
     >
-      {(deleteUserMutation, { error, loading, data }) => {
+      {(activateUserMutation, { error, loading, data }) => {
         return (
           <Modal
             open={open}
             trigger={
-              <Button icon color="red" onClick={openModal}>
-                <Icon name="times" />
+              <Button icon positive onClick={openModal}>
+                <Icon name="check" />
               </Button>
             }
             dimmer="blurring"
@@ -41,8 +41,8 @@ const DeleteUserButton = ({ message, userId, refetchQueries }) => {
                 content: "Yes",
                 negative: true,
                 onClick: () => {
-                  deleteUserMutation().then(res => {
-                    if (res.data.deleteUser.id) {
+                  activateUserMutation().then(res => {
+                    if (res.data.activateUser.id) {
                       closeModal();
                     }
                   });
@@ -62,4 +62,4 @@ const DeleteUserButton = ({ message, userId, refetchQueries }) => {
   );
 };
 
-export default DeleteUserButton;
+export default ActivateUserButton;
