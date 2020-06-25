@@ -51,7 +51,7 @@ const SEARCH_JOBS_QUERY = gql`
   }
 `;
 
-class Jobs extends PureComponent {
+class JobsCards extends PureComponent {
   render() {
     let query = SEARCH_JOBS_QUERY;
 
@@ -70,9 +70,9 @@ class Jobs extends PureComponent {
           }}
         >
           {({ data, error, loading, fetchMore }) => {
-            if (loading) return <Loader />;
-            if (error) return <p>Error: {error.message}</p>;
-            const jobs = data.jobs || data.searchJobs;
+            if (loading && !this.props.jobs) return <Loader />;
+            if (error && !this.props.jobs) return <p>Error: {error.message}</p>;
+            const jobs = data.jobs || data.searchJobs || !this.props.jobs;
             const endReached = jobs.length % take !== 0;
             return (
               <React.Fragment>
@@ -131,4 +131,4 @@ class Jobs extends PureComponent {
   }
 }
 
-export default Jobs;
+export default JobsCards;

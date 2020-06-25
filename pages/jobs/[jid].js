@@ -4,7 +4,7 @@ import redirect from "@/lib/redirect";
 import Router, { useRouter } from "next/router";
 import variables from "@/components/common/globalVariables";
 import SingleJobListing from "@/components/jobs/JobListing/SingleJobListing";
-import { fetchContentFromAPI, getJob } from "@/lib/backend";
+import { getJobsFromAPI, getJob } from "@/lib/backend";
 
 import PageSection from "@/components/common/Layout/PageSection";
 
@@ -55,7 +55,7 @@ const SingleJobView = props => {
 }; //eof
 
 export async function getStaticPaths() {
-  const jobs = await fetchContentFromAPI();
+  const jobs = await getJobsFromAPI();
   const jobsPaths = jobs.map(job => {
     const jobPath = `${job.title.replace(
       /[\W_]+/g,
