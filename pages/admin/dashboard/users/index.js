@@ -1,19 +1,16 @@
 import UsersTable from "@/components/users/UsersTable";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
-import DashboardPageHeader from "@/components/admin/dashboard/DashboardPageHeader";
-import WithAuth from "@/components/hoc/WithAuth";
+import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 
 const dashboardCandidatePage = props => {
   return (
-    <DashboardPage title="Users">
-      {/* <DashboardPageHeader>
-      
-      </DashboardPageHeader> */}
-      <UsersTable />
-    </DashboardPage>
+    <RenderIfLoggedIn
+      redirect
+      permissions={[{ object: "USER", action: "CREATE" }]}
+    >
+      <DashboardPage title="Users">
+        <UsersTable />
+      </DashboardPage>
+    </RenderIfLoggedIn>
   );
 };
-
-export default WithAuth(dashboardCandidatePage, [
-  { object: "USER", action: "CREATE" }
-]);

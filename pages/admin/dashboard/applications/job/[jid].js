@@ -1,20 +1,21 @@
+import { useRouter } from "next/router";
 import ApplicantsTable from "@/components/applications/ApplicantionsTable";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
-import WithAuth from "@/components/hoc/WithAuth";
+import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 
 const dashboardApplicationsPerJobPage = props => {
+  const router = useRouter();
+  const { jid } = router.query;
   return (
-    <DashboardPage maxwidth="1600px">
-      <ApplicantsTable jobId={props.jobId} />
-    </DashboardPage>
+    <RenderIfLoggedIn
+      permissions={[{ object: "APPLICATION", action: "READ" }]}
+      redirect
+    >
+      <DashboardPage maxwidth="1600px">
+        <ApplicantsTable jobId={jid} />
+      </DashboardPage>
+    </RenderIfLoggedIn>
   );
 };
 
-dashboardApplicationsPerJobPage.getInitialProps = async args => {
-  const { jid } = args.query;
-  return { jobId: jid };
-};
-
-export default WithAuth(dashboardApplicationsPerJobPage, [
-  { object: "APPLICATION", action: "READ" }
-]);
+export default dashboardApplicationsPerJobPage;
