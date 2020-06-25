@@ -1,5 +1,5 @@
 import React from "react";
-import Bubble from "../common/UI/Bubble";
+import Bubble from "@/common/UI/Bubble";
 
 const JobCompensationBubbles = props => {
   return (
@@ -7,7 +7,7 @@ const JobCompensationBubbles = props => {
       {props.minCompensation > 0 && props.maxCompensation > 0
         ? `$${numberWithCommas(
             parseFloat(props.minCompensation).toFixed(2)
-          )} - ${numberWithCommas(
+          )} - $${numberWithCommas(
             parseFloat(props.maxCompensation).toFixed(2)
           )}`
         : null}

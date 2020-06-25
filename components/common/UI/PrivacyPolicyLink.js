@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Header, Icon, Image, Modal } from "semantic-ui-react";
+import { Modal } from "semantic-ui-react";
 
 const ModalExampleScrollingContent = () => (
   <Modal

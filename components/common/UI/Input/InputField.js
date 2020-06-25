@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import variables from "../../globalVariables";
+import variables from "@/common/globalVariables";
 // import classes from './InputField.module.scss';
 import DropdownInputField from "./DropdownInputField/DropdownInputField";
 import Icon from "../Icon";

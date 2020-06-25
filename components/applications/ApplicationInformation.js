@@ -3,11 +3,11 @@ import ApplicationNotesArea from "./ApplicationNotesArea";
 import ApplicantInformation from "./ApplicantInformation";
 import { Loader, Tab } from "semantic-ui-react";
 import { Query } from "react-apollo";
-import variables from "../common/globalVariables";
+import variables from "@/common/globalVariables";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
 import OtherApplicationsList from "./OtherApplicationsList";
 import { SINGLE_JOB_APPLICATION_QUERY } from "./SingleJobApplication";
-import Title from "../common/UI/Title";
+import Title from "@/common/UI/Title";
 
 const ApplicationInformation = ({ applicationId }) => {
   return (

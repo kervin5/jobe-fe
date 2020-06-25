@@ -1,5 +1,5 @@
-import Icon from "../../common/UI/Icon";
-import variables from "../../common/globalVariables";
+import Icon from "@/common/UI/Icon";
+import variables from "@/common/globalVariables";
 import PropTypes from "prop-types";
 
 const SearchBar = ({ terms = "Awesome", location, onClick }) => {

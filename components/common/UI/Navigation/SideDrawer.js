@@ -1,4 +1,4 @@
-import variables from "../../globalVariables";
+import variables from "@/common/globalVariables";
 import PropTypes from "prop-types";
 
 /**

@@ -1,6 +1,5 @@
 import React from "react";
-import variables from "../globalVariables";
-// import classes from './Bubble.module.scss';
+import variables from "@/common/globalVariables";
 
 const bubble = props => {
   let backgroundColor = variables.accentColor1;
@@ -29,6 +28,7 @@ const bubble = props => {
 
           background-color: ${backgroundColor};
           margin-left: 5px;
+          margin-bottom: 5px;
           border-radius: 15px;
           color: ${props.fontColor === "dark"
             ? variables.darkColor

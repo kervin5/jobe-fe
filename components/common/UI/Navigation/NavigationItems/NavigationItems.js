@@ -2,12 +2,11 @@ import React, { useState } from "react";
 
 import NavigationItem from "./NavigationItem.js";
 import NavigationItemUserMenu from "./NavigationItemUserMenu";
-import LogoutButton from "../../LogoutButton";
-import RenderIfLoggedIn from "../../../../hoc/RenderIfLoggedIn";
-import RenderIfLoggedOut from "../../../../hoc/RenderIfLoggedOut";
+import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
+import RenderIfLoggedOut from "@/components/hoc/RenderIfLoggedOut";
 
 import HamburgerMenu from "../HamburgerMenu";
-import variables from "../../../globalVariables";
+import variables from "@/common/globalVariables";
 
 const navigationItems = () => {
   const [open, setOpen] = useState(false);
@@ -25,7 +24,7 @@ const navigationItems = () => {
           <NavigationItem href={"/user/register"}>Register</NavigationItem>
         </RenderIfLoggedOut>
         <RenderIfLoggedIn permissions={[{ object: "JOB", action: "CREATE" }]}>
-          <NavigationItem href={"/dashboard"}>Dashboard</NavigationItem>
+          <NavigationItem href={"/admin/dashboard"}>Dashboard</NavigationItem>
         </RenderIfLoggedIn>
         <RenderIfLoggedIn>
           <NavigationItemUserMenu />

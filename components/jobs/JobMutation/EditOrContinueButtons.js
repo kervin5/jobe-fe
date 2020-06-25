@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Icon } from "semantic-ui-react";
 import Router from "next/router";
-import RenderIfLoggedIn from "../../hoc/RenderIfLoggedIn";
+import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 import ChangeJobStatusButton from "./ChangeJobStatusButton";
 
 function EditOrContinueButtons({ jobId }) {
@@ -10,7 +10,7 @@ function EditOrContinueButtons({ jobId }) {
       <Button
         icon
         labelPosition="left"
-        onClick={() => Router.push(`/dashboard/jobs/edit/${jobId}`)}
+        onClick={() => Router.push(`/admin/dashboard/jobs/edit/${jobId}`)}
       >
         <Icon name="pencil" />
         Edit
@@ -31,7 +31,7 @@ function EditOrContinueButtons({ jobId }) {
         positive
         icon
         labelPosition="left"
-        onClick={() => Router.push("/dashboard")}
+        onClick={() => Router.push("/admin/dashboard")}
       >
         <Icon name="desktop" />
         Dashboard

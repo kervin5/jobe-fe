@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { Mutation } from "react-apollo";
-import ErrorMessage from "../../common/UI/ErrorMessage";
+import ErrorMessage from "@/common/UI/ErrorMessage";
 import gql from "graphql-tag";
 import useForm from "react-hook-form";
 import { Form, Button, Checkbox } from "semantic-ui-react";
 import Router from "next/router";
-import LocationInput from "../../common/UI/Input/CustomSemanticInput/LocationInput";
-import DropdownGraphqlInput from "../../common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
-import RichTextEditor from "../../common/UI/Input/CustomSemanticInput/RichTextEditor";
-import TextArea from "../../common/UI/Input/CustomSemanticInput/TextArea";
-import AuthorDropdown from "../../common/UI/Input/CustomSemanticInput/AuthorDropdown";
-import Title from "../../common/UI/Title";
-import InformationButton from "../../common/UI/InformationButton";
+import LocationInput from "@/common/UI/Input/CustomSemanticInput/LocationInput";
+import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
+import RichTextEditor from "@/common/UI/Input/CustomSemanticInput/RichTextEditor";
+import TextArea from "@/common/UI/Input/CustomSemanticInput/TextArea";
+import AuthorDropdown from "@/common/UI/Input/CustomSemanticInput/AuthorDropdown";
+import Title from "@/common/UI/Title";
+import InformationButton from "@/common/UI/InformationButton";
 
 const CREATE_JOB_MUTATION = gql`
   mutation CREATE_JOB_MUTATION(
@@ -116,7 +116,7 @@ const CreateJobForm = () => {
       data: { createJob }
     } = await createJobMutation({ variables });
     if (createJob) {
-      Router.push("/dashboard/jobs/preview/" + createJob.id);
+      Router.push("/admin/dashboard/jobs/preview/" + createJob.id);
     } else {
       console.log("Something failed");
     }
@@ -278,7 +278,7 @@ const CreateJobForm = () => {
                 <Button
                   type="button"
                   size="big"
-                  onClick={() => Router.push("/dashboard")}
+                  onClick={() => Router.push("/admin/dashboard")}
                 >
                   Cancel
                 </Button>

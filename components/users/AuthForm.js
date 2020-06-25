@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PopUpContext from "../common/UI/PopUp/PopUpContext";
+import PopUpContext from "@/common/UI/PopUp/PopUpContext";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import React from "react";

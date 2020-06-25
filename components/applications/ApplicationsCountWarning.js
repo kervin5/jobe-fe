@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Message } from "semantic-ui-react";
 import { Query } from "react-apollo";
-import { APPLICATION_STATUS_QUERY } from "../dashboard/DashboardHome/ApplicationsStatusCard";
+import { APPLICATION_STATUS_QUERY } from "@/admin/dashboard/DashboardHome/ApplicationsStatusCard";
 
 const ApplicationsCountWarning = () => {
   const [open, setOpen] = useState(true);

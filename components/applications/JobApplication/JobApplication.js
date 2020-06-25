@@ -1,9 +1,9 @@
 import React from "react";
-import variables from "../../common/globalVariables";
-import TransformerContainer from "../../common/Layout/TransformerContainer";
+import variables from "@/common/globalVariables";
+import TransformerContainer from "@/common/Layout/TransformerContainer";
 import JobApplicationHeader from "./JobApplicationHeader";
-import Title from "../../common/UI/Title";
-import ResumeViewer from "../../resumes/ResumeViewer";
+import Title from "@/common/UI/Title";
+import ResumeViewer from "@/components/resumes/ResumeViewer";
 
 const JobApplication = props => {
   return (

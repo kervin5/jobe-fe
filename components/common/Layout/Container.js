@@ -2,7 +2,7 @@ import React from "react";
 
 // import classes from './Container.module.scss';
 
-const container = props => {
+const Container = props => {
   // const customWidth = props.maxWidth || "900px";
 
   return (
@@ -26,4 +26,4 @@ const container = props => {
   );
 };
 
-export default container;
+export default Container;

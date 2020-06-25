@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
-import variables from "../../../components/common/globalVariables";
-import PageSection from "../../../components/common/Layout/PageSection";
-import PasswordResetForm from "../../../components/users/PasswordResetForm";
-import Title from "../../../components/common/UI/Title";
-import redirect from "../../../lib/redirect";
+import { useRouter } from "next/router";
+import variables from "@/components/common/globalVariables";
+import PageSection from "@/components/common/Layout/PageSection";
+import PasswordResetForm from "@/components/users/PasswordResetForm";
+import Title from "@/components/common/UI/Title";
 
 const friendsImgUrl = "../../images/friends-with-bg.png";
 const pageStyles = `padding: 30px;`;
 
 const PasswordResetPage = props => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const { resetToken } = router.query;
+    if (!resetToken) return router.push("/user/password/request");
+  }, [router.query]);
+
+  if (!router?.query?.resetToken) return null;
+
   return (
     <PageSection column styles={pageStyles}>
       <Title center>Enter New Password</Title>
@@ -54,13 +63,6 @@ const PasswordResetPage = props => {
       `}</style>
     </PageSection>
   );
-};
-
-PasswordResetPage.getInitialProps = async context => {
-  const { resetToken } = context.query;
-
-  if (!resetToken) redirect(context, "/user/password/request");
-  return {};
 };
 
 export default PasswordResetPage;

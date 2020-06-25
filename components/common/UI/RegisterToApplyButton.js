@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Button from "./Button";
 import PopUp from "./PopUp";
-import AuthForm from "../../users/AuthForm";
+import AuthForm from "@/components/users/AuthForm";
 import ResumeUploadForm from "../../resumes/ResumeUploadForm";
 import { CHECK_USER_APPLICATION_STATUS_QUERY } from "./ApplyToJobButton";
 

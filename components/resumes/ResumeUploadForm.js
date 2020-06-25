@@ -2,12 +2,12 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import variables from "../common/globalVariables";
-import Button from "../common/UI/Button";
-import ButtonGroup from "../common/UI/ButtonGroup";
-import { handleUpload } from "../../lib/upload";
+import variables from "@/common/globalVariables";
+import Button from "@/common/UI/Button";
+import ButtonGroup from "@/common/UI/ButtonGroup";
+import { handleUpload } from "@/lib/upload";
 import Router from "next/router";
-import InputField from "../common/UI/Input/InputField";
+import InputField from "@/common/UI/Input/InputField";
 
 const SIGN_UPLOAD_MUTATION = gql`
   mutation SIGN_UPLOAD_MUTATION($fileName: String!, $fileType: String!) {

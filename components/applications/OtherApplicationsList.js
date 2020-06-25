@@ -51,8 +51,8 @@ const OtherApplicationsList = ({ userId, applicationId }) => {
           image: "/images/avatar.PNG",
           summary: (
             <Link
-              href={"/dashboard/applications/[aid]"}
-              as={"/dashboard/applications/" + feedItem.id}
+              href={"/admin/dashboard/applications/[aid]"}
+              as={"/admin/dashboard/applications/" + feedItem.id}
             >
               <a>{feedItem.job.title}</a>
             </Link>

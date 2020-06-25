@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { withRouter } from "next/router";
-import variables from "../../components/common/globalVariables";
-
-import PageSection from "../../components/common/Layout/PageSection";
-
-import SearchFieldSection from "../../components/jobs/Search/SearchFieldSection";
-import Button from "../../components/common/UI/Button";
-import ButtonGroup from "../../components/common/UI/ButtonGroup";
-import Jobs from "../../components/jobs/Jobs";
-import SearchFilters from "../../components/jobs/Search/SearchFilters";
-import SEO from "../../components/SEO";
+import { withRouter, useRouter } from "next/router";
+import variables from "@/components/common/globalVariables";
+import PageSection from "@/components/common/Layout/PageSection";
+import SearchFieldSection from "@/components/jobs/Search/SearchFieldSection";
+import Button from "@/components/common/UI/Button";
+import ButtonGroup from "@/components/common/UI/ButtonGroup";
+import Jobs from "@/components/jobs/JobsCards";
+import SearchFilters from "@/components/jobs/Search/SearchFilters";
+import SEO from "@/components/SEO";
 
 const styles = `background-color: ${variables.mutedColor1}; padding: 30px; align-items: flex-start;`;
 
@@ -21,19 +19,20 @@ const SearchPage = props => {
   });
   const [showFilters, setShowFilters] = useState(false);
   const handleFiltersChange = vars => {
-    console.log(vars);
     setVariables({
       ...variables,
       ...vars
     });
   };
+  const router = useRouter();
+  const { q, location, category } = router.query;
 
   return (
     <>
       <SEO
         description="Start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for so Apply Today!"
-        title={`${props.q || props.category || "Currently Open"} Jobs Near ${
-          props.location ? props.location : "You"
+        title={`${q || category || "Currently Open"} Jobs Near ${
+          location ? location : "You"
         } - My Exact
         Jobs Search`}
       />
@@ -44,7 +43,7 @@ const SearchPage = props => {
       />
       <PageSection styles={styles}>
         <div className="Container">
-          <SearchFieldSection terms={props.q} location={props.location} />
+          <SearchFieldSection terms={q} location={location} />
           <ButtonGroup>
             {/* <Button size={{ height: "30px" }} icon="alarm">
               Add Alert
@@ -59,9 +58,9 @@ const SearchPage = props => {
             </Button>
           </ButtonGroup>
           <Jobs
-            location={props.location}
-            q={props.q}
-            category={props.category || variables.category}
+            location={location}
+            q={q}
+            category={category || variables.category}
             type={variables.type}
             radius={parseInt(variables.distance)}
           />
@@ -96,10 +95,4 @@ const SearchPage = props => {
   );
 };
 
-SearchPage.getInitialProps = async function({ query }) {
-  // console.log(query);
-  const { q, location, category } = query;
-  return { q, location, category };
-};
-
-export default withRouter(SearchPage);
+export default SearchPage;

@@ -1,11 +1,11 @@
 import React from "react";
-import variables from "../../common/globalVariables";
-import Bubble from "../../common/UI/Bubble";
-import Icon from "../../common/UI/Icon";
-import Title from "../../common/UI/Title";
+import variables from "@/common/globalVariables";
+import Bubble from "@/common/UI/Bubble";
+import Icon from "@/common/UI/Icon";
+import Title from "@/common/UI/Title";
 import FavoriteButton from "../JobFavoriteButton/FavoriteButton";
-import PrompToRegister from "../../users/PrompToRegister";
-import Translator from "../../hoc/Translator";
+import PrompToRegister from "@/components/users/PrompToRegister";
+import Translator from "@/components/hoc/Translator";
 import JobCompensationBubbles from "../JobCompensationBubbles";
 import JobPerksBubbles from "../JobPerksBubbles";
 

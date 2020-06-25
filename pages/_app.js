@@ -1,44 +1,27 @@
-import React from "react";
-import App from "next/app";
-import withApollo from "../components/hoc/WithApollo";
-import { ApolloProvider } from "react-apollo";
+import React, { useEffect } from "react";
+// import App from "next/app";
 
-import { initMatomo } from "../lib/matomo";
-import Page from "../components/Page";
+import { ApolloProvider } from "react-apollo";
+import { useApollo } from "@/lib/apolloClient";
+import { initMatomo } from "@/lib/matomo";
+import Page from "@/components/Page";
 import "semantic-ui-css/semantic.min.css";
 import "./app.css";
 
-class MyApp extends App {
-  static displayName = "MyApp";
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    // this exposes the query to the user
-    pageProps.query = ctx.query;
-    return { pageProps };
-  }
-
-  componentDidMount() {
+export default function App({ Component, pageProps }) {
+  const apolloClient = useApollo(pageProps.initialApolloState);
+  useEffect(() => {
     initMatomo({
       siteId: 1,
       piwikUrl: "https://analytics.exactstaff.com"
     });
-  }
+  }, []);
 
-  render() {
-    const { Component, pageProps, apolloClient } = this.props;
-
-    return (
-      <ApolloProvider client={apolloClient}>
-        <Page>
-          <Component {...pageProps} />
-        </Page>
-      </ApolloProvider>
-    );
-  }
+  return (
+    <ApolloProvider client={apolloClient}>
+      <Page>
+        <Component {...pageProps} />
+      </Page>
+    </ApolloProvider>
+  );
 }
-
-export default withApollo(MyApp);

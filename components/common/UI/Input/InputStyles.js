@@ -1,6 +1,7 @@
-import variables from "../../globalVariables";
+import variables from "@/common/globalVariables";
 
-const inputStyles = <style jxs>{`
+const inputStyles = (
+  <style jxs>{`
 input, textarea, select {
     border: none;
     margin: 5px 20px 5px 15px;
@@ -20,6 +21,7 @@ textarea {
 label {
     color: ${variables.baseTextColor};
 }
-`}</style>;
+`}</style>
+);
 
 export default inputStyles;

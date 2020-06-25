@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Router from "next/router";
 import NProgress from "nprogress";
-import NavigationBar from "../UI/Navigation/NavigationBar";
-import BottomNav from "../UI/Navigation/BottomNav";
+import NavigationBar from "@/common/UI/Navigation/NavigationBar";
+import BottomNav from "@/common/UI/Navigation/BottomNav";
 import Footer from "./Footer";
 // import NavigationDrawer from "../UI/Navigation/NavigationDrawer";
-import variables from "../globalVariables";
-import { initGA, logPageView } from "../../../lib/analytics";
+import variables from "@/common/globalVariables";
+import { initGA, logPageView } from "@/lib/analytics";
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -56,7 +56,7 @@ const layout = props => {
         }
 
         main {
-          min-height: 100%;
+          min-height: 100vh;
           margin-top: 55px;
         }
 

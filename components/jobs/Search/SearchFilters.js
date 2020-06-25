@@ -1,7 +1,7 @@
 import React from "react";
-import SideDrawer from "../../common/UI/Navigation/SideDrawer";
-import Form from "../../common/UI/Form";
-import Title from "../../common/UI/Title";
+import SideDrawer from "@/common/UI/Navigation/SideDrawer";
+import Form from "@/common/UI/Form";
+import Title from "@/common/UI/Title";
 import gql from "graphql-tag";
 
 export const ALL_CATEGORIES_QUERY = gql`

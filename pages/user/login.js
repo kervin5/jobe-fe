@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import variables from "../../components/common/globalVariables";
-import PageSection from "../../components/common/Layout/PageSection";
-import LoginForm from "../../components/users/LoginForm";
-import Title from "../../components/common/UI/Title";
-import WithoutAuth from "../../components/hoc/WithoutAuth";
+import variables from "@/components/common/globalVariables";
+import PageSection from "@/components/common/Layout/PageSection";
+import LoginForm from "@/components/users/LoginForm";
+import Title from "@/components/common/UI/Title";
+import RenderIfLoggedOut from "@/components/hoc/RenderIfLoggedOut";
 
 const friendsImgUrl = "../../images/friends-with-bg.png";
 const pageStyles = `background-color: ${variables.mutedColor1};
@@ -14,52 +14,54 @@ const pageStyles = `background-color: ${variables.mutedColor1};
 
 const loginPage = () => {
   return (
-    <PageSection styles={pageStyles}>
-      <Title center>Login</Title>
-      <LoginForm />
+    <RenderIfLoggedOut redirect>
+      <PageSection styles={pageStyles} center>
+        <Title center>Login</Title>
+        <LoginForm />
 
-      <Link href="/user/password/request">
-        <a className="forgoPasswordLink Link">Forgot Password?</a>
-      </Link>
-      <p className="Link">
-        Don't have an account?
-        <Link href="/user/register">
-          <a> Sign Up</a>
+        <Link href="/user/password/request">
+          <a className="forgoPasswordLink Link">Forgot Password?</a>
         </Link>
-      </p>
-      <div className="BgImage">
-        <img src={friendsImgUrl} />
-      </div>
-      <style jsx>{`
-        .BgImage {
-          width: 100%;
-          max-width: 400px;
-        }
+        <p className="Link">
+          Don't have an account?
+          <Link href="/user/register">
+            <a> Sign Up</a>
+          </Link>
+        </p>
+        <div className="BgImage">
+          <img src={friendsImgUrl} />
+        </div>
+        <style jsx>{`
+          .BgImage {
+            width: 100%;
+            max-width: 400px;
+          }
 
-        .BgImage img {
-          width: 100%;
-        }
+          .BgImage img {
+            width: 100%;
+          }
 
-        .forgoPasswordLink {
-          margin-bottom: 50px;
-        }
+          .forgoPasswordLink {
+            margin-bottom: 50px;
+          }
 
-        a,
-        p {
-          font-size: 1em;
-        }
+          a,
+          p {
+            font-size: 1em;
+          }
 
-        a {
-          font-weight: bold;
-        }
+          a {
+            font-weight: bold;
+          }
 
-        p a {
-          font-size: 1em;
-          font-weight: bold;
-        }
-      `}</style>
-    </PageSection>
+          p a {
+            font-size: 1em;
+            font-weight: bold;
+          }
+        `}</style>
+      </PageSection>
+    </RenderIfLoggedOut>
   );
 };
 
-export default WithoutAuth(loginPage);
+export default loginPage;

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Query } from "react-apollo";
-import Jobs from "../../../jobs/Jobs";
-import Title from "../../../common/UI/Title";
-import UserLocator from "../../../../data/UserLocator";
-import { USER_CATEGORIES_QUERY } from "../../UserCategories";
-import UserInfo from "../../../hoc/UserInfo";
+import Jobs from "@/components/jobs/JobsCards";
+import Title from "@/common/UI/Title";
+import UserLocator from "@/root/data/UserLocator";
+import { USER_CATEGORIES_QUERY } from "@/components/me/UserCategories";
+import UserInfo from "@/components/hoc/UserInfo";
 
 const RecommendedJobsList = () => {
   const [location, setLocation] = useState(undefined);

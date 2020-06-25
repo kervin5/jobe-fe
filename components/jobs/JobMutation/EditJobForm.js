@@ -4,14 +4,14 @@ import gql from "graphql-tag";
 import { Form, Button, Loader } from "semantic-ui-react";
 import useForm from "react-hook-form";
 import Router from "next/router";
-import ErrorMessage from "../../common/UI/ErrorMessage";
-import LocationInput from "../../common/UI/Input/CustomSemanticInput/LocationInput";
-import DropdownGraphqlInput from "../../common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
-import RichTextEditor from "../../common/UI/Input/CustomSemanticInput/RichTextEditor";
-import TextArea from "../../common/UI/Input/CustomSemanticInput/TextArea";
-import AuthorDropdown from "../../common/UI/Input/CustomSemanticInput/AuthorDropdown";
-import Title from "../../common/UI/Title";
-import CronJobToggle from "../../jobs/JobMutation/CronJobToggle";
+import ErrorMessage from "@/common/UI/ErrorMessage";
+import LocationInput from "@/common/UI/Input/CustomSemanticInput/LocationInput";
+import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
+import RichTextEditor from "@/common/UI/Input/CustomSemanticInput/RichTextEditor";
+import TextArea from "@/common/UI/Input/CustomSemanticInput/TextArea";
+import AuthorDropdown from "@/common/UI/Input/CustomSemanticInput/AuthorDropdown";
+import Title from "@/common/UI/Title";
+import CronJobToggle from "@/components/jobs/JobMutation/CronJobToggle";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
   query SINGLE_JOB_ALL_DATA_QUERY($id: String!) {
@@ -175,7 +175,7 @@ const EditJobForm = ({ data, jobId }) => {
     } = await updateJobMutation({ variables: { ...variables, jobId } });
 
     if (updateJob) {
-      Router.push("/dashboard/jobs/preview/" + updateJob.id);
+      Router.push("/admin/dashboard/jobs/preview/" + updateJob.id);
     }
   };
 
@@ -332,7 +332,7 @@ const EditJobForm = ({ data, jobId }) => {
                 <Button
                   type="button"
                   size="big"
-                  onClick={() => Router.push("/dashboard")}
+                  onClick={() => Router.push("/admin/dashboard")}
                 >
                   Cancel
                 </Button>

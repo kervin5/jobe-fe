@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import variables from "../../globalVariables";
+import React from "react";
+import variables from "@/common/globalVariables";
 
 const HamburgerMenu = props => {
   const handleClick = e => {

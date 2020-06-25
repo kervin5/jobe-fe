@@ -1,5 +1,5 @@
 import React from "react";
-import variables from "../globalVariables";
+import variables from "@/common/globalVariables";
 
 const pageSection = props => {
   const fullHeight = props.fullHeight ? "min-height: 100vh !important;" : "";
@@ -15,10 +15,9 @@ const pageSection = props => {
           width: 100%;
           position: relative;
           display: flex;
-
           justify-content: ${props.column ? "start" : "center"};
-          align-items: center;
-          align-items: stretch;
+          align-items: baseline;
+
           flex-direction: ${props.column ? "column" : "row"};
           background-color: ${variables.mutedColor1};
           max-width: ${props.maxWidth || "100%"};

@@ -1,5 +1,5 @@
 import React from "react";
-import variables from "../globalVariables";
+import variables from "@/common/globalVariables";
 // import classes from './Title.modules.scss';
 
 const Title = props => {

@@ -1,6 +1,5 @@
 import React from "react";
-import Link from "next/link";
-import variables from "../globalVariables";
+import variables from "@/common/globalVariables";
 
 const Footer = () => {
   return (

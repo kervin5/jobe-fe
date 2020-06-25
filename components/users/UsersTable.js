@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Input, Button } from "semantic-ui-react";
-import { take } from "../../config";
+import { take } from "@/root/config";
 
-import Table from "../common/UI/Table";
+import Table from "@/common/UI/Table";
 import UserActionButtons from "./UserActionButtons/UserActionButtons";
 import Link from "next/link";
-// import Button from "../common/UI/Button";
+// import Button from "@/common/UI/Button";
 
 const USER_QUERY = gql`
   query USER_QUERY($take: Int!, $skip: Int!, $query: String!) {
@@ -116,7 +116,7 @@ const UsersTable = props => {
                         placeholder="Search..."
                         onChange={inputChangeHandler}
                       />
-                      <Link href="/dashboard/users/new" passHref>
+                      <Link href="/admin/dashboard/users/new" passHref>
                         <Button positive as="a">
                           Add User
                         </Button>

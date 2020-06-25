@@ -3,10 +3,10 @@ import Link from "next/link";
 import { Query } from "react-apollo";
 import { Button, Input, Select, Icon, Label } from "semantic-ui-react";
 import gql from "graphql-tag";
-import { take } from "../../config";
-import Table from "../common/UI/Table";
-import DeleteJobButton from "../jobs/JobMutation/DeleteJobButton";
-import variables from "../common/globalVariables";
+import { take } from "@/root/config";
+import Table from "@/common/UI/Table";
+import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";
+import variables from "@/common/globalVariables";
 import moment from "moment";
 
 export const USER_JOBS_QUERY = gql`
@@ -162,7 +162,7 @@ const JobsTable = props => {
                               }
                             />
                           </div>
-                          <Link href="/dashboard/jobs/new" passHref>
+                          <Link href="/admin/dashboard/jobs/new" passHref>
                             <Button positive as="a">
                               Add New Job
                             </Button>
@@ -215,8 +215,8 @@ const injectActionsColumn = data => {
       applications:
         record.applications.length > 0 ? (
           <Link
-            href={"/dashboard/applications/job/[jid]"}
-            as={"/dashboard/applications/job/" + record.id}
+            href={"/admin/dashboard/applications/job/[jid]"}
+            as={"/admin/dashboard/applications/job/" + record.id}
           >
             <a>
               {activeApplications.length > 0 ? (
@@ -250,14 +250,14 @@ const injectActionsColumn = data => {
             />
           </Link>
           <Link
-            href="/dashboard/jobs/edit/[jid]"
-            as={`/dashboard/jobs/edit/${record.id}`}
+            href="/admin/dashboard/jobs/edit/[jid]"
+            as={`/admin/dashboard/jobs/edit/${record.id}`}
           >
             <Button
               as="a"
               icon="edit"
               color="yellow"
-              href={`/dashboard/jobs/edit/${record.id}`}
+              href={`/admin/dashboard/jobs/edit/${record.id}`}
             />
           </Link>
           <DeleteJobButton
@@ -279,8 +279,8 @@ const injectActionsColumn = data => {
 const getPreviewLink = job => {
   if (job.status !== "POSTED") {
     return {
-      href: "/dashboard/jobs/preview/[jid]",
-      as: `/dashboard/jobs/preview/${job.id}`
+      href: "/admin/dashboard/jobs/preview/[jid]",
+      as: `/admin/dashboard/jobs/preview/${job.id}`
     };
   } else {
     return { href: "/jobs/[jid]", as: `/jobs/${job.id}` };
