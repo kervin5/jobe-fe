@@ -6,6 +6,7 @@ import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 const dashboardApplicationsPerJobPage = props => {
   const router = useRouter();
   const { jid } = router.query;
+  console.log(jid);
   return (
     <RenderIfLoggedIn
       permissions={[{ object: "APPLICATION", action: "READ" }]}
