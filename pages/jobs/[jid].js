@@ -46,7 +46,7 @@ const SingleJobView = props => {
 }; //eof
 
 export async function getStaticPaths() {
-  const jobs = await getJobsFromAPI();
+  const jobs = await getJobsFromAPI(10);
   const jobsPaths = jobs.map(job => {
     const jobPath = `${job.title.replace(
       /[\W_]+/g,

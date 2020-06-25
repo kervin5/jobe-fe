@@ -122,7 +122,7 @@ const homePage = props => {
 };
 
 export async function getStaticProps() {
-  const jobs = await getJobsFromAPI();
+  const jobs = await getJobsFromAPI(10);
   const terms = await getTermsFromAPI();
 
   return { props: { jobs, terms }, unstable_revalidate: 1 };
