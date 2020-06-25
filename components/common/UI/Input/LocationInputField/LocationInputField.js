@@ -43,7 +43,7 @@ const locationInputField = props => {
 
   useEffect(() => {
     if (!isTyping && uri !== "") {
-      axios.get("/location/" + uri).then(res => {
+      axios.get("/api/location/" + uri).then(res => {
         setLocations(res.data.features);
       });
     }

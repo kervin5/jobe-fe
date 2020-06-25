@@ -1,17 +1,18 @@
 import React from "react";
 import { Label } from "semantic-ui-react";
-import variables from "../../../components/common/globalVariables";
-import TransformerContainer from "../../common/Layout/TransformerContainer";
-import JobListingHeader from "./JobListingHeader/JobListingHeader";
-import SEO from "../../SEO";
-import sanitize from "../../../lib/html";
-import Title from "../../common/UI/Title";
-import ApplyToJobButton from "../../common/UI/ApplyToJobButton";
-import HtmlRenderer from "../../common/UI/HtmlRenderer";
-import SocialMedia from "../../common/UI/SocialMedia";
+import variables from "@/common/globalVariables";
+import TransformerContainer from "@/common/Layout/TransformerContainer";
+import JobListingHeader from "./JobListingHeader";
+import SEO from "@/components/SEO";
+import sanitize from "@/lib/html";
+import Title from "@/common/UI/Title";
+import ApplyToJobButton from "@/common/UI/ApplyToJobButton";
+import HtmlRenderer from "@/common/UI/HtmlRenderer";
+import SocialMedia from "@/common/UI/SocialMedia";
 import StucturedJobListing from "./StructuredJobListing";
-import { basePath } from "../../../config";
-import Translator, { ListOfLanguages } from "../../hoc/Translator";
+import { basePath } from "@/root/config";
+import Translator, { ListOfLanguages } from "@/components/hoc/Translator";
+import JobCompensationBubbles from "../JobCompensationBubbles";
 
 const jobListing = props => {
   return (
@@ -30,6 +31,7 @@ const jobListing = props => {
         ogImage="/images/exactstaffsquare.jfif"
       />
       <JobListingHeader
+        perks={props.data.perks}
         title={props.data.title}
         location={props.data.location}
         minCompensation={props.data.minCompensation}
@@ -38,6 +40,8 @@ const jobListing = props => {
         data-test="title-section"
         hideFavoriteButton={props.preview}
         jobId={props.data.id}
+        showPerks
+        showType
       />
 
       <div className="Body" data-test="main-content-section">
@@ -45,13 +49,24 @@ const jobListing = props => {
         <Title size={"m"}>
           <Translator>Job Description</Translator>:
         </Title>
+
         <Translator>
           <HtmlRenderer html={props.data.description} />
         </Translator>
+
+        <br />
+        <Title size={"m"} data-test="company-information-section">
+          Compensation
+        </Title>
+        <JobCompensationBubbles
+          minCompensation={props.data.minCompensation}
+          maxCompensation={props.data.maxCompensation}
+        />
+        <br />
         <br />
 
         <Title size={"m"} data-test="company-information-section">
-          <Translator>About the Company: {props.data.company}</Translator>
+          <Translator>About {props.data.company}</Translator>
         </Title>
         <div>
           <Translator>{props.data.aboutCompany}</Translator>
@@ -120,7 +135,7 @@ const jobListing = props => {
             @media only screen and (max-width: 520px){
            
                 .Body{
-                    //margin: 0 auto;
+                   
                     padding:40px 40px 60px 40px;
                     width: 100%;
                     border-bottom-right-radius: 0px;

@@ -1,6 +1,5 @@
 import React from "react";
-import variables from "../globalVariables";
-// import classes from './Bubble.module.scss';
+import variables from "@/common/globalVariables";
 
 const bubble = props => {
   let backgroundColor = variables.accentColor1;
@@ -10,6 +9,8 @@ const bubble = props => {
       backgroundColor = variables.accentColor3;
     } else if (props.color === "3") {
       backgroundColor = variables.accentColor2;
+    } else if (props.color === "4") {
+      backgroundColor = variables.accentColor4;
     } else {
       backgroundColor = variables.accentColor1;
     }
@@ -27,9 +28,18 @@ const bubble = props => {
 
           background-color: ${backgroundColor};
           margin-left: 5px;
+          margin-bottom: 5px;
           border-radius: 15px;
-          color: ${variables.clearColor};
-          display: inline-block;
+          color: ${props.fontColor === "dark"
+            ? variables.darkColor
+            : variables.clearColor};
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        span:first-child {
+          margin-left: 0px;
         }
 
         @media (min-width: 800px) {

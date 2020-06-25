@@ -1,4 +1,4 @@
-import variables from "../../globalVariables";
+import variables from "@/common/globalVariables";
 import Link from "next/link";
 import NavigationItems from "./NavigationItems/NavigationItems";
 const CompanyLogo = "/images/LandingLogo.svg";
@@ -25,6 +25,7 @@ const NavigationBar = () => {
           left: 0;
           right: 0;
           box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.15);
+          align-items: baseline;
         }
 
         .CompanyLogo {

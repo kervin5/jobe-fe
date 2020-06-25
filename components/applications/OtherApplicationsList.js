@@ -42,7 +42,7 @@ const OtherApplicationsList = ({ userId, applicationId }) => {
     >
       {({ error, loading, data }) => {
         if (loading) return <p>Loading!</p>;
-        console.log(error);
+        // console.log(error);
         if (error) return <p>Error!</p>;
 
         const feedData = data.applications.map((feedItem, index) => ({
@@ -51,8 +51,8 @@ const OtherApplicationsList = ({ userId, applicationId }) => {
           image: "/images/avatar.PNG",
           summary: (
             <Link
-              href={"/dashboard/applications/[aid]"}
-              as={"/dashboard/applications/" + feedItem.id}
+              href={"/admin/dashboard/applications/[aid]"}
+              as={"/admin/dashboard/applications/" + feedItem.id}
             >
               <a>{feedItem.job.title}</a>
             </Link>

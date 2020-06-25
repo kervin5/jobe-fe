@@ -1,4 +1,4 @@
-import protectPage from "../../lib/auth";
+import protectPage from "@/lib/auth";
 
 const WithAuth = (WrappedComponent, permissions, fallbackRoute) => {
   const getOriginalProps =

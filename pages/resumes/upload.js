@@ -1,8 +1,8 @@
-import WithAuth from "../../components/hoc/WithAuth";
-import PageSection from "../../components/common/Layout/PageSection";
-import Title from "../../components/common/UI/Title";
-import Container from "../../components/common/Layout/Container";
-import ResumeUploadForm from "../../components/resumes/ResumeUploadForm";
+import WithAuth from "@/components/hoc/WithAuth";
+import PageSection from "@/components/common/Layout/PageSection";
+import Title from "@/components/common/UI/Title";
+import Container from "@/components/common/Layout/Container";
+import ResumeUploadForm from "@/components/resumes/ResumeUploadForm";
 
 const ResumeUploadPage = props => {
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Icon } from "semantic-ui-react";
 
-import variables from "../globalVariables";
+import variables from "@/common/globalVariables";
 
 const CustomIcon = props => {
   const classes = props.circle ? "Circle" : "";

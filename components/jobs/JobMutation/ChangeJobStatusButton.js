@@ -5,7 +5,7 @@ import Router from "next/router";
 import gql from "graphql-tag";
 
 const POST_JOB_MUTATION = gql`
-  mutation POST_JOB_MUTATION($jobId: ID!, $status: JobStatus!) {
+  mutation POST_JOB_MUTATION($jobId: String!, $status: JobStatus!) {
     updateJob(
       where: { id: $jobId }
 
@@ -24,7 +24,7 @@ const PublishJobButton = ({ jobId, status, children }) => {
       {(postJobMutation, { error, loading, data }) => {
         if (error) return <p>Something went wrong!</p>;
         if (loading) return <p>Loading...</p>;
-        if (data) Router.push(`/dashboard`);
+        if (data) Router.push(`/admin/dashboard`);
         if (data) return <p>Success!</p>;
 
         return (

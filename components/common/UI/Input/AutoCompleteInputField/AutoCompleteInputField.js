@@ -1,5 +1,4 @@
-import variables from "../../../globalVariables";
-// import inputStyles from '../InputStyles';
+import variables from "@/common/globalVariables";
 
 class AutoCompleteInputField extends React.PureComponent {
   _timeoutID;

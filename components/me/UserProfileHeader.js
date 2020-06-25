@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import UserLocator from "../../data/UserLocator";
 import { Query } from "react-apollo";
 import UserCategories from "./UserCategories";
-import Card from "../common/UI/Card";
-import Avatar from "../common/UI/Avatar";
-import { ME_USER_QUERY } from "../../lib/auth";
-import Title from "../common/UI/Title";
+import Card from "@/common/UI/Card";
+import Avatar from "@/common/UI/Avatar";
+import { ME_USER_QUERY } from "@/lib/auth";
+import Title from "@/common/UI/Title";
 
 const UserProfileHeader = () => {
   const [userLocation, setUserLocation] = useState("Loading");

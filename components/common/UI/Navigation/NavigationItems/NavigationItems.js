@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+
 import NavigationItem from "./NavigationItem.js";
-import LogoutButton from "../../LogoutButton";
-import RenderIfLoggedIn from "../../../../hoc/RenderIfLoggedIn";
-import RenderIfLoggedOut from "../../../../hoc/RenderIfLoggedOut";
+import NavigationItemUserMenu from "./NavigationItemUserMenu";
+import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
+import RenderIfLoggedOut from "@/components/hoc/RenderIfLoggedOut";
+
 import HamburgerMenu from "../HamburgerMenu";
-import variables from "../../../globalVariables";
+import variables from "@/common/globalVariables";
 
 const navigationItems = () => {
   const [open, setOpen] = useState(false);
@@ -22,29 +24,53 @@ const navigationItems = () => {
           <NavigationItem href={"/user/register"}>Register</NavigationItem>
         </RenderIfLoggedOut>
         <RenderIfLoggedIn permissions={[{ object: "JOB", action: "CREATE" }]}>
-          <NavigationItem href={"/dashboard"}>Dashboard</NavigationItem>
-        </RenderIfLoggedIn>
-        <RenderIfLoggedIn
-          permissions={[{ object: "APPLICATION", action: "CREATE" }]}
-        >
-          <NavigationItem href={"/me"}>Me</NavigationItem>
+          <NavigationItem href={"/admin/dashboard"}>Dashboard</NavigationItem>
         </RenderIfLoggedIn>
         <RenderIfLoggedIn>
-          <LogoutButton />
+          <NavigationItemUserMenu />
         </RenderIfLoggedIn>
         <style jsx>{`
-          div {
+          .NavigationItems {
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100%;
-            vertical-align: middle;
+          }
+
+          .NavigationItems :global(.UserNameLink) {
+            font-weight: bold;
+
+            background-color: transparent;
+            height: 100%;
+            transition: 250ms;
+
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            transition-timing-function: ease-in-out;
+            border-bottom: 5px solid transparent;
+            font-weight: bold;
+          }
+
+          .NavigationItems :global(.UserNameLink .menu) {
+            width: 100%;
+          }
+
+          .NavigationItems :global(.UserNameLink a) {
+            text-decoration: none;
+            color: ${variables.baseTextColor};
+          }
+
+          .NavigationItems :global(.UserNameLink:hover) {
+            background-color: white;
+            border-bottom: 5px solid orangered;
           }
 
           @media (max-width: 900px) {
             .NavigationItems {
               background-color: ${variables.clearColor};
-
+              padding-top: 100px;
               position: fixed;
               flex-direction: column;
               top: 0;

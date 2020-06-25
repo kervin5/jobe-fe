@@ -1,5 +1,5 @@
-import React from "react";
-import { Dropdown } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Dropdown, Message } from "semantic-ui-react";
 
 const LocationInput = ({
   placeholder,
@@ -12,11 +12,23 @@ const LocationInput = ({
   multiple,
   loading,
   defaultValue,
-  defaultSearchQuery
+  defaultSearchQuery,
+  allowAdditions,
+  additionWarning,
+  additionLabel,
+  nolabel
 }) => {
+  const [customOptions, setCustomOptions] = useState([]);
+  const handleAddition = (e, { value }) => {
+    setCustomOptions([...customOptions, { text: value, value: value }]);
+  };
   return (
-    <div className={`field ${error ? "error" : ""}`}>
-      <label htmlFor={name}>{label}</label>
+    <div
+      className={`DropdownInput field ${error ? "error" : ""} ${
+        allowAdditions ? "DropdownInput--additions" : ""
+      }`}
+    >
+      {!nolabel && <label htmlFor={name}>{label}</label>}
       <Dropdown
         loading={loading}
         id={name}
@@ -24,20 +36,42 @@ const LocationInput = ({
         fluid
         search
         selection
+        onAddItem={handleAddition}
+        additionLabel={additionLabel}
         onChange={(e, data) => onChange(e, { ...data, name })}
-        options={options}
+        options={[...options, ...customOptions]}
         onSearchChange={onSearchChange}
         multiple={multiple}
         defaultValue={defaultValue}
         defaultSearchQuery={defaultSearchQuery}
+        allowAdditions={allowAdditions}
       />
+      {!!additionWarning && !!customOptions.length && (
+        <Message color="yellow">
+          <p>
+            <strong>Reminder:</strong> {additionWarning}.
+          </p>
+        </Message>
+      )}
+      <style jsx global>
+        {`
+          .DropdownInput--additions .ui.label:not([value^="c"]) {
+            background-color: #fff8db;
+          }
+
+          .DropdownInput .message {
+            padding: 0.5em 1.5em;
+          }
+        `}
+      </style>
     </div>
   );
 };
 
 LocationInput.defaultProps = {
   placeholder: "Select a location",
-  options: []
+  options: [],
+  allowAdditions: false
 };
 
 export default LocationInput;

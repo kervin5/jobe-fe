@@ -3,9 +3,8 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Button from "./Button";
 import PopUp from "./PopUp";
-import AuthForm from "../../users/AuthForm";
-import ResumeUploadForm from "../../resumes/ResumeUploadForm";
-import { RESUME_LIST_QUERY } from "../../me/Tabs/UserResumesTab";
+import ResumeUploadForm from "@/components/resumes/ResumeUploadForm";
+import { RESUME_LIST_QUERY } from "@/components/me/Tabs/UserResumesTab";
 
 const USER_IS_REGISTERED_QUERY = gql`
   query USER_IS_REGISTERED_QUERY {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Query } from "react-apollo";
 import { Loader } from "semantic-ui-react";
-import { ME_USER_QUERY } from "../../lib/auth";
+import { ME_USER_QUERY } from "@/lib/auth";
 
 const RenderIfLoggedOut = ({ children }) => {
   return (

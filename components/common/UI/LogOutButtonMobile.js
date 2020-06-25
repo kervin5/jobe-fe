@@ -1,9 +1,8 @@
 import React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import Loader from "./Animated/Loader";
 import { Icon } from "semantic-ui-react";
-import variables from "../globalVariables";
+import variables from "@/common/globalVariables";
 
 const LOG_OUT_MUTATION = gql`
   mutation LOG_OUT_MUTATION {

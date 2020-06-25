@@ -3,13 +3,13 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Input, Menu, Segment } from "semantic-ui-react";
 import UserLocator from "../../data/UserLocator";
-import Icon from "../common/UI/Icon";
+import Icon from "@/common/UI/Icon";
 import JobList from "../jobs/JobList/JobList";
-import Jobs from "../jobs/Jobs";
-import ResumeList from "../common/UI/ResumeList";
-import ResumeUploadButton from "../common/UI/ResumeUploadButton";
+import Jobs from "../jobs/JobsCards";
+import ResumeList from "@/common/UI/ResumeList";
+import ResumeUploadButton from "@/common/UI/ResumeUploadButton";
 
-import Title from "../common/UI/Title";
+import Title from "@/common/UI/Title";
 
 const USER_FAVORITED_JOBS = gql`
   query USER_FAVORITED_JOBS {

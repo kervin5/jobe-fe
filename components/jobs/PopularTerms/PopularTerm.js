@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import variables from "../../common/globalVariables";
-import DynamicImageBg from "../../common/UI/DynamicImageBg";
+import variables from "@/common/globalVariables";
+import DynamicImageBg from "@/common/UI/DynamicImageBg";
 
 const getLinkPath = term => {
   if (term.type === "location") return "/jobs?location=" + term.label;

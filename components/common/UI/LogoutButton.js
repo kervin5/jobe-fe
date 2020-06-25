@@ -1,10 +1,10 @@
 import React from "react";
 import { Mutation } from "react-apollo";
+import { Dropdown } from "semantic-ui-react";
 import gql from "graphql-tag";
 import Loader from "./Animated/Loader";
-import Button from "./Button";
 
-const LOG_OUT_MUTATION = gql`
+export const LOG_OUT_MUTATION = gql`
   mutation LOG_OUT_MUTATION {
     logout
   }
@@ -17,14 +17,14 @@ const LogoutButton = () => {
         if (error) return <p>Logged out</p>;
         if (loading) return <Loader />;
         return (
-          <Button
+          <Dropdown.Item
             onClick={async () => {
               await logOutMutation();
               location.reload();
             }}
           >
             Sign Out
-          </Button>
+          </Dropdown.Item>
         );
       }}
     </Mutation>

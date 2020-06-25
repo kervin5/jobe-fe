@@ -2,4 +2,4 @@
 export const endpoint = `http://localhost:3000/graphql`;
 export const prodEndpoint = `https://www.myexactjobs.com/graphql`;
 export const basePath = `https://www.myexactjobs.com`;
-export const perPage = 10;
+export const take = 10;

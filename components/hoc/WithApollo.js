@@ -84,7 +84,7 @@ export default App => {
 
     constructor(props) {
       super(props);
-      // `getDataFromTree` renders the component first, the client is passed off as a property.
+      // `getDataFromTree` renders the component take, the client is passed off as a property.
       // After that rendering is done using Next's normal rendering pipeline
       this.apolloClient = initApollo(props.apolloState, {
         getToken: () => {

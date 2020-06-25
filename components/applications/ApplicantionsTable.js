@@ -4,53 +4,59 @@ import gql from "graphql-tag";
 import Link from "next/link";
 import { Dropdown, Input, Button } from "semantic-ui-react";
 import moment from "moment";
-import EempactStatusLabel from "../users/EempactStatusLabel";
-import { perPage } from "../../config";
+import EempactStatusLabel from "@/components/users/EempactStatusLabel";
+import { take } from "@/root/config";
 import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 
-import Table from "../common/UI/Table";
-import Loader from "../common/UI/Animated/Loader";
+import Table from "@/common/UI/Table";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
 import ApplicationsCountWarning from "./ApplicationsCountWarning";
 
 const ALL_APPLICATIONS_QUERY = gql`
   query ALL_APPLICATIONS_QUERY(
-    $perPage: Int!
+    $take: Int!
     $skip: Int!
-    $jobId: ID
+    $jobId: String
     $status: [ApplicationStatus!]
     $terms: String!
   ) {
     applications(
       where: {
-        job: { id: $jobId }
-        status_in: $status
+        job: { id: { equals: $jobId } }
+        status: { in: $status }
         OR: [
           {
             job: {
               OR: [
-                { title_contains: $terms }
-                { location: { name_contains: $terms } }
-                { branch: { name_contains: $terms } }
+                { title: { contains: $terms } }
+                { location: { name: { contains: $terms } } }
+                { branch: { name: { contains: $terms } } }
               ]
             }
           }
           {
             user: {
-              OR: [{ name_contains: $terms }, { email_contains: $terms }]
+              OR: [
+                { name: { contains: $terms } }
+                { email: { contains: $terms } }
+              ]
             }
           }
         ]
       }
-      orderBy: createdAt_ASC
-      first: $perPage
+      take: $take
       skip: $skip
     ) {
       id
       createdAt
       status
+
       user {
         name
+        eEmpact {
+          id
+          assignments
+        }
         id
         email
         location {
@@ -91,36 +97,35 @@ const ALL_APPLICATIONS_QUERY = gql`
 
 export const USER_APPLICATION_CONNECTION_QUERY = gql`
   query USER_APPLICATION_CONNECTION_QUERY(
-    $jobId: ID
+    $jobId: String
     $status: [ApplicationStatus!]
     $terms: String!
   ) {
     applicationsConnection(
       where: {
-        job: { id: $jobId }
-        status_in: $status
+        job: { id: { equals: $jobId } }
+        status: { in: $status }
         OR: [
           {
             job: {
               OR: [
-                { title_contains: $terms }
-                { location: { name_contains: $terms } }
-                { branch: { name_contains: $terms } }
+                { title: { contains: $terms } }
+                { location: { name: { contains: $terms } } }
+                { branch: { name: { contains: $terms } } }
               ]
             }
           }
           {
             user: {
-              OR: [{ name_contains: $terms }, { email_contains: $terms }]
+              OR: [
+                { name: { contains: $terms } }
+                { email: { contains: $terms } }
+              ]
             }
           }
         ]
       }
-    ) {
-      aggregate {
-        count
-      }
-    }
+    )
   }
 `;
 
@@ -136,7 +141,7 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
       queries.push({
         query: ALL_APPLICATIONS_QUERY,
         variables: {
-          perPage,
+          take,
           skip,
           status: [defaultStatus],
           terms
@@ -157,7 +162,7 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
   queries.push({
     query: ALL_APPLICATIONS_QUERY,
     variables: {
-      perPage,
+      take,
       skip,
       status: ["NEW", "VIEWED", "REVIEWING", "CONTACTED"],
       terms
@@ -193,21 +198,7 @@ const ApplicantTable = props => {
   return (
     <>
       <ApplicationsCountWarning />
-      <Input
-        icon="search"
-        placeholder="Search..."
-        onChange={e => setTerms(e.target.value)}
-      />
-      <Dropdown
-        placeholder="Application Status"
-        selection
-        options={[
-          { key: "All", text: "All", value: "ALL" },
-          ...applicationStatusOptions
-        ]}
-        defaultValue={"ALL"}
-        onChange={(e, data) => statusChangeHandler(data.value)}
-      />
+
       <Query
         query={USER_APPLICATION_CONNECTION_QUERY}
         ssr={false}
@@ -219,14 +210,13 @@ const ApplicantTable = props => {
       >
         {userApplicationData => {
           if (userApplicationData.error) return <p>Something went wrong ...</p>;
-          if (userApplicationData.loading) return <Loader />;
 
           return (
             <Query
               query={ALL_APPLICATIONS_QUERY}
               variables={{
-                perPage,
-                skip: (currentPage - 1) * perPage,
+                take,
+                skip: (currentPage - 1) * take,
                 jobId: "" || props.jobId,
                 status,
                 terms
@@ -234,10 +224,10 @@ const ApplicantTable = props => {
             >
               {({ error, loading, data }) => {
                 if (error) return <p>Something went wrong...</p>;
-                if (loading) return <Loader />;
+
                 let applications = [];
 
-                data.applications.forEach(application => {
+                data?.applications.forEach(application => {
                   applications.push({
                     name: application.user.name,
                     job: (
@@ -264,13 +254,13 @@ const ApplicantTable = props => {
                         status={application.status}
                         refetchQueries={queriesToRefetch({
                           jobId: props.jobId || "",
-                          skip: (currentPage - 1) * perPage,
+                          skip: (currentPage - 1) * take,
                           terms
                         })}
                       />
                     ),
                     eempact: (
-                      <EempactStatusLabel email={application.user.email} />
+                      <EempactStatusLabel data={application.user.eEmpact} />
                     ),
                     actions: (
                       <Button
@@ -280,7 +270,7 @@ const ApplicantTable = props => {
                         onClick={e => {
                           e.preventDefault();
                           window.open(
-                            "/dashboard/applications/" + application.id
+                            "/admin/dashboard/applications/" + application.id
                           );
                         }}
                       />
@@ -289,8 +279,7 @@ const ApplicantTable = props => {
                 });
 
                 const count =
-                  userApplicationData.data.applicationsConnection.aggregate
-                    .count;
+                  userApplicationData?.data?.applicationsConnection ?? 0;
 
                 return (
                   <Table
@@ -298,8 +287,29 @@ const ApplicantTable = props => {
                     page={currentPage}
                     loading={loading}
                     count={count}
-                    perPage={perPage}
+                    take={take}
                     turnPageHandler={turnPageHandler}
+                    toolbar={
+                      <>
+                        <Input
+                          icon="search"
+                          placeholder="Search..."
+                          onChange={e => setTerms(e.target.value)}
+                        />
+                        <Dropdown
+                          placeholder="Application Status"
+                          selection
+                          options={[
+                            { key: "All", text: "All", value: "ALL" },
+                            ...applicationStatusOptions
+                          ]}
+                          defaultValue={"ALL"}
+                          onChange={(e, data) =>
+                            statusChangeHandler(data.value)
+                          }
+                        />
+                      </>
+                    }
                   />
                 );
               }}

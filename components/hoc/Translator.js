@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import axios from "axios";
 import { Select } from "semantic-ui-react";
-import HtmlRenderer from "../common/UI/HtmlRenderer";
-import applicationContext from "../../context/applicationContext";
+import HtmlRenderer from "@/common/UI/HtmlRenderer";
+import applicationContext from "@/context/applicationContext";
 
 const Translator = ({ children }) => {
   const { language, setLanguage } = React.useContext(applicationContext);
@@ -20,7 +20,7 @@ const Translator = ({ children }) => {
   useEffect(() => {
     if (language !== "en") {
       axios
-        .post("/translate", {
+        .post("/api/translate", {
           url: `https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&To=${language}`,
           data: [{ text: renderToStaticMarkup(children) }]
         })
@@ -48,7 +48,7 @@ export const ListOfLanguages = () => {
   useEffect(() => {
     axios
       .get(
-        "/translate?url=https://api.cognitive.microsofttranslator.com/languages?api-version=3.0"
+        "/api/translate?url=https://api.cognitive.microsofttranslator.com/languages?api-version=3.0"
       )
       .then(res => {
         const fetchedLanguages = res.data.data.translation;

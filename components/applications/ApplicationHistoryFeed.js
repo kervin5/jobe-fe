@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import moment from "moment";
 
 export const APPLICATION_NOTES_QUERY = gql`
-  query APPLICATION_NOTES($id: ID!) {
+  query APPLICATION_NOTES($id: String!) {
     applicationNotes(id: $id) {
       id
       user {

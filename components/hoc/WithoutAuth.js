@@ -1,4 +1,4 @@
-import { hidePage } from "../../lib/auth";
+import { hidePage } from "@/lib/auth";
 
 const WithoutAuth = WrappedCompoent => {
   WrappedCompoent.getInitialProps = async context => {

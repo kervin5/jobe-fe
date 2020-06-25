@@ -1,4 +1,4 @@
-import axios from "../data/api";
+import axios from "@/root/data/api";
 
 export const userIsLoggedIn = () => {
   const token = window.localStorage.getItem("token");

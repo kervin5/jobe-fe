@@ -2,10 +2,10 @@ import React from "react";
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import { Checkbox } from "semantic-ui-react";
-import InformationButton from "../../common/UI/InformationButton";
+import InformationButton from "@/common/UI/InformationButton";
 
 const JOB_CRON_TASK_QUERY = gql`
-  query JOB_CRON_TASK_QUERY($jobId: ID!) {
+  query JOB_CRON_TASK_QUERY($jobId: String!) {
     job(where: { id: $jobId }) {
       id
       cronTask {

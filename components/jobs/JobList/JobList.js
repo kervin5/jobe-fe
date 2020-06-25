@@ -23,6 +23,10 @@ const jobList = props => {
           type={job.type}
           id={job.id}
           date={job.updatedAt}
+          favorites={job.favorites.length}
+          showFavoritesCount
+          showJobType
+          perks={job.perks}
         />
       );
     });

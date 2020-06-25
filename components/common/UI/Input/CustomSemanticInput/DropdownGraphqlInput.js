@@ -12,7 +12,7 @@ const format = (records, { id, value, text }) => {
   }));
 };
 
-const LocationInput = ({
+const DropdownGraphqlInput = ({
   placeholder,
   onChange,
   error,
@@ -20,7 +20,11 @@ const LocationInput = ({
   label,
   graphql,
   multiple,
-  defaultValue
+  defaultValue,
+  allowAdditions,
+  additionLabel,
+  additionWarning,
+  nolabel
 }) => {
   const [query, setQuery] = useState("");
   const [fetchedOptions, setFetchedOptions] = useState([]);
@@ -62,6 +66,7 @@ const LocationInput = ({
             name={name}
             label={label}
             loading={loading}
+            nolabel={nolabel}
             onSearchChange={handleSearchChange}
             options={format(fetchedOptions, {
               id: "id",
@@ -70,6 +75,9 @@ const LocationInput = ({
             })}
             error={propsError}
             defaultValue={defaultValue}
+            allowAdditions={allowAdditions}
+            additionLabel={additionLabel}
+            additionWarning={additionWarning}
           />
         );
       }}
@@ -77,9 +85,10 @@ const LocationInput = ({
   );
 };
 
-LocationInput.defaultProps = {
+DropdownGraphqlInput.defaultProps = {
   placeholder: "Select a location",
-  label: "Location"
+  label: "Location",
+  allowAdditions: false
 };
 
-export default LocationInput;
+export default DropdownGraphqlInput;

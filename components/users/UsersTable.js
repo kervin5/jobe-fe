@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { Input } from "semantic-ui-react";
-import { perPage } from "../../config";
+import { Input, Button } from "semantic-ui-react";
+import { take } from "@/root/config";
 
-import Table from "../common/UI/Table";
-import Loader from "../common/UI/Animated/Loader";
+import Table from "@/common/UI/Table";
 import UserActionButtons from "./UserActionButtons/UserActionButtons";
-// import Button from "../common/UI/Button";
+import Link from "next/link";
+// import Button from "@/common/UI/Button";
 
 const USER_QUERY = gql`
-  query USER_QUERY($perPage: Int!, $skip: Int!, $query: String!) {
+  query USER_QUERY($take: Int!, $skip: Int!, $query: String!) {
     users(
-      first: $perPage
+      take: $take
       skip: $skip
       where: {
-        AND: [
-          { OR: [{ name_contains: $query }, { email_contains: $query }] }
-          { status_not: DELETED }
-        ]
+        OR: [{ name: { contains: $query } }, { email: { contains: $query } }]
       }
     ) {
       id
@@ -40,12 +37,10 @@ const USER_QUERY = gql`
 const USERS_CONNECTION_QUERY = gql`
   query USERS_CONNECTION_QUERY($query: String!) {
     usersConnection(
-      where: { OR: [{ name_contains: $query }, { email_contains: $query }] }
-    ) {
-      aggregate {
-        count
+      where: {
+        OR: [{ name: { contains: $query } }, { email: { contains: $query } }]
       }
-    }
+    )
   }
 `;
 
@@ -62,74 +57,79 @@ const UsersTable = props => {
   };
 
   return (
-    <>
-      <Input
-        icon="search"
-        placeholder="Search..."
-        onChange={inputChangeHandler}
-      />
-      <Query query={USERS_CONNECTION_QUERY} ssr={false} variables={{ query }}>
-        {userConnectionData => {
-          if (userConnectionData.error) return <p>Something went wrong ...</p>;
-          if (userConnectionData.loading) return <Loader />;
-          const queryVariables = {
-            perPage,
-            skip: (currentPage - 1) * perPage,
-            jobId: "" || props.jobId,
-            query
-          };
-          return (
-            <Query query={USER_QUERY} variables={{ ...queryVariables }}>
-              {({ error, loading, data }) => {
-                if (error) return <p>Something Went Wrong...</p>;
-                if (loading) return <Loader />;
+    <Query query={USERS_CONNECTION_QUERY} ssr={false} variables={{ query }}>
+      {userConnectionData => {
+        if (userConnectionData.error) return <p>Something went wrong ...</p>;
 
-                let users = [];
+        const queryVariables = {
+          take,
+          skip: (currentPage - 1) * take,
+          jobId: "" || props.jobId,
+          query
+        };
+        return (
+          <Query query={USER_QUERY} variables={{ ...queryVariables }}>
+            {({ error, loading, data }) => {
+              if (error) return <p>Something Went Wrong...</p>;
 
-                data.users.forEach(user => {
-                  return users.push({
-                    name: user.name,
-                    email: <a href={`malito:${user.email}`}>{user.email}</a>,
-                    role: user.role ? user.role.name : "",
-                    status: user.status,
-                    branch: user.branch ? user.branch.name : "",
-                    actions: (
-                      <UserActionButtons
-                        user={user}
-                        refetchQueries={[
-                          {
-                            query: USER_QUERY,
-                            variables: { ...queryVariables }
-                          },
-                          {
-                            query: USERS_CONNECTION_QUERY,
-                            variables: { query }
-                          }
-                        ]}
-                      />
-                    )
-                  });
+              let users = [];
+
+              data?.users.forEach(user => {
+                return users.push({
+                  name: user.name,
+                  email: <a href={`malito:${user.email}`}>{user.email}</a>,
+                  role: user.role ? user.role.name : "",
+                  status: user.status,
+                  branch: user.branch ? user.branch.name : "",
+                  actions: (
+                    <UserActionButtons
+                      user={user}
+                      refetchQueries={[
+                        {
+                          query: USER_QUERY,
+                          variables: { ...queryVariables }
+                        },
+                        {
+                          query: USERS_CONNECTION_QUERY,
+                          variables: { query }
+                        }
+                      ]}
+                    />
+                  )
                 });
+              });
 
-                const count =
-                  userConnectionData.data.usersConnection.aggregate.count;
+              const count = userConnectionData?.data?.usersConnection ?? 0;
 
-                return (
-                  <Table
-                    data={users}
-                    page={currentPage}
-                    loading={loading}
-                    count={count}
-                    perPage={perPage}
-                    turnPageHandler={turnPageHandler}
-                  />
-                );
-              }}
-            </Query>
-          );
-        }}
-      </Query>
-    </>
+              return (
+                <Table
+                  data={users}
+                  page={currentPage}
+                  loading={loading}
+                  count={count}
+                  take={take}
+                  turnPageHandler={turnPageHandler}
+                  toolbar={
+                    <>
+                      <Input
+                        icon="search"
+                        placeholder="Search..."
+                        onChange={inputChangeHandler}
+                      />
+                      <Link href="/admin/dashboard/users/new" passHref>
+                        <Button positive as="a">
+                          Add User
+                        </Button>
+                      </Link>
+                    </>
+                  }
+                />
+              );
+            }}
+          </Query>
+        );
+      }}
+    </Query>
   );
 };
 

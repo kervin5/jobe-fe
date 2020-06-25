@@ -1,9 +1,9 @@
-import SEO from "../components/SEO";
-import WithAuth from "../components/hoc/WithAuth";
-import PageSection from "../components/common/Layout/PageSection";
-import Container from "../components/common/Layout/Container";
-import UserProfileTabs from "../components/me/UserProfileTabs";
-import UserProfileHeader from "../components/me/UserProfileHeader";
+import SEO from "@/components/SEO";
+import WithAuth from "@/components/hoc/WithAuth";
+import PageSection from "@/components/common/Layout/PageSection";
+import Container from "@/components/common/Layout/Container";
+import UserProfileTabs from "@/components/me/UserProfileTabs";
+import UserProfileHeader from "@/components/me/UserProfileHeader";
 
 const MePage = props => {
   return (
@@ -23,5 +23,5 @@ const MePage = props => {
 export default WithAuth(
   MePage,
   [{ object: "APPLICATION", action: "CREATE" }],
-  "/dashboard"
+  "/admin/dashboard"
 );

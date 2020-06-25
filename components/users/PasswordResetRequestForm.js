@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import InputField from "../common/UI/Input/InputField";
+import InputField from "@/common/UI/Input/InputField";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
-import Button from "../common/UI/Button";
-import Title from "../common/UI/Title";
+import Button from "@/common/UI/Button";
+import Title from "@/common/UI/Title";
 
 const REQUEST_PASSWORD_MUTATION = gql`
   mutation REQUEST_PASSWORD_MUTATION($email: String!) {

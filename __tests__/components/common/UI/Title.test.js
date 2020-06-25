@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Title from "../../../../components/common/UI/Title";
+import Title from "@/components/common/UI/Title";
 import { findByTestAttr } from "../../../../testUtils/testUtils";
 
 const WrapperComponent = Title;

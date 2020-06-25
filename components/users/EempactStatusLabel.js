@@ -2,74 +2,43 @@ import React, { useEffect, useState } from "react";
 import { Icon, Label } from "semantic-ui-react";
 import axios from "axios";
 
-const EempactStatusLabel = ({ email }) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [data, setData] = useState(null);
-  const [label, setLabel] = useState("Loading");
-  useEffect(() => {
-    setLoading(true);
-    setData(null);
-    setError(false);
-    setLabel("Loading");
+const EempactStatusLabel = ({ data }) => {
+  let label = "loading";
 
-    axios({
-      method: "post",
-      url: "https://api.exactstaff.com/status",
-      data: {
-        email
-      }
-    })
-      .then(res => {
-        setLoading(false);
-        setData(res.data);
-      })
-      .catch(e => {
-        setLoading(false);
-        setError(true);
-      });
-  }, [email]);
-
-  useEffect(() => {
-    if (loading) {
-      setLabel("Loading");
-    } else if (data && data.user) {
-      if (data.assignments > 0) {
-        setLabel(
-          <>
-            <Label color="green">
-              <Icon name="thumbs up outline" />
-              eEmpact
-            </Label>
-            <Label color="blue">
-              <Icon name="eye" />
-              Active Assigment
-            </Label>
-          </>
-        );
-      } else {
-        setLabel(
-          <>
-            <Label color="green">
-              <Icon name="thumbs up outline" />
-              eEmpact
-            </Label>
-          </>
-        );
-      }
-    } else if (!data) {
-      setLabel(
-        <Label>
-          <Icon name="hand point right outline" />
-          No eEmpact
-        </Label>
+  if (data && data.id) {
+    if (data.assignments > 0) {
+      label = (
+        <>
+          <Label color="green">
+            <Icon name="thumbs up outline" />
+            eEmpact
+          </Label>
+          <Label color="blue">
+            <Icon name="eye" />
+            Active Assigment
+          </Label>
+        </>
       );
-    } else if (error) {
-      setLabel("Unable to check");
     } else {
-      // console.log("no data");
+      label = (
+        <>
+          <Label color="green">
+            <Icon name="thumbs up outline" />
+            eEmpact
+          </Label>
+        </>
+      );
     }
-  }, [data, loading, error]);
+  } else if (!data.id) {
+    label = (
+      <Label>
+        <Icon name="hand point right outline" />
+        No eEmpact
+      </Label>
+    );
+  } else {
+    label = "Unable to check";
+  }
 
   return <div>{label}</div>;
 };

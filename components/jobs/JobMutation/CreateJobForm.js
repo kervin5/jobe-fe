@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { Mutation } from "react-apollo";
-import ErrorMessage from "../../common/UI/ErrorMessage";
+import ErrorMessage from "@/common/UI/ErrorMessage";
 import gql from "graphql-tag";
 import useForm from "react-hook-form";
 import { Form, Button, Checkbox } from "semantic-ui-react";
 import Router from "next/router";
-import LocationInput from "../../common/UI/Input/CustomSemanticInput/LocationInput";
-import DropdownGraphqlInput from "../../common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
-import RichTextEditor from "../../common/UI/Input/CustomSemanticInput/RichTextEditor";
-import TextArea from "../../common/UI/Input/CustomSemanticInput/TextArea";
-import AuthorDropdown from "../../common/UI/Input/CustomSemanticInput/AuthorDropdown";
-import Title from "../../common/UI/Title";
-import InformationButton from "../../common/UI/InformationButton";
+import LocationInput from "@/common/UI/Input/CustomSemanticInput/LocationInput";
+import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
+import RichTextEditor from "@/common/UI/Input/CustomSemanticInput/RichTextEditor";
+import TextArea from "@/common/UI/Input/CustomSemanticInput/TextArea";
+import AuthorDropdown from "@/common/UI/Input/CustomSemanticInput/AuthorDropdown";
+import Title from "@/common/UI/Title";
+import InformationButton from "@/common/UI/InformationButton";
 
 const CREATE_JOB_MUTATION = gql`
   mutation CREATE_JOB_MUTATION(
@@ -21,6 +21,7 @@ const CREATE_JOB_MUTATION = gql`
     $location: String!
     $categories: [String!]!
     $skills: [String!]!
+    $perks: [String!]
     $type: String!
     $minCompensation: Float!
     $maxCompensation: Float
@@ -35,6 +36,7 @@ const CREATE_JOB_MUTATION = gql`
       location: $location
       categories: $categories
       skills: $skills
+      perks: $perks
       type: $type
       minCompensation: $minCompensation
       maxCompensation: $maxCompensation
@@ -68,7 +70,15 @@ const jobTypeOptions = [
   { key: "perdiem", text: "Per Diem", value: "Per Diem" }
 ];
 
-const FormExampleFieldError = () => {
+const CreateJobForm = () => {
+  const {
+    register,
+    errors,
+    handleSubmit,
+    setValue,
+    triggerValidation
+  } = useForm();
+
   useEffect(() => {
     register({ name: "jobTitle" }, { required: true });
     register({ name: "jobLocation" }, { required: true });
@@ -79,18 +89,11 @@ const FormExampleFieldError = () => {
     register({ name: "jobType" }, { required: true });
     register({ name: "jobSkills" }, { required: true });
     register({ name: "jobAuthor" });
+    register({ name: "jobPerks" });
     register({ name: "jobDescription" }, { required: true });
     register({ name: "jobDisclaimer" });
     register({ name: "jobIsRecurring" });
   }, []);
-
-  const {
-    register,
-    errors,
-    handleSubmit,
-    setValue,
-    triggerValidation
-  } = useForm();
 
   const onSubmit = async (data, createJobMutation, e) => {
     const variables = {
@@ -105,18 +108,22 @@ const FormExampleFieldError = () => {
       compensationType: data.jobCompensationType,
       author: data.jobAuthor,
       disclaimer: data.jobDisclaimer,
-      isRecurring: data.jobIsRecurring
+      isRecurring: data.jobIsRecurring,
+      perks: data.jobPerks
     };
+
     const {
       data: { createJob }
     } = await createJobMutation({ variables });
     if (createJob) {
-      Router.push("/dashboard/jobs/preview/" + createJob.id);
+      Router.push("/admin/dashboard/jobs/preview/" + createJob.id);
+    } else {
+      console.log("Something failed");
     }
   };
 
   const handleInputChange = async (e, data) => {
-    console.log(data);
+    // console.log(data);
     if (data.type === "checkbox") {
       setValue(data.name, data.checked);
     } else {
@@ -202,12 +209,27 @@ const FormExampleFieldError = () => {
                 onChange={handleInputChange}
                 name="jobCategories"
                 label="Job Categories"
-                placeholder="Select a category"
+                placeholder="Select all that apply"
                 multiple
                 graphql={{
-                  query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name_contains: $query}) { id name } }`
+                  query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name: {contains: $query}}) { id name } }`
                 }}
                 error={errors.jobCategories ? true : false}
+              />
+
+              <DropdownGraphqlInput
+                onChange={handleInputChange}
+                name="jobPerks"
+                label="Job Perks"
+                placeholder="Select all that apply"
+                multiple
+                graphql={{
+                  query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
+                }}
+                error={errors.jobPerks ? true : false}
+                allowAdditions
+                additionLabel="Create: "
+                additionWarning="Any new perks will be reviewed and are subject to approval"
               />
               <Form.Select
                 name="jobType"
@@ -225,7 +247,7 @@ const FormExampleFieldError = () => {
                 placeholder="Select at least one skill"
                 multiple
                 graphql={{
-                  query: `query ALL_SKILLS( $query: String! ) { skills(where: {name_contains: $query} orderBy: name_ASC) { id name } }`
+                  query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
                 }}
                 error={errors.jobSkills ? true : false}
               />
@@ -256,7 +278,7 @@ const FormExampleFieldError = () => {
                 <Button
                   type="button"
                   size="big"
-                  onClick={() => Router.push("/dashboard")}
+                  onClick={() => Router.push("/admin/dashboard")}
                 >
                   Cancel
                 </Button>
@@ -272,4 +294,4 @@ const FormExampleFieldError = () => {
   );
 };
 
-export default FormExampleFieldError;
+export default CreateJobForm;

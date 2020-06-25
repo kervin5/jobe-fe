@@ -2,10 +2,10 @@ import React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import JobListing from "./JobListing";
-import Loader from "../../common/UI/Animated/Loader";
+import Loader from "@/common/UI/Animated/Loader";
 
 export const SINGLE_JOB_QUERY = gql`
-  query SINGLE_JOB_QUERY($id: ID!) {
+  query SINGLE_JOB_QUERY($id: String!) {
     job(where: { id: $id }) {
       id
       title
@@ -23,6 +23,11 @@ export const SINGLE_JOB_QUERY = gql`
       }
 
       skills {
+        id
+        name
+      }
+
+      perks(where: { status: ACTIVE }) {
         id
         name
       }
@@ -47,7 +52,23 @@ export const SINGLE_JOB_QUERY = gql`
   }
 `;
 
-const SingleJobListing = ({ jobId, preview }) => {
+const SingleJobListing = ({ jobId, preview, jobData, test }) => {
+  if (jobData)
+    return (
+      <JobListing
+        data={{
+          ...jobData,
+          location: jobData.location.name,
+          aboutCompany:
+            jobData.disclaimer ||
+            jobData.branch.description ||
+            jobData.branch.company.description,
+          company: jobData.branch.company.name
+        }}
+        preview={preview || !(jobData.status === "POSTED")}
+      />
+    );
+
   return (
     <Query query={SINGLE_JOB_QUERY} variables={{ id: jobId }}>
       {({ error, loading, data }) => {
@@ -57,20 +78,18 @@ const SingleJobListing = ({ jobId, preview }) => {
         const singleJob = data.job;
 
         return (
-          <>
-            <JobListing
-              data={{
-                ...singleJob,
-                location: singleJob.location.name,
-                aboutCompany:
-                  singleJob.disclaimer ||
-                  singleJob.branch.description ||
-                  singleJob.branch.company.description,
-                company: singleJob.branch.company.name
-              }}
-              preview={preview || !(singleJob.status === "POSTED")}
-            />
-          </>
+          <JobListing
+            data={{
+              ...singleJob,
+              location: singleJob.location.name,
+              aboutCompany:
+                singleJob.disclaimer ||
+                singleJob.branch.description ||
+                singleJob.branch.company.description,
+              company: singleJob.branch.company.name
+            }}
+            preview={preview || !(singleJob.status === "POSTED")}
+          />
         );
       }}
     </Query>

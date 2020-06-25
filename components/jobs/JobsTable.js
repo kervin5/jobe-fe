@@ -1,34 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Query } from "react-apollo";
-import {
-  Button,
-  Placeholder,
-  Loader,
-  Input,
-  Select,
-  Icon,
-  Label
-} from "semantic-ui-react";
+import { Button, Input, Select, Icon, Label } from "semantic-ui-react";
 import gql from "graphql-tag";
-import { perPage } from "../../config";
-import SortableTable from "../common/UI/SortableTable";
-import DeleteJobButton from "../jobs/JobMutation/DeleteJobButton";
-import variables from "../common/globalVariables";
+import { take } from "@/root/config";
+import Table from "@/common/UI/Table";
+import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";
+import variables from "@/common/globalVariables";
 import moment from "moment";
 
 export const USER_JOBS_QUERY = gql`
   query USER_JOBS_QUERY(
-    $perPage: Int!
+    $take: Int!
     $skip: Int!
     $query: String = ""
     $status: [JobStatus!]
   ) {
     protectedJobs(
-      first: $perPage
+      take: $take
       skip: $skip
-      where: { title_contains: $query, status_in: $status }
-      orderBy: updatedAt_DESC
+      where: { title: { contains: $query }, status: { in: $status } }
     ) {
       id
       title
@@ -61,12 +52,8 @@ export const USER_JOBS_QUERY = gql`
 const USER_JOBS_CONNECTION_QUERY = gql`
   query USER_JOBS_CONNECTION_QUERY($query: String = "", $status: [JobStatus!]) {
     protectedJobsConnection(
-      where: { title_contains: $query, status_in: $status }
-    ) {
-      aggregate {
-        count
-      }
-    }
+      where: { title: { contains: $query }, status: { in: $status } }
+    )
   }
 `;
 
@@ -118,16 +105,6 @@ const JobsTable = props => {
 
   return (
     <>
-      <Input
-        icon="search"
-        placeholder="Search..."
-        onChange={e => handleFieldChange(e)}
-      />
-      <Select
-        options={options}
-        defaultValue="ALL"
-        onChange={(e, data) => handleFieldChange(data, "status")}
-      />
       <Query
         query={USER_JOBS_CONNECTION_QUERY}
         ssr={false}
@@ -135,38 +112,23 @@ const JobsTable = props => {
       >
         {userJobsData => {
           if (userJobsData.error) return <p>Something went wrong...</p>;
-          if (userJobsData.loading) return <Loader />;
-          if (!userJobsData.data) return <p>Please wait</p>;
+
           return (
             <Query
               query={USER_JOBS_QUERY}
               variables={{
-                perPage,
-                skip: (currentPage - 1) * perPage,
+                take,
+                skip: (currentPage - 1) * take,
                 query: searchValue,
                 status
               }}
               ssr={false}
             >
               {({ data, error, loading }) => {
-                if (loading)
-                  return (
-                    <Placeholder fluid>
-                      <Placeholder.Header>
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                      </Placeholder.Header>
-                      <Placeholder.Paragraph>
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                      </Placeholder.Paragraph>
-                    </Placeholder>
-                  );
-                if (error) return <p>Something Failed...</p>;
+                if (loading) if (error) return <p>Something Failed...</p>;
 
                 //Get jobs from branch if user has access
-                const dataForTable = data.protectedJobs.map(job => {
+                const dataForTable = data?.protectedJobs.map(job => {
                   // job.recurring  = !!job.cronTask;
                   // delete job.cronTask;
                   return {
@@ -180,14 +142,37 @@ const JobsTable = props => {
                 });
 
                 const jobsCount =
-                  userJobsData.data.protectedJobsConnection.aggregate.count;
+                  userJobsData?.data?.protectedJobsConnection || 0;
                 return (
                   <>
-                    <SortableTable
+                    <Table
+                      toolbar={
+                        <>
+                          <div>
+                            <Input
+                              icon="search"
+                              placeholder="Search..."
+                              onChange={e => handleFieldChange(e)}
+                            />
+                            <Select
+                              options={options}
+                              defaultValue="ALL"
+                              onChange={(e, data) =>
+                                handleFieldChange(data, "status")
+                              }
+                            />
+                          </div>
+                          <Link href="/admin/dashboard/jobs/new" passHref>
+                            <Button positive as="a">
+                              Add New Job
+                            </Button>
+                          </Link>
+                        </>
+                      }
                       page={currentPage}
                       loading={loading}
                       count={jobsCount}
-                      perPage={perPage}
+                      take={take}
                       turnPageHandler={handleTurnPage}
                       data={injectActionsColumn(dataForTable)}
                       exclude={["updatedAt", "cronTask"]}
@@ -204,6 +189,7 @@ const JobsTable = props => {
 };
 
 const injectActionsColumn = data => {
+  if (!data) return null;
   return data.map(record => {
     const activeApplications = record.applications.filter(
       application => !["HIRED", "ARCHIVED"].includes(application.status)
@@ -229,8 +215,8 @@ const injectActionsColumn = data => {
       applications:
         record.applications.length > 0 ? (
           <Link
-            href={"/dashboard/applications/job/[jid]"}
-            as={"/dashboard/applications/job/" + record.id}
+            href={"/admin/dashboard/applications/job/[jid]"}
+            as={"/admin/dashboard/applications/job/" + record.id}
           >
             <a>
               {activeApplications.length > 0 ? (
@@ -264,14 +250,14 @@ const injectActionsColumn = data => {
             />
           </Link>
           <Link
-            href="/dashboard/jobs/edit/[jid]"
-            as={`/dashboard/jobs/edit/${record.id}`}
+            href="/admin/dashboard/jobs/edit/[jid]"
+            as={`/admin/dashboard/jobs/edit/${record.id}`}
           >
             <Button
               as="a"
               icon="edit"
               color="yellow"
-              href={`/dashboard/jobs/edit/${record.id}`}
+              href={`/admin/dashboard/jobs/edit/${record.id}`}
             />
           </Link>
           <DeleteJobButton
@@ -280,7 +266,7 @@ const injectActionsColumn = data => {
               { query: USER_JOBS_CONNECTION_QUERY, variables: { query: " " } },
               {
                 query: USER_JOBS_CONNECTION_QUERY,
-                variables: { perPage, skip: 0, query: " " }
+                variables: { take, skip: 0, query: " " }
               }
             ]}
           />
@@ -293,8 +279,8 @@ const injectActionsColumn = data => {
 const getPreviewLink = job => {
   if (job.status !== "POSTED") {
     return {
-      href: "/dashboard/jobs/preview/[jid]",
-      as: `/dashboard/jobs/preview/${job.id}`
+      href: "/admin/dashboard/jobs/preview/[jid]",
+      as: `/admin/dashboard/jobs/preview/${job.id}`
     };
   } else {
     return { href: "/jobs/[jid]", as: `/jobs/${job.id}` };

@@ -1,8 +1,17 @@
-import React, { useState, useEffect } from "react";
-import SideDrawer from "../../common/UI/Navigation/SideDrawer";
-import Form from "../../common/UI/Form";
-import Title from "../../common/UI/Title";
-import { ALL_CATEGORIES_QUERY } from "../../jobs/JobMutation/JobMutationBaseForm";
+import React from "react";
+import SideDrawer from "@/common/UI/Navigation/SideDrawer";
+import Form from "@/common/UI/Form";
+import Title from "@/common/UI/Title";
+import gql from "graphql-tag";
+
+export const ALL_CATEGORIES_QUERY = gql`
+  query ALL_CATEGORIES_QUERY {
+    categories {
+      id
+      name
+    }
+  }
+`;
 
 const SearchFilters = props => {
   const fields = {
