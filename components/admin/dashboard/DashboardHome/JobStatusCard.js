@@ -16,13 +16,14 @@ const JobStatusCard = props => {
     >
       {({ error, loading, data }) => {
         if (error) return <p>Something went wrong...</p>;
-        if (loading) return <p>Loading...</p>;
+        // if (loading) return <p>Loading...</p>;
         return (
           <CounterCard
             label={props.label}
-            value={data.protectedJobsConnection}
+            value={data?.protectedJobsConnection}
             color={props.color}
             icon={props.icon}
+            loading={loading}
           />
         );
       }}

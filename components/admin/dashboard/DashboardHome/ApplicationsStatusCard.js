@@ -20,13 +20,14 @@ const ApplicationsStatusCard = props => {
     <Query query={APPLICATION_STATUS_QUERY}>
       {({ error, loading, data }) => {
         if (error) return <p>Something went wrong...</p>;
-        if (loading) return <p>Loading...</p>;
+        // if (loading) return <p>Loading...</p>;
         return (
           <CounterCard
             label="Apps"
-            value={data.applicationsConnection}
+            value={data?.applicationsConnection}
             color={props.color}
             icon={props.icon}
+            loading={loading}
           />
         );
       }}

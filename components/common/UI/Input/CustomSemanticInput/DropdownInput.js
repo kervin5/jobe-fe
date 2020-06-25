@@ -16,7 +16,8 @@ const LocationInput = ({
   allowAdditions,
   additionWarning,
   additionLabel,
-  nolabel
+  nolabel,
+  minWidth
 }) => {
   const [customOptions, setCustomOptions] = useState([]);
   const handleAddition = (e, { value }) => {
@@ -55,6 +56,10 @@ const LocationInput = ({
       )}
       <style jsx global>
         {`
+          .DropdownInput {
+            min-width: ${minWidth ?? "auto"};
+          }
+
           .DropdownInput--additions .ui.label:not([value^="c"]) {
             background-color: #fff8db;
           }

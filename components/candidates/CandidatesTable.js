@@ -161,6 +161,7 @@ const Candidates = props => {
                         placeholder="Filter by skills"
                         multiple
                         nolabel
+                        minWidth={"150px"}
                         graphql={{
                           query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
                         }}
