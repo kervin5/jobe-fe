@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { ThemeProvider } from "styled-components";
+import theme from "@/common/globalVariables";
 // import App from "next/app";
 
 import { ApolloProvider } from "react-apollo";
@@ -19,9 +21,11 @@ export default function App({ Component, pageProps }) {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <Page>
-        <Component {...pageProps} />
-      </Page>
+      <ThemeProvider theme={theme}>
+        <Page>
+          <Component {...pageProps} />
+        </Page>
+      </ThemeProvider>
     </ApolloProvider>
   );
 }
