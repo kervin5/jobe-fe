@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
 import EditJobForm from "@/components/jobs/JobMutation/EditJobForm";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
-import { getJobsFromAPI } from "@/lib/backend";
+// import { getJobsFromAPI } from "@/lib/backend";
 
 const DashboardEditJobPage = props => {
   const router = useRouter();

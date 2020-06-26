@@ -99,6 +99,7 @@ const Candidates = props => {
 
               data?.candidates.forEach(candidate => {
                 const hasResume = candidate.resumes.length > 0;
+                const resumeSkills = candidate.resumes[0].skills.slice(0, 5);
 
                 return candidates.push({
                   name: candidate.name,
@@ -124,13 +125,13 @@ const Candidates = props => {
                       Download Resume
                     </Button>
                   ),
-                  skills:
-                    !!skills.length &&
-                    candidate.resumes[0].skills
-                      .filter(skill => skills.includes(skill.id))
-                      .map(skill => (
-                        <Label content={skill.name} color="blue" />
-                      )),
+                  skills: resumeSkills.map(skill => (
+                    <Label
+                      content={skill.name}
+                      color="blue"
+                      key={`SkillTag${skill.name + new Date()}`}
+                    />
+                  )),
                   eEmpact: <EempactStatusLabel data={candidate.eEmpact} />
                 });
               });
