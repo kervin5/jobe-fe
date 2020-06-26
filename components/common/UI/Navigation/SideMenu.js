@@ -25,7 +25,7 @@ const sideMenu = props => {
 
         <Dropdown item text="Dictionary">
           <Dropdown.Menu>
-            <Link href={`/admin/settings/dictionary/perks`} passHref>
+            <Link href={`/admin/perks`} passHref>
               <Dropdown.Item icon="edit" text="Perks" as="a" />
             </Link>
             {/* <Dropdown.Item icon="globe" text="Choose Language" />

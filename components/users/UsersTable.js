@@ -116,7 +116,7 @@ const UsersTable = props => {
                         placeholder="Search..."
                         onChange={inputChangeHandler}
                       />
-                      <Link href="/admin/dashboard/users/new" passHref>
+                      <Link href="/admin/users/new" passHref>
                         <Button positive as="a">
                           Add User
                         </Button>

@@ -98,11 +98,7 @@ const PerksTable = props => {
                           placeholder="Search..."
                           onChange={inputChangeHandler}
                         />
-                        <Button
-                          onClick={() =>
-                            Router.push("/admin/dashboard/users/new")
-                          }
-                        >
+                        <Button onClick={() => Router.push("/admin/users/new")}>
                           Add Perk
                         </Button>
                       </>

@@ -162,7 +162,7 @@ const JobsTable = props => {
                               }
                             />
                           </div>
-                          <Link href="/admin/dashboard/jobs/new" passHref>
+                          <Link href="/admin/jobs/new" passHref>
                             <Button positive as="a">
                               Add New Job
                             </Button>
@@ -215,8 +215,8 @@ const injectActionsColumn = data => {
       applications:
         record.applications.length > 0 ? (
           <Link
-            href={"/admin/dashboard/applications/job/[jid]"}
-            as={"/admin/dashboard/applications/job/" + record.id}
+            href={"/admin/applications/job/[jid]"}
+            as={"/admin/applications/job/" + record.id}
           >
             <a>
               {activeApplications.length > 0 ? (
@@ -250,14 +250,14 @@ const injectActionsColumn = data => {
             />
           </Link>
           <Link
-            href="/admin/dashboard/jobs/edit/[jid]"
-            as={`/admin/dashboard/jobs/edit/${record.id}`}
+            href="/admin/jobs/edit/[jid]"
+            as={`/admin/jobs/edit/${record.id}`}
           >
             <Button
               as="a"
               icon="edit"
               color="yellow"
-              href={`/admin/dashboard/jobs/edit/${record.id}`}
+              href={`/admin/jobs/edit/${record.id}`}
             />
           </Link>
           <DeleteJobButton
@@ -279,8 +279,8 @@ const injectActionsColumn = data => {
 const getPreviewLink = job => {
   if (job.status !== "POSTED") {
     return {
-      href: "/admin/dashboard/jobs/preview/[jid]",
-      as: `/admin/dashboard/jobs/preview/${job.id}`
+      href: "/admin/jobs/preview/[jid]",
+      as: `/admin/jobs/preview/${job.id}`
     };
   } else {
     return { href: "/jobs/[jid]", as: `/jobs/${job.id}` };
