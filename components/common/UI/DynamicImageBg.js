@@ -2,6 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import variables from "@/common/globalVariables";
+import { basePath } from "@/root/config";
 
 const GET_IMAGE_QUERY = gql`
   query GET_IMAGE_QUERY($query: String!) {
