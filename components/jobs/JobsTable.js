@@ -215,8 +215,8 @@ const injectActionsColumn = data => {
       applications:
         record.applications.length > 0 ? (
           <Link
-            href={"/admin/applications/job/[jid]"}
-            as={"/admin/applications/job/" + record.id}
+            href={"/admin/jobs/[jid]/applications"}
+            as={"/admin/jobs/" + record.id + "/applications"}
           >
             <a>
               {activeApplications.length > 0 ? (
@@ -250,14 +250,14 @@ const injectActionsColumn = data => {
             />
           </Link>
           <Link
-            href="/admin/jobs/edit/[jid]"
-            as={`/admin/jobs/edit/${record.id}`}
+            href="/admin/jobs/[jid]/edit"
+            as={`/admin/jobs/${record.id}/edit`}
           >
             <Button
               as="a"
               icon="edit"
               color="yellow"
-              href={`/admin/jobs/edit/${record.id}`}
+              href={`/admin/jobs/${record.id}/edit`}
             />
           </Link>
           <DeleteJobButton
@@ -279,8 +279,8 @@ const injectActionsColumn = data => {
 const getPreviewLink = job => {
   if (job.status !== "POSTED") {
     return {
-      href: "/admin/jobs/preview/[jid]",
-      as: `/admin/jobs/preview/${job.id}`
+      href: "/admin/jobs/[jid]/preview",
+      as: `/admin/jobs/${job.id}/preview`
     };
   } else {
     return { href: "/jobs/[jid]", as: `/jobs/${job.id}` };

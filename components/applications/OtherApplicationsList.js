@@ -7,11 +7,16 @@ import Link from "next/link";
 
 const APPLICANT_OTHER_JOBS_APPLICATIONS_QUERY = gql`
   query APPLICANT_OTHER_JOBS_APPLICATIONS_QUERY(
-    $userId: ID!
-    $applicationId: ID!
+    $userId: String!
+    $applicationId: String!
   ) {
     applications(
-      where: { AND: [{ user: { id: $userId } }, { id_not: $applicationId }] }
+      where: {
+        AND: [
+          { user: { id: { equals: $userId } } }
+          { id: { not: $applicationId } }
+        ]
+      }
     ) {
       id
       user {

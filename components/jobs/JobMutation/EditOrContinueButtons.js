@@ -10,7 +10,7 @@ function EditOrContinueButtons({ jobId }) {
       <Button
         icon
         labelPosition="left"
-        onClick={() => Router.push(`/admin/jobs/edit/${jobId}`)}
+        onClick={() => Router.push(`/admin/jobs/${jobId}/edit`)}
       >
         <Icon name="pencil" />
         Edit

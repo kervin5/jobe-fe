@@ -23,9 +23,9 @@ const sideMenu = props => {
           );
         })}
 
-        <Dropdown item text="Dictionary">
+        <Dropdown item text="Definitions">
           <Dropdown.Menu>
-            <Link href={`/admin/perks`} passHref>
+            <Link href={`/admin/definitions/perks`} passHref>
               <Dropdown.Item icon="edit" text="Perks" as="a" />
             </Link>
             {/* <Dropdown.Item icon="globe" text="Choose Language" />
