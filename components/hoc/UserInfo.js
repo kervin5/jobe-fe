@@ -1,5 +1,5 @@
 import React from "react";
-import { Query } from "react-apollo";
+import { Query } from "@apollo/react-components";
 import { ME_USER_QUERY } from "@/lib/auth";
 
 const UserInfo = ({ children }) => {

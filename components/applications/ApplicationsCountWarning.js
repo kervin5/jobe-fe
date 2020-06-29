@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Message } from "semantic-ui-react";
-import { Query } from "react-apollo";
+import { Query } from "@apollo/react-components";
 import { APPLICATION_STATUS_QUERY } from "@/admin/dashboard/DashboardHome/ApplicationsStatusCard";
 
 const ApplicationsCountWarning = () => {

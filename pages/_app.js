@@ -3,7 +3,7 @@ import { ThemeProvider } from "styled-components";
 import theme from "@/common/globalVariables";
 // import App from "next/app";
 
-import { ApolloProvider } from "react-apollo";
+import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "@/lib/apolloClient";
 import { initMatomo } from "@/lib/matomo";
 import Page from "@/components/Page";

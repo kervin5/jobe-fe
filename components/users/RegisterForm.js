@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Mutation } from "react-apollo";
+import { Mutation } from "@apollo/react-components";
 import Router from "next/router";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 import InputField from "@/common/UI/Input/InputField";
 import Button from "@/common/UI/Button";
 import ErrorMessage from "@/common/UI/ErrorMessage";

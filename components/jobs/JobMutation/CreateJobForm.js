@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Mutation } from "react-apollo";
+import { Mutation } from "@apollo/react-components";
 import ErrorMessage from "@/common/UI/ErrorMessage";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 import useForm from "react-hook-form";
 import { Form, Button, Checkbox } from "semantic-ui-react";
 import Router from "next/router";

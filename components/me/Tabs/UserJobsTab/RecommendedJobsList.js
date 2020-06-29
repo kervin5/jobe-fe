@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Query } from "react-apollo";
+import { Query } from "@apollo/react-components";
 import Jobs from "@/components/jobs/JobsCards";
 import Title from "@/common/UI/Title";
 import UserLocator from "@/root/data/UserLocator";

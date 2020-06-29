@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Query } from "react-apollo";
+import { Query } from "@apollo/react-components";
 import { Button, Input, Select, Icon, Label } from "semantic-ui-react";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 import { take } from "@/root/config";
 import Table from "@/common/UI/Table";
 import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";

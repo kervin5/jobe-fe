@@ -2,7 +2,7 @@ import React from "react";
 import ApplicationNotesArea from "./ApplicationNotesArea";
 import ApplicantInformation from "./ApplicantInformation";
 import { Loader, Tab } from "semantic-ui-react";
-import { Query } from "react-apollo";
+import { Query } from "@apollo/react-components";
 import variables from "@/common/globalVariables";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
 import OtherApplicationsList from "./OtherApplicationsList";

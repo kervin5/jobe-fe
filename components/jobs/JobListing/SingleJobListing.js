@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useMutation } from "@apollo/react-hooks";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import { useMutation } from "@apollo/client";
+import { Query } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import JobListing from "./JobListing";
 import Loader from "@/common/UI/Animated/Loader";
 

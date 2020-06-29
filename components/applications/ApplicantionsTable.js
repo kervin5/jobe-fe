@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import { Query } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import Link from "next/link";
 import { Dropdown, Input, Button } from "semantic-ui-react";
 import moment from "moment";
