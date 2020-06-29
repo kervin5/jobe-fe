@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useMutation } from "@apollo/react-hooks";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import JobListing from "./JobListing";
@@ -52,7 +53,24 @@ export const SINGLE_JOB_QUERY = gql`
   }
 `;
 
-const SingleJobListing = ({ jobId, preview, jobData, test }) => {
+const INCREMENT_JOB_VIEW_COUNT_MUTATION = gql`
+  mutation INCREMENT_JOB_VIEW_COUNT_MUTATION(id: String!) {
+    id
+    views
+  }
+`;
+
+const SingleJobListing = ({ jobId, preview, jobData, countView }) => {
+  const [incrementJobView, { data }] = useMutation(
+    INCREMENT_JOB_VIEW_COUNT_MUTATION
+  );
+  useEffect(() => {
+    if (countView && !preview) {
+      incrementJobView()
+        .then(console.log)
+        .catch(console.log);
+    }
+  }, []);
   if (jobData)
     return (
       <JobListing
