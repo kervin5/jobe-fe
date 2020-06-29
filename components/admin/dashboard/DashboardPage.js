@@ -13,22 +13,22 @@ const dashboardPage = props => {
     },
     Applications: {
       label: "Applications",
-      path: "/admin/dashboard/applications",
+      path: "/admin/applications",
       icon: "copy outline"
     },
     Jobs: {
       label: "Jobs",
-      path: "/admin/dashboard/jobs",
+      path: "/admin/jobs",
       icon: "briefcase"
     },
     Candidates: {
       label: "Candidates",
-      path: "/admin/dashboard/candidates",
+      path: "/admin/candidates",
       icon: "users"
     },
     Users: {
       label: "Users",
-      path: "/admin/dashboard/users",
+      path: "/admin/users",
       icon: "user",
       permissions: [{ action: "READ", object: "USER" }]
     }

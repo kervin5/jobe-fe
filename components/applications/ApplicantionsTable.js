@@ -269,9 +269,7 @@ const ApplicantTable = props => {
                         color="green"
                         onClick={e => {
                           e.preventDefault();
-                          window.open(
-                            "/admin/dashboard/applications/" + application.id
-                          );
+                          window.open("/admin/applications/" + application.id);
                         }}
                       />
                     )

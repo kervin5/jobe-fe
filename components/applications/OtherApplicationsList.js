@@ -7,11 +7,16 @@ import Link from "next/link";
 
 const APPLICANT_OTHER_JOBS_APPLICATIONS_QUERY = gql`
   query APPLICANT_OTHER_JOBS_APPLICATIONS_QUERY(
-    $userId: ID!
-    $applicationId: ID!
+    $userId: String!
+    $applicationId: String!
   ) {
     applications(
-      where: { AND: [{ user: { id: $userId } }, { id_not: $applicationId }] }
+      where: {
+        AND: [
+          { user: { id: { equals: $userId } } }
+          { id: { not: $applicationId } }
+        ]
+      }
     ) {
       id
       user {
@@ -51,8 +56,8 @@ const OtherApplicationsList = ({ userId, applicationId }) => {
           image: "/images/avatar.PNG",
           summary: (
             <Link
-              href={"/admin/dashboard/applications/[aid]"}
-              as={"/admin/dashboard/applications/" + feedItem.id}
+              href={"/admin/applications/[aid]"}
+              as={"/admin/applications/" + feedItem.id}
             >
               <a>{feedItem.job.title}</a>
             </Link>

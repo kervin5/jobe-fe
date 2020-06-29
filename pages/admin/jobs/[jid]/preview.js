@@ -1,22 +1,22 @@
 import { useRouter } from "next/router";
-import ApplicantsTable from "@/components/applications/ApplicantionsTable";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
+import JobPreview from "@/components/jobs/JobMutation/JobPreview";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 
-const dashboardApplicationsPerJobPage = props => {
+const SingleJobView = props => {
   const router = useRouter();
   const { jid } = router.query;
 
   return (
     <RenderIfLoggedIn
-      permissions={[{ object: "APPLICATION", action: "READ" }]}
+      permissions={[{ object: "JOB", action: "CREATE" }]}
       redirect
     >
-      <DashboardPage maxwidth="1600px">
-        <ApplicantsTable jobId={jid} />
+      <DashboardPage title="Job Preview">
+        <JobPreview jobId={jid} maxWidth="800px" />
       </DashboardPage>
     </RenderIfLoggedIn>
   );
-};
+}; //eof
 
-export default dashboardApplicationsPerJobPage;
+export default SingleJobView;
