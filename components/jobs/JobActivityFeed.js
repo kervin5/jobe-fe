@@ -76,7 +76,7 @@ function formatEvents(data) {
         <p>
           {application.user.name}{" "}
           <Link
-            href={"/admin/applications/"}
+            href={"/admin/applications/[aid]"}
             as={"/admin/applications/" + application.id}
           >
             <a>applied</a>
