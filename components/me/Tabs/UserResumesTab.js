@@ -1,6 +1,6 @@
 import React from "react";
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import { gql } from "@apollo/client";
+import { Query } from "@apollo/react-components";
 import Title from "@/common/UI/Title";
 import ResumeUploadButton from "@/common/UI/ResumeUploadButton";
 import ResumeList from "@/common/UI/ResumeList";

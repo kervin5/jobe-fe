@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@/common/*": ["components/common/*"],
+      "@/graphql/*": ["graphql/*"],
       "@/components/*": ["components/*"],
       "@/admin/*": ["components/admin/*"],
       "@/context/*": ["context/*"],

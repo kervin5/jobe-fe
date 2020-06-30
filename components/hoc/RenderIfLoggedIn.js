@@ -1,6 +1,6 @@
 import React from "react";
 import Router from "next/router";
-import { Query } from "react-apollo";
+import { Query } from "@apollo/react-components";
 import { Loader } from "semantic-ui-react";
 import { ME_USER_QUERY, userHasAccess } from "@/lib/auth";
 

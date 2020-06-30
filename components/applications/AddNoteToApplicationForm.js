@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import useForm from "react-hook-form";
 import { Form, Button } from "semantic-ui-react";
-import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
+import { gql } from "@apollo/client";
+import { Mutation } from "@apollo/react-components";
 import { APPLICATION_NOTES_QUERY } from "./ApplicationHistoryFeed";
 
 const CREACTE_APPLICATION_NOTE_MUTATION = gql`

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
+import { Mutation } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import { Button, Modal, Icon } from "semantic-ui-react";
 
 const ACTIVATE_USER_MUTATION = gql`

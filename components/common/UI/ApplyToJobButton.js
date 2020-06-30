@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Mutation, Query } from "react-apollo";
-import gql from "graphql-tag";
+import { Mutation, Query } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import { Loader } from "semantic-ui-react";
 import RegisterToApplyButton from "./RegisterToApplyButton";
 import Button from "./Button";

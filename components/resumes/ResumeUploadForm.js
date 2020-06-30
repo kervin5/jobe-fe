@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
+import { Mutation } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import variables from "@/common/globalVariables";
 import Button from "@/common/UI/Button";
 import ButtonGroup from "@/common/UI/ButtonGroup";

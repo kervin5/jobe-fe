@@ -1,58 +1,22 @@
-import React from "react";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import React, { useEffect } from "react";
+import { useMutation } from "@apollo/client";
+import { Query } from "@apollo/react-components";
 import JobListing from "./JobListing";
 import Loader from "@/common/UI/Animated/Loader";
+import { SINGLE_JOB_QUERY } from "@/graphql/queries/jobs";
+import { INCREMENT_JOB_VIEW_COUNT_MUTATION } from "@/graphql/mutations/jobs";
 
-export const SINGLE_JOB_QUERY = gql`
-  query SINGLE_JOB_QUERY($id: String!) {
-    job(where: { id: $id }) {
-      id
-      title
-      description
-      disclaimer
-      minCompensation
-      maxCompensation
-      type
-      status
-      createdAt
-      updatedAt
-      categories {
-        id
-        name
-      }
-
-      skills {
-        id
-        name
-      }
-
-      perks(where: { status: ACTIVE }) {
-        id
-        name
-      }
-
-      location {
-        id
-        name
-        latitude
-        longitude
-      }
-      branch {
-        id
-        name
-        description
-        company {
-          id
-          name
-          description
-        }
-      }
+const SingleJobListing = ({ jobId, preview, jobData, countView }) => {
+  const [incrementJobView, { data }] = useMutation(
+    INCREMENT_JOB_VIEW_COUNT_MUTATION
+  );
+  useEffect(() => {
+    if (countView && !preview) {
+      incrementJobView({ variables: { id: jobId } })
+        .then(console.log)
+        .catch(console.log);
     }
-  }
-`;
-
-const SingleJobListing = ({ jobId, preview, jobData, test }) => {
+  }, []);
   if (jobData)
     return (
       <JobListing

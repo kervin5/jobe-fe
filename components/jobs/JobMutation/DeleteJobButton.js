@@ -1,7 +1,7 @@
 import React from "react";
-import { Mutation } from "react-apollo";
+import { Mutation } from "@apollo/react-components";
 import { Button, Placeholder, Loader, Input } from "semantic-ui-react";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 const DELETE_JOB_MUTATION = gql`
   mutation DELETE_JOB_MUTATION($jobId: ID!) {

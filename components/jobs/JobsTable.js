@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Query } from "react-apollo";
+import { Query } from "@apollo/react-components";
 import { Button, Input, Select, Icon, Label } from "semantic-ui-react";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 import { take } from "@/root/config";
 import Table from "@/common/UI/Table";
 import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";
@@ -277,14 +277,14 @@ const injectActionsColumn = data => {
 };
 
 const getPreviewLink = job => {
-  if (job.status !== "POSTED") {
-    return {
-      href: "/admin/jobs/[jid]/preview",
-      as: `/admin/jobs/${job.id}/preview`
-    };
-  } else {
-    return { href: "/jobs/[jid]", as: `/jobs/${job.id}` };
-  }
+  // if (job.status !== "POSTED") {
+  //   return {
+  //     href: "/admin/jobs/[jid]",
+  //     as: `/admin/jobs/${job.id}/preview`
+  //   };
+  // } else {
+  return { href: "/admin/jobs/[jid]", as: `/admin/jobs/${job.id}` };
+  // }
 };
 
 export default JobsTable;

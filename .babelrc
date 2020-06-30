@@ -5,7 +5,8 @@
       "styled-components",
       {
         "displayName": true,
-        "preprocess": false
+        // "preprocess": true,
+        "ssr": true
       }
     ]
   ]

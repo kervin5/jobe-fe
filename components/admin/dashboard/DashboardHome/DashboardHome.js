@@ -1,5 +1,5 @@
 import React from "react";
-import JobsInformationSection from "./JobsInformationSection";
+import JobsInformationSection from "./JobsStatsCards";
 import ApplicationsCountWarning from "@/components/applications/ApplicationsCountWarning";
 import JobsTable from "@/components/jobs/JobsTable";
 

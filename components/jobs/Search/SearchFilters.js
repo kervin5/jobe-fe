@@ -2,7 +2,7 @@ import React from "react";
 import SideDrawer from "@/common/UI/Navigation/SideDrawer";
 import Form from "@/common/UI/Form";
 import Title from "@/common/UI/Title";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const ALL_CATEGORIES_QUERY = gql`
   query ALL_CATEGORIES_QUERY {

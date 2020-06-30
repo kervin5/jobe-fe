@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 import { Menu, Icon, Dropdown } from "semantic-ui-react";
+import styled from "styled-components";
 import Link from "next/link";
+
+const StyledSideMenu = styled.div`
+  &.SideMenu {
+    z-index: 999;
+    position: fixed;
+    left: ${props => (props.open ? 0 : "-300px")};
+    bottom: 0%;
+    top: 60px;
+    transition: 300ms;
+
+    & > .menu {
+      height: 100%;
+    }
+  }
+`;
 
 const sideMenu = props => {
   return (
-    <div className="Sidebar">
+    <StyledSideMenu className="SideMenu" open={props.open}>
       <Menu vertical>
         {props.options.map((option, index) => {
           return (
@@ -33,26 +49,7 @@ const sideMenu = props => {
           </Dropdown.Menu>
         </Dropdown>
       </Menu>
-      <style jsx>{`
-        .Sidebar {
-          z-index: 999;
-          padding-top: 10px;
-          align-self: stretch;
-        }
-
-        .Sidebar :global(> .menu) {
-          height: 100%;
-          border-radius: 0;
-        }
-
-        @media (max-width: 900px) {
-          .Sidebar {
-            padding-top: 0px;
-            width: 60px;
-          }
-        }
-      `}</style>
-    </div>
+    </StyledSideMenu>
   );
 };
 
