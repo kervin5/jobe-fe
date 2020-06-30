@@ -10,7 +10,7 @@ import Page from "@/components/Page";
 import "semantic-ui-css/semantic.min.css";
 import "./app.css";
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps, router }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
   useEffect(() => {
     initMatomo({
@@ -19,13 +19,19 @@ export default function App({ Component, pageProps }) {
     });
   }, []);
 
+  const isAdminLayout = isAdminPage(router.pathname);
+
   return (
     <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={theme}>
-        <Page>
+        <Page admin={isAdminLayout}>
           <Component {...pageProps} />
         </Page>
       </ThemeProvider>
     </ApolloProvider>
   );
+}
+
+function isAdminPage(route) {
+  return route.startsWith("/admin");
 }

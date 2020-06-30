@@ -277,14 +277,14 @@ const injectActionsColumn = data => {
 };
 
 const getPreviewLink = job => {
-  if (job.status !== "POSTED") {
-    return {
-      href: "/admin/jobs/[jid]/preview",
-      as: `/admin/jobs/${job.id}/preview`
-    };
-  } else {
-    return { href: "/jobs/[jid]", as: `/jobs/${job.id}` };
-  }
+  // if (job.status !== "POSTED") {
+  //   return {
+  //     href: "/admin/jobs/[jid]",
+  //     as: `/admin/jobs/${job.id}/preview`
+  //   };
+  // } else {
+  return { href: "/admin/jobs/[jid]", as: `/admin/jobs/${job.id}` };
+  // }
 };
 
 export default JobsTable;

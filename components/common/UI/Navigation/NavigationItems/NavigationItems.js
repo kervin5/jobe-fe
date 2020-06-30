@@ -5,7 +5,7 @@ import NavigationItemUserMenu from "./NavigationItemUserMenu";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 import RenderIfLoggedOut from "@/components/hoc/RenderIfLoggedOut";
 
-import HamburgerMenu from "../HamburgerMenu";
+import HamburgerMenu from "@/common/UI/Navigation/HamburgerMenu";
 import variables from "@/common/globalVariables";
 
 const navigationItems = () => {

@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import { take } from "@/root/config";

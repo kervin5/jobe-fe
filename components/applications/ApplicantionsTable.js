@@ -263,15 +263,13 @@ const ApplicantTable = props => {
                       <EempactStatusLabel data={application.user.eEmpact} />
                     ),
                     actions: (
-                      <Button
-                        as="a"
-                        icon="eye"
-                        color="green"
-                        onClick={e => {
-                          e.preventDefault();
-                          window.open("/admin/applications/" + application.id);
-                        }}
-                      />
+                      <Link
+                        href={"/admin/applications/"}
+                        as={"/admin/applications/" + application.id}
+                        passHref
+                      >
+                        <Button as="a" icon="eye" color="green" />
+                      </Link>
                     )
                   });
                 });

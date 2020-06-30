@@ -1,64 +1,10 @@
 import React, { useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { Query } from "@apollo/react-components";
-import { gql } from "@apollo/client";
 import JobListing from "./JobListing";
 import Loader from "@/common/UI/Animated/Loader";
-
-export const SINGLE_JOB_QUERY = gql`
-  query SINGLE_JOB_QUERY($id: String!) {
-    job(where: { id: $id }) {
-      id
-      title
-      description
-      disclaimer
-      minCompensation
-      maxCompensation
-      type
-      status
-      createdAt
-      updatedAt
-      categories {
-        id
-        name
-      }
-
-      skills {
-        id
-        name
-      }
-
-      perks(where: { status: ACTIVE }) {
-        id
-        name
-      }
-
-      location {
-        id
-        name
-        latitude
-        longitude
-      }
-      branch {
-        id
-        name
-        description
-        company {
-          id
-          name
-          description
-        }
-      }
-    }
-  }
-`;
-
-const INCREMENT_JOB_VIEW_COUNT_MUTATION = gql`
-  mutation INCREMENT_JOB_VIEW_COUNT_MUTATION(id: String!) {
-    id
-    views
-  }
-`;
+import { SINGLE_JOB_QUERY } from "@/graphql/queries/jobs";
+import { INCREMENT_JOB_VIEW_COUNT_MUTATION } from "@/graphql/mutations/jobs";
 
 const SingleJobListing = ({ jobId, preview, jobData, countView }) => {
   const [incrementJobView, { data }] = useMutation(
@@ -66,7 +12,7 @@ const SingleJobListing = ({ jobId, preview, jobData, countView }) => {
   );
   useEffect(() => {
     if (countView && !preview) {
-      incrementJobView()
+      incrementJobView({ variables: { id: jobId } })
         .then(console.log)
         .catch(console.log);
     }
