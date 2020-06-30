@@ -30,11 +30,13 @@ const StyledNavigationBar = styled.nav`
 const NavigationBar = ({ leftHamburgerClickHandler }) => {
   return (
     <StyledNavigationBar className="NavigationBar">
-      <HamburgerMenu
-        position="static"
-        visible
-        onClick={leftHamburgerClickHandler}
-      />
+      {leftHamburgerClickHandler && (
+        <HamburgerMenu
+          position="static"
+          visible
+          onClick={leftHamburgerClickHandler}
+        />
+      )}
       <div className="CompanyLogo">
         <Link href="/">
           <a>
