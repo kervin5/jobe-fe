@@ -264,7 +264,7 @@ const ApplicantTable = props => {
                     ),
                     actions: (
                       <Link
-                        href={"/admin/applications/"}
+                        href={"/admin/applications/[aid]"}
                         as={"/admin/applications/" + application.id}
                         passHref
                       >
