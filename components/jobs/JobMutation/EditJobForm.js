@@ -175,7 +175,7 @@ const EditJobForm = ({ data, jobId }) => {
     } = await updateJobMutation({ variables: { ...variables, jobId } });
 
     if (updateJob) {
-      Router.push("/admin/jobs/" + updateJob.id + "/preview");
+      Router.push("/admin/jobs/" + updateJob.id);
     }
   };
 

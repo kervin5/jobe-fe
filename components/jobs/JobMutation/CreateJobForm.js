@@ -116,7 +116,7 @@ const CreateJobForm = () => {
       data: { createJob }
     } = await createJobMutation({ variables });
     if (createJob) {
-      Router.push("/admin/jobs/" + createJob.id + "/preview");
+      Router.push("/admin/jobs/" + createJob.id);
     } else {
       console.log("Something failed");
     }
