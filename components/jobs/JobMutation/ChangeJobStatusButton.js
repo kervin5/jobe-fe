@@ -1,5 +1,6 @@
 import React from "react";
 import { Mutation } from "@apollo/react-components";
+
 import { Button, Icon } from "semantic-ui-react";
 import Router from "next/router";
 import { gql } from "@apollo/client";
@@ -19,6 +20,7 @@ const POST_JOB_MUTATION = gql`
 `;
 
 const PublishJobButton = ({ jobId, status, children }) => {
+  const query = useQuery();
   return (
     <Mutation mutation={POST_JOB_MUTATION} variables={{ jobId, status }}>
       {(postJobMutation, { error, loading, data }) => {

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import { Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import { Button, Input, Label } from "semantic-ui-react";
@@ -111,6 +112,15 @@ const Candidates = props => {
                   ) : (
                     <p>No Resume</p>
                   ),
+
+                  skills: resumeSkills.map(skill => (
+                    <Label
+                      content={skill.name}
+                      color="blue"
+                      key={`SkillTag${skill.name + new Date()}`}
+                    />
+                  )),
+                  eEmpact: <EempactStatusLabel data={candidate.eEmpact} />,
                   resume: hasResume && (
                     <Button
                       color="green"
@@ -125,14 +135,20 @@ const Candidates = props => {
                       Download Resume
                     </Button>
                   ),
-                  skills: resumeSkills.map(skill => (
-                    <Label
-                      content={skill.name}
-                      color="blue"
-                      key={`SkillTag${skill.name + new Date()}`}
-                    />
-                  )),
-                  eEmpact: <EempactStatusLabel data={candidate.eEmpact} />
+                  actions: (
+                    <Link
+                      href="/admin/candidates/[cid]"
+                      as={`/admin/candidates/${candidate.id}`}
+                      passHref
+                    >
+                      <Button
+                        as="a"
+                        icon="eye"
+                        color={"green"}
+                        href={`/admin/candidates/${candidate.id}`}
+                      />
+                    </Link>
+                  )
                 });
               });
 

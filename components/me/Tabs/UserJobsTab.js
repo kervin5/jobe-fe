@@ -1,10 +1,10 @@
 import React from "react";
 import RecommendedJobsList from "./UserJobsTab/RecommendedJobsList";
 
-const UserJobsTab = () => {
+const UserJobsTab = ({ userId }) => {
   return (
     <div>
-      <RecommendedJobsList />
+      <RecommendedJobsList userId={userId} />
     </div>
   );
 };

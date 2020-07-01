@@ -1,10 +1,16 @@
 import React from "react";
+import { useQuery } from "@apollo/client";
 import { Button, Icon } from "semantic-ui-react";
 import Router from "next/router";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 import ChangeJobStatusButton from "./ChangeJobStatusButton";
+import { SINGLE_JOB_QUERY } from "@/graphql/queries/jobs";
 
 function EditOrContinueButtons({ jobId }) {
+  const { error, loading, data } = useQuery(SINGLE_JOB_QUERY, {
+    variables: { id: jobId }
+  });
+  if (loading) return <p>Loading...</p>;
   return (
     <div className="EditOrContinueButtons">
       <Button
@@ -23,9 +29,11 @@ function EditOrContinueButtons({ jobId }) {
           </ChangeJobStatusButton>
         }
       >
-        <ChangeJobStatusButton jobId={jobId} status="POSTED">
-          Publish
-        </ChangeJobStatusButton>
+        {data.job.status !== "POSTED" && (
+          <ChangeJobStatusButton jobId={jobId} status="POSTED">
+            Publish
+          </ChangeJobStatusButton>
+        )}
       </RenderIfLoggedIn>
       <Button
         positive

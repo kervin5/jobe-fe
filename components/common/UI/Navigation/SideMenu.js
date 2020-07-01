@@ -15,6 +15,11 @@ const StyledSideMenu = styled.div`
 
     & > .menu {
       height: 100%;
+      border-radius: none;
+    }
+
+    @media (max-width: 900px) {
+      top: 48px;
     }
   }
 `;
