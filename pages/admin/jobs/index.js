@@ -1,6 +1,7 @@
 import JobsTable from "@/components/jobs/JobsTable";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
+import JobsStatsCards from "@/components/admin/dashboard/DashboardHome/JobsStatsCards";
 
 const dashboardPage = props => {
   return (
@@ -9,6 +10,7 @@ const dashboardPage = props => {
       permissions={[{ object: "JOB", action: "CREATE" }]}
     >
       <DashboardPage title="Jobs">
+        <JobsStatsCards />
         <JobsTable />
       </DashboardPage>
     </RenderIfLoggedIn>

@@ -1,18 +1,17 @@
 import React from "react";
-import JobsInformationSection from "./JobsStatsCards";
+import JobsStatsCards from "./JobsStatsCards";
 import ApplicationsCountWarning from "@/components/applications/ApplicationsCountWarning";
 import JobsTable from "@/components/jobs/JobsTable";
+import BarsChartCountOfApplications from "@/components/charts/BarsChartCountOfApplications";
 
 class DashboardHome extends React.Component {
   render() {
     return (
       <React.Fragment>
         <ApplicationsCountWarning />
-        {/* <DashboardPageHeader>
-      
-        </DashboardPageHeader> */}
-        <JobsInformationSection />
-        <JobsTable />
+        <JobsStatsCards />
+        <BarsChartCountOfApplications />
+        {/* <JobsTable /> */}
       </React.Fragment>
     );
   }
