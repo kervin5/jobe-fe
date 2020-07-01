@@ -11,8 +11,7 @@ const Page = props => {
     <div>
       <ApplicationContext.Provider value={{ language, setLanguage }}>
         <Head />
-        {/* <Header /> */}
-        <Layout>{props.children}</Layout>
+        <Layout admin={props.admin}>{props.children}</Layout>
       </ApplicationContext.Provider>
     </div>
   );

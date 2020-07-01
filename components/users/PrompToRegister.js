@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Query } from "react-apollo";
+import { Query } from "@apollo/react-components";
 import { ME_USER_QUERY } from "@/lib/auth";
 import PopUp from "@/common/UI/PopUp";
 import AuthForm from "../users/AuthForm";

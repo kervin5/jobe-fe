@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Dropdown } from "semantic-ui-react";
-import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
+import { gql } from "@apollo/client";
+import { Mutation } from "@apollo/react-components";
 import { APPLICATION_NOTES_QUERY } from "./ApplicationHistoryFeed";
 
 export const applicationStatusOptions = [

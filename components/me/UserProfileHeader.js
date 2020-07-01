@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import UserLocator from "../../data/UserLocator";
-import { Query } from "react-apollo";
+import { Query } from "@apollo/react-components";
 import UserCategories from "./UserCategories";
 import Card from "@/common/UI/Card";
 import Avatar from "@/common/UI/Avatar";

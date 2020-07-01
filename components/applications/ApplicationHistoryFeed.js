@@ -1,7 +1,7 @@
 import React from "react";
 import { Feed } from "semantic-ui-react";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import { Query } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import moment from "moment";
 
 export const APPLICATION_NOTES_QUERY = gql`

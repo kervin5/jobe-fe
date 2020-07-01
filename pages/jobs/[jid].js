@@ -23,6 +23,7 @@ const SingleJobView = props => {
         <SingleJobListing
           jobData={props.jobData}
           jobId={extractJobId(jobId ?? props.query.jid)}
+          countView
         />
         <style jsx>
           {`

@@ -1,6 +1,6 @@
 import React from "react";
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import { gql } from "@apollo/client";
+import { Query } from "@apollo/react-components";
 import { Loader } from "semantic-ui-react";
 import { Image, Item } from "semantic-ui-react";
 import EempactStatusLabel from "@/components/users/EempactStatusLabel";

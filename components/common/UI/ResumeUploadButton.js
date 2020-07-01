@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import { gql } from "@apollo/client";
+import { Query } from "@apollo/react-components";
 import Button from "./Button";
 import PopUp from "./PopUp";
 import ResumeUploadForm from "@/components/resumes/ResumeUploadForm";
