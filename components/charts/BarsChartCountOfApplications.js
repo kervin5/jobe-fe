@@ -9,7 +9,11 @@ const BarsChartCountOfApplications = () => {
   const chartData = generateData(data?.applications);
 
   if (loading) return <p>Loading...</p>;
-  return <BarChart data={chartData.data} keys={chartData.keys} />;
+  return (
+    <div style={{ height: "900px", width: "100%" }}>
+      <BarChart data={chartData.data} keys={chartData.keys} />
+    </div>
+  );
 };
 
 function generateData(data) {

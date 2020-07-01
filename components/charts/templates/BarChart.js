@@ -61,7 +61,7 @@ export default class Example extends PureComponent {
 
   render() {
     return (
-      <ResponsiveContainer width="50%" height="80vh">
+      <ResponsiveContainer width="50%" height="100%">
         <BarChart
           data={this.props.data}
           layout="vertical"
