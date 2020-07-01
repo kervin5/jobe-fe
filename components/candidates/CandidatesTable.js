@@ -31,6 +31,9 @@ const CANDIDATE_QUERY = gql`
         id
         assignments
       }
+      applications {
+        id
+      }
       resumes(last: 1) {
         file {
           id
@@ -39,6 +42,7 @@ const CANDIDATE_QUERY = gql`
         id
         title
         createdAt
+
         skills {
           id
           name
@@ -112,7 +116,7 @@ const Candidates = props => {
                   ) : (
                     <p>No Resume</p>
                   ),
-
+                  applications: candidate.applications?.length,
                   skills: resumeSkills.map(skill => (
                     <Label
                       content={skill.name}
