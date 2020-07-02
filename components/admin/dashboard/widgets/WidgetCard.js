@@ -10,11 +10,11 @@ const StyledWidgetCard = styled.div`
   }
 `;
 
-const WidgetCard = ({ children }) => {
+const WidgetCard = ({ children, title }) => {
   return (
     <StyledWidgetCard>
       <Card withBackground>
-        <Title size="m">Total Applications by Branch</Title>
+        <Title size="m">{title}</Title>
         {children}
       </Card>
     </StyledWidgetCard>

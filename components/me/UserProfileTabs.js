@@ -4,7 +4,7 @@ import UserApplicationsTab from "./Tabs/UserApplicationsTab";
 import UserJobsTab from "./Tabs/UserJobsTab";
 import UserResumesTab from "./Tabs/UserResumesTab";
 
-const UserProfileTabs = ({ userId }) => (
+const UserProfileTabs = ({ userId, hideApplications }) => (
   <Tab
     panes={[
       {
@@ -27,18 +27,22 @@ const UserProfileTabs = ({ userId }) => (
           </Tab.Pane>
         )
       },
-      {
-        menuItem: {
-          key: "applications",
-          icon: "thumbs up outline",
-          content: "Applications"
-        },
-        render: () => (
-          <Tab.Pane>
-            <UserApplicationsTab userId={userId} />
-          </Tab.Pane>
-        )
-      }
+      ...(hideApplications
+        ? []
+        : [
+            {
+              menuItem: {
+                key: "applications",
+                icon: "thumbs up outline",
+                content: "Applications"
+              },
+              render: () => (
+                <Tab.Pane>
+                  <UserApplicationsTab userId={userId} />
+                </Tab.Pane>
+              )
+            }
+          ])
     ]}
   />
 );

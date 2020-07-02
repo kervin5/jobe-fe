@@ -18,7 +18,7 @@ const MePage = props => {
         />
         <Container>
           <UserProfileHeader />
-          <UserProfileTabs />
+          <UserProfileTabs hideApplications />
         </Container>
       </PageSection>
     </RenderIfLoggedIn>
