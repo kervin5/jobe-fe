@@ -1,7 +1,7 @@
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
-import PageSection from "@/components/common/Layout/PageSection";
-import Title from "@/components/common/UI/Title";
-import Container from "@/components/common/Layout/Container";
+import PageSection from "@/common/Layout/PageSection";
+import Title from "@/common/UI/Title";
+import Container from "@/common/Layout/Container";
 import ResumeUploadForm from "@/components/resumes/ResumeUploadForm";
 
 const ResumeUploadPage = props => {

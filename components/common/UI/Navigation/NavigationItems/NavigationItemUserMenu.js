@@ -1,6 +1,6 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
-import LogoutButton from "@/components/common/UI/LogoutButton";
+import LogoutButton from "@/common/UI/LogoutButton";
 import Link from "next/link";
 import UserInfo from "@/components/me/UserInfo";
 

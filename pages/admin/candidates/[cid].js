@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import CandidateProfile from "@/components/candidates/CandidateProfile";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
-import Container from "@/components/common/Layout/Container";
+import Container from "@/common/Layout/Container";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 
 const dashboardCandidatePage = props => {

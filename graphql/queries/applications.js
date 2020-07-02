@@ -78,3 +78,13 @@ export const ALL_APPLICATIONS_QUERY = gql`
     }
   }
 `;
+
+export const APPLICATIONS_COUNT_BY_BRANCH = gql`
+  {
+    applicationsByBranch {
+      name
+      applications
+      status
+    }
+  }
+`;

@@ -1,24 +1,24 @@
 import React from "react";
 import variables from "@/common/globalVariables";
-// import classes from './Card.module.scss';
+import styled from "styled-components";
+
+const StyledCard = styled.div`
+  &.Card {
+    position: relative;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    border-radius: 5px;
+    background: ${props =>
+      props.withBackground ? props.theme.clearColor : "transparent"};
+    ${props => props.styles ?? ""}
+  }
+`;
 
 const card = props => {
   return (
-    <div className="Card">
+    <StyledCard className="Card" {...props}>
       {props.children}
-      <style jsx>{`
-        .Card {
-          position: relative;
-          box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.15);
-          padding: 10px;
-          border-radius: 5px;
-          background: ${props.withBackground
-            ? variables.clearColor
-            : "transparent"};
-          ${props.styles || ""}
-        }
-      `}</style>
-    </div>
+    </StyledCard>
   );
 };
 

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SEO from "@/components/SEO";
 import UserLocator from "../data/UserLocator";
-import variables from "@/components/common/globalVariables.js";
+import variables from "@/common/globalVariables.js";
 
-import PageSection from "@/components/common/Layout/PageSection";
-import Container from "@/components/common/Layout/Container";
-import Title from "@/components/common/UI/Title";
-import DynamicImageBg from "@/components/common/UI/DynamicImageBg";
+import PageSection from "@/common/Layout/PageSection";
+import Container from "@/common/Layout/Container";
+import Title from "@/common/UI/Title";
+import DynamicImageBg from "@/common/UI/DynamicImageBg";
 import SearchArea from "@/components/jobs/Search/SearchArea";
 
 import JobsCards from "@/components/jobs/JobsCards";

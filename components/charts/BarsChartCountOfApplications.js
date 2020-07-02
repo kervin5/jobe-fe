@@ -1,12 +1,12 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { ALL_APPLICATIONS_QUERY } from "@/graphql/queries/applications";
+import { APPLICATIONS_COUNT_BY_BRANCH } from "@/graphql/queries/applications";
 import BarChart from "./templates/BarChart";
 
 const BarsChartCountOfApplications = () => {
-  const { error, loading, data } = useQuery(ALL_APPLICATIONS_QUERY);
+  const { error, loading, data } = useQuery(APPLICATIONS_COUNT_BY_BRANCH);
 
-  const chartData = generateData(data?.applications);
+  const chartData = generateData(data?.applicationsByBranch);
 
   if (loading) return <p>Loading...</p>;
   return (
@@ -19,29 +19,22 @@ const BarsChartCountOfApplications = () => {
 function generateData(data) {
   if (!data) return [];
   const chartData = [];
-  const statusList = data.reduce((result, application) => {
-    if (!result[application.status]) {
-      result[application.status] = 0;
-    }
-    return result;
-  }, {});
+  const statusList = data.reduce(
+    (result, branchRecord) => {
+      if (!result[branchRecord.status]) {
+        result[branchRecord.status] = 0;
+      }
+      return result;
+    },
+    { NEW: 0, VIEWED: 0, CONTACTED: 0, REVIEWING: 0, HIRED: 0, ARCHIVED: 0 }
+  );
 
-  console.log(statusList);
-
-  const branchesList = data.reduce((result, application) => {
-    if (!result[application.job.branch.name]) {
-      result[application.job.branch.name] = {};
+  const branchesList = data.reduce((result, branchRecord) => {
+    if (!result[branchRecord.name]) {
+      result[branchRecord.name] = { ...statusList, amt: 0 };
     }
 
-    if (
-      typeof result[application.job.branch.name][application.status] ===
-      "undefined"
-    ) {
-      result[application.job.branch.name][application.status] = 0;
-    } else {
-      // console.log(result[application.job.branch.name][application.status]);
-      result[application.job.branch.name][application.status] += 1;
-    }
+    result[branchRecord.name][branchRecord.status] = branchRecord.applications;
 
     return result;
   }, {});
@@ -49,31 +42,29 @@ function generateData(data) {
   Object.keys(branchesList).forEach(branchName => {
     chartData.push({
       name: branchName,
-      ...statusList,
       ...branchesList[branchName],
-      amt: data.length
+      amt: 10000
     });
   });
 
   chartData.sort((itemA, itemB) => {
-    const ItemATotal = Object.values(itemA).reduce((acc, value) => {
-      if (isNaN(value)) {
-        return acc;
-      }
+    // const ItemATotal = Object.values(itemA).reduce((acc, value) => {
+    //   if (isNaN(value)) {
+    //     return acc;
+    //   }
 
-      return acc + value;
-    }, 0);
+    //   return acc + value;
+    // }, 0);
 
-    const ItemBTotal = Object.values(itemB).reduce((acc, value) => {
-      if (isNaN(value)) {
-        return acc;
-      }
+    // const ItemBTotal = Object.values(itemB).reduce((acc, value) => {
+    //   if (isNaN(value)) {
+    //     return acc;
+    //   }
 
-      return acc + value;
-    }, 0);
+    //   return acc + value;
+    // }, 0);
 
-    console.log(ItemATotal < ItemBTotal);
-    return ItemBTotal - ItemATotal;
+    return itemB["NEW"] - itemA["NEW"];
   });
 
   return {
