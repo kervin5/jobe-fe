@@ -29,6 +29,7 @@ const ApplicationsStatusCard = props => {
             color={props.color}
             icon={props.icon}
             loading={loading}
+            danger={data?.applicationsConnection > 100}
           />
         );
       }}

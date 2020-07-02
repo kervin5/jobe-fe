@@ -10,7 +10,6 @@ import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 
 import Table from "@/common/UI/Table";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
-import ApplicationsCountWarning from "./ApplicationsCountWarning";
 
 const ALL_APPLICATIONS_QUERY = gql`
   query ALL_APPLICATIONS_QUERY(
@@ -197,8 +196,6 @@ const ApplicantTable = props => {
 
   return (
     <>
-      <ApplicationsCountWarning />
-
       <Query
         query={USER_APPLICATION_CONNECTION_QUERY}
         ssr={false}
