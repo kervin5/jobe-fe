@@ -17,7 +17,7 @@ class DashboardHome extends React.Component {
         <Grid columns="2">
           <Grid.Row>
             <Grid.Column>
-              <WidgetCard title="YTD bobs vs Applications">
+              <WidgetCard title="YTD Jobs vs Applications">
                 <LinesChartYTDJobsAndApplications />
               </WidgetCard>
             </Grid.Column>
