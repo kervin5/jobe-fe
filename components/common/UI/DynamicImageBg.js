@@ -3,14 +3,23 @@ import { Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import variables from "@/common/globalVariables";
 import { basePath } from "@/root/config";
+import { addBasePath } from "next/dist/next-server/lib/router/router";
 
 const GET_IMAGE_QUERY = gql`
   query GET_IMAGE_QUERY($query: String!) {
     image(query: $query)
   }
 `;
-
 const staticImages = Array.from(Array(7).keys());
+
+let link;
+
+if (process.env.NODE_ENV === "remoteBasePath") {
+  link = "https://res.cloudinary.com/demo/image/fetch/q_auto";
+} else {
+  link = "";
+}
+
 const randomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -22,10 +31,11 @@ const DynamicImageBg = ({ absolute, noblur, query, children, staticImage }) => {
   };
 
   if (staticImage) {
-    const getRandomImage = () => {
-      `/bg/bg (${staticImages[randomInt(0, staticImages.length - 1)]}).jpeg`;
-      return <ImageBg src={getRandomImage()} {...baseProps} />;
-    };
+    const getRandomImage = () =>
+      `${link}${basePath}/bg/bg (${
+        staticImages[randomInt(0, staticImages.length - 1)]
+      }).jpeg`;
+    return <ImageBg src={getRandomImage()} {...baseProps} />;
   }
 
   return (
