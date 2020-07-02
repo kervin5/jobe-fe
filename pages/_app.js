@@ -7,6 +7,7 @@ import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "@/lib/apolloClient";
 import { initMatomo } from "@/lib/matomo";
 import Page from "@/components/Page";
+import "jodit/build/jodit.min.css";
 import "semantic-ui-css/semantic.min.css";
 import "./app.css";
 
