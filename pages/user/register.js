@@ -1,9 +1,9 @@
 import React from "react";
-import variables from "@/components/common/globalVariables";
-import PageSection from "@/components/common/Layout/PageSection";
+import variables from "@/common/globalVariables";
+import PageSection from "@/common/Layout/PageSection";
 import RegisterForm from "@/components/users/RegisterForm";
 import RenderIfLoggedOut from "@/components/hoc/RenderIfLoggedOut";
-import Title from "@/components/common/UI/Title";
+import Title from "@/common/UI/Title";
 import Link from "next/link";
 
 const friendsImgUrl = "../../images/friends-with-bg.png";

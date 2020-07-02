@@ -1,7 +1,7 @@
 import React from "react";
 import { Query } from "@apollo/react-components";
 import { Loader } from "semantic-ui-react";
-import { ME_USER_QUERY } from "@/lib/auth";
+import { ME_USER_QUERY } from "@/graphql/queries/users";
 import Router from "next/router";
 
 const RenderIfLoggedOut = ({ children, redirect }) => {

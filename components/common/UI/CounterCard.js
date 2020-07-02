@@ -1,10 +1,26 @@
 import React from "react";
-import variables from "@/common/globalVariables";
 import { Card } from "semantic-ui-react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Icon from "./Icon";
 
+const dangerGlow = keyframes`
+
+  from {
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+  }
+
+  to {
+    box-shadow: 0px 0px 24px 0px rgba(255,0,0,1);
+  }
+`;
+
 const StyledCounterCard = styled.div`
+  &.danger {
+    .card {
+      animation: ${dangerGlow} 1s linear infinite alternate;
+    }
+  }
+
   .card {
     border-radius: 15px;
     margin-top: 1em;
@@ -51,12 +67,12 @@ const StyledCounterCard = styled.div`
   }
 `;
 
-const CounterCard = ({ icon, label, value, color, loading }) => {
+const CounterCard = ({ icon, label, value, color, loading, danger }) => {
   const Color = color ? "Color" + color : "Color1";
   const iconName = icon ? icon : "check";
 
   return (
-    <StyledCounterCard className="CounterCard">
+    <StyledCounterCard className={`CounterCard ${danger ? "danger" : ""}`}>
       <Card>
         <Card.Content>
           <Icon icon={iconName} circle color={color} />

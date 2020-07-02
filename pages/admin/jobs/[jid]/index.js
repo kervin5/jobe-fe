@@ -6,7 +6,7 @@ import JobPreview from "@/components/jobs/JobMutation/JobPreview";
 import JobStatsCards from "@/components/jobs/JobStatsCards";
 import JobActivityFeed from "@/components/jobs/JobActivityFeed";
 import JobStatusHeader from "@/components/jobs/JobStatusHeader";
-import TransformerContainer from "@/components/common/Layout/TransformerContainer";
+import TransformerContainer from "@/common/Layout/TransformerContainer";
 
 const SingleJobView = props => {
   const router = useRouter();

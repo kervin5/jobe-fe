@@ -12,9 +12,7 @@ const SingleJobListing = ({ jobId, preview, jobData, countView }) => {
   );
   useEffect(() => {
     if (countView && !preview) {
-      incrementJobView({ variables: { id: jobId } })
-        .then(console.log)
-        .catch(console.log);
+      incrementJobView({ variables: { id: jobId } });
     }
   }, []);
   if (jobData)

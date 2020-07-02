@@ -1,7 +1,7 @@
 import React from "react";
 import PasswordResetRequestForm from "@/components/users/PasswordResetRequestForm";
-import variables from "@/components/common/globalVariables";
-import PageSection from "@/components/common/Layout/PageSection";
+import variables from "@/common/globalVariables";
+import PageSection from "@/common/Layout/PageSection";
 
 const pageStyles = `background-color: ${variables.mutedColor1};
                     padding: 30px;

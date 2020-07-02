@@ -4,7 +4,7 @@ import { Query } from "@apollo/react-components";
 import Button from "./Button";
 import PopUp from "./PopUp";
 import ResumeUploadForm from "@/components/resumes/ResumeUploadForm";
-import { RESUME_LIST_QUERY } from "@/components/me/Tabs/UserResumesTab";
+import { ME_USER_QUERY } from "@/graphql/queries/users";
 
 const USER_IS_REGISTERED_QUERY = gql`
   query USER_IS_REGISTERED_QUERY {
@@ -54,7 +54,7 @@ const RegisterToApplyButton = props => {
                   noredirect
                   refetchQueries={[
                     {
-                      query: RESUME_LIST_QUERY
+                      query: ME_USER_QUERY
                     }
                   ]}
                 />
