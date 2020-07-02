@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Query } from "@apollo/react-components";
+import moment from "moment";
 import { Button, Input, Select, Icon, Label } from "semantic-ui-react";
 import { gql } from "@apollo/client";
 import { take } from "@/root/config";
 import Table from "@/common/UI/Table";
 import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";
 import variables from "@/common/globalVariables";
-import moment from "moment";
+import { ALL_JOBS_GRID } from "@/graphql/queries/jobs";
 
 export const USER_JOBS_QUERY = gql`
   query USER_JOBS_QUERY(
@@ -115,7 +116,7 @@ const JobsTable = props => {
 
           return (
             <Query
-              query={USER_JOBS_QUERY}
+              query={ALL_JOBS_GRID}
               variables={{
                 take,
                 skip: (currentPage - 1) * take,
@@ -128,14 +129,14 @@ const JobsTable = props => {
                 if (error) return <p>Something Failed...</p>;
 
                 //Get jobs from branch if user has access
-                const dataForTable = data?.protectedJobs.map(job => {
+                const dataForTable = data?.jobsGrid.map(job => {
                   // job.recurring  = !!job.cronTask;
                   // delete job.cronTask;
                   return {
                     ...job,
-                    location: job.location.name,
+                    location: job.location,
                     updated: moment(job.updatedAt).format("MM/DD/YYYY"),
-                    branch: job.branch.name,
+                    branch: job.branch,
                     recurring: <CheckMark checked={!!job.cronTask} />,
                     cronTask: null
                   };
@@ -180,7 +181,7 @@ const JobsTable = props => {
                           variables: { query: searchValue, status }
                         },
                         {
-                          query: USER_JOBS_QUERY,
+                          query: ALL_JOBS_GRID,
                           variables: {
                             take,
                             skip: (currentPage - 1) * take,
@@ -205,10 +206,6 @@ const JobsTable = props => {
 const injectActionsColumn = (data, refetchQueries) => {
   if (!data) return null;
   return data.map(record => {
-    const activeApplications = record.applications.filter(
-      application => !["HIRED", "ARCHIVED"].includes(application.status)
-    );
-
     return {
       ...record,
 
@@ -227,19 +224,19 @@ const injectActionsColumn = (data, refetchQueries) => {
         </p>
       ),
       applications:
-        record.applications.length > 0 ? (
+        record.applications > 0 ? (
           <Link
             href={"/admin/jobs/[jid]/applications"}
             as={"/admin/jobs/" + record.id + "/applications"}
           >
             <a>
-              {activeApplications.length > 0 ? (
+              {record.applications > 0 ? (
                 <Label
-                  content={`${activeApplications.length}`}
+                  content={`${record.applications}`}
                   color={
-                    activeApplications.length < 30
+                    record.applications < 30
                       ? "green"
-                      : activeApplications.length < 40
+                      : record.applications < 40
                       ? "yellow"
                       : "red"
                   }
@@ -250,9 +247,9 @@ const injectActionsColumn = (data, refetchQueries) => {
             </a>
           </Link>
         ) : (
-          <Label content={record.applications.length} color="grey" />
+          <Label content={record.applications} color="grey" />
         ),
-      author: record.author.name,
+      author: record.author,
       actions: (
         <Button.Group>
           <Link {...getPreviewLink(record)}>
