@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import variables from "@/components/common/globalVariables";
-import PageSection from "@/components/common/Layout/PageSection";
+import variables from "@/common/globalVariables";
+import PageSection from "@/common/Layout/PageSection";
 import PasswordResetForm from "@/components/users/PasswordResetForm";
-import Title from "@/components/common/UI/Title";
+import Title from "@/common/UI/Title";
 
 const friendsImgUrl = "../../images/friends-with-bg.png";
 const pageStyles = `padding: 30px;`;

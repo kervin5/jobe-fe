@@ -174,7 +174,21 @@ const JobsTable = props => {
                       count={jobsCount}
                       take={take}
                       turnPageHandler={handleTurnPage}
-                      data={injectActionsColumn(dataForTable)}
+                      data={injectActionsColumn(dataForTable, [
+                        {
+                          query: USER_JOBS_CONNECTION_QUERY,
+                          variables: { query: searchValue, status }
+                        },
+                        {
+                          query: USER_JOBS_QUERY,
+                          variables: {
+                            take,
+                            skip: (currentPage - 1) * take,
+                            query: searchValue,
+                            status
+                          }
+                        }
+                      ])}
                       exclude={["updatedAt", "cronTask"]}
                     />
                   </>
@@ -188,7 +202,7 @@ const JobsTable = props => {
   );
 };
 
-const injectActionsColumn = data => {
+const injectActionsColumn = (data, refetchQueries) => {
   if (!data) return null;
   return data.map(record => {
     const activeApplications = record.applications.filter(
@@ -260,16 +274,7 @@ const injectActionsColumn = data => {
               href={`/admin/jobs/${record.id}/edit`}
             />
           </Link>
-          <DeleteJobButton
-            jobId={record.id}
-            refetchQueries={[
-              { query: USER_JOBS_CONNECTION_QUERY, variables: { query: " " } },
-              {
-                query: USER_JOBS_CONNECTION_QUERY,
-                variables: { take, skip: 0, query: " " }
-              }
-            ]}
-          />
+          <DeleteJobButton jobId={record.id} refetchQueries={refetchQueries} />
         </Button.Group>
       )
     };

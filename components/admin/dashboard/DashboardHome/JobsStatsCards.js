@@ -3,6 +3,7 @@ import styled from "styled-components";
 import JobStatusCard from "./JobStatusCard";
 import ApplicationStatusCard from "./ApplicationsStatusCard";
 import { Grid } from "semantic-ui-react";
+import Link from "next/link";
 
 const StyledJobsStatsCards = styled.div`
   width: 100%;
@@ -34,7 +35,11 @@ const JobsStatsCards = () => {
             />
           </Grid.Column>
           <Grid.Column>
-            <ApplicationStatusCard color="4" icon="smile" />
+            <Link href="/admin/applications">
+              <a>
+                <ApplicationStatusCard color="4" icon="smile" />
+              </a>
+            </Link>
           </Grid.Column>
         </Grid.Row>
       </Grid>

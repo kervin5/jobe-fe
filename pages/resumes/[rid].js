@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
-import variables from "@/components/common/globalVariables";
-import PageSection from "@/components/common/Layout/PageSection";
+import variables from "@/common/globalVariables";
+import PageSection from "@/common/Layout/PageSection";
 import ResumeViewer from "@/components/resumes/ResumeViewer";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 

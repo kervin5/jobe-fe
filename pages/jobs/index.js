@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { withRouter, useRouter } from "next/router";
-import variables from "@/components/common/globalVariables";
-import PageSection from "@/components/common/Layout/PageSection";
+import variables from "@/common/globalVariables";
+import PageSection from "@/common/Layout/PageSection";
 import SearchFieldSection from "@/components/jobs/Search/SearchFieldSection";
-import Button from "@/components/common/UI/Button";
-import ButtonGroup from "@/components/common/UI/ButtonGroup";
+import Button from "@/common/UI/Button";
+import ButtonGroup from "@/common/UI/ButtonGroup";
 import Jobs from "@/components/jobs/JobsCards";
 import SearchFilters from "@/components/jobs/Search/SearchFilters";
 import SEO from "@/components/SEO";
