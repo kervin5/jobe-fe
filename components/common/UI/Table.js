@@ -1,5 +1,6 @@
-import React from "react";
-import { Icon, Table, Pagination, Loader, Dimmer } from "semantic-ui-react";
+import React, { useEffect, useState } from "react";
+import { Icon, Table, Pagination, Loader } from "semantic-ui-react";
+import styled from "styled-components";
 
 const TableWithPagination = ({
   data,
@@ -10,7 +11,8 @@ const TableWithPagination = ({
   loading,
   withid,
   exclude = [],
-  toolbar
+  toolbar,
+  headers
 }) => {
   const pages = Math.ceil(count / take);
   const handlePaginationChange = (e, { activePage }) => {
@@ -35,7 +37,7 @@ const TableWithPagination = ({
                 )
                 .map((header, key) => (
                   <Table.HeaderCell key={header + key}>
-                    {jsUcfirst(header)}
+                    {headers[header] ?? jsUcfirst(header)}
                   </Table.HeaderCell>
                 ))}
             </Table.Row>
@@ -109,6 +111,41 @@ const TableWithPagination = ({
         }
       `}</style>
     </div>
+  );
+};
+
+const StyledOrderByHeader = styled.p`
+  white-space: nowrap;
+  cursor: pointer;
+`;
+
+export const OrderByHeader = ({ children, action, column, activeColumn }) => {
+  console.log(activeColumn);
+  const [order, setOrder] = useState("DESC");
+  const allowedValues = [`${column} DESC`, `${column} ASC`];
+  const isActive = allowedValues.includes(activeColumn);
+  const handleClick = () => {
+    if (order === "DESC") {
+      setOrder("ASC");
+    } else {
+      setOrder("DESC");
+    }
+  };
+
+  useEffect(() => {
+    if (action) action(`${column} ${order}`);
+  }, [order]);
+
+  return (
+    <StyledOrderByHeader onClick={handleClick}>
+      {children}{" "}
+      {isActive &&
+        (order === "DESC" ? (
+          <Icon name="long arrow alternate down" />
+        ) : (
+          <Icon name="long arrow alternate up" />
+        ))}
+    </StyledOrderByHeader>
   );
 };
 

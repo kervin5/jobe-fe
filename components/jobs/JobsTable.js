@@ -5,50 +5,10 @@ import moment from "moment";
 import { Button, Input, Select, Icon, Label } from "semantic-ui-react";
 import { gql } from "@apollo/client";
 import { take } from "@/root/config";
-import Table from "@/common/UI/Table";
+import Table, { OrderByHeader } from "@/common/UI/Table";
 import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";
 import variables from "@/common/globalVariables";
 import { ALL_JOBS_GRID } from "@/graphql/queries/jobs";
-
-export const USER_JOBS_QUERY = gql`
-  query USER_JOBS_QUERY(
-    $take: Int!
-    $skip: Int!
-    $query: String = ""
-    $status: [JobStatus!]
-  ) {
-    protectedJobs(
-      take: $take
-      skip: $skip
-      where: { title: { contains: $query }, status: { in: $status } }
-    ) {
-      id
-      title
-      status
-      updatedAt
-      cronTask {
-        id
-      }
-      author {
-        id
-        name
-      }
-      location {
-        id
-        name
-      }
-      status
-      applications {
-        id
-        status
-      }
-      branch {
-        id
-        name
-      }
-    }
-  }
-`;
 
 const USER_JOBS_CONNECTION_QUERY = gql`
   query USER_JOBS_CONNECTION_QUERY($query: String = "", $status: [JobStatus!]) {
@@ -86,6 +46,7 @@ const JobsTable = props => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
   const [status, setStatus] = useState(allStatus);
+  const [orderBy, setOrderBy] = useState("author DESC");
 
   const handleTurnPage = pageNumber => {
     setCurrentPage(parseInt(pageNumber));
@@ -102,6 +63,56 @@ const JobsTable = props => {
         setStatus([e.value]);
       }
     }
+  };
+
+  const headers = {
+    title: (
+      <OrderByHeader column="title" action={setOrderBy} activeColumn={orderBy}>
+        Title
+      </OrderByHeader>
+    ),
+    author: (
+      <OrderByHeader column="author" action={setOrderBy} activeColumn={orderBy}>
+        Author
+      </OrderByHeader>
+    ),
+    status: (
+      <OrderByHeader column="status" action={setOrderBy} activeColumn={orderBy}>
+        Status
+      </OrderByHeader>
+    ),
+    location: (
+      <OrderByHeader
+        column="location"
+        action={setOrderBy}
+        activeColumn={orderBy}
+      >
+        Location
+      </OrderByHeader>
+    ),
+    branch: (
+      <OrderByHeader column="branch" action={setOrderBy} activeColumn={orderBy}>
+        Branch
+      </OrderByHeader>
+    ),
+    applications: (
+      <OrderByHeader
+        column="applications"
+        action={setOrderBy}
+        activeColumn={orderBy}
+      >
+        Applications
+      </OrderByHeader>
+    ),
+    updated: (
+      <OrderByHeader
+        column={`"Job"."updatedAt"`}
+        action={setOrderBy}
+        activeColumn={orderBy}
+      >
+        Updated
+      </OrderByHeader>
+    )
   };
 
   return (
@@ -121,6 +132,7 @@ const JobsTable = props => {
                 take,
                 skip: (currentPage - 1) * take,
                 query: searchValue,
+                orderBy,
                 status
               }}
               ssr={false}
@@ -128,10 +140,7 @@ const JobsTable = props => {
               {({ data, error, loading }) => {
                 if (error) return <p>Something Failed...</p>;
 
-                //Get jobs from branch if user has access
                 const dataForTable = data?.jobsGrid.map(job => {
-                  // job.recurring  = !!job.cronTask;
-                  // delete job.cronTask;
                   return {
                     ...job,
                     location: job.location,
@@ -175,6 +184,7 @@ const JobsTable = props => {
                       count={jobsCount}
                       take={take}
                       turnPageHandler={handleTurnPage}
+                      headers={headers}
                       data={injectActionsColumn(dataForTable, [
                         {
                           query: USER_JOBS_CONNECTION_QUERY,
