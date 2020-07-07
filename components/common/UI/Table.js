@@ -37,7 +37,7 @@ const TableWithPagination = ({
                 )
                 .map((header, key) => (
                   <Table.HeaderCell key={header + key}>
-                    {headers[header] ?? jsUcfirst(header)}
+                    {headers?.header ?? jsUcfirst(header)}
                   </Table.HeaderCell>
                 ))}
             </Table.Row>

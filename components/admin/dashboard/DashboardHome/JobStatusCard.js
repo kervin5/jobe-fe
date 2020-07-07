@@ -3,8 +3,8 @@ import { gql } from "@apollo/client";
 import CounterCard from "@/common/UI/CounterCard";
 
 const JOB_STATUS_QUERY = gql`
-  query JOB_STATUS_QUERY($status: JobStatus!) {
-    protectedJobsConnection(where: { status: { equals: $status } })
+  query JOB_STATUS_QUERY($status: String!) {
+    jobsGridCount(status: [$status])
   }
 `;
 
@@ -20,7 +20,7 @@ const JobStatusCard = props => {
         return (
           <CounterCard
             label={props.label}
-            value={data?.protectedJobsConnection}
+            value={data?.jobsGridCount}
             color={props.color}
             icon={props.icon}
             loading={loading}

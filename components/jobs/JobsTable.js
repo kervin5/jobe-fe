@@ -10,11 +10,9 @@ import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";
 import variables from "@/common/globalVariables";
 import { ALL_JOBS_GRID } from "@/graphql/queries/jobs";
 
-const USER_JOBS_CONNECTION_QUERY = gql`
-  query USER_JOBS_CONNECTION_QUERY($query: String = "", $status: [JobStatus!]) {
-    protectedJobsConnection(
-      where: { title: { contains: $query }, status: { in: $status } }
-    )
+const JOBS_GRID_COUNT_QUERY = gql`
+  query JOBS_GRID_COUNT_QUERY($query: String = "", $status: [String!]) {
+    jobsGridCount(query: $query, status: $status)
   }
 `;
 
@@ -118,7 +116,7 @@ const JobsTable = props => {
   return (
     <>
       <Query
-        query={USER_JOBS_CONNECTION_QUERY}
+        query={JOBS_GRID_COUNT_QUERY}
         ssr={false}
         variables={{ query: searchValue, status }}
       >
@@ -151,58 +149,55 @@ const JobsTable = props => {
                   };
                 });
 
-                const jobsCount =
-                  userJobsData?.data?.protectedJobsConnection || 0;
+                const jobsCount = userJobsData?.data?.jobsGridCount || 0;
                 return (
-                  <>
-                    <Table
-                      toolbar={
-                        <>
-                          <div>
-                            <Input
-                              icon="search"
-                              placeholder="Search..."
-                              onChange={e => handleFieldChange(e)}
-                            />
-                            <Select
-                              options={options}
-                              defaultValue="ALL"
-                              onChange={(e, data) =>
-                                handleFieldChange(data, "status")
-                              }
-                            />
-                          </div>
-                          <Link href="/admin/jobs/new" passHref>
-                            <Button positive as="a">
-                              Add New Job
-                            </Button>
-                          </Link>
-                        </>
-                      }
-                      page={currentPage}
-                      loading={loading}
-                      count={jobsCount}
-                      take={take}
-                      turnPageHandler={handleTurnPage}
-                      headers={headers}
-                      data={injectActionsColumn(dataForTable, [
-                        {
-                          query: USER_JOBS_CONNECTION_QUERY,
-                          variables: { query: searchValue, status }
-                        },
-                        {
-                          query: ALL_JOBS_GRID,
-                          variables: {
-                            take,
-                            skip: (currentPage - 1) * take,
-                            query: searchValue,
-                            status
-                          }
+                  <Table
+                    toolbar={
+                      <>
+                        <div>
+                          <Input
+                            icon="search"
+                            placeholder="Search..."
+                            onChange={e => handleFieldChange(e)}
+                          />
+                          <Select
+                            options={options}
+                            defaultValue="ALL"
+                            onChange={(e, data) =>
+                              handleFieldChange(data, "status")
+                            }
+                          />
+                        </div>
+                        <Link href="/admin/jobs/new" passHref>
+                          <Button positive as="a">
+                            Add New Job
+                          </Button>
+                        </Link>
+                      </>
+                    }
+                    page={currentPage}
+                    loading={loading}
+                    count={jobsCount}
+                    take={take}
+                    turnPageHandler={handleTurnPage}
+                    headers={headers}
+                    data={injectActionsColumn(dataForTable, [
+                      {
+                        query: JOBS_GRID_COUNT_QUERY,
+                        variables: { query: searchValue, status }
+                      },
+                      {
+                        query: ALL_JOBS_GRID,
+                        variables: {
+                          take,
+                          skip: (currentPage - 1) * take,
+                          query: searchValue,
+                          status
                         }
-                      ])}
-                      exclude={["updatedAt", "cronTask"]}
-                    />
-                  </>
+                      }
+                    ])}
+                    exclude={["updatedAt", "cronTask"]}
+                  />
                 );
               }}
             </Query>

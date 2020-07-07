@@ -63,8 +63,20 @@ export const SINGLE_JOB_QUERY = gql`
 `;
 
 export const ALL_JOBS_GRID = gql`
-  query ALL_JOBS_GRID($skip: Int, $take: Int, $orderBy: String) {
-    jobsGrid(skip: $skip, take: $take, orderBy: $orderBy) {
+  query ALL_JOBS_GRID(
+    $skip: Int
+    $take: Int
+    $orderBy: String
+    $query: String
+    $status: [String!]
+  ) {
+    jobsGrid(
+      skip: $skip
+      take: $take
+      orderBy: $orderBy
+      query: $query
+      status: $status
+    ) {
       id
       title
       status
