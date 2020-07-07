@@ -20,7 +20,6 @@ const POST_JOB_MUTATION = gql`
 `;
 
 const PublishJobButton = ({ jobId, status, children }) => {
-  const query = useQuery();
   return (
     <Mutation mutation={POST_JOB_MUTATION} variables={{ jobId, status }}>
       {(postJobMutation, { error, loading, data }) => {

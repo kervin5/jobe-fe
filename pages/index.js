@@ -13,7 +13,6 @@ import JobsCards from "@/components/jobs/JobsCards";
 import PopularTerms from "@/components/jobs/PopularTerms/PopularTerms";
 import { getJobsFromAPI, getTermsFromAPI } from "@/lib/backend";
 
-// const peopleImage = "../images/334809-PAIXKS-603.ai.png";
 const landingLogo = "/images/LandingLogo.svg";
 
 // const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.mutedColor1} 40%);`;
