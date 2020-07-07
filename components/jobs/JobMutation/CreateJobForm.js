@@ -89,7 +89,7 @@ const CreateJobForm = () => {
     register({ name: "jobType" }, { required: true });
     register({ name: "jobSkills" }, { required: true });
     register({ name: "jobAuthor" });
-    register({ name: "jobPerks" });
+    register({ name: "jobPerks" }, { required: true });
     register({ name: "jobDescription" }, { required: true });
     register({ name: "jobDisclaimer" });
     register({ name: "jobIsRecurring" });
