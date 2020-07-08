@@ -24,6 +24,12 @@ const StyledNavigationBar = styled.nav`
       margin-left: 10px;
       z-index: 10001;
     }
+
+    .menu {
+      .item {
+        text-transform: capitalize;
+      }
+    }
   }
 `;
 

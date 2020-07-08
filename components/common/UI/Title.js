@@ -7,6 +7,7 @@ const Title = props => {
   const alignment = props.center ? "Center" : props.right ? "Right" : "Left";
   const classesToRender = ["Title", alignment].join(" ");
   const weight = props.weight || "bold";
+  const textTransform = props.capitalize ? "capitalize" : "inherit";
 
   const color =
     props.color && variables["accentColor" + props.color]
@@ -26,6 +27,7 @@ const Title = props => {
             ? "20px"
             : "0 0 10px"};
           display: ${props.inline ? "inline-block" : "block"};
+          text-transform: ${textTransform};
           ${extraStyles};
         }
 

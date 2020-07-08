@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SEO from "@/components/SEO";
 import UserLocator from "../data/UserLocator";
 import variables from "@/common/globalVariables.js";
-
+import appText from "@/lang/appText";
 import PageSection from "@/common/Layout/PageSection";
 import Container from "@/common/Layout/Container";
 import Title from "@/common/UI/Title";
@@ -56,11 +56,11 @@ const homePage = props => {
       </DynamicImageBg>
       <Container>
         <Title size={"l"} center margin>
-          What's Trending 😎
+          {appText.expressions.whatsTrending} 😎
         </Title>
         <PopularTerms terms={props.terms} />
-        <Title size={"l"} center margin>
-          Latest Jobs
+        <Title size={"l"} center margin capitalize>
+          {appText.expressions.latestJobs}
         </Title>
         <JobsCards jobs={props.jobs} />
       </Container>

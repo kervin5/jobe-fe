@@ -8,6 +8,7 @@
       "@/admin/*": ["components/admin/*"],
       "@/context/*": ["context/*"],
       "@/lib/*": ["lib/*"],
+      "@/lang/*": ["lang/*"],
       "@/root/*": ["*"]
     }
   }

@@ -192,6 +192,7 @@ const JobsTable = props => {
                           take,
                           skip: (currentPage - 1) * take,
                           query: searchValue,
+                          orderBy,
                           status
                         }
                       }
