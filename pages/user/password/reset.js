@@ -9,7 +9,7 @@ import Title from "@/common/UI/Title";
 const friendsImgUrl = "../../images/friends-with-bg.png";
 const pageStyles = `padding: 30px;`;
 
-const PasswordResetPage = props => {
+const PasswordResetPage = (props) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -20,9 +20,9 @@ const PasswordResetPage = props => {
   if (!router?.query?.resetToken) return null;
 
   return (
-    <PageSection column styles={pageStyles}>
+    <PageSection column styles={pageStyles} center>
       <Title center>Enter New Password</Title>
-      <PasswordResetForm token={props.query.resetToken} />
+      <PasswordResetForm token={router?.query?.resetToken} />
 
       <p>
         Don't have an account?
