@@ -1,18 +1,24 @@
 import React from "react";
 import JobListItem from "./JobListItem";
 import PropTypes from "prop-types";
+import appText from "@/lang/appText";
+import Title from "@/common/UI/Title";
 
 /**
  * @param {Object[]} jobs - Array of jobs object
  * @returns {React.JSX} list of Job nodes
  */
 
-const jobList = props => {
+const jobList = (props) => {
   const { jobs } = props;
-  let elementToRender = <h3>No jobs found</h3>;
+  let elementToRender = (
+    <Title capitalize size="m" center>
+      {appText.messages.notfound}
+    </Title>
+  );
 
   if (jobs && jobs.length > 0) {
-    elementToRender = jobs.map(job => {
+    elementToRender = jobs.map((job) => {
       return (
         <JobListItem
           key={job.id}
@@ -40,7 +46,7 @@ const jobList = props => {
 };
 
 jobList.propTypes = {
-  jobs: PropTypes.arrayOf(PropTypes.object).isRequired
+  jobs: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default jobList;

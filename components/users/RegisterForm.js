@@ -7,6 +7,7 @@ import Button from "@/common/UI/Button";
 import ErrorMessage from "@/common/UI/ErrorMessage";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
 import PrivacyPolicyLink from "@/common/UI/PrivacyPolicyLink";
+import appText from "@/lang/appText";
 
 // import { logInUser } from "../../../data/auth";
 
@@ -22,45 +23,44 @@ const SIGNUP_USER = gql`
   }
 `;
 
-const registerForm = props => {
+const registerForm = (props) => {
   const [validate, setValidate] = useState(false);
-  const [registerd, setRegistered] = useState(false);
   const [formData, setFormData] = useState({
     name: {
       value: "",
       valid: false,
       type: "text",
-      label: "Full Name",
+      label: appText.objects.name.singular,
       placeholder: "John Doe",
       icon: "user",
-      allowed: "alphanumeric"
+      allowed: "alphanumeric",
     },
     email: {
       value: "",
       valid: false,
       type: "email",
-      label: "Email",
+      label: appText.objects.email.singular,
       placeholder: "jdoe@myemail.com",
-      icon: "mail"
+      icon: "mail",
     },
     password: {
       value: "",
       valid: false,
       type: "password",
-      label: "Password",
-      placeholder: "Password",
+      label: appText.objects.password.singular,
+      placeholder: appText.objects.password.singular,
       icon: "key",
-      minLength: 6
-    }
+      minLength: 6,
+    },
   });
 
-  const changeHandler = fieldData => {
+  const changeHandler = (fieldData) => {
     setFormData({
       ...formData,
       [fieldData.name]: {
         ...formData[fieldData.name],
-        ...fieldData
-      }
+        ...fieldData,
+      },
     });
   };
 
@@ -83,7 +83,7 @@ const registerForm = props => {
     }
   };
 
-  const fieldsToRender = ["name", "email", "password"].map(key => {
+  const fieldsToRender = ["name", "email", "password"].map((key) => {
     const fieldData = formData[key];
     return (
       <InputField
@@ -101,6 +101,7 @@ const registerForm = props => {
         minLength={fieldData.minLength || 0}
         allowed={fieldData.allowed}
         validate={validate}
+        textTransform="capitalize"
       />
     );
   });
@@ -108,7 +109,7 @@ const registerForm = props => {
   const signUpData = {
     email: formData.email.value,
     password: formData.password.value,
-    name: formData.name.value
+    name: formData.name.value,
   };
 
   return (
@@ -118,7 +119,7 @@ const registerForm = props => {
         variables={{ ...signUpData }}
         refetchQueries={[
           { query: ME_USER_QUERY },
-          ...(props.refetchQueries || [])
+          ...(props.refetchQueries || []),
         ]}
       >
         {(signupUser, { loading, error, called, data }) => {
@@ -130,8 +131,11 @@ const registerForm = props => {
                   {fieldsToRender}
                   <br />
                   <PrivacyPolicyLink />
-                  <Button onClick={e => submitHandler(signupUser, e)} fullWidth>
-                    Register
+                  <Button
+                    onClick={(e) => submitHandler(signupUser, e)}
+                    fullWidth
+                  >
+                    {appText.actions.register}
                   </Button>
                 </fieldset>
               </form>

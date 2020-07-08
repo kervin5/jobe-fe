@@ -9,9 +9,8 @@ function getBasePath(localBasePath, remoteBasePath) {
 }
 
 const localBasePath = "http://localhost:3000";
-const remoteBasePath = "https://bolsa-de-trabajo.vercel.app";
+const remoteBasePath = process.env.NEXT_PUBLIC_PATH;
 export const basePath = getBasePath(localBasePath, remoteBasePath);
 export const endpoint = `${basePath}/graphql`;
-export const prodEndpoint = `${basePath}/graphql`;
 
 export const take = 10;

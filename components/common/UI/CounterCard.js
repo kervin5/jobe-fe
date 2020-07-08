@@ -21,6 +21,10 @@ const StyledCounterCard = styled.div`
     }
   }
 
+  .Label {
+    text-transform: capitalize;
+  }
+
   .card {
     border-radius: 15px;
     margin-top: 1em;
@@ -50,19 +54,19 @@ const StyledCounterCard = styled.div`
 
   .Value {
     &.Color1 {
-      color: ${props => props.theme.accentColor1};
+      color: ${(props) => props.theme.accentColor1};
     }
 
     &.Color2 {
-      color: ${props => props.theme.accentColor2};
+      color: ${(props) => props.theme.accentColor2};
     }
 
     &.Color3 {
-      color: ${props => props.theme.accentColor3};
+      color: ${(props) => props.theme.accentColor3};
     }
 
     &.Color4 {
-      color: ${props => props.theme.darkColor};
+      color: ${(props) => props.theme.darkColor};
     }
   }
 `;

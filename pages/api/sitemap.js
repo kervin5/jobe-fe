@@ -3,13 +3,13 @@ import { SitemapStream, streamToPromise } from "sitemap";
 import glob from "glob";
 import fs from "fs";
 import path from "path";
+import { basePath } from "@/root/config";
 import { getAllJobsFromAPI } from "@/lib/backend";
 
-const SITE_ROOT =
-  process.env.SITE_ROOT || "https://bolsa-de-trabajo.vercel.app";
+const SITE_ROOT = basePath;
 
 const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 const SOURCE =
   process.env.SOURCE || path.join(resolveApp("pages"), "/**/!(_*).js");
 
@@ -19,12 +19,12 @@ export default async (req, res) => {
     const jobs = await getAllJobsFromAPI(); // call the backend and fetch all jobs
 
     const smStream = new SitemapStream({
-      hostname: "http://" + req.headers.host
+      hostname: "http://" + req.headers.host,
     });
 
     let diskPages = glob.sync(SOURCE);
 
-    diskPages.forEach(page => {
+    diskPages.forEach((page) => {
       if (
         !page.includes("[") &&
         !page.includes("dashboard") &&
@@ -49,7 +49,7 @@ export default async (req, res) => {
 
         smStream.write({
           url: page,
-          lastmod: lastMod
+          lastmod: lastMod,
         });
       }
     });
@@ -60,12 +60,12 @@ export default async (req, res) => {
           /[\W_]+/g,
           "-"
         )}-${job.location.name.replace(/[\W_]+/g, "-")}-${job.id}`,
-        lastmod: job.updatedAt
+        lastmod: job.updatedAt,
       });
     }
 
     smStream.end();
-    const sitemap = await streamToPromise(smStream).then(sm => sm.toString());
+    const sitemap = await streamToPromise(smStream).then((sm) => sm.toString());
     res.write(sitemap);
     res.end();
   } catch (e) {

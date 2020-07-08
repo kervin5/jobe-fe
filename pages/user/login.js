@@ -5,6 +5,7 @@ import PageSection from "@/common/Layout/PageSection";
 import LoginForm from "@/components/users/LoginForm";
 import Title from "@/common/UI/Title";
 import RenderIfLoggedOut from "@/components/hoc/RenderIfLoggedOut";
+import appText from "@/lang/appText";
 
 const friendsImgUrl = "../../images/friends-with-bg.png";
 const pageStyles = `background-color: ${variables.mutedColor1};
@@ -16,16 +17,20 @@ const loginPage = () => {
   return (
     <RenderIfLoggedOut redirect>
       <PageSection styles={pageStyles} center>
-        <Title center>Login</Title>
+        <Title center capitalize>
+          {appText.actions.login}
+        </Title>
         <LoginForm />
 
         <Link href="/user/password/request">
-          <a className="forgoPasswordLink Link">Forgot Password?</a>
+          <a className="forgoPasswordLink Link">
+            {appText.messages.password.forgot}
+          </a>
         </Link>
         <p className="Link">
-          Don't have an account?
+          {appText.messages.account.donthave}
           <Link href="/user/register">
-            <a> Sign Up</a>
+            <a> {appText.actions.register}</a>
           </Link>
         </p>
         <div className="BgImage">
@@ -43,6 +48,7 @@ const loginPage = () => {
 
           .forgoPasswordLink {
             margin-bottom: 50px;
+            text-transform: capitalize;
           }
 
           a,
