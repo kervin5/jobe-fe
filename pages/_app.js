@@ -36,7 +36,6 @@ export default function App({ Component, pageProps, router }) {
     </ApolloProvider>
   );
 }
-
 function isAdminPage(route) {
   return route.startsWith("/admin");
 }
