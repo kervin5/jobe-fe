@@ -11,16 +11,16 @@ import "jodit/build/jodit.min.css";
 import "semantic-ui-css/semantic.min.css";
 import "./app.css";
 
+Sentry.init({
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DNS,
+});
+
 export default function App({ Component, pageProps, router }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
   useEffect(() => {
     initMatomo({
       siteId: 1,
       piwikUrl: process.env.NEXT_PUBLIC_MATOMO_ANALYTICS,
-    });
-
-    Sentry.init({
-      dsn: process.env.NEXT_PUBLIC_SENTRY_DNS,
     });
   }, []);
 
