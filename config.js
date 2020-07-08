@@ -9,7 +9,7 @@ function getBasePath(localBasePath, remoteBasePath) {
 }
 
 const localBasePath = "http://localhost:3000";
-const remoteBasePath = "https://www.myexactjobs.com";
+const remoteBasePath = "https://bolsa-de-trabajo.vercel.app";
 export const basePath = getBasePath(localBasePath, remoteBasePath);
 export const endpoint = `${basePath}/graphql`;
 export const prodEndpoint = `${basePath}/graphql`;

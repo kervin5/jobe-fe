@@ -72,10 +72,10 @@ const SearchPage = props => {
           __html: `{
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "url": "https://www.myexactjobs.com/",
+              "url": "https://bolsa-de-trabajo.vercel.app/",
               "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://www.myexactjobs.com/jobs?q={search_term_string}",
+                "target": "https://bolsa-de-trabajo.vercel.app/jobs?q={search_term_string}",
                 "query-input": "required name=search_term_string"
               }
             }`

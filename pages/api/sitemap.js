@@ -5,7 +5,8 @@ import fs from "fs";
 import path from "path";
 import { getAllJobsFromAPI } from "@/lib/backend";
 
-const SITE_ROOT = process.env.SITE_ROOT || "https://www.myexactjobs.com";
+const SITE_ROOT =
+  process.env.SITE_ROOT || "https://bolsa-de-trabajo.vercel.app";
 
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
