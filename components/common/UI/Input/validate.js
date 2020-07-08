@@ -1,33 +1,35 @@
+import appText from "@/lang/appText";
+
 const validateField = (type, value, validation, customMessages) => {
   let valid = false;
   let errors = [];
   let errorMessages = {
-    required: "This field is required",
-    minLength: `This field must have at least ${validation.minLength} characters`,
-    maxLength: `This field must have ${validation.minLength} characters or less`,
-    emailFormat: "Please enter a valid email",
-    allowed: `Please remove any special characters`,
-    ...customMessages
+    required: appText.messages.validation.required,
+    minLength: appText.messages.validation.minLength(validation.minLength),
+    maxLength: appText.messages.validation.maxLength(validation.maxLength),
+    emailFormat: appText.messages.validation.email,
+    allowed: appText.messages.validation.specialChars,
+    ...customMessages,
   };
 
-  const emailIsValid = email => {
+  const emailIsValid = (email) => {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   };
 
-  const valueIsValid = value => {
+  const valueIsValid = (value) => {
     return !!value.match(/^[\w\s]+$/);
   };
 
-  const addError = message => {
+  const addError = (message) => {
     if (!errors.includes(message)) {
       errors = errors.concat(message);
     }
   };
 
-  const removeError = message => {
+  const removeError = (message) => {
     if (errors.includes(message)) {
-      errors = errors.filter(e => e !== message);
+      errors = errors.filter((e) => e !== message);
     }
   };
 

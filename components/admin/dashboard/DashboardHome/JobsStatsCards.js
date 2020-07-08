@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import JobStatusCard from "./JobStatusCard";
-import ApplicationStatusCard from "./ApplicationsStatusCard";
 import { Grid } from "semantic-ui-react";
 import Link from "next/link";
+import JobStatusCard from "./JobStatusCard";
+import ApplicationStatusCard from "./ApplicationsStatusCard";
+import appText from "@/lang/appText";
 
 const StyledJobsStatsCards = styled.div`
   width: 100%;
@@ -16,11 +17,11 @@ const JobsStatsCards = () => {
       <Grid columns="4" stackable>
         <Grid.Row>
           <Grid.Column>
-            <JobStatusCard label="Posted" status="POSTED" />
+            <JobStatusCard label={appText.adjectives.posted} status="POSTED" />
           </Grid.Column>
           <Grid.Column>
             <JobStatusCard
-              label="Draft"
+              label={appText.adjectives.draft}
               status="DRAFT"
               icon="pencil"
               color="2"
@@ -28,7 +29,7 @@ const JobsStatsCards = () => {
           </Grid.Column>
           <Grid.Column>
             <JobStatusCard
-              label="Pending"
+              label={appText.adjectives.pending}
               status="PENDING"
               icon="comments"
               color="3"

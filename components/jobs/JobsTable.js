@@ -9,6 +9,7 @@ import Table, { OrderByHeader } from "@/common/UI/Table";
 import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";
 import variables from "@/common/globalVariables";
 import { ALL_JOBS_GRID } from "@/graphql/queries/jobs";
+import appText from "@/lang/appText";
 
 const JOBS_GRID_COUNT_QUERY = gql`
   query JOBS_GRID_COUNT_QUERY($query: String = "", $status: [String!]) {
@@ -20,7 +21,7 @@ const allStatus = ["DRAFT", "POSTED", "EXPIRED", "PENDING"];
 const options = ["ALL", ...allStatus].map((stat, index) => ({
   key: stat + index,
   text: stat,
-  value: stat
+  value: stat,
 }));
 
 const CheckMark = ({ checked }) => {
@@ -40,13 +41,13 @@ const CheckMark = ({ checked }) => {
   ) : null;
 };
 
-const JobsTable = props => {
+const JobsTable = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
   const [status, setStatus] = useState(allStatus);
   const [orderBy, setOrderBy] = useState("author DESC");
 
-  const handleTurnPage = pageNumber => {
+  const handleTurnPage = (pageNumber) => {
     setCurrentPage(parseInt(pageNumber));
   };
 
@@ -110,7 +111,7 @@ const JobsTable = props => {
       >
         Updated
       </OrderByHeader>
-    )
+    ),
   };
 
   return (
@@ -120,7 +121,7 @@ const JobsTable = props => {
         ssr={false}
         variables={{ query: searchValue, status }}
       >
-        {userJobsData => {
+        {(userJobsData) => {
           if (userJobsData.error) return <p>Something went wrong...</p>;
 
           return (
@@ -131,21 +132,21 @@ const JobsTable = props => {
                 skip: (currentPage - 1) * take,
                 query: searchValue,
                 orderBy,
-                status
+                status,
               }}
               ssr={false}
             >
               {({ data, error, loading }) => {
                 if (error) return <p>Something Failed...</p>;
 
-                const dataForTable = data?.jobsGrid.map(job => {
+                const dataForTable = data?.jobsGrid.map((job) => {
                   return {
                     ...job,
                     location: job.location,
                     updated: moment(job.updatedAt).format("MM/DD/YYYY"),
                     branch: job.branch,
                     recurring: <CheckMark checked={!!job.cronTask} />,
-                    cronTask: null
+                    cronTask: null,
                   };
                 });
 
@@ -157,8 +158,8 @@ const JobsTable = props => {
                         <div>
                           <Input
                             icon="search"
-                            placeholder="Search..."
-                            onChange={e => handleFieldChange(e)}
+                            placeholder={appText.actions.search}
+                            onChange={(e) => handleFieldChange(e)}
                           />
                           <Select
                             options={options}
@@ -170,7 +171,9 @@ const JobsTable = props => {
                         </div>
                         <Link href="/admin/jobs/new" passHref>
                           <Button positive as="a">
-                            Add New Job
+                            {appText.actions.new +
+                              " " +
+                              appText.objects.job.singular}
                           </Button>
                         </Link>
                       </>
@@ -184,7 +187,7 @@ const JobsTable = props => {
                     data={injectActionsColumn(dataForTable, [
                       {
                         query: JOBS_GRID_COUNT_QUERY,
-                        variables: { query: searchValue, status }
+                        variables: { query: searchValue, status },
                       },
                       {
                         query: ALL_JOBS_GRID,
@@ -193,9 +196,9 @@ const JobsTable = props => {
                           skip: (currentPage - 1) * take,
                           query: searchValue,
                           orderBy,
-                          status
-                        }
-                      }
+                          status,
+                        },
+                      },
                     ])}
                     exclude={["updatedAt", "cronTask"]}
                   />
@@ -211,7 +214,7 @@ const JobsTable = props => {
 
 const injectActionsColumn = (data, refetchQueries) => {
   if (!data) return null;
-  return data.map(record => {
+  return data.map((record) => {
     return {
       ...record,
 
@@ -279,12 +282,12 @@ const injectActionsColumn = (data, refetchQueries) => {
           </Link>
           <DeleteJobButton jobId={record.id} refetchQueries={refetchQueries} />
         </Button.Group>
-      )
+      ),
     };
   });
 };
 
-const getPreviewLink = job => {
+const getPreviewLink = (job) => {
   // if (job.status !== "POSTED") {
   //   return {
   //     href: "/admin/jobs/[jid]",

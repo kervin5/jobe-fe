@@ -3,7 +3,7 @@ import { Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import { Input, Button } from "semantic-ui-react";
 import { take } from "@/root/config";
-
+import appText from "@/lang/appText";
 import Table from "@/common/UI/Table";
 import UserActionButtons from "./UserActionButtons/UserActionButtons";
 import Link from "next/link";
@@ -44,28 +44,28 @@ const USERS_CONNECTION_QUERY = gql`
   }
 `;
 
-const UsersTable = props => {
+const UsersTable = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
 
-  const turnPageHandler = pageNumber => {
+  const turnPageHandler = (pageNumber) => {
     setCurrentPage(parseInt(pageNumber));
   };
 
-  const inputChangeHandler = e => {
+  const inputChangeHandler = (e) => {
     setQuery(e.target.value);
   };
 
   return (
     <Query query={USERS_CONNECTION_QUERY} ssr={false} variables={{ query }}>
-      {userConnectionData => {
+      {(userConnectionData) => {
         if (userConnectionData.error) return <p>Something went wrong ...</p>;
 
         const queryVariables = {
           take,
           skip: (currentPage - 1) * take,
           jobId: "" || props.jobId,
-          query
+          query,
         };
         return (
           <Query query={USER_QUERY} variables={{ ...queryVariables }}>
@@ -74,7 +74,7 @@ const UsersTable = props => {
 
               let users = [];
 
-              data?.users.forEach(user => {
+              data?.users.forEach((user) => {
                 return users.push({
                   name: user.name,
                   email: <a href={`malito:${user.email}`}>{user.email}</a>,
@@ -87,15 +87,15 @@ const UsersTable = props => {
                       refetchQueries={[
                         {
                           query: USER_QUERY,
-                          variables: { ...queryVariables }
+                          variables: { ...queryVariables },
                         },
                         {
                           query: USERS_CONNECTION_QUERY,
-                          variables: { query }
-                        }
+                          variables: { query },
+                        },
                       ]}
                     />
-                  )
+                  ),
                 });
               });
 
@@ -113,7 +113,7 @@ const UsersTable = props => {
                     <>
                       <Input
                         icon="search"
-                        placeholder="Search..."
+                        placeholder={appText.actions.search}
                         onChange={inputChangeHandler}
                       />
                       <Link href="/admin/users/new" passHref>

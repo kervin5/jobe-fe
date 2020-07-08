@@ -8,7 +8,7 @@ import Container from "@/common/Layout/Container";
 import Title from "@/common/UI/Title";
 import DynamicImageBg from "@/common/UI/DynamicImageBg";
 import SearchArea from "@/components/jobs/Search/SearchArea";
-
+import { basePath } from "@/root/config";
 import JobsCards from "@/components/jobs/JobsCards";
 import PopularTerms from "@/components/jobs/PopularTerms/PopularTerms";
 import { getJobsFromAPI, getTermsFromAPI } from "@/lib/backend";
@@ -17,18 +17,18 @@ const landingLogo = "/images/LandingLogo.svg";
 
 // const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.mutedColor1} 40%);`;
 
-const homePage = props => {
+const homePage = (props) => {
   // return <p>Hello</p>;
   const [userLocation, setUserLocation] = useState({
     name: "Loading...",
     lat: 0,
-    lon: 0
+    lon: 0,
   });
 
   const userLocator = new UserLocator();
 
   useEffect(() => {
-    userLocator.getLocation().then(res => {
+    userLocator.getLocation().then((res) => {
       setUserLocation(res);
     });
   }, []);
@@ -55,12 +55,12 @@ const homePage = props => {
         </Container>
       </DynamicImageBg>
       <Container>
-        <Title size={"l"} center margin>
-          {appText.expressions.whatsTrending} 😎
+        <Title size={"l"} center margin capitalize>
+          {appText.messages.whatstrending} 😎
         </Title>
         <PopularTerms terms={props.terms} />
         <Title size={"l"} center margin capitalize>
-          {appText.expressions.latestJobs}
+          {appText.messages.job.latest}
         </Title>
         <JobsCards jobs={props.jobs} />
       </Container>
@@ -70,13 +70,13 @@ const homePage = props => {
           __html: `{
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "url": "https://www.myexactjobs.com/",
+              "url": "${basePath}/",
               "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://www.myexactjobs.com/jobs?q={search_term_string}",
+                "target": "${basePath}/jobs?q={search_term_string}",
                 "query-input": "required name=search_term_string"
               }
-            }`
+            }`,
         }}
       />
       <style jsx>{`

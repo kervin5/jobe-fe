@@ -10,18 +10,19 @@ import RichTextInputField from "./RichTextInputField/RichTextInputField";
 import TagsInputField from "./TagsInputField/TagsInputField";
 import InputErrors from "./InputErrors";
 
-const inputField = props => {
+const inputField = (props) => {
   const [valid, setValid] = useState(false);
   const [value, setValue] = useState(props.value || "");
   const [touched, setTouched] = useState(false);
   const [errors, setErrors] = useState([]);
   const [details, setDetails] = useState(null);
+  const textTransform = props.textTransform ?? "inherit";
 
   const validation = {
     required: props.required || false,
     minLength: props.minLength || 0,
     maxLength: props.maxLength || 9999999,
-    allowed: props.allowed || "all"
+    allowed: props.allowed || "all",
   };
 
   let FieldToRender = null;
@@ -33,7 +34,7 @@ const inputField = props => {
     </React.Fragment>
   );
 
-  const changeHandler = fieldData => {
+  const changeHandler = (fieldData) => {
     setValid(fieldData.valid);
     setValue(fieldData.value);
     setTouched(fieldData.touched);
@@ -54,7 +55,7 @@ const inputField = props => {
           value,
           touched,
           errors,
-          details
+          details,
         });
       }
     }
@@ -132,13 +133,13 @@ const inputField = props => {
   const inputClasses = [
     props.type !== "switch" ? "InputContainer" : "Relative",
     props.rounded ? "Rounded" : "",
-    !valid && (touched || props.validate) ? "WithError" : ""
+    !valid && (touched || props.validate) ? "WithError" : "",
   ].join(" ");
 
   return (
     <div
       className={`InputField ${props.disabled ? "disabled" : ""}`}
-      onKeyPress={e => {
+      onKeyPress={(e) => {
         e.key === "Enter" && e.preventDefault();
       }}
     >
@@ -161,6 +162,7 @@ const inputField = props => {
             ? variables.clearColor
             : variables.darkColor};
           text-shadow: ${props.boldLabel ? "1px 2px 3px #666" : "none"};
+          text-transform: ${textTransform};
         }
 
         div.disabled {

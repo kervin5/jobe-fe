@@ -7,7 +7,7 @@ import InputField from "@/common/UI/Input/InputField";
 import Button from "@/common/UI/Button";
 import { userHasAccess } from "@/lib/auth";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
-// import { logInUser } from "../../data/auth";
+import appText from "@/lang/appText";
 
 const LOGIN_USER = gql`
   mutation LOGIN_USER($email: String!, $password: String!) {
@@ -25,35 +25,35 @@ const LOGIN_USER = gql`
   }
 `;
 
-const loginForm = props => {
+const loginForm = (props) => {
   const [formData, setFormData] = useState({
     email: {
       value: "",
       valid: false,
       type: "email",
-      label: "Email",
+      label: appText.objects.email.singular,
       placeholder: "jdoe@myemail.com",
-      icon: "mail"
+      icon: "mail",
     },
     password: {
       value: "",
       valid: false,
       type: "password",
-      label: "Password",
+      label: appText.objects.password.singular,
       placeholder: "Password",
-      icon: "key"
-    }
+      icon: "key",
+    },
   });
 
   const [validate, setValidate] = useState(false);
 
-  const changeHandler = fieldData => {
+  const changeHandler = (fieldData) => {
     setFormData({
       ...formData,
       [fieldData.name]: {
         ...formData[fieldData.name],
-        ...fieldData
-      }
+        ...fieldData,
+      },
     });
   };
 
@@ -77,7 +77,7 @@ const loginForm = props => {
     }
   };
 
-  const fieldsToRender = ["email", "password"].map(key => {
+  const fieldsToRender = ["email", "password"].map((key) => {
     const fieldData = formData[key];
     return (
       <InputField
@@ -93,6 +93,7 @@ const loginForm = props => {
         icon={fieldData.icon}
         required
         validate={validate}
+        textTransform={"capitalize"}
       />
     );
   });
@@ -103,11 +104,11 @@ const loginForm = props => {
         mutation={LOGIN_USER}
         variables={{
           email: formData.email.value,
-          password: formData.password.value
+          password: formData.password.value,
         }}
         refetchQueries={[
           { query: ME_USER_QUERY },
-          ...(props.refetchQueries || [])
+          ...(props.refetchQueries || []),
         ]}
       >
         {(loginUser, { loading, error, called, data }) => (
@@ -116,8 +117,8 @@ const loginForm = props => {
             <fieldset disabled={loading} aria-busy={loading}>
               {fieldsToRender}
               <br />
-              <Button onClick={e => submitHandler(e, loginUser)} fullWidth>
-                Sign In
+              <Button onClick={(e) => submitHandler(e, loginUser)} fullWidth>
+                {appText.actions.login}
               </Button>
             </fieldset>
           </form>
