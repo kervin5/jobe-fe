@@ -1,5 +1,5 @@
 // const withCSS = require("@zeit/next-css");
-const withSourceMaps = require("@zeit/next-source-maps")();
+const withSourceMaps = require("@zeit/next-source-maps");
 const { getBackendUrl } = require("./lib/backend");
 
 module.exports = withSourceMaps({
