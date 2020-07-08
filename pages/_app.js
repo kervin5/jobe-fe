@@ -1,43 +1,38 @@
-import React from "react";
-import App from "next/app";
-import withApollo from "@/components/hoc/WithApollo";
-import { ApolloProvider } from "react-apollo";
+import React, { useEffect } from "react";
+import { ThemeProvider } from "styled-components";
+import theme from "@/common/globalVariables";
+// import App from "next/app";
 
-import { initMatomo } from "../lib/matomo";
+import { ApolloProvider } from "@apollo/client";
+import { useApollo } from "@/lib/apolloClient";
+import { initMatomo } from "@/lib/matomo";
 import Page from "@/components/Page";
+import "jodit/build/jodit.min.css";
 import "semantic-ui-css/semantic.min.css";
 import "./app.css";
 
-class MyApp extends App {
-  static displayName = "MyApp";
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    // this exposes the query to the user
-    pageProps.query = ctx.query;
-    return { pageProps };
-  }
-
-  componentDidMount() {
+export default function App({ Component, pageProps, router }) {
+  const apolloClient = useApollo(pageProps.initialApolloState);
+  useEffect(() => {
     initMatomo({
       siteId: 1,
       piwikUrl: "https://analytics.exactstaff.com"
     });
-  }
+  }, []);
 
-  render() {
-    const { Component, pageProps, apolloClient } = this.props;
-    return (
-      <ApolloProvider client={apolloClient}>
-        <Page>
+  const isAdminLayout = isAdminPage(router.pathname);
+
+  return (
+    <ApolloProvider client={apolloClient}>
+      <ThemeProvider theme={theme}>
+        <Page admin={isAdminLayout}>
           <Component {...pageProps} />
         </Page>
-      </ApolloProvider>
-    );
-  }
+      </ThemeProvider>
+    </ApolloProvider>
+  );
 }
 
-export default withApollo(MyApp);
+function isAdminPage(route) {
+  return route.startsWith("/admin");
+}

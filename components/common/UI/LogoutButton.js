@@ -1,7 +1,7 @@
 import React from "react";
-import { Mutation } from "react-apollo";
+import { Mutation } from "@apollo/react-components";
 import { Dropdown } from "semantic-ui-react";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 import Loader from "./Animated/Loader";
 
 export const LOG_OUT_MUTATION = gql`

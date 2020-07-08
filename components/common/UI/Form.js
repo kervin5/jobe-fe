@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import InputField from "./Input/InputField";
-import { Query, Mutation } from "react-apollo";
+import { Query, Mutation } from "@apollo/react-components";
 import { Dimmer, Loader, Image, Segment } from "semantic-ui-react";
 
 const Form = ({

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import { Query } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import { Input } from "semantic-ui-react";
 import { take } from "@/root/config";
 import Router from "next/router";
@@ -98,11 +98,7 @@ const PerksTable = props => {
                           placeholder="Search..."
                           onChange={inputChangeHandler}
                         />
-                        <Button
-                          onClick={() =>
-                            Router.push("/admin/dashboard/users/new")
-                          }
-                        >
+                        <Button onClick={() => Router.push("/admin/users/new")}>
                           Add Perk
                         </Button>
                       </>

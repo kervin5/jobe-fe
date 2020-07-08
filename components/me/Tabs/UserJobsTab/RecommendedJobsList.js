@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Query } from "react-apollo";
+import { Query } from "@apollo/react-components";
 import Jobs from "@/components/jobs/JobsCards";
 import Title from "@/common/UI/Title";
 import UserLocator from "@/root/data/UserLocator";
 import { USER_CATEGORIES_QUERY } from "@/components/me/UserCategories";
 import UserInfo from "@/components/hoc/UserInfo";
 
-const RecommendedJobsList = () => {
+const RecommendedJobsList = ({ userId }) => {
   const [location, setLocation] = useState(undefined);
 
   useEffect(() => {
@@ -22,7 +22,10 @@ const RecommendedJobsList = () => {
         {({ me, loading }) => {
           if (loading) return <p>Loading</p>;
           return (
-            <Query query={USER_CATEGORIES_QUERY} variables={{ userId: me.id }}>
+            <Query
+              query={USER_CATEGORIES_QUERY}
+              variables={{ userId: userId ?? me.id }}
+            >
               {({ error, loading, data }) => {
                 if (me && location)
                   return (

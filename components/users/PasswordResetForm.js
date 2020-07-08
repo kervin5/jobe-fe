@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
+import { Mutation } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import InputField from "@/common/UI/Input/InputField";
 import Button from "@/common/UI/Button";
-import { ME_USER_QUERY } from "@/lib/auth";
+import { ME_USER_QUERY } from "@/graphql/queries/users";
 import Router from "next/router";
 import ErrorMessage from "@/common/UI/ErrorMessage";
 // import { logInUser } from "../../data/auth";

@@ -1,6 +1,6 @@
 import React from "react";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import { Query } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import JobApplication from "./JobApplication/JobApplication";
 import Loader from "@/common/UI/Animated/Loader";
 import SEO from "@/components/SEO";
@@ -36,7 +36,7 @@ export const SINGLE_JOB_APPLICATION_QUERY = gql`
   }
 `;
 
-const SingleJobApplication = ({ applicationId, client }) => {
+const SingleJobApplication = ({ applicationId }) => {
   return (
     <Query
       query={SINGLE_JOB_APPLICATION_QUERY}

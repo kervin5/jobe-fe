@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Mutation } from "react-apollo";
+import { Mutation } from "@apollo/react-components";
 import ErrorMessage from "@/common/UI/ErrorMessage";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 import useForm from "react-hook-form";
 import { Form, Button, Checkbox } from "semantic-ui-react";
 import Router from "next/router";
@@ -89,7 +89,7 @@ const CreateJobForm = () => {
     register({ name: "jobType" }, { required: true });
     register({ name: "jobSkills" }, { required: true });
     register({ name: "jobAuthor" });
-    register({ name: "jobPerks" });
+    register({ name: "jobPerks" }, { required: true });
     register({ name: "jobDescription" }, { required: true });
     register({ name: "jobDisclaimer" });
     register({ name: "jobIsRecurring" });
@@ -116,7 +116,7 @@ const CreateJobForm = () => {
       data: { createJob }
     } = await createJobMutation({ variables });
     if (createJob) {
-      Router.push("/admin/dashboard/jobs/preview/" + createJob.id);
+      Router.push("/admin/jobs/" + createJob.id);
     } else {
       console.log("Something failed");
     }

@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import SingleJobListing from "../JobListing/SingleJobListing";
 import EditOrContinuerButton from "./EditOrContinueButtons";
+import styled from "styled-components";
 
-export class JobPreview extends Component {
-  render() {
-    return (
-      <>
-        <EditOrContinuerButton jobId={this.props.jobId} />
-        <SingleJobListing jobId={this.props.jobId} preview={true} />
-      </>
-    );
-  }
-}
+const StyledJobPreview = styled.div`
+  max-width: ${props => props.maxWidth};
+  margin: ${props => (props.maxWidth !== "100%" ? "0 auto" : "10px")};
+`;
+
+const JobPreview = ({ jobId, maxWidth = "100%" }) => {
+  return (
+    <StyledJobPreview maxWidth={maxWidth}>
+      <EditOrContinuerButton jobId={jobId} />
+      <SingleJobListing jobId={jobId} preview={true} />
+    </StyledJobPreview>
+  );
+};
 
 export default JobPreview;

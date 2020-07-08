@@ -1,49 +1,38 @@
 import React from "react";
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import Title from "@/common/UI/Title";
 import ResumeUploadButton from "@/common/UI/ResumeUploadButton";
 import ResumeList from "@/common/UI/ResumeList";
+import { ME_USER_QUERY, SINGLE_USER_QUERY } from "@/graphql/queries/users";
 
-export const RESUME_LIST_QUERY = gql`
-  query RESUME_LIST_QUERY {
-    me {
-      id
-      name
-      resumes(orderBy: { createdAt: desc }) {
-        id
-        title
-        file {
-          id
-          path
-          createdAt
-          updatedAt
-        }
-      }
-    }
-  }
-`;
-
-const UserResumesTab = () => {
+const UserResumesTab = ({ userId }) => {
+  const userQuery = queryToUse(userId);
+  const { error, loading, data } = useQuery(userQuery.query, {
+    variables: userQuery.variables
+  });
+  const userData = data?.me ?? data?.user;
+  let list = userData?.resumes;
   return (
     <>
       <div className="resumeHeader">
         <Title center size="s">
-          These are your resumes.
+          These are {userData ? `${userData.name}'s ` : "your"} resumes.
         </Title>
-        <ResumeUploadButton />
+        {!userId && <ResumeUploadButton />}
       </div>
-      <Query query={RESUME_LIST_QUERY}>
-        {({ error, loading, data }) => {
-          if (error) return <p>There was an error</p>;
-          if (loading) return <p>Loading your resumes</p>;
-          let list = data.me.resumes;
-
-          return <ResumeList list={list} />;
-        }}
-      </Query>
+      {error && <p>There was an error</p>}
+      {loading && <p>Loading your resumes</p>}
+      {list && <ResumeList list={list} />}
     </>
   );
 };
+
+function queryToUse(userId) {
+  if (userId) {
+    return { query: SINGLE_USER_QUERY, variables: { id: userId } };
+  } else {
+    return { query: ME_USER_QUERY, variables: {} };
+  }
+}
 
 export default UserResumesTab;

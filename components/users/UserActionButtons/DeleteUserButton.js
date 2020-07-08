@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
+import { Mutation } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import { Button, Modal, Icon } from "semantic-ui-react";
 
 const DELETE_USER_MUTATION = gql`
@@ -29,7 +29,7 @@ const DeleteUserButton = ({ message, userId, refetchQueries }) => {
             open={open}
             trigger={
               <Button icon color="red" onClick={openModal}>
-                <Icon name="trash" />
+                <Icon name="times" />
               </Button>
             }
             dimmer="blurring"

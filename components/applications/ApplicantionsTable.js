@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import { Query } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import Link from "next/link";
 import { Dropdown, Input, Button } from "semantic-ui-react";
 import moment from "moment";
@@ -10,7 +10,6 @@ import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 
 import Table from "@/common/UI/Table";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
-import ApplicationsCountWarning from "./ApplicationsCountWarning";
 
 const ALL_APPLICATIONS_QUERY = gql`
   query ALL_APPLICATIONS_QUERY(
@@ -197,8 +196,6 @@ const ApplicantTable = props => {
 
   return (
     <>
-      <ApplicationsCountWarning />
-
       <Query
         query={USER_APPLICATION_CONNECTION_QUERY}
         ssr={false}
@@ -263,17 +260,13 @@ const ApplicantTable = props => {
                       <EempactStatusLabel data={application.user.eEmpact} />
                     ),
                     actions: (
-                      <Button
-                        as="a"
-                        icon="eye"
-                        color="green"
-                        onClick={e => {
-                          e.preventDefault();
-                          window.open(
-                            "/admin/dashboard/applications/" + application.id
-                          );
-                        }}
-                      />
+                      <Link
+                        href={"/admin/applications/[aid]"}
+                        as={"/admin/applications/" + application.id}
+                        passHref
+                      >
+                        <Button as="a" icon="eye" color="green" />
+                      </Link>
                     )
                   });
                 });

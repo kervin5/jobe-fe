@@ -1,8 +1,9 @@
 import React from "react";
-import { Mutation } from "react-apollo";
+import { Mutation } from "@apollo/react-components";
+
 import { Button, Icon } from "semantic-ui-react";
 import Router from "next/router";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 const POST_JOB_MUTATION = gql`
   mutation POST_JOB_MUTATION($jobId: String!, $status: JobStatus!) {

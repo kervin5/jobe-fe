@@ -4,7 +4,7 @@ import NProgress from "nprogress";
 import NavigationBar from "@/common/UI/Navigation/NavigationBar";
 import BottomNav from "@/common/UI/Navigation/BottomNav";
 import Footer from "./Footer";
-// import NavigationDrawer from "../UI/Navigation/NavigationDrawer";
+import AdminSideMenu from "@/common/UI/Navigation/AdminSideMenu";
 import variables from "@/common/globalVariables";
 import { initGA, logPageView } from "@/lib/analytics";
 
@@ -25,14 +25,18 @@ Router.onRouteChangeError = () => {
 };
 
 const layout = props => {
-  const [showDrawer, setShowDrawer] = useState(false);
-  const handleMenuClick = value => setShowDrawer(!showDrawer);
-
+  const [adminBarIsOpen, setAdminBarIsOpen] = useState(false);
   return (
     <div className="Layout">
-      {props.hideNav ? null : (
-        <NavigationBar menuButtonClick={handleMenuClick} />
+      {!props.hideNav && !props.admin && <NavigationBar />}
+      {!props.hideNav && props.admin && (
+        <NavigationBar
+          leftHamburgerClickHandler={() => {
+            setAdminBarIsOpen(!adminBarIsOpen);
+          }}
+        />
       )}
+      {props.admin && !props.hideNav && <AdminSideMenu open={adminBarIsOpen} />}
       <main>{props.children}</main>
       <Footer />
       <BottomNav />
@@ -56,7 +60,7 @@ const layout = props => {
         }
 
         main {
-          min-height: 100%;
+          min-height: 100vh;
           margin-top: 55px;
         }
 

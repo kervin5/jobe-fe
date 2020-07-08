@@ -4,11 +4,11 @@ import variables from "@/common/globalVariables";
 const Avatar = ({ name = "Unknown" }) => {
   const initials = name.split(" ");
   const firstInitial = initials[0][0];
-  const lastInitial = initials.pop()[0];
+  const lastInitial = initials?.[1]?.[0];
 
   return (
     <span className="Avatar">
-      {`${firstInitial} ${lastInitial}`}
+      {`${firstInitial} ${lastInitial?.toUpperCase() ?? ""}`}
       <style jsx>{`
         .Avatar {
           background: ${variables.accentColor3};

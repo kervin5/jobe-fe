@@ -1,6 +1,6 @@
 import React from "react";
-import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
+import { Mutation } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import Icon from "@/common/UI/Icon";
 import variables from "@/common/globalVariables";
 import { USER_FAVORITE_STATUS_QUERY } from "./FavoriteButton";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InputField from "@/common/UI/Input/InputField";
-import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
+import { gql } from "@apollo/client";
+import { Mutation } from "@apollo/react-components";
 import Button from "@/common/UI/Button";
 import Title from "@/common/UI/Title";
 

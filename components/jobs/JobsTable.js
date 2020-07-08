@@ -1,59 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Query } from "react-apollo";
+import { Query } from "@apollo/react-components";
+import moment from "moment";
 import { Button, Input, Select, Icon, Label } from "semantic-ui-react";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 import { take } from "@/root/config";
-import Table from "@/common/UI/Table";
+import Table, { OrderByHeader } from "@/common/UI/Table";
 import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";
 import variables from "@/common/globalVariables";
-import moment from "moment";
+import { ALL_JOBS_GRID } from "@/graphql/queries/jobs";
 
-export const USER_JOBS_QUERY = gql`
-  query USER_JOBS_QUERY(
-    $take: Int!
-    $skip: Int!
-    $query: String = ""
-    $status: [JobStatus!]
-  ) {
-    protectedJobs(
-      take: $take
-      skip: $skip
-      where: { title: { contains: $query }, status: { in: $status } }
-    ) {
-      id
-      title
-      status
-      updatedAt
-      cronTask {
-        id
-      }
-      author {
-        id
-        name
-      }
-      location {
-        id
-        name
-      }
-      status
-      applications {
-        id
-        status
-      }
-      branch {
-        id
-        name
-      }
-    }
-  }
-`;
-
-const USER_JOBS_CONNECTION_QUERY = gql`
-  query USER_JOBS_CONNECTION_QUERY($query: String = "", $status: [JobStatus!]) {
-    protectedJobsConnection(
-      where: { title: { contains: $query }, status: { in: $status } }
-    )
+const JOBS_GRID_COUNT_QUERY = gql`
+  query JOBS_GRID_COUNT_QUERY($query: String = "", $status: [String!]) {
+    jobsGridCount(query: $query, status: $status)
   }
 `;
 
@@ -85,6 +44,7 @@ const JobsTable = props => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
   const [status, setStatus] = useState(allStatus);
+  const [orderBy, setOrderBy] = useState("author DESC");
 
   const handleTurnPage = pageNumber => {
     setCurrentPage(parseInt(pageNumber));
@@ -103,10 +63,60 @@ const JobsTable = props => {
     }
   };
 
+  const headers = {
+    title: (
+      <OrderByHeader column="title" action={setOrderBy} activeColumn={orderBy}>
+        Title
+      </OrderByHeader>
+    ),
+    author: (
+      <OrderByHeader column="author" action={setOrderBy} activeColumn={orderBy}>
+        Author
+      </OrderByHeader>
+    ),
+    status: (
+      <OrderByHeader column="status" action={setOrderBy} activeColumn={orderBy}>
+        Status
+      </OrderByHeader>
+    ),
+    location: (
+      <OrderByHeader
+        column="location"
+        action={setOrderBy}
+        activeColumn={orderBy}
+      >
+        Location
+      </OrderByHeader>
+    ),
+    branch: (
+      <OrderByHeader column="branch" action={setOrderBy} activeColumn={orderBy}>
+        Branch
+      </OrderByHeader>
+    ),
+    applications: (
+      <OrderByHeader
+        column="applications"
+        action={setOrderBy}
+        activeColumn={orderBy}
+      >
+        Applications
+      </OrderByHeader>
+    ),
+    updated: (
+      <OrderByHeader
+        column={`"Job"."updatedAt"`}
+        action={setOrderBy}
+        activeColumn={orderBy}
+      >
+        Updated
+      </OrderByHeader>
+    )
+  };
+
   return (
     <>
       <Query
-        query={USER_JOBS_CONNECTION_QUERY}
+        query={JOBS_GRID_COUNT_QUERY}
         ssr={false}
         variables={{ query: searchValue, status }}
       >
@@ -115,69 +125,80 @@ const JobsTable = props => {
 
           return (
             <Query
-              query={USER_JOBS_QUERY}
+              query={ALL_JOBS_GRID}
               variables={{
                 take,
                 skip: (currentPage - 1) * take,
                 query: searchValue,
+                orderBy,
                 status
               }}
               ssr={false}
             >
               {({ data, error, loading }) => {
-                if (loading) if (error) return <p>Something Failed...</p>;
+                if (error) return <p>Something Failed...</p>;
 
-                //Get jobs from branch if user has access
-                const dataForTable = data?.protectedJobs.map(job => {
-                  // job.recurring  = !!job.cronTask;
-                  // delete job.cronTask;
+                const dataForTable = data?.jobsGrid.map(job => {
                   return {
                     ...job,
-                    location: job.location.name,
+                    location: job.location,
                     updated: moment(job.updatedAt).format("MM/DD/YYYY"),
-                    branch: job.branch.name,
+                    branch: job.branch,
                     recurring: <CheckMark checked={!!job.cronTask} />,
                     cronTask: null
                   };
                 });
 
-                const jobsCount =
-                  userJobsData?.data?.protectedJobsConnection || 0;
+                const jobsCount = userJobsData?.data?.jobsGridCount || 0;
                 return (
-                  <>
-                    <Table
-                      toolbar={
-                        <>
-                          <div>
-                            <Input
-                              icon="search"
-                              placeholder="Search..."
-                              onChange={e => handleFieldChange(e)}
-                            />
-                            <Select
-                              options={options}
-                              defaultValue="ALL"
-                              onChange={(e, data) =>
-                                handleFieldChange(data, "status")
-                              }
-                            />
-                          </div>
-                          <Link href="/admin/dashboard/jobs/new" passHref>
-                            <Button positive as="a">
-                              Add New Job
-                            </Button>
-                          </Link>
-                        </>
+                  <Table
+                    toolbar={
+                      <>
+                        <div>
+                          <Input
+                            icon="search"
+                            placeholder="Search..."
+                            onChange={e => handleFieldChange(e)}
+                          />
+                          <Select
+                            options={options}
+                            defaultValue="ALL"
+                            onChange={(e, data) =>
+                              handleFieldChange(data, "status")
+                            }
+                          />
+                        </div>
+                        <Link href="/admin/jobs/new" passHref>
+                          <Button positive as="a">
+                            Add New Job
+                          </Button>
+                        </Link>
+                      </>
+                    }
+                    page={currentPage}
+                    loading={loading}
+                    count={jobsCount}
+                    take={take}
+                    turnPageHandler={handleTurnPage}
+                    headers={headers}
+                    data={injectActionsColumn(dataForTable, [
+                      {
+                        query: JOBS_GRID_COUNT_QUERY,
+                        variables: { query: searchValue, status }
+                      },
+                      {
+                        query: ALL_JOBS_GRID,
+                        variables: {
+                          take,
+                          skip: (currentPage - 1) * take,
+                          query: searchValue,
+                          orderBy,
+                          status
+                        }
                       }
-                      page={currentPage}
-                      loading={loading}
-                      count={jobsCount}
-                      take={take}
-                      turnPageHandler={handleTurnPage}
-                      data={injectActionsColumn(dataForTable)}
-                      exclude={["updatedAt", "cronTask"]}
-                    />
-                  </>
+                    ])}
+                    exclude={["updatedAt", "cronTask"]}
+                  />
                 );
               }}
             </Query>
@@ -188,13 +209,9 @@ const JobsTable = props => {
   );
 };
 
-const injectActionsColumn = data => {
+const injectActionsColumn = (data, refetchQueries) => {
   if (!data) return null;
   return data.map(record => {
-    const activeApplications = record.applications.filter(
-      application => !["HIRED", "ARCHIVED"].includes(application.status)
-    );
-
     return {
       ...record,
 
@@ -213,19 +230,19 @@ const injectActionsColumn = data => {
         </p>
       ),
       applications:
-        record.applications.length > 0 ? (
+        record.applications > 0 ? (
           <Link
-            href={"/admin/dashboard/applications/job/[jid]"}
-            as={"/admin/dashboard/applications/job/" + record.id}
+            href={"/admin/jobs/[jid]/applications"}
+            as={"/admin/jobs/" + record.id + "/applications"}
           >
             <a>
-              {activeApplications.length > 0 ? (
+              {record.applications > 0 ? (
                 <Label
-                  content={`${activeApplications.length}`}
+                  content={`${record.applications}`}
                   color={
-                    activeApplications.length < 30
+                    record.applications < 30
                       ? "green"
-                      : activeApplications.length < 40
+                      : record.applications < 40
                       ? "yellow"
                       : "red"
                   }
@@ -236,9 +253,9 @@ const injectActionsColumn = data => {
             </a>
           </Link>
         ) : (
-          <Label content={record.applications.length} color="grey" />
+          <Label content={record.applications} color="grey" />
         ),
-      author: record.author.name,
+      author: record.author,
       actions: (
         <Button.Group>
           <Link {...getPreviewLink(record)}>
@@ -250,26 +267,17 @@ const injectActionsColumn = data => {
             />
           </Link>
           <Link
-            href="/admin/dashboard/jobs/edit/[jid]"
-            as={`/admin/dashboard/jobs/edit/${record.id}`}
+            href="/admin/jobs/[jid]/edit"
+            as={`/admin/jobs/${record.id}/edit`}
           >
             <Button
               as="a"
               icon="edit"
               color="yellow"
-              href={`/admin/dashboard/jobs/edit/${record.id}`}
+              href={`/admin/jobs/${record.id}/edit`}
             />
           </Link>
-          <DeleteJobButton
-            jobId={record.id}
-            refetchQueries={[
-              { query: USER_JOBS_CONNECTION_QUERY, variables: { query: " " } },
-              {
-                query: USER_JOBS_CONNECTION_QUERY,
-                variables: { take, skip: 0, query: " " }
-              }
-            ]}
-          />
+          <DeleteJobButton jobId={record.id} refetchQueries={refetchQueries} />
         </Button.Group>
       )
     };
@@ -277,14 +285,14 @@ const injectActionsColumn = data => {
 };
 
 const getPreviewLink = job => {
-  if (job.status !== "POSTED") {
-    return {
-      href: "/admin/dashboard/jobs/preview/[jid]",
-      as: `/admin/dashboard/jobs/preview/${job.id}`
-    };
-  } else {
-    return { href: "/jobs/[jid]", as: `/jobs/${job.id}` };
-  }
+  // if (job.status !== "POSTED") {
+  //   return {
+  //     href: "/admin/jobs/[jid]",
+  //     as: `/admin/jobs/${job.id}/preview`
+  //   };
+  // } else {
+  return { href: "/admin/jobs/[jid]", as: `/admin/jobs/${job.id}` };
+  // }
 };
 
 export default JobsTable;

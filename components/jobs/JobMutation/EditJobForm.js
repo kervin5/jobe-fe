@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Mutation, Query } from "react-apollo";
-import gql from "graphql-tag";
+import { Mutation, Query } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import { Form, Button, Loader } from "semantic-ui-react";
 import useForm from "react-hook-form";
 import Router from "next/router";
@@ -132,7 +132,10 @@ const EditJobForm = ({ data, jobId }) => {
       { name: "jobSkills", value: data.skills.map(skill => skill.id) },
       { required: true }
     );
-    register({ name: "jobPerkss", value: data.perks.map(perk => perk.id) });
+    register(
+      { name: "jobPerkss", value: data.perks.map(perk => perk.id) },
+      { required: true }
+    );
     register({ name: "jobAuthor", value: data.author.id });
     register(
       { name: "jobDescription", value: data.description },
@@ -175,7 +178,7 @@ const EditJobForm = ({ data, jobId }) => {
     } = await updateJobMutation({ variables: { ...variables, jobId } });
 
     if (updateJob) {
-      Router.push("/admin/dashboard/jobs/preview/" + updateJob.id);
+      Router.push("/admin/jobs/" + updateJob.id);
     }
   };
 

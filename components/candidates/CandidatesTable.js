@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import Link from "next/link";
+import { Query } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import { Button, Input, Label } from "semantic-ui-react";
 import { take } from "../../config";
 
@@ -30,6 +31,9 @@ const CANDIDATE_QUERY = gql`
         id
         assignments
       }
+      applications {
+        id
+      }
       resumes(last: 1) {
         file {
           id
@@ -38,6 +42,7 @@ const CANDIDATE_QUERY = gql`
         id
         title
         createdAt
+
         skills {
           id
           name
@@ -99,6 +104,7 @@ const Candidates = props => {
 
               data?.candidates.forEach(candidate => {
                 const hasResume = candidate.resumes.length > 0;
+                const resumeSkills = candidate.resumes[0].skills.slice(0, 5);
 
                 return candidates.push({
                   name: candidate.name,
@@ -110,6 +116,15 @@ const Candidates = props => {
                   ) : (
                     <p>No Resume</p>
                   ),
+                  applications: candidate.applications?.length,
+                  skills: resumeSkills.map(skill => (
+                    <Label
+                      content={skill.name}
+                      color="blue"
+                      key={`SkillTag${skill.name + new Date()}`}
+                    />
+                  )),
+                  eEmpact: <EempactStatusLabel data={candidate.eEmpact} />,
                   resume: hasResume && (
                     <Button
                       color="green"
@@ -124,14 +139,20 @@ const Candidates = props => {
                       Download Resume
                     </Button>
                   ),
-                  skills:
-                    !!skills.length &&
-                    candidate.resumes[0].skills
-                      .filter(skill => skills.includes(skill.id))
-                      .map(skill => (
-                        <Label content={skill.name} color="blue" />
-                      )),
-                  eEmpact: <EempactStatusLabel data={candidate.eEmpact} />
+                  actions: (
+                    <Link
+                      href="/admin/candidates/[cid]"
+                      as={`/admin/candidates/${candidate.id}`}
+                      passHref
+                    >
+                      <Button
+                        as="a"
+                        icon="eye"
+                        color={"green"}
+                        href={`/admin/candidates/${candidate.id}`}
+                      />
+                    </Link>
+                  )
                 });
               });
 
@@ -161,6 +182,7 @@ const Candidates = props => {
                         placeholder="Filter by skills"
                         multiple
                         nolabel
+                        minWidth={"150px"}
                         graphql={{
                           query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
                         }}

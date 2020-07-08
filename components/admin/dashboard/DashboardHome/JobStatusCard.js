@@ -1,10 +1,10 @@
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import { Query } from "@apollo/react-components";
+import { gql } from "@apollo/client";
 import CounterCard from "@/common/UI/CounterCard";
 
 const JOB_STATUS_QUERY = gql`
-  query JOB_STATUS_QUERY($status: JobStatus!) {
-    protectedJobsConnection(where: { status: { equals: $status } })
+  query JOB_STATUS_QUERY($status: String!) {
+    jobsGridCount(status: [$status])
   }
 `;
 
@@ -16,13 +16,14 @@ const JobStatusCard = props => {
     >
       {({ error, loading, data }) => {
         if (error) return <p>Something went wrong...</p>;
-        if (loading) return <p>Loading...</p>;
+        // if (loading) return <p>Loading...</p>;
         return (
           <CounterCard
             label={props.label}
-            value={data.protectedJobsConnection}
+            value={data?.jobsGridCount}
             color={props.color}
             icon={props.icon}
+            loading={loading}
           />
         );
       }}

@@ -1,7 +1,8 @@
 import React from "react";
-import { Mutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
+
 import { Button, Placeholder, Loader, Input } from "semantic-ui-react";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 const DELETE_JOB_MUTATION = gql`
   mutation DELETE_JOB_MUTATION($jobId: ID!) {
@@ -13,30 +14,26 @@ const DELETE_JOB_MUTATION = gql`
   }
 `;
 
-const DeleteJobButton = ({ jobId, refetchQueries }) => {
-  const handleClick = async deleteJobMutation => {
+const DeleteJobButton = ({ jobId, refetchQueries, optimisticResponse }) => {
+  const [deleteJobMutation, { error, loading, data }] = useMutation(
+    DELETE_JOB_MUTATION
+  );
+  const handleClick = async () => {
     if (confirm("Are you sure?")) {
-      console.log(await deleteJobMutation());
-      location.reload();
+      await deleteJobMutation({
+        variables: { jobId },
+        refetchQueries,
+        optimisticResponse
+      });
     }
   };
-
+  if (loading) return <Loader />;
   return (
-    <Mutation
-      mutation={DELETE_JOB_MUTATION}
-      variables={{ jobId }}
-      refetchQueries={refetchQueries}
-    >
-      {(deleteJobMutation, { error, loading, data }) => {
-        return (
-          <Button
-            icon="trash"
-            color="red"
-            onClick={() => handleClick(deleteJobMutation)}
-          />
-        );
-      }}
-    </Mutation>
+    <Button
+      icon="trash"
+      color="red"
+      onClick={() => handleClick(deleteJobMutation)}
+    />
   );
 };
 

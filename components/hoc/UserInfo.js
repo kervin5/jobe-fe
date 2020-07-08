@@ -1,6 +1,6 @@
 import React from "react";
-import { Query } from "react-apollo";
-import { ME_USER_QUERY } from "@/lib/auth";
+import { Query } from "@apollo/react-components";
+import { ME_USER_QUERY } from "@/graphql/queries/users";
 
 const UserInfo = ({ children }) => {
   return (

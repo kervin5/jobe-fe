@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import SEO from "@/components/SEO";
 import UserLocator from "../data/UserLocator";
-import variables from "@/components/common/globalVariables.js";
-
-import PageSection from "@/components/common/Layout/PageSection";
-import Container from "@/components/common/Layout/Container";
-import Title from "@/components/common/UI/Title";
-import DynamicImageBg from "@/components/common/UI/DynamicImageBg";
+import variables from "@/common/globalVariables.js";
+import appText from "@/lang/appText";
+import PageSection from "@/common/Layout/PageSection";
+import Container from "@/common/Layout/Container";
+import Title from "@/common/UI/Title";
+import DynamicImageBg from "@/common/UI/DynamicImageBg";
 import SearchArea from "@/components/jobs/Search/SearchArea";
 
 import JobsCards from "@/components/jobs/JobsCards";
 import PopularTerms from "@/components/jobs/PopularTerms/PopularTerms";
 import { getJobsFromAPI, getTermsFromAPI } from "@/lib/backend";
 
-// const peopleImage = "../images/334809-PAIXKS-603.ai.png";
 const landingLogo = "/images/LandingLogo.svg";
 
 // const homePageStyle = `background: linear-gradient(0deg, white 40%, ${variables.mutedColor1} 40%);`;
 
 const homePage = props => {
+  // return <p>Hello</p>;
   const [userLocation, setUserLocation] = useState({
     name: "Loading...",
     lat: 0,
@@ -56,11 +56,11 @@ const homePage = props => {
       </DynamicImageBg>
       <Container>
         <Title size={"l"} center margin>
-          What's Trending 😎
+          {appText.expressions.whatsTrending} 😎
         </Title>
         <PopularTerms terms={props.terms} />
-        <Title size={"l"} center margin>
-          Latest Jobs
+        <Title size={"l"} center margin capitalize>
+          {appText.expressions.latestJobs}
         </Title>
         <JobsCards jobs={props.jobs} />
       </Container>

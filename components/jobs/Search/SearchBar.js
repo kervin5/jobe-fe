@@ -1,9 +1,58 @@
 import Icon from "@/common/UI/Icon";
-import variables from "@/common/globalVariables";
 import PropTypes from "prop-types";
+import styled from "styled-components";
+import appText from "@/lang/appText";
 
-const SearchBar = ({ terms = "Awesome", location, onClick }) => {
-  const shortLocationName = location ? location.split(",")[0] : "Your Area";
+const StyledSearchBar = styled.div`
+  background-color: ${props => props.theme.clearColor};
+  padding: 10px 15px;
+  border-radius: 50px;
+  border: 1px solid ${props => props.theme.mutedColor2};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  position: relative;
+
+  h3 {
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .searchTerms {
+    text-transform: capitalize;
+  }
+
+  .connector {
+    font-weight: 300;
+  }
+
+  .location {
+    color: ${props => props.theme.accentColor1};
+  }
+
+  .SearchIcon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+
+    .Icon svg {
+      max-width: 18px;
+      color: ${props => props.theme.darkColor};
+      margin-left: 10px;
+    }
+  }
+`;
+
+const SearchBar = ({
+  terms = appText.adjectives.awesome,
+  location,
+  onClick
+}) => {
+  const shortLocationName = location
+    ? location.split(",")[0]
+    : `${appText.pronouns.yours} ${appText.objects.area.singular}`;
 
   const clickHandler = () => {
     if (onClick) {
@@ -12,55 +61,16 @@ const SearchBar = ({ terms = "Awesome", location, onClick }) => {
   };
 
   return (
-    <div onClick={clickHandler}>
+    <StyledSearchBar onClick={clickHandler}>
       <h3>
-        {terms} <span className="connector">Jobs near</span>{" "}
+        <span className="searchTerms">{terms}</span>{" "}
+        <span className="connector">{`${appText.objects.job.plural} ${appText.adjectives.near}`}</span>{" "}
         <span className="location">{shortLocationName}</span>
       </h3>
       <span className="SearchIcon">
         <Icon icon="search" />
       </span>
-
-      <style jsx>{`
-        h3 {
-          text-align: center;
-          margin-bottom: 0;
-        }
-
-        div {
-          background-color: ${variables.clearColor};
-          padding: 10px 15px;
-          border-radius: 50px;
-          border: 1px solid ${variables.mutedColor2};
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-bottom: 15px;
-          margin-top: 10px;
-          position: relative;
-        }
-
-        .connector {
-          font-weight: 300;
-        }
-
-        .location {
-          color: ${variables.accentColor1};
-        }
-
-        .SearchIcon {
-          position: absolute;
-          top: 10px;
-          right: 15px;
-        }
-
-        .SearchIcon :global(.Icon svg) {
-          max-width: 18px;
-          color: ${variables.darkColor};
-          margin-left: 10px;
-        }
-      `}</style>
-    </div>
+    </StyledSearchBar>
   );
 };
 

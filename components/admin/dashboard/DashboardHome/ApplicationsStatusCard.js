@@ -1,5 +1,6 @@
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import { Query } from "@apollo/react-components";
+
+import { gql } from "@apollo/client";
 import CounterCard from "@/common/UI/CounterCard";
 
 export const APPLICATION_STATUS_QUERY = gql`
@@ -20,13 +21,15 @@ const ApplicationsStatusCard = props => {
     <Query query={APPLICATION_STATUS_QUERY}>
       {({ error, loading, data }) => {
         if (error) return <p>Something went wrong...</p>;
-        if (loading) return <p>Loading...</p>;
+        // if (loading) return <p>Loading...</p>;
         return (
           <CounterCard
             label="Apps"
-            value={data.applicationsConnection}
+            value={data?.applicationsConnection}
             color={props.color}
             icon={props.icon}
+            loading={loading}
+            danger={data?.applicationsConnection > 100}
           />
         );
       }}

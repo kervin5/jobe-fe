@@ -1,6 +1,6 @@
 import React, { useRef, useState, Component } from "react";
 import dynamic from "next/dynamic";
-import "jodit/build/jodit.min.css";
+
 const JoditEditor = dynamic(() => import("jodit-react"), {
   ssr: false
 });

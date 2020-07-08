@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 import Form from "@/common/UI/Form";
 
 const CREATE_USER_MUTATION = gql`

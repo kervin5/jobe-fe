@@ -1,6 +1,6 @@
 import React from "react";
-import gql from "graphql-tag";
-import { Query, Mutation } from "react-apollo";
+import { gql } from "@apollo/client";
+import { Query, Mutation } from "@apollo/react-components";
 import { Checkbox } from "semantic-ui-react";
 import InformationButton from "@/common/UI/InformationButton";
 

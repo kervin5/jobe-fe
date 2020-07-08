@@ -1,14 +1,18 @@
 import React from "react";
-import { Query } from "react-apollo";
+import Router from "next/router";
+import { Query } from "@apollo/react-components";
 import { Loader } from "semantic-ui-react";
-import { ME_USER_QUERY, userHasAccess } from "@/lib/auth";
+import { userHasAccess } from "@/lib/auth";
+import { ME_USER_QUERY } from "@/graphql/queries/users";
 
-const RenderIfLoggedIn = ({ children, permissions, fallback }) => {
+const RenderIfLoggedIn = ({ children, permissions, fallback, redirect }) => {
   return (
     <Query query={ME_USER_QUERY}>
       {({ error, loading, data }) => {
         if (error) return <p>Something went wrong</p>;
         if (loading) return <Loader active inline="centered" />;
+        if (!data.me && redirect)
+          Router.push(typeof redirect === "string" ? redirect : "/user/login");
         if (!data.me) return null;
         if (
           permissions &&

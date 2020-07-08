@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Message } from "semantic-ui-react";
-import { Query } from "react-apollo";
+import { Query } from "@apollo/react-components";
 import { APPLICATION_STATUS_QUERY } from "@/admin/dashboard/DashboardHome/ApplicationsStatusCard";
 
 const ApplicationsCountWarning = () => {
@@ -8,7 +8,8 @@ const ApplicationsCountWarning = () => {
   return (
     <Query query={APPLICATION_STATUS_QUERY}>
       {({ error, loading, data }) => {
-        if (loading) return <p>Loading...</p>;
+        // if (loading) return <p>Loading...</p>;
+        if (loading) return null;
         if (error) return <p>Ooops something went wrong</p>;
         if (data.applicationsConnection < 100) return null;
         return (

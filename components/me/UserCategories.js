@@ -1,7 +1,7 @@
 import React from "react";
 import { Label, Loader } from "semantic-ui-react";
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import { gql } from "@apollo/client";
+import { Query } from "@apollo/react-components";
 import Link from "next/link";
 
 // skills(where: { job: { application: { user: {id: $userId} } } }) {
