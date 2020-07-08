@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Icon, Table, Pagination, Loader } from "semantic-ui-react";
 import styled from "styled-components";
+import appText from "@/lang/appText";
 
 const TableWithPagination = ({
   data,
@@ -12,7 +13,7 @@ const TableWithPagination = ({
   withid,
   exclude = [],
   toolbar,
-  headers
+  headers,
 }) => {
   const pages = Math.ceil(count / take);
   const handlePaginationChange = (e, { activePage }) => {
@@ -23,14 +24,14 @@ const TableWithPagination = ({
     <div className="CustomTable">
       <div className="CustomTable__tooblar">{toolbar}</div>
       {loading && <p>Loading...</p>}
-      {data?.length === 0 && !loading && <p>No data to show</p>}
+      {data?.length === 0 && !loading && <p>{appText.messages.notfound}</p>}
       {data?.length > 0 && (
         <Table selectable>
           <Table.Header>
             <Table.Row>
               {Object.keys(data[0])
                 .filter(
-                  header =>
+                  (header) =>
                     ((withid && header === "id") ||
                       (header !== "__typename" && header !== "id")) &&
                     !exclude.includes(header)
@@ -55,7 +56,7 @@ const TableWithPagination = ({
                 <Table.Row key={"Row" + key}>
                   {Object.keys(row)
                     .filter(
-                      rowName =>
+                      (rowName) =>
                         ((withid && rowName === "id") ||
                           (rowName !== "__typename" && rowName !== "id")) &&
                         !exclude.includes(rowName)
@@ -80,20 +81,20 @@ const TableWithPagination = ({
                   defaultActivePage={page}
                   ellipsisItem={{
                     content: <Icon name="ellipsis horizontal" />,
-                    icon: true
+                    icon: true,
                   }}
                   firstItem={{
                     content: <Icon name="angle double left" />,
-                    icon: true
+                    icon: true,
                   }}
                   lastItem={{
                     content: <Icon name="angle double right" />,
-                    icon: true
+                    icon: true,
                   }}
                   prevItem={{ content: <Icon name="angle left" />, icon: true }}
                   nextItem={{
                     content: <Icon name="angle right" />,
-                    icon: true
+                    icon: true,
                   }}
                   totalPages={pages}
                   onPageChange={handlePaginationChange}

@@ -6,6 +6,7 @@ const QueryBarChart = ({ query, orderBy }) => {
   const { error, loading, data } = useQuery(query);
 
   if (loading) return <p>Loading...</p>;
+  if (!data) return null;
   const [queryKey] = Object.keys(data);
   const chartData = generateData(data[queryKey], orderBy);
 
@@ -40,11 +41,11 @@ function generateData(data, orderBy) {
     return result;
   }, {});
 
-  Object.keys(branchesList).forEach(branchName => {
+  Object.keys(branchesList).forEach((branchName) => {
     chartData.push({
       name: branchName,
       ...branchesList[branchName],
-      amt: 10000
+      amt: 10000,
     });
   });
 
@@ -55,10 +56,10 @@ function generateData(data, orderBy) {
   return {
     data: chartData,
 
-    keys: Object.keys(statusList).map(key => ({
+    keys: Object.keys(statusList).map((key) => ({
       key,
-      color: "#" + ((Math.random() * 0xffffff) << 0).toString(16)
-    }))
+      color: "#" + ((Math.random() * 0xffffff) << 0).toString(16),
+    })),
   };
 }
 

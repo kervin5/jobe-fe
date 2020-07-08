@@ -12,6 +12,7 @@ import TextArea from "@/common/UI/Input/CustomSemanticInput/TextArea";
 import AuthorDropdown from "@/common/UI/Input/CustomSemanticInput/AuthorDropdown";
 import Title from "@/common/UI/Title";
 import InformationButton from "@/common/UI/InformationButton";
+import appText from "@/lang/appText";
 
 const CREATE_JOB_MUTATION = gql`
   mutation CREATE_JOB_MUTATION(
@@ -60,14 +61,14 @@ const CREATE_JOB_MUTATION = gql`
 const compensationTypeOptions = [
   { key: "hourly", text: "Hourly", value: "Hourly" },
   { key: "salary", text: "Salary", value: "Salary" },
-  { key: "doe", text: "DOE", value: "DOE" }
+  { key: "doe", text: "DOE", value: "DOE" },
 ];
 
 const jobTypeOptions = [
   { key: "fulltime", text: "Full-Time", value: "Full-Time" },
   { key: "parttime", text: "Part-Time", value: "Part-Time" },
   { key: "temp", text: "Temp", value: "Temp" },
-  { key: "perdiem", text: "Per Diem", value: "Per Diem" }
+  { key: "perdiem", text: "Per Diem", value: "Per Diem" },
 ];
 
 const CreateJobForm = () => {
@@ -76,7 +77,7 @@ const CreateJobForm = () => {
     errors,
     handleSubmit,
     setValue,
-    triggerValidation
+    triggerValidation,
   } = useForm();
 
   useEffect(() => {
@@ -109,11 +110,11 @@ const CreateJobForm = () => {
       author: data.jobAuthor,
       disclaimer: data.jobDisclaimer,
       isRecurring: data.jobIsRecurring,
-      perks: data.jobPerks
+      perks: data.jobPerks,
     };
 
     const {
-      data: { createJob }
+      data: { createJob },
     } = await createJobMutation({ variables });
     if (createJob) {
       Router.push("/admin/jobs/" + createJob.id);
@@ -136,10 +137,10 @@ const CreateJobForm = () => {
 
   return (
     <>
-      <Title size={"l"}>Post a Job</Title>
-      <p className={"Instructions"}>
-        Please enter the information for the new job listing
-      </p>
+      <Title size={"l"} capitalize>
+        {appText.messages.job.post}
+      </Title>
+      <p className={"Instructions"}>{appText.messages.job.postInstructions}</p>
       <Mutation mutation={CREATE_JOB_MUTATION}>
         {(createJobMutation, { error, loading, data }) => {
           return (
@@ -154,7 +155,7 @@ const CreateJobForm = () => {
               <Form.Input
                 name="jobTitle"
                 fluid
-                label="Job Title"
+                label={appText.messages.job.jobTitle}
                 placeholder="Warehouse Manager"
                 onChange={handleInputChange}
                 error={errors.jobTitle ? true : false}
@@ -163,7 +164,7 @@ const CreateJobForm = () => {
                 <Checkbox
                   name="jobIsRecurring"
                   toggle
-                  label="Recurring Job"
+                  label={appText.messages.job.jobRecurring}
                   onChange={handleInputChange}
                 />
                 <InformationButton />
@@ -173,6 +174,7 @@ const CreateJobForm = () => {
                 name="jobLocation"
                 onChange={handleInputChange}
                 error={errors.jobLocation ? true : false}
+                label={appText.objects.location.singular}
               />
               <Form.Group widths="equal">
                 <Form.Input
@@ -212,7 +214,7 @@ const CreateJobForm = () => {
                 placeholder="Select all that apply"
                 multiple
                 graphql={{
-                  query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name: {contains: $query}}) { id name } }`
+                  query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name: {contains: $query}}) { id name } }`,
                 }}
                 error={errors.jobCategories ? true : false}
               />
@@ -224,7 +226,7 @@ const CreateJobForm = () => {
                 placeholder="Select all that apply"
                 multiple
                 graphql={{
-                  query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
+                  query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
                 }}
                 error={errors.jobPerks ? true : false}
                 allowAdditions
@@ -247,7 +249,7 @@ const CreateJobForm = () => {
                 placeholder="Select at least one skill"
                 multiple
                 graphql={{
-                  query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
+                  query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
                 }}
                 error={errors.jobSkills ? true : false}
               />

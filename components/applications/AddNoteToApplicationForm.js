@@ -4,6 +4,7 @@ import { Form, Button } from "semantic-ui-react";
 import { gql } from "@apollo/client";
 import { Mutation } from "@apollo/react-components";
 import { APPLICATION_NOTES_QUERY } from "./ApplicationHistoryFeed";
+import appText from "@/lang/appText";
 
 const CREACTE_APPLICATION_NOTE_MUTATION = gql`
   mutation CREACTE_APPLICATION_NOTE_MUTATION($id: ID!, $content: String!) {
@@ -16,7 +17,7 @@ const CREACTE_APPLICATION_NOTE_MUTATION = gql`
 
 export default function AddNoteToApplicationForm({
   applicationId,
-  refetchQueries
+  refetchQueries,
 }) {
   const { register, handleSubmit, watch, errors } = useForm();
   const [noteContent, setNoteContent] = useState("");
@@ -24,8 +25,8 @@ export default function AddNoteToApplicationForm({
     const result = await createApplicationNoteMutation({
       variables: { id: applicationId, content: data.noteContent },
       refetchQueries: [
-        { query: APPLICATION_NOTES_QUERY, variables: { id: applicationId } }
-      ]
+        { query: APPLICATION_NOTES_QUERY, variables: { id: applicationId } },
+      ],
     });
     //console.log(result);
     if (result.data.createApplicationNote) {
@@ -40,7 +41,7 @@ export default function AddNoteToApplicationForm({
       {(createApplicationNoteMutation, { error, loading, data }) => {
         return (
           <Form
-            onSubmit={handleSubmit(data =>
+            onSubmit={handleSubmit((data) =>
               onSubmit(createApplicationNoteMutation, data)
             )}
             loading={loading}
@@ -49,12 +50,14 @@ export default function AddNoteToApplicationForm({
               name="noteContent"
               ref={register({ required: true })}
               value={noteContent}
-              onChange={e => setNoteContent(e.target.value)}
+              onChange={(e) => setNoteContent(e.target.value)}
               placeholder="Enter note content"
             />
             <div className="BottomArea">
               <div className="Errors">
-                {errors.noteContent && <span>This field is required</span>}
+                {errors.noteContent && (
+                  <span>{appText.messages.validation.required}</span>
+                )}
                 {error && <span>{error}</span>}
                 {data && !data.createApplicationNote && (
                   <span>Something went wrong!</span>

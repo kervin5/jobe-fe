@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import variables from "@/common/globalVariables";
 import PageSection from "@/common/Layout/PageSection";
 import SearchFieldSection from "@/components/jobs/Search/SearchFieldSection";
@@ -8,20 +8,21 @@ import ButtonGroup from "@/common/UI/ButtonGroup";
 import Jobs from "@/components/jobs/JobsCards";
 import SearchFilters from "@/components/jobs/Search/SearchFilters";
 import SEO from "@/components/SEO";
+import { basePath } from "@/root/config";
 
 const styles = `background-color: ${variables.mutedColor1}; padding: 30px; align-items: flex-start;`;
 
-const SearchPage = props => {
+const SearchPage = (props) => {
   const [variables, setVariables] = useState({
     distance: 10,
     category: "",
-    type: ""
+    type: "",
   });
   const [showFilters, setShowFilters] = useState(false);
-  const handleFiltersChange = vars => {
+  const handleFiltersChange = (vars) => {
     setVariables({
       ...variables,
-      ...vars
+      ...vars,
     });
   };
   const router = useRouter();
@@ -72,13 +73,13 @@ const SearchPage = props => {
           __html: `{
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "url": "https://www.myexactjobs.com/",
+              "url": "${basePath}/",
               "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://www.myexactjobs.com/jobs?q={search_term_string}",
+                "target": "${basePath}/jobs?q={search_term_string}",
                 "query-input": "required name=search_term_string"
               }
-            }`
+            }`,
         }}
       />
       <style jsx>{`

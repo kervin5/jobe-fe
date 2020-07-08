@@ -1,12 +1,13 @@
 import React from "react";
 import { Modal } from "semantic-ui-react";
+import appText from "@/lang/appText";
 
 const ModalExampleScrollingContent = () => (
   <Modal
     trigger={
-      <p>
-        By clicking the "Register" button, you agree to{" "}
-        <a href="#">our Privacy Policy</a>
+      <p style={{ textAlign: "center" }}>
+        {appText.messages.account.agreement + " "}
+        <a href="#">{appText.objects.privacyPolicy.singular}</a>
       </p>
     }
   >

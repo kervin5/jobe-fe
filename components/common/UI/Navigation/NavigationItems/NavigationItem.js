@@ -4,6 +4,9 @@ import styled from "styled-components";
 import variables from "@/common/globalVariables";
 
 const StyledNavigationItem = styled.a`
+  &:hover {
+    cursor: pointer;
+  }
   .NavigationItemContent {
     background-color: transparent;
     height: 100%;
@@ -30,7 +33,7 @@ const StyledNavigationItem = styled.a`
   }
 `;
 
-const navigationItem = props => {
+const navigationItem = (props) => {
   return (
     <Link href={props.href || "#"}>
       <StyledNavigationItem className="NavigationItem">

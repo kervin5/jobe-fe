@@ -5,6 +5,7 @@ import RegisterForm from "@/components/users/RegisterForm";
 import RenderIfLoggedOut from "@/components/hoc/RenderIfLoggedOut";
 import Title from "@/common/UI/Title";
 import Link from "next/link";
+import appText from "@/lang/appText";
 
 const friendsImgUrl = "../../images/friends-with-bg.png";
 const pageStyles = ` background-color: ${variables.mutedColor1};
@@ -15,13 +16,15 @@ const pageStyles = ` background-color: ${variables.mutedColor1};
 const registerPage = () => {
   return (
     <RenderIfLoggedOut redirect>
-      <PageSection styles={pageStyles}>
-        <Title center>Register</Title>
+      <PageSection styles={pageStyles} center>
+        <Title center capitalize>
+          {appText.actions.register}
+        </Title>
         <RegisterForm />
         <p>
-          Already have an account?
+          {appText.messages.account.alreadyhave}
           <Link href="/user/login">
-            <a> Sign In</a>
+            <a> {appText.actions.login}</a>
           </Link>
         </p>
         <br />

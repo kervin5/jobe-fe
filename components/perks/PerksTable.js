@@ -7,6 +7,7 @@ import Router from "next/router";
 import Table from "@/common/UI/Table";
 import PerksActionButtons from "./PerksActionButtons";
 import Button from "@/common/UI/Button";
+import appText from "@/lang/appText";
 // import Button from "@/common/UI/Button";
 
 const ALL_PERKS_QUERY = gql`
@@ -28,27 +29,27 @@ const PERKS_CONNECTION_QUERY = gql`
   }
 `;
 
-const PerksTable = props => {
+const PerksTable = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
 
-  const turnPageHandler = pageNumber => {
+  const turnPageHandler = (pageNumber) => {
     setCurrentPage(parseInt(pageNumber));
   };
 
-  const inputChangeHandler = e => {
+  const inputChangeHandler = (e) => {
     setQuery(e.target.value);
   };
 
   return (
     <>
       <Query query={PERKS_CONNECTION_QUERY} ssr={false} variables={{ query }}>
-        {perksConnectionData => {
+        {(perksConnectionData) => {
           if (perksConnectionData.error) return <p>Something went wrong ...</p>;
           const queryVariables = {
             take,
             skip: (currentPage - 1) * take,
-            query
+            query,
           };
           return (
             <Query query={ALL_PERKS_QUERY} variables={{ ...queryVariables }}>
@@ -57,7 +58,7 @@ const PerksTable = props => {
 
                 let perks = [];
 
-                data?.perks.forEach(perk => {
+                data?.perks.forEach((perk) => {
                   return perks.push({
                     name: perk.name,
 
@@ -69,15 +70,15 @@ const PerksTable = props => {
                         refetchQueries={[
                           {
                             query: ALL_PERKS_QUERY,
-                            variables: { ...queryVariables }
+                            variables: { ...queryVariables },
                           },
                           {
                             query: PERKS_CONNECTION_QUERY,
-                            variables: { query }
-                          }
+                            variables: { query },
+                          },
                         ]}
                       />
-                    )
+                    ),
                   });
                 });
 
@@ -95,7 +96,7 @@ const PerksTable = props => {
                       <>
                         <Input
                           icon="search"
-                          placeholder="Search..."
+                          placeholder={appText.actions.search}
                           onChange={inputChangeHandler}
                         />
                         <Button onClick={() => Router.push("/admin/users/new")}>

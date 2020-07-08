@@ -7,7 +7,7 @@ import moment from "moment";
 import EempactStatusLabel from "@/components/users/EempactStatusLabel";
 import { take } from "@/root/config";
 import { applicationStatusOptions } from "./ApplicationStatusDropdown";
-
+import appText from "@/lang/appText";
 import Table from "@/common/UI/Table";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
 
@@ -131,10 +131,10 @@ export const USER_APPLICATION_CONNECTION_QUERY = gql`
 const queriesToRefetch = ({ jobId, skip, terms }) => {
   const queries = [];
   ["NEW", "VIEWED", "REVIEWING", "CONTACTED", "HIRED", "ARCHIVED"].forEach(
-    defaultStatus => {
+    (defaultStatus) => {
       queries.push({
         query: USER_APPLICATION_CONNECTION_QUERY,
-        variables: { jobId, status: [defaultStatus], terms }
+        variables: { jobId, status: [defaultStatus], terms },
       });
 
       queries.push({
@@ -143,8 +143,8 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
           take,
           skip,
           status: [defaultStatus],
-          terms
-        }
+          terms,
+        },
       });
     }
   );
@@ -154,8 +154,8 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
     variables: {
       jobId,
       status: ["NEW", "VIEWED", "REVIEWING", "CONTACTED"],
-      terms
-    }
+      terms,
+    },
   });
 
   queries.push({
@@ -164,28 +164,28 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
       take,
       skip,
       status: ["NEW", "VIEWED", "REVIEWING", "CONTACTED"],
-      terms
-    }
+      terms,
+    },
   });
 
   return queries;
 };
 
-const ApplicantTable = props => {
+const ApplicantTable = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [terms, setTerms] = useState("");
   const [status, setStatus] = useState([
     "NEW",
     "VIEWED",
     "REVIEWING",
-    "CONTACTED"
+    "CONTACTED",
   ]);
 
-  const turnPageHandler = pageNumber => {
+  const turnPageHandler = (pageNumber) => {
     setCurrentPage(parseInt(pageNumber));
   };
 
-  const statusChangeHandler = status => {
+  const statusChangeHandler = (status) => {
     if (status === "ALL") {
       setStatus(["NEW", "VIEWED", "REVIEWING", "CONTACTED"]);
     } else {
@@ -202,10 +202,10 @@ const ApplicantTable = props => {
         variables={{
           jobId: "" || props.jobId,
           status,
-          terms
+          terms,
         }}
       >
-        {userApplicationData => {
+        {(userApplicationData) => {
           if (userApplicationData.error) return <p>Something went wrong ...</p>;
 
           return (
@@ -216,7 +216,7 @@ const ApplicantTable = props => {
                 skip: (currentPage - 1) * take,
                 jobId: "" || props.jobId,
                 status,
-                terms
+                terms,
               }}
             >
               {({ error, loading, data }) => {
@@ -224,7 +224,7 @@ const ApplicantTable = props => {
 
                 let applications = [];
 
-                data?.applications.forEach(application => {
+                data?.applications.forEach((application) => {
                   applications.push({
                     name: application.user.name,
                     job: (
@@ -252,7 +252,7 @@ const ApplicantTable = props => {
                         refetchQueries={queriesToRefetch({
                           jobId: props.jobId || "",
                           skip: (currentPage - 1) * take,
-                          terms
+                          terms,
                         })}
                       />
                     ),
@@ -267,7 +267,7 @@ const ApplicantTable = props => {
                       >
                         <Button as="a" icon="eye" color="green" />
                       </Link>
-                    )
+                    ),
                   });
                 });
 
@@ -286,15 +286,15 @@ const ApplicantTable = props => {
                       <>
                         <Input
                           icon="search"
-                          placeholder="Search..."
-                          onChange={e => setTerms(e.target.value)}
+                          placeholder={appText.actions.search}
+                          onChange={(e) => setTerms(e.target.value)}
                         />
                         <Dropdown
                           placeholder="Application Status"
                           selection
                           options={[
                             { key: "All", text: "All", value: "ALL" },
-                            ...applicationStatusOptions
+                            ...applicationStatusOptions,
                           ]}
                           defaultValue={"ALL"}
                           onChange={(e, data) =>

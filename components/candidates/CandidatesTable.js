@@ -4,7 +4,7 @@ import { Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import { Button, Input, Label } from "semantic-ui-react";
 import { take } from "../../config";
-
+import appText from "@/lang/appText";
 import EempactStatusLabel from "@/components/users/EempactStatusLabel";
 import Table from "@/common/UI/Table";
 import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
@@ -63,16 +63,16 @@ const CANDIDATES_CONNECTION_QUERY = gql`
   }
 `;
 
-const Candidates = props => {
+const Candidates = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
   const [skills, setSkills] = useState([]);
 
-  const turnPageHandler = pageNumber => {
+  const turnPageHandler = (pageNumber) => {
     setCurrentPage(parseInt(pageNumber));
   };
 
-  const inputChangeHandler = e => {
+  const inputChangeHandler = (e) => {
     setCurrentPage(1);
     setQuery(e.target.value);
   };
@@ -83,7 +83,7 @@ const Candidates = props => {
       ssr={false}
       variables={{ query, ...(skills.length ? { skills } : {}) }}
     >
-      {userConnectionData => {
+      {(userConnectionData) => {
         if (userConnectionData.error) return <p>Something went wrong ...</p>;
 
         return (
@@ -94,7 +94,7 @@ const Candidates = props => {
               skip: (currentPage - 1) * take,
               jobId: "" || props.jobId,
               query,
-              ...(skills.length ? { skills } : {})
+              ...(skills.length ? { skills } : {}),
             }}
           >
             {({ error, loading, data }) => {
@@ -102,7 +102,7 @@ const Candidates = props => {
 
               let candidates = [];
 
-              data?.candidates.forEach(candidate => {
+              data?.candidates.forEach((candidate) => {
                 const hasResume = candidate.resumes.length > 0;
                 const resumeSkills = candidate.resumes[0].skills.slice(0, 5);
 
@@ -117,7 +117,7 @@ const Candidates = props => {
                     <p>No Resume</p>
                   ),
                   applications: candidate.applications?.length,
-                  skills: resumeSkills.map(skill => (
+                  skills: resumeSkills.map((skill) => (
                     <Label
                       content={skill.name}
                       color="blue"
@@ -128,7 +128,7 @@ const Candidates = props => {
                   resume: hasResume && (
                     <Button
                       color="green"
-                      onClick={e => {
+                      onClick={(e) => {
                         e.preventDefault();
                         window.open(
                           "/resumes/" +
@@ -152,7 +152,7 @@ const Candidates = props => {
                         href={`/admin/candidates/${candidate.id}`}
                       />
                     </Link>
-                  )
+                  ),
                 });
               });
 
@@ -170,7 +170,7 @@ const Candidates = props => {
                     <>
                       <Input
                         icon="search"
-                        placeholder="Search..."
+                        placeholder={appText.actions.search}
                         onChange={inputChangeHandler}
                       />
                       <DropdownGraphqlInput
@@ -184,7 +184,7 @@ const Candidates = props => {
                         nolabel
                         minWidth={"150px"}
                         graphql={{
-                          query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
+                          query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
                         }}
                       />
                     </>
