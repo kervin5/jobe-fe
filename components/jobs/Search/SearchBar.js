@@ -4,10 +4,10 @@ import styled from "styled-components";
 import appText from "@/lang/appText";
 
 const StyledSearchBar = styled.div`
-  background-color: ${props => props.theme.clearColor};
+  background-color: ${(props) => props.theme.clearColor};
   padding: 10px 15px;
   border-radius: 50px;
-  border: 1px solid ${props => props.theme.mutedColor2};
+  border: 1px solid ${(props) => props.theme.mutedColor2};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,7 +29,7 @@ const StyledSearchBar = styled.div`
   }
 
   .location {
-    color: ${props => props.theme.accentColor1};
+    color: ${(props) => props.theme.accentColor1};
   }
 
   .SearchIcon {
@@ -39,7 +39,7 @@ const StyledSearchBar = styled.div`
 
     .Icon svg {
       max-width: 18px;
-      color: ${props => props.theme.darkColor};
+      color: ${(props) => props.theme.darkColor};
       margin-left: 10px;
     }
   }
@@ -48,11 +48,11 @@ const StyledSearchBar = styled.div`
 const SearchBar = ({
   terms = appText.adjectives.awesome,
   location,
-  onClick
+  onClick,
 }) => {
   const shortLocationName = location
     ? location.split(",")[0]
-    : `${appText.pronouns.yours} ${appText.objects.area.singular}`;
+    : `${appText.pronouns.your} ${appText.objects.area.singular}`;
 
   const clickHandler = () => {
     if (onClick) {
@@ -76,7 +76,7 @@ const SearchBar = ({
 
 SearchBar.propTypes = {
   terms: PropTypes.string,
-  location: PropTypes.string
+  location: PropTypes.string,
 };
 
 export default SearchBar;

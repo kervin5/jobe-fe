@@ -83,6 +83,7 @@ export const ALL_JOBS_GRID = gql`
       author
       location
       applications
+      perks
       branch
       updatedAt
       cronTask
