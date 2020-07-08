@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+
 import variables from "@/common/globalVariables";
 import PageSection from "@/common/Layout/PageSection";
 import PasswordResetForm from "@/components/users/PasswordResetForm";
@@ -12,12 +13,15 @@ const pageStyles = `padding: 30px;`;
 const PasswordResetPage = (props) => {
   const router = useRouter();
 
-  useEffect(() => {
-    const { resetToken } = router.query;
-    if (!resetToken) return router.push("/user/password/request");
-  }, [router.query]);
-
-  if (!router?.query?.resetToken) return null;
+  if (!router?.query?.resetToken)
+    return (
+      <p>
+        Please click on the following link to reset your password:{" "}
+        <Link href="/user/password/request">
+          <a>Click Here</a>
+        </Link>
+      </p>
+    );
 
   return (
     <PageSection column styles={pageStyles} center>
