@@ -1,7 +1,11 @@
-const withCSS = require("@zeit/next-css");
+// const withCSS = require("@zeit/next-css");
+const withSourceMaps = require("@zeit/next-source-maps")();
 const { getBackendUrl } = require("./lib/backend");
 
-module.exports = {
+module.exports = withSourceMaps({
+  webpack(config, _options) {
+    return config;
+  },
   // webpack: config => {
   //   // Fixes npm packages that depend on `fs` module
   //   config.module.rules.push({
@@ -26,10 +30,10 @@ module.exports = {
         { source: "/sitemap.xml", destination: "/api/sitemap" },
         {
           source: "/graphql",
-          destination: getBackendUrl()
-        }
+          destination: getBackendUrl(),
+        },
       ];
     },
-    catchAllRouting: true
-  }
-};
+    catchAllRouting: true,
+  },
+});
