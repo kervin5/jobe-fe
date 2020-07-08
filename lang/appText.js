@@ -32,7 +32,7 @@ const languages = {
       latest: "latest"
     },
 
-    propnouns: {
+    pronouns: {
       your: "your"
     },
 

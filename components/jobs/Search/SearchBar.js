@@ -52,7 +52,7 @@ const SearchBar = ({
 }) => {
   const shortLocationName = location
     ? location.split(",")[0]
-    : `${appText.pronouns.your} ${appText.pronouns.area.singular}`;
+    : `${appText.pronouns.yours} ${appText.objects.area.singular}`;
 
   const clickHandler = () => {
     if (onClick) {
