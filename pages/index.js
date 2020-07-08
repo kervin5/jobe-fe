@@ -56,7 +56,7 @@ const homePage = (props) => {
       </DynamicImageBg>
       <Container>
         <Title size={"l"} center margin capitalize>
-          {appText.messages.whatstrending} 😎
+          {appText.messages.whatsTrending} 😎
         </Title>
         <PopularTerms terms={props.terms} />
         <Title size={"l"} center margin capitalize>
