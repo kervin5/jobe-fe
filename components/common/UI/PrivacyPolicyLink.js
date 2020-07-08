@@ -15,7 +15,7 @@ const ModalExampleScrollingContent = () => (
     <Modal.Content image scrolling>
       <Modal.Description>
         <div className="policyContent">
-          <iframe src="https://exactstaff.com/documents/Exact-Staff-Onlline-Privacy-Policy-12-31-19.pdf"></iframe>
+          <iframe src={process.env.NEXT_PUBLIC_PRIVACY_POLICY_LINK}></iframe>
           <style jsx>{`
             .policyContent {
               with: 100%;

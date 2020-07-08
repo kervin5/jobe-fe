@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import theme from "@/common/globalVariables";
 // import App from "next/app";
-
+import * as Sentry from "@sentry/react";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "@/lib/apolloClient";
 import { initMatomo } from "@/lib/matomo";
@@ -16,7 +16,11 @@ export default function App({ Component, pageProps, router }) {
   useEffect(() => {
     initMatomo({
       siteId: 1,
-      piwikUrl: "https://analytics.exactstaff.com"
+      piwikUrl: process.env.NEXT_PUBLIC_MATOMO_ANALYTICS,
+    });
+
+    Sentry.init({
+      dsn: process.env.NEXT_PUBLIC_SENTRY_DNS,
     });
   }, []);
 

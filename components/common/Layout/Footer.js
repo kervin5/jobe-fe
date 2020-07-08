@@ -5,13 +5,9 @@ const Footer = () => {
   return (
     <div className="Footer">
       <nav>
-        <a href="https://exactstaff.com/documents/Exact-Staff-Onlline-Privacy-Policy-12-31-19.pdf">
-          Privacy Notice
-        </a>
+        <a href={process.env.NEXT_PUBLIC_PRIVACY_POLICY_LINK}>Privacy Notice</a>
 
-        <a href="https://exactstaff.com/exact-staff-inc-cookie-notice">
-          Cookie Notice
-        </a>
+        <a href={process.env.NEXT_PUBLIC_COOKIE_NOTICE_LINK}>Cookie Notice</a>
       </nav>
       <p>Copyright &copy; {new Date().getFullYear()} Exact Staff</p>
       <style jsx>{`
