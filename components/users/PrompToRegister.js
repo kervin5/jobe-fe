@@ -3,12 +3,13 @@ import { Query } from "@apollo/react-components";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
 import PopUp from "@/common/UI/PopUp";
 import AuthForm from "../users/AuthForm";
+import appText from "@/lang/appText";
 
-const PrompToRegister = props => {
+const PrompToRegister = (props) => {
   const [loggedin, setLoggedIn] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     if (!loggedin) {
       e.preventDefault();
       e.stopPropagation();
@@ -19,7 +20,7 @@ const PrompToRegister = props => {
   return (
     <>
       <PopUp show={showPopup} title="Register" changeHandler={setShowPopup}>
-        <p>Please register or login to use this and other amazing features</p>
+        <p>{appText.messages.account.pleaseRegister}</p>
         <AuthForm popup />
       </PopUp>
       <Query query={ME_USER_QUERY}>

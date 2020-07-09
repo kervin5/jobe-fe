@@ -179,7 +179,11 @@ const Candidates = (props) => {
                           setCurrentPage(1);
                         }}
                         name="jobSkills"
-                        placeholder="Filter by skills"
+                        placeholder={
+                          appText.actions.filterBy +
+                          " " +
+                          appText.objects.skill.plural
+                        }
                         multiple
                         nolabel
                         minWidth={"150px"}

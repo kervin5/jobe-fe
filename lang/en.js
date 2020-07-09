@@ -13,6 +13,13 @@ export default {
     cancel: "cancel",
     preview: "preview",
     save: "save",
+    view: "view",
+    upload: "upload",
+    signOut: "Sign Out",
+    filterBy: "Filter by",
+    reset: "reset",
+    click: "click",
+    confirm: "confirm",
   },
 
   objects: {
@@ -20,6 +27,7 @@ export default {
     job: {
       singular: "job",
       plural: "jobs",
+      information: "Job information",
     },
     location: { singular: "location", plural: "locations" },
     area: {
@@ -30,6 +38,7 @@ export default {
     profile: {
       singular: "profile",
       plural: "profiles",
+      candidate: "Candidate Profile",
     },
 
     password: {
@@ -125,6 +134,8 @@ export default {
     posted: "posted",
     draft: "draft",
     pending: "pending",
+    new: "new",
+    here: "here",
   },
 
   pronouns: {
@@ -138,7 +149,7 @@ export default {
       latest: "latest jobs",
       recommended: "recommended jobs",
       post: "post a job",
-      postInstructions: "Please, enter the details of the new job listing",
+      postInstructions: "Please, enter the job details",
       jobTitle: "Job Title",
       jobRecurring: "Recurring Job",
       jobMinCompensation: "Minimum Compensation",
@@ -156,9 +167,17 @@ export default {
       donthave: "Don't have an account?",
       alreadyhave: "Already have an account?",
       agreement: `By clicking the "Register" button, you agree to`,
+      invalidEmail: "Cannot find that email address",
+      resetLink: "Please check your mailbox with a reset link",
+      clickToReset:
+        "Please click on the following link to reset your password:",
+      enterNewPassword: "Enter New Password",
+      pleaseRegister:
+        "Please register or login to use this and other amazing features",
     },
     password: {
       forgot: "Forgot my password",
+      forgotQuestion: "Forgot Password?",
     },
 
     category: {
@@ -189,6 +208,13 @@ export default {
 
     disclaimer: {
       leaveEmpty: "Leave empty if you want use default disclaimer",
+    },
+    resume: {
+      upload: "Upload a New Resume",
+      theseAre: (name, self) =>
+        !self ? `These are ${name}'s resumes` : `These are your resumes`,
+      uploadToApply:
+        "Upload your resume to start aplying to amazing opportunities with one click",
     },
     validation: {
       required: "This field is required",

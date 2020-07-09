@@ -1,8 +1,10 @@
 import React from "react";
 import { List, Button, Icon } from "semantic-ui-react";
 import moment from "moment";
+import appText from "@/lang/appText";
 
-const resumeList = props => {
+const resumeList = (props) => {
+  console.log("rendered");
   return (
     <>
       <List divided relaxed>
@@ -29,7 +31,7 @@ const resumeList = props => {
                   color="green"
                 >
                   <Icon name="download" />
-                  View
+                  {appText.actions.view}
                 </Button>
               </List.Content>
             </List.Item>
