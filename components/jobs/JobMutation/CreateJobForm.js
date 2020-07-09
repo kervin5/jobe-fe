@@ -230,7 +230,7 @@ const CreateJobForm = () => {
                 }}
                 error={errors.jobPerks ? true : false}
                 allowAdditions
-                additionLabel="Create: "
+                additionLabel={`${appText.actions.create}: `}
                 additionWarning={appText.messages.perk.approval}
               />
               <Form.Select

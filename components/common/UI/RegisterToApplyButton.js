@@ -6,23 +6,9 @@ import PopUp from "./PopUp";
 import AuthForm from "@/components/users/AuthForm";
 import ResumeUploadForm from "../../resumes/ResumeUploadForm";
 import { CHECK_USER_APPLICATION_STATUS_QUERY } from "./ApplyToJobButton";
+import { ME_USER_QUERY } from "@/graphql/queries/users";
 
-const USER_IS_REGISTERED_QUERY = gql`
-  query USER_IS_REGISTERED_QUERY {
-    me {
-      id
-      resumes {
-        id
-      }
-      role {
-        id
-        name
-      }
-    }
-  }
-`;
-
-const RegisterToApplyButton = props => {
+const RegisterToApplyButton = (props) => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpTitle, setPopUpTitle] = useState("Register");
   const [caption, setCaption] = useState(
@@ -31,7 +17,7 @@ const RegisterToApplyButton = props => {
 
   return (
     <>
-      <Query query={USER_IS_REGISTERED_QUERY}>
+      <Query query={ME_USER_QUERY}>
         {({ error, loading, data }) => {
           if (error) return <p>Something went wrong</p>;
           if (loading) return <p>Loading</p>;
@@ -48,7 +34,7 @@ const RegisterToApplyButton = props => {
 
       <PopUp show={showPopUp} changeHandler={setShowPopUp} title={popUpTitle}>
         <p>{caption} 😊</p>
-        <Query query={USER_IS_REGISTERED_QUERY}>
+        <Query query={ME_USER_QUERY}>
           {({ error, loading, data }) => {
             if (error) return <p>Something went wrong...</p>;
             if (loading) return <p>Loading...</p>;
@@ -63,8 +49,8 @@ const RegisterToApplyButton = props => {
                   refetchQueries={[
                     {
                       query: CHECK_USER_APPLICATION_STATUS_QUERY,
-                      variables: { jobId: props.jobId }
-                    }
+                      variables: { jobId: props.jobId },
+                    },
                   ]}
                 />
               );
@@ -72,7 +58,7 @@ const RegisterToApplyButton = props => {
             return (
               <AuthForm
                 noredirect
-                refetchQueries={[{ query: USER_IS_REGISTERED_QUERY }]}
+                refetchQueries={[{ query: ME_USER_QUERY }]}
               />
             );
           }}

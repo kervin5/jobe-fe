@@ -4,19 +4,21 @@ import Title from "@/common/UI/Title";
 import ResumeUploadButton from "@/common/UI/ResumeUploadButton";
 import ResumeList from "@/common/UI/ResumeList";
 import { ME_USER_QUERY, SINGLE_USER_QUERY } from "@/graphql/queries/users";
+import appText from "@/lang/appText";
 
 const UserResumesTab = ({ userId }) => {
   const userQuery = queryToUse(userId);
   const { error, loading, data } = useQuery(userQuery.query, {
-    variables: userQuery.variables
+    variables: userQuery.variables,
   });
   const userData = data?.me ?? data?.user;
   let list = userData?.resumes;
+
   return (
     <>
       <div className="resumeHeader">
         <Title center size="s">
-          These are {userData ? `${userData.name}'s ` : "your"} resumes.
+          {appText.messages.resume.theseAre(userData.name, data.me)}
         </Title>
         {!userId && <ResumeUploadButton />}
       </div>
