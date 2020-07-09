@@ -5,6 +5,7 @@ import { take } from "@/root/config";
 import JobList from "./JobList/JobList";
 import Button from "@/common/UI/Button";
 import Loader from "@/common/UI/Animated/Loader";
+import appText from "@/lang/appText";
 
 const SEARCH_JOBS_QUERY = gql`
   query SEARCH_JOBS_QUERY(
@@ -51,7 +52,7 @@ const SEARCH_JOBS_QUERY = gql`
   }
 `;
 
-const JobsCards = props => {
+const JobsCards = (props) => {
   let query = SEARCH_JOBS_QUERY;
 
   return (
@@ -65,7 +66,7 @@ const JobsCards = props => {
           type: props.type || "",
           radius: props.radius || 5,
           take,
-          skip: 0
+          skip: 0,
         }}
       >
         {({ data, error, loading, fetchMore }) => {
@@ -85,27 +86,27 @@ const JobsCards = props => {
                     fetchMore({
                       variables: {
                         skip: jobs.length,
-                        take
+                        take,
                       },
                       updateQuery(prev, { fetchMoreResult }) {
                         if (!fetchMoreResult) return prev;
                         if (fetchMoreResult.jobs) {
                           return Object.assign({}, prev, {
-                            jobs: [...prev.jobs, ...fetchMoreResult.jobs]
+                            jobs: [...prev.jobs, ...fetchMoreResult.jobs],
                           });
                         } else {
                           return Object.assign({}, prev, {
                             searchJobs: [
                               ...prev.searchJobs,
-                              ...fetchMoreResult.searchJobs
-                            ]
+                              ...fetchMoreResult.searchJobs,
+                            ],
                           });
                         }
-                      }
+                      },
                     });
                   }}
                 >
-                  View More
+                  {appText.actions.viewMore}
                 </Button>
               )}
               {endReached && (

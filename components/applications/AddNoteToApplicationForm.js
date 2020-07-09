@@ -51,7 +51,7 @@ export default function AddNoteToApplicationForm({
               ref={register({ required: true })}
               value={noteContent}
               onChange={(e) => setNoteContent(e.target.value)}
-              placeholder="Enter note content"
+              placeholder={appText.messages.note.enterContent}
             />
             <div className="BottomArea">
               <div className="Errors">
@@ -64,7 +64,7 @@ export default function AddNoteToApplicationForm({
                 )}
                 {data && data.createApplicationNote && <span>Note Added!</span>}
               </div>
-              <Button type="submit">Add</Button>
+              <Button type="submit">{appText.actions.add}</Button>
             </div>
             <style jsx>{`
               .BottomArea {

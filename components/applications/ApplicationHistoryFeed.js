@@ -3,6 +3,7 @@ import { Feed } from "semantic-ui-react";
 import { Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import moment from "moment";
+import appText from "@/lang/appText";
 
 export const APPLICATION_NOTES_QUERY = gql`
   query APPLICATION_NOTES($id: String!) {
@@ -21,12 +22,12 @@ export const APPLICATION_NOTES_QUERY = gql`
 const actionPerformed = ({ type, content, user }) => {
   if (type === "NOTE") {
     return {
-      summary: `${user.name} added a note`,
-      extraText: content
+      summary: appText.messages.note.added(user.name),
+      extraText: content,
     };
   } else {
     return {
-      summary: `${user.name} changed the ${type.toLowerCase()} to ${content}`
+      summary: appText.messages.note.changed(user.name, type, content),
     };
   }
 };
@@ -42,7 +43,7 @@ const ApplicationHistoryFeed = ({ applicationId }) => {
           key: "FeedItem" + index,
           date: moment(feedItem.createdAt).fromNow(),
           image: "/images/avatar.PNG",
-          ...actionPerformed(feedItem)
+          ...actionPerformed(feedItem),
         }));
         return <Feed events={feedData} />;
       }}

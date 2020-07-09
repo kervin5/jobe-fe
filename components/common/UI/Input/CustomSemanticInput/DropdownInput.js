@@ -17,7 +17,7 @@ const LocationInput = ({
   additionWarning,
   additionLabel,
   nolabel,
-  minWidth
+  minWidth,
 }) => {
   const [customOptions, setCustomOptions] = useState([]);
   const handleAddition = (e, { value }) => {
@@ -67,6 +67,10 @@ const LocationInput = ({
           .DropdownInput .message {
             padding: 0.5em 1.5em;
           }
+
+          label {
+            text-transform: capitalize !important;
+          }
         `}
       </style>
     </div>
@@ -76,7 +80,7 @@ const LocationInput = ({
 LocationInput.defaultProps = {
   placeholder: "Select a location",
   options: [],
-  allowAdditions: false
+  allowAdditions: false,
 };
 
 export default LocationInput;

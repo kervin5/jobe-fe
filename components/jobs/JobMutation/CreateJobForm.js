@@ -180,7 +180,7 @@ const CreateJobForm = () => {
                 <Form.Input
                   name="jobMinCompensation"
                   fluid
-                  label="Minimum Compensation"
+                  label={appText.messages.job.jobMinCompensation}
                   placeholder="10.99"
                   onChange={handleInputChange}
                   error={errors.jobMinCompensation ? true : false}
@@ -190,7 +190,7 @@ const CreateJobForm = () => {
                 <Form.Input
                   name="jobMaxCompensation"
                   fluid
-                  label="Maximum Compensation"
+                  label={appText.messages.job.jobMaxCompensation}
                   placeholder="20.99"
                   onChange={handleInputChange}
                   error={errors.jobMaxCompensation ? true : false}
@@ -200,8 +200,8 @@ const CreateJobForm = () => {
                 <Form.Select
                   name="jobCompensationType"
                   options={compensationTypeOptions}
-                  label="Compensation Type"
-                  placeholder="Select an option"
+                  label={appText.messages.job.jobCompensationType}
+                  placeholder={appText.messages.validation.select}
                   onChange={handleInputChange}
                   error={errors.jobCompensationType ? true : false}
                 />
@@ -210,8 +210,8 @@ const CreateJobForm = () => {
               <DropdownGraphqlInput
                 onChange={handleInputChange}
                 name="jobCategories"
-                label="Job Categories"
-                placeholder="Select all that apply"
+                label={appText.messages.job.jobCategories}
+                placeholder={appText.messages.validation.selectAllThatApply}
                 multiple
                 graphql={{
                   query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name: {contains: $query}}) { id name } }`,
@@ -222,8 +222,8 @@ const CreateJobForm = () => {
               <DropdownGraphqlInput
                 onChange={handleInputChange}
                 name="jobPerks"
-                label="Job Perks"
-                placeholder="Select all that apply"
+                label={appText.messages.job.jobPerks}
+                placeholder={appText.messages.validation.selectAllThatApply}
                 multiple
                 graphql={{
                   query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
@@ -231,13 +231,13 @@ const CreateJobForm = () => {
                 error={errors.jobPerks ? true : false}
                 allowAdditions
                 additionLabel="Create: "
-                additionWarning="Any new perks will be reviewed and are subject to approval"
+                additionWarning={appText.messages.perk.approval}
               />
               <Form.Select
                 name="jobType"
                 options={jobTypeOptions}
-                label="Job Type"
-                placeholder="Select an option"
+                label={appText.messages.job.jobType}
+                placeholder={appText.messages.validation.select}
                 onChange={handleInputChange}
                 error={errors.jobType ? true : false}
               />
@@ -245,8 +245,12 @@ const CreateJobForm = () => {
               <DropdownGraphqlInput
                 onChange={handleInputChange}
                 name="jobSkills"
-                label="Job Skills"
-                placeholder="Select at least one skill"
+                label={appText.messages.job.jobSkills}
+                placeholder={
+                  appText.messages.validation.selectAtLeastOne +
+                  " " +
+                  appText.objects.skill.singular
+                }
                 multiple
                 graphql={{
                   query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
@@ -257,21 +261,21 @@ const CreateJobForm = () => {
               <AuthorDropdown
                 onChange={handleInputChange}
                 name="jobAuthor"
-                label="Job Author"
-                placeholder="Select an option"
+                label={appText.messages.job.jobAuthor}
+                placeholder={appText.messages.validation.select}
                 error={errors.jobAuthor ? true : false}
               />
 
               <RichTextEditor
                 name="jobDescription"
                 onChange={handleInputChange}
-                label="Job Description"
+                label={appText.messages.job.jobDescription}
                 error={errors.jobDescription ? true : false}
               />
 
               <TextArea
-                placeholder="Leave empty if you want use default disclaimer"
-                label="Job Disclaimer"
+                placeholder={appText.messages.disclaimer.leaveEmpty}
+                label={appText.messages.job.jobDisclaimer}
                 name={"jobDisclaimer"}
                 onChange={handleInputChange}
                 error={errors.jobDisclaimer ? true : false}
@@ -282,10 +286,11 @@ const CreateJobForm = () => {
                   size="big"
                   onClick={() => Router.push("/admin/dashboard")}
                 >
-                  Cancel
+                  {appText.actions.cancel}
                 </Button>
                 <Button type="submit" size="big" positive>
-                  Save and Preview
+                  {appText.actions.save} {appText.prepositions.and}{" "}
+                  {appText.actions.preview}
                 </Button>
               </Button.Group>
             </Form>
