@@ -3,8 +3,9 @@ import DashboardPage from "@/components/admin/dashboard/DashboardPage";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 import SingleJobApplication from "@/components/applications/SingleJobApplication";
 import ApplicationInformation from "@/components/applications/ApplicationInformation";
+import appText from "@/lang/appText";
 
-const dashboardApplicationsPerJobPage = props => {
+const dashboardApplicationsPerJobPage = (props) => {
   const router = useRouter();
   const { aid } = router.query;
   return (
@@ -12,7 +13,10 @@ const dashboardApplicationsPerJobPage = props => {
       permissions={[{ object: "APPLICATION", action: "READ" }]}
       redirect
     >
-      <DashboardPage title="Application" maxwidth="1400px">
+      <DashboardPage
+        title={appText.objects.application.singular}
+        maxwidth="1400px"
+      >
         <div className="Sections">
           <div className="ApplicationResume">
             <SingleJobApplication applicationId={aid} />

@@ -5,19 +5,20 @@ import Title from "@/common/UI/Title";
 import UserLocator from "@/root/data/UserLocator";
 import { USER_CATEGORIES_QUERY } from "@/components/me/UserCategories";
 import UserInfo from "@/components/hoc/UserInfo";
+import appText from "@/lang/appText";
 
 const RecommendedJobsList = ({ userId }) => {
   const [location, setLocation] = useState(undefined);
 
   useEffect(() => {
-    new UserLocator().getLocation().then(res => {
+    new UserLocator().getLocation().then((res) => {
       setLocation(res.name);
     });
   }, []);
 
   return (
     <>
-      <Title size="m">Recommended Jobs</Title>
+      <Title size="m">{appText.messages.job.recommended}</Title>
       <UserInfo>
         {({ me, loading }) => {
           if (loading) return <p>Loading</p>;

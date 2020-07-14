@@ -114,7 +114,7 @@ const Candidates = (props) => {
                   title: hasResume ? (
                     candidate.resumes[0].title
                   ) : (
-                    <p>No Resume</p>
+                    <p>{appText.messages.resume.doesntHave}</p>
                   ),
                   applications: candidate.applications?.length,
                   skills: resumeSkills.map((skill) => (
@@ -179,7 +179,11 @@ const Candidates = (props) => {
                           setCurrentPage(1);
                         }}
                         name="jobSkills"
-                        placeholder="Filter by skills"
+                        placeholder={
+                          appText.actions.filterBy +
+                          " " +
+                          appText.objects.skill.plural
+                        }
                         multiple
                         nolabel
                         minWidth={"150px"}

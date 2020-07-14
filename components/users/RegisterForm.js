@@ -9,8 +9,6 @@ import { ME_USER_QUERY } from "@/graphql/queries/users";
 import PrivacyPolicyLink from "@/common/UI/PrivacyPolicyLink";
 import appText from "@/lang/appText";
 
-// import { logInUser } from "../../../data/auth";
-
 const SIGNUP_USER = gql`
   mutation SIGNUP_USER($name: String!, $password: String!, $email: String!) {
     signup(email: $email, password: $password, name: $name) {

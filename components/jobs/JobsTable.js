@@ -103,6 +103,11 @@ const JobsTable = (props) => {
         Applications
       </OrderByHeader>
     ),
+    perks: (
+      <OrderByHeader column="perks" action={setOrderBy} activeColumn={orderBy}>
+        Perks
+      </OrderByHeader>
+    ),
     updated: (
       <OrderByHeader
         column={`"Job"."updatedAt"`}

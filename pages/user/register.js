@@ -6,7 +6,7 @@ import RenderIfLoggedOut from "@/components/hoc/RenderIfLoggedOut";
 import Title from "@/common/UI/Title";
 import Link from "next/link";
 import appText from "@/lang/appText";
-
+import SEO from "@/components/SEO";
 const friendsImgUrl = "../../images/friends-with-bg.png";
 const pageStyles = ` background-color: ${variables.mutedColor1};
                 padding: 30px;
@@ -15,27 +15,33 @@ const pageStyles = ` background-color: ${variables.mutedColor1};
 
 const registerPage = () => {
   return (
-    <RenderIfLoggedOut redirect>
-      <PageSection styles={pageStyles} center>
-        <Title center capitalize>
-          {appText.actions.register}
-        </Title>
-        <RegisterForm />
-        <p>
-          {appText.messages.account.alreadyhave}
-          <Link href="/user/login">
-            <a> {appText.actions.login}</a>
-          </Link>
-        </p>
-        <br />
-        <img src={friendsImgUrl} />
-        <style jsx>{`
-          img {
-            width: 200px;
-          }
-        `}</style>
-      </PageSection>
-    </RenderIfLoggedOut>
+    <>
+      <SEO
+        description={`${appText.seo.pages.register.description}. ${appText.seo.description}!`}
+        title={`${appText.actions.register} - ${appText.seo.title}!`}
+      />
+      <RenderIfLoggedOut redirect>
+        <PageSection styles={pageStyles} center>
+          <Title center capitalize>
+            {appText.actions.register}
+          </Title>
+          <RegisterForm />
+          <p>
+            {appText.messages.account.alreadyhave}
+            <Link href="/user/login">
+              <a> {appText.actions.login}</a>
+            </Link>
+          </p>
+          <br />
+          <img src={friendsImgUrl} />
+          <style jsx>{`
+            img {
+              width: 200px;
+            }
+          `}</style>
+        </PageSection>
+      </RenderIfLoggedOut>
+    </>
   );
 };
 

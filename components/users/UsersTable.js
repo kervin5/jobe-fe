@@ -118,7 +118,9 @@ const UsersTable = (props) => {
                       />
                       <Link href="/admin/users/new" passHref>
                         <Button positive as="a">
-                          Add User
+                          {appText.actions.add +
+                            " " +
+                            appText.objects.user.singular}
                         </Button>
                       </Link>
                     </>

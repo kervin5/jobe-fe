@@ -3,8 +3,9 @@ import PopUpContext from "@/common/UI/PopUp/PopUpContext";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import React from "react";
+import appText from "@/lang/appText";
 
-const AuthForm = props => {
+const AuthForm = (props) => {
   const [componentInView, setComponentInView] = useState("register");
   const toggleView = () =>
     setComponentInView(componentInView === "register" ? "login" : "register");
@@ -13,25 +14,23 @@ const AuthForm = props => {
     register: {
       link: (
         <p>
-          Already have an account?{" "}
-          <DynamicLink onClick={toggleView} title="Sign In">
-            Click here
+          {appText.messages.account.alreadyhave}
+          <DynamicLink onClick={toggleView} title={appText.actions.login}>
+            {appText.actions.login}
           </DynamicLink>{" "}
-          to sign in.
         </p>
-      )
+      ),
     },
     login: {
       link: (
         <p>
-          Do you need an account?{" "}
-          <DynamicLink onClick={toggleView} title="Register">
-            Click here
+          {appText.messages.account.donthave}
+          <DynamicLink onClick={toggleView} title={appText.actions.register}>
+            {appText.actions.register}
           </DynamicLink>{" "}
-          to register.
         </p>
-      )
-    }
+      ),
+    },
   };
   const ComponentToRender =
     componentInView === "register" ? RegisterForm : LoginForm;
@@ -44,12 +43,12 @@ const AuthForm = props => {
   );
 };
 
-const DynamicLink = props => (
+const DynamicLink = (props) => (
   <PopUpContext.Consumer>
-    {context => {
+    {(context) => {
       return (
         <a
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             props.onClick();
             context.setTitle(props.title);

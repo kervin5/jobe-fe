@@ -10,8 +10,8 @@ const Translator = ({ children }) => {
   const [contentToDisplay, setContentToDisplay] = useState(children);
 
   useEffect(() => {
-    if (!!localStorage && localStorage["myexactjobs-lang"]) {
-      setLanguage(localStorage["myexactjobs-lang"]);
+    if (!!localStorage && localStorage["k-jobboard-system-custom-lang"]) {
+      setLanguage(localStorage["k-jobboard-system-custom-lang"]);
     } else {
       setLanguage("en");
     }
@@ -22,14 +22,14 @@ const Translator = ({ children }) => {
       axios
         .post("/api/translate", {
           url: `https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&To=${language}`,
-          data: [{ text: renderToStaticMarkup(children) }]
+          data: [{ text: renderToStaticMarkup(children) }],
         })
-        .then(res => {
+        .then((res) => {
           setContentToDisplay(
             <HtmlRenderer html={res.data.data[0].translations[0].text} />
           );
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     } else {
@@ -50,13 +50,13 @@ export const ListOfLanguages = () => {
       .get(
         "/api/translate?url=https://api.cognitive.microsofttranslator.com/languages?api-version=3.0"
       )
-      .then(res => {
+      .then((res) => {
         const fetchedLanguages = res.data.data.translation;
         const options = Object.keys(fetchedLanguages).map(
           (language, index) => ({
             key: language + index,
             text: fetchedLanguages[language].name,
-            value: language
+            value: language,
           })
         );
         options.sort((a, b) => {
@@ -82,7 +82,7 @@ export const ListOfLanguages = () => {
       defaultValue={language}
       onChange={(e, data) => {
         setLanguage(data.value);
-        localStorage.setItem("myexactjobs-lang", data.value);
+        localStorage.setItem("k-jobboard-system-custom-lang", data.value);
       }}
     />
   );

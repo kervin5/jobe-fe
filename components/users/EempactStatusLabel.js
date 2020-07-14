@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Icon, Label } from "semantic-ui-react";
-import axios from "axios";
+import { eEmpactIntegrationEnabled } from "@/root/config";
 
 const EempactStatusLabel = ({ data }) => {
+  if (!eEmpactIntegrationEnabled) return null;
   let label = "loading";
 
   if (data && data.id) {

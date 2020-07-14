@@ -10,23 +10,24 @@ import ApplyToJobButton from "@/common/UI/ApplyToJobButton";
 import HtmlRenderer from "@/common/UI/HtmlRenderer";
 import SocialMedia from "@/common/UI/SocialMedia";
 import StucturedJobListing from "./StructuredJobListing";
-import { basePath } from "@/root/config";
+import { basePath, jobsSettings } from "@/root/config";
 import Translator, { ListOfLanguages } from "@/components/hoc/Translator";
 import JobCompensationBubbles from "../JobCompensationBubbles";
+import appText from "@/lang/appText";
 
-const jobListing = props => {
+const jobListing = (props) => {
   return (
     <TransformerContainer data-test="job-listing">
       <SEO
         description={
           sanitize(props.data.description, []).__html.substr(0, 400) +
-          "... Start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for "
+          `...${appText.seo.description}`
         }
         title={
           props.data.title +
-          " at " +
+          ` ${appText.prepositions.at} ` +
           props.data.location +
-          "- My Exact Jobs - Exact Staff"
+          `- ${appText.seo.title}`
         }
         ogImage="/images/exactstaffsquare.jfif"
       />
@@ -41,13 +42,14 @@ const jobListing = props => {
         hideFavoriteButton={props.preview}
         jobId={props.data.id}
         showPerks
-        showType
+        showType={jobsSettings.showJobType}
+        showCompensation={jobsSettings.showPayRate}
       />
 
       <div className="Body" data-test="main-content-section">
         <ListOfLanguages />
         <Title size={"m"}>
-          <Translator>Job Description</Translator>:
+          <Translator>{appText.messages.job.jobDescription}</Translator>:
         </Title>
 
         <Translator>
@@ -56,7 +58,7 @@ const jobListing = props => {
 
         <br />
         <Title size={"m"} data-test="company-information-section">
-          Compensation
+          {appText.objects.compensation.singular}
         </Title>
         <JobCompensationBubbles
           minCompensation={props.data.minCompensation}
@@ -66,7 +68,9 @@ const jobListing = props => {
         <br />
 
         <Title size={"m"} data-test="company-information-section">
-          <Translator>About {props.data.company}</Translator>
+          <Translator>
+            {appText.messages.about} {props.data.company}
+          </Translator>
         </Title>
         <div>
           <Translator>{props.data.aboutCompany}</Translator>

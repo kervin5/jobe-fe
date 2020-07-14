@@ -6,6 +6,16 @@ export const ME_USER_QUERY = gql`
       id
       name
       createdAt
+      resumes {
+        id
+        title
+        createdAt
+        file {
+          id
+          createdAt
+          path
+        }
+      }
       role {
         id
         permissions {

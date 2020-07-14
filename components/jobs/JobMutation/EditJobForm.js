@@ -12,6 +12,7 @@ import TextArea from "@/common/UI/Input/CustomSemanticInput/TextArea";
 import AuthorDropdown from "@/common/UI/Input/CustomSemanticInput/AuthorDropdown";
 import Title from "@/common/UI/Title";
 import CronJobToggle from "@/components/jobs/JobMutation/CronJobToggle";
+import appText from "@/lang/appText";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
   query SINGLE_JOB_ALL_DATA_QUERY($id: String!) {
@@ -94,14 +95,14 @@ const UPDATE_JOB_MUTATION = gql`
 const compensationTypeOptions = [
   { key: "hourly", text: "Hourly", value: "Hourly" },
   { key: "salary", text: "Salary", value: "Salary" },
-  { key: "doe", text: "DOE", value: "DOE" }
+  { key: "doe", text: "DOE", value: "DOE" },
 ];
 
 const jobTypeOptions = [
   { key: "fulltime", text: "Full-Time", value: "Full-Time" },
   { key: "parttime", text: "Part-Time", value: "Part-Time" },
   { key: "temp", text: "Temp", value: "Temp" },
-  { key: "perdiem", text: "Per Diem", value: "Per Diem" }
+  { key: "perdiem", text: "Per Diem", value: "Per Diem" },
 ];
 
 const EditJobForm = ({ data, jobId }) => {
@@ -123,17 +124,17 @@ const EditJobForm = ({ data, jobId }) => {
     register(
       {
         name: "jobCategories",
-        value: data.categories.map(category => category.id)
+        value: data.categories.map((category) => category.id),
       },
       { required: true }
     );
     register({ name: "jobType", value: data.type }, { required: true });
     register(
-      { name: "jobSkills", value: data.skills.map(skill => skill.id) },
+      { name: "jobSkills", value: data.skills.map((skill) => skill.id) },
       { required: true }
     );
     register(
-      { name: "jobPerkss", value: data.perks.map(perk => perk.id) },
+      { name: "jobPerkss", value: data.perks.map((perk) => perk.id) },
       { required: true }
     );
     register({ name: "jobAuthor", value: data.author.id });
@@ -150,7 +151,7 @@ const EditJobForm = ({ data, jobId }) => {
     errors,
     handleSubmit,
     setValue,
-    triggerValidation
+    triggerValidation,
   } = useForm();
 
   const [touchedFields, setTouchedFields] = useState({});
@@ -174,7 +175,7 @@ const EditJobForm = ({ data, jobId }) => {
     }
 
     const {
-      data: { updateJob }
+      data: { updateJob },
     } = await updateJobMutation({ variables: { ...variables, jobId } });
 
     if (updateJob) {
@@ -190,8 +191,10 @@ const EditJobForm = ({ data, jobId }) => {
 
   return (
     <>
-      <Title size={"l"}>Edit Job</Title>
-      <p className={"Instructions"}>Enter the job details</p>
+      <Title size={"l"} capitalize>
+        {appText.actions.edit} {appText.objects.job.singular}
+      </Title>
+      <p className={"Instructions"}>{appText.messages.job.postInstructions}</p>
       <Mutation mutation={UPDATE_JOB_MUTATION}>
         {(updateJobMutation, mutationState) => {
           return (
@@ -206,7 +209,7 @@ const EditJobForm = ({ data, jobId }) => {
               <Form.Input
                 name="jobTitle"
                 fluid
-                label="Job Title"
+                label={appText.messages.job.jobTitle}
                 placeholder="Warehouse Manager"
                 onChange={handleInputChange}
                 error={errors.jobTitle ? true : false}
@@ -225,7 +228,7 @@ const EditJobForm = ({ data, jobId }) => {
                 <Form.Input
                   name="jobMinCompensation"
                   fluid
-                  label="Minimum Compensation"
+                  label={appText.messages.job.jobMinCompensation}
                   placeholder="10.99"
                   onChange={handleInputChange}
                   error={errors.jobMinCompensation ? true : false}
@@ -236,7 +239,7 @@ const EditJobForm = ({ data, jobId }) => {
                 <Form.Input
                   name="jobMaxCompensation"
                   fluid
-                  label="Maximum Compensation"
+                  label={appText.messages.job.jobMaxCompensation}
                   placeholder="20.99"
                   onChange={handleInputChange}
                   error={errors.jobMaxCompensation ? true : false}
@@ -247,8 +250,8 @@ const EditJobForm = ({ data, jobId }) => {
                 <Form.Select
                   name="jobCompensationType"
                   options={compensationTypeOptions}
-                  label="Compensation Type"
-                  placeholder="Select an option"
+                  label={appText.messages.job.jobCompensationType}
+                  placeholder={appText.messages.validation.select}
                   onChange={handleInputChange}
                   error={errors.jobCompensationType ? true : false}
                   defaultValue={data.compensationType}
@@ -258,20 +261,20 @@ const EditJobForm = ({ data, jobId }) => {
               <DropdownGraphqlInput
                 onChange={handleInputChange}
                 name="jobCategories"
-                label="Job Categories"
-                placeholder="Select a category"
+                label={appText.messages.job.jobCategories}
+                placeholder={appText.messages.validation.selectAllThatApply}
                 multiple
                 graphql={{
-                  query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name: {contains: $query}}) { id name } }`
+                  query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name: {contains: $query}}) { id name } }`,
                 }}
                 error={errors.jobCategories ? true : false}
-                defaultValue={data.categories.map(category => category.id)}
+                defaultValue={data.categories.map((category) => category.id)}
               />
               <Form.Select
                 name="jobType"
                 options={jobTypeOptions}
-                label="Job Type"
-                placeholder="Select an option"
+                label={appText.messages.job.jobType}
+                placeholder={appText.messages.validation.select}
                 onChange={handleInputChange}
                 error={errors.jobType ? true : false}
                 defaultValue={data.type}
@@ -280,37 +283,37 @@ const EditJobForm = ({ data, jobId }) => {
               <DropdownGraphqlInput
                 onChange={handleInputChange}
                 name="jobSkills"
-                label="Job Skills"
-                placeholder="Select at least one skill"
+                label={appText.messages.job.jobSkills}
+                placeholder={appText.messages.validation.selectAtLeastOne}
                 multiple
                 graphql={{
-                  query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
+                  query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
                 }}
                 error={errors.jobSkills ? true : false}
-                defaultValue={data.skills.map(skill => skill.id)}
+                defaultValue={data.skills.map((skill) => skill.id)}
               />
 
               <DropdownGraphqlInput
                 onChange={handleInputChange}
                 name="jobPerks"
-                label="Job Perks (optional)"
-                placeholder="Select all that apply"
+                label={appText.messages.job.jobPerks}
+                placeholder={appText.messages.validation.selectAllThatApply}
                 multiple
                 graphql={{
-                  query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`
+                  query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
                 }}
                 error={errors.jobPerks ? true : false}
-                defaultValue={data.perks.map(perk => perk.id)}
+                defaultValue={data.perks.map((perk) => perk.id)}
                 allowAdditions
-                additionLabel="Create: "
-                additionWarning="Any new perks will be reviewed and are subject to approval"
+                additionLabel={`${appText.actions.create}: `}
+                additionWarning={appText.messages.perk.approval}
               />
 
               <AuthorDropdown
                 onChange={handleInputChange}
                 name="jobAuthor"
-                label="Job Author"
-                placeholder="Select an option"
+                label={appText.messages.job.jobAuthor}
+                placeholder={appText.messages.validation.select}
                 error={errors.jobAuthor ? true : false}
                 defaultValue={data.author.id}
               />
@@ -318,14 +321,14 @@ const EditJobForm = ({ data, jobId }) => {
               <RichTextEditor
                 name="jobDescription"
                 onChange={handleInputChange}
-                label="Job Description"
+                label={appText.messages.job.jobDescription}
                 error={errors.jobDescription ? true : false}
                 defaultValue={data.description}
               />
 
               <TextArea
-                placeholder="Leave empty if you want use default disclaimer"
-                label="Job Disclaimer"
+                placeholder={appText.messages.disclaimer.leaveEmpty}
+                label={appText.messages.job.jobDisclaimer}
                 name={"jobDisclaimer"}
                 onChange={handleInputChange}
                 error={errors.jobDisclaimer ? true : false}
@@ -337,10 +340,11 @@ const EditJobForm = ({ data, jobId }) => {
                   size="big"
                   onClick={() => Router.push("/admin/dashboard")}
                 >
-                  Cancel
+                  {appText.actions.cancel}
                 </Button>
                 <Button type="submit" size="big" positive>
-                  Save and Preview
+                  {appText.actions.save} {appText.prepositions.and}{" "}
+                  {appText.actions.preview}
                 </Button>
               </Button.Group>
             </Form>
