@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import JobsTable from "@/components/jobs/JobsTable";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
@@ -5,6 +6,13 @@ import JobsStatsCards from "@/components/admin/dashboard/DashboardHome/JobsStats
 import appText from "@/lang/appText";
 
 const dashboardPage = (props) => {
+  const router = useRouter();
+  let status;
+
+  if (router?.query?.status) {
+    status = router?.query?.status;
+  }
+
   return (
     <RenderIfLoggedIn
       redirect
@@ -12,7 +20,7 @@ const dashboardPage = (props) => {
     >
       <DashboardPage title={appText.objects.job.plural}>
         <JobsStatsCards />
-        <JobsTable />
+        <JobsTable status={status} />
       </DashboardPage>
     </RenderIfLoggedIn>
   );

@@ -121,7 +121,6 @@ const StyledOrderByHeader = styled.p`
 `;
 
 export const OrderByHeader = ({ children, action, column, activeColumn }) => {
-  console.log(activeColumn);
   const [order, setOrder] = useState("DESC");
   const allowedValues = [`${column} DESC`, `${column} ASC`];
   const isActive = allowedValues.includes(activeColumn);

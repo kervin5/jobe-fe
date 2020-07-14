@@ -23,6 +23,7 @@ export default {
     click: "Click",
     confirm: "Confirm",
     share: "Share",
+    publish: "Publish",
   },
 
   objects: {
@@ -181,7 +182,7 @@ export default {
   },
   messages: {
     thatsAll: "That's all for now",
-    notfound: "no results were found",
+    notfound: "No results were found",
     whatsTrending: "what's trending",
     clickHereToUpload: "Click here or drop a file to upload",
     dropItNow: "Drop it like it's hot",
@@ -192,6 +193,7 @@ export default {
     nothingToSee: "Oops, nothing to see here",
     currentlyOpen: "Currently Open",
     amazingOpportunity: `Amazing Career opportunity @ ${companyInfo.name}`,
+    submitForApproval: "Submit for approval",
     job: {
       latest: "latest jobs",
       recommended: "recommended jobs",

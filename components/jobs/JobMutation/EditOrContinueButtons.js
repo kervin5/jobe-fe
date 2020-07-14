@@ -5,10 +5,11 @@ import Router from "next/router";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 import ChangeJobStatusButton from "./ChangeJobStatusButton";
 import { SINGLE_JOB_QUERY } from "@/graphql/queries/jobs";
+import appText from "@/lang/appText";
 
 function EditOrContinueButtons({ jobId }) {
   const { error, loading, data } = useQuery(SINGLE_JOB_QUERY, {
-    variables: { id: jobId }
+    variables: { id: jobId },
   });
   if (loading) return <p>Loading...</p>;
   return (
@@ -19,19 +20,19 @@ function EditOrContinueButtons({ jobId }) {
         onClick={() => Router.push(`/admin/jobs/${jobId}/edit`)}
       >
         <Icon name="pencil" />
-        Edit
+        {appText.actions.edit}
       </Button>
       <RenderIfLoggedIn
         permissions={[{ object: "JOB", action: "PUBLISH" }]}
         fallback={
           <ChangeJobStatusButton jobId={jobId} status="PENDING">
-            Submit for approval
+            {appText.actions.messages.submitForApproval}
           </ChangeJobStatusButton>
         }
       >
         {data.job.status !== "POSTED" && (
           <ChangeJobStatusButton jobId={jobId} status="POSTED">
-            Publish
+            {appText.actions.publish}
           </ChangeJobStatusButton>
         )}
       </RenderIfLoggedIn>
@@ -39,10 +40,10 @@ function EditOrContinueButtons({ jobId }) {
         positive
         icon
         labelPosition="left"
-        onClick={() => Router.push("/admin/dashboard")}
+        onClick={() => Router.push("/admin/jobs")}
       >
         <Icon name="desktop" />
-        Dashboard
+        {appText.objects.jobs.plural}
       </Button>
       <style jsx>{`
         .EditOrContinueButtons {
