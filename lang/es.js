@@ -274,7 +274,7 @@ export default {
       resumeUploaded: "Hoja de vida subida",
     },
     validation: {
-      required: "Esta campo es mandatorio",
+      required: "Esta campo es requerido",
       minLength: (number) =>
         `Este campo debe tener al menos ${number} caracteres`,
       maxLength: (number) =>
