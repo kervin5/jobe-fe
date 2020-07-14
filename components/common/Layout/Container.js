@@ -2,7 +2,7 @@ import React from "react";
 
 // import classes from './Container.module.scss';
 
-const Container = props => {
+const Container = (props) => {
   // const customWidth = props.maxWidth || "900px";
 
   return (
@@ -12,6 +12,7 @@ const Container = props => {
         .Container {
           margin: 0 auto;
           max-width: ${props.maxWidth || "970px"};
+          min-height: ${props.minHeight ?? 0};
           width: 100%;
           padding: ${props.nopadding
             ? "0px"

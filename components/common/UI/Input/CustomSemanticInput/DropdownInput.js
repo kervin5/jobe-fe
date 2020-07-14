@@ -16,8 +16,8 @@ const LocationInput = ({
   allowAdditions,
   additionWarning,
   additionLabel,
-  nolabel,
   minWidth,
+  size,
 }) => {
   const [customOptions, setCustomOptions] = useState([]);
   const handleAddition = (e, { value }) => {
@@ -29,7 +29,7 @@ const LocationInput = ({
         allowAdditions ? "DropdownInput--additions" : ""
       }`}
     >
-      {!nolabel && <label htmlFor={name}>{label}</label>}
+      {label && <label htmlFor={name}>{label}</label>}
       <Dropdown
         loading={loading}
         id={name}
@@ -46,6 +46,7 @@ const LocationInput = ({
         defaultValue={defaultValue}
         defaultSearchQuery={defaultSearchQuery}
         allowAdditions={allowAdditions}
+        size={size}
       />
       {!!additionWarning && !!customOptions.length && (
         <Message color="yellow">

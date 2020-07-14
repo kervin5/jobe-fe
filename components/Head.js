@@ -3,7 +3,7 @@ import NextHead from "next/head";
 import { string } from "prop-types";
 import { initGA, logPageView } from "../lib/analytics";
 
-const Head = props => {
+const Head = (props) => {
   useEffect(() => {
     if (!window.GA_INITIALIZED) {
       initGA();
@@ -22,7 +22,7 @@ const Head = props => {
       />
       <link rel="icon" href="/favicon.ico" />
       <link
-        href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;700&display=swap"
         rel="stylesheet"
       />
     </NextHead>
@@ -33,7 +33,7 @@ Head.propTypes = {
   title: string,
   description: string,
   url: string,
-  ogImage: string
+  ogImage: string,
 };
 
 export default Head;

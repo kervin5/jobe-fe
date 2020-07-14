@@ -1,141 +1,110 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import useForm from "react-hook-form";
+import { Form } from "semantic-ui-react";
 import Router from "next/router";
-import variables from "@/common/globalVariables";
-import InputField from "@/common/UI/Input/InputField";
-import Button from "@/common/UI/Button";
+import LocationInput from "@/common/UI/Input/CustomSemanticInput/LocationInput";
+import styled from "styled-components";
+import appText from "@/lang/appText";
 
-const buttonStyles = `margin-top:10px;`;
+const StyledSearchForm = styled.div`
+  box-shadow: 0px 4px 66px -35px rgba(0, 0, 0, 0.75);
+  max-width: 60%;
+  display: inline-block;
+  .ui.form .fields {
+    margin: 0;
+  }
 
-const searchForm = props => {
-  const [formData, setFormData] = useState({
-    searchTerms: {
-      value: props.terms || "",
-      valid: false,
-      icon: "search",
-      type: "text",
-      placeholder: "Job Title, Keywords, or Company Name",
-      focused: true,
-      required: false,
-      label: "What"
-    },
-    searchLocation: {
-      value: props.location || "",
-      valid: false,
-      icon: "map marker",
-      type: "location",
-      placeholder: "Location",
-      focused: false,
-      required: false,
-      label: "Where"
-    }
-  });
-  const [validate, setValidate] = useState(false);
+  .ui.form input[type="text"],
+  .ui.form .field > .selection.dropdown,
+  .ui.form .field > .selection.dropdown > input,
+  .ui.button {
+    /* height: 60px; */
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 0;
+    padding: 30px;
+    min-height: 100%;
+  }
 
-  const handleChange = fieldData => {
-    setFormData({
-      ...formData,
-      [fieldData.name]: {
-        ...formData[fieldData.name],
-        ...fieldData
-      }
-    });
+  .ui.form .fields > .field {
+    padding: 0;
+  }
 
-    if (fieldData.name === "searchLocation") {
-      localStorage.setItem("lastLocation", fieldData.value);
-    }
-  };
+  .ui.form .field > .selection.dropdown > .dropdown.icon {
+    top: 50%;
+    transform: translateY(-25%);
+  }
 
-  const submitFormHandler = async e => {
+  .ui.button {
+    width: auto;
+  }
+`;
+
+const CreateJobForm = ({ location }) => {
+  console.log(location);
+  const {
+    register,
+    errors,
+    handleSubmit,
+    setValue,
+    triggerValidation,
+  } = useForm();
+
+  useEffect(() => {
+    register({ name: "jobTitle" });
+    register({ name: "jobLocation" });
+  }, []);
+
+  const onSubmit = async (data, e) => {
     e.preventDefault();
-    await setValidate(true);
 
-    const { searchTerms, searchLocation } = formData;
-
-    Router.push(
-      `/jobs?q=${searchTerms.value}&location=${searchLocation.value}`
-    );
+    Router.push(`/jobs?q=${data.jobTitle}&location=${data.jobLocation}`);
   };
 
-  const InputFields = ["searchTerms", "searchLocation"].map(key => {
-    const fieldData = formData[key];
-    return (
-      <InputField
-        validate={validate}
-        type={fieldData.type}
-        placeholder={fieldData.placeholder}
-        label={fieldData.label}
-        rounded
-        centerPlaceholder
-        icon={fieldData.icon}
-        change={handleChange}
-        focused
-        name={key}
-        value={fieldData.value}
-        key={key + "SearchField"}
-        boldLabel
-      />
-    );
-  });
+  const handleInputChange = async (e, data) => {
+    // console.log(data);
+
+    setValue(data.name, data.value);
+    if (data.name === "jobLocation" && data.value) {
+      localStorage.setItem("lastLocation", data.value);
+    }
+
+    await triggerValidation({ name: data.name });
+  };
+
+  // console.log(errors);
 
   return (
-    <form>
-      {InputFields}
-      <Button styles={buttonStyles} onClick={submitFormHandler} fullWidth>
-        Search
-      </Button>
-      <style jsx>{`
-        form {
-          width: 100%;
-          max-width: 400px;
-          padding ${props.noPadding ? "0px" : "0 15px"};
-          margin: auto;
-          align-items: flex-end;
-        }
+    <StyledSearchForm>
+      <Form
+        onSubmit={handleSubmit((data, event) => onSubmit(data, event))}
+        size={"large"}
+      >
+        <Form.Group widths="equal">
+          <Form.Input
+            name="jobTitle"
+            fluid
+            placeholder="Warehouse Manager"
+            onChange={handleInputChange}
+            error={errors.jobTitle ? true : false}
+            icon="users"
+            iconPosition="left"
+          />
+          <LocationInput
+            name="jobLocation"
+            onChange={handleInputChange}
+            error={errors.jobLocation ? true : false}
+            placeholder={location}
+          />
 
-        form * {
-          width: 100%;
-        }
-
-        form :global(.InputContainer) {
-    
-          margin-right: 5px;
-        }
-
-        form :global(input) {
-        
-          font-size: 1.1em;
-        }
-
-        form :global(button) {
-          margin-bottom: 20px;
-        }
-
-        @media (min-width: ${variables.mediumScreen}) {
-          form {
-            display: flex;
-            max-width: 920px;
-         
-          }
-
-          form > * {
-            margin: 4px;
-          }
-
-          form :global(button) {
-            max-width: 100px;
-          }
-        }
-
-        
-
-        @media (max-width: ${variables.mediumScreen}) {
-          form :global(button) {
-            width: 100%;
-          }
-        }
-      `}</style>
-    </form>
+          <Form.Button type="submit" size="large" positive>
+            {appText.actions.search}
+          </Form.Button>
+        </Form.Group>
+      </Form>
+    </StyledSearchForm>
   );
 };
 
-export default searchForm;
+export default CreateJobForm;

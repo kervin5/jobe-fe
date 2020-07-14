@@ -29,7 +29,7 @@ class UserLocator {
       const locationData = {
         lat: 0,
         lon: 0,
-        name: ""
+        name: "",
       };
 
       const location = localStorage.getItem("lastLocation");
@@ -45,24 +45,24 @@ class UserLocator {
   setLocationByGeolocation = () => {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
-        position => {
+        (position) => {
           const { latitude, longitude } = position.coords;
 
           axios
             .get(`/api/location/${longitude},${latitude}`)
-            .then(res => {
+            .then((res) => {
               const locationData = {
                 lat: latitude,
                 lon: longitude,
                 name: res.data.features[0].context[0].text,
-                country: res.data.features[0].context.filter(loc =>
+                country: res.data.features[0].context.filter((loc) =>
                   loc.id.includes("country")
-                )[0].text
+                )[0].text,
               };
               this.setLocationData(locationData);
               resolve(locationData);
             })
-            .catch(err => {
+            .catch((err) => {
               console.log(err);
               resolve(this.setLocationByIp());
             });
@@ -78,18 +78,18 @@ class UserLocator {
     return new Promise((resolve, reject) => {
       axios
         .get(`/api/iplocation`)
-        .then(res => {
+        .then((res) => {
           const locationData = {
             lat: res.data.latitude,
             lon: res.data.longitude,
             name: res.data.city,
-            country: res.data.country_name
+            country: res.data.country_name,
           };
 
           this.setLocationData(locationData);
           resolve(locationData);
         })
-        .catch(err => {
+        .catch((err) => {
           resolve(this.setUnknownLocation());
         });
     });
@@ -99,7 +99,7 @@ class UserLocator {
     const locationData = {
       lat: 0,
       lon: 0,
-      name: ""
+      name: "",
     };
 
     return new Promise((resolve, reject) => {
