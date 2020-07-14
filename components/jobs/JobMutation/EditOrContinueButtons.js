@@ -26,7 +26,7 @@ function EditOrContinueButtons({ jobId }) {
         permissions={[{ object: "JOB", action: "PUBLISH" }]}
         fallback={
           <ChangeJobStatusButton jobId={jobId} status="PENDING">
-            {appText.actions.messages.submitForApproval}
+            {appText.messages.submitForApproval}
           </ChangeJobStatusButton>
         }
       >
