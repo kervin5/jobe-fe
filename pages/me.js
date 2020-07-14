@@ -15,7 +15,7 @@ const MePage = (props) => {
       <PageSection className="DashboardPage" column>
         <SEO
           description={`${appText.seo.pages.me.title}. ${appText.seo.description}!`}
-          title={`${appText.objects.profile.user} - ${app.seo.title}!`}
+          title={`${appText.objects.profile.user} - ${appText.seo.title}!`}
         />
         <Container>
           <UserProfileHeader />
