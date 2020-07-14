@@ -7,10 +7,12 @@ import appText from "@/lang/appText";
 
 const dashboardPage = (props) => {
   const router = useRouter();
+  let title = appText.objects.job.plural;
   let status;
 
   if (router?.query?.status) {
     status = router?.query?.status;
+    title = `${appText.objects.job.plural} > ${status}`;
   }
 
   return (
@@ -18,7 +20,7 @@ const dashboardPage = (props) => {
       redirect
       permissions={[{ object: "JOB", action: "CREATE" }]}
     >
-      <DashboardPage title={appText.objects.job.plural}>
+      <DashboardPage title={title}>
         <JobsStatsCards />
         <JobsTable status={status} />
       </DashboardPage>

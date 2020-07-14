@@ -43,7 +43,6 @@ const CheckMark = ({ checked }) => {
 };
 
 const JobsTable = (props) => {
-  console.log(props.status);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
   const [status, setStatus] = useState(props.status ?? "ALL");
@@ -181,7 +180,6 @@ const JobsTable = (props) => {
                           />
                           <Select
                             options={options}
-                            defaultValue={props.status ?? "ALL"}
                             value={status}
                             onChange={(e, data) =>
                               handleFieldChange(data, "status")
