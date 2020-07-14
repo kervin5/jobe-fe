@@ -204,7 +204,10 @@ const JobsTable = (props) => {
                     data={injectActionsColumn(dataForTable, [
                       {
                         query: JOBS_GRID_COUNT_QUERY,
-                        variables: { query: searchValue, status },
+                        variables: {
+                          query: searchValue,
+                          status: statusToFilter,
+                        },
                       },
                       {
                         query: ALL_JOBS_GRID,
@@ -213,7 +216,7 @@ const JobsTable = (props) => {
                           skip: (currentPage - 1) * take,
                           query: searchValue,
                           orderBy,
-                          status,
+                          status: statusToFilter,
                         },
                       },
                     ])}
