@@ -24,6 +24,7 @@ export default {
     confirm: "Confirm",
     share: "Share",
     publish: "Publish",
+    download: "Download",
   },
 
   objects: {

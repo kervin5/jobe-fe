@@ -5,6 +5,8 @@ import Icon from "@/common/UI/Icon";
 import variables from "@/common/globalVariables";
 import { USER_FAVORITE_STATUS_QUERY } from "./FavoriteButton";
 import { CSSTransition } from "react-transition-group";
+import { Button } from "semantic-ui-react";
+import { StyledAnimatedButton } from "./FavoriteButton";
 
 const USER_DELETE_FAVORITE_MUTATION = gql`
   mutation USER_DELETE_FAVORITE_MUTATION($jobId: ID!) {
@@ -16,32 +18,36 @@ const update = (cache, payload) => {
   const jobId = payload.data.deleteFavorite;
   const data = cache.readQuery({
     query: USER_FAVORITE_STATUS_QUERY,
-    variables: { jobId }
+    variables: { jobId },
   });
 
   if (data.me) {
-    data.me.favorites = data.me.favorites.filter(
-      favorite => favorite.job.id !== jobId
-    );
     cache.writeQuery({
       query: USER_FAVORITE_STATUS_QUERY,
       variables: { jobId },
-      data
+      data: {
+        me: {
+          ...data.me,
+          favorites: data.me.favorites.filter(
+            (favorite) => favorite.job.id !== jobId
+          ),
+        },
+      },
     });
   }
 };
 
-const favoriteButtonWrapper = ({ jobId, show }) => {
+const favoriteButtonWrapper = ({ jobId, show, count, loading }) => {
   return (
     <Mutation
       mutation={USER_DELETE_FAVORITE_MUTATION}
       variables={{ jobId }}
       update={update}
       optimisticResponse={{
-        deleteFavorite: jobId
+        deleteFavorite: jobId,
       }}
     >
-      {(removeFavoriteMutation, { data, loading, error, called }) => {
+      {(removeFavoriteMutation, { data, error, called }) => {
         if (error) return <p>Error</p>;
         return (
           <CSSTransition
@@ -51,45 +57,28 @@ const favoriteButtonWrapper = ({ jobId, show }) => {
             key={jobId + "Remove"}
             timeout={{ enter: 300, exit: 300 }}
           >
-            <FavoriteButton onClick={removeFavoriteMutation} />
+            <StyledAnimatedButton>
+              <Button
+                color="blue"
+                content="Like"
+                icon="heart"
+                size="small"
+                loading={loading}
+                label={{
+                  basic: true,
+                  color: "blue",
+                  pointing: "left",
+                  content: count,
+                  size: "mini",
+                }}
+                onClick={removeFavoriteMutation}
+              />
+            </StyledAnimatedButton>
           </CSSTransition>
         );
       }}
     </Mutation>
   );
 };
-
-const FavoriteButton = props => (
-  <span
-    onClick={props.onClick}
-    className={"removeFavoriteButton FavoriteButton"}
-  >
-    <Icon icon={"heart"} size={props.size || "lg"} className="baseIcon"></Icon>
-
-    <style jsx>{`
-      .removeFavoriteButton :global(.baseIcon i) {
-        color: ${variables.accentColor3};
-      }
-
-      .removeFavoriteButton.enter :global(.baseIcon i) {
-        color: ${variables.mutedColor2};
-        transform: scale(1);
-      }
-
-      .removeFavoriteButton.enter-active :global(.baseIcon i) {
-        color: ${variables.accentColor3};
-        transform: scale(2);
-      }
-
-      .removeFavoriteButton.enter-done :global(.baseIcon i) {
-        transform: scale(1);
-      }
-
-      .removeFavoriteButton.exit :global(.baseIcon i) {
-        transform: scale(0);
-      }
-    `}</style>
-  </span>
-);
 
 export default favoriteButtonWrapper;

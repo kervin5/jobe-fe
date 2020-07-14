@@ -24,7 +24,7 @@ Router.onRouteChangeError = () => {
   NProgress.done();
 };
 
-const layout = props => {
+const layout = (props) => {
   const [adminBarIsOpen, setAdminBarIsOpen] = useState(false);
   return (
     <div className="Layout">
@@ -45,7 +45,7 @@ const layout = props => {
           box-sizing: border-box;
           margin: 0;
           padding: 0;
-          font-family: "Lato", sans-serif;
+          font-family: "IBM Plex Sans", sans-serif;
         }
 
         .Layout {
@@ -56,7 +56,7 @@ const layout = props => {
         }
 
         p {
-          line-height: 1.6em;
+          line-height: 2em;
         }
 
         main {

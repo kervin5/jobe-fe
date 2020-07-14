@@ -10,7 +10,7 @@ import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";
 import variables from "@/common/globalVariables";
 import { ALL_JOBS_GRID } from "@/graphql/queries/jobs";
 import appText from "@/lang/appText";
-import { Status } from "@sentry/react";
+import DownloadCSVButton from "@/common/UI/DownloadCSVButton";
 
 const JOBS_GRID_COUNT_QUERY = gql`
   query JOBS_GRID_COUNT_QUERY($query: String = "", $status: [String!]) {
@@ -57,11 +57,6 @@ const JobsTable = (props) => {
       setSearchValue(e.target.value);
     } else {
       setStatus(e.value);
-      // if (e.value === "ALL") {
-      //   setStatus(allStatus);
-      // } else {
-      //   setStatus([e.value]);
-      // }
     }
 
     setCurrentPage(1);
@@ -186,13 +181,25 @@ const JobsTable = (props) => {
                             }
                           />
                         </div>
-                        <Link href="/admin/jobs/new" passHref>
-                          <Button positive as="a">
-                            {appText.actions.new +
-                              " " +
-                              appText.objects.job.singular}
-                          </Button>
-                        </Link>
+                        <div>
+                          <DownloadCSVButton
+                            queryData={{
+                              query: ALL_JOBS_GRID,
+                              variables: {
+                                query: searchValue,
+                                orderBy,
+                                status: statusToFilter,
+                              },
+                            }}
+                          />
+                          <Link href="/admin/jobs/new" passHref>
+                            <Button positive as="a">
+                              {appText.actions.new +
+                                " " +
+                                appText.objects.job.singular}
+                            </Button>
+                          </Link>
+                        </div>
                       </>
                     }
                     page={currentPage}
