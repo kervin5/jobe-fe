@@ -1,6 +1,7 @@
 import React from "react";
 
 import PageSection from "@/common/Layout/PageSection.js";
+import appText from "@/lang/appText";
 
 // Page: Landing Page
 const peopleImage = "/images/334809-PAIXKS-603.ai.png";
@@ -10,12 +11,12 @@ flex-wrap: wrap;
 align-items: flex-start;
 align-content: center;`;
 
-const unknownPage = props => {
+const unknownPage = (props) => {
   return (
     <PageSection styles={pageStyles}>
       <h1 className={"ErrorCode"}>404</h1>
       <img src={peopleImage} alt="" />
-      <h2 className={"Message"}>Oops, nothing to see here...</h2>
+      <h2 className={"Message"}>{appText.messages.nothingToSee}...</h2>
       <style jsx>{`
         .ErrorCode {
           font-size: 19em;

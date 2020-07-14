@@ -18,8 +18,8 @@ const loginPage = () => {
   return (
     <>
       <SEO
-        description="Login to your profile to start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for so Apply Today!"
-        title="Login - MyExactJobs National Job Board: Find a Job Today! "
+        description={`${appText.seo.pages.login.description}. ${appText.seo.description}!`}
+        title={`${appText.actions.login} - ${appText.seo.title}! `}
       />
       <RenderIfLoggedOut redirect>
         <PageSection styles={pageStyles} center>

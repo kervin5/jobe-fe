@@ -1,25 +1,28 @@
+import { companyInfo } from "@/root/config";
+
 export default {
   actions: {
-    edit: "edit",
-    new: "new",
-    search: "search",
-    find: "find",
-    login: "log in",
-    register: "register",
-    post: "post",
-    viewMore: "view more",
-    add: "add",
-    loading: "loading",
-    cancel: "cancel",
-    preview: "preview",
-    save: "save",
-    view: "view",
-    upload: "upload",
+    edit: "Edit",
+    new: "New",
+    search: "Search",
+    find: "Find",
+    login: "Log In",
+    register: "Register",
+    post: "Post",
+    viewMore: "View More",
+    add: "Add",
+    loading: "Loading",
+    cancel: "Cancel",
+    preview: "Preview",
+    save: "Save",
+    view: "View",
+    upload: "Upload",
     signOut: "Sign Out",
     filterBy: "Filter by",
-    reset: "reset",
-    click: "click",
-    confirm: "confirm",
+    reset: "Reset",
+    click: "Click",
+    confirm: "Confirm",
+    share: "Share",
   },
 
   objects: {
@@ -28,6 +31,7 @@ export default {
       singular: "job",
       plural: "jobs",
       information: "Job information",
+      this: "This Job",
     },
     location: { singular: "location", plural: "locations" },
     area: {
@@ -39,6 +43,7 @@ export default {
       singular: "profile",
       plural: "profiles",
       candidate: "Candidate Profile",
+      user: "User Profile",
     },
 
     password: {
@@ -62,8 +67,13 @@ export default {
     },
 
     privacyPolicy: {
-      singular: "privacy policy",
-      plural: "privacy policies",
+      singular: "Privacy policy",
+      plural: "Privacy policies",
+    },
+
+    cookieNotice: {
+      singular: "Cookie Notice",
+      plural: "Cookie Notices",
     },
 
     application: {
@@ -125,6 +135,11 @@ export default {
       singular: "skill",
       plural: "skills",
     },
+
+    compensation: {
+      singular: "Compensation",
+      plural: "comepnsations",
+    },
   },
 
   adjectives: {
@@ -140,11 +155,43 @@ export default {
 
   pronouns: {
     your: "your",
+    you: "you",
   },
-
+  seo: {
+    description: `Browse through hundreds of job openings nationally. ${companyInfo.name} has the job opportunity you have been looking for so Apply Today`,
+    title: `${companyInfo.name} National Job Board: Find a Job Today`,
+    pages: {
+      landing: {
+        description: `Start your job search with ${companyInfo.name}`,
+      },
+      jobSearch: {
+        title: `${companyInfo.name} Search`,
+        description: `Start your job search with ${companyInfo.name}`,
+      },
+      me: {
+        title: `Login to your profile to start your job search with ${companyInfo.name}`,
+      },
+      login: {
+        description: `Login to your profile to start your job search with ${companyInfo.name}`,
+      },
+      register: {
+        description: `Create a new profile to start your job search with ${companyInfo.name}`,
+      },
+    },
+  },
   messages: {
+    thatsAll: "That's all for now",
     notfound: "no results were found",
     whatsTrending: "what's trending",
+    clickHereToUpload: "Click here or drop a file to upload",
+    dropItNow: "Drop it like it's hot",
+    about: "About",
+    doItLater: "Do it later",
+    uploaded: "Uploaded",
+    uploading: "Uploading",
+    nothingToSee: "Oops, nothing to see here",
+    currentlyOpen: "Currently Open",
+    amazingOpportunity: `Amazing Career opportunity @ ${companyInfo.name}`,
     job: {
       latest: "latest jobs",
       recommended: "recommended jobs",
@@ -215,6 +262,12 @@ export default {
         !self ? `These are ${name}'s resumes` : `These are your resumes`,
       uploadToApply:
         "Upload your resume to start aplying to amazing opportunities with one click",
+      doesntHave: "No Resume",
+      resumeTitle: "Resume Title",
+      pleaseEnterTitle: "Please enter a title for this resume",
+      enterTitle: "Enter a title",
+      resumeSelected: "Resume selected",
+      resumeUploaded: "Resume uploaded",
     },
     validation: {
       required: "This field is required",
@@ -227,6 +280,8 @@ export default {
       select: "Select an option",
       selectAllThatApply: "Select all that apply",
       selectAtLeastOne: "Select at least one",
+      fileTypeNotValid: "File type not accepted, sorry",
+      fileIsTooLarge: "File is too large",
     },
   },
 
@@ -240,5 +295,6 @@ export default {
   prepositions: {
     since: "since",
     and: "and",
+    at: "at",
   },
 };

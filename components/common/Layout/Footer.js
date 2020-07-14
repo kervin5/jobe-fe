@@ -1,15 +1,23 @@
 import React from "react";
 import variables from "@/common/globalVariables";
+import { companyInfo } from "@/root/config";
+import appText from "@/lang/appText";
 
 const Footer = () => {
   return (
     <div className="Footer">
       <nav>
-        <a href={process.env.NEXT_PUBLIC_PRIVACY_POLICY_LINK}>Privacy Notice</a>
+        <a href={process.env.NEXT_PUBLIC_PRIVACY_POLICY_LINK}>
+          {appText.objects.privacyPolicy.singular}
+        </a>
 
-        <a href={process.env.NEXT_PUBLIC_COOKIE_NOTICE_LINK}>Cookie Notice</a>
+        <a href={process.env.NEXT_PUBLIC_COOKIE_NOTICE_LINK}>
+          {appText.objects.cookieNotice.singular}
+        </a>
       </nav>
-      <p>Copyright &copy; {new Date().getFullYear()} Exact Staff</p>
+      <p>
+        Copyright &copy; {new Date().getFullYear()} {companyInfo.name}
+      </p>
       <style jsx>{`
         .Footer {
           width: 100%;

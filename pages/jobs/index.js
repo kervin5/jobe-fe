@@ -9,6 +9,7 @@ import Jobs from "@/components/jobs/JobsCards";
 import SearchFilters from "@/components/jobs/Search/SearchFilters";
 import SEO from "@/components/SEO";
 import { basePath } from "@/root/config";
+import appText from "@/lang/appText";
 
 const styles = `background-color: ${variables.mutedColor1}; padding: 30px; align-items: flex-start;`;
 
@@ -31,11 +32,12 @@ const SearchPage = (props) => {
   return (
     <>
       <SEO
-        description="Start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for so Apply Today!"
-        title={`${q || category || "Currently Open"} Jobs Near ${
-          location ? location : "You"
-        } - My Exact
-        Jobs Search`}
+        description={`${appText.seo.pages.jobSearch.description}. ${appText.seo.description}!`}
+        title={`${q || category || appText.messages.currentlyOpen} ${
+          appText.objects.job.plural
+        } ${appText.adjectives.near} ${
+          location ? location : appText.pronouns.you
+        } - ${appText.seo.pages.jobSearch.title}`}
       />
       <SearchFilters
         showFilters={showFilters}

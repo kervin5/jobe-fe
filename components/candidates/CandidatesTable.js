@@ -114,7 +114,7 @@ const Candidates = (props) => {
                   title: hasResume ? (
                     candidate.resumes[0].title
                   ) : (
-                    <p>No Resume</p>
+                    <p>{appText.messages.resume.doesntHave}</p>
                   ),
                   applications: candidate.applications?.length,
                   skills: resumeSkills.map((skill) => (

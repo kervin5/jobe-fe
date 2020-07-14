@@ -6,6 +6,7 @@ import JobList from "./JobList/JobList";
 import Button from "@/common/UI/Button";
 import Loader from "@/common/UI/Animated/Loader";
 import appText from "@/lang/appText";
+import { jobsSettings } from "@/root/config";
 
 const SEARCH_JOBS_QUERY = gql`
   query SEARCH_JOBS_QUERY(
@@ -77,7 +78,11 @@ const JobsCards = (props) => {
 
           return (
             <React.Fragment>
-              <JobList jobs={jobs} />
+              <JobList
+                jobs={jobs}
+                showJobType={jobsSettings.showJobType}
+                showPayRate={jobsSettings.showPayRate}
+              />
               {!endReached && jobs.length > 0 && (
                 <Button
                   disabled={loading}
@@ -110,7 +115,7 @@ const JobsCards = (props) => {
                 </Button>
               )}
               {endReached && (
-                <p className="BottomMessage">That's all for now 😊</p>
+                <p className="BottomMessage">{appText.messages.thatsAll} 😊</p>
               )}
             </React.Fragment>
           );

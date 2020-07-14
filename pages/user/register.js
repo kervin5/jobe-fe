@@ -17,8 +17,8 @@ const registerPage = () => {
   return (
     <>
       <SEO
-        description="Create a new profile to start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for so Apply Today!"
-        title="Register - MyExactJobs National Job Board: Find a Job Today! "
+        description={`${appText.seo.pages.register.description}. ${appText.seo.description}!`}
+        title={`${appText.actions.register} - ${appText.seo.title}!`}
       />
       <RenderIfLoggedOut redirect>
         <PageSection styles={pageStyles} center>

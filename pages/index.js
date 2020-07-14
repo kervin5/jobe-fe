@@ -36,8 +36,8 @@ const homePage = (props) => {
   return (
     <PageSection className="HomePage" column nopadding data-test="indexPage">
       <SEO
-        description="Start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for so Apply Today!"
-        title="Exact Staff National Job Board: Find a Job Today! "
+        description={`${appText.seo.pages.landing.description}. ${appText.seo.description}!`}
+        title={`${appText.seo.title}!`}
       />
       <DynamicImageBg
         staticImage

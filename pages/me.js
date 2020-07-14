@@ -4,8 +4,9 @@ import PageSection from "@/common/Layout/PageSection";
 import Container from "@/common/Layout/Container";
 import UserProfileTabs from "@/components/me/UserProfileTabs";
 import UserProfileHeader from "@/components/users/UserProfileHeader";
+import appText from "@/lang/appText";
 
-const MePage = props => {
+const MePage = (props) => {
   return (
     <RenderIfLoggedIn
       permissions={[{ object: "APPLICATION", action: "CREATE" }]}
@@ -13,8 +14,8 @@ const MePage = props => {
     >
       <PageSection className="DashboardPage" column>
         <SEO
-          description="Login to your profile to start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for so Apply Today!"
-          title="User Profile - Exact Staff National Job Board: Find a Job Today! "
+          description={`${appText.seo.pages.me.title}. ${appText.seo.description}!`}
+          title={`${appText.objects.profile.user} - ${app.seo.title}!`}
         />
         <Container>
           <UserProfileHeader />
