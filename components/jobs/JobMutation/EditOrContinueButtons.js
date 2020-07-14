@@ -43,7 +43,7 @@ function EditOrContinueButtons({ jobId }) {
         onClick={() => Router.push("/admin/jobs")}
       >
         <Icon name="desktop" />
-        {appText.objects.jobs.plural}
+        {appText.objects.job.plural}
       </Button>
       <style jsx>{`
         .EditOrContinueButtons {
