@@ -31,8 +31,6 @@ const CreateJobForm = ({ location }) => {
   };
 
   const handleInputChange = async (e, data) => {
-    // console.log(data);
-
     setValue(data.name, data.value);
     if (data.name === "jobLocation" && data.value) {
       localStorage.setItem("lastLocation", data.value);
