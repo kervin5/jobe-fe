@@ -21,7 +21,7 @@ const styles = ` background-color: ${variables.clearColor};
                 width: 100%;
                 `;
 
-const jobListItem = props => {
+const jobListItem = (props) => {
   const shortLocation = props.location.name;
 
   const jobUrl = `/jobs/${props.title.replace(
@@ -109,7 +109,6 @@ const jobListItem = props => {
         }
 
         .Location {
-          font-size: 0.9em;
           font-weight: bold;
           margin: 5px 0 0;
         }

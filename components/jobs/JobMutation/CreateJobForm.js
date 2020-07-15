@@ -284,7 +284,7 @@ const CreateJobForm = () => {
                 <Button
                   type="button"
                   size="big"
-                  onClick={() => Router.push("/admin/dashboard")}
+                  onClick={() => Router.push("/admin/jobs")}
                 >
                   {appText.actions.cancel}
                 </Button>
