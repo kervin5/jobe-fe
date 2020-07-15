@@ -23,6 +23,8 @@ export default {
     click: "Haz Click",
     confirm: "Confirmar",
     share: "Compartir",
+    publish: "Publicar",
+    download: "Descargar",
   },
 
   objects: {
@@ -193,6 +195,7 @@ export default {
     currentlyOpen: "Actualmente Disponibles",
     amazingOpportunity: `Increibles carreras y oportunidades en @ ${companyInfo.name}`,
     opportunityOfYourDreams: "Encuentra la oportunidad de tus sueños",
+    submitForApproval: "Submit for approval",
     job: {
       latest: "Trabajos más recientes",
       recommended: "Trabajos recomendados",
