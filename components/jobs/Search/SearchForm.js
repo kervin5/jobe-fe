@@ -24,8 +24,10 @@ const CreateJobForm = ({ location }) => {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    const q = data.jobTitle ? `q=${data.jobTitle}` : "";
+    const location = data.jobLocation ? `location=${data.jobLocation}` : "";
 
-    Router.push(`/jobs?q=${data.jobTitle}&location=${data.jobLocation}`);
+    Router.push(`/jobs?${q}&${location}`);
   };
 
   const handleInputChange = async (e, data) => {
