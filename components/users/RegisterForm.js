@@ -10,8 +10,13 @@ import PrivacyPolicyLink from "@/common/UI/PrivacyPolicyLink";
 import appText from "@/lang/appText";
 
 const SIGNUP_USER = gql`
-  mutation SIGNUP_USER($name: String!, $password: String!, $email: String!) {
-    signup(email: $email, password: $password, name: $name) {
+  mutation SIGNUP_USER(
+    $name: String!
+    $password: String!
+    $email: String!
+    $phone: String!
+  ) {
+    signup(email: $email, password: $password, name: $name, phone: $phone) {
       id
       role {
         id
