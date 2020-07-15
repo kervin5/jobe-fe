@@ -6,43 +6,9 @@ import LocationInput from "@/common/UI/Input/CustomSemanticInput/LocationInput";
 import styled from "styled-components";
 import appText from "@/lang/appText";
 
-const StyledSearchForm = styled.div`
-  box-shadow: 0px 4px 66px -35px rgba(0, 0, 0, 0.75);
-  max-width: 60%;
-  display: inline-block;
-  .ui.form .fields {
-    margin: 0;
-  }
-
-  .ui.form input[type="text"],
-  .ui.form .field > .selection.dropdown,
-  .ui.form .field > .selection.dropdown > input,
-  .ui.button {
-    /* height: 60px; */
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    border-radius: 0;
-    padding: 30px;
-    min-height: 100%;
-  }
-
-  .ui.form .fields > .field {
-    padding: 0;
-  }
-
-  .ui.form .field > .selection.dropdown > .dropdown.icon {
-    top: 50%;
-    transform: translateY(-25%);
-  }
-
-  .ui.button {
-    width: auto;
-  }
-`;
+const StyledSearchForm = styled.div``;
 
 const CreateJobForm = ({ location }) => {
-  console.log(location);
   const {
     register,
     errors,
@@ -85,7 +51,7 @@ const CreateJobForm = ({ location }) => {
           <Form.Input
             name="jobTitle"
             fluid
-            placeholder="Warehouse Manager"
+            placeholder="Puesto, palabras claves, habilidad"
             onChange={handleInputChange}
             error={errors.jobTitle ? true : false}
             icon="users"
@@ -98,7 +64,7 @@ const CreateJobForm = ({ location }) => {
             placeholder={location}
           />
 
-          <Form.Button type="submit" size="large" positive>
+          <Form.Button type="submit" size="large" color="blue">
             {appText.actions.search}
           </Form.Button>
         </Form.Group>

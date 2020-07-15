@@ -5,7 +5,7 @@ const variables = {
   mutedColor1: "#F9F7F7",
   mutedColor2: "#E3E3E3",
 
-  accentColor1: "#1AAF4B",
+  accentColor1: "#2185d0",
   accentColor2: "#247BA0",
   accentColor3: "#EE6C4D",
   accentColor4: "#F5A300",
@@ -19,7 +19,7 @@ const variables = {
   smallScreen: "520px",
   mediumScreen: "920px",
 
-  bottomNav: "40px"
+  bottomNav: "40px",
 };
 
 export default variables;

@@ -156,7 +156,7 @@ const CreateJobForm = () => {
                 name="jobTitle"
                 fluid
                 label={appText.messages.job.jobTitle}
-                placeholder="Warehouse Manager"
+                placeholder="Gerente de Ventas"
                 onChange={handleInputChange}
                 error={errors.jobTitle ? true : false}
               />

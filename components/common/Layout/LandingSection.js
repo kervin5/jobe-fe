@@ -13,8 +13,14 @@ const StyledLandingSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: #e7f0ff;
+  width: 100%;
   .LandingTitle > * {
     font-size: 6em;
+    transition: 100ms;
+    @media (max-width: 900px) {
+      font-size: 3em;
+    }
   }
 `;
 
