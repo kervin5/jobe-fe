@@ -41,6 +41,14 @@ const registerForm = (props) => {
       placeholder: "jdoe@myemail.com",
       icon: "mail",
     },
+    phone: {
+      value: "",
+      valid: false,
+      type: "tel",
+      label: appText.objects.phone.singular,
+      placeholder: "505-123-4567",
+      icon: "phone",
+    },
     password: {
       value: "",
       valid: false,
@@ -81,7 +89,7 @@ const registerForm = (props) => {
     }
   };
 
-  const fieldsToRender = ["name", "email", "password"].map((key) => {
+  const fieldsToRender = ["name", "email", "phone", "password"].map((key) => {
     const fieldData = formData[key];
     return (
       <InputField
@@ -107,6 +115,7 @@ const registerForm = (props) => {
   const signUpData = {
     email: formData.email.value,
     password: formData.password.value,
+    phone: formData.phone.value,
     name: formData.name.value,
   };
 

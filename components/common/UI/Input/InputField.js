@@ -62,9 +62,15 @@ const inputField = (props) => {
   }, [valid, value, touched, errors]);
 
   if (
-    ["password", "email", "phone", "number", "text", "textarea"].includes(
-      props.type
-    )
+    [
+      "password",
+      "email",
+      "phone",
+      "number",
+      "text",
+      "textarea",
+      "tel",
+    ].includes(props.type)
   ) {
     FieldToRender = (
       <TextField
