@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import Link from "next/link";
 import { Query } from "@apollo/react-components";
 import moment from "moment";
@@ -10,6 +10,7 @@ import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";
 import variables from "@/common/globalVariables";
 import { ALL_JOBS_GRID } from "@/graphql/queries/jobs";
 import appText from "@/lang/appText";
+import DownloadCSVButton from "@/common/UI/DownloadCSVButton";
 
 const JOBS_GRID_COUNT_QUERY = gql`
   query JOBS_GRID_COUNT_QUERY($query: String = "", $status: [String!]) {
@@ -44,7 +45,7 @@ const CheckMark = ({ checked }) => {
 const JobsTable = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
-  const [status, setStatus] = useState(allStatus);
+  const [status, setStatus] = useState(props.status ?? "ALL");
   const [orderBy, setOrderBy] = useState("author DESC");
 
   const handleTurnPage = (pageNumber) => {
@@ -55,14 +56,17 @@ const JobsTable = (props) => {
     if (field === "query") {
       setSearchValue(e.target.value);
     } else {
-      setCurrentPage(1);
-      if (e.value === "ALL") {
-        setStatus(allStatus);
-      } else {
-        setStatus([e.value]);
-      }
+      setStatus(e.value);
     }
+
+    setCurrentPage(1);
   };
+
+  useEffect(() => {
+    if (props.status) {
+      setStatus(props.status);
+    }
+  }, [props.status]);
 
   const headers = {
     title: (
@@ -118,13 +122,16 @@ const JobsTable = (props) => {
       </OrderByHeader>
     ),
   };
-
+  const statusToFilter = status === "ALL" ? allStatus : [status];
   return (
     <>
       <Query
         query={JOBS_GRID_COUNT_QUERY}
         ssr={false}
-        variables={{ query: searchValue, status }}
+        variables={{
+          query: searchValue,
+          status: statusToFilter,
+        }}
       >
         {(userJobsData) => {
           if (userJobsData.error) return <p>Something went wrong...</p>;
@@ -137,7 +144,7 @@ const JobsTable = (props) => {
                 skip: (currentPage - 1) * take,
                 query: searchValue,
                 orderBy,
-                status,
+                status: statusToFilter,
               }}
               ssr={false}
             >
@@ -168,19 +175,31 @@ const JobsTable = (props) => {
                           />
                           <Select
                             options={options}
-                            defaultValue="ALL"
+                            value={status}
                             onChange={(e, data) =>
                               handleFieldChange(data, "status")
                             }
                           />
                         </div>
-                        <Link href="/admin/jobs/new" passHref>
-                          <Button positive as="a">
-                            {appText.actions.new +
-                              " " +
-                              appText.objects.job.singular}
-                          </Button>
-                        </Link>
+                        <div>
+                          <DownloadCSVButton
+                            queryData={{
+                              query: ALL_JOBS_GRID,
+                              variables: {
+                                query: searchValue,
+                                orderBy,
+                                status: statusToFilter,
+                              },
+                            }}
+                          />
+                          <Link href="/admin/jobs/new" passHref>
+                            <Button positive as="a">
+                              {appText.actions.new +
+                                " " +
+                                appText.objects.job.singular}
+                            </Button>
+                          </Link>
+                        </div>
                       </>
                     }
                     page={currentPage}
@@ -192,7 +211,10 @@ const JobsTable = (props) => {
                     data={injectActionsColumn(dataForTable, [
                       {
                         query: JOBS_GRID_COUNT_QUERY,
-                        variables: { query: searchValue, status },
+                        variables: {
+                          query: searchValue,
+                          status: statusToFilter,
+                        },
                       },
                       {
                         query: ALL_JOBS_GRID,
@@ -201,7 +223,7 @@ const JobsTable = (props) => {
                           skip: (currentPage - 1) * take,
                           query: searchValue,
                           orderBy,
-                          status,
+                          status: statusToFilter,
                         },
                       },
                     ])}
@@ -303,4 +325,6 @@ const getPreviewLink = (job) => {
   // }
 };
 
-export default JobsTable;
+export default memo(JobsTable, (prevProps, newProps) => {
+  return prevProps.status === newProps.status;
+});

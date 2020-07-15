@@ -15,7 +15,7 @@ import JobPerksBubbles from "@/components/jobs/JobPerksBubbles";
 
 const StyledApplicationListItem = styled.div`
   .Card {
-    background-color: ${props => props.theme.clearColor};
+    background-color: ${(props) => props.theme.clearColor};
     margin: 20px auto;
     transition: 100ms;
     animation-timing-function: ease-in;
@@ -25,7 +25,7 @@ const StyledApplicationListItem = styled.div`
   }
 
   a {
-    color: ${props => props.theme.darkColor};
+    color: ${(props) => props.theme.darkColor};
     font-size: 1em;
     text-decoration: none;
   }
@@ -34,6 +34,7 @@ const StyledApplicationListItem = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    position: relative;
 
     .JobTitle {
       font-weight: bold;

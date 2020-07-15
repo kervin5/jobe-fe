@@ -56,7 +56,7 @@ const layout = (props) => {
         }
 
         p {
-          line-height: 1.6em;
+          line-height: 2em;
         }
 
         main {
