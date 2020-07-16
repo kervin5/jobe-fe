@@ -25,7 +25,7 @@ const SingleJobListing = ({ jobId, preview, jobData, countView }) => {
             jobData.disclaimer ||
             jobData.branch.description ||
             jobData.branch.company.description,
-          company: jobData.branch.company.name
+          company: jobData.branch.company.name,
         }}
         preview={preview || !(jobData.status === "POSTED")}
       />
@@ -37,8 +37,8 @@ const SingleJobListing = ({ jobId, preview, jobData, countView }) => {
         if (error) return <p>Error Loading, please refresh!</p>;
         if (loading) return <Loader />;
         if (!data.job) return <p>No job found for: {jobId}</p>;
-        const singleJob = data.job;
-
+        const singleJob = data?.job;
+        console.log(singleJob);
         return (
           <JobListing
             data={{
@@ -48,7 +48,7 @@ const SingleJobListing = ({ jobId, preview, jobData, countView }) => {
                 singleJob.disclaimer ||
                 singleJob.branch.description ||
                 singleJob.branch.company.description,
-              company: singleJob.branch.company.name
+              company: singleJob.branch.company.name,
             }}
             preview={preview || !(singleJob.status === "POSTED")}
           />

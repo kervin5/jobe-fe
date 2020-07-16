@@ -16,6 +16,10 @@ export const ME_USER_QUERY = gql`
           path
         }
       }
+      location {
+        id
+        name
+      }
       role {
         id
         permissions {
@@ -38,6 +42,11 @@ export const SINGLE_USER_QUERY = gql`
       applications {
         id
         createdAt
+      }
+
+      location {
+        id
+        name
       }
 
       resumes(orderBy: { createdAt: desc }) {

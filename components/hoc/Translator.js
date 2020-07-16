@@ -19,9 +19,7 @@ const Translator = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log(language !== systemLanguage);
     if (language !== systemLanguage) {
-      console.log("called", language, systemLanguage);
       axios
         .post("/api/translate", {
           url: `https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&To=${language}`,
