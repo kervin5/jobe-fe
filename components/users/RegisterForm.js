@@ -10,8 +10,13 @@ import PrivacyPolicyLink from "@/common/UI/PrivacyPolicyLink";
 import appText from "@/lang/appText";
 
 const SIGNUP_USER = gql`
-  mutation SIGNUP_USER($name: String!, $password: String!, $email: String!) {
-    signup(email: $email, password: $password, name: $name) {
+  mutation SIGNUP_USER(
+    $name: String!
+    $password: String!
+    $email: String!
+    $phone: String!
+  ) {
+    signup(email: $email, password: $password, name: $name, phone: $phone) {
       id
       role {
         id
@@ -40,6 +45,14 @@ const registerForm = (props) => {
       label: appText.objects.email.singular,
       placeholder: "jdoe@myemail.com",
       icon: "mail",
+    },
+    phone: {
+      value: "",
+      valid: false,
+      type: "tel",
+      label: appText.objects.phone.singular,
+      placeholder: "505-123-4567",
+      icon: "phone",
     },
     password: {
       value: "",
@@ -81,7 +94,7 @@ const registerForm = (props) => {
     }
   };
 
-  const fieldsToRender = ["name", "email", "password"].map((key) => {
+  const fieldsToRender = ["name", "email", "phone", "password"].map((key) => {
     const fieldData = formData[key];
     return (
       <InputField
@@ -107,6 +120,7 @@ const registerForm = (props) => {
   const signUpData = {
     email: formData.email.value,
     password: formData.password.value,
+    phone: formData.phone.value,
     name: formData.name.value,
   };
 

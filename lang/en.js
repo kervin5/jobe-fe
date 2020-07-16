@@ -58,6 +58,11 @@ export default {
       plural: "emails",
     },
 
+    phone: {
+      singular: "phone",
+      plural: "phones",
+    },
+
     name: {
       singular: "name",
       plural: "name",
@@ -279,6 +284,7 @@ export default {
       maxLength: (number) =>
         `This fields must have ${number} characters or less`,
       email: "Please, enter a valid email",
+      phone: "Please, enter a valid phone number",
       specialChars: "Please, enter letters or numbers only",
       select: "Select an option",
       selectAllThatApply: "Select all that apply",
