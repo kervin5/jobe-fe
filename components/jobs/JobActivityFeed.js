@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import { Feed } from "semantic-ui-react";
 import { SINGLE_JOB_QUERY } from "@/graphql/queries/jobs";
+import appText from "@/lang/appText";
 
 import Title from "@/common/UI/Title";
 
@@ -13,7 +14,7 @@ const events = [
     date: "1 Hour Ago",
     icon: "thumbs up outline",
     meta: "4 Likes",
-    summary: "Elliot Fu added you as a friend"
+    summary: "Elliot Fu added you as a friend",
   },
   {
     date: "4 days ago",
@@ -22,8 +23,8 @@ const events = [
     summary: "Helen Troy added 2 new illustrations",
     extraImages: [
       "/images/wireframe/image.png",
-      "/images/wireframe/image-text.png"
-    ]
+      "/images/wireframe/image-text.png",
+    ],
   },
   {
     date: "3 days ago",
@@ -31,7 +32,7 @@ const events = [
     meta: "8 Likes",
     summary: "Joe Henderson posted on his page",
     extraText:
-      "Ours is a life of constant reruns. We're always circling back to where we'd we started."
+      "Ours is a life of constant reruns. We're always circling back to where we'd we started.",
   },
   {
     date: "4 days ago",
@@ -42,9 +43,9 @@ const events = [
       "Look at these fun pics I found from a few years ago. Good times.",
     extraImages: [
       "/images/wireframe/image.png",
-      "/images/wireframe/image-text.png"
-    ]
-  }
+      "/images/wireframe/image-text.png",
+    ],
+  },
 ];
 
 const StyledJobactivityFeed = styled.div`
@@ -53,12 +54,12 @@ const StyledJobactivityFeed = styled.div`
 
 const JobActivityFeed = ({ jobId }) => {
   const { error, loading, data } = useQuery(SINGLE_JOB_QUERY, {
-    variables: { id: jobId }
+    variables: { id: jobId },
   });
 
   return (
     <StyledJobactivityFeed className="JobActivityFeed">
-      <Title size="m">Recent activity</Title>
+      <Title size="m">{appText.messages.recentActivity}</Title>
       <Feed events={formatEvents(data?.job)} />
       {loading && <p>Loading...</p>}
     </StyledJobactivityFeed>
@@ -67,7 +68,7 @@ const JobActivityFeed = ({ jobId }) => {
 
 function formatEvents(data) {
   if (data) {
-    return data.applications.map(application => ({
+    return data.applications.map((application) => ({
       key: application.id,
       date: moment(application.createdAt).fromNow(),
       icon: "thumbs up outline",
@@ -83,7 +84,7 @@ function formatEvents(data) {
           </Link>{" "}
           to this job.
         </p>
-      )
+      ),
     }));
   }
   return [];

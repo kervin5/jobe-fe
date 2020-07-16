@@ -63,7 +63,7 @@ const OtherApplicationsList = ({ userId, applicationId }) => {
             </Link>
           ),
           extraText: feedItem.job.location.name,
-          meta: <strong>{feedItem.status}</strong>
+          meta: <strong>{feedItem.status}</strong>,
         }));
         return <Feed events={feedData} />;
       }}
