@@ -19,7 +19,7 @@ const StyledLandingSection = styled.div`
     font-size: 6em;
     transition: 100ms;
     @media (max-width: 900px) {
-      font-size: 3em;
+      font-size: 2em;
     }
   }
 `;
