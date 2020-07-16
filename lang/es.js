@@ -113,6 +113,11 @@ export default {
       plural: "Hojas de Vida",
     },
 
+    phone: {
+      singular: "teléfono",
+      plural: "teléfonos",
+    },
+
     other: {
       singular: "Otros",
       plural: "Otros",
@@ -284,6 +289,7 @@ export default {
       maxLength: (number) =>
         `Este campo debe tener ${number} caracteres o menos`,
       email: "Por favor, ingresa un correo electrónico valido",
+      phone: "Por favor, ingresa un número de teléfono valido",
       specialChars: "Por favor, ingresa letras o números solamente",
       select: "Selecciona una opción",
       selectAllThatApply: "Selecciona toas las que apliquen",
