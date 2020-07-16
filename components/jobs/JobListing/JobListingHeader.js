@@ -43,7 +43,7 @@ const JobListingHeader = (props) => (
       </div>
       {props.hideFavoriteButton ? null : (
         <PrompToRegister>
-          <FavoriteButton jobId={props.jobId} count={props.favorites.length} />
+          <FavoriteButton jobId={props.jobId} count={props.favoritesCount} />
         </PrompToRegister>
       )}
     </div>
