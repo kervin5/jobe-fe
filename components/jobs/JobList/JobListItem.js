@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import moment from "moment";
+import moment from "@/lib/localizedMoment";
 import variables from "@/common/globalVariables";
 import Bubble from "@/common/UI/Bubble";
 import Icon from "@/common/UI/Icon";
