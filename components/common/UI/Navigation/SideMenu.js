@@ -11,7 +11,7 @@ const StyledSideMenu = styled.div`
     position: fixed;
     left: ${(props) => (props.open ? 0 : "-300px")};
     bottom: 0%;
-    top: 60px;
+    top: 72px;
     transition: 300ms;
 
     .menu {
