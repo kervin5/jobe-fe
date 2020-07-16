@@ -165,6 +165,11 @@ const layout = (props) => {
             margin-bottom: ${variables.bottomNav};
           }
         }
+
+        ul,
+        ol {
+          padding-left: 50px;
+        }
       `}</style>
     </div>
   );
