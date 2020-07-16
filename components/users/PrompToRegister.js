@@ -4,6 +4,18 @@ import { ME_USER_QUERY } from "@/graphql/queries/users";
 import PopUp from "@/common/UI/PopUp";
 import AuthForm from "../users/AuthForm";
 import appText from "@/lang/appText";
+import styled from "styled-components";
+
+const StyledPromptToRegister = styled.div`
+  display: inline-block;
+  & > * {
+    pointer-events: ${(props) => (props.allowPointerEvents ? "all" : "none")};
+  }
+
+  &:hover {
+    cursor: all;
+  }
+`;
 
 const PrompToRegister = (props) => {
   const [loggedin, setLoggedIn] = useState(false);
@@ -19,8 +31,10 @@ const PrompToRegister = (props) => {
   };
 
   useEffect(() => {
-    setLoggedIn(true);
-  }, [data?.me]);
+    if (data?.me) {
+      setLoggedIn(true);
+    }
+  }, [data, loading]);
 
   if (error) return <p>Error...</p>;
 
@@ -31,15 +45,13 @@ const PrompToRegister = (props) => {
         <AuthForm popup />
       </PopUp>
 
-      <div className={"PromptToRegister"} onClickCapture={handleClick}>
+      <StyledPromptToRegister
+        className={"PromptToRegister"}
+        onClickCapture={handleClick}
+        allowPointerEvents={loggedin}
+      >
         {props.children}
-
-        <style jsx>{`
-          .PromptToRegister {
-            display: inline-block;
-          }
-        `}</style>
-      </div>
+      </StyledPromptToRegister>
     </>
   );
 };
