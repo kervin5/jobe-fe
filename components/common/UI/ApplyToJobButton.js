@@ -4,6 +4,7 @@ import { gql } from "@apollo/client";
 import { Loader } from "semantic-ui-react";
 import RegisterToApplyButton from "./RegisterToApplyButton";
 import Button from "./Button";
+import appText from "@/lang/appText";
 
 const APPLY_TO_JOB_MUTATION = gql`
   mutation APPLY_TO_JOB_MUTATION($jobId: ID!) {
@@ -35,7 +36,7 @@ export const CHECK_USER_APPLICATION_STATUS_QUERY = gql`
   }
 `;
 
-const ApplyToJobButton = props => {
+const ApplyToJobButton = (props) => {
   return (
     <Query
       query={CHECK_USER_APPLICATION_STATUS_QUERY}
@@ -80,7 +81,9 @@ const ApplyToJobButton = props => {
                     disabled={userApplied || loading}
                     loading={loading}
                   >
-                    {userApplied ? "Applied 😊" : "Apply"}
+                    {userApplied
+                      ? `${appText.messages.application.applied} 😊`
+                      : `${appText.messages.application.applyNow}`}
                   </Button>
                 );
               }}

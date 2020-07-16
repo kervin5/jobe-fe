@@ -147,6 +147,14 @@ export default {
       singular: "Compensación",
       plural: "Compensaciones",
     },
+    view: {
+      singular: "Vista",
+      plural: "Vistas",
+    },
+    favorite: {
+      singular: "Favorito",
+      plural: "Favoritos",
+    },
   },
 
   adjectives: {
@@ -158,6 +166,13 @@ export default {
     pending: "pendiente",
     new: "nuevo",
     here: "aquí",
+    hourly: "Por Hora",
+    salary: "Mensual",
+    doe: "Depende de Experiencia",
+    fullTime: "Tiempo Completo",
+    partTime: "Medio Tiempo",
+    temp: "Temporal",
+    perDiem: "Por Día",
   },
 
   pronouns: {
@@ -201,6 +216,8 @@ export default {
     amazingOpportunity: `Increibles carreras y oportunidades en @ ${companyInfo.name}`,
     opportunityOfYourDreams: "Encuentra la oportunidad de tus sueños",
     submitForApproval: "Submit for approval",
+    attention: "Atención",
+    recentActivity: "Actividad Reciente",
     job: {
       latest: "Trabajos más recientes",
       recommended: "Trabajos recomendados",
@@ -218,6 +235,8 @@ export default {
       jobAuthor: "Autor",
       jobDescription: "Descripción",
       jobDisclaimer: "Términos o Descargo de Responsabilidad",
+      byEnablingRecurring:
+        " Al activar esta opción, el puesto de trabajo sera actualizado cada 3 dias. Por favor utiliza esta opción solo para puestos que constantemente estan contratando. Esta opción hara que el puesto aparezca como que ha sido recietemente publicado",
     },
     account: {
       donthave: "¿No tienes una cuenta?",
@@ -249,6 +268,10 @@ export default {
         status
       ) => `Por favor asegurate de cambiar el estado de las solicitudes a  
         ${status} una vez que el candidato ya no este siendo considerado para un puesto para remover la solicitud de la lista de trabajo`,
+      applyNow: `Aplicar`,
+      applied: `Enviada`,
+      beforeApplying:
+        "Antes de enviar una solicitud para este puesto, necesitas crear una cuenta. Solo tomara unos minutos",
     },
 
     note: {
@@ -281,6 +304,7 @@ export default {
       enterTitle: "Ingresa un titulo",
       resumeSelected: "Hoja de vida seleccionada",
       resumeUploaded: "Hoja de vida subida",
+      justOneMoreStep: "Solo un paso más. Por favor sube tu CV más reciente",
     },
     validation: {
       required: "Esta campo es requerido",

@@ -24,3 +24,7 @@ export const jobsSettings = {
   showJobType: !!process.env.NEXT_PUBLIC_SHOW_JOB_TYPE_ON_LIST,
   showPayRate: !!process.env.NEXT_PUBLIC_SHOW_PAY_RATE_ON_LIST,
 };
+
+console.log(process.env.NEXT_PUBLIC_LANGUAGE);
+export const systemLanguage = process.env.NEXT_PUBLIC_LANGUAGE ?? "en";
+export const currency = process.env.NEXT_PUBLIC_CURRENCY ?? "$";

@@ -11,6 +11,7 @@ import PrompToRegister from "@/components/users/PrompToRegister";
 import Translator from "@/components/hoc/Translator";
 import { numberWithCommas } from "../JobCompensationBubbles";
 import JobPerksBubbles from "../JobPerksBubbles";
+import { currency } from "@/root/config";
 
 const styles = ` background-color: ${variables.clearColor};
                 margin: 20px auto;
@@ -48,7 +49,7 @@ const jobListItem = (props) => {
           {props.showPayRate && (
             <Bubble color="1">
               {props.compensation > 0
-                ? "$" +
+                ? currency +
                   numberWithCommas(parseFloat(props.compensation).toFixed(2))
                 : "DOE"}
             </Bubble>

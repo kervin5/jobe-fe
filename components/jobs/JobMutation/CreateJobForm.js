@@ -58,17 +58,41 @@ const CREATE_JOB_MUTATION = gql`
   }
 `;
 
-const compensationTypeOptions = [
-  { key: "hourly", text: "Hourly", value: "Hourly" },
-  { key: "salary", text: "Salary", value: "Salary" },
-  { key: "doe", text: "DOE", value: "DOE" },
+export const compensationTypeOptions = [
+  {
+    key: "hourly",
+    text: appText.adjectives.hourly,
+    value: appText.adjectives.hourly,
+  },
+  {
+    key: "salary",
+    text: appText.adjectives.salary,
+    value: appText.adjectives.salary,
+  },
+  { key: "doe", text: appText.adjectives.doe, value: appText.adjectives.doe },
 ];
 
-const jobTypeOptions = [
-  { key: "fulltime", text: "Full-Time", value: "Full-Time" },
-  { key: "parttime", text: "Part-Time", value: "Part-Time" },
-  { key: "temp", text: "Temp", value: "Temp" },
-  { key: "perdiem", text: "Per Diem", value: "Per Diem" },
+export const jobTypeOptions = [
+  {
+    key: "fulltime",
+    text: appText.adjectives.fullTime,
+    value: appText.adjectives.fullTime,
+  },
+  {
+    key: "parttime",
+    text: appText.adjectives.partTime,
+    value: appText.adjectives.partTime,
+  },
+  {
+    key: "temp",
+    text: appText.adjectives.temp,
+    value: appText.adjectives.temp,
+  },
+  {
+    key: "perdiem",
+    text: appText.adjectives.perDiem,
+    value: appText.adjectives.perDiem,
+  },
 ];
 
 const CreateJobForm = () => {

@@ -147,6 +147,15 @@ export default {
       singular: "Compensation",
       plural: "comepnsations",
     },
+
+    view: {
+      singular: "View",
+      plural: "Views",
+    },
+    favorite: {
+      singular: "Favorite",
+      plural: "Favorites",
+    },
   },
 
   adjectives: {
@@ -158,6 +167,13 @@ export default {
     pending: "pending",
     new: "new",
     here: "here",
+    hourly: "Hourly",
+    salary: "Salary",
+    doe: "DOE",
+    fullTime: "Full-Time",
+    partTime: "Part-Time",
+    temp: "Temp",
+    perDiem: "Per Diem",
   },
 
   pronouns: {
@@ -190,6 +206,7 @@ export default {
     thatsAll: "That's all for now",
     notfound: "No results were found",
     whatsTrending: "what's trending",
+    recentActivity: "Recent activity",
     clickHereToUpload: "Click here or drop a file to upload",
     dropItNow: "Drop it like it's hot",
     about: "About",
@@ -200,6 +217,7 @@ export default {
     currentlyOpen: "Currently Open",
     amazingOpportunity: `Amazing Career opportunity @ ${companyInfo.name}`,
     submitForApproval: "Submit for approval",
+    attention: "Attention",
     job: {
       latest: "latest jobs",
       recommended: "recommended jobs",
@@ -217,6 +235,8 @@ export default {
       jobAuthor: "Job Author",
       jobDescription: "Job Description",
       jobDisclaimer: "Job Disclaimer",
+      byEnablingRecurring:
+        " By enabling this option, the job will be reposted automatically every three days. Please only use this option for jobs that you are continuously recruiting for. This option will make this job seem like it has recently been posted until you opt-out.",
     },
     account: {
       donthave: "Don't have an account?",
@@ -248,6 +268,10 @@ export default {
         ${status} once the
         candidate is not longer being considered for a position in
         order to remove the application from the queue.`,
+      applyNow: "Appy Now",
+      applied: "Applied",
+      beforeApplying:
+        "Before applying for this job you need to create a profile. It will only take a few minutes",
     },
 
     note: {
@@ -276,6 +300,8 @@ export default {
       enterTitle: "Enter a title",
       resumeSelected: "Resume selected",
       resumeUploaded: "Resume uploaded",
+      justOneMoreStep:
+        "Just one more step. Please upload your most recent resume",
     },
     validation: {
       required: "This field is required",
