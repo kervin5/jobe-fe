@@ -44,6 +44,7 @@ const jobListing = (props) => {
         showPerks
         showType={jobsSettings.showJobType}
         showCompensation={jobsSettings.showPayRate}
+        favoritesCount={props.data.favorites.length}
       />
 
       <div className="Body" data-test="main-content-section">

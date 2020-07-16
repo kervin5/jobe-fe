@@ -22,7 +22,6 @@ export const SINGLE_JOB_QUERY = gql`
           name
         }
       }
-
       favorites {
         id
         createdAt

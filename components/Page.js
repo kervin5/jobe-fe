@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Head from "./Head";
 import Layout from "@/common/Layout/Layout";
 import ApplicationContext from "@/context/applicationContext";
+import { systemLanguage } from "@/root/config";
 
-const Page = props => {
-  const defaultLanguage = "en";
-  const [language, setLanguage] = useState(defaultLanguage);
+const Page = (props) => {
+  const [language, setLanguage] = useState(systemLanguage);
 
   return (
     <div>

@@ -12,6 +12,7 @@ import TextArea from "@/common/UI/Input/CustomSemanticInput/TextArea";
 import AuthorDropdown from "@/common/UI/Input/CustomSemanticInput/AuthorDropdown";
 import Title from "@/common/UI/Title";
 import CronJobToggle from "@/components/jobs/JobMutation/CronJobToggle";
+import { compensationTypeOptions, jobTypeOptions } from "./CreateJobForm";
 import appText from "@/lang/appText";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
@@ -91,19 +92,6 @@ const UPDATE_JOB_MUTATION = gql`
     }
   }
 `;
-
-const compensationTypeOptions = [
-  { key: "hourly", text: "Hourly", value: "Hourly" },
-  { key: "salary", text: "Salary", value: "Salary" },
-  { key: "doe", text: "DOE", value: "DOE" },
-];
-
-const jobTypeOptions = [
-  { key: "fulltime", text: "Full-Time", value: "Full-Time" },
-  { key: "parttime", text: "Part-Time", value: "Part-Time" },
-  { key: "temp", text: "Temp", value: "Temp" },
-  { key: "perdiem", text: "Per Diem", value: "Per Diem" },
-];
 
 const EditJobForm = ({ data, jobId }) => {
   useEffect(() => {

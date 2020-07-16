@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { gql } from "@apollo/client";
 import { Query } from "@apollo/react-components";
 import Button from "./Button";
 import PopUp from "./PopUp";
@@ -7,12 +6,13 @@ import AuthForm from "@/components/users/AuthForm";
 import ResumeUploadForm from "../../resumes/ResumeUploadForm";
 import { CHECK_USER_APPLICATION_STATUS_QUERY } from "./ApplyToJobButton";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
+import appText from "@/lang/appText";
 
 const RegisterToApplyButton = (props) => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpTitle, setPopUpTitle] = useState("Register");
   const [caption, setCaption] = useState(
-    "Before applying for this job you need to create a profile. It will only take a few minutes"
+    appText.messages.application.beforeApplying
   );
 
   return (
@@ -25,7 +25,7 @@ const RegisterToApplyButton = (props) => {
           return (
             <div>
               <Button fullWidth onClick={() => setShowPopUp(true)}>
-                Apply Now 😀
+                {appText.messages.application.applyNow} 😀
               </Button>
             </div>
           );
@@ -39,10 +39,8 @@ const RegisterToApplyButton = (props) => {
             if (error) return <p>Something went wrong...</p>;
             if (loading) return <p>Loading...</p>;
             if (data.me && data.me.resumes.length === 0) {
-              setPopUpTitle("Upload Resume");
-              setCaption(
-                "Just one more step. Please upload your most recent resume"
-              );
+              setPopUpTitle(appText.messages.resume.upload);
+              setCaption(appText.messages.resume.justOneMoreStep);
               return (
                 <ResumeUploadForm
                   noredirect

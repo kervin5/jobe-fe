@@ -8,7 +8,7 @@ import PageSection from "@/common/Layout/PageSection";
 
 const pageStyles = `background-color:${variables.mutedColor1};`;
 
-const SingleJobView = props => {
+const SingleJobView = (props) => {
   const router = useRouter();
   const { jid } = router.query;
   const jobId = extractJobId(jid);
@@ -48,7 +48,7 @@ const SingleJobView = props => {
 
 export async function getStaticPaths() {
   const jobs = await getJobsFromAPI();
-  const jobsPaths = jobs.map(job => {
+  const jobsPaths = jobs.map((job) => {
     const jobPath = `${job.title.replace(
       /[\W_]+/g,
       "-"
@@ -57,7 +57,7 @@ export async function getStaticPaths() {
   });
   return {
     paths: jobsPaths,
-    fallback: true // See the "fallback" section below
+    fallback: true, // See the "fallback" section below
   };
 }
 
