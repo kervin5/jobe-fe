@@ -12,7 +12,7 @@ import JobPerksBubbles from "../JobPerksBubbles";
 const jobListingTitleStyles = `color: ${variables.clearColor};`;
 const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
 
-const JobListingHeader = props => (
+const JobListingHeader = (props) => (
   <div className="JobListingHeader" data-test="job-listing-header">
     <Title size={"l"} styles={jobListingTitleStyles} data-test="title-section">
       <Translator>{props.title}</Translator>
@@ -43,7 +43,7 @@ const JobListingHeader = props => (
       </div>
       {props.hideFavoriteButton ? null : (
         <PrompToRegister>
-          <FavoriteButton jobId={props.jobId} />
+          <FavoriteButton jobId={props.jobId} count={props.favorites.length} />
         </PrompToRegister>
       )}
     </div>
