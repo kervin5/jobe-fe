@@ -9,11 +9,11 @@ import styled from "styled-components";
 const StyledPromptToRegister = styled.div`
   display: inline-block;
   & > * {
-    pointer-events: none;
+    pointer-events: ${(props) => (props.allowPointerEvents ? "all" : "none")};
   }
 
   &:hover {
-    cursor: pointer;
+    cursor: all;
   }
 `;
 
@@ -48,6 +48,7 @@ const PrompToRegister = (props) => {
       <StyledPromptToRegister
         className={"PromptToRegister"}
         onClickCapture={handleClick}
+        allowPointerEvents={loggedin}
       >
         {props.children}
       </StyledPromptToRegister>
