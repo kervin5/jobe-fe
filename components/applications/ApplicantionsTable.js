@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import Link from "next/link";
@@ -45,6 +45,7 @@ const ALL_APPLICATIONS_QUERY = gql`
       }
       take: $take
       skip: $skip
+      orderBy: { createdAt: desc }
     ) {
       id
       createdAt
@@ -58,6 +59,7 @@ const ALL_APPLICATIONS_QUERY = gql`
         }
         id
         email
+        phone
         location {
           name
         }
@@ -171,29 +173,34 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
   return queries;
 };
 
-const ApplicantTable = (props) => {
+const ApplicationsTable = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [terms, setTerms] = useState("");
-  const [status, setStatus] = useState([
-    "NEW",
-    "VIEWED",
-    "REVIEWING",
-    "CONTACTED",
-  ]);
+  // const [status, setStatus] = useState(
+  //   props.status ? [props.status] : ["NEW", "VIEWED", "REVIEWING", "CONTACTED"]
+  // );
+  const [status, setStatus] = useState(props.status ?? "ALL");
 
   const turnPageHandler = (pageNumber) => {
     setCurrentPage(parseInt(pageNumber));
   };
 
   const statusChangeHandler = (status) => {
-    if (status === "ALL") {
-      setStatus(["NEW", "VIEWED", "REVIEWING", "CONTACTED"]);
-    } else {
-      setStatus([status]);
-    }
+    setStatus(status);
+
     setCurrentPage(1);
   };
 
+  useEffect(() => {
+    if (props.status) {
+      statusChangeHandler(props.status);
+    } else {
+      statusChangeHandler(status);
+    }
+  }, [props.status, status]);
+
+  const statusToFlter =
+    status === "ALL" ? ["NEW", "VIEWED", "REVIEWING", "CONTACTED"] : [status];
   return (
     <>
       <Query
@@ -201,7 +208,7 @@ const ApplicantTable = (props) => {
         ssr={false}
         variables={{
           jobId: "" || props.jobId,
-          status,
+          status: statusToFlter,
           terms,
         }}
       >
@@ -215,7 +222,7 @@ const ApplicantTable = (props) => {
                 take,
                 skip: (currentPage - 1) * take,
                 jobId: "" || props.jobId,
-                status,
+                status: statusToFlter,
                 terms,
               }}
             >
@@ -229,8 +236,8 @@ const ApplicantTable = (props) => {
                     name: application.user.name,
                     job: (
                       <Link
-                        href={"/jobs/[jid]"}
-                        as={"/jobs/" + application.job.id}
+                        href={"/admin/jobs/[jid]"}
+                        as={"/admin/jobs/" + application.job.id}
                       >
                         <a target="_blank">{application.job.title}</a>
                       </Link>
@@ -245,6 +252,7 @@ const ApplicantTable = (props) => {
                         {application.user.email}
                       </a>
                     ),
+                    phone: application.user.phone,
                     status: (
                       <ApplicationStatusDropdown
                         applicationId={application.id}
@@ -296,7 +304,7 @@ const ApplicantTable = (props) => {
                             { key: "All", text: "All", value: "ALL" },
                             ...applicationStatusOptions,
                           ]}
-                          defaultValue={"ALL"}
+                          value={status}
                           onChange={(e, data) =>
                             statusChangeHandler(data.value)
                           }
@@ -314,4 +322,4 @@ const ApplicantTable = (props) => {
   );
 };
 
-export default ApplicantTable;
+export default ApplicationsTable;

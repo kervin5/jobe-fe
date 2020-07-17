@@ -12,6 +12,7 @@ export default {
     viewMore: "View More",
     add: "Add",
     loading: "Loading",
+    reviewing: "Reviewing",
     cancel: "Cancel",
     preview: "Preview",
     save: "Save",
@@ -174,6 +175,8 @@ export default {
     partTime: "Part-Time",
     temp: "Temp",
     perDiem: "Per Diem",
+    viewed: "Viewed",
+    contacted: "Contacted",
   },
 
   pronouns: {
