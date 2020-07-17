@@ -9,11 +9,28 @@ export const APPLICATIONS_CONNECTION_QUERY = gql`
   }
 `;
 
+export const JOB_APPLICATIONS_CONNECTION_QUERY = gql`
+  query APPLICATIONS_CONNECTION_QUERY(
+    $status: [ApplicationStatus!]
+    $jobId: String!
+  ) {
+    applicationsConnection(
+      where: {
+        AND: [{ status: { in: $status } }, { job: { id: { equals: $jobId } } }]
+      }
+    )
+  }
+`;
+
 const ApplicationStatusCard = (props) => {
+  const jobId = props.jobId;
   const status = props.status || "POSTED";
-  const { error, loading, data } = useQuery(APPLICATIONS_CONNECTION_QUERY, {
-    variables: { status },
-  });
+  const { error, loading, data } = useQuery(
+    jobId ? JOB_APPLICATIONS_CONNECTION_QUERY : APPLICATIONS_CONNECTION_QUERY,
+    {
+      variables: jobId ? { status, jobId } : { status },
+    }
+  );
 
   if (error) return <p>Something went wrong...</p>;
   // if (loading) return <p>Loading...</p>;

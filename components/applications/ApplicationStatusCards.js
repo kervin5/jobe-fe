@@ -10,7 +10,7 @@ const StyledApplicationStatusCards = styled.div`
   margin-bottom: 30px;
 `;
 
-const JobsStatsCards = () => {
+const JobsStatsCards = ({ jobId }) => {
   return (
     <StyledApplicationStatusCards>
       <Grid columns="4" stackable>
@@ -19,6 +19,7 @@ const JobsStatsCards = () => {
             <ApplicationStatusCard
               label={appText.adjectives.new}
               status="NEW"
+              jobId={jobId}
             />
           </Grid.Column>
           <Grid.Column>
@@ -27,6 +28,7 @@ const JobsStatsCards = () => {
               status="VIEWED"
               icon="eye"
               color="2"
+              jobId={jobId}
             />
           </Grid.Column>
 
@@ -35,6 +37,7 @@ const JobsStatsCards = () => {
               label={appText.adjectives.contacted}
               status="CONTACTED"
               icon="phone"
+              jobId={jobId}
             />
           </Grid.Column>
           <Grid.Column>
@@ -43,6 +46,7 @@ const JobsStatsCards = () => {
               status="REVIEWING"
               icon="comments"
               color="3"
+              jobId={jobId}
             />
           </Grid.Column>
         </Grid.Row>
