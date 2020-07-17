@@ -85,6 +85,7 @@ export const ALL_JOBS_GRID = gql`
       perks
       branch
       updatedAt
+      createdAt
       cronTask
     }
   }
