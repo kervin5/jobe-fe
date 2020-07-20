@@ -81,6 +81,7 @@ export const ALL_JOBS_GRID = gql`
       status
       author
       location
+      views
       applications
       perks
       branch

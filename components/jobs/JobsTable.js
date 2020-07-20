@@ -112,6 +112,11 @@ const JobsTable = (props) => {
         Perks
       </OrderByHeader>
     ),
+    views: (
+      <OrderByHeader column="views" action={setOrderBy} activeColumn={orderBy}>
+        Views
+      </OrderByHeader>
+    ),
     // updated: (
     //   <OrderByHeader
     //     column={`"Job"."updatedAt"`}
