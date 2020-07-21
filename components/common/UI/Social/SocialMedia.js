@@ -1,5 +1,5 @@
 import React from "react";
-import Title from "./Title";
+import Title from "../Title";
 import { Button, Icon } from "semantic-ui-react";
 import appText from "@/lang/appText";
 

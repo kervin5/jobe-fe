@@ -8,7 +8,7 @@ import sanitize from "@/lib/html";
 import Title from "@/common/UI/Title";
 import ApplyToJobButton from "@/common/UI/ApplyToJobButton";
 import HtmlRenderer from "@/common/UI/HtmlRenderer";
-import SocialMedia from "@/common/UI/SocialMedia";
+import SocialMedia from "@/common/UI/Social/SocialMedia";
 import StucturedJobListing from "./StructuredJobListing";
 import { basePath, jobsSettings } from "@/root/config";
 import Translator, { ListOfLanguages } from "@/components/hoc/Translator";
