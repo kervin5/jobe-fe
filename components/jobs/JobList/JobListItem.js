@@ -13,7 +13,7 @@ import { numberWithCommas } from "../JobCompensationBubbles";
 import JobPerksBubbles from "../JobPerksBubbles";
 import { currency } from "@/root/config";
 
-const styles = ` background-color: ${variables.clearColor};
+const styles = ` background-color: ${variables.lightColor};
                 margin: 20px auto;
                 transition: 100ms;
                 animation-timing-function: ease-in;
@@ -25,10 +25,7 @@ const styles = ` background-color: ${variables.clearColor};
 const jobListItem = (props) => {
   const shortLocation = props.location.name;
 
-  const jobUrl = `/jobs/${props.title.replace(
-    /[\W_]+/g,
-    "-"
-  )}-${props.location.name.replace(/[\W_]+/g, "-")}-${props.id}`;
+  const jobUrl = formatJobUrl(props.title, props.location.name, props.id);
 
   return (
     <Card styles={styles}>
@@ -190,3 +187,10 @@ const jobListItem = (props) => {
 };
 
 export default jobListItem;
+
+export function formatJobUrl(title, location, id) {
+  return `/jobs/${title.replace(/[\W_]+/g, "-")}-${location.replace(
+    /[\W_]+/g,
+    "-"
+  )}-${id}`;
+}

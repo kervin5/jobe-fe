@@ -1,88 +1,98 @@
 import React from "react";
-import Title from "../Title";
-import { Button, Icon } from "semantic-ui-react";
-import appText from "@/lang/appText";
+import styled from "styled-components";
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  WhatsappIcon,
+  LinkedinIcon,
+  EmailShareButton,
+  EmailIcon,
+} from "react-share";
 
-const socialMedia = (props) => {
-  const url = props.url;
-  const shareServices = {
-    facebook: {
-      name: "Facebook",
-      url: "https://www.facebook.com/sharer/sharer.php?u=",
-    },
-    twitter: {
-      name: "Twitter",
-      url:
-        "https://twitter.com/intent/tweet?text=Look%20at%20this%20amazing%20opportunity!%20",
-    },
-    linkedin: {
-      name: "LinkedIn",
-      url: "https://www.linkedin.com/shareArticle?mini=true&url=",
-    },
-    mailto: {
-      name: "Email",
-      url: `mailto: ?subject=${appText.messages.amazingOpportunity}&body=`,
-      icon: "mail outline",
-      color: "grey",
-    },
-  };
-  let newUrl = url.split(" ").join("-");
+const shareObjects = {
+  Facebook: {
+    color: "#3b5998",
+    Button: FacebookShareButton,
+    Icon: FacebookIcon,
+  },
+  LinkedIn: {
+    color: "rgb(0, 127, 177)",
+    Button: LinkedinShareButton,
+    Icon: LinkedinIcon,
+  },
+  Twitter: {
+    color: "rgb(0, 172, 237);",
+    Button: TwitterShareButton,
+    Icon: TwitterIcon,
+  },
+  Whatsapp: {
+    color: "#25D366",
+    Button: WhatsappShareButton,
+    Icon: WhatsappIcon,
+  },
+  Email: { color: "#7f7f7f", Button: EmailShareButton, Icon: EmailIcon },
+};
 
+const StyledShareButtons = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+`;
+
+const StyledShareButton = styled.div`
+  background-color: ${(props) => props.mainColor};
+  padding: 0 20px 0 10px;
+  border-radius: 25px;
+  overflow: hidden;
+  transition: 100ms;
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  @media (max-width: 700px) {
+    padding: 0;
+    .Label {
+      display: none;
+    }
+  }
+  & > * {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    .Label {
+      color: ${(props) => props.theme.lightColor} !important;
+      font-size: 0.8em;
+    }
+  }
+`;
+
+const Share = ({ url }) => {
   return (
-    <div className="SocialButtons">
-      <Title size="s">
-        {appText.actions.share} {appText.objects.job.this}:
-      </Title>
-      <div className="DesktopSocial">
-        <Button.Group>
-          {Object.keys(shareServices).map((serviceName, index) => {
-            const serviceData = shareServices[serviceName];
-            return (
-              <Button
-                color={serviceData.color || serviceName}
-                as="a"
-                target="_blank"
-                href={serviceData.url + newUrl}
-                key={serviceName + index}
-              >
-                <Icon name={serviceData.icon || serviceName} />{" "}
-                {serviceData.name}
-              </Button>
-            );
-          })}
-        </Button.Group>
-      </div>
-      <div className="MobileSocial">
-        {Object.keys(shareServices).map((serviceName, index) => {
-          const serviceData = shareServices[serviceName];
+    <StyledShareButtons className="ShareButtons">
+      {Object.entries(shareObjects).map(
+        ([ShareServiceName, ShareService], index) => {
           return (
-            <Button
-              circular
-              color={serviceData.color || serviceName}
-              as="a"
-              target="_blank"
-              href={serviceData.url + newUrl}
-              key={serviceName + index + "Mobile"}
-              icon={serviceData.icon || serviceName}
-            />
+            <StyledShareButton
+              key={ShareServiceName + index}
+              mainColor={ShareService.color}
+            >
+              <ShareService.Button url={url}>
+                <ShareService.Icon
+                  size={40}
+                  bgStyle={{ fill: ShareService.color }}
+                />
+                <span className="Label">{ShareServiceName}</span>
+              </ShareService.Button>
+            </StyledShareButton>
           );
-        })}
-      </div>
-      <style jsx>{`
-        @media (min-width: 720px) {
-          .MobileSocial {
-            display: none;
-          }
         }
-
-        @media (max-width: 720px) {
-          .DesktopSocial {
-            display: none;
-          }
-        }
-      `}</style>
-    </div>
+      )}
+    </StyledShareButtons>
   );
 };
 
-export default socialMedia;
+export default Share;

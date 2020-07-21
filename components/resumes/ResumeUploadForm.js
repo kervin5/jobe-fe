@@ -198,7 +198,7 @@ const ResumeUploadForm = (props) => {
             height: 200px;
             width: 100%;
             border: 2px dashed ${variables.accentColor1};
-            background-color: ${variables.clearColor};
+            background-color: ${variables.lightColor};
             padding: 20px;
             border-radius: ${variables.roundedRadius};
             transform: scale(${isDragActive ? 1.2 : 1});

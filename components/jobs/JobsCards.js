@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import { take } from "@/root/config";
@@ -55,6 +55,7 @@ const SEARCH_JOBS_QUERY = gql`
 
 const JobsCards = (props) => {
   let query = SEARCH_JOBS_QUERY;
+  let [loadingRefetch, setLoadingRefetch] = useState(false);
 
   return (
     <div>
@@ -70,7 +71,7 @@ const JobsCards = (props) => {
           skip: 0,
         }}
       >
-        {({ data, error, loading, fetchMore }) => {
+        {({ data, error, loading, fetchMore, networkStatus }) => {
           if (loading && !props.jobs) return <Loader />;
           if (error && !props.jobs) return <p>Error: {error.message}</p>;
           const jobs = data?.jobs || data?.searchJobs || props.jobs;
@@ -85,7 +86,7 @@ const JobsCards = (props) => {
               />
               {!endReached && jobs.length > 0 && (
                 <Button
-                  disabled={loading}
+                  disabled={loading || loadingRefetch}
                   fullWidth
                   onClick={() => {
                     fetchMore({

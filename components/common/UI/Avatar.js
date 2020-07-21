@@ -12,7 +12,7 @@ const Avatar = ({ name = "Unknown" }) => {
       <style jsx>{`
         .Avatar {
           background: ${variables.accentColor3};
-          color: ${variables.clearColor};
+          color: ${variables.lightColor};
           font-weight: bold;
           display: flex;
           align-items: center;

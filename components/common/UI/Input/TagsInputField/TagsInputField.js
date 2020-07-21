@@ -20,7 +20,7 @@ class TagsInputField extends React.Component {
       valid: false,
       touched: false,
       value: props.value || "",
-      errors: []
+      errors: [],
     };
   }
 
@@ -46,8 +46,8 @@ class TagsInputField extends React.Component {
     this.updateSuggestions(tag, "remove");
   }
 
-  passValueToChangeProp = tags => {
-    const values = tags.map(tag => tag.name).join(",");
+  passValueToChangeProp = (tags) => {
+    const values = tags.map((tag) => tag.name).join(",");
 
     if (values === "" && this.props.validation.required) {
       this.setState(
@@ -55,7 +55,7 @@ class TagsInputField extends React.Component {
           valid: false,
           value: values,
           touched: true,
-          errors: ["Please enter at least one value"]
+          errors: ["Please enter at least one value"],
         },
         () => {
           if (this.props.change) {
@@ -69,7 +69,7 @@ class TagsInputField extends React.Component {
           valid: true,
           value: values,
           touched: true,
-          errors: []
+          errors: [],
         },
         () => {
           if (this.props.change) {
@@ -83,9 +83,11 @@ class TagsInputField extends React.Component {
   updateSuggestions = (tag, action) => {
     if (tag) {
       if (action === "remove") {
-        const updatedSuggestions = this.state.suggestions.filter(suggestion => {
-          return suggestion.id !== tag.id;
-        });
+        const updatedSuggestions = this.state.suggestions.filter(
+          (suggestion) => {
+            return suggestion.id !== tag.id;
+          }
+        );
 
         this.setState({ suggestions: updatedSuggestions });
       } else {
@@ -129,12 +131,12 @@ class TagsInputField extends React.Component {
             background-color: ${variables.accentColor1};
             border: 1px solid white;
             padding: 5px 10px;
-            color: ${variables.clearColor};
+            color: ${variables.lightColor};
             border-radius: 5px;
           }
 
           .react-tags__suggestions {
-            background-color: ${variables.clearColor};
+            background-color: ${variables.lightColor};
             position: absolute;
             z-index: 1999;
             box-shadow: 0px 9px 16px -4px rgba(0, 0, 0, 0.55);
@@ -152,12 +154,12 @@ class TagsInputField extends React.Component {
 
           .react-tags__suggestions li:hover {
             background-color: ${variables.accentColor2};
-            color: ${variables.clearColor};
+            color: ${variables.lightColor};
           }
 
           .react-tags__suggestions .is-active {
             background-color: ${variables.accentColor3};
-            color: ${variables.clearColor};
+            color: ${variables.lightColor};
           }
 
           .react-tags__suggestions li:last-child {

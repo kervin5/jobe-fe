@@ -15,7 +15,7 @@ import { currency } from "@/root/config";
 
 const StyledApplicationListItem = styled.div`
   .Card {
-    background-color: ${(props) => props.theme.clearColor};
+    background-color: ${(props) => props.theme.lightColor};
     margin: 20px auto;
     transition: 100ms;
     animation-timing-function: ease-in;
