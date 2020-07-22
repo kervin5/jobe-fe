@@ -1,7 +1,7 @@
 const variables = {
   darkColor: "#2E294E",
-  clearColor: "#FFF",
-  clearColor2: "#ECEBE4",
+  lightColor: "#FFF",
+  lightColor2: "#ECEBE4",
   mutedColor1: "#F9F7F7",
   mutedColor2: "#E3E3E3",
 

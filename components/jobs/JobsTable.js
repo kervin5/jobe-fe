@@ -46,7 +46,7 @@ const JobsTable = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
   const [status, setStatus] = useState(props.status ?? "ALL");
-  const [orderBy, setOrderBy] = useState("author DESC");
+  const [orderBy, setOrderBy] = useState(`"Job"."createdAt" DESC`);
 
   const handleTurnPage = (pageNumber) => {
     setCurrentPage(parseInt(pageNumber));
@@ -112,13 +112,27 @@ const JobsTable = (props) => {
         Perks
       </OrderByHeader>
     ),
-    updated: (
+    views: (
+      <OrderByHeader column="views" action={setOrderBy} activeColumn={orderBy}>
+        Views
+      </OrderByHeader>
+    ),
+    // updated: (
+    //   <OrderByHeader
+    //     column={`"Job"."updatedAt"`}
+    //     action={setOrderBy}
+    //     activeColumn={orderBy}
+    //   >
+    //     Updated
+    //   </OrderByHeader>
+    // ),
+    created: (
       <OrderByHeader
-        column={`"Job"."updatedAt"`}
+        column={`"Job"."createdAt"`}
         action={setOrderBy}
         activeColumn={orderBy}
       >
-        Updated
+        Created
       </OrderByHeader>
     ),
   };
@@ -155,7 +169,8 @@ const JobsTable = (props) => {
                   return {
                     ...job,
                     location: job.location,
-                    updated: moment(job.updatedAt).format("MM/DD/YYYY"),
+                    // updated: moment(job.updatedAt).format("MM/DD/YYYY"),
+                    created: moment(job.createdAt).format("MM/DD/YYYY"),
                     branch: job.branch,
                     recurring: <CheckMark checked={!!job.cronTask} />,
                     cronTask: null,
@@ -227,7 +242,7 @@ const JobsTable = (props) => {
                         },
                       },
                     ])}
-                    exclude={["updatedAt", "cronTask"]}
+                    exclude={["updatedAt", "createdAt", "cronTask"]}
                   />
                 );
               }}

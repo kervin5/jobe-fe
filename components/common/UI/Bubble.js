@@ -1,7 +1,7 @@
 import React from "react";
 import variables from "@/common/globalVariables";
 
-const bubble = props => {
+const bubble = (props) => {
   let backgroundColor = variables.accentColor1;
 
   if (props.color) {
@@ -32,7 +32,7 @@ const bubble = props => {
           border-radius: 15px;
           color: ${props.fontColor === "dark"
             ? variables.darkColor
-            : variables.clearColor};
+            : variables.lightColor};
           display: inline-flex;
           justify-content: center;
           align-items: center;

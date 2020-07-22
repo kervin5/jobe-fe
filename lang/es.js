@@ -12,6 +12,7 @@ export default {
     viewMore: "Ver Más",
     add: "Agregar",
     loading: "Cargando",
+    reviewing: "Revisando",
     cancel: "Cancelar",
     preview: "Ver",
     save: "Guardar",
@@ -173,6 +174,8 @@ export default {
     partTime: "Medio Tiempo",
     temp: "Temporal",
     perDiem: "Por Día",
+    viewed: "Vistas",
+    contacted: "Contactados",
   },
 
   pronouns: {

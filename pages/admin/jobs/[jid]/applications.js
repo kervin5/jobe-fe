@@ -3,6 +3,7 @@ import ApplicantsTable from "@/components/applications/ApplicantionsTable";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 import appText from "@/lang/appText";
+import ApplicationStatusCards from "@/components/applications/ApplicationStatusCards";
 
 const dashboardApplicationsPerJobPage = (props) => {
   const router = useRouter();
@@ -14,6 +15,7 @@ const dashboardApplicationsPerJobPage = (props) => {
       redirect
     >
       <DashboardPage title={appText.objects.application.plural}>
+        <ApplicationStatusCards jobId={jid} />
         <ApplicantsTable jobId={jid} />
       </DashboardPage>
     </RenderIfLoggedIn>

@@ -9,8 +9,8 @@ import Translator from "@/components/hoc/Translator";
 import JobCompensationBubbles from "../JobCompensationBubbles";
 import JobPerksBubbles from "../JobPerksBubbles";
 
-const jobListingTitleStyles = `color: ${variables.clearColor};`;
-const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
+const jobListingTitleStyles = `color: ${variables.lightColor};`;
+const JobListingLocationStyles = `color: ${variables.lightColor}; opacity: 0.7;`;
 
 const JobListingHeader = (props) => (
   <div className="JobListingHeader" data-test="job-listing-header">

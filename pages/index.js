@@ -6,7 +6,7 @@ import Container from "@/common/Layout/Container";
 import Title from "@/common/UI/Title";
 import LandingSection from "@/common/Layout/LandingSection";
 import { basePath } from "@/root/config";
-import JobsCards from "@/components/jobs/JobsCards";
+import JobsCards from "@/components/jobs/JobList/JobsListQuery";
 import PopularTerms from "@/components/jobs/PopularTerms/PopularTerms";
 import { getJobsFromAPI, getTermsFromAPI } from "@/lib/backend";
 

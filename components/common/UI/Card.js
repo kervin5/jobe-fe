@@ -8,13 +8,13 @@ const StyledCard = styled.div`
     box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.15);
     padding: 10px;
     border-radius: 5px;
-    background: ${props =>
-      props.withBackground ? props.theme.clearColor : "transparent"};
-    ${props => props.styles ?? ""}
+    background: ${(props) =>
+      props.withBackground ? props.theme.lightColor : "transparent"};
+    ${(props) => props.styles ?? ""}
   }
 `;
 
-const card = props => {
+const card = (props) => {
   return (
     <StyledCard className="Card" {...props}>
       {props.children}
