@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Grid } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
 import CounterCard from "@/common/UI/CounterCard";
@@ -23,11 +24,15 @@ const JobStatsCards = ({ jobId }) => {
           />
         </Grid.Column>
         <Grid.Column>
-          <CounterCard
-            value={data?.job?.applications?.length ?? 0}
-            label={appText.objects.application.plural}
-            loading={loading}
-          />
+          <Link href={`/admin/jobs/${jobId}/applications`}>
+            <a>
+              <CounterCard
+                value={data?.job?.applications?.length ?? 0}
+                label={appText.objects.application.plural}
+                loading={loading}
+              />
+            </a>
+          </Link>
         </Grid.Column>
         <Grid.Column>
           <CounterCard

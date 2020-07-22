@@ -28,12 +28,14 @@ const CANDIDATE_QUERY = gql`
       id
       name
       email
+      phone
       eEmpact {
         id
         assignments
       }
       applications {
         id
+        status
       }
       resumes(last: 1) {
         file {
@@ -127,12 +129,19 @@ const Candidates = (props) => {
                   email: (
                     <a href={`mailto:${candidate.email}`}>{candidate.email}</a>
                   ),
+                  phone: candidate.phone,
                   title: hasResume ? (
                     candidate.resumes[0].title
                   ) : (
                     <p>{appText.messages.resume.doesntHave}</p>
                   ),
-                  applications: candidate.applications?.length,
+                  "Active Applications": candidate.applications?.filter(
+                    (app) => {
+                      return (
+                        app.status !== "HIRED" && app.status !== "ARCHIVED"
+                      );
+                    }
+                  ).length,
                   skills: resumeSkills.map((skill) => (
                     <Label
                       content={skill.name}

@@ -165,7 +165,7 @@ const inputField = (props) => {
           font-weight: bold;
           font-size: ${props.boldLabel ? "1.8rem" : "1.1rem"};
           color: ${props.boldLabel
-            ? variables.clearColor
+            ? variables.lightColor
             : variables.darkColor};
           text-shadow: ${props.boldLabel ? "1px 2px 3px #666" : "none"};
           text-transform: ${textTransform};
@@ -179,7 +179,7 @@ const inputField = (props) => {
           position: relative;
           padding-left: 15px;
           padding-right: 15px;
-          background-color: ${variables.clearColor};
+          background-color: ${variables.lightColor};
           min-height: ${variables.inputHeight};
           border-radius: 8px;
           border: 1px solid ${variables.mutedColor2};

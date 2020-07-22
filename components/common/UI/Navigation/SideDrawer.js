@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
  * @returns {JSX.Element}
  */
 
-const sideDrawer = props => {
+const sideDrawer = (props) => {
   return (
     <div className={"SideDrawer " + (props.show ? "" : "Hidden")}>
       <p onClick={props.close} className="CloseBtn">
@@ -19,7 +19,7 @@ const sideDrawer = props => {
         .SideDrawer {
           height: 100vh;
           width: 94%;
-          background-color: ${variables.clearColor};
+          background-color: ${variables.lightColor};
           overflow-x: scroll;
           position: fixed;
           top: 50px;
@@ -51,7 +51,7 @@ const sideDrawer = props => {
 };
 
 sideDrawer.propTypes = {
-  show: PropTypes.bool
+  show: PropTypes.bool,
 };
 
 export default React.memo(

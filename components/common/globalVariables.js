@@ -1,7 +1,7 @@
 const variables = {
   darkColor: "#2E294E",
-  clearColor: "#FFF",
-  clearColor2: "#ECEBE4",
+  lightColor: "#FFF",
+  lightColor2: "#ECEBE4",
   mutedColor1: "#F9F7F7",
   mutedColor2: "#E3E3E3",
 
@@ -19,7 +19,7 @@ const variables = {
   smallScreen: "520px",
   mediumScreen: "920px",
 
-  bottomNav: "40px"
+  bottomNav: "40px",
 };
 
 export default variables;

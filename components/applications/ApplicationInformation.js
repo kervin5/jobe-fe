@@ -73,7 +73,7 @@ const ApplicationInformation = ({ applicationId }) => {
         .ApplicationInformation {
           margin: auto 20px;
           padding: 20px;
-          background-color: ${variables.clearColor};
+          background-color: ${variables.lightColor};
           border-radius: ${variables.roundedRadius};
           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
           max-width: 350px;

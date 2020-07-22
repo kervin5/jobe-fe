@@ -48,7 +48,7 @@ const bottomNav = () => (
       }
 
       .BottomNav :global(.NavigationItem i) {
-        color: ${variables.clearColor} !important;
+        color: ${variables.lightColor} !important;
       }
 
       .BottomNav :global(.NavigationItem:hover i) {
@@ -59,7 +59,7 @@ const bottomNav = () => (
         .BottomNav {
           display: block;
           background-color: ${variables.accentColor1};
-          color: ${variables.clearColor1};
+          color: ${variables.lightColor1};
           display: flex;
           justify-content: space-around;
           align-items: baseline;

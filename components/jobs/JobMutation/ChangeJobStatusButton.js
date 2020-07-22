@@ -19,19 +19,25 @@ const POST_JOB_MUTATION = gql`
   }
 `;
 
-const PublishJobButton = ({ jobId, status, children }) => {
+const ChangeJobStatusButton = ({ jobId, status, children }) => {
   return (
     <Mutation mutation={POST_JOB_MUTATION} variables={{ jobId, status }}>
       {(postJobMutation, { error, loading, data }) => {
         if (error) return <p>Something went wrong!</p>;
         if (loading) return <p>Loading...</p>;
-        if (data) Router.push(`/admin/dashboard`);
-        if (data) return <p>Success!</p>;
+        if (data) Router.push(`/admin/jobs`);
 
         return (
-          <Button positive icon labelPosition="left" onClick={postJobMutation}>
+          <Button
+            positive
+            icon
+            labelPosition="left"
+            onClick={postJobMutation}
+            loading={loading}
+            disabled={loading || data}
+          >
             <Icon name="check" />
-            {children}
+            {data ? "Success!" : children}
           </Button>
         );
       }}
@@ -39,4 +45,4 @@ const PublishJobButton = ({ jobId, status, children }) => {
   );
 };
 
-export default PublishJobButton;
+export default ChangeJobStatusButton;

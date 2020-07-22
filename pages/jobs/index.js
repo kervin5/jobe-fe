@@ -5,7 +5,7 @@ import PageSection from "@/common/Layout/PageSection";
 import SearchFieldSection from "@/components/jobs/Search/SearchFieldSection";
 import Button from "@/common/UI/Button";
 import ButtonGroup from "@/common/UI/ButtonGroup";
-import Jobs from "@/components/jobs/JobsCards";
+import Jobs from "@/components/jobs/JobList/JobsListQuery";
 import SearchFilters from "@/components/jobs/Search/SearchFilters";
 import SEO from "@/components/SEO";
 import { basePath } from "@/root/config";
@@ -46,7 +46,7 @@ const SearchPage = (props) => {
       />
       <PageSection styles={styles}>
         <div className="Container">
-          <SearchFieldSection terms={q} location={location} />
+          <SearchFieldSection terms={q ?? category} location={location} />
           <ButtonGroup>
             {/* <Button size={{ height: "30px" }} icon="alarm">
               Add Alert
@@ -88,10 +88,6 @@ const SearchPage = (props) => {
         .Container {
           max-width: 600px;
           width: 100%;
-        }
-
-        p {
-          text-align: center;
         }
       `}</style>
     </>
