@@ -9,7 +9,7 @@ import Title from "@/common/UI/Title";
 import DynamicImageBg from "@/common/UI/DynamicImageBg";
 import SearchArea from "@/components/jobs/Search/SearchArea";
 import { basePath } from "@/root/config";
-import JobsCards from "@/components/jobs/JobsCards";
+import JobsCards from "@/components/jobs/JobList/JobsListQuery";
 import PopularTerms from "@/components/jobs/PopularTerms/PopularTerms";
 import { getJobsFromAPI, getTermsFromAPI } from "@/lib/backend";
 

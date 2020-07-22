@@ -4,7 +4,7 @@ import { Icon } from "semantic-ui-react";
 
 import variables from "@/common/globalVariables";
 
-const CustomIcon = props => {
+const CustomIcon = (props) => {
   const classes = props.circle ? "Circle" : "";
   const Color = props.color ? "Color" + props.color : "Color1";
 
@@ -15,7 +15,7 @@ const CustomIcon = props => {
           classes,
           "Icon",
           Color,
-          props.className ? props.className : ""
+          props.className ? props.className : "",
         ].join(" ")}
       >
         <Icon name={props.icon} />
@@ -55,7 +55,7 @@ const CustomIcon = props => {
           }
 
           .Circle i {
-            color: ${variables.clearColor};
+            color: ${variables.lightColor};
           }
         `}</style>
       </span>
@@ -66,7 +66,7 @@ const CustomIcon = props => {
 };
 
 CustomIcon.propTypes = {
-  icon: PropTypes.string.isRequired
+  icon: PropTypes.string.isRequired,
 };
 
 export default React.memo(CustomIcon, (prevProps, nextProps) => {

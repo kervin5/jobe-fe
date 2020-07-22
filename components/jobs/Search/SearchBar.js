@@ -4,7 +4,7 @@ import styled from "styled-components";
 import appText from "@/lang/appText";
 
 const StyledSearchBar = styled.div`
-  background-color: ${(props) => props.theme.clearColor};
+  background-color: ${(props) => props.theme.lightColor};
   padding: 10px 15px;
   border-radius: 50px;
   border: 1px solid ${(props) => props.theme.mutedColor2};

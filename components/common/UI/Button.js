@@ -4,7 +4,7 @@ import variables from "@/common/globalVariables";
 
 import { Loader } from "semantic-ui-react";
 
-const Button = props => {
+const Button = (props) => {
   const height = props.size ? props.size.height : variables.inputHeight;
   const iconOnly = props.iconOnly ? "IconOnly" : "";
   const disabled = props.disabled ? "Disabled" : "";
@@ -49,7 +49,7 @@ const Button = props => {
           font-size: 1.2em;
           font-weight: bold;
           border: none;
-          color: ${variables.clearColor};
+          color: ${variables.lightColor};
           box-shadow: 0px 9px 5px -10px rgba(0, 0, 0, 0.75);
           transition: 300ms;
           min-width: 100px;
@@ -72,7 +72,7 @@ const Button = props => {
           margin-right: 5px;
           opacity: 0.9;
           height: 15px;
-          color: ${variables.clearColor};
+          color: ${variables.lightColor};
         }
 
         .Button :global(.MuiCircularProgress-root) {
@@ -80,7 +80,7 @@ const Button = props => {
         }
 
         .Button :global(.Icon i) {
-          color: ${variables.clearColor};
+          color: ${variables.lightColor};
         }
 
         .IconOnly {
@@ -115,7 +115,7 @@ const Button = props => {
 Button.propTypes = {
   size: PropTypes.object,
   icon: PropTypes.string,
-  color: PropTypes.string
+  color: PropTypes.string,
 };
 
 export default Button;
