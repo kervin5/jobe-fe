@@ -22,6 +22,7 @@ export const ME_USER_QUERY = gql`
       }
       role {
         id
+        name
         permissions {
           id
           object

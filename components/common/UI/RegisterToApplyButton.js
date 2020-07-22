@@ -22,6 +22,7 @@ const RegisterToApplyButton = (props) => {
           if (error) return <p>Something went wrong</p>;
           if (loading) return <p>Loading</p>;
           if (data.me && data.me.role.name !== "candidate") return null;
+          <p>Test</p>;
           return (
             <div>
               <Button fullWidth onClick={() => setShowPopUp(true)}>

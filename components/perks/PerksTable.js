@@ -4,30 +4,16 @@ import { gql } from "@apollo/client";
 import { Input } from "semantic-ui-react";
 import { take } from "@/root/config";
 import Router from "next/router";
-import Table from "@/common/UI/Table";
+import TableGraphql from "@/common/UI/Tables/TableGraphQL";
+import Table from "@/common/UI/Tables/Table";
 import PerksActionButtons from "./PerksActionButtons";
 import Button from "@/common/UI/Button";
 import appText from "@/lang/appText";
+import {
+  ALL_PERKS_QUERY,
+  PERKS_CONNECTION_QUERY,
+} from "@/graphql/queries/perks";
 // import Button from "@/common/UI/Button";
-
-const ALL_PERKS_QUERY = gql`
-  query ALL_PERKS_QUERY($take: Int!, $skip: Int!) {
-    perks(take: $take, skip: $skip, orderBy: { createdAt: desc }) {
-      id
-      name
-      status
-      jobs {
-        id
-      }
-    }
-  }
-`;
-
-const PERKS_CONNECTION_QUERY = gql`
-  query PERKS_CONNECTION_QUERY {
-    perksConnection
-  }
-`;
 
 const PerksTable = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,6 +26,20 @@ const PerksTable = (props) => {
   const inputChangeHandler = (e) => {
     setQuery(e.target.value);
   };
+
+  return (
+    <TableGraphql
+      dataQuery={ALL_PERKS_QUERY}
+      countQuery={PERKS_CONNECTION_QUERY}
+      rowFormat={(perk, queries) => ({
+        name: perk.name,
+
+        status: perk.status,
+        jobs: perk.jobs?.length,
+        actions: <PerksActionButtons perk={perk} refetchQueries={queries} />,
+      })}
+    />
+  );
 
   return (
     <>
@@ -99,9 +99,9 @@ const PerksTable = (props) => {
                           placeholder={appText.actions.search}
                           onChange={inputChangeHandler}
                         />
-                        <Button onClick={() => Router.push("/admin/users/new")}>
+                        {/* <Button onClick={() => Router.push("/admin/users/new")}>
                           Add Perk
-                        </Button>
+                        </Button> */}
                       </>
                     }
                   />
