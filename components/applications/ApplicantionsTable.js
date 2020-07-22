@@ -8,7 +8,7 @@ import EempactStatusLabel from "@/components/users/EempactStatusLabel";
 import { take } from "@/root/config";
 import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 import appText from "@/lang/appText";
-import Table from "@/common/UI/Table";
+import Table from "@/common/UI/Tables/Table";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
 
 const ALL_APPLICATIONS_QUERY = gql`

@@ -25,7 +25,7 @@ const shareObjects = {
     Icon: LinkedinIcon,
   },
   Twitter: {
-    color: "rgb(0, 172, 237);",
+    color: "rgb(0, 172, 237)",
     Button: TwitterShareButton,
     Icon: TwitterIcon,
   },

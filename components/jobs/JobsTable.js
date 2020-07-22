@@ -5,7 +5,7 @@ import moment from "moment";
 import { Button, Input, Select, Icon, Label } from "semantic-ui-react";
 import { gql } from "@apollo/client";
 import { take } from "@/root/config";
-import Table, { OrderByHeader } from "@/common/UI/Table";
+import Table, { OrderByHeader } from "@/common/UI/Tables/Table";
 import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";
 import variables from "@/common/globalVariables";
 import { ALL_JOBS_GRID } from "@/graphql/queries/jobs";

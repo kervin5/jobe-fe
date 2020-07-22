@@ -6,7 +6,7 @@ import { Button, Input, Label } from "semantic-ui-react";
 import { take } from "../../config";
 import appText from "@/lang/appText";
 import EempactStatusLabel from "@/components/users/EempactStatusLabel";
-import Table from "@/common/UI/Table";
+import Table from "@/common/UI/Tables/Table";
 import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
 import DownloadCSVButton from "@/common/UI/DownloadCSVButton";
 

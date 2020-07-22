@@ -157,6 +157,10 @@ export default {
       singular: "Favorite",
       plural: "Favorites",
     },
+    company: {
+      singular: "Company",
+      plural: "Companies",
+    },
   },
 
   adjectives: {
