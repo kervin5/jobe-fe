@@ -160,6 +160,14 @@ export default {
       singular: "Compania",
       plural: "Companias",
     },
+    activity: {
+      singular: "Actividad",
+      plural: "Actividades",
+    },
+    branch: {
+      singular: "Sucursal",
+      plural: "Sucursales",
+    },
   },
 
   adjectives: {
@@ -180,6 +188,8 @@ export default {
     perDiem: "Por Día",
     viewed: "Vistas",
     contacted: "Contactados",
+    primary: "Principal",
+    active: "Activa",
   },
 
   pronouns: {

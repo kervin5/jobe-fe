@@ -66,7 +66,7 @@ export default {
 
     name: {
       singular: "name",
-      plural: "name",
+      plural: "names",
     },
 
     score: {
@@ -161,6 +161,14 @@ export default {
       singular: "Company",
       plural: "Companies",
     },
+    activity: {
+      singular: "Activity",
+      plural: "Activities",
+    },
+    branch: {
+      singular: "Branch",
+      plural: "Branches",
+    },
   },
 
   adjectives: {
@@ -181,6 +189,8 @@ export default {
     perDiem: "Per Diem",
     viewed: "Viewed",
     contacted: "Contacted",
+    primary: "Primary",
+    active: "Active",
   },
 
   pronouns: {

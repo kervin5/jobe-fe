@@ -50,6 +50,25 @@ export const SINGLE_USER_QUERY = gql`
         name
       }
 
+      role {
+        id
+        name
+        permissions {
+          object
+          actions
+        }
+      }
+
+      branch {
+        id
+        name
+      }
+
+      otherBranches {
+        id
+        name
+      }
+
       resumes(orderBy: { createdAt: desc }) {
         id
         title
