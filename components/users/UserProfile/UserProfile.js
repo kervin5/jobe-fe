@@ -31,7 +31,7 @@ const panes = (userData) => {
       menuItem: appText.objects.branch.plural,
       render: () => (
         <Tab.Pane>
-          <BranchessAccessPanel selected={selected} />
+          <BranchessAccessPanel selected={selected} userId={userData?.id} />
         </Tab.Pane>
       ),
     },

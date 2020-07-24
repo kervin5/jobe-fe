@@ -6,8 +6,15 @@ export const UPDATE_USER_MUTATION = gql`
     $name: String
     $role: ID
     $branch: ID
+    $otherBranches: [BranchChangeInput!]
   ) {
-    updateUser(id: $id, name: $name, role: $role, branch: $branch) {
+    updateUser(
+      id: $id
+      name: $name
+      role: $role
+      branch: $branch
+      otherBranches: $otherBranches
+    ) {
       id
       email
     }

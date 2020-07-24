@@ -10,20 +10,25 @@ import {
   Segment,
 } from "semantic-ui-react";
 import { ALL_BRANCHES_QUERY } from "@/graphql/queries/branches";
+import { SINGLE_USER_QUERY } from "@/graphql/queries/users";
 import { UPDATE_USER_MUTATION } from "@/graphql/mutations/users";
+
 import appText from "@/lang/appText";
 
 const SaveBrancheChangesBtn = ({ userId, changes }) => {
   const [updateBranchAccessMutation, { error, loading, data }] = useMutation(
-    UPDATE_USER_MUTATION
+    UPDATE_USER_MUTATION,
+    {
+      refetchQueries: [{ query: SINGLE_USER_QUERY, variables: { id: userId } }],
+    }
   );
 
-  const otherBranches = Object.keys(changes).map((branchKey) => ({
-    id: branchKey,
-    active: changes[branchKey],
-  }));
-
   const handleClick = () => {
+    const otherBranches = Object.keys(changes).map((branchKey) => ({
+      id: branchKey,
+      active: changes[branchKey],
+    }));
+    console.log(otherBranches);
     updateBranchAccessMutation({
       variables: { id: userId, otherBranches },
     });
@@ -46,7 +51,7 @@ const SaveBrancheChangesBtn = ({ userId, changes }) => {
   );
 };
 
-const BranchesAccessPanel = ({ selected }) => {
+const BranchesAccessPanel = ({ selected, userId }) => {
   const { error, loading, data } = useQuery(ALL_BRANCHES_QUERY);
   const [changes, setChanges] = useState({});
 
@@ -68,10 +73,6 @@ const BranchesAccessPanel = ({ selected }) => {
 
     setChanges({ ...existingChanges });
   };
-
-  useEffect(() => {
-    console.log(changes);
-  }, [changes]);
 
   if (loading)
     return (
@@ -100,6 +101,7 @@ const BranchesAccessPanel = ({ selected }) => {
                 defaultChecked={!!enabled[branch.id]}
                 onChange={(e, data) => handleToggleChange(data)}
                 value={branch.id}
+                disabled={!!enabled[branch.id] && !!enabled[branch.id].primary}
               />
             </Table.Cell>
             <Table.Cell>{branch.name}</Table.Cell>
@@ -118,7 +120,7 @@ const BranchesAccessPanel = ({ selected }) => {
         <Table.Row>
           <Table.HeaderCell />
           <Table.HeaderCell colSpan="4">
-            <SaveBrancheChangesBtn changes={changes} userId="3" />
+            <SaveBrancheChangesBtn changes={changes} userId={userId} />
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>
