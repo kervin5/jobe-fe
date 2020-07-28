@@ -20,3 +20,17 @@ export const UPDATE_USER_MUTATION = gql`
     }
   }
 `;
+
+export const CREATE_USER_MUTATION = gql`
+  mutation CREATE_USER_MUTATION(
+    $email: String!
+    $name: String!
+    $role: ID!
+    $branch: ID!
+  ) {
+    createUser(name: $name, email: $email, role: $role, branch: $branch) {
+      id
+      email
+    }
+  }
+`;

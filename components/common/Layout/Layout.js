@@ -170,6 +170,10 @@ const layout = (props) => {
         ol {
           padding-left: 50px;
         }
+
+        .modals.dimmer .ui.scrolling.modal {
+          top: 56px;
+        }
       `}</style>
     </div>
   );

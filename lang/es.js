@@ -60,7 +60,7 @@ export default {
     },
 
     name: {
-      singular: "Nombre Completo",
+      singular: "Nombre",
       plural: "Nombres",
     },
 
@@ -168,6 +168,10 @@ export default {
       singular: "Sucursal",
       plural: "Sucursales",
     },
+    role: {
+      singular: "Rol",
+      plural: "Roles",
+    },
   },
 
   adjectives: {
@@ -235,6 +239,8 @@ export default {
     submitForApproval: "Submit for approval",
     attention: "Atención",
     recentActivity: "Actividad Reciente",
+    success: "Exito",
+    saved: "Los cambios fueron guardados",
     job: {
       latest: "Trabajos más recientes",
       recommended: "Trabajos recomendados",
@@ -337,6 +343,7 @@ export default {
       selectAtLeastOne: "Selecciona al menos una",
       fileTypeNotValid: "Este tipo de documento es invalido, 😭",
       fileIsTooLarge: "El documento es muy grande",
+      enterDetails: "Ingrese los detalles",
     },
   },
 

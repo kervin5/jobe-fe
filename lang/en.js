@@ -55,8 +55,8 @@ export default {
     },
 
     email: {
-      singular: "email",
-      plural: "emails",
+      singular: "Email",
+      plural: "Emails",
     },
 
     phone: {
@@ -169,6 +169,10 @@ export default {
       singular: "Branch",
       plural: "Branches",
     },
+    role: {
+      singular: "Role",
+      plural: "Roles",
+    },
   },
 
   adjectives: {
@@ -235,6 +239,9 @@ export default {
     amazingOpportunity: `Amazing Career opportunity @ ${companyInfo.name}`,
     submitForApproval: "Submit for approval",
     attention: "Attention",
+    success: "Success",
+    saved: "The changes were saved",
+
     job: {
       latest: "latest jobs",
       recommended: "recommended jobs",
@@ -334,6 +341,7 @@ export default {
       selectAtLeastOne: "Select at least one",
       fileTypeNotValid: "File type not accepted, sorry",
       fileIsTooLarge: "File is too large",
+      enterDetails: "Enter the details below",
     },
   },
 

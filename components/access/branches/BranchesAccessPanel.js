@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import {
-  Button,
   Checkbox,
   Icon,
   Table,
@@ -10,48 +9,9 @@ import {
   Segment,
 } from "semantic-ui-react";
 import { ALL_BRANCHES_QUERY } from "@/graphql/queries/branches";
-import { SINGLE_USER_QUERY } from "@/graphql/queries/users";
-import { UPDATE_USER_MUTATION } from "@/graphql/mutations/users";
-
 import appText from "@/lang/appText";
 
-const SaveBrancheChangesBtn = ({ userId, changes }) => {
-  const [updateBranchAccessMutation, { error, loading, data }] = useMutation(
-    UPDATE_USER_MUTATION,
-    {
-      refetchQueries: [{ query: SINGLE_USER_QUERY, variables: { id: userId } }],
-    }
-  );
-
-  const handleClick = () => {
-    const otherBranches = Object.keys(changes).map((branchKey) => ({
-      id: branchKey,
-      active: changes[branchKey],
-    }));
-    console.log(otherBranches);
-    updateBranchAccessMutation({
-      variables: { id: userId, otherBranches },
-    });
-  };
-
-  const valuesWereChanged = !!Object.keys(changes).length;
-  return (
-    <Button
-      floated="right"
-      icon
-      labelPosition="left"
-      primary
-      size="small"
-      disabled={!valuesWereChanged || loading}
-      onClick={handleClick}
-    >
-      <Icon name="save" />
-      {appText.actions.save}
-    </Button>
-  );
-};
-
-const BranchesAccessPanel = ({ selected, userId }) => {
+const BranchesAccessPanel = ({ selected, onChange }) => {
   const { error, loading, data } = useQuery(ALL_BRANCHES_QUERY);
   const [changes, setChanges] = useState({});
 
@@ -73,6 +33,20 @@ const BranchesAccessPanel = ({ selected, userId }) => {
 
     setChanges({ ...existingChanges });
   };
+
+  useEffect(() => {
+    if (onChange && Object.keys(changes).length) {
+      const otherBranches = Object.keys(changes).map((branchKey) => ({
+        id: branchKey,
+        active: changes[branchKey],
+      }));
+      onChange(
+        undefined,
+        { name: "otherBranches", value: otherBranches },
+        true
+      );
+    }
+  }, [changes]);
 
   if (loading)
     return (
@@ -116,14 +90,14 @@ const BranchesAccessPanel = ({ selected, userId }) => {
         ))}
       </Table.Body>
 
-      <Table.Footer fullWidth>
+      {/* <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell />
           <Table.HeaderCell colSpan="4">
             <SaveBrancheChangesBtn changes={changes} userId={userId} />
           </Table.HeaderCell>
         </Table.Row>
-      </Table.Footer>
+      </Table.Footer> */}
     </Table>
   );
 };

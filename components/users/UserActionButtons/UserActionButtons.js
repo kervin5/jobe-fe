@@ -8,13 +8,13 @@ import ActivateUserButton from "./ActivateUserButton";
 const UserActionButtons = ({ user, refetchQueries }) => (
   <div className="UserActionButtons">
     <Button.Group>
-      <Link
+      {/* <Link
         href="/admin/users/[userId]"
         as={`/admin/users/${user.id}`}
         passHref
       >
         <Button icon="eye" color="green" as="a" />
-      </Link>
+      </Link> */}
       <EditUserButton userId={user.id} refetchQueries={refetchQueries || []} />
       {user.status === "ACTIVE" ? (
         <DeleteUserButton

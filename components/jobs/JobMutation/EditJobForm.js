@@ -122,7 +122,7 @@ const EditJobForm = ({ data, jobId }) => {
       { required: true }
     );
     register(
-      { name: "jobPerkss", value: data.perks.map((perk) => perk.id) },
+      { name: "jobPerks", value: data.perks.map((perk) => perk.id) },
       { required: true }
     );
     register({ name: "jobAuthor", value: data.author.id });
