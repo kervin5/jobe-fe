@@ -172,7 +172,7 @@ const layout = (props) => {
         }
 
         .modals.dimmer .ui.scrolling.modal {
-          top: 56px;
+          top: 86px;
         }
       `}</style>
     </div>

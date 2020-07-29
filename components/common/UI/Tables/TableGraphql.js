@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { Input } from "semantic-ui-react";
+import { Input, Form } from "semantic-ui-react";
 import { take } from "@/root/config";
 import Table from "@/common/UI/Tables/Table";
 import appText from "@/lang/appText";
@@ -11,19 +11,21 @@ const CompaniesTable = ({
   countQuery,
   rowFormat,
   toolbar,
-  searchFilter,
+  searchFilter = () => {},
+  variables,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
   const recordsVariables = {
     variables: {
+      ...variables,
       ...searchFilter(query),
       take,
       skip: (currentPage - 1) * take,
     },
   };
   const countVariables = {
-    variables: { ...searchFilter(query) },
+    variables: { ...searchFilter(query), ...variables },
   };
   const resRecords = useQuery(dataQuery, recordsVariables);
   const resCount = useQuery(countQuery, countVariables);
@@ -34,7 +36,12 @@ const CompaniesTable = ({
 
   const inputChangeHandler = (e) => {
     setQuery(e.target.value);
+    setCurrentPage(1);
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [variables]);
 
   if (resCount.error || resRecords.error)
     return <p>Something went wrong ...</p>;
@@ -68,11 +75,16 @@ const CompaniesTable = ({
         turnPageHandler={turnPageHandler}
         toolbar={
           <>
-            <Input
-              icon="search"
-              placeholder={appText.actions.search}
-              onChange={inputChangeHandler}
-            />
+            <Form>
+              <Form.Group>
+                <Form.Input
+                  icon="search"
+                  label={appText.actions.search}
+                  placeholder={appText.actions.search}
+                  onChange={inputChangeHandler}
+                />
+              </Form.Group>
+            </Form>
             {toolbar}
           </>
         }

@@ -18,6 +18,7 @@ const LocationInput = ({
   additionLabel,
   nolabel,
   minWidth,
+  fluid,
 }) => {
   const [customOptions, setCustomOptions] = useState([]);
   const handleAddition = (e, { value }) => {
@@ -34,7 +35,7 @@ const LocationInput = ({
         loading={loading}
         id={name}
         placeholder={placeholder}
-        fluid
+        fluid={fluid}
         search
         selection
         onAddItem={handleAddition}

@@ -67,27 +67,31 @@ const BranchesAccessPanel = ({ selected, onChange }) => {
       </Table.Header>
 
       <Table.Body>
-        {data.branches.map((branch, index) => (
-          <Table.Row key={"Branch" + branch.name + index}>
-            <Table.Cell collapsing>
-              <Checkbox
-                toggle
-                defaultChecked={!!enabled[branch.id]}
-                onChange={(e, data) => handleToggleChange(data)}
-                value={branch.id}
-                disabled={!!enabled[branch.id] && !!enabled[branch.id].primary}
-              />
-            </Table.Cell>
-            <Table.Cell>{branch.name}</Table.Cell>
-            <Table.Cell>
-              {enabled[branch.id] && enabled[branch.id].primary ? (
-                <Icon name="check" />
-              ) : (
-                ""
-              )}
-            </Table.Cell>
-          </Table.Row>
-        ))}
+        {data.branches.map((branch, index) => {
+          return (
+            <Table.Row key={"Branch" + branch.name + index}>
+              <Table.Cell collapsing>
+                <Checkbox
+                  toggle
+                  defaultChecked={!!enabled[branch.id]}
+                  onChange={(e, data) => handleToggleChange(data)}
+                  value={branch.id}
+                  disabled={
+                    !!enabled[branch.id] && !!enabled[branch.id].primary
+                  }
+                />
+              </Table.Cell>
+              <Table.Cell>{branch.name}</Table.Cell>
+              <Table.Cell>
+                {enabled[branch.id] && enabled[branch.id].primary ? (
+                  <Icon name="check" />
+                ) : (
+                  ""
+                )}
+              </Table.Cell>
+            </Table.Row>
+          );
+        })}
       </Table.Body>
 
       {/* <Table.Footer fullWidth>

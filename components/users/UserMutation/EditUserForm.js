@@ -21,7 +21,7 @@ const EditUserForm = ({ data, userId, refetchQueries }) => {
     register(
       {
         name: "branch",
-        value: data.branch.id,
+        value: data.branch?.id,
       },
       { required: true }
     );
@@ -113,7 +113,7 @@ const EditUserForm = ({ data, userId, refetchQueries }) => {
             }`,
           }}
           error={errors.branch ? true : false}
-          defaultValue={data.branch.id}
+          defaultValue={data.branch?.id}
         />
 
         <DropdownGraphqlInput
@@ -122,7 +122,7 @@ const EditUserForm = ({ data, userId, refetchQueries }) => {
           label={appText.objects.role.singular}
           placeholder={appText.messages.validation.select}
           graphql={{
-            query: `  query ROLES_QUERY {
+            query: `query ROLES_QUERY {
               roles {
                 id
                 name
@@ -134,7 +134,7 @@ const EditUserForm = ({ data, userId, refetchQueries }) => {
         />
         <BranchesAccessPanel
           userId={data.id}
-          selected={[{ ...data.branch, primary: true }, ...data.otherBranches]}
+          selected={[...data.otherBranches, { ...data.branch, primary: true }]}
           onChange={handleInputChange}
         />
         <Button.Group widths="2">
@@ -163,6 +163,7 @@ const EditUserForm = ({ data, userId, refetchQueries }) => {
 const EditUserFormDetail = ({ userId, refetchQueries }) => {
   const { error, loading, data } = useQuery(SINGLE_USER_QUERY, {
     variables: { id: userId },
+    fetchPolicy: "network-only",
   });
 
   if (error) return <ErrorMessage error={error} />;
