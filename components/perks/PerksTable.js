@@ -1,5 +1,5 @@
 import React from "react";
-import TableGraphql from "@/common/UI/Tables/TableGraphQL";
+import TableGraphql from "@/common/UI/Tables/TableGraphqlWithQuery";
 import PerksActionButtons from "./PerksActionButtons";
 
 import {

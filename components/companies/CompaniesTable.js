@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "semantic-ui-react";
 import Router from "next/router";
-import TableGraphql from "@/common/UI/Tables/TableGraphql";
+import TableGraphql from "@/common/UI/Tables/TableGraphqlWithQuery";
 import appText from "@/lang/appText";
 
 import {

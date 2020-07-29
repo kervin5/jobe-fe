@@ -8,7 +8,7 @@ import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 import appText from "@/lang/appText";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
 import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
-import TableGraphql from "@/common/UI/Tables/TableGraphQL";
+import TableGraphql from "@/common/UI/Tables/TableGraphqlWithQuery";
 import {
   ALL_APPLICATIONS_QUERY,
   USER_APPLICATION_CONNECTION_QUERY,
