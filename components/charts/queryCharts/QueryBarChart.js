@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import BarChart from "@/components/charts/templates/BarChart";
+import { getColor } from "@/components/charts/chartGlobals";
 
 const QueryBarChart = ({ query, orderBy }) => {
   const { error, loading, data } = useQuery(query);
@@ -56,9 +57,9 @@ function generateData(data, orderBy) {
   return {
     data: chartData,
 
-    keys: Object.keys(statusList).map((key) => ({
+    keys: Object.keys(statusList).map((key, index) => ({
       key,
-      color: "#" + ((Math.random() * 0xffffff) << 0).toString(16),
+      color: getColor(index),
     })),
   };
 }
