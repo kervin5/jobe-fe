@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Mutation, Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import { Form, Button, Loader } from "semantic-ui-react";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Router from "next/router";
 import ErrorMessage from "@/common/UI/ErrorMessage";
 import LocationInput from "@/common/UI/Input/CustomSemanticInput/LocationInput";
@@ -12,7 +12,11 @@ import TextArea from "@/common/UI/Input/CustomSemanticInput/TextArea";
 import AuthorDropdown from "@/common/UI/Input/CustomSemanticInput/AuthorDropdown";
 import Title from "@/common/UI/Title";
 import CronJobToggle from "@/components/jobs/JobMutation/CronJobToggle";
-import { compensationTypeOptions, jobTypeOptions } from "./CreateJobForm";
+import {
+  compensationTypeOptions,
+  jobTypeOptions,
+  validateMinSelectedOptions,
+} from "./CreateJobForm";
 import appText from "@/lang/appText";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
@@ -123,7 +127,10 @@ const EditJobForm = ({ data, jobId }) => {
     );
     register(
       { name: "jobPerks", value: data.perks.map((perk) => perk.id) },
-      { required: true }
+      {
+        validate: (value) =>
+          validateMinSelectedOptions(value, 3, appText.objects.perk.plural),
+      }
     );
     register({ name: "jobAuthor", value: data.author.id });
     register(
@@ -134,13 +141,7 @@ const EditJobForm = ({ data, jobId }) => {
     // register({ name: "jobIsRecurring" });
   }, []);
 
-  const {
-    register,
-    errors,
-    handleSubmit,
-    setValue,
-    triggerValidation,
-  } = useForm();
+  const { register, errors, handleSubmit, setValue } = useForm();
 
   const [touchedFields, setTouchedFields] = useState({});
 
@@ -172,9 +173,8 @@ const EditJobForm = ({ data, jobId }) => {
   };
 
   const handleInputChange = async (e, { name, value }) => {
-    setValue(name, value);
+    setValue(name, value, { shouldValidate: true });
     setTouchedFields({ ...touchedFields, [name]: value });
-    await triggerValidation({ name });
   };
 
   return (
@@ -209,7 +209,7 @@ const EditJobForm = ({ data, jobId }) => {
               <LocationInput
                 name="jobLocation"
                 onChange={handleInputChange}
-                error={errors.jobLocation ? true : false}
+                error={errors.jobLocation}
                 defaultValue={data.location.name}
               />
               <Form.Group widths="equal">
@@ -255,7 +255,7 @@ const EditJobForm = ({ data, jobId }) => {
                 graphql={{
                   query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name: {contains: $query}}) { id name } }`,
                 }}
-                error={errors.jobCategories ? true : false}
+                error={errors.jobCategories}
                 defaultValue={data.categories.map((category) => category.id)}
               />
               <Form.Select
@@ -277,7 +277,7 @@ const EditJobForm = ({ data, jobId }) => {
                 graphql={{
                   query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
                 }}
-                error={errors.jobSkills ? true : false}
+                error={errors.jobSkills}
                 defaultValue={data.skills.map((skill) => skill.id)}
               />
 
@@ -290,7 +290,7 @@ const EditJobForm = ({ data, jobId }) => {
                 graphql={{
                   query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
                 }}
-                error={errors.jobPerks ? true : false}
+                error={errors.jobPerks}
                 defaultValue={data.perks.map((perk) => perk.id)}
                 allowAdditions
                 additionLabel={`${appText.actions.create}: `}
@@ -302,7 +302,7 @@ const EditJobForm = ({ data, jobId }) => {
                 name="jobAuthor"
                 label={appText.messages.job.jobAuthor}
                 placeholder={appText.messages.validation.select}
-                error={errors.jobAuthor ? true : false}
+                error={errors.jobAuthor}
                 defaultValue={data.author.id}
               />
 

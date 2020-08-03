@@ -26,6 +26,7 @@ export default {
     share: "Share",
     publish: "Publish",
     download: "Download",
+    create: "Create",
   },
 
   objects: {
@@ -172,6 +173,14 @@ export default {
     role: {
       singular: "Role",
       plural: "Roles",
+    },
+    reminder: {
+      singular: "Reminder",
+      plural: "Reminders",
+    },
+    option: {
+      singular: "Option",
+      plural: "Options",
     },
   },
 
@@ -339,6 +348,8 @@ export default {
       select: "Select an option",
       selectAllThatApply: "Select all that apply",
       selectAtLeastOne: "Select at least one",
+      selectAtLeast: (numberOfOptions, optionsName = "options") =>
+        `Select at least ${numberOfOptions} ${optionsName}`,
       fileTypeNotValid: "File type not accepted, sorry",
       fileIsTooLarge: "File is too large",
       enterDetails: "Enter the details below",

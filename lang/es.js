@@ -26,6 +26,7 @@ export default {
     share: "Compartir",
     publish: "Publicar",
     download: "Descargar",
+    create: "Crear",
   },
 
   objects: {
@@ -171,6 +172,14 @@ export default {
     role: {
       singular: "Rol",
       plural: "Roles",
+    },
+    reminder: {
+      singular: "Recordatorio",
+      plural: "Recordatorios",
+    },
+    option: {
+      singular: "Opcion",
+      plural: "Opciones",
     },
   },
 
@@ -341,6 +350,8 @@ export default {
       select: "Selecciona una opción",
       selectAllThatApply: "Selecciona toas las que apliquen",
       selectAtLeastOne: "Selecciona al menos una",
+      selectAtLeast: (numberOfOptions, optionsName = "opciones") =>
+        `Selecciona al menos ${numberOfOptions} ${optionsName}`,
       fileTypeNotValid: "Este tipo de documento es invalido, 😭",
       fileIsTooLarge: "El documento es muy grande",
       enterDetails: "Ingrese los detalles",

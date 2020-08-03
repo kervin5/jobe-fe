@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { Form, Button, Loader, Message } from "semantic-ui-react";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import ErrorMessage from "@/common/UI/ErrorMessage";
 import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
 import BranchesAccessPanel from "@/components/access/branches/BranchesAccessPanel";
