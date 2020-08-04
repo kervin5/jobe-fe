@@ -80,7 +80,7 @@ const ApplicationsTable = (props) => {
   const statusToFilter =
     status === "ALL" ? ["NEW", "VIEWED", "REVIEWING", "CONTACTED"] : [status];
   const branchToFilter = branch === "ALL" ? undefined : branch;
-  console.log(branchToFilter);
+
   return (
     <TableGraphql
       dataQuery={ALL_APPLICATIONS_QUERY}
@@ -124,7 +124,11 @@ const ApplicationsTable = (props) => {
           </Link>
         ),
       })}
-      variables={{ status: statusToFilter, branch: branchToFilter }}
+      variables={{
+        status: statusToFilter,
+        branch: branchToFilter,
+        jobId: props.jobId,
+      }}
       searchFilter={(value) => ({ terms: value })}
       toolbar={
         <Form>
@@ -146,6 +150,7 @@ const ApplicationsTable = (props) => {
               label={appText.objects.branch.singular}
               placeholder={appText.messages.validation.select}
               showAllOption
+              defaultValue="ALL"
               graphql={{
                 query: `query BRANCHES_QUERY {
               branchesByUser {

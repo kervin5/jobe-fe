@@ -1,10 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { Input, Form } from "semantic-ui-react";
+import { Form } from "semantic-ui-react";
 import { take } from "@/root/config";
 import Table from "@/common/UI/Tables/Table";
 import appText from "@/lang/appText";
+import DownloadCSVButton from "@/common/UI/DownloadCSVButton";
+import styled from "styled-components";
 // import PerksActionButtons from "./PerksActionButtons";
+
+const StyledToolbar = styled.div`
+  display: flex;
+  a,
+  button,
+  .ui.button {
+    margin-left: 10px;
+    margin-right: 0;
+    display: inline-block;
+    align-self: center;
+    margin-top: 6px;
+  }
+`;
 
 const CompaniesTable = ({
   dataQuery,
@@ -13,6 +28,7 @@ const CompaniesTable = ({
   toolbar,
   searchFilter = () => {},
   variables,
+  headers,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
@@ -73,6 +89,7 @@ const CompaniesTable = ({
         count={count}
         take={take}
         turnPageHandler={turnPageHandler}
+        headers={headers}
         toolbar={
           <>
             <Form>
@@ -85,7 +102,16 @@ const CompaniesTable = ({
                 />
               </Form.Group>
             </Form>
-            {toolbar}
+
+            <StyledToolbar>
+              {toolbar}
+              <DownloadCSVButton
+                queryData={{
+                  query: dataQuery,
+                  ...countVariables,
+                }}
+              />
+            </StyledToolbar>
           </>
         }
       />
