@@ -43,8 +43,8 @@ export const APPLICATIONS_BY_USER_ID_QUERY = gql`
 
 export const ALL_APPLICATIONS_QUERY = gql`
   query ALL_APPLICATIONS_QUERY(
-    $take: Int!
-    $skip: Int!
+    $take: Int
+    $skip: Int
     $jobId: String
     $status: [ApplicationStatus!]
     $terms: String!

@@ -8,7 +8,5 @@ export const colors = [
 ];
 
 export function getColor(index) {
-  console.log(index);
-  console.log(colors);
   return colors[index] ?? "#" + ((Math.random() * 0xffffff) << 0).toString(16);
 }
