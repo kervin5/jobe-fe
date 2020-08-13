@@ -6,17 +6,17 @@ import Button from "@/common/UI/Button";
 
 const buttonStyles = `margin-top:10px;`;
 
-const searchForm = props => {
+const searchForm = (props) => {
   const [formData, setFormData] = useState({
     searchTerms: {
       value: props.terms || "",
       valid: false,
       icon: "search",
       type: "text",
-      placeholder: "Job Title, Keywords, or Company Name",
+      placeholder: "Job Title, Keywords, or Industry",
       focused: true,
       required: false,
-      label: "What"
+      label: "What",
     },
     searchLocation: {
       value: props.location || "",
@@ -26,18 +26,18 @@ const searchForm = props => {
       placeholder: "Location",
       focused: false,
       required: false,
-      label: "Where"
-    }
+      label: "Where",
+    },
   });
   const [validate, setValidate] = useState(false);
 
-  const handleChange = fieldData => {
+  const handleChange = (fieldData) => {
     setFormData({
       ...formData,
       [fieldData.name]: {
         ...formData[fieldData.name],
-        ...fieldData
-      }
+        ...fieldData,
+      },
     });
 
     if (fieldData.name === "searchLocation") {
@@ -45,7 +45,7 @@ const searchForm = props => {
     }
   };
 
-  const submitFormHandler = async e => {
+  const submitFormHandler = async (e) => {
     e.preventDefault();
     await setValidate(true);
 
@@ -56,7 +56,7 @@ const searchForm = props => {
     );
   };
 
-  const InputFields = ["searchTerms", "searchLocation"].map(key => {
+  const InputFields = ["searchTerms", "searchLocation"].map((key) => {
     const fieldData = formData[key];
     return (
       <InputField
