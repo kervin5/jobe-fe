@@ -35,13 +35,7 @@ const EditUserForm = ({ data, userId, refetchQueries }) => {
     );
   }, []);
 
-  const {
-    register,
-    errors,
-    handleSubmit,
-    setValue,
-    triggerValidation,
-  } = useForm();
+  const { register, errors, handleSubmit, setValue } = useForm();
 
   const [touchedFields, setTouchedFields] = useState({});
 
@@ -54,11 +48,8 @@ const EditUserForm = ({ data, userId, refetchQueries }) => {
   };
 
   const handleInputChange = async (e, { name, value }, customField) => {
-    setValue(name, value);
+    setValue(name, value, { shouldValidate: true });
     setTouchedFields({ ...touchedFields, [name]: value });
-    if (!customField) {
-      await triggerValidation({ name });
-    }
   };
 
   return (

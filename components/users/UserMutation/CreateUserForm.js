@@ -19,13 +19,7 @@ const CreatUserForm = () => {
     register({ name: "role" }, { required: true });
   }, []);
 
-  const {
-    register,
-    errors,
-    handleSubmit,
-    setValue,
-    triggerValidation,
-  } = useForm();
+  const { register, errors, handleSubmit, setValue } = useForm();
 
   const [touchedFields, setTouchedFields] = useState({});
 
@@ -37,11 +31,8 @@ const CreatUserForm = () => {
   };
 
   const handleInputChange = async (e, { name, value }, customField) => {
-    setValue(name, value);
+    setValue(name, value, { shouldValidate: true });
     setTouchedFields({ ...touchedFields, [name]: value });
-    if (!customField) {
-      await triggerValidation({ name });
-    }
   };
 
   return (
