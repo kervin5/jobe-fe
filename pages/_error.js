@@ -10,14 +10,12 @@ flex-wrap: wrap;
 align-items: flex-start;
 align-content: center;`;
 
-const unknownPage = (props) => {
+const unknownPage = props => {
   return (
     <PageSection styles={pageStyles}>
-      <h1>Under Maintenance</h1>
+      <h1 className={"ErrorCode"}>500</h1>
       <img src={peopleImage} alt="" />
-      <h2 className={"Message"}>
-        Sorry for the inconvenience. We'll be back online shortly...
-      </h2>
+      <h2 className={"Message"}>Oops, something went wrong...</h2>
       <style jsx>{`
         .ErrorCode {
           font-size: 19em;
