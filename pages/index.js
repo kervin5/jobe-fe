@@ -13,7 +13,7 @@ align-content: center;`;
 const unknownPage = (props) => {
   return (
     <PageSection styles={pageStyles}>
-      <h1 className={"ErrorCode"}>Under Maintenance</h1>
+      <h1>Under Maintenance</h1>
       <img src={peopleImage} alt="" />
       <h2 className={"Message"}>
         Sorry for the inconvenience. We'll be back online shortly...
