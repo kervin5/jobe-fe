@@ -11,6 +11,7 @@ import RichTextEditor from "@/common/UI/Input/CustomSemanticInput/RichTextEditor
 import TextArea from "@/common/UI/Input/CustomSemanticInput/TextArea";
 import AuthorDropdown from "@/common/UI/Input/CustomSemanticInput/AuthorDropdown";
 import Title from "@/common/UI/Title";
+import InformationButton from "@/common/UI/InformationButton";
 import CronJobToggle from "@/components/jobs/JobMutation/CronJobToggle";
 import {
   compensationTypeOptions,
@@ -309,7 +310,15 @@ const EditJobForm = ({ data, jobId }) => {
               <RichTextEditor
                 name="jobDescription"
                 onChange={handleInputChange}
-                label={appText.messages.job.jobDescription}
+                label={
+                  <>
+                    {appText.messages.job.jobDescription}
+                    <InformationButton
+                      title={appText.messages.attention}
+                      message={appText.messages.job.jobDescriptionTips}
+                    />
+                  </>
+                }
                 error={errors.jobDescription ? true : false}
                 defaultValue={data.description}
               />

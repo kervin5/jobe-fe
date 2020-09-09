@@ -267,6 +267,10 @@ export default {
       jobSkills: "Job Skills",
       jobAuthor: "Job Author",
       jobDescription: "Job Description",
+      jobDescriptionTips: `A good job description helps answer these questions for potential candidates applying.
+      \n1. What is the job? The roles responsibilities and how it fits into the organization.
+      \n2. Why should they want it? Exciting or challenging projects, what it’s like to work for that company, and any benefits or perks available.
+      \n3. Are they qualified? Skills & experience needed for success.`,
       jobDisclaimer: "Job Disclaimer",
       byEnablingRecurring:
         " By enabling this option, the job will be reposted automatically every three days. Please only use this option for jobs that you are continuously recruiting for. This option will make this job seem like it has recently been posted until you opt-out.",
