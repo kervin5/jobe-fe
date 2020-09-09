@@ -47,7 +47,10 @@ const CronJobToggle = ({ jobId, disabled, checked }) => {
               checked={checked}
               onChange={async (e, data) => await toggleCronTaskMutation()}
             />
-            <InformationButton />
+            <InformationButton
+              title={appText.messages.attention}
+              message={appText.messages.job.byEnablingRecurring}
+            />
           </>
         );
       }}

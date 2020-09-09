@@ -267,6 +267,10 @@ export default {
       jobAuthor: "Autor",
       jobDescription: "Descripción",
       jobDisclaimer: "Términos o Descargo de Responsabilidad",
+      jobDescriptionTips: `A good job description helps answer these questions for potential candidates applying.
+      \n1. What is the job? The roles responsibilities and how it fits into the organization.
+      \n2. Why should they want it? Exciting or challenging projects, what it’s like to work for that company, and any benefits or perks available.
+      \n3. Are they qualified? Skills & experience needed for success.`,
       byEnablingRecurring:
         " Al activar esta opción, el puesto de trabajo sera actualizado cada 3 dias. Por favor utiliza esta opción solo para puestos que constantemente estan contratando. Esta opción hara que el puesto aparezca como que ha sido recietemente publicado",
     },

@@ -1,8 +1,7 @@
 import React from "react";
 import { Message, Button } from "semantic-ui-react";
-import appText from "@/lang/appText";
 
-const InformationButton = () => {
+const InformationButton = ({ message, title }) => {
   return (
     <div className="InformationButton">
       <Button
@@ -15,8 +14,8 @@ const InformationButton = () => {
       />
       <div className="InformationButtonMessage">
         <Message color="yellow">
-          <Message.Header>{appText.messages.attention}!</Message.Header>
-          <p>{appText.messages.job.byEnablingRecurring}</p>
+          <Message.Header>{title}!</Message.Header>
+          <p>{message}</p>
         </Message>
       </div>
       <style jsx>{`

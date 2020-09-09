@@ -188,7 +188,10 @@ const CreateJobForm = () => {
                   label={appText.messages.job.jobRecurring}
                   onChange={handleInputChange}
                 />
-                <InformationButton />
+                <InformationButton
+                  title={appText.messages.attention}
+                  message={appText.messages.job.byEnablingRecurring}
+                />
               </div>
 
               <LocationInput
@@ -290,7 +293,15 @@ const CreateJobForm = () => {
               <RichTextEditor
                 name="jobDescription"
                 onChange={handleInputChange}
-                label={appText.messages.job.jobDescription}
+                label={
+                  <>
+                    {appText.messages.job.jobDescription}
+                    <InformationButton
+                      title={appText.messages.attention}
+                      message={appText.messages.job.jobDescriptionTips}
+                    />
+                  </>
+                }
                 error={errors.jobDescription ? true : false}
               />
 
