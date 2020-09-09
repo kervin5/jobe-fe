@@ -21,7 +21,7 @@ const StyledToolbar = styled.div`
   }
 `;
 
-const CompaniesTable = ({
+const TableGraphqlWithQuery = ({
   dataQuery,
   countQuery,
   rowFormat,
@@ -110,6 +110,7 @@ const CompaniesTable = ({
                   query: dataQuery,
                   ...countVariables,
                 }}
+                rowFormat={rowFormat}
               />
             </StyledToolbar>
           </>
@@ -119,5 +120,5 @@ const CompaniesTable = ({
   );
 };
 
-export default CompaniesTable;
+export default TableGraphqlWithQuery;
 // };
