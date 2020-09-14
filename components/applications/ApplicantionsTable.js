@@ -118,9 +118,10 @@ const ApplicationsTable = (props) => {
           <Link
             href={"/admin/applications/[aid]"}
             as={"/admin/applications/" + application.id}
+            target="_blank"
             passHref
           >
-            <Button as="a" icon="eye" color="green" />
+            <Button as="a" icon="eye" color="green" target="_blank" />
           </Link>
         ),
       })}
