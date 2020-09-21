@@ -13,7 +13,6 @@ import JobListingBody from "./JobListingBody";
 import appText from "@/lang/appText";
 
 const StyledJobListing = styled.div`
-  border: 1px solid blue;
   .Labels {
     margin-top: 30px;
   }
