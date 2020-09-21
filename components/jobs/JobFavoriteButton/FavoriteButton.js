@@ -1,5 +1,5 @@
 import React from "react";
-import { Query } from "@apollo/react-components";
+import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import styled from "styled-components";
 import AddFavoriteButton from "./AddFavoriteButton";
@@ -27,6 +27,18 @@ export const StyledAnimatedButton = styled.div`
   }
 `;
 
+const StyledFavoriteButtonWrapper = styled.div`
+  &.FavoriteButtonWrapper {
+    display: flex;
+    min-width: 116px;
+    min-height: 34px;
+
+    .button {
+      height: 38px;
+    }
+  }
+`;
+
 export const USER_FAVORITE_STATUS_QUERY = gql`
   query USER_FAVORITE_STATUS_QUERY($jobId: String!) {
     me {
@@ -42,42 +54,30 @@ export const USER_FAVORITE_STATUS_QUERY = gql`
 `;
 
 const favoriteButtonWrapper = (props) => {
+  const { error, loading, data } = useQuery(USER_FAVORITE_STATUS_QUERY, {
+    variables: { jobId: props.jobId },
+  });
+
+  if (error) return <AddFavoriteButton show={true} />;
+  // if (loading) return <p>Loading...</p>;
+  let touched = data?.me?.favorites?.length > 0;
   return (
-    <Query
-      query={USER_FAVORITE_STATUS_QUERY}
-      variables={{ jobId: props.jobId }}
-    >
-      {({ error, loading, data }) => {
-        if (error) return <AddFavoriteButton show={true} />;
-        // if (loading) return <p>Loading...</p>;
-        let touched = data?.me?.favorites?.length > 0;
-        return (
-          <div className="FavoriteButtonWrapper">
-            <TransitionGroup>
-              <RemoveFavoriteButton
-                jobId={props.jobId}
-                show={touched}
-                count={props.count}
-                loading={loading}
-              />
-              <AddFavoriteButton
-                jobId={props.jobId}
-                show={!touched}
-                count={props.count}
-                loading={loading}
-              />
-            </TransitionGroup>
-            <style jsx>{`
-              .FavoriteButtonWrapper {
-                display: flex;
-                min-width: 116px;
-                min-height: 34px;
-              }
-            `}</style>
-          </div>
-        );
-      }}
-    </Query>
+    <StyledFavoriteButtonWrapper className="FavoriteButtonWrapper">
+      <TransitionGroup>
+        <RemoveFavoriteButton
+          jobId={props.jobId}
+          show={touched}
+          count={props.count}
+          loading={loading}
+        />
+        <AddFavoriteButton
+          jobId={props.jobId}
+          show={!touched}
+          count={props.count}
+          loading={loading}
+        />
+      </TransitionGroup>
+    </StyledFavoriteButtonWrapper>
   );
 };
 

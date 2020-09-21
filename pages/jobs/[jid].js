@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import variables from "@/common/globalVariables";
-import SingleJobListing from "@/components/jobs/JobListing/SingleJobListing";
+import JobListingQuery from "@/components/jobs/JobListing/JobListingQuery";
 import { getJobsFromAPI, getJob } from "@/lib/backend";
 
 import PageSection from "@/common/Layout/PageSection";
@@ -20,7 +20,7 @@ const SingleJobView = (props) => {
   return (
     <PageSection styles={pageStyles} nopadding column>
       <div className="JobContainer">
-        <SingleJobListing
+        <JobListingQuery
           jobData={props.jobData}
           jobId={extractJobId(jobId ?? props.query.jid)}
           countView

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Mutation, Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import { Loader } from "semantic-ui-react";
-import RegisterToApplyButton from "./RegisterToApplyButton";
-import Button from "./Button";
+import RegisterToApplyButton from "../common/UI/RegisterToApplyButton";
+import Button from "../common/UI/Button";
 import appText from "@/lang/appText";
 
 const APPLY_TO_JOB_MUTATION = gql`

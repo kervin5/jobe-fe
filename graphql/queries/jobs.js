@@ -14,6 +14,7 @@ export const SINGLE_JOB_QUERY = gql`
       createdAt
       updatedAt
       views
+      permalink
       applications(orderBy: { createdAt: desc }) {
         id
         createdAt

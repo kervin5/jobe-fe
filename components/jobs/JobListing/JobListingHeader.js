@@ -1,28 +1,60 @@
 import React from "react";
-import variables from "@/common/globalVariables";
+import styled from "styled-components";
+import Flex from "@/common/UI/Flex";
 import Bubble from "@/common/UI/Bubble";
 import Icon from "@/common/UI/Icon";
 import Title from "@/common/UI/Title";
 import FavoriteButton from "../JobFavoriteButton/FavoriteButton";
 import PrompToRegister from "@/components/users/PrompToRegister";
-import Translator from "@/components/hoc/Translator";
+import Translator, { ListOfLanguages } from "@/common/UI/Translator/Translator";
 import JobCompensationBubbles from "../JobCompensationBubbles";
 import JobPerksBubbles from "../JobPerksBubbles";
 
-const jobListingTitleStyles = `color: ${variables.lightColor};`;
-const JobListingLocationStyles = `color: ${variables.lightColor}; opacity: 0.7;`;
+const StyledJobListingHeader = styled.div`
+  &.JobListingHeader {
+    width: 100%;
+    padding: 0 40px;
+    z-index: 800;
+    position: relative;
+  }
+
+  .JobListingMeta {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    & > * {
+      margin-bottom: 10px;
+    }
+  }
+
+  .JobListingHeaderBar {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  @media only screen and (max-width: 520px) {
+    .JobListingHeader {
+      width: 100%;
+      padding: 40px 40px;
+      border-top-right-radius: 0px;
+      border-top-left-radius: 0px;
+    }
+
+    .JobListingHeader p {
+      padding-bottom: 30px;
+    }
+  }
+`;
 
 const JobListingHeader = (props) => (
-  <div className="JobListingHeader" data-test="job-listing-header">
-    <Title size={"l"} styles={jobListingTitleStyles} data-test="title-section">
+  <StyledJobListingHeader className="JobListingHeader">
+    <Title size={"xl"} className="JobTitle">
       <Translator>{props.title}</Translator>
     </Title>
-    <Title
-      size={"m"}
-      styles={JobListingLocationStyles}
-      weight="400"
-      data-test="location-section"
-    >
+    <Title size={"m"} weight="400" data-test="location-section">
       <Icon icon="map marker alternate" />{" "}
       <Translator>{props.location}</Translator>
     </Title>
@@ -41,53 +73,16 @@ const JobListingHeader = (props) => (
         )}
         {props.showPerks && <JobPerksBubbles perks={props.perks} />}
       </div>
+    </div>
+    <Flex justify="space-between">
+      <ListOfLanguages />
       {props.hideFavoriteButton ? null : (
         <PrompToRegister>
           <FavoriteButton jobId={props.jobId} count={props.favoritesCount} />
         </PrompToRegister>
       )}
-    </div>
-    <style jsx>{`
-      .JobListingHeader {
-        width: 100%;
-
-        padding: 40px;
-        background-color: ${variables.accentColor2};
-        border-top-right-radius: 30px;
-        border-top-left-radius: ${variables.roundedRadius};
-        z-index: 800;
-        position: relative;
-      }
-
-      .JobListingMeta {
-        display: flex;
-        flex-wrap: wrap;
-      }
-
-      .JobListingMeta :global(> *) {
-        margin-bottom: 10px;
-      }
-
-      .JobListingHeaderBar {
-        display: flex;
-        justify-content: space-between;
-        position: relative;
-      }
-
-      @media only screen and (max-width: 520px) {
-        .JobListingHeader {
-          width: 100%;
-          padding: 40px 40px;
-          border-top-right-radius: 0px;
-          border-top-left-radius: 0px;
-        }
-
-        .JobListingHeader p {
-          padding-bottom: 30px;
-        }
-      }
-    `}</style>
-  </div>
+    </Flex>
+  </StyledJobListingHeader>
 );
 
 export default JobListingHeader;

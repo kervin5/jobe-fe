@@ -4,7 +4,7 @@ import Button from "./Button";
 import PopUp from "./PopUp";
 import AuthForm from "@/components/users/AuthForm";
 import ResumeUploadForm from "../../resumes/ResumeUploadForm";
-import { CHECK_USER_APPLICATION_STATUS_QUERY } from "./ApplyToJobButton";
+import { CHECK_USER_APPLICATION_STATUS_QUERY } from "../../jobs/ApplyToJobButton";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
 import appText from "@/lang/appText";
 

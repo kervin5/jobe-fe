@@ -8,7 +8,7 @@ import Icon from "@/common/UI/Icon";
 import Card from "@/common/UI/Card";
 import sanitize from "@/lib/html";
 
-import Translator from "@/components/hoc/Translator";
+import Translator from "@/common/UI/Translator/Translator";
 import { numberWithCommas } from "@/components/jobs/JobCompensationBubbles";
 import JobPerksBubbles from "@/components/jobs/JobPerksBubbles";
 import { currency } from "@/root/config";
