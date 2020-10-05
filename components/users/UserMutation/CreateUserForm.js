@@ -1,62 +1,128 @@
-import { gql } from "@apollo/client";
-import Form from "@/common/UI/Form";
+import React, { useEffect, useState } from "react";
+import { useMutation } from "@apollo/client";
+import { Form, Button, Loader, Message } from "semantic-ui-react";
+import { useForm } from "react-hook-form";
+import ErrorMessage from "@/common/UI/ErrorMessage";
+import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
+import BranchesAccessPanel from "@/components/access/branches/BranchesAccessPanel";
 
-const CREATE_USER_MUTATION = gql`
-  mutation CREATE_USER_MUTATION(
-    $email: String!
-    $name: String!
-    $role: ID!
-    $branch: ID!
-  ) {
-    createUser(name: $name, email: $email, role: $role, branch: $branch) {
-      id
-      email
-    }
-  }
-`;
+import appText from "@/lang/appText";
 
-const ROLES_QUERY = gql`
-  query ROLES_QUERY {
-    roles {
-      id
-      name
-    }
-  }
-`;
+import { CREATE_USER_MUTATION } from "@/graphql/mutations/users";
 
-const BRANCHES_QUERY = gql`
-  query BRANCHES_QUERY {
-    branches {
-      id
-      name
-    }
-  }
-`;
+const CreatUserForm = () => {
+  const [updateUserMutation, mutationState] = useMutation(CREATE_USER_MUTATION);
+  useEffect(() => {
+    register({ name: "name" }, { required: true });
+    register({ name: "email" }, { required: true });
+    register({ name: "branch" }, { required: true });
+    register({ name: "role" }, { required: true });
+  }, []);
 
-const CreateUserForm = () => {
-  const fields = {
-    name: {
-      type: "text",
-      placeholder: "Jhon Doe",
-      validation: {}
-    },
-    email: {
-      type: "email",
-      placeholder: "recruiter@example.com"
-    },
-    branch: {
-      type: "dropdown",
-      placeholder: "Please select a branch",
-      options: { query: BRANCHES_QUERY, label: "name", value: "id" }
-    },
-    role: {
-      type: "dropdown",
-      placeholder: "Please select a role",
-      options: { query: ROLES_QUERY, label: "name", value: "id" }
-    }
+  const { register, errors, handleSubmit, setValue } = useForm();
+
+  const [touchedFields, setTouchedFields] = useState({});
+
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
+    await updateUserMutation({
+      variables: { ...data },
+    });
   };
 
-  return <Form fields={fields} graphql mutation={CREATE_USER_MUTATION} />;
+  const handleInputChange = async (e, { name, value }, customField) => {
+    setValue(name, value, { shouldValidate: true });
+    setTouchedFields({ ...touchedFields, [name]: value });
+  };
+
+  return (
+    <>
+      <Form
+        onSubmit={handleSubmit((data, event) => onSubmit(touchedFields, event))}
+        size={"large"}
+        loading={mutationState.loading}
+      >
+        <ErrorMessage error={mutationState.error} />
+
+        {mutationState.data && (
+          <Message
+            color="green"
+            header="Success"
+            content="The user was created"
+          />
+        )}
+
+        <Form.Input
+          name="name"
+          fluid
+          label={appText.objects.name.singular}
+          placeholder="Jhon Doe"
+          onChange={handleInputChange}
+          error={errors.name ? true : false}
+        />
+
+        <Form.Input
+          name="email"
+          fluid
+          label={appText.objects.email.singular}
+          placeholder="Warehouse Manager"
+          onChange={handleInputChange}
+          error={errors.email ? true : false}
+        />
+
+        <DropdownGraphqlInput
+          onChange={handleInputChange}
+          name="branch"
+          label={appText.objects.branch.singular}
+          placeholder={appText.messages.validation.select}
+          graphql={{
+            query: `query BRANCHES_QUERY {
+              branches {
+                id
+                name
+              }
+            }`,
+          }}
+          error={errors.branch ? true : false}
+        />
+
+        <DropdownGraphqlInput
+          onChange={handleInputChange}
+          name="role"
+          label={appText.objects.role.singular}
+          placeholder={appText.messages.validation.select}
+          graphql={{
+            query: `  query ROLES_QUERY {
+              roles {
+                id
+                name
+              }
+            }`,
+          }}
+          error={errors.role ? true : false}
+        />
+        <BranchesAccessPanel selected={[]} onChange={handleInputChange} />
+        <Button.Group widths="2">
+          {/* <Button
+            type="button"
+            size="big"
+            onClick={() => Router.push("/admin/jobs")}
+          >
+            {appText.actions.cancel}
+          </Button> */}
+          <Button
+            type="submit"
+            size="big"
+            positive
+            loading={mutationState.loading}
+            disabled={mutationState.loading}
+          >
+            {appText.actions.save}
+          </Button>
+        </Button.Group>
+      </Form>
+    </>
+  );
 };
 
-export default CreateUserForm;
+export default CreatUserForm;

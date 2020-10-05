@@ -1,14 +1,14 @@
 import React from "react";
 import { useRouter } from "next/router";
 import variables from "@/common/globalVariables";
-import SingleJobListing from "@/components/jobs/JobListing/SingleJobListing";
+import JobListingQuery from "@/components/jobs/JobListing/JobListingQuery";
 import { getJobsFromAPI, getJob } from "@/lib/backend";
 
 import PageSection from "@/common/Layout/PageSection";
 
 const pageStyles = `background-color:${variables.mutedColor1};`;
 
-const SingleJobView = props => {
+const SingleJobView = (props) => {
   const router = useRouter();
   const { jid } = router.query;
   const jobId = extractJobId(jid);
@@ -20,7 +20,7 @@ const SingleJobView = props => {
   return (
     <PageSection styles={pageStyles} nopadding column>
       <div className="JobContainer">
-        <SingleJobListing
+        <JobListingQuery
           jobData={props.jobData}
           jobId={extractJobId(jobId ?? props.query.jid)}
           countView
@@ -48,7 +48,7 @@ const SingleJobView = props => {
 
 export async function getStaticPaths() {
   const jobs = await getJobsFromAPI();
-  const jobsPaths = jobs.map(job => {
+  const jobsPaths = jobs.map((job) => {
     const jobPath = `${job.title.replace(
       /[\W_]+/g,
       "-"
@@ -57,7 +57,7 @@ export async function getStaticPaths() {
   });
   return {
     paths: jobsPaths,
-    fallback: true // See the "fallback" section below
+    fallback: true, // See the "fallback" section below
   };
 }
 

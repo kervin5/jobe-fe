@@ -3,17 +3,18 @@ import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import Title from "@/common/UI/Title";
 import { SINGLE_JOB_QUERY } from "@/graphql/queries/jobs";
+import appText from "@/lang/appText";
 
 const StyledJobStatuHeader = styled.div`
   margin-bottom: 30px;
 
   .posted {
-    color: ${props => props.theme.accentColor1};
+    color: ${(props) => props.theme.accentColor1};
   }
 
   .pending,
   .draft {
-    color: ${props => props.theme.accentColor2};
+    color: ${(props) => props.theme.accentColor2};
   }
 
   .JobStatusHeader__StatusIndicator {
@@ -23,13 +24,13 @@ const StyledJobStatuHeader = styled.div`
 
 const JobStatusHeader = ({ jobId }) => {
   const { error, loading, data } = useQuery(SINGLE_JOB_QUERY, {
-    variables: { id: jobId }
+    variables: { id: jobId },
   });
 
   return (
     <StyledJobStatuHeader className="JobStatusHeader">
       <Title size="l">
-        Status:{" "}
+        {appText.objects.status.singular}:{" "}
         <span
           className={`JobStatusHeader__StatusIndicator ${statusClass(
             data?.job.status ?? "loading"

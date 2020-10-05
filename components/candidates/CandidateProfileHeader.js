@@ -52,16 +52,18 @@ const StyledUserProfileHeader = styled.div`
 `;
 
 const UserProfileHeader = ({ userId }) => {
-  const [userLocation, setUserLocation] = useState("Loading");
+  const [userLocation, setUserLocation] = useState("");
   const userQuery = queryToUse(userId);
   const { error, loading, data } = useQuery(userQuery.query, {
     variables: userQuery.variables,
   });
 
   useEffect(() => {
-    new UserLocator().getLocation().then((res) => {
-      setUserLocation(res.name);
-    });
+    if (!userId) {
+      new UserLocator().getLocation().then((res) => {
+        setUserLocation(res.name);
+      });
+    }
   }, []);
 
   const userData = data?.me ?? data?.user;
@@ -91,7 +93,7 @@ const UserProfileHeader = ({ userId }) => {
               <UserCategories userId={userData.id} location={userLocation} />
             )}
             <p>
-              <strong>{userLocation}</strong>
+              <strong>{userData?.location?.name ?? userLocation}</strong>
             </p>
           </div>
           <div></div>

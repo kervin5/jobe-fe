@@ -1,8 +1,6 @@
 import React from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "@apollo/client";
-import Icon from "@/common/UI/Icon";
-import variables from "@/common/globalVariables";
 import { USER_FAVORITE_STATUS_QUERY } from "./FavoriteButton";
 import { CSSTransition } from "react-transition-group";
 import { Button } from "semantic-ui-react";

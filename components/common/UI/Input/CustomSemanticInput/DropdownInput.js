@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Dropdown, Message } from "semantic-ui-react";
+import { Dropdown, Message, Label } from "semantic-ui-react";
+import appText from "@/lang/appText";
 
 const LocationInput = ({
   placeholder,
@@ -17,12 +18,14 @@ const LocationInput = ({
   additionWarning,
   additionLabel,
   minWidth,
-  size,
+  fluid,
+  size
 }) => {
   const [customOptions, setCustomOptions] = useState([]);
   const handleAddition = (e, { value }) => {
     setCustomOptions([...customOptions, { text: value, value: value }]);
   };
+
   return (
     <div
       className={`DropdownInput field ${error ? "error" : ""} ${
@@ -34,7 +37,7 @@ const LocationInput = ({
         loading={loading}
         id={name}
         placeholder={placeholder}
-        fluid
+        fluid={fluid}
         search
         selection
         onAddItem={handleAddition}
@@ -48,6 +51,13 @@ const LocationInput = ({
         allowAdditions={allowAdditions}
         size={size}
       />
+      {error && (
+        <Label basic color="red" pointing>
+          {error?.type === "required"
+            ? appText.messages.validation.required
+            : error.message}
+        </Label>
+      )}
       {!!additionWarning && !!customOptions.length && (
         <Message color="yellow">
           <p>

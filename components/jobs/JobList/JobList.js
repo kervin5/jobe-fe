@@ -21,7 +21,7 @@ const jobList = (props) => {
     elementToRender = jobs.map((job) => {
       return (
         <JobListItem
-          key={job.id}
+          key={job.id + new Date()}
           title={job.title}
           description={job.description}
           location={job.location}

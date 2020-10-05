@@ -7,7 +7,7 @@ const CustomTextArea = ({
   error,
   onChange,
   name,
-  defaultValue
+  defaultValue,
 }) => {
   return (
     <div className={`field ${error ? "error" : ""}`}>
@@ -24,7 +24,7 @@ const CustomTextArea = ({
 
 CustomTextArea.defalutProps = {
   label: "",
-  placeholder: ""
+  placeholder: "",
 };
 
 export default CustomTextArea;

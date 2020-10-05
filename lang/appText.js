@@ -5,5 +5,5 @@ const languages = {
   en,
   es,
 };
-const language = process.env.NEXT_PUBLIC_LANGUAGE ?? "en";
+export const language = process.env.NEXT_PUBLIC_LANGUAGE ?? "en";
 export default languages[language];

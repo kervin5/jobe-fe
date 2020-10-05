@@ -33,7 +33,7 @@ const JobApplication = (props) => {
 
             Body .button{
                 width: 50%;
-                color: ${variables.clearColor};
+                color: ${variables.lightColor};
                 float: right;
             }
 
@@ -68,7 +68,7 @@ const JobApplication = (props) => {
                   
                 .Body button{
                     width: 100%;
-                    color:${variables.clearColor};
+                    color:${variables.lightColor};
                     float: right;
                 }
 

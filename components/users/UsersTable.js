@@ -4,7 +4,7 @@ import { gql } from "@apollo/client";
 import { Input, Button } from "semantic-ui-react";
 import { take } from "@/root/config";
 import appText from "@/lang/appText";
-import Table from "@/common/UI/Table";
+import Table from "@/common/UI/Tables/Table";
 import UserActionButtons from "./UserActionButtons/UserActionButtons";
 import Link from "next/link";
 // import Button from "@/common/UI/Button";

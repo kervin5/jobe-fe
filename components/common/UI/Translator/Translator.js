@@ -4,6 +4,7 @@ import axios from "axios";
 import { Select } from "semantic-ui-react";
 import HtmlRenderer from "@/common/UI/HtmlRenderer";
 import applicationContext from "@/context/applicationContext";
+import { systemLanguage } from "@/root/config";
 
 const Translator = ({ children }) => {
   const { language, setLanguage } = React.useContext(applicationContext);
@@ -13,12 +14,12 @@ const Translator = ({ children }) => {
     if (!!localStorage && localStorage["k-jobboard-system-custom-lang"]) {
       setLanguage(localStorage["k-jobboard-system-custom-lang"]);
     } else {
-      setLanguage("en");
+      setLanguage(language);
     }
   }, []);
 
   useEffect(() => {
-    if (language !== "en") {
+    if (language !== systemLanguage) {
       axios
         .post("/api/translate", {
           url: `https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&To=${language}`,

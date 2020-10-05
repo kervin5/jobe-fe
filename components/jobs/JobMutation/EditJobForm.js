@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Mutation, Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import { Form, Button, Loader } from "semantic-ui-react";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Router from "next/router";
 import ErrorMessage from "@/common/UI/ErrorMessage";
 import LocationInput from "@/common/UI/Input/CustomSemanticInput/LocationInput";
@@ -11,7 +11,13 @@ import RichTextEditor from "@/common/UI/Input/CustomSemanticInput/RichTextEditor
 import TextArea from "@/common/UI/Input/CustomSemanticInput/TextArea";
 import AuthorDropdown from "@/common/UI/Input/CustomSemanticInput/AuthorDropdown";
 import Title from "@/common/UI/Title";
+import InformationButton from "@/common/UI/InformationButton";
 import CronJobToggle from "@/components/jobs/JobMutation/CronJobToggle";
+import {
+  compensationTypeOptions,
+  jobTypeOptions,
+  validateMinSelectedOptions,
+} from "./CreateJobForm";
 import appText from "@/lang/appText";
 
 const SINGLE_JOB_ALL_DATA_QUERY = gql`
@@ -92,19 +98,6 @@ const UPDATE_JOB_MUTATION = gql`
   }
 `;
 
-const compensationTypeOptions = [
-  { key: "hourly", text: "Hourly", value: "Hourly" },
-  { key: "salary", text: "Salary", value: "Salary" },
-  { key: "doe", text: "DOE", value: "DOE" },
-];
-
-const jobTypeOptions = [
-  { key: "fulltime", text: "Full-Time", value: "Full-Time" },
-  { key: "parttime", text: "Part-Time", value: "Part-Time" },
-  { key: "temp", text: "Temp", value: "Temp" },
-  { key: "perdiem", text: "Per Diem", value: "Per Diem" },
-];
-
 const EditJobForm = ({ data, jobId }) => {
   useEffect(() => {
     register({ name: "jobTitle", value: data.title }, { required: true });
@@ -134,8 +127,11 @@ const EditJobForm = ({ data, jobId }) => {
       { required: true }
     );
     register(
-      { name: "jobPerkss", value: data.perks.map((perk) => perk.id) },
-      { required: true }
+      { name: "jobPerks", value: data.perks.map((perk) => perk.id) },
+      {
+        validate: (value) =>
+          validateMinSelectedOptions(value, 3, appText.objects.perk.plural),
+      }
     );
     register({ name: "jobAuthor", value: data.author.id });
     register(
@@ -146,13 +142,7 @@ const EditJobForm = ({ data, jobId }) => {
     // register({ name: "jobIsRecurring" });
   }, []);
 
-  const {
-    register,
-    errors,
-    handleSubmit,
-    setValue,
-    triggerValidation,
-  } = useForm();
+  const { register, errors, handleSubmit, setValue } = useForm();
 
   const [touchedFields, setTouchedFields] = useState({});
 
@@ -184,9 +174,8 @@ const EditJobForm = ({ data, jobId }) => {
   };
 
   const handleInputChange = async (e, { name, value }) => {
-    setValue(name, value);
+    setValue(name, value, { shouldValidate: true });
     setTouchedFields({ ...touchedFields, [name]: value });
-    await triggerValidation({ name });
   };
 
   return (
@@ -221,7 +210,7 @@ const EditJobForm = ({ data, jobId }) => {
               <LocationInput
                 name="jobLocation"
                 onChange={handleInputChange}
-                error={errors.jobLocation ? true : false}
+                error={errors.jobLocation}
                 defaultValue={data.location.name}
               />
               <Form.Group widths="equal">
@@ -267,7 +256,7 @@ const EditJobForm = ({ data, jobId }) => {
                 graphql={{
                   query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name: {contains: $query}}) { id name } }`,
                 }}
-                error={errors.jobCategories ? true : false}
+                error={errors.jobCategories}
                 defaultValue={data.categories.map((category) => category.id)}
               />
               <Form.Select
@@ -289,7 +278,7 @@ const EditJobForm = ({ data, jobId }) => {
                 graphql={{
                   query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
                 }}
-                error={errors.jobSkills ? true : false}
+                error={errors.jobSkills}
                 defaultValue={data.skills.map((skill) => skill.id)}
               />
 
@@ -302,7 +291,7 @@ const EditJobForm = ({ data, jobId }) => {
                 graphql={{
                   query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
                 }}
-                error={errors.jobPerks ? true : false}
+                error={errors.jobPerks}
                 defaultValue={data.perks.map((perk) => perk.id)}
                 allowAdditions
                 additionLabel={`${appText.actions.create}: `}
@@ -314,14 +303,22 @@ const EditJobForm = ({ data, jobId }) => {
                 name="jobAuthor"
                 label={appText.messages.job.jobAuthor}
                 placeholder={appText.messages.validation.select}
-                error={errors.jobAuthor ? true : false}
+                error={errors.jobAuthor}
                 defaultValue={data.author.id}
               />
 
               <RichTextEditor
                 name="jobDescription"
                 onChange={handleInputChange}
-                label={appText.messages.job.jobDescription}
+                label={
+                  <>
+                    {appText.messages.job.jobDescription}
+                    <InformationButton
+                      title={appText.messages.attention}
+                      message={appText.messages.job.jobDescriptionTips}
+                    />
+                  </>
+                }
                 error={errors.jobDescription ? true : false}
                 defaultValue={data.description}
               />

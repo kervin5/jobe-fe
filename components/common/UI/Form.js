@@ -12,28 +12,28 @@ const Form = ({
   buttonText,
   onSubmit,
   extraVariables,
-  refetchQueries
+  refetchQueries,
 }) => {
   const [formId, setFormId] = useState(generateFormId());
   const [formFields, setFomFields] = useState({ ...fields });
   const [variables, setVariables] = useState(null);
-  const handleFieldChange = async field => {
+  const handleFieldChange = async (field) => {
     if (!field.disabled) {
       setVariables({
         ...variables,
-        [field.name]: field.value
+        [field.name]: field.value,
       });
     }
   };
 
-  const handleGraphqlFormSubmit = async mutation => {
+  const handleGraphqlFormSubmit = async (mutation) => {
     const res = await mutation();
     setVariables(null);
     setFomFields({ ...fields });
     setFormId(generateFormId());
   };
 
-  const handleFormSubmit = async e => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     onSubmit(variables);
   };
@@ -45,11 +45,11 @@ const Form = ({
         {({ error, loading, data }) => {
           if (error) return <p>Something went wrong.</p>;
           if (loading) return <p>Loading...</p>;
-          const options = data[Object.keys(data)[0]].map(option => {
+          const options = data[Object.keys(data)[0]].map((option) => {
             return fieldData.options.hasOwnProperty("label")
               ? {
                   label: option[fieldData.options.label],
-                  value: option[fieldData.options.value]
+                  value: option[fieldData.options.value],
                 }
               : option[fieldData.options.value];
           });
@@ -104,7 +104,7 @@ const Form = ({
           );
 
         return (
-          <form method={method || "POST"} onSubmit={e => e.preventDefault()}>
+          <form method={method || "POST"} onSubmit={(e) => e.preventDefault()}>
             {!loading && !error && data && <p>Success!</p>}
             {fieldsToRenders}
             <Button
@@ -119,7 +119,7 @@ const Form = ({
       }}
     </Mutation>
   ) : (
-    <form method={method || "POST"} onSubmit={e => e.preventDefault()}>
+    <form method={method || "POST"} onSubmit={(e) => e.preventDefault()}>
       {fieldsToRenders}
       <Button fullWidth onClick={handleFormSubmit}>
         {buttonText || "Submit"}
@@ -130,7 +130,7 @@ const Form = ({
   return formToRender;
 };
 
-const upperCase = string => string[0].toUpperCase() + string.slice(1);
+const upperCase = (string) => string[0].toUpperCase() + string.slice(1);
 const generateFormId = () =>
   Math.random()
     .toString(36)
@@ -139,6 +139,4 @@ const generateFormId = () =>
     .toString(36)
     .substring(2, 15);
 
-export default React.memo(Form, (prevProps, nextProps) => {
-  return true;
-});
+export default Form;

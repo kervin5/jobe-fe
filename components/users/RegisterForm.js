@@ -17,10 +17,23 @@ const SIGNUP_USER = gql`
     $phone: String!
   ) {
     signup(email: $email, password: $password, name: $name, phone: $phone) {
-      id
-      role {
+      __typename
+      ... on User {
         id
-        name
+        email
+        role {
+          id
+          name
+          permissions {
+            object
+            actions
+          }
+        }
+      }
+
+      ... on GraphqlError {
+        type
+        message
       }
     }
   }
@@ -82,7 +95,7 @@ const registerForm = (props) => {
     if (email.valid && password.valid && name.valid) {
       const res = await signupUserMutation();
 
-      if (res.data.signup && !props.noredirect) {
+      if (res.data.signup?.["__typename"] === "User" && !props.noredirect) {
         // logInUser(res.data.signup);
         Router.push(
           res.data.signup.role.name !== "candidate"
@@ -137,8 +150,8 @@ const registerForm = (props) => {
         {(signupUser, { loading, error, called, data }) => {
           return (
             <>
-              <form>
-                <ErrorMessage error={error} />
+              <form onSubmit={(e) => e.preventDefault()}>
+                <ErrorMessage error={error} data={data} />
                 <fieldset disabled={loading} aria-busy={loading}>
                   {fieldsToRender}
                   <br />

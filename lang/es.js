@@ -12,6 +12,7 @@ export default {
     viewMore: "Ver Más",
     add: "Agregar",
     loading: "Cargando",
+    reviewing: "Revisando",
     cancel: "Cancelar",
     preview: "Ver",
     save: "Guardar",
@@ -25,6 +26,7 @@ export default {
     share: "Compartir",
     publish: "Publicar",
     download: "Descargar",
+    create: "Crear",
   },
 
   objects: {
@@ -59,7 +61,7 @@ export default {
     },
 
     name: {
-      singular: "Nombre Completo",
+      singular: "Nombre",
       plural: "Nombres",
     },
 
@@ -147,6 +149,38 @@ export default {
       singular: "Compensación",
       plural: "Compensaciones",
     },
+    view: {
+      singular: "Vista",
+      plural: "Vistas",
+    },
+    favorite: {
+      singular: "Favorito",
+      plural: "Favoritos",
+    },
+    company: {
+      singular: "Compania",
+      plural: "Companias",
+    },
+    activity: {
+      singular: "Actividad",
+      plural: "Actividades",
+    },
+    branch: {
+      singular: "Sucursal",
+      plural: "Sucursales",
+    },
+    role: {
+      singular: "Rol",
+      plural: "Roles",
+    },
+    reminder: {
+      singular: "Recordatorio",
+      plural: "Recordatorios",
+    },
+    option: {
+      singular: "Opcion",
+      plural: "Opciones",
+    },
   },
 
   adjectives: {
@@ -158,6 +192,17 @@ export default {
     pending: "pendiente",
     new: "nuevo",
     here: "aquí",
+    hourly: "Por Hora",
+    salary: "Mensual",
+    doe: "Depende de Experiencia",
+    fullTime: "Tiempo Completo",
+    partTime: "Medio Tiempo",
+    temp: "Temporal",
+    perDiem: "Por Día",
+    viewed: "Vistas",
+    contacted: "Contactados",
+    primary: "Principal",
+    active: "Activa",
   },
 
   pronouns: {
@@ -201,6 +246,10 @@ export default {
     amazingOpportunity: `Increibles carreras y oportunidades en @ ${companyInfo.name}`,
     opportunityOfYourDreams: "Encuentra la oportunidad de tus sueños",
     submitForApproval: "Submit for approval",
+    attention: "Atención",
+    recentActivity: "Actividad Reciente",
+    success: "Exito",
+    saved: "Los cambios fueron guardados",
     job: {
       latest: "Trabajos más recientes",
       recommended: "Trabajos recomendados",
@@ -218,6 +267,12 @@ export default {
       jobAuthor: "Autor",
       jobDescription: "Descripción",
       jobDisclaimer: "Términos o Descargo de Responsabilidad",
+      jobDescriptionTips: `A good job description helps answer these questions for potential candidates applying.
+      \n1. What is the job? The roles responsibilities and how it fits into the organization.
+      \n2. Why should they want it? Exciting or challenging projects, what it’s like to work for that company, and any benefits or perks available.
+      \n3. Are they qualified? Skills & experience needed for success.`,
+      byEnablingRecurring:
+        " Al activar esta opción, el puesto de trabajo sera actualizado cada 3 dias. Por favor utiliza esta opción solo para puestos que constantemente estan contratando. Esta opción hara que el puesto aparezca como que ha sido recietemente publicado",
     },
     account: {
       donthave: "¿No tienes una cuenta?",
@@ -249,6 +304,10 @@ export default {
         status
       ) => `Por favor asegurate de cambiar el estado de las solicitudes a  
         ${status} una vez que el candidato ya no este siendo considerado para un puesto para remover la solicitud de la lista de trabajo`,
+      applyNow: `Aplicar`,
+      applied: `Enviada`,
+      beforeApplying:
+        "Antes de enviar una solicitud para este puesto, necesitas crear una cuenta. Solo tomara unos minutos",
     },
 
     note: {
@@ -281,6 +340,7 @@ export default {
       enterTitle: "Ingresa un titulo",
       resumeSelected: "Hoja de vida seleccionada",
       resumeUploaded: "Hoja de vida subida",
+      justOneMoreStep: "Solo un paso más. Por favor sube tu CV más reciente",
     },
     validation: {
       required: "Esta campo es requerido",
@@ -294,8 +354,11 @@ export default {
       select: "Selecciona una opción",
       selectAllThatApply: "Selecciona toas las que apliquen",
       selectAtLeastOne: "Selecciona al menos una",
+      selectAtLeast: (numberOfOptions, optionsName = "opciones") =>
+        `Selecciona al menos ${numberOfOptions} ${optionsName}`,
       fileTypeNotValid: "Este tipo de documento es invalido, 😭",
       fileIsTooLarge: "El documento es muy grande",
+      enterDetails: "Ingrese los detalles",
     },
   },
 

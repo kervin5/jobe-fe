@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import { gql } from "@apollo/client";
-import { Query } from "@apollo/react-components";
+import React, { useState, useEffect } from "react";
+import { gql, useQuery } from "@apollo/client";
 import Dropdown from "./DropdownInput";
 
 const format = (records, { id, value, text }) => {
   if (!Array.isArray(records)) return [];
-  return records.map(record => ({
+  return records.map((record) => ({
     key: records[id],
     value: record[value],
-    text: record[text]
+    text: record[text],
   }));
 };
 
@@ -25,19 +24,31 @@ const DropdownGraphqlInput = ({
   additionLabel,
   additionWarning,
   minWidth,
-  nolabel
+  nolabel,
+  showAllOption,
+  fluid,
 }) => {
   const [query, setQuery] = useState("");
   const [fetchedOptions, setFetchedOptions] = useState([]);
   const propsError = error;
+  const fetchedData = useQuery(
+    gql`
+      ${graphql.query}
+    `,
+    { variables: { query } }
+  );
 
   const handleSearchChange = (e, { searchQuery }) => {
     // setQuery(searchQuery); TODO: Implement dynamic options fetch
   };
 
-  const handleChangeOfOptions = options => {
+  const handleChangeOfOptions = (options) => {
     if (options.length > 0) {
-      setFetchedOptions(options);
+      if (showAllOption) {
+        setFetchedOptions([{ id: "ALL", name: "All" }, ...options]);
+      } else {
+        setFetchedOptions(options);
+      }
     }
   };
 
@@ -46,51 +57,45 @@ const DropdownGraphqlInput = ({
     onChange(e, data);
   };
 
+  useEffect(() => {
+    if (fetchedData.data) {
+      handleChangeOfOptions(fetchedData.data[Object.keys(fetchedData.data)[0]]);
+    }
+  }, [fetchedData.data]);
+
+  if (fetchedData.error) return <p>Something failed...</p>;
+
   return (
-    <Query
-      query={gql`
-        ${graphql.query}
-      `}
-      variables={{ query }}
-    >
-      {({ error, loading, data }) => {
-        if (error) return <p>Something failed...</p>;
-        if (data) {
-          handleChangeOfOptions(data[Object.keys(data)[0]]);
-        }
-        return (
-          <Dropdown
-            multiple={multiple}
-            placeholder={placeholder}
-            onChange={onChangeHandler}
-            error={error}
-            name={name}
-            label={label}
-            loading={loading}
-            nolabel={nolabel}
-            onSearchChange={handleSearchChange}
-            options={format(fetchedOptions, {
-              id: "id",
-              value: "id",
-              text: "name"
-            })}
-            minWidth={minWidth}
-            error={propsError}
-            defaultValue={defaultValue}
-            allowAdditions={allowAdditions}
-            additionLabel={additionLabel}
-            additionWarning={additionWarning}
-          />
-        );
-      }}
-    </Query>
+    <Dropdown
+      multiple={multiple}
+      placeholder={placeholder}
+      onChange={onChangeHandler}
+      error={error}
+      name={name}
+      label={label}
+      fluid={fluid}
+      loading={fetchedData.loading}
+      nolabel={nolabel}
+      onSearchChange={handleSearchChange}
+      options={format(fetchedOptions, {
+        id: "id",
+        value: "id",
+        text: "name",
+      })}
+      minWidth={minWidth}
+      error={propsError}
+      defaultValue={defaultValue}
+      allowAdditions={allowAdditions}
+      additionLabel={additionLabel}
+      additionWarning={additionWarning}
+    />
   );
 };
 
 DropdownGraphqlInput.defaultProps = {
   placeholder: "Select a location",
   label: "Location",
-  allowAdditions: false
+  allowAdditions: false,
 };
 
 export default DropdownGraphqlInput;

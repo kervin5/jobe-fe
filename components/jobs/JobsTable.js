@@ -1,25 +1,21 @@
 import React, { useState, useEffect, memo } from "react";
 import Link from "next/link";
-import { Query } from "@apollo/react-components";
+
 import moment from "moment";
-import { Button, Input, Select, Icon, Label } from "semantic-ui-react";
-import { gql } from "@apollo/client";
-import { take } from "@/root/config";
-import Table, { OrderByHeader } from "@/common/UI/Table";
+import { Button, Icon, Label, Form } from "semantic-ui-react";
+import { OrderByHeader } from "@/common/UI/Tables/Table";
 import DeleteJobButton from "@/components/jobs/JobMutation/DeleteJobButton";
 import variables from "@/common/globalVariables";
-import { ALL_JOBS_GRID } from "@/graphql/queries/jobs";
+import { ALL_JOBS_GRID, JOBS_GRID_COUNT_QUERY } from "@/graphql/queries/jobs";
 import appText from "@/lang/appText";
-import DownloadCSVButton from "@/common/UI/DownloadCSVButton";
 
-const JOBS_GRID_COUNT_QUERY = gql`
-  query JOBS_GRID_COUNT_QUERY($query: String = "", $status: [String!]) {
-    jobsGridCount(query: $query, status: $status)
-  }
-`;
+////New imports
+import TableGraphql from "@/common/UI/Tables/TableGraphqlWithQuery";
+import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
 
-const allStatus = ["DRAFT", "POSTED", "EXPIRED", "PENDING"];
-const options = ["ALL", ...allStatus].map((stat, index) => ({
+const jobStatuses = ["DRAFT", "POSTED", "EXPIRED", "PENDING"];
+
+const statusOptions = jobStatuses.map((stat, index) => ({
   key: stat + index,
   text: stat,
   value: stat,
@@ -43,23 +39,17 @@ const CheckMark = ({ checked }) => {
 };
 
 const JobsTable = (props) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchValue, setSearchValue] = useState("");
   const [status, setStatus] = useState(props.status ?? "ALL");
-  const [orderBy, setOrderBy] = useState("author DESC");
+  const [branch, setBranch] = useState(props.branch ?? "ALL");
 
-  const handleTurnPage = (pageNumber) => {
-    setCurrentPage(parseInt(pageNumber));
+  const [orderBy, setOrderBy] = useState(`"Job"."createdAt" DESC`);
+
+  const statusChangeHandler = (status) => {
+    setStatus(status);
   };
 
-  const handleFieldChange = (e, field = "query") => {
-    if (field === "query") {
-      setSearchValue(e.target.value);
-    } else {
-      setStatus(e.value);
-    }
-
-    setCurrentPage(1);
+  const branchChangeHandler = (e, data) => {
+    setBranch(data.value);
   };
 
   useEffect(() => {
@@ -112,217 +102,152 @@ const JobsTable = (props) => {
         Perks
       </OrderByHeader>
     ),
-    updated: (
+    views: (
+      <OrderByHeader column="views" action={setOrderBy} activeColumn={orderBy}>
+        Views
+      </OrderByHeader>
+    ),
+    created: (
       <OrderByHeader
-        column={`"Job"."updatedAt"`}
+        column={`"Job"."createdAt"`}
         action={setOrderBy}
         activeColumn={orderBy}
       >
-        Updated
+        Created
       </OrderByHeader>
     ),
   };
-  const statusToFilter = status === "ALL" ? allStatus : [status];
+  const statusToFilter = status === "ALL" ? jobStatuses : [status];
+  const branchToFilter = branch === "ALL" ? undefined : branch;
+
   return (
-    <>
-      <Query
-        query={JOBS_GRID_COUNT_QUERY}
-        ssr={false}
-        variables={{
-          query: searchValue,
-          status: statusToFilter,
-        }}
-      >
-        {(userJobsData) => {
-          if (userJobsData.error) return <p>Something went wrong...</p>;
+    <TableGraphql
+      dataQuery={ALL_JOBS_GRID}
+      countQuery={JOBS_GRID_COUNT_QUERY}
+      rowFormat={formatTableRow}
+      variables={{ status: statusToFilter, branch: branchToFilter, orderBy }}
+      searchFilter={(value) => ({ query: value })}
+      headers={headers}
+      toolbar={
+        <>
+          <Form>
+            <Form.Group>
+              <Form.Select
+                label={appText.objects.status.singular}
+                placeholder="Job Status"
+                selection
+                options={[
+                  { key: "All", text: "All", value: "ALL" },
+                  ...statusOptions,
+                ]}
+                value={status}
+                onChange={(e, data) => statusChangeHandler(data.value)}
+              />
+              <DropdownGraphqlInput
+                onChange={branchChangeHandler}
+                name="branch"
+                label={appText.objects.branch.singular}
+                placeholder={appText.messages.validation.select}
+                showAllOption
+                defaultValue="ALL"
+                graphql={{
+                  query: `query BRANCHES_QUERY {
+            branchesByUser {
+              id
+              name
+            }
+          }`,
+                }}
+              />
+            </Form.Group>
+          </Form>
 
-          return (
-            <Query
-              query={ALL_JOBS_GRID}
-              variables={{
-                take,
-                skip: (currentPage - 1) * take,
-                query: searchValue,
-                orderBy,
-                status: statusToFilter,
-              }}
-              ssr={false}
-            >
-              {({ data, error, loading }) => {
-                if (error) return <p>Something Failed...</p>;
-
-                const dataForTable = data?.jobsGrid.map((job) => {
-                  return {
-                    ...job,
-                    location: job.location,
-                    updated: moment(job.updatedAt).format("MM/DD/YYYY"),
-                    branch: job.branch,
-                    recurring: <CheckMark checked={!!job.cronTask} />,
-                    cronTask: null,
-                  };
-                });
-
-                const jobsCount = userJobsData?.data?.jobsGridCount || 0;
-                return (
-                  <Table
-                    toolbar={
-                      <>
-                        <div>
-                          <Input
-                            icon="search"
-                            placeholder={appText.actions.search}
-                            onChange={(e) => handleFieldChange(e)}
-                          />
-                          <Select
-                            options={options}
-                            value={status}
-                            onChange={(e, data) =>
-                              handleFieldChange(data, "status")
-                            }
-                          />
-                        </div>
-                        <div>
-                          <DownloadCSVButton
-                            queryData={{
-                              query: ALL_JOBS_GRID,
-                              variables: {
-                                query: searchValue,
-                                orderBy,
-                                status: statusToFilter,
-                              },
-                            }}
-                          />
-                          <Link href="/admin/jobs/new" passHref>
-                            <Button positive as="a">
-                              {appText.actions.new +
-                                " " +
-                                appText.objects.job.singular}
-                            </Button>
-                          </Link>
-                        </div>
-                      </>
-                    }
-                    page={currentPage}
-                    loading={loading}
-                    count={jobsCount}
-                    take={take}
-                    turnPageHandler={handleTurnPage}
-                    headers={headers}
-                    data={injectActionsColumn(dataForTable, [
-                      {
-                        query: JOBS_GRID_COUNT_QUERY,
-                        variables: {
-                          query: searchValue,
-                          status: statusToFilter,
-                        },
-                      },
-                      {
-                        query: ALL_JOBS_GRID,
-                        variables: {
-                          take,
-                          skip: (currentPage - 1) * take,
-                          query: searchValue,
-                          orderBy,
-                          status: statusToFilter,
-                        },
-                      },
-                    ])}
-                    exclude={["updatedAt", "cronTask"]}
-                  />
-                );
-              }}
-            </Query>
-          );
-        }}
-      </Query>
-    </>
+          <Link href="/admin/jobs/new" passHref>
+            <Button positive as="a">
+              {appText.actions.new + " " + appText.objects.job.singular}
+            </Button>
+          </Link>
+        </>
+      }
+    />
   );
 };
 
-const injectActionsColumn = (data, refetchQueries) => {
-  if (!data) return null;
-  return data.map((record) => {
-    return {
-      ...record,
-
-      status: (
-        <p>
-          {record.status.toLowerCase()}
-          <style jsx>{`
-            p {
-              font-weight: bold;
-              color: ${record.status !== "POSTED"
-                ? variables.accentColor2
-                : variables.accentColor1};
-              text-transform: capitalize;
-            }
-          `}</style>
-        </p>
+function formatTableRow(job, refetchQueries) {
+  return {
+    title: job.title,
+    status: (
+      <p>
+        {job.status.toLowerCase()}
+        <style jsx>{`
+          p {
+            font-weight: bold;
+            color: ${job.status !== "POSTED"
+              ? variables.accentColor2
+              : variables.accentColor1};
+            text-transform: capitalize;
+          }
+        `}</style>
+      </p>
+    ),
+    author: job.author,
+    location: job.location,
+    views: job.views,
+    applications:
+      job.applications > 0 ? (
+        <Link
+          href={"/admin/jobs/[jid]/applications"}
+          as={"/admin/jobs/" + job.id + "/applications"}
+        >
+          <a>
+            {job.applications > 0 ? (
+              <Label
+                content={`${job.applications}`}
+                color={
+                  job.applications < 30
+                    ? "green"
+                    : job.applications < 40
+                    ? "yellow"
+                    : "red"
+                }
+              />
+            ) : (
+              <Label content={0} color="grey" />
+            )}
+          </a>
+        </Link>
+      ) : (
+        <Label content={job.applications} color="grey" />
       ),
-      applications:
-        record.applications > 0 ? (
-          <Link
-            href={"/admin/jobs/[jid]/applications"}
-            as={"/admin/jobs/" + record.id + "/applications"}
-          >
-            <a>
-              {record.applications > 0 ? (
-                <Label
-                  content={`${record.applications}`}
-                  color={
-                    record.applications < 30
-                      ? "green"
-                      : record.applications < 40
-                      ? "yellow"
-                      : "red"
-                  }
-                />
-              ) : (
-                <Label content={0} color="grey" />
-              )}
-            </a>
-          </Link>
-        ) : (
-          <Label content={record.applications} color="grey" />
-        ),
-      author: record.author,
-      actions: (
-        <Button.Group>
-          <Link {...getPreviewLink(record)}>
-            <Button
-              as="a"
-              icon="eye"
-              color={record.status !== "POSTED" ? "blue" : "green"}
-              href={getPreviewLink(record).as}
-            />
-          </Link>
-          <Link
-            href="/admin/jobs/[jid]/edit"
-            as={`/admin/jobs/${record.id}/edit`}
-          >
-            <Button
-              as="a"
-              icon="edit"
-              color="yellow"
-              href={`/admin/jobs/${record.id}/edit`}
-            />
-          </Link>
-          <DeleteJobButton jobId={record.id} refetchQueries={refetchQueries} />
-        </Button.Group>
-      ),
-    };
-  });
-};
-
+    perks: job.perks,
+    branch: job.branch,
+    created: moment(job.createdAt).format("MM/DD/YYYY"),
+    recurring: <CheckMark checked={!!job.cronTask} />,
+    actions: (
+      <Button.Group>
+        <Link {...getPreviewLink(job)}>
+          <Button
+            as="a"
+            icon="eye"
+            color={job.status !== "POSTED" ? "blue" : "green"}
+            href={getPreviewLink(job).as}
+          />
+        </Link>
+        <Link href="/admin/jobs/[jid]/edit" as={`/admin/jobs/${job.id}/edit`}>
+          <Button
+            as="a"
+            icon="edit"
+            color="yellow"
+            href={`/admin/jobs/${job.id}/edit`}
+          />
+        </Link>
+        <DeleteJobButton jobId={job.id} refetchQueries={refetchQueries} />
+      </Button.Group>
+    ),
+  };
+}
 const getPreviewLink = (job) => {
-  // if (job.status !== "POSTED") {
-  //   return {
-  //     href: "/admin/jobs/[jid]",
-  //     as: `/admin/jobs/${job.id}/preview`
-  //   };
-  // } else {
   return { href: "/admin/jobs/[jid]", as: `/admin/jobs/${job.id}` };
-  // }
 };
 
 export default memo(JobsTable, (prevProps, newProps) => {

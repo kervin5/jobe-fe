@@ -7,15 +7,15 @@ import Bubble from "@/common/UI/Bubble";
 import Icon from "@/common/UI/Icon";
 import Card from "@/common/UI/Card";
 import sanitize from "@/lib/html";
-// import PrompToRegister from "@/components/users/PrompToRegister";
-import Translator from "@/components/hoc/Translator";
+
+import Translator from "@/common/UI/Translator/Translator";
 import { numberWithCommas } from "@/components/jobs/JobCompensationBubbles";
 import JobPerksBubbles from "@/components/jobs/JobPerksBubbles";
-// import FavoriteButton from "../JobFavoriteButton/FavoriteButton";
+import { currency } from "@/root/config";
 
 const StyledApplicationListItem = styled.div`
   .Card {
-    background-color: ${(props) => props.theme.clearColor};
+    background-color: ${(props) => props.theme.lightColor};
     margin: 20px auto;
     transition: 100ms;
     animation-timing-function: ease-in;
@@ -156,7 +156,7 @@ const jobListItem = ({ application }) => {
           <div className="JobListItemMainInfo">
             <Bubble color="1">
               {application.job.minCompensation > 0
-                ? "$" +
+                ? currency +
                   numberWithCommas(
                     parseFloat(application.job.minCompensation).toFixed(2)
                   )
@@ -191,14 +191,6 @@ const jobListItem = ({ application }) => {
             <p className="PostDate">
               {moment(application.createdAt).fromNow()}
             </p>
-
-            {/* <PrompToRegister>
-              <FavoriteButton
-                jobId={props.id}
-                count={props.favorites}
-                showFavoritesCount={props.showFavoritesCount}
-              />
-            </PrompToRegister> */}
           </div>
         </div>
       </Card>

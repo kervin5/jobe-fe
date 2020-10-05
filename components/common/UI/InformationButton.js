@@ -1,7 +1,7 @@
 import React from "react";
 import { Message, Button } from "semantic-ui-react";
 
-const InformationButton = () => {
+const InformationButton = ({ message, title }) => {
   return (
     <div className="InformationButton">
       <Button
@@ -10,17 +10,12 @@ const InformationButton = () => {
         type="button"
         icon="exclamation"
         size="mini"
-        onClick={e => e.preventDefault()}
+        onClick={(e) => e.preventDefault()}
       />
       <div className="InformationButtonMessage">
         <Message color="yellow">
-          <Message.Header>Attention!</Message.Header>
-          <p>
-            By enabling this option, the job will be reposted automatically
-            every three days. Please only use this option for jobs that you are
-            continuously recruiting for. This option will make this job seem
-            like it has recently been posted until you opt-out.
-          </p>
+          <Message.Header>{title}!</Message.Header>
+          <p>{message}</p>
         </Message>
       </div>
       <style jsx>{`

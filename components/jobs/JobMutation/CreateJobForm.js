@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Mutation } from "@apollo/react-components";
 import ErrorMessage from "@/common/UI/ErrorMessage";
 import { gql } from "@apollo/client";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Form, Button, Checkbox } from "semantic-ui-react";
 import Router from "next/router";
 import LocationInput from "@/common/UI/Input/CustomSemanticInput/LocationInput";
@@ -58,27 +58,45 @@ const CREATE_JOB_MUTATION = gql`
   }
 `;
 
-const compensationTypeOptions = [
-  { key: "hourly", text: "Hourly", value: "Hourly" },
-  { key: "salary", text: "Salary", value: "Salary" },
-  { key: "doe", text: "DOE", value: "DOE" },
+export const compensationTypeOptions = [
+  {
+    key: "hourly",
+    text: appText.adjectives.hourly,
+    value: appText.adjectives.hourly,
+  },
+  {
+    key: "salary",
+    text: appText.adjectives.salary,
+    value: appText.adjectives.salary,
+  },
+  { key: "doe", text: appText.adjectives.doe, value: appText.adjectives.doe },
 ];
 
-const jobTypeOptions = [
-  { key: "fulltime", text: "Full-Time", value: "Full-Time" },
-  { key: "parttime", text: "Part-Time", value: "Part-Time" },
-  { key: "temp", text: "Temp", value: "Temp" },
-  { key: "perdiem", text: "Per Diem", value: "Per Diem" },
+export const jobTypeOptions = [
+  {
+    key: "fulltime",
+    text: appText.adjectives.fullTime,
+    value: appText.adjectives.fullTime,
+  },
+  {
+    key: "parttime",
+    text: appText.adjectives.partTime,
+    value: appText.adjectives.partTime,
+  },
+  {
+    key: "temp",
+    text: appText.adjectives.temp,
+    value: appText.adjectives.temp,
+  },
+  {
+    key: "perdiem",
+    text: appText.adjectives.perDiem,
+    value: appText.adjectives.perDiem,
+  },
 ];
 
 const CreateJobForm = () => {
-  const {
-    register,
-    errors,
-    handleSubmit,
-    setValue,
-    triggerValidation,
-  } = useForm();
+  const { register, errors, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
     register({ name: "jobTitle" }, { required: true });
@@ -90,7 +108,13 @@ const CreateJobForm = () => {
     register({ name: "jobType" }, { required: true });
     register({ name: "jobSkills" }, { required: true });
     register({ name: "jobAuthor" });
-    register({ name: "jobPerks" }, { required: true });
+    register(
+      { name: "jobPerks" },
+      {
+        validate: (value) =>
+          validateMinSelectedOptions(value, 3, appText.objects.perk.plural),
+      }
+    );
     register({ name: "jobDescription" }, { required: true });
     register({ name: "jobDisclaimer" });
     register({ name: "jobIsRecurring" });
@@ -126,14 +150,11 @@ const CreateJobForm = () => {
   const handleInputChange = async (e, data) => {
     // console.log(data);
     if (data.type === "checkbox") {
-      setValue(data.name, data.checked);
+      setValue(data.name, data.checked, { shouldValidate: true });
     } else {
-      setValue(data.name, data.value);
+      setValue(data.name, data.value, { shouldValidate: true });
     }
-    await triggerValidation({ name: data.name });
   };
-
-  // console.log(errors);
 
   return (
     <>
@@ -158,7 +179,7 @@ const CreateJobForm = () => {
                 label={appText.messages.job.jobTitle}
                 placeholder="Gerente de Ventas"
                 onChange={handleInputChange}
-                error={errors.jobTitle ? true : false}
+                error={!!errors.jobTitle}
               />
               <div className="field">
                 <Checkbox
@@ -167,13 +188,16 @@ const CreateJobForm = () => {
                   label={appText.messages.job.jobRecurring}
                   onChange={handleInputChange}
                 />
-                <InformationButton />
+                <InformationButton
+                  title={appText.messages.attention}
+                  message={appText.messages.job.byEnablingRecurring}
+                />
               </div>
 
               <LocationInput
                 name="jobLocation"
                 onChange={handleInputChange}
-                error={errors.jobLocation ? true : false}
+                error={errors.jobLocation}
                 label={appText.objects.location.singular}
               />
               <Form.Group widths="equal">
@@ -216,7 +240,7 @@ const CreateJobForm = () => {
                 graphql={{
                   query: `query ALL_CATEGORIES( $query: String! ) { categories(where: {name: {contains: $query}}) { id name } }`,
                 }}
-                error={errors.jobCategories ? true : false}
+                error={errors.jobCategories}
               />
 
               <DropdownGraphqlInput
@@ -228,7 +252,7 @@ const CreateJobForm = () => {
                 graphql={{
                   query: `query ALL_PERKS( $query: String! ) { perks(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
                 }}
-                error={errors.jobPerks ? true : false}
+                error={errors.jobPerks}
                 allowAdditions
                 additionLabel={`${appText.actions.create}: `}
                 additionWarning={appText.messages.perk.approval}
@@ -239,7 +263,7 @@ const CreateJobForm = () => {
                 label={appText.messages.job.jobType}
                 placeholder={appText.messages.validation.select}
                 onChange={handleInputChange}
-                error={errors.jobType ? true : false}
+                error={!!errors.jobType}
               />
 
               <DropdownGraphqlInput
@@ -255,7 +279,7 @@ const CreateJobForm = () => {
                 graphql={{
                   query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
                 }}
-                error={errors.jobSkills ? true : false}
+                error={errors.jobSkills}
               />
 
               <AuthorDropdown
@@ -263,13 +287,21 @@ const CreateJobForm = () => {
                 name="jobAuthor"
                 label={appText.messages.job.jobAuthor}
                 placeholder={appText.messages.validation.select}
-                error={errors.jobAuthor ? true : false}
+                error={errors.jobAuthor}
               />
 
               <RichTextEditor
                 name="jobDescription"
                 onChange={handleInputChange}
-                label={appText.messages.job.jobDescription}
+                label={
+                  <>
+                    {appText.messages.job.jobDescription}
+                    <InformationButton
+                      title={appText.messages.attention}
+                      message={appText.messages.job.jobDescriptionTips}
+                    />
+                  </>
+                }
                 error={errors.jobDescription ? true : false}
               />
 
@@ -302,3 +334,14 @@ const CreateJobForm = () => {
 };
 
 export default CreateJobForm;
+
+export function validateMinSelectedOptions(
+  selectedOptions,
+  minOptions,
+  optionType = appText.objects.option.plural
+) {
+  return (
+    selectedOptions?.length >= minOptions ||
+    appText.messages.validation.selectAtLeast(minOptions, optionType)
+  );
+}

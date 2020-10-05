@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import UserProfileHeader from "@/components/users/UserProfileHeader";
+import UserProfileHeader from "@/components/candidates/CandidateProfileHeader";
 import UserProfileTabs from "@/components/me/UserProfileTabs";
 
 const StyledCandidateProfile = styled.div``;

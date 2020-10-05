@@ -14,7 +14,7 @@ class AutoCompleteInputField extends React.PureComponent {
     errors: [],
     name: this.props.name || "",
     touched: false,
-    helpLabel: "Please type something"
+    helpLabel: "Please type something",
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -23,7 +23,7 @@ class AutoCompleteInputField extends React.PureComponent {
     }
   }
 
-  inputTextChangeHandler = e => {
+  inputTextChangeHandler = (e) => {
     //Passes the value when the text input is changed
     this.updateField(e.target.value);
     this.setState({ showMenu: true });
@@ -33,10 +33,10 @@ class AutoCompleteInputField extends React.PureComponent {
     }
   };
 
-  handleStateChange = state => {
+  handleStateChange = (state) => {
     const newState = {
       ...this.state,
-      ...state
+      ...state,
     };
 
     this.setState(newState, () => {
@@ -46,7 +46,7 @@ class AutoCompleteInputField extends React.PureComponent {
     });
   };
 
-  updateField = value => {
+  updateField = (value) => {
     this.handleStateChange({ value });
     if (!this.props.ajax) {
       this.setState({ options: filterOptions(value, props.options) });
@@ -56,14 +56,14 @@ class AutoCompleteInputField extends React.PureComponent {
         this.handleStateChange({
           valid: false,
           errors: ["Please select an option from the dropdown"],
-          options: []
+          options: [],
         });
       }
     });
   };
 
-  fieldIsValid = value => {
-    const result = this.props.options.filter(option => {
+  fieldIsValid = (value) => {
+    const result = this.props.options.filter((option) => {
       return option.value.trim().toLowerCase() === value.trim().toLowerCase();
     });
     return result.length > 0;
@@ -79,7 +79,7 @@ class AutoCompleteInputField extends React.PureComponent {
         errors: [],
         options: [],
         valid: true,
-        touched: true
+        touched: true,
       });
     } else if (this.props.required && !this.state.hasValueFromOptions) {
       this.handleStateChange({
@@ -87,7 +87,7 @@ class AutoCompleteInputField extends React.PureComponent {
         errors: ["Please select an option from the dropdown"],
         options: [],
         valid: false,
-        touched: true
+        touched: true,
       });
     }
   };
@@ -102,11 +102,11 @@ class AutoCompleteInputField extends React.PureComponent {
       hasValueFromOptions: true,
       valid: true,
       errors: [],
-      touched: true
+      touched: true,
     });
   };
 
-  _onBlur = e => {
+  _onBlur = (e) => {
     e.preventDefault();
     // e.stopPropagation();
 
@@ -115,14 +115,14 @@ class AutoCompleteInputField extends React.PureComponent {
         this.handleStateChange({
           isManagingFocus: false,
           showMenu: false,
-          touched: true
+          touched: true,
         });
       }
 
       if (!this.state.hasValueFromOptions && this.props.required) {
         this.handleStateChange({
           errors: ["Please select an option from the dropdown"],
-          options: []
+          options: [],
         });
       }
     }, 0);
@@ -133,7 +133,7 @@ class AutoCompleteInputField extends React.PureComponent {
     if (!this.state.isManagingFocus) {
       this.handleStateChange({
         isManagingFocus: true,
-        showMenu: true
+        showMenu: true,
       });
     }
   };
@@ -150,7 +150,7 @@ class AutoCompleteInputField extends React.PureComponent {
         <div
           key={index}
           className={"Option"}
-          onMouseDown={e => this.handleOptionClick(e, option.value)}
+          onMouseDown={(e) => this.handleOptionClick(e, option.value)}
         >
           {option.label}
         </div>
@@ -212,7 +212,7 @@ class AutoCompleteInputField extends React.PureComponent {
           .Options {
             left: 0;
             right: 0;
-            background-color: ${variables.clearColor};
+            background-color: ${variables.lightColor};
             border: 1px solid ${variables.mutedColor2};
             position: absolute;
             top: 50px;
@@ -232,7 +232,7 @@ class AutoCompleteInputField extends React.PureComponent {
 
           .Options :global(.Option):hover {
             background-color: ${variables.accentColor3};
-            color: ${variables.clearColor};
+            color: ${variables.lightColor};
           }
         `}</style>
       </div>
@@ -247,9 +247,9 @@ const filterOptions = (sentence, options) => {
     .split(" ");
   let result = [];
   let filteredWords = [];
-  words.forEach(word => {
+  words.forEach((word) => {
     if (word.length > 0) {
-      options.forEach(option => {
+      options.forEach((option) => {
         if (
           option.value.toLowerCase().includes(word.toLowerCase()) &&
           !filteredWords.includes(option.value.toLowerCase())
