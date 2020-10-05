@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal } from "semantic-ui-react";
 import appText from "@/lang/appText";
+import { companyInfo } from "@/root/config";
 
 const ModalExampleScrollingContent = () => (
   <Modal
@@ -11,11 +12,13 @@ const ModalExampleScrollingContent = () => (
       </p>
     }
   >
-    <Modal.Header>Exact Staff, Inc. Privacy Policy</Modal.Header>
+    <Modal.Header>
+      {companyInfo.name} {appText.objects.privacyPolicy.singular}
+    </Modal.Header>
     <Modal.Content image scrolling>
       <Modal.Description>
         <div className="policyContent">
-          <iframe src="https://exactstaff.com/documents/Exact-Staff-Onlline-Privacy-Policy-12-31-19.pdf"></iframe>
+          <iframe src={process.env.NEXT_PUBLIC_PRIVACY_POLICY_LINK}></iframe>
           <style jsx>{`
             .policyContent {
               with: 100%;

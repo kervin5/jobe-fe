@@ -1,33 +1,40 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+
 import variables from "@/common/globalVariables";
 import PageSection from "@/common/Layout/PageSection";
 import PasswordResetForm from "@/components/users/PasswordResetForm";
 import Title from "@/common/UI/Title";
+import appText from "@/lang/appText";
 
 const friendsImgUrl = "../../images/friends-with-bg.png";
 const pageStyles = `padding: 30px;`;
 
-const PasswordResetPage = props => {
+const PasswordResetPage = (props) => {
   const router = useRouter();
 
-  useEffect(() => {
-    const { resetToken } = router.query;
-    if (!resetToken) return router.push("/user/password/request");
-  }, [router.query]);
-
-  if (!router?.query?.resetToken) return null;
+  if (!router?.query?.resetToken)
+    return (
+      <p>
+        {appText.messages.account.clickToReset}:{" "}
+        <Link href="/user/password/request">
+          <a>
+            {appText.actions.click} {appText.adjectives.here}
+          </a>
+        </Link>
+      </p>
+    );
 
   return (
-    <PageSection column styles={pageStyles}>
-      <Title center>Enter New Password</Title>
-      <PasswordResetForm token={props.query.resetToken} />
+    <PageSection column styles={pageStyles} center>
+      <Title center>{appText.messages.account.enterNewPassword}</Title>
+      <PasswordResetForm token={router?.query?.resetToken} />
 
       <p>
-        Don't have an account?
+        {appText.messages.account.donthave}
         <Link href="/user/register">
-          <a> Sign Up</a>
+          <a> {appText.actions.register}</a>
         </Link>
       </p>
       <div className="BgImage">

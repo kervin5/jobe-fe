@@ -4,32 +4,53 @@ import { gql } from "@apollo/client";
 import { Mutation } from "@apollo/react-components";
 import Button from "@/common/UI/Button";
 import Title from "@/common/UI/Title";
+import ErrorMessage from "@/common/UI/ErrorMessage";
+import appText from "@/lang/appText";
 
 const REQUEST_PASSWORD_MUTATION = gql`
   mutation REQUEST_PASSWORD_MUTATION($email: String!) {
-    requestReset(email: $email)
+    requestReset(email: $email) {
+      __typename
+      ... on User {
+        id
+        email
+        role {
+          id
+          name
+          permissions {
+            object
+            actions
+          }
+        }
+      }
+
+      ... on GraphqlError {
+        type
+        message
+      }
+    }
   }
 `;
 
-const passwordRequestForm = props => {
+const passwordRequestForm = (props) => {
   const [validate, setValidate] = useState(false);
   const [formData, setFormData] = useState({
     email: {
       value: "",
       valid: false,
       type: "email",
-      label: "Email",
-      placeholder: "jdoe@myemail.com"
-    }
+      label: appText.objects.email.singular,
+      placeholder: "jdoe@myemail.com",
+    },
   });
 
-  const changeHandler = fieldData => {
+  const changeHandler = (fieldData) => {
     setFormData({
       ...formData,
       [fieldData.name]: {
         ...formData[fieldData.name],
-        ...fieldData
-      }
+        ...fieldData,
+      },
     });
   };
 
@@ -42,7 +63,7 @@ const passwordRequestForm = props => {
     }
   };
 
-  const fieldsToRender = ["email"].map(key => {
+  const fieldsToRender = ["email"].map((key) => {
     const fieldData = formData[key];
     return (
       <InputField
@@ -71,20 +92,25 @@ const passwordRequestForm = props => {
         return (
           <form>
             <Title size={"l"} center>
-              Forgot Password?
+              {appText.messages.password.forgotQuestion}
             </Title>
-            {error && <p className={"error"}>Cannot find that email address</p>}
+            <ErrorMessage error={error} data={data} />
+            {/* {error && (
+              <p className={"error"}>{appText.messages.account.invalidEmail}</p>
+            )} */}
             {!error && data && !loading && (
-              <p>Please check your mailbox with a reset link</p>
+              <p>{appText.messages.account.resetLink}</p>
             )}
             <fieldset disabled={loading} aria-busy={loading}>
               {fieldsToRender}
               <br />
               <Button
-                onClick={e => requestPasswordHandler(requestPasswordChange, e)}
+                onClick={(e) =>
+                  requestPasswordHandler(requestPasswordChange, e)
+                }
                 fullWidth
               >
-                Reset Password
+                {appText.actions.reset} {appText.objects.password.singular}
               </Button>
             </fieldset>
             <style jsx>{`

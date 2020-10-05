@@ -4,8 +4,9 @@ import TransformerContainer from "@/common/Layout/TransformerContainer";
 import JobApplicationHeader from "./JobApplicationHeader";
 import Title from "@/common/UI/Title";
 import ResumeViewer from "@/components/resumes/ResumeViewer";
+import appText from "@/lang/appText";
 
-const JobApplication = props => {
+const JobApplication = (props) => {
   return (
     <TransformerContainer>
       <JobApplicationHeader
@@ -15,7 +16,7 @@ const JobApplication = props => {
       />
 
       <div className="Body">
-        <Title size={"m"}>Resume</Title>
+        <Title size={"m"}>{appText.objects.resume.singular}</Title>
         <br />
         <ResumeViewer url={props.data.resume.file.path.split("/").pop()} />
       </div>
@@ -32,7 +33,7 @@ const JobApplication = props => {
 
             Body .button{
                 width: 50%;
-                color: ${variables.clearColor};
+                color: ${variables.lightColor};
                 float: right;
             }
 
@@ -67,7 +68,7 @@ const JobApplication = props => {
                   
                 .Body button{
                     width: 100%;
-                    color:${variables.clearColor};
+                    color:${variables.lightColor};
                     float: right;
                 }
 

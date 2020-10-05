@@ -8,6 +8,7 @@ import Avatar from "@/common/UI/Avatar";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
 import { SINGLE_USER_QUERY } from "@/graphql/queries/users";
 import Title from "@/common/UI/Title";
+import appText from "@/lang/appText";
 
 const StyledUserProfileHeader = styled.div`
   &.UserProfileHeader {
@@ -31,6 +32,9 @@ const StyledUserProfileHeader = styled.div`
     margin-bottom: 0;
   }
 
+  .MembershipDate {
+    text-transform: capitalize;
+  }
   @media (max-width: 600px) {
     .UserInformation {
       flex-direction: column;
@@ -48,16 +52,18 @@ const StyledUserProfileHeader = styled.div`
 `;
 
 const UserProfileHeader = ({ userId }) => {
-  const [userLocation, setUserLocation] = useState("Loading");
+  const [userLocation, setUserLocation] = useState("");
   const userQuery = queryToUse(userId);
   const { error, loading, data } = useQuery(userQuery.query, {
-    variables: userQuery.variables
+    variables: userQuery.variables,
   });
 
   useEffect(() => {
-    new UserLocator().getLocation().then(res => {
-      setUserLocation(res.name);
-    });
+    if (!userId) {
+      new UserLocator().getLocation().then((res) => {
+        setUserLocation(res.name);
+      });
+    }
   }, []);
 
   const userData = data?.me ?? data?.user;
@@ -74,20 +80,20 @@ const UserProfileHeader = ({ userId }) => {
             <div className="ProfileTitle">
               <h1 className="UserName">{userData ? userData.name : ""}</h1>
 
-              <span className="cinema">
-                Member since{" "}
+              <span className="MembershipDate">
+                {appText.objects.member.singular} {appText.prepositions.since}{" "}
                 {data && new Date(userData.createdAt).getFullYear()}
               </span>
             </div>
 
             <Title size="xs" color="1">
-              Favorite categories
+              {appText.messages.category.favorite}
             </Title>
             {data && (
               <UserCategories userId={userData.id} location={userLocation} />
             )}
             <p>
-              <strong>{userLocation}</strong>
+              <strong>{userData?.location?.name ?? userLocation}</strong>
             </p>
           </div>
           <div></div>

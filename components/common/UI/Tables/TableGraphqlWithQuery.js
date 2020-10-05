@@ -1,0 +1,124 @@
+import React, { useState, useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import { Form } from "semantic-ui-react";
+import { take } from "@/root/config";
+import Table from "@/common/UI/Tables/Table";
+import appText from "@/lang/appText";
+import DownloadCSVButton from "@/common/UI/DownloadCSVButton";
+import styled from "styled-components";
+// import PerksActionButtons from "./PerksActionButtons";
+
+const StyledToolbar = styled.div`
+  display: flex;
+  a,
+  button,
+  .ui.button {
+    margin-left: 10px;
+    margin-right: 0;
+    display: inline-block;
+    align-self: center;
+    margin-top: 6px;
+  }
+`;
+
+const TableGraphqlWithQuery = ({
+  dataQuery,
+  countQuery,
+  rowFormat,
+  toolbar,
+  searchFilter = () => {},
+  variables,
+  headers,
+}) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [query, setQuery] = useState("");
+  const recordsVariables = {
+    variables: {
+      ...variables,
+      ...searchFilter(query),
+      take,
+      skip: (currentPage - 1) * take,
+    },
+  };
+  const countVariables = {
+    variables: { ...searchFilter(query), ...variables },
+  };
+  const resRecords = useQuery(dataQuery, recordsVariables);
+  const resCount = useQuery(countQuery, countVariables);
+
+  const turnPageHandler = (pageNumber) => {
+    setCurrentPage(parseInt(pageNumber));
+  };
+
+  const inputChangeHandler = (e) => {
+    setQuery(e.target.value);
+    setCurrentPage(1);
+  };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [variables]);
+
+  if (resCount.error || resRecords.error)
+    return <p>Something went wrong ...</p>;
+
+  //if (resCount.loading || resRecords.loading) return <p>Loading</p>;
+  const [recordsKey] = resRecords.data
+    ? Object.keys(resRecords.data)
+    : [undefined];
+  const [countKey] = resCount.data ? Object.keys(resCount.data) : [undefined];
+  let records = recordsKey
+    ? resRecords.data?.[recordsKey].map((record) => {
+        return rowFormat(record, [
+          { query: dataQuery, variables: { ...recordsVariables.variables } },
+          {
+            query: countQuery,
+            variables: { ...countVariables.variables },
+          },
+        ]);
+      })
+    : [];
+  const count = countKey ? resCount?.data?.[countKey] : 0;
+
+  return (
+    <>
+      <Table
+        data={records}
+        page={currentPage}
+        loading={resRecords?.loading}
+        count={count}
+        take={take}
+        turnPageHandler={turnPageHandler}
+        headers={headers}
+        toolbar={
+          <>
+            <Form>
+              <Form.Group>
+                <Form.Input
+                  icon="search"
+                  label={appText.actions.search}
+                  placeholder={appText.actions.search}
+                  onChange={inputChangeHandler}
+                />
+              </Form.Group>
+            </Form>
+
+            <StyledToolbar>
+              {toolbar}
+              <DownloadCSVButton
+                queryData={{
+                  query: dataQuery,
+                  ...countVariables,
+                }}
+                rowFormat={rowFormat}
+              />
+            </StyledToolbar>
+          </>
+        }
+      />
+    </>
+  );
+};
+
+export default TableGraphqlWithQuery;
+// };

@@ -7,8 +7,9 @@ import JobStatsCards from "@/components/jobs/JobStatsCards";
 import JobActivityFeed from "@/components/jobs/JobActivityFeed";
 import JobStatusHeader from "@/components/jobs/JobStatusHeader";
 import TransformerContainer from "@/common/Layout/TransformerContainer";
+import appText from "@/lang/appText";
 
-const SingleJobView = props => {
+const SingleJobView = (props) => {
   const router = useRouter();
   const { jid } = router.query;
 
@@ -17,7 +18,7 @@ const SingleJobView = props => {
       permissions={[{ object: "JOB", action: "CREATE" }]}
       redirect
     >
-      <DashboardPage title="Job Information">
+      <DashboardPage title={appText.objects.job.information}>
         <Grid columns={2} stackable>
           <Grid.Row>
             <Grid.Column>

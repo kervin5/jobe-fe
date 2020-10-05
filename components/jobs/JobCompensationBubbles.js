@@ -1,18 +1,19 @@
 import React from "react";
 import Bubble from "@/common/UI/Bubble";
+import { currency } from "@/root/config";
 
-const JobCompensationBubbles = props => {
+const JobCompensationBubbles = (props) => {
   return (
     <Bubble color="1">
       {props.minCompensation > 0 && props.maxCompensation > 0
-        ? `$${numberWithCommas(
+        ? `${currency}${numberWithCommas(
             parseFloat(props.minCompensation).toFixed(2)
-          )} - $${numberWithCommas(
+          )} - ${currency}${numberWithCommas(
             parseFloat(props.maxCompensation).toFixed(2)
           )}`
         : null}
       {props.minCompensation > 0 && props.maxCompensation === 0
-        ? `$${numberWithCommas(
+        ? `${currency}${numberWithCommas(
             parseFloat(props.minCompensation).toFixed(2)
           )} - DOE`
         : null}

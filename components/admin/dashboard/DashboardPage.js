@@ -11,14 +11,16 @@ const StyledDashboardPage = styled.div`
   }
 `;
 
-const dashboardPage = props => {
+const dashboardPage = (props) => {
   return (
     <PageSection nopadding>
       <StyledDashboardPage className="DashboardPage">
         <PageTitle>
-          {props.title ? `${props.title} - Dashboard ` : "Dashboard"}
+          {props.title ? `${props.title} - Admin` : "Admin"}
         </PageTitle>
-        <Title>{props.title || "Dashboard"}</Title>
+        <Title capitalize>
+          {props.title ? `Admin > ${props.title}` : "Admin"}
+        </Title>
         {props.children}
       </StyledDashboardPage>
     </PageSection>

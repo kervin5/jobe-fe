@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import moment from "moment";
+import moment from "@/lib/localizedMoment";
 import variables from "@/common/globalVariables";
 import Bubble from "@/common/UI/Bubble";
 import Icon from "@/common/UI/Icon";
@@ -8,11 +8,12 @@ import FavoriteButton from "../JobFavoriteButton/FavoriteButton";
 import Card from "@/common/UI/Card";
 import sanitize from "@/lib/html";
 import PrompToRegister from "@/components/users/PrompToRegister";
-import Translator from "@/components/hoc/Translator";
+import Translator from "@/common/UI/Translator/Translator";
 import { numberWithCommas } from "../JobCompensationBubbles";
 import JobPerksBubbles from "../JobPerksBubbles";
+import { currency } from "@/root/config";
 
-const styles = ` background-color: ${variables.clearColor};
+const styles = ` background-color: ${variables.lightColor};
                 margin: 20px auto;
                 transition: 100ms;
                 animation-timing-function: ease-in;
@@ -21,13 +22,10 @@ const styles = ` background-color: ${variables.clearColor};
                 width: 100%;
                 `;
 
-const jobListItem = props => {
+const jobListItem = (props) => {
   const shortLocation = props.location.name;
 
-  const jobUrl = `/jobs/${props.title.replace(
-    /[\W_]+/g,
-    "-"
-  )}-${props.location.name.replace(/[\W_]+/g, "-")}-${props.id}`;
+  const jobUrl = formatJobUrl(props.title, props.location.name, props.id);
 
   return (
     <Card styles={styles}>
@@ -48,7 +46,7 @@ const jobListItem = props => {
           {props.showPayRate && (
             <Bubble color="1">
               {props.compensation > 0
-                ? "$" +
+                ? currency +
                   numberWithCommas(parseFloat(props.compensation).toFixed(2))
                 : "DOE"}
             </Bubble>
@@ -63,7 +61,10 @@ const jobListItem = props => {
       <Link href="/jobs/[jid]" as={jobUrl}>
         <a className="Content">
           <Translator>
-            {sanitize(props.description, [])["__html"].substring(0, 300)}...
+            {sanitize(props.description, [])
+              ["__html"].substring(0, 300)
+              .replace("&amp;", "and")}
+            ...
           </Translator>
         </a>
       </Link>
@@ -109,7 +110,6 @@ const jobListItem = props => {
         }
 
         .Location {
-          font-size: 0.9em;
           font-weight: bold;
           margin: 5px 0 0;
         }
@@ -190,3 +190,10 @@ const jobListItem = props => {
 };
 
 export default jobListItem;
+
+export function formatJobUrl(title, location, id) {
+  return `/jobs/${title.replace(/[\W_]+/g, "-")}-${location.replace(
+    /[\W_]+/g,
+    "-"
+  )}-${id}`;
+}

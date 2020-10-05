@@ -4,10 +4,10 @@ import Icon from "@/common/UI/Icon";
 import Title from "@/common/UI/Title";
 import Link from "next/link";
 
-const jobListingTitleStyles = `color: ${variables.clearColor};`;
-const JobListingLocationStyles = `color: ${variables.clearColor}; opacity: 0.7;`;
+const jobListingTitleStyles = `color: ${variables.lightColor};`;
+const JobListingLocationStyles = `color: ${variables.lightColor}; opacity: 0.7;`;
 
-const JobApplicationHeader = props => (
+const JobApplicationHeader = (props) => (
   <div className="JobApplicationHeader">
     <Title size={"l"} styles={jobListingTitleStyles}>
       <Link href="/admin/jobs/[jid]" as={`/admin/jobs/${props.jobId}`}>

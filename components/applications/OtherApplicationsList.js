@@ -14,7 +14,7 @@ const APPLICANT_OTHER_JOBS_APPLICATIONS_QUERY = gql`
       where: {
         AND: [
           { user: { id: { equals: $userId } } }
-          { id: { not: $applicationId } }
+          { id: { not: { equals: $applicationId } } }
         ]
       }
     ) {
@@ -63,7 +63,7 @@ const OtherApplicationsList = ({ userId, applicationId }) => {
             </Link>
           ),
           extraText: feedItem.job.location.name,
-          meta: <strong>{feedItem.status}</strong>
+          meta: <strong>{feedItem.status}</strong>,
         }));
         return <Feed events={feedData} />;
       }}

@@ -34,7 +34,7 @@ const StyledNavigationItems = styled.div`
 
       a {
         text-decoration: none;
-        color: ${props => props.theme.baseTextColor};
+        color: ${(props) => props.theme.baseTextColor};
         text-transform: capitalize;
       }
 
@@ -47,7 +47,7 @@ const StyledNavigationItems = styled.div`
 
   @media (max-width: 900px) {
     &.NavigationItems {
-      background-color: ${props => props.theme.clearColor};
+      background-color: ${(props) => props.theme.lightColor};
       padding-top: 100px;
       position: fixed;
       flex-direction: column;

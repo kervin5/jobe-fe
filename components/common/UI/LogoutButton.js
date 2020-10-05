@@ -3,6 +3,7 @@ import { Mutation } from "@apollo/react-components";
 import { Dropdown } from "semantic-ui-react";
 import { gql } from "@apollo/client";
 import Loader from "./Animated/Loader";
+import appText from "@/lang/appText";
 
 export const LOG_OUT_MUTATION = gql`
   mutation LOG_OUT_MUTATION {
@@ -23,7 +24,7 @@ const LogoutButton = () => {
               location.reload();
             }}
           >
-            Sign Out
+            {appText.actions.signOut}
           </Dropdown.Item>
         );
       }}

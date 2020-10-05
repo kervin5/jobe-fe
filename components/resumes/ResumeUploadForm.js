@@ -8,6 +8,7 @@ import ButtonGroup from "@/common/UI/ButtonGroup";
 import { handleUpload } from "@/lib/upload";
 import Router from "next/router";
 import InputField from "@/common/UI/Input/InputField";
+import appText from "@/lang/appText";
 
 const SIGN_UPLOAD_MUTATION = gql`
   mutation SIGN_UPLOAD_MUTATION($fileName: String!, $fileType: String!) {
@@ -33,7 +34,7 @@ const CREATE_RESUME_MUTATION = gql`
   }
 `;
 
-const ResumeUploadForm = props => {
+const ResumeUploadForm = (props) => {
   const [fileToUpload, setFileToUpload] = useState(null);
   const [uploaded, setUploaded] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -41,7 +42,7 @@ const ResumeUploadForm = props => {
 
   const maxSize = 1048576;
 
-  const onDrop = useCallback(acceptedFiles => {
+  const onDrop = useCallback((acceptedFiles) => {
     setFileToUpload(acceptedFiles[0]);
   }, []);
 
@@ -65,8 +66,8 @@ const ResumeUploadForm = props => {
       variables: {
         path: uploadRes.path,
         type: uploadRes.fileType,
-        title: resumeTitle.value
-      }
+        title: resumeTitle.value,
+      },
     });
     setUploaded(true);
 
@@ -83,27 +84,27 @@ const ResumeUploadForm = props => {
     isDragReject,
     acceptedFiles,
     rejectedFiles,
-    isDragAccept
+    isDragAccept,
   } = useDropzone({
     onDrop,
     accept: [
       "application/pdf",
       "application/msword",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     ],
     minSize: 0,
-    maxSize
+    maxSize,
   });
 
   const isFileTooLarge =
     rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize;
 
   if (uploading) {
-    return <p>Uploading</p>;
+    return <p>{appText.messages.uploading}</p>;
   }
 
   if (uploaded) {
-    return <p>Resume uploaded</p>;
+    return <p>{appText.messages.resume.resumeUploaded}</p>;
   }
 
   return (
@@ -112,8 +113,8 @@ const ResumeUploadForm = props => {
       <InputField
         type="text"
         change={setResumeTitle}
-        label="Resume Title"
-        placeholder="Please enter a title for this resume"
+        label={appText.messages.resume.resumteTitle}
+        placeholder={appText.messages.resume.pleaseEnterTitle}
         name="resumeTitle"
         required
         rounded
@@ -124,19 +125,22 @@ const ResumeUploadForm = props => {
             <input className={"DropArea"} {...getInputProps()} />
             {!isDragActive &&
               acceptedFiles.length === 0 &&
-              "Click here or drop a file to upload!"}
-            {isDragActive && !isDragReject && "Drop it like it's hot!"}
-            {isDragReject && "File type not accepted, sorry!"}
-            {acceptedFiles.length > 0 && "Resume selected!"}
+              `${appText.messages.clickHereToUpload}!`}
+            {isDragActive && !isDragReject && `${appText.messages.dropItNow}!`}
+            {isDragReject && `${appText.messages.validation.fileTypeNotValid}!`}
+            {acceptedFiles.length > 0 &&
+              `${appText.messages.resume.resumeSelected}!`}
             {isFileTooLarge && (
-              <div className="text-danger mt-2">File is too large.</div>
+              <div className="text-danger mt-2">
+                {appText.messages.validation.fileIsTooLarge}.
+              </div>
             )}
           </div>
         </div>
         <ButtonGroup>
           {!props.noredirect && (
             <Button onClick={() => Router.push("/me")} fullWidth color="2">
-              Do it later 🕑
+              {appText.messages.doItLater} 🕑
             </Button>
           )}
           {acceptedFiles.length > 0 && (
@@ -157,9 +161,9 @@ const ResumeUploadForm = props => {
                     refetchQueries={props.refetchQueries}
                   >
                     {(createResumeMutation, { error, loading, data }) => {
-                      if (loading) return <p>uploading</p>;
+                      if (loading) return <p>{appText.messages.uploading}</p>;
                       if (error) return <p>Something went wrong</p>;
-                      if (data) return <p>Uploaded</p>;
+                      if (data) return <p>{appText.messages.uploaded}</p>;
                       return (
                         <Button
                           disabled={
@@ -172,7 +176,9 @@ const ResumeUploadForm = props => {
                           }
                           fullWidth
                         >
-                          {resumeTitle.valid ? "Upload" : "Enter a title"}
+                          {resumeTitle.valid
+                            ? appText.actions.upload
+                            : appText.messages.resume.enterTitle}
                         </Button>
                       );
                     }}
@@ -192,7 +198,7 @@ const ResumeUploadForm = props => {
             height: 200px;
             width: 100%;
             border: 2px dashed ${variables.accentColor1};
-            background-color: ${variables.clearColor};
+            background-color: ${variables.lightColor};
             padding: 20px;
             border-radius: ${variables.roundedRadius};
             transform: scale(${isDragActive ? 1.2 : 1});

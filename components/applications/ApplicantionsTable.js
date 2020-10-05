@@ -1,132 +1,18 @@
-import React, { useState } from "react";
-import { Query } from "@apollo/react-components";
-import { gql } from "@apollo/client";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Dropdown, Input, Button } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
 import moment from "moment";
 import EempactStatusLabel from "@/components/users/EempactStatusLabel";
 import { take } from "@/root/config";
 import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 import appText from "@/lang/appText";
-import Table from "@/common/UI/Table";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
-
-const ALL_APPLICATIONS_QUERY = gql`
-  query ALL_APPLICATIONS_QUERY(
-    $take: Int!
-    $skip: Int!
-    $jobId: String
-    $status: [ApplicationStatus!]
-    $terms: String!
-  ) {
-    applications(
-      where: {
-        job: { id: { equals: $jobId } }
-        status: { in: $status }
-        OR: [
-          {
-            job: {
-              OR: [
-                { title: { contains: $terms } }
-                { location: { name: { contains: $terms } } }
-                { branch: { name: { contains: $terms } } }
-              ]
-            }
-          }
-          {
-            user: {
-              OR: [
-                { name: { contains: $terms } }
-                { email: { contains: $terms } }
-              ]
-            }
-          }
-        ]
-      }
-      take: $take
-      skip: $skip
-    ) {
-      id
-      createdAt
-      status
-
-      user {
-        name
-        eEmpact {
-          id
-          assignments
-        }
-        id
-        email
-        location {
-          name
-        }
-      }
-      resume {
-        title
-        id
-        file {
-          path
-          createdAt
-          id
-        }
-      }
-
-      job {
-        id
-        title
-        location {
-          id
-          name
-        }
-        branch {
-          id
-          name
-        }
-
-        author {
-          id
-          name
-          email
-        }
-      }
-    }
-  }
-`;
-
-export const USER_APPLICATION_CONNECTION_QUERY = gql`
-  query USER_APPLICATION_CONNECTION_QUERY(
-    $jobId: String
-    $status: [ApplicationStatus!]
-    $terms: String!
-  ) {
-    applicationsConnection(
-      where: {
-        job: { id: { equals: $jobId } }
-        status: { in: $status }
-        OR: [
-          {
-            job: {
-              OR: [
-                { title: { contains: $terms } }
-                { location: { name: { contains: $terms } } }
-                { branch: { name: { contains: $terms } } }
-              ]
-            }
-          }
-          {
-            user: {
-              OR: [
-                { name: { contains: $terms } }
-                { email: { contains: $terms } }
-              ]
-            }
-          }
-        ]
-      }
-    )
-  }
-`;
+import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
+import TableGraphql from "@/common/UI/Tables/TableGraphqlWithQuery";
+import {
+  ALL_APPLICATIONS_QUERY,
+  USER_APPLICATION_CONNECTION_QUERY,
+} from "@/graphql/queries/applications";
 
 const queriesToRefetch = ({ jobId, skip, terms }) => {
   const queries = [];
@@ -171,147 +57,115 @@ const queriesToRefetch = ({ jobId, skip, terms }) => {
   return queries;
 };
 
-const ApplicantTable = (props) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [terms, setTerms] = useState("");
-  const [status, setStatus] = useState([
-    "NEW",
-    "VIEWED",
-    "REVIEWING",
-    "CONTACTED",
-  ]);
-
-  const turnPageHandler = (pageNumber) => {
-    setCurrentPage(parseInt(pageNumber));
-  };
+const ApplicationsTable = (props) => {
+  const [status, setStatus] = useState(props.status ?? "ALL");
+  const [branch, setBranch] = useState(props.branch ?? "ALL");
 
   const statusChangeHandler = (status) => {
-    if (status === "ALL") {
-      setStatus(["NEW", "VIEWED", "REVIEWING", "CONTACTED"]);
-    } else {
-      setStatus([status]);
-    }
-    setCurrentPage(1);
+    setStatus(status);
   };
 
+  const branchChangeHandler = (e, data) => {
+    setBranch(data.value);
+  };
+
+  useEffect(() => {
+    if (props.status) {
+      statusChangeHandler(props.status);
+    } else {
+      statusChangeHandler(status);
+    }
+  }, [props.status, status]);
+
+  const statusToFilter =
+    status === "ALL" ? ["NEW", "VIEWED", "REVIEWING", "CONTACTED"] : [status];
+  const branchToFilter = branch === "ALL" ? undefined : branch;
+
   return (
-    <>
-      <Query
-        query={USER_APPLICATION_CONNECTION_QUERY}
-        ssr={false}
-        variables={{
-          jobId: "" || props.jobId,
-          status,
-          terms,
-        }}
-      >
-        {(userApplicationData) => {
-          if (userApplicationData.error) return <p>Something went wrong ...</p>;
+    <TableGraphql
+      dataQuery={ALL_APPLICATIONS_QUERY}
+      countQuery={USER_APPLICATION_CONNECTION_QUERY}
+      rowFormat={(application, queries) => ({
+        name: application.user.name,
+        job: (
+          <Link
+            href={"/admin/jobs/[jid]"}
+            as={"/admin/jobs/" + application.job.id}
+          >
+            <a target="_blank">{application.job.title}</a>
+          </Link>
+        ),
+        location: application.job.location.name,
+        branch: application.job.branch.name,
+        owner: application.job.author.email,
+        applied: moment(application.createdAt).format("MM/DD/YYYY"),
 
-          return (
-            <Query
-              query={ALL_APPLICATIONS_QUERY}
-              variables={{
-                take,
-                skip: (currentPage - 1) * take,
-                jobId: "" || props.jobId,
-                status,
-                terms,
+        email: (
+          <a href={`mailto:${application.user.email}`}>
+            {application.user.email}
+          </a>
+        ),
+        phone: application.user.phone,
+        status: (
+          <ApplicationStatusDropdown
+            applicationId={application.id}
+            status={application.status}
+            refetchQueries={queries}
+          />
+        ),
+        eempact: <EempactStatusLabel data={application.user.eEmpact} />,
+        actions: (
+          <Link
+            href={"/admin/applications/[aid]"}
+            as={"/admin/applications/" + application.id}
+            target="_blank"
+            passHref
+          >
+            <Button as="a" icon="eye" color="green" target="_blank" />
+          </Link>
+        ),
+      })}
+      variables={{
+        status: statusToFilter,
+        branch: branchToFilter,
+        jobId: props.jobId,
+      }}
+      searchFilter={(value) => ({ terms: value })}
+      toolbar={
+        <Form>
+          <Form.Group>
+            <Form.Select
+              label={appText.objects.status.singular}
+              placeholder="Application Status"
+              selection
+              options={[
+                { key: "All", text: "All", value: "ALL" },
+                ...applicationStatusOptions,
+              ]}
+              value={status}
+              onChange={(e, data) => statusChangeHandler(data.value)}
+            />
+            <DropdownGraphqlInput
+              onChange={branchChangeHandler}
+              name="branch"
+              label={appText.objects.branch.singular}
+              placeholder={appText.messages.validation.select}
+              showAllOption
+              defaultValue="ALL"
+              graphql={{
+                query: `query BRANCHES_QUERY {
+              branchesByUser {
+                id
+                name
+              }
+            }`,
               }}
-            >
-              {({ error, loading, data }) => {
-                if (error) return <p>Something went wrong...</p>;
-
-                let applications = [];
-
-                data?.applications.forEach((application) => {
-                  applications.push({
-                    name: application.user.name,
-                    job: (
-                      <Link
-                        href={"/jobs/[jid]"}
-                        as={"/jobs/" + application.job.id}
-                      >
-                        <a target="_blank">{application.job.title}</a>
-                      </Link>
-                    ),
-                    location: application.job.location.name,
-                    branch: application.job.branch.name,
-                    owner: application.job.author.email,
-                    applied: moment(application.createdAt).format("MM/DD/YYYY"),
-
-                    email: (
-                      <a href={`mailto:${application.user.email}`}>
-                        {application.user.email}
-                      </a>
-                    ),
-                    status: (
-                      <ApplicationStatusDropdown
-                        applicationId={application.id}
-                        status={application.status}
-                        refetchQueries={queriesToRefetch({
-                          jobId: props.jobId || "",
-                          skip: (currentPage - 1) * take,
-                          terms,
-                        })}
-                      />
-                    ),
-                    eempact: (
-                      <EempactStatusLabel data={application.user.eEmpact} />
-                    ),
-                    actions: (
-                      <Link
-                        href={"/admin/applications/[aid]"}
-                        as={"/admin/applications/" + application.id}
-                        passHref
-                      >
-                        <Button as="a" icon="eye" color="green" />
-                      </Link>
-                    ),
-                  });
-                });
-
-                const count =
-                  userApplicationData?.data?.applicationsConnection ?? 0;
-
-                return (
-                  <Table
-                    data={applications}
-                    page={currentPage}
-                    loading={loading}
-                    count={count}
-                    take={take}
-                    turnPageHandler={turnPageHandler}
-                    toolbar={
-                      <>
-                        <Input
-                          icon="search"
-                          placeholder={appText.actions.search}
-                          onChange={(e) => setTerms(e.target.value)}
-                        />
-                        <Dropdown
-                          placeholder="Application Status"
-                          selection
-                          options={[
-                            { key: "All", text: "All", value: "ALL" },
-                            ...applicationStatusOptions,
-                          ]}
-                          defaultValue={"ALL"}
-                          onChange={(e, data) =>
-                            statusChangeHandler(data.value)
-                          }
-                        />
-                      </>
-                    }
-                  />
-                );
-              }}
-            </Query>
-          );
-        }}
-      </Query>
-    </>
+            />
+          </Form.Group>
+        </Form>
+      }
+    />
   );
 };
 
-export default ApplicantTable;
+export default ApplicationsTable;

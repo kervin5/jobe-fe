@@ -6,13 +6,14 @@ import { Button, Input, Label } from "semantic-ui-react";
 import { take } from "../../config";
 import appText from "@/lang/appText";
 import EempactStatusLabel from "@/components/users/EempactStatusLabel";
-import Table from "@/common/UI/Table";
+import Table from "@/common/UI/Tables/Table";
 import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
+import DownloadCSVButton from "@/common/UI/DownloadCSVButton";
 
 const CANDIDATE_QUERY = gql`
   query CANDIDATE_QUERY(
-    $take: Int!
-    $skip: Int!
+    $take: Int
+    $skip: Int
     $query: String!
     $skills: [String!]
   ) {
@@ -27,12 +28,14 @@ const CANDIDATE_QUERY = gql`
       id
       name
       email
+      phone
       eEmpact {
         id
         assignments
       }
       applications {
         id
+        status
       }
       resumes(last: 1) {
         file {
@@ -48,6 +51,21 @@ const CANDIDATE_QUERY = gql`
           name
         }
       }
+    }
+  }
+`;
+
+const CANDIDATE_QUERY_EXPORT = gql`
+  query CANDIDATE_QUERY($query: String!, $skills: [String!]) {
+    candidates(
+      where: {
+        OR: [{ name: { contains: $query } }, { email: { contains: $query } }]
+        resumes: { some: { skills: { some: { id: { in: $skills } } } } }
+      }
+    ) {
+      id
+      name
+      email
     }
   }
 `;
@@ -111,12 +129,19 @@ const Candidates = (props) => {
                   email: (
                     <a href={`mailto:${candidate.email}`}>{candidate.email}</a>
                   ),
+                  phone: candidate.phone,
                   title: hasResume ? (
                     candidate.resumes[0].title
                   ) : (
-                    <p>No Resume</p>
+                    <p>{appText.messages.resume.doesntHave}</p>
                   ),
-                  applications: candidate.applications?.length,
+                  "Active Applications": candidate.applications?.filter(
+                    (app) => {
+                      return (
+                        app.status !== "HIRED" && app.status !== "ARCHIVED"
+                      );
+                    }
+                  ).length,
                   skills: resumeSkills.map((skill) => (
                     <Label
                       content={skill.name}
@@ -136,7 +161,8 @@ const Candidates = (props) => {
                         );
                       }}
                     >
-                      Download Resume
+                      {appText.actions.download}{" "}
+                      {appText.objects.resume.singular}
                     </Button>
                   ),
                   actions: (
@@ -168,25 +194,43 @@ const Candidates = (props) => {
                   turnPageHandler={turnPageHandler}
                   toolbar={
                     <>
-                      <Input
-                        icon="search"
-                        placeholder={appText.actions.search}
-                        onChange={inputChangeHandler}
-                      />
-                      <DropdownGraphqlInput
-                        onChange={(e, data) => {
-                          setSkills(data.value);
-                          setCurrentPage(1);
-                        }}
-                        name="jobSkills"
-                        placeholder="Filter by skills"
-                        multiple
-                        nolabel
-                        minWidth={"150px"}
-                        graphql={{
-                          query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
-                        }}
-                      />
+                      <div>
+                        <Input
+                          icon="search"
+                          placeholder={appText.actions.search}
+                          onChange={inputChangeHandler}
+                        />
+                        <DropdownGraphqlInput
+                          onChange={(e, data) => {
+                            setSkills(data.value);
+                            setCurrentPage(1);
+                          }}
+                          name="jobSkills"
+                          placeholder={
+                            appText.actions.filterBy +
+                            " " +
+                            appText.objects.skill.plural
+                          }
+                          multiple
+                          nolabel
+                          minWidth={"150px"}
+                          graphql={{
+                            query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <DownloadCSVButton
+                          queryData={{
+                            query: CANDIDATE_QUERY_EXPORT,
+                            variables: {
+                              jobId: "" || props.jobId,
+                              query,
+                              ...(skills.length ? { skills } : {}),
+                            },
+                          }}
+                        />
+                      </div>
                     </>
                   }
                 />

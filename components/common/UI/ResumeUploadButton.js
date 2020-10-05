@@ -1,33 +1,18 @@
 import React, { useState } from "react";
-import { gql } from "@apollo/client";
 import { Query } from "@apollo/react-components";
 import Button from "./Button";
 import PopUp from "./PopUp";
 import ResumeUploadForm from "@/components/resumes/ResumeUploadForm";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
+import appText from "@/lang/appText";
 
-const USER_IS_REGISTERED_QUERY = gql`
-  query USER_IS_REGISTERED_QUERY {
-    me {
-      id
-      resumes {
-        id
-      }
-      role {
-        id
-        name
-      }
-    }
-  }
-`;
-
-const RegisterToApplyButton = props => {
+const RegisterToApplyButton = (props) => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpTitle, setPopUpTitle] = useState("Add a new Resume");
 
   return (
     <>
-      <Query query={USER_IS_REGISTERED_QUERY}>
+      <Query query={ME_USER_QUERY}>
         {({ error, loading, data }) => {
           if (error) return <p>Something went wrong</p>;
           if (loading) return <p>Loading</p>;
@@ -35,7 +20,7 @@ const RegisterToApplyButton = props => {
           return (
             <div>
               <Button fullWidth onClick={() => setShowPopUp(true)}>
-                Upload New
+                {appText.actions.upload} {appText.adjectives.new}
               </Button>
             </div>
           );
@@ -43,8 +28,8 @@ const RegisterToApplyButton = props => {
       </Query>
 
       <PopUp show={showPopUp} changeHandler={setShowPopUp} title={popUpTitle}>
-        <p>Upload a New Resume😊</p>
-        <Query query={USER_IS_REGISTERED_QUERY}>
+        <p>{appText.messages.resume.upload}😊</p>
+        <Query query={ME_USER_QUERY}>
           {({ error, loading, data }) => {
             if (error) return <p>Something went wrong...</p>;
             if (loading) return <p>Loading...</p>;
@@ -54,8 +39,8 @@ const RegisterToApplyButton = props => {
                   noredirect
                   refetchQueries={[
                     {
-                      query: ME_USER_QUERY
-                    }
+                      query: ME_USER_QUERY,
+                    },
                   ]}
                 />
               );

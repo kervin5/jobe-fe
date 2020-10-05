@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Message } from "semantic-ui-react";
 import { Query } from "@apollo/react-components";
 import { APPLICATION_STATUS_QUERY } from "@/admin/dashboard/DashboardHome/ApplicationsStatusCard";
+import appText from "@/lang/appText";
 
 const ApplicationsCountWarning = () => {
   const [open, setOpen] = useState(true);
@@ -18,13 +19,14 @@ const ApplicationsCountWarning = () => {
               icon="inbox"
               error
               onDismiss={() => setOpen(false)}
-              header={`There are ${data.applicationsConnection} applications in your queue that require attention!`}
+              header={appText.messages.application.attention(
+                data.applicationsConnection
+              )}
               content={
                 <p>
-                  Please make sure to change to status of the applications to{" "}
-                  <strong>HIRED</strong> or <strong>ARCHIVED</strong> once the
-                  candidate is not longer being considered for a position in
-                  order to remove the application from the queue.
+                  {appText.messages.application.attentionInstructions(
+                    "HIRED or ARCHIVED"
+                  )}
                 </p>
               }
             />

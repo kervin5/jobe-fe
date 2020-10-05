@@ -8,6 +8,7 @@ import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
 import OtherApplicationsList from "./OtherApplicationsList";
 import { SINGLE_JOB_APPLICATION_QUERY } from "./SingleJobApplication";
 import Title from "@/common/UI/Title";
+import appText from "@/lang/appText";
 
 const ApplicationInformation = ({ applicationId }) => {
   return (
@@ -20,25 +21,32 @@ const ApplicationInformation = ({ applicationId }) => {
           if (loading) return <Loader active inline="centered" />;
           const panes = [
             {
-              menuItem: "Updates",
+              menuItem: appText.objects.update.plural,
               render: () => (
                 <Tab.Pane>
                   <div className="Section">
-                    <Title size="m">Status</Title>
+                    <Title size="m" capitalize>
+                      {appText.objects.status.singular}
+                    </Title>
                     <ApplicationStatusDropdown
                       applicationId={applicationId}
                       status={data.application.status}
                     />
                   </div>
                   <div className="Section">
-                    <Title size="m">Notes</Title>
+                    <Title size="m" capitalize>
+                      {appText.objects.note.plural}
+                    </Title>
                     <ApplicationNotesArea applicationId={applicationId} />
                   </div>
                 </Tab.Pane>
-              )
+              ),
             },
             {
-              menuItem: "Other Applications",
+              menuItem:
+                appText.objects.other.plural +
+                " " +
+                appText.objects.application.plural,
               render: () => (
                 <Tab.Pane>
                   <OtherApplicationsList
@@ -46,8 +54,8 @@ const ApplicationInformation = ({ applicationId }) => {
                     userId={data.application.user.id}
                   />
                 </Tab.Pane>
-              )
-            }
+              ),
+            },
           ];
           return (
             <>
@@ -65,7 +73,7 @@ const ApplicationInformation = ({ applicationId }) => {
         .ApplicationInformation {
           margin: auto 20px;
           padding: 20px;
-          background-color: ${variables.clearColor};
+          background-color: ${variables.lightColor};
           border-radius: ${variables.roundedRadius};
           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
           max-width: 350px;

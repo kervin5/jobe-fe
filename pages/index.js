@@ -9,7 +9,7 @@ import Title from "@/common/UI/Title";
 import DynamicImageBg from "@/common/UI/DynamicImageBg";
 import SearchArea from "@/components/jobs/Search/SearchArea";
 import { basePath } from "@/root/config";
-import JobsCards from "@/components/jobs/JobsCards";
+import JobsCards from "@/components/jobs/JobList/JobsListQuery";
 import PopularTerms from "@/components/jobs/PopularTerms/PopularTerms";
 import { getJobsFromAPI, getTermsFromAPI } from "@/lib/backend";
 
@@ -36,8 +36,8 @@ const homePage = (props) => {
   return (
     <PageSection className="HomePage" column nopadding data-test="indexPage">
       <SEO
-        description="Start your job search with myexactjobs. Browse through hundreds of job openings nationally. Exact Staff has the job opportunity you have been looking for so Apply Today!"
-        title="Exact Staff National Job Board: Find a Job Today! "
+        description={`${appText.seo.pages.landing.description}. ${appText.seo.description}!`}
+        title={`${appText.seo.title}!`}
       />
       <DynamicImageBg
         staticImage
@@ -56,7 +56,7 @@ const homePage = (props) => {
       </DynamicImageBg>
       <Container>
         <Title size={"l"} center margin capitalize>
-          {appText.messages.whatstrending} 😎
+          {appText.messages.whatsTrending} 😎
         </Title>
         <PopularTerms terms={props.terms} />
         <Title size={"l"} center margin capitalize>

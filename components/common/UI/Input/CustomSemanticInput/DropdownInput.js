@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Dropdown, Message } from "semantic-ui-react";
+import { Dropdown, Message, Label } from "semantic-ui-react";
+import appText from "@/lang/appText";
 
 const LocationInput = ({
   placeholder,
@@ -17,12 +18,14 @@ const LocationInput = ({
   additionWarning,
   additionLabel,
   nolabel,
-  minWidth
+  minWidth,
+  fluid,
 }) => {
   const [customOptions, setCustomOptions] = useState([]);
   const handleAddition = (e, { value }) => {
     setCustomOptions([...customOptions, { text: value, value: value }]);
   };
+
   return (
     <div
       className={`DropdownInput field ${error ? "error" : ""} ${
@@ -34,7 +37,7 @@ const LocationInput = ({
         loading={loading}
         id={name}
         placeholder={placeholder}
-        fluid
+        fluid={fluid}
         search
         selection
         onAddItem={handleAddition}
@@ -47,6 +50,13 @@ const LocationInput = ({
         defaultSearchQuery={defaultSearchQuery}
         allowAdditions={allowAdditions}
       />
+      {error && (
+        <Label basic color="red" pointing>
+          {error?.type === "required"
+            ? appText.messages.validation.required
+            : error.message}
+        </Label>
+      )}
       {!!additionWarning && !!customOptions.length && (
         <Message color="yellow">
           <p>
@@ -67,6 +77,10 @@ const LocationInput = ({
           .DropdownInput .message {
             padding: 0.5em 1.5em;
           }
+
+          label {
+            text-transform: capitalize !important;
+          }
         `}
       </style>
     </div>
@@ -76,7 +90,7 @@ const LocationInput = ({
 LocationInput.defaultProps = {
   placeholder: "Select a location",
   options: [],
-  allowAdditions: false
+  allowAdditions: false,
 };
 
 export default LocationInput;

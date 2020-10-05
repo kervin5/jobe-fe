@@ -9,15 +9,31 @@ import { ME_USER_QUERY } from "@/graphql/queries/users";
 import PrivacyPolicyLink from "@/common/UI/PrivacyPolicyLink";
 import appText from "@/lang/appText";
 
-// import { logInUser } from "../../../data/auth";
-
 const SIGNUP_USER = gql`
-  mutation SIGNUP_USER($name: String!, $password: String!, $email: String!) {
-    signup(email: $email, password: $password, name: $name) {
-      id
-      role {
+  mutation SIGNUP_USER(
+    $name: String!
+    $password: String!
+    $email: String!
+    $phone: String!
+  ) {
+    signup(email: $email, password: $password, name: $name, phone: $phone) {
+      __typename
+      ... on User {
         id
-        name
+        email
+        role {
+          id
+          name
+          permissions {
+            object
+            actions
+          }
+        }
+      }
+
+      ... on GraphqlError {
+        type
+        message
       }
     }
   }
@@ -42,6 +58,14 @@ const registerForm = (props) => {
       label: appText.objects.email.singular,
       placeholder: "jdoe@myemail.com",
       icon: "mail",
+    },
+    phone: {
+      value: "",
+      valid: false,
+      type: "tel",
+      label: appText.objects.phone.singular,
+      placeholder: "505-123-4567",
+      icon: "phone",
     },
     password: {
       value: "",
@@ -71,7 +95,7 @@ const registerForm = (props) => {
     if (email.valid && password.valid && name.valid) {
       const res = await signupUserMutation();
 
-      if (res.data.signup && !props.noredirect) {
+      if (res.data.signup?.["__typename"] === "User" && !props.noredirect) {
         // logInUser(res.data.signup);
         Router.push(
           res.data.signup.role.name !== "candidate"
@@ -83,7 +107,7 @@ const registerForm = (props) => {
     }
   };
 
-  const fieldsToRender = ["name", "email", "password"].map((key) => {
+  const fieldsToRender = ["name", "email", "phone", "password"].map((key) => {
     const fieldData = formData[key];
     return (
       <InputField
@@ -109,6 +133,7 @@ const registerForm = (props) => {
   const signUpData = {
     email: formData.email.value,
     password: formData.password.value,
+    phone: formData.phone.value,
     name: formData.name.value,
   };
 
@@ -125,8 +150,8 @@ const registerForm = (props) => {
         {(signupUser, { loading, error, called, data }) => {
           return (
             <>
-              <form>
-                <ErrorMessage error={error} />
+              <form onSubmit={(e) => e.preventDefault()}>
+                <ErrorMessage error={error} data={data} />
                 <fieldset disabled={loading} aria-busy={loading}>
                   {fieldsToRender}
                   <br />

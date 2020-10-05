@@ -1,7 +1,7 @@
 import React from "react";
 import variables from "@/common/globalVariables";
 
-const Avatar = ({ name = "Unknown" }) => {
+const Avatar = ({ name = "Unknown", nomargin }) => {
   const initials = name.split(" ");
   const firstInitial = initials[0][0];
   const lastInitial = initials?.[1]?.[0];
@@ -12,7 +12,7 @@ const Avatar = ({ name = "Unknown" }) => {
       <style jsx>{`
         .Avatar {
           background: ${variables.accentColor3};
-          color: ${variables.clearColor};
+          color: ${variables.lightColor};
           font-weight: bold;
           display: flex;
           align-items: center;
@@ -21,7 +21,7 @@ const Avatar = ({ name = "Unknown" }) => {
           height: 100px;
           border-radius: 20px;
           font-size: 2em;
-          margin: auto 10px;
+          margin: ${nomargin ? "0" : "auto 10px"};
         }
       `}</style>
     </span>

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Mutation, Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import { Loader } from "semantic-ui-react";
-import RegisterToApplyButton from "./RegisterToApplyButton";
-import Button from "./Button";
+import RegisterToApplyButton from "../common/UI/RegisterToApplyButton";
+import Button from "../common/UI/Button";
+import appText from "@/lang/appText";
 
 const APPLY_TO_JOB_MUTATION = gql`
   mutation APPLY_TO_JOB_MUTATION($jobId: ID!) {
@@ -35,7 +36,7 @@ export const CHECK_USER_APPLICATION_STATUS_QUERY = gql`
   }
 `;
 
-const ApplyToJobButton = props => {
+const ApplyToJobButton = (props) => {
   return (
     <Query
       query={CHECK_USER_APPLICATION_STATUS_QUERY}
@@ -46,6 +47,7 @@ const ApplyToJobButton = props => {
         if (error) console.log(error);
         if (error) return <p>Something went wrong</p>;
         if (data.me && data.me.role.name !== "candidate") return null;
+
         //Check if the user has previously applied
         if (!data.me || data.me.resumes.length === 0)
           return <RegisterToApplyButton jobId={props.jobId} />;
@@ -80,7 +82,9 @@ const ApplyToJobButton = props => {
                     disabled={userApplied || loading}
                     loading={loading}
                   >
-                    {userApplied ? "Applied 😊" : "Apply"}
+                    {userApplied
+                      ? `${appText.messages.application.applied} 😊`
+                      : `${appText.messages.application.applyNow}`}
                   </Button>
                 );
               }}

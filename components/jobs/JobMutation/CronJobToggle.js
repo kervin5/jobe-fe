@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 import { Query, Mutation } from "@apollo/react-components";
 import { Checkbox } from "semantic-ui-react";
 import InformationButton from "@/common/UI/InformationButton";
+import appText from "@/lang/appText";
 
 const JOB_CRON_TASK_QUERY = gql`
   query JOB_CRON_TASK_QUERY($jobId: String!) {
@@ -41,12 +42,15 @@ const CronJobToggle = ({ jobId, disabled, checked }) => {
           <>
             <Checkbox
               toggle
-              label="Recurring Job "
+              label={appText.messages.job.jobRecurring}
               disabled={disabled || loading}
               checked={checked}
               onChange={async (e, data) => await toggleCronTaskMutation()}
             />
-            <InformationButton />
+            <InformationButton
+              title={appText.messages.attention}
+              message={appText.messages.job.byEnablingRecurring}
+            />
           </>
         );
       }}

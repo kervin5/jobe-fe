@@ -10,7 +10,7 @@ import Title from "@/common/UI/Title";
  */
 
 const jobList = (props) => {
-  const { jobs } = props;
+  const { jobs, showPayRate, showJobType } = props;
   let elementToRender = (
     <Title capitalize size="m" center>
       {appText.messages.notfound}
@@ -21,7 +21,7 @@ const jobList = (props) => {
     elementToRender = jobs.map((job) => {
       return (
         <JobListItem
-          key={job.id}
+          key={job.id + new Date()}
           title={job.title}
           description={job.description}
           location={job.location}
@@ -31,7 +31,8 @@ const jobList = (props) => {
           date={job.updatedAt}
           favorites={job?.favorites?.length}
           showFavoritesCount
-          showJobType
+          showJobType={showJobType}
+          showPayRate={showPayRate}
           perks={job.perks}
         />
       );

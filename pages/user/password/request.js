@@ -8,7 +8,7 @@ const pageStyles = `background-color: ${variables.mutedColor1};
                     display: flex;
                     flex-direction: column;`;
 
-const passwordRequest = props => {
+const passwordRequest = (props) => {
   return (
     <PageSection style={pageStyles}>
       <PasswordResetRequestForm />

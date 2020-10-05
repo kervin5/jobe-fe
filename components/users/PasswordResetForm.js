@@ -6,18 +6,7 @@ import Button from "@/common/UI/Button";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
 import Router from "next/router";
 import ErrorMessage from "@/common/UI/ErrorMessage";
-// import { logInUser } from "../../data/auth";
-
-const LOGIN_USER = gql`
-  mutation LOGIN_USER($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      role {
-        id
-        name
-      }
-    }
-  }
-`;
+import appText from "@/lang/appText";
 
 const RESET_PASSWORD_MUTATION = gql`
   mutation RESET_PASSWORD_MUTATION(
@@ -30,42 +19,59 @@ const RESET_PASSWORD_MUTATION = gql`
       password: $password
       confirmPassword: $confirmPassword
     ) {
-      id
-      email
+      __typename
+      ... on User {
+        id
+        email
+        role {
+          id
+          name
+          permissions {
+            object
+            actions
+          }
+        }
+      }
+
+      ... on GraphqlError {
+        type
+        message
+      }
     }
   }
 `;
 
-const passwordResetForm = props => {
+const passwordResetForm = (props) => {
   const [formData, setFormData] = useState({
     password: {
       value: "",
       valid: false,
       type: "password",
-      label: "Password",
+      label: appText.objects.password.singular,
       placeholder: "Password",
-      icon: "key"
+      icon: "key",
     },
 
     confirmPassword: {
       value: "",
       valid: false,
       type: "password",
-      label: "Confirm Password",
-      placeholder: "Confirm Password",
-      icon: "key"
-    }
+      label: appText.actions.confirm + " " + appText.objects.password.singular,
+      placeholder:
+        appText.actions.confirm + " " + appText.objects.password.singular,
+      icon: "key",
+    },
   });
 
   const [validate, setValidate] = useState(false);
 
-  const changeHandler = fieldData => {
+  const changeHandler = (fieldData) => {
     setFormData({
       ...formData,
       [fieldData.name]: {
         ...formData[fieldData.name],
-        ...fieldData
-      }
+        ...fieldData,
+      },
     });
   };
 
@@ -83,7 +89,7 @@ const passwordResetForm = props => {
     }
   };
 
-  const fieldsToRender = ["password", "confirmPassword"].map(key => {
+  const fieldsToRender = ["password", "confirmPassword"].map((key) => {
     const fieldData = formData[key];
     return (
       <InputField
@@ -110,21 +116,24 @@ const passwordResetForm = props => {
         variables={{
           token: props.token,
           password: formData.password.value,
-          confirmPassword: formData.confirmPassword.value
+          confirmPassword: formData.confirmPassword.value,
         }}
         refetchQueries={[
           { query: ME_USER_QUERY },
-          ...(props.refetchQueries || [])
+          ...(props.refetchQueries || []),
         ]}
       >
         {(resetPassword, { loading, error, called, data }) => (
           <form>
-            {error && <ErrorMessage error={error} />}
+            <ErrorMessage error={error} data={data} />
             <fieldset disabled={loading} aria-busy={loading}>
               {fieldsToRender}
               <br />
-              <Button onClick={e => submitHandler(e, resetPassword)} fullWidth>
-                Save Password
+              <Button
+                onClick={(e) => submitHandler(e, resetPassword)}
+                fullWidth
+              >
+                {appText.actions.save + " " + appText.objects.password.singular}
               </Button>
             </fieldset>
           </form>
