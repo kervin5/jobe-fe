@@ -2,7 +2,7 @@ import React from "react";
 import variables from "@/common/globalVariables";
 // import classes from './Title.modules.scss';
 
-const Title = props => {
+const Title = (props) => {
   const extraStyles = props.styles || "";
   const alignment = props.center ? "Center" : props.right ? "Right" : "Left";
   const classesToRender = ["Title", alignment].join(" ");
@@ -15,7 +15,10 @@ const Title = props => {
       : variables.darkColor;
 
   return (
-    <div className={classesToRender} data-test="title-component">
+    <div
+      className={classesToRender + " " + props.className ?? ""}
+      data-test="title-component"
+    >
       {titleGenerator(props.size, props.children, weight, props)}
       <style jsx>{`
         .Title {

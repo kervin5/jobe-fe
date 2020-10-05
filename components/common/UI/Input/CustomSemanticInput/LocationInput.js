@@ -12,12 +12,12 @@ const GET_LOCATIONS_FROM_MAPBOX = gql`
   }
 `;
 
-const formatLocations = locations => {
+const formatLocations = (locations) => {
   if (!Array.isArray(locations)) return [];
-  return locations.map(location => ({
+  return locations.map((location) => ({
     key: location.id,
     value: location.name,
-    text: location.name
+    text: location.name,
   }));
 };
 
@@ -27,7 +27,8 @@ const LocationInput = ({
   error,
   name,
   label,
-  defaultValue
+  defaultValue,
+  size,
 }) => {
   const [query, setQuery] = useState("");
   const [fetchedOptions, setFetchedOptions] = useState([]);
@@ -37,7 +38,7 @@ const LocationInput = ({
     setQuery(searchQuery);
   };
 
-  const handleChangeOfOptions = options => {
+  const handleChangeOfOptions = (options) => {
     if (options.length > 0) {
       setFetchedOptions(options);
     }
@@ -63,6 +64,7 @@ const LocationInput = ({
             error={propsError}
             defaultValue={defaultValue}
             defaultSearchQuery={defaultValue}
+            size={size}
           />
         );
       }}
@@ -72,7 +74,6 @@ const LocationInput = ({
 
 LocationInput.defaultProps = {
   placeholder: "Select a location",
-  label: "Location"
 };
 
 export default LocationInput;
