@@ -3,7 +3,7 @@ import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 import PageSection from "@/common/Layout/PageSection";
 import Container from "@/common/Layout/Container";
 import UserProfileTabs from "@/components/me/UserProfileTabs";
-import UserProfileHeader from "@/components/users/UserProfileHeader";
+import UserProfileHeader from "@/components/candidates/CandidateProfileHeader";
 import appText from "@/lang/appText";
 
 const MePage = (props) => {

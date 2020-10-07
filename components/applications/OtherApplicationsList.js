@@ -14,7 +14,7 @@ const APPLICANT_OTHER_JOBS_APPLICATIONS_QUERY = gql`
       where: {
         AND: [
           { user: { id: { equals: $userId } } }
-          { id: { not: $applicationId } }
+          { id: { not: { equals: $applicationId } } }
         ]
       }
     ) {

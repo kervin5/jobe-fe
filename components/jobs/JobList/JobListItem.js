@@ -8,7 +8,7 @@ import FavoriteButton from "../JobFavoriteButton/FavoriteButton";
 import Card from "@/common/UI/Card";
 import sanitize from "@/lib/html";
 import PrompToRegister from "@/components/users/PrompToRegister";
-import Translator from "@/components/hoc/Translator";
+import Translator from "@/common/UI/Translator/Translator";
 import { numberWithCommas } from "../JobCompensationBubbles";
 import JobPerksBubbles from "../JobPerksBubbles";
 import { currency } from "@/root/config";
@@ -61,7 +61,10 @@ const jobListItem = (props) => {
       <Link href="/jobs/[jid]" as={jobUrl}>
         <a className="Content">
           <Translator>
-            {sanitize(props.description, [])["__html"].substring(0, 300)}...
+            {sanitize(props.description, [])
+              ["__html"].substring(0, 300)
+              .replace("&amp;", "and")}
+            ...
           </Translator>
         </a>
       </Link>

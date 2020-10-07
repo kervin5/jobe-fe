@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useLazyQuery, ApolloConsumer } from "@apollo/client";
+import React, { useState } from "react";
+import { ApolloConsumer } from "@apollo/client";
 import { CSVDownload } from "react-csv";
+import { flattenObject } from "@/lib/objects";
 
 import { Button } from "semantic-ui-react";
 import appText from "@/lang/appText";
 
-const ActionButton = ({ client, queryData }) => {
+const ActionButton = ({ client, queryData, rowFormat }) => {
   const [fetchedData, setFetchedData] = useState(null);
   const [loading, setLoading] = useState(false);
   // const [getData, { error, loading, data }] = useLazyQuery(queryData?.query, {
@@ -19,9 +20,14 @@ const ActionButton = ({ client, queryData }) => {
       .query({ query: queryData.query, variables: queryData.variables })
       .then(({ data }) => {
         const [dataKey] = Object.keys(data);
-        setTimeout(() => setFetchedData(data[dataKey]), 10);
+
+        setTimeout(() => {
+          const rows = data[dataKey].map(flattenObject);
+          setFetchedData(rows);
+        }, 10);
+
         setLoading(false);
-        setTimeout(() => setFetchedData(false), 1000);
+        setTimeout(() => setFetchedData(null), 1000);
       });
     //   getData();
     //   updateFetchedData();
@@ -56,11 +62,17 @@ const ActionButton = ({ client, queryData }) => {
   );
 };
 
-const DownloadCSVButton = ({ queryData }) => {
+const DownloadCSVButton = ({ queryData, rowFormat }) => {
   return (
     <ApolloConsumer>
       {(apolloClient) => {
-        return <ActionButton queryData={queryData} client={apolloClient} />;
+        return (
+          <ActionButton
+            queryData={queryData}
+            client={apolloClient}
+            rowFormat={rowFormat}
+          />
+        );
       }}
     </ApolloConsumer>
   );

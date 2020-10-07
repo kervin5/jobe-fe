@@ -14,6 +14,7 @@ export const SINGLE_JOB_QUERY = gql`
       createdAt
       updatedAt
       views
+      permalink
       applications(orderBy: { createdAt: desc }) {
         id
         createdAt
@@ -68,6 +69,7 @@ export const ALL_JOBS_GRID = gql`
     $orderBy: String
     $query: String
     $status: [String!]
+    $branch: [String!]
   ) {
     jobsGrid(
       skip: $skip
@@ -75,6 +77,7 @@ export const ALL_JOBS_GRID = gql`
       orderBy: $orderBy
       query: $query
       status: $status
+      branch: $branch
     ) {
       id
       title
@@ -89,5 +92,15 @@ export const ALL_JOBS_GRID = gql`
       createdAt
       cronTask
     }
+  }
+`;
+
+export const JOBS_GRID_COUNT_QUERY = gql`
+  query JOBS_GRID_COUNT_QUERY(
+    $query: String = ""
+    $status: [String!]
+    $branch: [String!]
+  ) {
+    jobsGridCount(query: $query, status: $status, branch: $branch)
   }
 `;

@@ -38,7 +38,7 @@ const SingleJobListing = ({ jobId, preview, jobData, countView }) => {
         if (loading) return <Loader />;
         if (!data.job) return <p>No job found for: {jobId}</p>;
         const singleJob = data?.job;
-        console.log(singleJob);
+
         return (
           <JobListing
             data={{

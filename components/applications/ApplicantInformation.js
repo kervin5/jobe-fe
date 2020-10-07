@@ -34,7 +34,12 @@ const ApplicantInformation = ({ applicationId }) => (
         <Item.Group divided>
           <Item>
             <Item.Content>
-              <Item.Header as="a">{data.application.user.name}</Item.Header>
+              <Item.Header
+                as="a"
+                href={`/admin/candidates/${data.application.user.id}`}
+              >
+                {data.application.user.name}
+              </Item.Header>
               <Item.Meta>
                 <span className="cinema">
                   <a href={`mailto:${data.application.user.email}`}>

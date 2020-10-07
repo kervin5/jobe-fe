@@ -12,14 +12,22 @@ import appText from "@/lang/appText";
 const LOGIN_USER = gql`
   mutation LOGIN_USER($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      id
-      role {
+      __typename
+      ... on User {
         id
-        name
-        permissions {
-          object
-          actions
+        role {
+          id
+          name
+          permissions {
+            object
+            actions
+          }
         }
+      }
+
+      ... on GraphqlError {
+        type
+        message
       }
     }
   }
@@ -65,7 +73,7 @@ const loginForm = (props) => {
     if (email.valid && password.valid) {
       const res = await loginUserMutation();
 
-      if (res.data.login && !props.noredirect) {
+      if (res.data?.login?.["__typename"] === "User" && !props.noredirect) {
         const route = userHasAccess(
           [{ object: "JOB", action: "CREATE" }],
           res.data.login.role.permissions
@@ -113,7 +121,7 @@ const loginForm = (props) => {
       >
         {(loginUser, { loading, error, called, data }) => (
           <form>
-            <ErrorMessage error={error} />
+            <ErrorMessage error={error} data={data} />
             <fieldset disabled={loading} aria-busy={loading}>
               {fieldsToRender}
               <br />

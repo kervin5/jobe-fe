@@ -26,6 +26,7 @@ export default {
     share: "Compartir",
     publish: "Publicar",
     download: "Descargar",
+    create: "Crear",
   },
 
   objects: {
@@ -60,7 +61,7 @@ export default {
     },
 
     name: {
-      singular: "Nombre Completo",
+      singular: "Nombre",
       plural: "Nombres",
     },
 
@@ -156,6 +157,30 @@ export default {
       singular: "Favorito",
       plural: "Favoritos",
     },
+    company: {
+      singular: "Compania",
+      plural: "Companias",
+    },
+    activity: {
+      singular: "Actividad",
+      plural: "Actividades",
+    },
+    branch: {
+      singular: "Sucursal",
+      plural: "Sucursales",
+    },
+    role: {
+      singular: "Rol",
+      plural: "Roles",
+    },
+    reminder: {
+      singular: "Recordatorio",
+      plural: "Recordatorios",
+    },
+    option: {
+      singular: "Opcion",
+      plural: "Opciones",
+    },
   },
 
   adjectives: {
@@ -176,6 +201,8 @@ export default {
     perDiem: "Por Día",
     viewed: "Vistas",
     contacted: "Contactados",
+    primary: "Principal",
+    active: "Activa",
   },
 
   pronouns: {
@@ -221,6 +248,8 @@ export default {
     submitForApproval: "Submit for approval",
     attention: "Atención",
     recentActivity: "Actividad Reciente",
+    success: "Exito",
+    saved: "Los cambios fueron guardados",
     job: {
       latest: "Trabajos más recientes",
       recommended: "Trabajos recomendados",
@@ -238,6 +267,10 @@ export default {
       jobAuthor: "Autor",
       jobDescription: "Descripción",
       jobDisclaimer: "Términos o Descargo de Responsabilidad",
+      jobDescriptionTips: `A good job description helps answer these questions for potential candidates applying.
+      \n1. What is the job? The roles responsibilities and how it fits into the organization.
+      \n2. Why should they want it? Exciting or challenging projects, what it’s like to work for that company, and any benefits or perks available.
+      \n3. Are they qualified? Skills & experience needed for success.`,
       byEnablingRecurring:
         " Al activar esta opción, el puesto de trabajo sera actualizado cada 3 dias. Por favor utiliza esta opción solo para puestos que constantemente estan contratando. Esta opción hara que el puesto aparezca como que ha sido recietemente publicado",
     },
@@ -321,8 +354,11 @@ export default {
       select: "Selecciona una opción",
       selectAllThatApply: "Selecciona toas las que apliquen",
       selectAtLeastOne: "Selecciona al menos una",
+      selectAtLeast: (numberOfOptions, optionsName = "opciones") =>
+        `Selecciona al menos ${numberOfOptions} ${optionsName}`,
       fileTypeNotValid: "Este tipo de documento es invalido, 😭",
       fileIsTooLarge: "El documento es muy grande",
+      enterDetails: "Ingrese los detalles",
     },
   },
 

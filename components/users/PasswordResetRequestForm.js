@@ -4,11 +4,31 @@ import { gql } from "@apollo/client";
 import { Mutation } from "@apollo/react-components";
 import Button from "@/common/UI/Button";
 import Title from "@/common/UI/Title";
+import ErrorMessage from "@/common/UI/ErrorMessage";
 import appText from "@/lang/appText";
 
 const REQUEST_PASSWORD_MUTATION = gql`
   mutation REQUEST_PASSWORD_MUTATION($email: String!) {
-    requestReset(email: $email)
+    requestReset(email: $email) {
+      __typename
+      ... on User {
+        id
+        email
+        role {
+          id
+          name
+          permissions {
+            object
+            actions
+          }
+        }
+      }
+
+      ... on GraphqlError {
+        type
+        message
+      }
+    }
   }
 `;
 
@@ -75,9 +95,10 @@ const passwordRequestForm = (props) => {
             <Title size={"l"} center>
               {appText.messages.password.forgotQuestion}
             </Title>
-            {error && (
+            <ErrorMessage error={error} data={data} />
+            {/* {error && (
               <p className={"error"}>{appText.messages.account.invalidEmail}</p>
-            )}
+            )} */}
             {!error && data && !loading && (
               <p>{appText.messages.account.resetLink}</p>
             )}

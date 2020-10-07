@@ -8,17 +8,6 @@ import Router from "next/router";
 import ErrorMessage from "@/common/UI/ErrorMessage";
 import appText from "@/lang/appText";
 
-const LOGIN_USER = gql`
-  mutation LOGIN_USER($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      role {
-        id
-        name
-      }
-    }
-  }
-`;
-
 const RESET_PASSWORD_MUTATION = gql`
   mutation RESET_PASSWORD_MUTATION(
     $token: String!
@@ -30,8 +19,24 @@ const RESET_PASSWORD_MUTATION = gql`
       password: $password
       confirmPassword: $confirmPassword
     ) {
-      id
-      email
+      __typename
+      ... on User {
+        id
+        email
+        role {
+          id
+          name
+          permissions {
+            object
+            actions
+          }
+        }
+      }
+
+      ... on GraphqlError {
+        type
+        message
+      }
     }
   }
 `;
@@ -120,7 +125,7 @@ const passwordResetForm = (props) => {
       >
         {(resetPassword, { loading, error, called, data }) => (
           <form>
-            {error && <ErrorMessage error={error} />}
+            <ErrorMessage error={error} data={data} />
             <fieldset disabled={loading} aria-busy={loading}>
               {fieldsToRender}
               <br />

@@ -1,28 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import Router from "next/router";
-import { Query } from "@apollo/react-components";
+import { useQuery } from "@apollo/client";
 import { Loader } from "semantic-ui-react";
 import { userHasAccess } from "@/lib/auth";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
 
 const RenderIfLoggedIn = ({ children, permissions, fallback, redirect }) => {
-  return (
-    <Query query={ME_USER_QUERY}>
-      {({ error, loading, data }) => {
-        if (error) return <p>Something went wrong</p>;
-        if (loading) return <Loader active inline="centered" />;
-        if (!data.me && redirect)
-          Router.push(typeof redirect === "string" ? redirect : "/user/login");
-        if (!data.me) return null;
-        if (
-          permissions &&
-          !userHasAccess(permissions, data.me.role.permissions)
-        )
-          return fallback ? fallback : null;
-        return <React.Fragment>{children}</React.Fragment>;
-      }}
-    </Query>
-  );
+  const { error, loading, data } = useQuery(ME_USER_QUERY);
+
+  if (error) return <p>Something went wrong</p>;
+  if (loading) return <Loader active inline="centered" />;
+
+  //When it's done loading
+  if (!data.me && redirect) {
+    Router.push("/user/login");
+    return null;
+  }
+
+  //Show nothing is user is not authenticated
+  if (!data.me) return null;
+
+  if (permissions && !userHasAccess(permissions, data.me.role.permissions)) {
+    if (typeof redirect === "string") {
+      Router.push(redirect);
+    }
+
+    if (typeof redirect === "boolean") {
+      Router.push("/user/login");
+    }
+    return fallback ? fallback : null;
+  }
+
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 export default RenderIfLoggedIn;

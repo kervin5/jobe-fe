@@ -26,6 +26,7 @@ export default {
     share: "Share",
     publish: "Publish",
     download: "Download",
+    create: "Create",
   },
 
   objects: {
@@ -55,8 +56,8 @@ export default {
     },
 
     email: {
-      singular: "email",
-      plural: "emails",
+      singular: "Email",
+      plural: "Emails",
     },
 
     phone: {
@@ -66,7 +67,7 @@ export default {
 
     name: {
       singular: "name",
-      plural: "name",
+      plural: "names",
     },
 
     score: {
@@ -157,6 +158,30 @@ export default {
       singular: "Favorite",
       plural: "Favorites",
     },
+    company: {
+      singular: "Company",
+      plural: "Companies",
+    },
+    activity: {
+      singular: "Activity",
+      plural: "Activities",
+    },
+    branch: {
+      singular: "Branch",
+      plural: "Branches",
+    },
+    role: {
+      singular: "Role",
+      plural: "Roles",
+    },
+    reminder: {
+      singular: "Reminder",
+      plural: "Reminders",
+    },
+    option: {
+      singular: "Option",
+      plural: "Options",
+    },
   },
 
   adjectives: {
@@ -177,6 +202,8 @@ export default {
     perDiem: "Per Diem",
     viewed: "Viewed",
     contacted: "Contacted",
+    primary: "Primary",
+    active: "Active",
   },
 
   pronouns: {
@@ -221,6 +248,9 @@ export default {
     amazingOpportunity: `Amazing Career opportunity @ ${companyInfo.name}`,
     submitForApproval: "Submit for approval",
     attention: "Attention",
+    success: "Success",
+    saved: "The changes were saved",
+
     job: {
       latest: "latest jobs",
       recommended: "recommended jobs",
@@ -237,6 +267,10 @@ export default {
       jobSkills: "Job Skills",
       jobAuthor: "Job Author",
       jobDescription: "Job Description",
+      jobDescriptionTips: `A good job description helps answer these questions for potential candidates applying.
+      \n1. What is the job? The roles responsibilities and how it fits into the organization.
+      \n2. Why should they want it? Exciting or challenging projects, what it’s like to work for that company, and any benefits or perks available.
+      \n3. Are they qualified? Skills & experience needed for success.`,
       jobDisclaimer: "Job Disclaimer",
       byEnablingRecurring:
         " By enabling this option, the job will be reposted automatically every three days. Please only use this option for jobs that you are continuously recruiting for. This option will make this job seem like it has recently been posted until you opt-out.",
@@ -318,8 +352,11 @@ export default {
       select: "Select an option",
       selectAllThatApply: "Select all that apply",
       selectAtLeastOne: "Select at least one",
+      selectAtLeast: (numberOfOptions, optionsName = "options") =>
+        `Select at least ${numberOfOptions} ${optionsName}`,
       fileTypeNotValid: "File type not accepted, sorry",
       fileIsTooLarge: "File is too large",
+      enterDetails: "Enter the details below",
     },
   },
 

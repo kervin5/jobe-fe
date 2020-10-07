@@ -4,7 +4,7 @@ import Button from "./Button";
 import PopUp from "./PopUp";
 import AuthForm from "@/components/users/AuthForm";
 import ResumeUploadForm from "../../resumes/ResumeUploadForm";
-import { CHECK_USER_APPLICATION_STATUS_QUERY } from "./ApplyToJobButton";
+import { CHECK_USER_APPLICATION_STATUS_QUERY } from "../../jobs/ApplyToJobButton";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
 import appText from "@/lang/appText";
 
@@ -22,6 +22,7 @@ const RegisterToApplyButton = (props) => {
           if (error) return <p>Something went wrong</p>;
           if (loading) return <p>Loading</p>;
           if (data.me && data.me.role.name !== "candidate") return null;
+          <p>Test</p>;
           return (
             <div>
               <Button fullWidth onClick={() => setShowPopUp(true)}>

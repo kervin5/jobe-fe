@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Form, Button } from "semantic-ui-react";
 import { gql } from "@apollo/client";
 import { Mutation } from "@apollo/react-components";
