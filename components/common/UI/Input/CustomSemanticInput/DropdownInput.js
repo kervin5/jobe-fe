@@ -36,7 +36,6 @@ const LocationInput = ({
         loading={loading}
         id={name}
         placeholder={placeholder}
-        fluid={fluid}
         search
         selection
         onAddItem={handleAddition}

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Form } from "semantic-ui-react";
 import Router from "next/router";
 import LocationInput from "@/common/UI/Input/CustomSemanticInput/LocationInput";
@@ -9,13 +9,7 @@ import appText from "@/lang/appText";
 const StyledSearchForm = styled.div``;
 
 const CreateJobForm = ({ location }) => {
-  const {
-    register,
-    errors,
-    handleSubmit,
-    setValue,
-    triggerValidation,
-  } = useForm();
+  const { register, errors, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
     register({ name: "jobTitle" });
@@ -31,12 +25,10 @@ const CreateJobForm = ({ location }) => {
   };
 
   const handleInputChange = async (e, data) => {
-    setValue(data.name, data.value);
+    setValue(data.name, data.value, { shouldValidate: true });
     if (data.name === "jobLocation" && data.value) {
       localStorage.setItem("lastLocation", data.value);
     }
-
-    await triggerValidation({ name: data.name });
   };
 
   // console.log(errors);
