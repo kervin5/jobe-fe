@@ -20,35 +20,18 @@ const CreateJobForm = ({ location }) => {
     e.preventDefault();
     const q = data.jobTitle ? `q=${data.jobTitle}` : "";
     const location = data.jobLocation ? `location=${data.jobLocation}` : "";
-<<<<<<< HEAD
-=======
-
->>>>>>> b5d776bb38038011a28de1a1d420c9d7ebdff60f
 
     Router.push(`/jobs?${q}&${location}`);
   };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b5d776bb38038011a28de1a1d420c9d7ebdff60f
   const handleInputChange = async (e, data) => {
     setValue(data.name, data.value, { shouldValidate: true });
     if (data.name === "jobLocation" && data.value) {
       localStorage.setItem("lastLocation", data.value);
     }
-<<<<<<< HEAD
   };
 
   // console.log(errors);
-=======
-
-
-    await triggerValidation({ name: data.name });
-  };
-
-
->>>>>>> b5d776bb38038011a28de1a1d420c9d7ebdff60f
 
   return (
     <StyledSearchForm>
