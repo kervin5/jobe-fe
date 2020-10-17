@@ -45,7 +45,7 @@ const layout = (props) => {
           box-sizing: border-box;
           margin: 0;
           padding: 0;
-          font-family: "IBM Plex Sans", sans-serif;
+          font-family: "Roboto", sans-serif;
         }
 
         .Layout {

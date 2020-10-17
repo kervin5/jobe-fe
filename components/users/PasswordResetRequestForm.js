@@ -89,6 +89,7 @@ const passwordRequestForm = (props) => {
       variables={{ email: formData.email.value }}
     >
       {(requestPasswordChange, { error, loading, data }) => {
+        console.log(error);
         return (
           <form>
             <Title size={"l"} center>

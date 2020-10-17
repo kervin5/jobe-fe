@@ -1,6 +1,6 @@
 import React from "react";
 
-import PageSection from "@/common/Layout/PageSection.js";
+import PageSection from "@/common/Layout/PageSection";
 import appText from "@/lang/appText";
 
 // Page: Landing Page

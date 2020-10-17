@@ -20,5 +20,5 @@ yarn-error.log*
 .idea
 /.idea
 .vercel
-
+.icloud
 .env*

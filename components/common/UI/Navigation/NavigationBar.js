@@ -3,7 +3,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import NavigationItems from "./NavigationItems/NavigationItems";
 import HamburgerMenu from "@/common/UI/Navigation/HamburgerMenu";
-const CompanyLogo = "/images/LandingLogo.svg";
+const CompanyLogo = "/images/oportunica-logo.png";
 
 const StyledNavigationBar = styled.nav`
   &.NavigationBar {
@@ -23,6 +23,9 @@ const StyledNavigationBar = styled.nav`
       margin: auto;
       margin-left: 10px;
       z-index: 10001;
+      img {
+        width: 100%;
+      }
     }
 
     .menu {

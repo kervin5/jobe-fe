@@ -21,6 +21,12 @@ export default function App({ Component, pageProps, router }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
   const isAdminLayout = isAdminPage(router.pathname);
 
+  useEffect(() => {
+    const jssStyles = document.querySelector("#jss-server-side");
+    if (jssStyles && jssStyles.parentNode)
+      jssStyles.parentNode.removeChild(jssStyles);
+  }, []);
+
   return (
     <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={theme}>

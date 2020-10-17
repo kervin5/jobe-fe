@@ -1,6 +1,6 @@
 import React from "react";
 
-import PageSection from "@/common/Layout/PageSection.js";
+import PageSection from "@/common/Layout/PageSection";
 
 // Page: Landing Page
 const peopleImage = "/images/334809-PAIXKS-603.ai.png";
@@ -10,7 +10,7 @@ flex-wrap: wrap;
 align-items: flex-start;
 align-content: center;`;
 
-const unknownPage = props => {
+const unknownPage = (props) => {
   return (
     <PageSection styles={pageStyles}>
       <h1 className={"ErrorCode"}>500</h1>

@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import {
   Checkbox,
   Icon,
-  Table,
+  // Table,
   Dimmer,
   Loader,
   Segment,
@@ -11,9 +11,30 @@ import {
 import { ALL_BRANCHES_QUERY } from "@/graphql/queries/branches";
 import appText from "@/lang/appText";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import Switch from "@material-ui/core/Switch";
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
+
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
+}
+
 const BranchesAccessPanel = ({ selected, onChange }) => {
   const { error, loading, data } = useQuery(ALL_BRANCHES_QUERY);
   const [changes, setChanges] = useState({});
+  const classes = useStyles();
 
   const enabled = selected.reduce((result, selectedBranch) => {
     result[selectedBranch.id] = selectedBranch;
@@ -56,21 +77,23 @@ const BranchesAccessPanel = ({ selected, onChange }) => {
         </Dimmer>
       </Segment>
     );
-  return (
-    <Table celled compact definition>
-      <Table.Header fullWidth>
-        <Table.Row>
-          <Table.HeaderCell>{appText.adjectives.active}</Table.HeaderCell>
-          <Table.HeaderCell>{appText.objects.branch.singular}</Table.HeaderCell>
-          <Table.HeaderCell>{appText.adjectives.primary}</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
 
-      <Table.Body>
-        {data.branches.map((branch, index) => {
-          return (
-            <Table.Row key={"Branch" + branch.name + index}>
-              <Table.Cell collapsing>
+  return (
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>{appText.adjectives.active}</TableCell>
+            <TableCell align="right">
+              {appText.objects.branch.singular}
+            </TableCell>
+            <TableCell align="right">{appText.adjectives.primary}</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.branches.map((branch, index) => (
+            <TableRow key={"Branch" + branch.name + index}>
+              <TableCell component="th" scope="row">
                 <Checkbox
                   toggle
                   defaultChecked={!!enabled[branch.id]}
@@ -80,29 +103,27 @@ const BranchesAccessPanel = ({ selected, onChange }) => {
                     !!enabled[branch.id] && !!enabled[branch.id].primary
                   }
                 />
-              </Table.Cell>
-              <Table.Cell>{branch.name}</Table.Cell>
-              <Table.Cell>
+                <Switch
+                  checked={!!enabled[branch.id]}
+                  onChange={handleToggleChange}
+                  color="primary"
+                  name="checkedB"
+                  inputProps={{ "aria-label": "primary checkbox" }}
+                />
+              </TableCell>
+              <TableCell align="right">{branch.name}</TableCell>
+              <TableCell align="right">
                 {enabled[branch.id] && enabled[branch.id].primary ? (
                   <Icon name="check" />
                 ) : (
                   ""
                 )}
-              </Table.Cell>
-            </Table.Row>
-          );
-        })}
-      </Table.Body>
-
-      {/* <Table.Footer fullWidth>
-        <Table.Row>
-          <Table.HeaderCell />
-          <Table.HeaderCell colSpan="4">
-            <SaveBrancheChangesBtn changes={changes} userId={userId} />
-          </Table.HeaderCell>
-        </Table.Row>
-      </Table.Footer> */}
-    </Table>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
