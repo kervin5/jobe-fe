@@ -64,7 +64,7 @@ const DropdownGraphqlInput = ({
   }, [fetchedData.data]);
 
   if (fetchedData.error) return <p>Something failed...</p>;
-
+  if (fetchedData.loading) return <p>Loading</p>; //TODO: Implement fake placeholder for loading component
   return (
     <Dropdown
       multiple={multiple}

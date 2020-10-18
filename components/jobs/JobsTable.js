@@ -11,7 +11,7 @@ import appText from "@/lang/appText";
 
 ////New imports
 import TableGraphql from "@/common/UI/Tables/TableGraphqlWithQuery";
-import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
+import DropdownGraphqlInput from "@/common/UI/Input/CustomInput/DropdownGraphqlInput";
 
 const jobStatuses = ["DRAFT", "POSTED", "EXPIRED", "PENDING"];
 

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Form } from "semantic-ui-react";
 import Router from "next/router";
-import LocationInput from "@/common/UI/Input/CustomSemanticInput/LocationInput";
+import LocationInput from "@/common/UI/Input/CustomInput/LocationInput";
 import styled from "styled-components";
 import appText from "@/lang/appText";
 

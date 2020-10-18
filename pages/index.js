@@ -16,7 +16,7 @@ const homePage = (props) => {
   // return <p>Hello</p>;
 
   return (
-    <PageSection className="HomePage" column nopadding data-test="indexPage">
+    <PageSection className="HomePage" column data-test="indexPage">
       <SEO
         description={`${appText.seo.pages.landing.description}. ${appText.seo.description}!`}
         title={`${appText.seo.title}!`}

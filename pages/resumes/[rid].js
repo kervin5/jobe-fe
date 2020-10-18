@@ -7,7 +7,7 @@ import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 
 const pageStyles = `background-color:${variables.mutedColor1};`;
 
-const SingleResumeView = props => {
+const SingleResumeView = (props) => {
   const router = useRouter();
   const { rid } = router.query;
   return (
@@ -15,7 +15,7 @@ const SingleResumeView = props => {
       redirect
       permissions={[{ object: "RESUME", action: "READ" }]}
     >
-      <PageSection styles={pageStyles} nopadding column>
+      <PageSection styles={pageStyles} column>
         <div className="JobContainer">
           <ResumeViewer url={rid} />
           <style jsx>

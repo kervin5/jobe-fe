@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Button, Form } from "semantic-ui-react";
+import IconButton from "@material-ui/core/IconButton";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+
 import moment from "moment";
-import EempactStatusLabel from "@/components/users/EempactStatusLabel";
+
 import { take } from "@/root/config";
 import { applicationStatusOptions } from "./ApplicationStatusDropdown";
 import appText from "@/lang/appText";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
-import DropdownGraphqlInput from "@/common/UI/Input/CustomSemanticInput/DropdownGraphqlInput";
+import DropdownGraphqlInput from "@/common/UI/Input/CustomInput/DropdownGraphqlInput";
 import TableGraphql from "@/common/UI/Tables/TableGraphqlWithQuery";
 import {
   ALL_APPLICATIONS_QUERY,
@@ -65,8 +73,9 @@ const ApplicationsTable = (props) => {
     setStatus(status);
   };
 
-  const branchChangeHandler = (e, data) => {
-    setBranch(data.value);
+  const branchChangeHandler = (e) => {
+    console.log(e.target.value);
+    setBranch(e.target.value);
   };
 
   useEffect(() => {
@@ -92,7 +101,9 @@ const ApplicationsTable = (props) => {
             href={"/admin/jobs/[jid]"}
             as={"/admin/jobs/" + application.job.id}
           >
-            <a target="_blank">{application.job.title}</a>
+            <a href={"/admin/jobs/" + application.job.id}>
+              {application.job.title}
+            </a>
           </Link>
         ),
         location: application.job.location.name,
@@ -113,15 +124,16 @@ const ApplicationsTable = (props) => {
             refetchQueries={queries}
           />
         ),
-        eempact: <EempactStatusLabel data={application.user.eEmpact} />,
+
         actions: (
           <Link
             href={"/admin/applications/[aid]"}
             as={"/admin/applications/" + application.id}
-            target="_blank"
             passHref
           >
-            <Button as="a" icon="eye" color="green" target="_blank" />
+            <IconButton aria-label="View Application" target="_blank" as="a">
+              <VisibilityIcon />
+            </IconButton>
           </Link>
         ),
       })}
@@ -132,37 +144,43 @@ const ApplicationsTable = (props) => {
       }}
       searchFilter={(value) => ({ terms: value })}
       toolbar={
-        <Form>
-          <Form.Group>
-            <Form.Select
-              label={appText.objects.status.singular}
-              placeholder="Application Status"
-              selection
-              options={[
+        <>
+          <FormControl variant="outlined">
+            <InputLabel>{appText.objects.status.singular}</InputLabel>
+            <Select
+              labelId="application-status"
+              id="application-status-select"
+              value={status}
+              onChange={(e) => statusChangeHandler(e.target.value)}
+            >
+              {[
                 { key: "All", text: "All", value: "ALL" },
                 ...applicationStatusOptions,
-              ]}
-              value={status}
-              onChange={(e, data) => statusChangeHandler(data.value)}
-            />
-            <DropdownGraphqlInput
-              onChange={branchChangeHandler}
-              name="branch"
-              label={appText.objects.branch.singular}
-              placeholder={appText.messages.validation.select}
-              showAllOption
-              defaultValue="ALL"
-              graphql={{
-                query: `query BRANCHES_QUERY {
+              ].map((option, index) => (
+                <MenuItem key={option.key} value={option.value}>
+                  {option.text}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <DropdownGraphqlInput
+            onChange={branchChangeHandler}
+            name="branch"
+            label={appText.objects.branch.singular}
+            placeholder={appText.messages.validation.select}
+            showAllOption
+            defaultValue="ALL"
+            graphql={{
+              query: `query BRANCHES_QUERY {
               branchesByUser {
                 id
                 name
               }
             }`,
-              }}
-            />
-          </Form.Group>
-        </Form>
+            }}
+          />
+        </>
       }
     />
   );

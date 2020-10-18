@@ -1,46 +1,22 @@
-import React from 'react';
-// import classes from './Loader.modules.scss';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-const loader = () => {
-    return(
-        <div className={"Loader"}>Loading...
-        <style jsx>{`
-        .Loader {
-            border-radius: 50%;
-            width: 10em;
-            height: 10em;
-            
-            margin: 60px auto;
-            font-size: 10px;
-            position: relative;
-            text-indent: -9999em;
-            border-top: 1.1em solid #1AAF4B;
-            border-right: 1.1em solid rgba(72, 140, 4, 0.2);
-            border-bottom: 1.1em solid rgba(72, 140, 4, 0.2);
-            border-left: 1.1em solid #1AAF4B;
-            transform: translateZ(0);
-            animation: load8 1.1s infinite linear;
-          }
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
 
-          .Loader:after {
-            
-            border-radius: 50%;
-            width: 10em;
-            height: 10em;  
-          }
-          
-          @keyframes load8 {
-            0% {
-              transform: rotate(0deg);
-            }
-          
-            100% {
-              transform: rotate(360deg);
-            }
-          }
-        `}</style>
-        </div>
-    );
+export default function CircularIndeterminate() {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <CircularProgress />
+    </div>
+  );
 }
-
-export default loader;
