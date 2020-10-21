@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Router from "next/router";
 import { useQuery } from "@apollo/client";
-import { Loader } from "semantic-ui-react";
+import Loader from "@/common/UI/Animated/Loader";
 import { userHasAccess } from "@/lib/auth";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
 

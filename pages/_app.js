@@ -8,7 +8,7 @@ import { useApollo } from "@/lib/apolloClient";
 
 import Page from "@/components/Page";
 import "jodit/build/jodit.min.css";
-import "semantic-ui-css/semantic.min.css";
+
 import "./app.css";
 
 if (process.env.NODE_ENV === "production") {

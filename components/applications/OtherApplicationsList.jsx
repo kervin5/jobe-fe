@@ -1,7 +1,6 @@
 import React from "react";
 import Feed from "@/common/UI/Feed";
 import { useQuery } from "@apollo/client";
-import { Query } from "@apollo/react-components";
 import { gql } from "@apollo/client";
 import moment from "moment";
 import Link from "next/link";

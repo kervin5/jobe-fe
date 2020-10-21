@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Grid } from "semantic-ui-react";
+import Grid from "@material-ui/core/Grid";
 import UserLocator from "@/root/data/UserLocator";
 import Title from "@/common/UI/Title";
 import SearchForm from "@/components/jobs/Search/SearchForm";
-import DynamicImageBg from "@/common/UI/DynamicImageBg";
 import appText from "@/lang/appText";
 
 const StyledLandingSection = styled.div`
@@ -42,15 +41,12 @@ const LandingSection = () => {
 
   return (
     <StyledLandingSection className="LandingSection">
-      <Grid columns="2">
-        <Grid.Row>
-          <Grid.Column>
-            <Title size="l" alignment={"left"} className="LandingTitle">
-              {appText.messages.opportunityOfYourDreams}
-            </Title>
-          </Grid.Column>
-          <Grid.Column></Grid.Column>
-        </Grid.Row>
+      <Grid container>
+        <Grid item>
+          <Title size="l" alignment={"left"} className="LandingTitle">
+            {appText.messages.opportunityOfYourDreams}
+          </Title>
+        </Grid>
       </Grid>
 
       <SearchForm location={userLocation.name} />

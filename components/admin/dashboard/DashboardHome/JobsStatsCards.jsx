@@ -14,11 +14,11 @@ const StyledJobsStatsCards = styled.div`
 const JobsStatsCards = () => {
   return (
     <StyledJobsStatsCards>
-      <Grid container spacing="3">
-        <Grid item md="3">
+      <Grid container spacing={3}>
+        <Grid item md={3}>
           <JobStatusCard label={appText.adjectives.posted} status="POSTED" />
         </Grid>
-        <Grid item md="3">
+        <Grid item md={3}>
           <JobStatusCard
             label={appText.adjectives.draft}
             status="DRAFT"
@@ -26,7 +26,7 @@ const JobsStatsCards = () => {
             color="2"
           />
         </Grid>
-        <Grid item md="3">
+        <Grid item md={3}>
           <JobStatusCard
             label={appText.adjectives.pending}
             status="PENDING"
@@ -34,7 +34,7 @@ const JobsStatsCards = () => {
             color="3"
           />
         </Grid>
-        <Grid item md="3">
+        <Grid item md={3}>
           <Link href="/admin/applications">
             <a>
               <ApplicationStatusCard color="4" icon="smile" />

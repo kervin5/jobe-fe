@@ -1,14 +1,12 @@
 import React from "react";
-import { Card } from "semantic-ui-react";
+import Paper from "@material-ui/core/Paper";
 import Avatar from "@/common/UI/Avatar";
 
 const UserProfileHeader = ({ userData }) => {
   return (
-    <Card fluid>
-      <Card.Content>
-        <Avatar name={userData?.name} nomargin />
-      </Card.Content>
-    </Card>
+    <Paper>
+      <Avatar name={userData?.name} nomargin />
+    </Paper>
   );
 };
 

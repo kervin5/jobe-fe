@@ -1,6 +1,6 @@
 import React from "react";
 import { Query } from "@apollo/react-components";
-import { Loader } from "semantic-ui-react";
+import Loader from "@/common/UI/Animated/Loader";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
 import Router from "next/router";
 

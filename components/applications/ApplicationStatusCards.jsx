@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Grid } from "@material-ui/core/Grid";
-import Link from "next/link";
+import Grid from "@material-ui/core/Grid";
 import ApplicationStatusCard from "./ApplicationStatusCard";
 import appText from "@/lang/appText";
 
@@ -14,14 +13,14 @@ const ApplicationStatusCards = ({ jobId }) => {
   return (
     <StyledApplicationStatusCards>
       <Grid container>
-        <Grid item md="3">
+        <Grid item md={3}>
           <ApplicationStatusCard
             label={appText.adjectives.new}
             status="NEW"
             jobId={jobId}
           />
         </Grid>
-        <Grid item md="3">
+        <Grid item md={3}>
           <ApplicationStatusCard
             label={appText.adjectives.viewed}
             status="VIEWED"
@@ -30,7 +29,7 @@ const ApplicationStatusCards = ({ jobId }) => {
             jobId={jobId}
           />
         </Grid>
-        <Grid item md="3">
+        <Grid item md={3}>
           <ApplicationStatusCard
             label={appText.adjectives.contacted}
             status="CONTACTED"
@@ -38,7 +37,7 @@ const ApplicationStatusCards = ({ jobId }) => {
             jobId={jobId}
           />
         </Grid>
-        <Grid item md="3">
+        <Grid item md={3}>
           <ApplicationStatusCard
             label={appText.actions.reviewing}
             status="REVIEWING"
