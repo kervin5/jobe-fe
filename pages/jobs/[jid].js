@@ -18,7 +18,7 @@ const SingleJobView = (props) => {
   }
 
   return (
-    <PageSection styles={pageStyles} column>
+    <PageSection styles={pageStyles}>
       <div className="JobContainer">
         <JobListingQuery
           jobData={props.jobData}

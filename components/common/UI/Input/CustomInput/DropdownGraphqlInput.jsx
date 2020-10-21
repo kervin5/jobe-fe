@@ -76,7 +76,7 @@ const DropdownGraphqlInput = ({
       fluid={fluid}
       loading={fetchedData.loading}
       nolabel={nolabel}
-      onSearchChange={handleSearchChange}
+      onInputChange={handleSearchChange}
       options={format(fetchedOptions, {
         id: "id",
         value: "id",

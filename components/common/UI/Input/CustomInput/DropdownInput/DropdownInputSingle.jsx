@@ -33,13 +33,14 @@ const LocationInput = (props) => {
     defaultValue,
     allowAdditions,
     minWidth,
+    onInputChange,
   } = props;
   const [currentValue, setCurrentValue] = useState(
     options.length && defaultValue
       ? options.find((option) => option.value === defaultValue)
       : null
   );
-  if (!options.length) return null;
+  // if (!options.length) return null;
   return (
     <StyledDropdownInput
       className={`DropdownInput field ${error ? "error" : ""} ${
@@ -54,6 +55,7 @@ const LocationInput = (props) => {
         getOptionLabel={(option) => {
           return option?.text ?? option.value;
         }}
+        onInputChange={onInputChange}
         getOptionSelected={(option, value) => option.value === value.value}
         defaultValue={options.find((option) => option.value === defaultValue)}
         // value={options.find((option) => option.value === defaultValue)}

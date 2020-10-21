@@ -35,15 +35,16 @@ const DropdownInputMultiple = ({
   name,
   options,
   label,
-  onSearchChange,
+
   loading,
   defaultValue,
-  defaultSearchQuery,
+
   allowAdditions,
   additionWarning,
   additionLabel,
   minWidth,
   size,
+  onInputChange,
 }) => {
   const [customOptions, setCustomOptions] = useState([]);
   if (!options.length) return <p>Loading...</p>;
@@ -62,6 +63,7 @@ const DropdownInputMultiple = ({
         getOptionSelected={(option, value) => {
           return option.value === value.value;
         }}
+        onInputChange={onInputChange}
         defaultValue={
           options?.length && defaultValue?.length
             ? options.filter((option) => defaultValue.includes(option.value))

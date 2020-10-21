@@ -15,7 +15,7 @@ const SingleResumeView = (props) => {
       redirect
       permissions={[{ object: "RESUME", action: "READ" }]}
     >
-      <PageSection styles={pageStyles} column>
+      <PageSection styles={pageStyles}>
         <div className="JobContainer">
           <ResumeViewer url={rid} />
           <style jsx>

@@ -27,10 +27,10 @@ const CreateJobForm = ({ location }) => {
     Router.push(`/jobs?${q}&${location}`);
   };
 
-  const handleInputChange = async (e, data) => {
-    setValue(data.name, data.value, { shouldValidate: true });
-    if (data.name === "jobLocation" && data.value) {
-      localStorage.setItem("lastLocation", data.value);
+  const handleInputChange = async (e) => {
+    setValue(e.target.name, e.target.value, { shouldValidate: true });
+    if (e.target.name === "jobLocation" && e.target.value) {
+      localStorage.setItem("lastLocation", e.target.value);
     }
   };
 
@@ -45,13 +45,13 @@ const CreateJobForm = ({ location }) => {
             placeholder="Puesto, palabras claves, habilidad"
             onChange={handleInputChange}
             error={errors.jobTitle ? true : false}
-            iconPosition="left"
           />
           <LocationInput
             name="jobLocation"
             onChange={handleInputChange}
             error={errors.jobLocation ? true : false}
             placeholder={location}
+            label="Lugar"
           />
 
           <Button type="submit" size="large">
