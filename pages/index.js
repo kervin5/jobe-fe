@@ -56,7 +56,7 @@ export async function getStaticProps() {
   const jobs = await getJobsFromAPI();
   const terms = await getTermsFromAPI();
 
-  return { props: { jobs, terms }, unstable_revalidate: 1 };
+  return { props: { jobs, terms }, revalidate: 1 };
 }
 
 export default homePage;

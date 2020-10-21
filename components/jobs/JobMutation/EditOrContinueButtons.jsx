@@ -27,7 +27,6 @@ function EditOrContinueButtons({ jobId }) {
         startIcon={<EditIcon />}
         onClick={() => Router.push(`/admin/jobs/${jobId}/edit`)}
       >
-        <Icon name="pencil" />
         {appText.actions.edit}
       </Button>
       <RenderIfLoggedIn
