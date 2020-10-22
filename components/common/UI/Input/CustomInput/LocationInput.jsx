@@ -57,6 +57,7 @@ const LocationInput = ({
   // if (data) {
   //   handleChangeOfOptions(data.mapBoxLocations);
   // }
+
   return (
     <Dropdown
       loading={loading}

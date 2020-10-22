@@ -63,12 +63,6 @@ const layout = (props) => {
           min-height: 100vh;
         }
 
-        @media (max-width: 720px) {
-          main {
-            margin-top: 48px;
-          }
-        }
-
         button:focus {
           outline: 0;
         }

@@ -44,6 +44,7 @@ const LocationInput = (props) => {
       : null
   );
   // if (!options.length) return null;
+
   return (
     <StyledDropdownInput
       className={`DropdownInput field ${error ? "error" : ""} ${
@@ -75,7 +76,10 @@ const LocationInput = (props) => {
             variant={variant}
             label={label}
             placeholder={placeholder}
-            InputProps={InputProps}
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: InputProps?.startAdornment,
+            }}
           />
         )}
       />
