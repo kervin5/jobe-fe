@@ -1,11 +1,13 @@
 import React from "react";
-
+import styled from "styled-components";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import EditUserButton from "./EditUserButton";
 import DeleteUserButton from "./DeleteUserButton";
 import ActivateUserButton from "./ActivateUserButton";
 
-const StyledUserActionButtons = style.div` width: 100%;`;
+const StyledUserActionButtons = styled.div`
+  width: 100%;
+`;
 
 const UserActionButtons = ({ user, refetchQueries }) => (
   <StyledUserActionButtons className="UserActionButtons">
