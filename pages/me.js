@@ -12,7 +12,7 @@ const MePage = (props) => {
       permissions={[{ object: "APPLICATION", action: "CREATE" }]}
       redirect="/admin/dashboard"
     >
-      <PageSection className="DashboardPage" column>
+      <PageSection className="DashboardPage">
         <SEO
           description={`${appText.seo.pages.me.title}. ${appText.seo.description}!`}
           title={`${appText.objects.profile.user} - ${appText.seo.title}!`}

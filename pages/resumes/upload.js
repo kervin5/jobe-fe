@@ -8,7 +8,7 @@ import appText from "@/lang/appText";
 const ResumeUploadPage = (props) => {
   return (
     <RenderIfLoggedIn redirect>
-      <PageSection className="DashboardPage" column>
+      <PageSection className="DashboardPage">
         <Container maxWidth="600px">
           <Title center>
             {appText.actions.upload} {appText.objects.resume.singular}

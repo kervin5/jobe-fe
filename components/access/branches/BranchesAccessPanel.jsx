@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import {
-  Checkbox,
-  Icon,
-  // Table,
-  Dimmer,
-  Loader,
-  Segment,
-} from "semantic-ui-react";
 import { ALL_BRANCHES_QUERY } from "@/graphql/queries/branches";
 import appText from "@/lang/appText";
 
@@ -20,6 +12,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Switch from "@material-ui/core/Switch";
+import CheckIcon from "@material-ui/icons/Check";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
   table: {
@@ -69,14 +63,7 @@ const BranchesAccessPanel = ({ selected, onChange }) => {
     }
   }, [changes]);
 
-  if (loading)
-    return (
-      <Segment>
-        <Dimmer active inverted>
-          <Loader inverted content="Loading" />
-        </Dimmer>
-      </Segment>
-    );
+  if (loading) return <CircularProgress />;
 
   return (
     <TableContainer component={Paper}>
@@ -94,27 +81,22 @@ const BranchesAccessPanel = ({ selected, onChange }) => {
           {data.branches.map((branch, index) => (
             <TableRow key={"Branch" + branch.name + index}>
               <TableCell component="th" scope="row">
-                <Checkbox
-                  toggle
-                  defaultChecked={!!enabled[branch.id]}
-                  onChange={(e, data) => handleToggleChange(data)}
-                  value={branch.id}
-                  disabled={
-                    !!enabled[branch.id] && !!enabled[branch.id].primary
-                  }
-                />
                 <Switch
                   checked={!!enabled[branch.id]}
                   onChange={handleToggleChange}
                   color="primary"
                   name="checkedB"
                   inputProps={{ "aria-label": "primary checkbox" }}
+                  value={branch.id}
+                  disabled={
+                    !!enabled[branch.id] && !!enabled[branch.id].primary
+                  }
                 />
               </TableCell>
               <TableCell align="right">{branch.name}</TableCell>
               <TableCell align="right">
                 {enabled[branch.id] && enabled[branch.id].primary ? (
-                  <Icon name="check" />
+                  <CheckIcon />
                 ) : (
                   ""
                 )}

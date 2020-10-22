@@ -244,7 +244,7 @@ export default {
     nothingToSee: "Oops, nada que ver por aquí",
     currentlyOpen: "Actualmente Disponibles",
     amazingOpportunity: `Increibles carreras y oportunidades en @ ${companyInfo.name}`,
-    opportunityOfYourDreams: "Encuentra la oportunidad de tus sueños",
+    opportunityOfYourDreams: "El trabajo de tus sueños",
     submitForApproval: "Submit for approval",
     attention: "Atención",
     recentActivity: "Actividad Reciente",

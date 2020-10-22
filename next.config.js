@@ -23,17 +23,13 @@ module.exports = withSourceMaps({
 
   //   return config;
   // },
-  experimental: {
-    modern: true,
-    async rewrites() {
-      return [
-        { source: "/sitemap.xml", destination: "/api/sitemap" },
-        {
-          source: "/graphql",
-          destination: getBackendUrl(),
-        },
-      ];
-    },
-    catchAllRouting: true,
+  async rewrites() {
+    return [
+      { source: "/sitemap.xml", destination: "/api/sitemap" },
+      {
+        source: "/graphql",
+        destination: getBackendUrl(),
+      },
+    ];
   },
 });

@@ -22,7 +22,6 @@ const StyledJobListingHeader = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
 
     & > * {
       margin-bottom: 10px;
@@ -33,6 +32,10 @@ const StyledJobListingHeader = styled.div`
     display: flex;
     justify-content: space-between;
     position: relative;
+  }
+
+  .JobTitle {
+    font-size: 2rem;
   }
 
   @media only screen and (max-width: 520px) {
@@ -55,8 +58,7 @@ const JobListingHeader = (props) => (
       <Translator>{props.title}</Translator>
     </Title>
     <Title size={"m"} weight="400" data-test="location-section">
-      <Icon icon="map marker alternate" />{" "}
-      <Translator>{props.location}</Translator>
+      <Icon icon="location_on" /> <Translator>{props.location}</Translator>
     </Title>
     <div className="JobListingHeaderBar">
       <div className="JobListingMeta">

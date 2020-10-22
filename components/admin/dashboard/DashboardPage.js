@@ -13,7 +13,7 @@ const StyledDashboardPage = styled.div`
 
 const dashboardPage = (props) => {
   return (
-    <PageSection nopadding>
+    <PageSection>
       <StyledDashboardPage className="DashboardPage">
         <PageTitle>
           {props.title ? `${props.title} - Admin` : "Admin"}

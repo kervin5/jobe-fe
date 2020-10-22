@@ -84,10 +84,7 @@ export const ALL_APPLICATIONS_QUERY = gql`
 
       user {
         name
-        eEmpact {
-          id
-          assignments
-        }
+
         id
         email
         phone

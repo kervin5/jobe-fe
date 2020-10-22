@@ -35,13 +35,10 @@ const jobListing = (props) => {
         showCompensation={jobsSettings.showPayRate}
         favoritesCount={props.data.favorites.length}
       />
-      <Flex>
-        <JobListingBody data={props.data} />
 
-        {props.preview ? null : (
-          <SocialMedia url={props.data.permalink} vertical />
-        )}
-      </Flex>
+      <JobListingBody data={props.data} />
+
+      {props.preview ? null : <SocialMedia url={props.data.permalink} />}
 
       <StucturedJobListing data={props.data} />
       <SEO

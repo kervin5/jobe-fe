@@ -18,7 +18,7 @@ const SingleJobView = (props) => {
   }
 
   return (
-    <PageSection styles={pageStyles} nopadding column>
+    <PageSection styles={pageStyles}>
       <div className="JobContainer">
         <JobListingQuery
           jobData={props.jobData}
@@ -66,7 +66,7 @@ export async function getStaticProps({ params }) {
   const jobId = extractJobId(jid);
   const jobData = await getJob(jobId);
 
-  return { props: { jobData, jobId }, unstable_revalidate: 1 };
+  return { props: { jobData, jobId }, revalidate: 1 };
 }
 
 function extractJobId(slug) {

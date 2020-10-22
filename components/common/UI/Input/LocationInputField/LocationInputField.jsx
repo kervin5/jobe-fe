@@ -1,0 +1,89 @@
+import { useState, useEffect } from "react";
+
+import AutoCompleteInputField from "../AutoCompleteInputField/AutoCompleteInputField";
+import axios from "axios";
+
+const locationInputField = (props) => {
+  const [locations, setLocations] = useState([]);
+  const [options, setOptions] = useState([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [uri, setUri] = useState("");
+
+  const delayTimeout = () => {
+    setIsTyping(true);
+
+    return setTimeout(() => {
+      setIsTyping(false);
+    }, 2000);
+  };
+  // const [localValue, setLocalValue] = useState("");
+
+  const changeHandler = async (fieldData) => {
+    let locationDetails = {};
+    if (fieldData.valid) {
+      const selectedLocation = locations.filter(
+        (loc) => loc.place_name === fieldData.value
+      )[0];
+
+      //Gets the location details if the location selected is valid, this is needed for the Backend when setting a location
+      if (typeof selectedLocation !== "undefined") {
+        const [longitude, latitude] = selectedLocation.geometry.coordinates;
+
+        locationDetails = {
+          name: selectedLocation.place_name,
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
+          boundary: selectedLocation.bbox,
+        };
+      }
+    }
+
+    props.change({ ...fieldData, details: locationDetails });
+  };
+
+  useEffect(() => {
+    if (!isTyping && uri !== "") {
+      axios.get("/api/location/" + uri).then((res) => {
+        setLocations(res.data.features);
+      });
+    }
+  }, [isTyping, uri]);
+
+  const ajaxCallback = (value) => {
+    if (value.length > 2) {
+      const encodedValue = encodeURIComponent(value);
+      setUri(encodedValue);
+    } else {
+      setLocations([]);
+      setUri("");
+    }
+    clearTimeout(delayTimeout);
+    delayTimeout();
+  };
+
+  useEffect(() => {
+    const result = locations.map((location) => {
+      return {
+        label: location.place_name,
+        value: location.place_name,
+      };
+    });
+
+    setOptions(result);
+  }, [locations]);
+
+  return (
+    <AutoCompleteInputField
+      placeholder={props.placeholder}
+      change={changeHandler}
+      callback={ajaxCallback}
+      value={props.value || ""}
+      options={options}
+      validate={props.validate}
+      required={props.required}
+      ajax
+    />
+  );
+};
+
+export default React.memo(locationInputField);
