@@ -20,6 +20,7 @@ const variables = {
   mediumScreen: "920px",
 
   bottomNav: "40px",
+  mutedColorBg: "#e1f2f9",
 };
 
 export default variables;

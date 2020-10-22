@@ -35,7 +35,7 @@ const DropdownInputMultiple = ({
   name,
   options,
   label,
-
+  variant,
   loading,
   defaultValue,
 
@@ -105,7 +105,7 @@ const DropdownInputMultiple = ({
         renderInput={(params) => (
           <TextField
             {...params}
-            variant="outlined"
+            variant={variant}
             label={label}
             placeholder={placeholder}
           />

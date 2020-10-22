@@ -30,6 +30,7 @@ const LocationInput = ({
   label,
   defaultValue,
   size,
+  InputProps,
 }) => {
   const [query, setQuery] = useState("");
   // const [fetchedOptions, setFetchedOptions] = useState([]);
@@ -70,6 +71,7 @@ const LocationInput = ({
       defaultValue={defaultValue}
       defaultSearchQuery={defaultValue}
       size={size}
+      InputProps={InputProps}
     />
   );
 };

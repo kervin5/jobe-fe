@@ -10,12 +10,12 @@ const StyledNavigationBar = styled.nav`
     display: flex;
     padding: 5px 10px 5px 10px;
     justify-content: space-between;
-    background-color: ${variables.mutedColor1};
+    background-color: transparent;
     position: fixed;
     z-index: 1999;
     left: 0;
     right: 0;
-    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.15);
+    /* box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.15); */
     align-items: center;
 
     .CompanyLogo {

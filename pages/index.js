@@ -16,23 +16,25 @@ const homePage = (props) => {
   // return <p>Hello</p>;
 
   return (
-    <PageSection className="HomePage" column data-test="indexPage">
+    <PageSection className="HomePage" data-test="indexPage">
       <SEO
         description={`${appText.seo.pages.landing.description}. ${appText.seo.description}!`}
         title={`${appText.seo.title}!`}
       />
 
       <LandingSection />
-      <Container>
-        <Title size={"l"} center margin capitalize>
-          {appText.messages.whatsTrending} 😎
-        </Title>
-        <PopularTerms terms={props.terms} />
-        <Title size={"l"} center margin capitalize>
-          {appText.messages.job.latest}
-        </Title>
-        <JobsCards jobs={props.jobs} />
-      </Container>
+      <PageSection>
+        <Container>
+          <Title size={"l"} center margin capitalize>
+            {appText.messages.whatsTrending} 😎
+          </Title>
+          <PopularTerms terms={props.terms} />
+          <Title size={"l"} center margin capitalize>
+            {appText.messages.job.latest}
+          </Title>
+          <JobsCards jobs={props.jobs} />
+        </Container>
+      </PageSection>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

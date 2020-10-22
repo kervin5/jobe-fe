@@ -61,7 +61,6 @@ const layout = (props) => {
 
         main {
           min-height: 100vh;
-          margin-top: 55px;
         }
 
         @media (max-width: 720px) {

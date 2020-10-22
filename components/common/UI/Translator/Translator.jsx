@@ -79,6 +79,7 @@ export const ListOfLanguages = () => {
       });
   }, []);
 
+  console.log(languages);
   return loading ? (
     <p>Loading</p>
   ) : (
@@ -94,7 +95,7 @@ export const ListOfLanguages = () => {
         defaultValue={language}
       >
         {languages.map((language) => (
-          <MenuItem value={language.text}>
+          <MenuItem value={language.value}>
             <em>{language.text}</em>
           </MenuItem>
         ))}

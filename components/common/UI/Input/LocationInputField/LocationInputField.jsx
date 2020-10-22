@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import variables from "../../../globalVariables";
+
 import AutoCompleteInputField from "../AutoCompleteInputField/AutoCompleteInputField";
 import axios from "axios";
 
-const locationInputField = props => {
+const locationInputField = (props) => {
   const [locations, setLocations] = useState([]);
   const [options, setOptions] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -18,11 +18,11 @@ const locationInputField = props => {
   };
   // const [localValue, setLocalValue] = useState("");
 
-  const changeHandler = async fieldData => {
+  const changeHandler = async (fieldData) => {
     let locationDetails = {};
     if (fieldData.valid) {
       const selectedLocation = locations.filter(
-        loc => loc.place_name === fieldData.value
+        (loc) => loc.place_name === fieldData.value
       )[0];
 
       //Gets the location details if the location selected is valid, this is needed for the Backend when setting a location
@@ -33,7 +33,7 @@ const locationInputField = props => {
           name: selectedLocation.place_name,
           latitude: parseFloat(latitude),
           longitude: parseFloat(longitude),
-          boundary: selectedLocation.bbox
+          boundary: selectedLocation.bbox,
         };
       }
     }
@@ -43,13 +43,13 @@ const locationInputField = props => {
 
   useEffect(() => {
     if (!isTyping && uri !== "") {
-      axios.get("/api/location/" + uri).then(res => {
+      axios.get("/api/location/" + uri).then((res) => {
         setLocations(res.data.features);
       });
     }
   }, [isTyping, uri]);
 
-  const ajaxCallback = value => {
+  const ajaxCallback = (value) => {
     if (value.length > 2) {
       const encodedValue = encodeURIComponent(value);
       setUri(encodedValue);
@@ -62,10 +62,10 @@ const locationInputField = props => {
   };
 
   useEffect(() => {
-    const result = locations.map(location => {
+    const result = locations.map((location) => {
       return {
         label: location.place_name,
-        value: location.place_name
+        value: location.place_name,
       };
     });
 
@@ -73,43 +73,16 @@ const locationInputField = props => {
   }, [locations]);
 
   return (
-    <React.Fragment>
-      <AutoCompleteInputField
-        placeholder={props.placeholder}
-        change={changeHandler}
-        callback={ajaxCallback}
-        value={props.value || ""}
-        options={options}
-        validate={props.validate}
-        required={props.required}
-        ajax
-      />
-      <style jsx>{`
-        input,
-        textarea,
-        select {
-          border: none;
-          margin: 5px 20px 5px 15px;
-          width: 90%;
-          outline: none;
-        }
-
-        input::placeholder,
-        textarea::placeholder,
-        select::placeholder {
-          color: ${variables.secondaryTextColor};
-        }
-
-        textarea {
-          min-height: 300px;
-          padding-top: 15px;
-        }
-
-        label {
-          color: ${variables.baseTextColor};
-        }
-      `}</style>
-    </React.Fragment>
+    <AutoCompleteInputField
+      placeholder={props.placeholder}
+      change={changeHandler}
+      callback={ajaxCallback}
+      value={props.value || ""}
+      options={options}
+      validate={props.validate}
+      required={props.required}
+      ajax
+    />
   );
 };
 

@@ -3,6 +3,16 @@ import Button from "./Button";
 import InputField from "./Input/InputField";
 import { useQuery, useMutation } from "@apollo/client";
 import Loader from "@/common/UI/Animated/Loader";
+import { gql } from "@apollo/client";
+
+const defaultMutation = gql`
+  mutation INCREMENT_JOB_VIEW_COUNT_MUTATION($id: String!) {
+    incrementJobViewCount(id: $id) {
+      id
+      views
+    }
+  }
+`;
 
 const Form = ({
   fields,
@@ -17,10 +27,14 @@ const Form = ({
   const [formId, setFormId] = useState(generateFormId());
   const [formFields, setFomFields] = useState({ ...fields });
   const [variables, setVariables] = useState(null);
-  const [formMutation, { error, loading, data }] = useMutation(mutation, {
-    variables: { ...variables, ...extraVariables },
-    refetchQueries,
-  });
+
+  const [formMutation, { error, loading, data }] = useMutation(
+    mutation ?? defaultMutation,
+    {
+      variables: { ...variables, ...extraVariables },
+      refetchQueries,
+    }
+  );
   const handleFieldChange = async (field) => {
     if (!field.disabled) {
       setVariables({
@@ -50,6 +64,7 @@ const Form = ({
         fieldData={fieldData}
         fieldKey={fieldKey}
         onChange={handleFieldChange}
+        formId={formId}
       />
     ) : (
       <InputField
@@ -95,7 +110,7 @@ const Form = ({
   return formToRender;
 };
 
-function InputFieldWithGraphQL({ fieldData, fieldKey, onChange }) {
+function InputFieldWithGraphQL({ fieldData, fieldKey, onChange, formId }) {
   const { error, loading, data } = useQuery(fieldData.options.query);
 
   if (error) return <p>Something went wrong.</p>;
@@ -111,7 +126,7 @@ function InputFieldWithGraphQL({ fieldData, fieldKey, onChange }) {
 
   return (
     <InputField
-      key={fieldKey + index + "FormField" + formId}
+      key={fieldKey + "FormField" + formId}
       type={fieldData.type}
       placeholder={fieldData.placeholder || ""}
       label={fieldData.label || upperCase(fieldKey)}

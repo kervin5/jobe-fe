@@ -65,7 +65,6 @@ const favoriteButtonWrapper = ({ jobId, show, count, loading }) => {
     >
       <StyledAnimatedButton className="AnimatedButton">
         <Button
-          variant="contained"
           color="secondary"
           startIcon={<FavoriteIcon />}
           onClick={userAddFavoriteMutation}

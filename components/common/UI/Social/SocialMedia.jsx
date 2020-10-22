@@ -42,7 +42,7 @@ const StyledShareButtons = styled.div`
   padding: 40px 40px 0 0;
   max-height: 350px;
   justify-content: space-evenly;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
 `;
 
@@ -75,7 +75,7 @@ const StyledShareButton = styled.div`
   }
 `;
 
-const Share = ({ url, vertical }) => {
+const SocialMedia = ({ url, vertical }) => {
   return (
     <StyledShareButtons className="ShareButtons" vertical={vertical}>
       {Object.entries(shareObjects).map(
@@ -102,4 +102,4 @@ const Share = ({ url, vertical }) => {
   );
 };
 
-export default Share;
+export default SocialMedia;

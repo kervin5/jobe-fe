@@ -34,7 +34,10 @@ const LocationInput = (props) => {
     allowAdditions,
     minWidth,
     onInputChange,
+    variant,
+    InputProps,
   } = props;
+
   const [currentValue, setCurrentValue] = useState(
     options.length && defaultValue
       ? options.find((option) => option.value === defaultValue)
@@ -69,9 +72,10 @@ const LocationInput = (props) => {
         renderInput={(params) => (
           <TextField
             {...params}
-            variant="outlined"
+            variant={variant}
             label={label}
             placeholder={placeholder}
+            InputProps={InputProps}
           />
         )}
       />

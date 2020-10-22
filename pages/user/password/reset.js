@@ -27,7 +27,7 @@ const PasswordResetPage = (props) => {
     );
 
   return (
-    <PageSection column styles={pageStyles} center>
+    <PageSection styles={pageStyles} center>
       <Title center>{appText.messages.account.enterNewPassword}</Title>
       <PasswordResetForm token={router?.query?.resetToken} />
 
