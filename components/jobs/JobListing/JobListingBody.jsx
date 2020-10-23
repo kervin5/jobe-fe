@@ -65,7 +65,7 @@ const JobListingBody = (props) => {
         <HtmlRenderer html={props.data.description} />
       </Translator>
 
-      <Title size={"m"} data-test="company-information-section">
+      <Title level={3} data-test="company-information-section">
         {appText.objects.compensation.singular}
       </Title>
       <JobCompensationBubbles
@@ -73,7 +73,7 @@ const JobListingBody = (props) => {
         maxCompensation={props.data.maxCompensation}
       />
 
-      <Title size={"m"} data-test="company-information-section">
+      <Title level={3} data-test="company-information-section">
         <Translator>
           {appText.messages.about} {props.data.company}
         </Translator>

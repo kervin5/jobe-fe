@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 
 import UserLocator from "@/root/data/UserLocator";
 import Title from "@/common/UI/Title";
-
+import Image from "@/common/Image";
 import SearchForm from "@/components/jobs/Search/SearchForm";
 import appText from "@/lang/appText";
 const peopleImage = "/images/workers.png";
@@ -20,12 +20,16 @@ const StyledLandingSection = styled.div`
   width: 100%;
 
   .LandingTitle > * {
-    font-size: 6em;
+    font-size: 3em;
     transition: 100ms;
     max-width: 600px;
     @media (max-width: 900px) {
       font-size: 3em;
       margin-bottom: 2rem;
+    }
+
+    span {
+      color: ${(props) => props.theme.accentColor3};
     }
   }
 
@@ -36,7 +40,7 @@ const StyledLandingSection = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    background-image: url(${peopleImage});
+    /* background-image: url(${peopleImage}); */
     background-size: cover;
     z-index: 1;
 
@@ -51,6 +55,10 @@ const StyledLandingSection = styled.div`
 
   @media (max-width: 1024px) {
     padding: 30px;
+  }
+
+  img {
+    border-radius: 15px;
   }
 `;
 
@@ -72,12 +80,15 @@ const LandingSection = () => {
 
   return (
     <StyledLandingSection className="LandingSection">
-      <Grid container justify="center" alignItems="center">
-        <Grid item className="LandingContent" xs>
-          <Title size="l" alignment={"left"} className="LandingTitle">
+      <Grid container justify="center" alignItems="center" spacing={9}>
+        <Grid item className="LandingContent" xs={7}>
+          <Title level={2} alignment={"left"} className="LandingTitle">
             {appText.messages.opportunityOfYourDreams}
           </Title>
           <SearchForm location={userLocation.name} />
+        </Grid>
+        <Grid item xs>
+          <Image src={peopleImage} />
         </Grid>
       </Grid>
     </StyledLandingSection>

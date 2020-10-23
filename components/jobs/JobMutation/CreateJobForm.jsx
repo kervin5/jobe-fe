@@ -166,7 +166,7 @@ const CreateJobForm = () => {
 
   return (
     <>
-      <Title size={"l"} capitalize>
+      <Title level={2} capitalize>
         {appText.messages.job.post}
       </Title>
       <p className={"Instructions"}>{appText.messages.job.postInstructions}</p>
@@ -184,7 +184,6 @@ const CreateJobForm = () => {
           id="jobTitle"
           label={appText.messages.job.jobTitle}
           placeholder="Gerente de Ventas"
-          variant="outlined"
           onChange={handleInputChange}
           error={!!errors.jobTitle}
         />
@@ -213,7 +212,6 @@ const CreateJobForm = () => {
             id="jobMinCompensation"
             label={appText.messages.job.jobMinCompensation}
             placeholder="10.99"
-            variant="outlined"
             onChange={handleInputChange}
             error={errors.jobMinCompensation ? true : false}
             type="number"
@@ -224,7 +222,6 @@ const CreateJobForm = () => {
             id="jobMaxCompensation"
             label={appText.messages.job.jobMaxCompensation}
             placeholder="20.99"
-            variant="outlined"
             onChange={handleInputChange}
             error={errors.jobMaxCompensation ? true : false}
             type="number"
@@ -319,7 +316,12 @@ const CreateJobForm = () => {
           placeholder={appText.messages.disclaimer.leaveEmpty}
           label={appText.messages.job.jobDisclaimer}
           name={"jobDisclaimer"}
-          onChange={handleInputChange}
+          onChange={(e) =>
+            handleInputChange(e, {
+              name: "jobDisclaimer",
+              value: e.target.value,
+            })
+          }
           error={errors.jobDisclaimer ? true : false}
         />
         <div widths="2">

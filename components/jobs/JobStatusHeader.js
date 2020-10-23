@@ -29,7 +29,7 @@ const JobStatusHeader = ({ jobId }) => {
 
   return (
     <StyledJobStatuHeader className="JobStatusHeader">
-      <Title size="l">
+      <Title level={2}>
         {appText.objects.status.singular}:{" "}
         <span
           className={`JobStatusHeader__StatusIndicator ${statusClass(

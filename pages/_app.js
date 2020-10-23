@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
+
 import { ThemeProvider } from "styled-components";
+import { ThemeProvider as MaterialThemeProvider } from "@material-ui/styles";
 import theme from "@/common/globalVariables";
+import { purple } from "@material-ui/core/colors";
+import { createMuiTheme } from "@material-ui/core/styles";
 // import App from "next/app";
 import * as Sentry from "@sentry/react";
 import { ApolloProvider } from "@apollo/client";
@@ -17,6 +21,8 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+const customMaterialTheme = createMuiTheme({});
+
 export default function App({ Component, pageProps, router }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
   const isAdminLayout = isAdminPage(router.pathname);
@@ -29,11 +35,13 @@ export default function App({ Component, pageProps, router }) {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <ThemeProvider theme={theme}>
-        <Page admin={isAdminLayout}>
-          <Component {...pageProps} />
-        </Page>
-      </ThemeProvider>
+      <MaterialThemeProvider theme={customMaterialTheme}>
+        <ThemeProvider theme={theme}>
+          <Page admin={isAdminLayout}>
+            <Component {...pageProps} />
+          </Page>
+        </ThemeProvider>
+      </MaterialThemeProvider>
     </ApolloProvider>
   );
 }

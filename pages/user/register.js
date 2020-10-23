@@ -8,10 +8,6 @@ import Link from "next/link";
 import appText from "@/lang/appText";
 import SEO from "@/components/SEO";
 const friendsImgUrl = "../../images/friends-with-bg.png";
-const pageStyles = ` background-color: ${variables.mutedColor1};
-                padding: 30px;
-                display: flex;
-                flex-direction: column;`;
 
 const registerPage = () => {
   return (
@@ -21,24 +17,26 @@ const registerPage = () => {
         title={`${appText.actions.register} - ${appText.seo.title}!`}
       />
       <RenderIfLoggedOut redirect>
-        <PageSection styles={pageStyles} center>
-          <Title center capitalize>
-            {appText.actions.register}
-          </Title>
-          <RegisterForm />
-          <p>
-            {appText.messages.account.alreadyhave}
-            <Link href="/user/login">
-              <a> {appText.actions.login}</a>
-            </Link>
-          </p>
-          <br />
-          <img src={friendsImgUrl} />
-          <style jsx>{`
-            img {
-              width: 200px;
-            }
-          `}</style>
+        <PageSection center>
+          <div>
+            <Title level={2} center capitalize>
+              {appText.actions.register}
+            </Title>
+            <RegisterForm />
+            <p>
+              {appText.messages.account.alreadyhave}
+              <Link href="/user/login">
+                <a> {appText.actions.login}</a>
+              </Link>
+            </p>
+            <br />
+            <img src={friendsImgUrl} />
+            <style jsx>{`
+              img {
+                width: 200px;
+              }
+            `}</style>
+          </div>
         </PageSection>
       </RenderIfLoggedOut>
     </>

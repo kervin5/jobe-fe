@@ -17,7 +17,7 @@ const UserResumesTab = ({ userId }) => {
   return (
     <>
       <div className="resumeHeader">
-        <Title center size="s">
+        <Title center level={4}>
           {appText.messages.resume.theseAre(userData.name, data.me)}
         </Title>
         {!userId && <ResumeUploadButton />}

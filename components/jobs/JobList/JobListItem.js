@@ -12,6 +12,7 @@ import Translator from "@/common/UI/Translator/Translator";
 import { numberWithCommas } from "../JobCompensationBubbles";
 import JobPerksBubbles from "../JobPerksBubbles";
 import { currency } from "@/root/config";
+import Title from "@/common/UI/Title";
 
 const styles = ` background-color: ${variables.lightColor};
                 margin: 20px auto;
@@ -33,11 +34,13 @@ const jobListItem = (props) => {
         <div>
           <Link href="/jobs/[jid]" as={jobUrl}>
             <a className="JobTitle">
-              <Translator>{props.title}</Translator>
+              <Title level={4} nomargin>
+                <Translator>{props.title}</Translator>
+              </Title>
             </a>
           </Link>
           <p className="Location">
-            <Icon icon="marker" size="sm" className="LocationIcon" />{" "}
+            <Icon icon="location_on" size="sm" className="LocationIcon" />{" "}
             {shortLocation}
           </p>
         </div>

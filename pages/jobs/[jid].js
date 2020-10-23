@@ -19,29 +19,11 @@ const SingleJobView = (props) => {
 
   return (
     <PageSection styles={pageStyles}>
-      <div className="JobContainer">
-        <JobListingQuery
-          jobData={props.jobData}
-          jobId={extractJobId(jobId ?? props.query.jid)}
-          countView
-        />
-        <style jsx>
-          {`
-            .JobContainer {
-              width: 100%;
-              max-width: 970px;
-              padding-top: 30px;
-              margin: auto;
-            }
-
-            @media (max-width: 720px) {
-              .JobContainer {
-                padding-top: 0;
-              }
-            }
-          `}
-        </style>
-      </div>
+      <JobListingQuery
+        jobData={props.jobData}
+        jobId={extractJobId(jobId ?? props.query.jid)}
+        countView
+      />
     </PageSection>
   );
 }; //eof

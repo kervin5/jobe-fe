@@ -26,6 +26,7 @@ const Footer = () => {
           display: flex;
           font-size: 0.9em;
           justify-content: center;
+          align-items: center;
         }
 
         .Footer nav a {

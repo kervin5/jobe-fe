@@ -244,14 +244,18 @@ export default {
     nothingToSee: "Oops, nada que ver por aquí",
     currentlyOpen: "Actualmente Disponibles",
     amazingOpportunity: `Increibles carreras y oportunidades en @ ${companyInfo.name}`,
-    opportunityOfYourDreams: "El trabajo de tus sueños",
+    opportunityOfYourDreams: (
+      <>
+        El trabajo de tus <span>sueños</span>
+      </>
+    ),
     submitForApproval: "Submit for approval",
     attention: "Atención",
     recentActivity: "Actividad Reciente",
     success: "Exito",
     saved: "Los cambios fueron guardados",
     job: {
-      latest: "Trabajos más recientes",
+      latest: "Recientes",
       recommended: "Trabajos recomendados",
       post: "Publicar un Trabajo",
       postInstructions: "Por favor, ingrese los detalles del puesto de trabajo",

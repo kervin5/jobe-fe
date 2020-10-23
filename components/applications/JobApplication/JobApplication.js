@@ -16,7 +16,7 @@ const JobApplication = (props) => {
       />
 
       <div className="Body">
-        <Title size={"m"}>{appText.objects.resume.singular}</Title>
+        <Title level={3}>{appText.objects.resume.singular}</Title>
         <br />
         <ResumeViewer url={props.data.resume.file.path.split("/").pop()} />
       </div>

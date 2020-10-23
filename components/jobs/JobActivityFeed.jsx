@@ -20,7 +20,7 @@ const JobActivityFeed = ({ jobId }) => {
 
   return (
     <StyledJobactivityFeed className="JobActivityFeed">
-      <Title size="m">{appText.messages.recentActivity}</Title>
+      <Title level={3}>{appText.messages.recentActivity}</Title>
       <Feed events={formatEvents(data?.job)} />
       {loading && <p>Loading...</p>}
     </StyledJobactivityFeed>

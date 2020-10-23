@@ -45,7 +45,7 @@ const SearchFilters = (props) => {
       close={() => props.setShowFilters(false)}
     >
       <div className="SearchFilters">
-        <Title size="m">Filter Jobs</Title>
+        <Title level={3}>Filter Jobs</Title>
         <Form fields={fields} buttonText="Filter" onSubmit={props.onChange} />
         <style jsx>{`
           .SearchFilters {

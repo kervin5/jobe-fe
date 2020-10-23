@@ -132,7 +132,7 @@ function ApplicationInformationTabs({ application }) {
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
           <div className="Section">
-            <Title size="m" capitalize>
+            <Title level={3} capitalize>
               {appText.objects.status.singular}
             </Title>
             <ApplicationStatusDropdown
@@ -141,7 +141,7 @@ function ApplicationInformationTabs({ application }) {
             />
           </div>
           <div className="Section">
-            <Title size="m" capitalize>
+            <Title level={3} capitalize>
               {appText.objects.note.plural}
             </Title>
             <ApplicationNotesArea applicationId={application.id} />

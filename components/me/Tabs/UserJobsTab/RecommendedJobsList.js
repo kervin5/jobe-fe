@@ -18,7 +18,7 @@ const RecommendedJobsList = ({ userId }) => {
 
   return (
     <>
-      <Title size="m">{appText.messages.job.recommended}</Title>
+      <Title level={3}>{appText.messages.job.recommended}</Title>
       <UserInfo>
         {({ me, loading }) => {
           if (loading) return <p>Loading</p>;

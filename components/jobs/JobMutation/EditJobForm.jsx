@@ -188,7 +188,7 @@ const EditJobForm = ({ data, jobId }) => {
 
   return (
     <>
-      <Title size={"l"} capitalize>
+      <Title level={2} capitalize>
         {appText.actions.edit} {appText.objects.job.singular}
       </Title>
       <p className={"Instructions"}>{appText.messages.job.postInstructions}</p>
@@ -207,7 +207,6 @@ const EditJobForm = ({ data, jobId }) => {
           onChange={handleInputChange}
           error={errors.jobTitle ? true : false}
           defaultValue={data.title}
-          variant="outlined"
         />
 
         {/* <CronJobToggle jobId={jobId} /> */}
@@ -228,7 +227,6 @@ const EditJobForm = ({ data, jobId }) => {
             type="number"
             defaultValue={data.minCompensation}
             step="0.01"
-            variant="outlined"
           />
           <TextField
             name="jobMaxCompensation"
@@ -239,7 +237,6 @@ const EditJobForm = ({ data, jobId }) => {
             type="number"
             defaultValue={data.maxCompensation}
             step="0.01"
-            variant="outlined"
           />
           <DropdownInput
             name="jobCompensationType"
@@ -332,9 +329,14 @@ const EditJobForm = ({ data, jobId }) => {
           placeholder={appText.messages.disclaimer.leaveEmpty}
           label={appText.messages.job.jobDisclaimer}
           name={"jobDisclaimer"}
-          onChange={handleInputChange}
+          onChange={(e) =>
+            handleInputChange(e, {
+              name: "jobDisclaimer",
+              value: e.target.value,
+            })
+          }
           error={errors.jobDisclaimer ? true : false}
-          defaultValue={data.disclaimer}
+          defaultValue={data.disclaimer ?? ""}
         />
         <div widths="2">
           <Button

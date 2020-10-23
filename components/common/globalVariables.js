@@ -1,13 +1,13 @@
-const variables = {
+const mainTheme = {
   darkColor: "#2E294E",
   lightColor: "#FFF",
   lightColor2: "#ECEBE4",
   mutedColor1: "#F9F7F7",
   mutedColor2: "#E3E3E3",
 
-  accentColor1: "#2185d0",
+  accentColor1: "#ff7663",
   accentColor2: "#247BA0",
-  accentColor3: "#EE6C4D",
+  accentColor3: "#3f51b5",
   accentColor4: "#F5A300",
 
   baseTextColor: "black",
@@ -23,4 +23,4 @@ const variables = {
   mutedColorBg: "#e1f2f9",
 };
 
-export default variables;
+export default mainTheme;

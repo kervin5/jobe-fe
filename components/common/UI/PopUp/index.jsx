@@ -17,18 +17,22 @@ const StyledPopUp = styled.div`
   justify-content: center;
   align-items: center;
 
-  .card {
+  .Container {
     width: 100% !important;
     max-width: 500px;
 
-    .header {
-      margin: 10px;
-    }
+    padding: 30px;
   }
 
   .Content {
     z-index: 999;
     position: relative;
+  }
+
+  .CloseButton {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 `;
 
@@ -49,18 +53,18 @@ function PopupContent({ children, changeHandler }) {
     <PopUpContext.Consumer>
       {({ title, setTitle }) => (
         <StyledPopUp className="PopUp">
-          <div className="Content">
-            <Paper>
-              <Title inline>{title}</Title>
+          <Paper className="Container">
+            <div className="Content">
+              <Title level={2}>{title}</Title>
               <Button
                 onClick={() => changeHandler(false)}
                 iconOnly
                 icon="close"
-                float={"right"}
+                className="CloseButton"
               />
               <div>{children}</div>
-            </Paper>
-          </div>
+            </div>
+          </Paper>
         </StyledPopUp>
       )}
     </PopUpContext.Consumer>

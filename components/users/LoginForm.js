@@ -49,7 +49,7 @@ const loginForm = (props) => {
       type: "password",
       label: appText.objects.password.singular,
       placeholder: "Password",
-      icon: "key",
+      icon: "lock",
     },
   });
 

@@ -67,8 +67,8 @@ export default function CustomizedDialogs() {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        {appText.messages.account.agreement + " "}
+      {appText.messages.account.agreement + " "}
+      <Button color="primary" onClick={handleClickOpen}>
         {appText.objects.privacyPolicy.singular}
       </Button>
       <Dialog

@@ -75,7 +75,7 @@ const CreateJobForm = ({ location }) => {
       <Paper elevation={0}>
         <form onSubmit={handleSubmit((data, event) => onSubmit(data, event))}>
           <Grid container spacing={3} className="SearchGrid">
-            <Grid item md={5} xs={6}>
+            <Grid item md={6} xs={12} lg={5}>
               <TextField
                 name="jobTitle"
                 placeholder="Puesto, palabras claves, habilidad"
@@ -92,7 +92,7 @@ const CreateJobForm = ({ location }) => {
                 }}
               />
             </Grid>
-            <Grid item md={5} xs={6}>
+            <Grid item md={6} xs={12} lg={5}>
               <LocationInput
                 name="jobLocation"
                 onChange={handleInputChange}
@@ -108,7 +108,7 @@ const CreateJobForm = ({ location }) => {
                 }}
               />
             </Grid>
-            <Grid item md={2} xs={12} className="SearchButtonContainer">
+            <Grid item md={12} xs={12} lg={2} className="SearchButtonContainer">
               <Button
                 type="submit"
                 size="large"

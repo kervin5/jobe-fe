@@ -48,7 +48,7 @@ const registerForm = (props) => {
       type: "text",
       label: appText.objects.name.singular,
       placeholder: "John Doe",
-      icon: "user",
+      icon: "person",
       allowed: "alphanumeric",
     },
     email: {
@@ -73,7 +73,7 @@ const registerForm = (props) => {
       type: "password",
       label: appText.objects.password.singular,
       placeholder: appText.objects.password.singular,
-      icon: "key",
+      icon: "lock",
       minLength: 6,
     },
   });

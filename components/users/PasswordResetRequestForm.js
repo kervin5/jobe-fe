@@ -92,7 +92,7 @@ const passwordRequestForm = (props) => {
         console.log(error);
         return (
           <form>
-            <Title size={"l"} center>
+            <Title level={2} center>
               {appText.messages.password.forgotQuestion}
             </Title>
             <ErrorMessage error={error} data={data} />

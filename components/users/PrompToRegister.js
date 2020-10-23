@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { ME_USER_QUERY } from "@/graphql/queries/users";
 import PopUp from "@/common/UI/PopUp";
-import AuthForm from "../users/AuthForm";
+import AuthForm from "./AuthForm";
 import appText from "@/lang/appText";
 import styled from "styled-components";
 
 const StyledPromptToRegister = styled.div`
   display: inline-block;
+  cursor: pointer;
   & > * {
     pointer-events: ${(props) => (props.allowPointerEvents ? "all" : "none")};
   }
@@ -40,7 +41,7 @@ const PrompToRegister = (props) => {
 
   return (
     <>
-      <PopUp show={showPopup} title="Register" changeHandler={setShowPopup}>
+      <PopUp show={showPopup} title="Crear Cuenta" changeHandler={setShowPopup}>
         <p>{appText.messages.account.pleaseRegister}</p>
         <AuthForm popup />
       </PopUp>

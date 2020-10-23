@@ -23,7 +23,9 @@ const Button = (props) => {
   return (
     <ElementToRender
       onClick={props.onClick}
-      className={["Button", iconOnly, disabled].join(" ")}
+      className={["Button", iconOnly, disabled, props.className ?? ""].join(
+        " "
+      )}
       disabled={props.disabled}
     >
       {props.icon ? <Icon icon={props.icon} /> : null}

@@ -32,6 +32,7 @@ const StyledJobListingHeader = styled.div`
     display: flex;
     justify-content: space-between;
     position: relative;
+    margin: 20px 0;
   }
 
   .JobTitle {
@@ -54,10 +55,10 @@ const StyledJobListingHeader = styled.div`
 
 const JobListingHeader = (props) => (
   <StyledJobListingHeader className="JobListingHeader">
-    <Title size={"xl"} className="JobTitle">
+    <Title nomargin className="JobTitle">
       <Translator>{props.title}</Translator>
     </Title>
-    <Title size={"m"} weight="400" data-test="location-section">
+    <Title level={3} nomargin>
       <Icon icon="location_on" /> <Translator>{props.location}</Translator>
     </Title>
     <div className="JobListingHeaderBar">

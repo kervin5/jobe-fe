@@ -12,7 +12,7 @@ import Title from "@/common/UI/Title";
 const jobList = (props) => {
   const { jobs, showPayRate, showJobType } = props;
   let elementToRender = (
-    <Title capitalize size="m" center>
+    <Title capitalize level={3} center>
       {appText.messages.notfound}
     </Title>
   );

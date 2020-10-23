@@ -10,6 +10,8 @@ export const StyledAnimatedButton = styled.div`
   display: inline-block;
   transition: 300ms;
   position: absolute;
+  right: 10px;
+  cursor: pointer;
   &.enter {
     transform: rotate3d(0, 0, 0, 0deg);
   }

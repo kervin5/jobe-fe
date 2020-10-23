@@ -14,7 +14,7 @@ const WidgetCard = ({ children, title }) => {
   return (
     <StyledWidgetCard>
       <Card withBackground>
-        <Title size="m">{title}</Title>
+        <Title level={3}>{title}</Title>
         {children}
       </Card>
     </StyledWidgetCard>
