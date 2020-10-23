@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
-
+import Hidden from "@material-ui/core/Hidden";
 import UserLocator from "@/root/data/UserLocator";
 import Title from "@/common/UI/Title";
 import Image from "@/common/Image";
@@ -81,15 +81,17 @@ const LandingSection = () => {
   return (
     <StyledLandingSection className="LandingSection">
       <Grid container justify="center" alignItems="center" spacing={9}>
-        <Grid item className="LandingContent" xs={7}>
+        <Grid item className="LandingContent" md={7} xs={12}>
           <Title level={2} alignment={"left"} className="LandingTitle">
             {appText.messages.opportunityOfYourDreams}
           </Title>
           <SearchForm location={userLocation.name} />
         </Grid>
-        <Grid item xs>
-          <Image src={peopleImage} />
-        </Grid>
+        <Hidden smDown>
+          <Grid item xs md>
+            <Image src={peopleImage} />
+          </Grid>
+        </Hidden>
       </Grid>
     </StyledLandingSection>
   );
