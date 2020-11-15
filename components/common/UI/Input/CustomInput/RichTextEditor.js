@@ -2,14 +2,14 @@ import React, { useRef, useState, Component } from "react";
 import dynamic from "next/dynamic";
 
 const JoditEditor = dynamic(() => import("jodit-react"), {
-  ssr: false
+  ssr: false,
 });
 
 export default class RichTextEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: props.defaultValue || ""
+      content: props.defaultValue || "",
     };
   }
 
@@ -17,19 +17,22 @@ export default class RichTextEditor extends Component {
     return false;
   }
 
-  updateContent = value => {
-    this.props.onChange(null, { name: this.props.name, value });
+  updateContent = (value) => {
+    this.props.onChange(
+      { target: { name: this.props.name, value } },
+      { name: this.props.name, value }
+    );
     this.setState({ content: value });
   };
   /**
    * @property Jodit jodit instance of native Jodit
    */
   jodit;
-  setRef = jodit => (this.jodit = jodit);
+  setRef = (jodit) => (this.jodit = jodit);
 
   config = {
     readonly: false, // all options from https://xdsoft.net/jodit/doc/
-    minHeight: 720
+    minHeight: 720,
   };
   render() {
     return (

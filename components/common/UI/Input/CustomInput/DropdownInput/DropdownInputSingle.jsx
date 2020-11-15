@@ -66,8 +66,8 @@ const LocationInput = (props) => {
         onChange={(e, current) => {
           setCurrentValue(currentValue);
           onChange(
-            { target: { value: current.value } },
-            { value: current.value, name }
+            { target: { value: current?.value, name } },
+            { value: current?.value, name }
           );
         }}
         renderInput={(params) => (
