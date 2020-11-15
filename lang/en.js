@@ -11,7 +11,7 @@ export default {
     post: "Post",
     viewMore: "View More",
     add: "Add",
-    loading: "Loading",
+    loading: "Cargando",
     reviewing: "Reviewing",
     cancel: "Cancel",
     preview: "Preview",

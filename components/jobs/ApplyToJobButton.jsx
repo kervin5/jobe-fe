@@ -64,7 +64,7 @@ const ApplyToJobButton = (props) => {
                 if (loading)
                   return (
                     <Loader active inline="centered">
-                      Applying...
+                      Enviando...
                     </Loader>
                   );
                 if (error)

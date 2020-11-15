@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 
 const QueryLineChart = ({ query, keys }) => {
   const { error, loading, data } = useQuery(query);
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Cargando...</p>;
   if (!data) return null;
   const [queryKey] = Object.keys(data);
   const chartData = formatData(data[queryKey], keys);

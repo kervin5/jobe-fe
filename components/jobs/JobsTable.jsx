@@ -125,7 +125,7 @@ const JobsTable = (props) => {
       headers={headers}
       toolbar={
         <>
-          <FormControl variant="outlined">
+          <FormControl>
             <InputLabel>{appText.objects.status.singular}</InputLabel>
             <Select
               labelId="application-status"
@@ -215,7 +215,9 @@ function formatTableRow(job, refetchQueries) {
             icon="eye"
             color={job.status !== "POSTED" ? "primary" : "secondary"}
             href={getPreviewLink(job).as}
-          />
+          >
+            Ver
+          </Button>
         </Link>
         <Link href="/admin/jobs/[jid]/edit" as={`/admin/jobs/${job.id}/edit`}>
           <Button
@@ -223,7 +225,9 @@ function formatTableRow(job, refetchQueries) {
             icon="edit"
             color="primary"
             href={`/admin/jobs/${job.id}/edit`}
-          />
+          >
+            Editar
+          </Button>
         </Link>
         <DeleteJobButton jobId={job.id} refetchQueries={refetchQueries} />
       </div>

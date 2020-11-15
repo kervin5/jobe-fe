@@ -2,28 +2,28 @@ import React, { useState, useEffect } from "react";
 import variables from "../../../globalVariables";
 import useInput from "../useInput";
 
-const textInputField = props => {
+const textInputField = (props) => {
   const validation = {
     required: props.required,
     maxLength: props.maxLength,
     minLength: props.minLength,
-    allowed: props.allowed
+    allowed: props.allowed,
   };
   const [textFieldState, setTextFieldState] = useInput({
     type: props.inputType,
     value: props.value,
     placeholder: props.placeholder,
     name: props.name,
-    validation: validation
+    validation: validation,
   });
   const [touched, setTouched] = useState(false);
 
-  const handleBlur = e => {
+  const handleBlur = (e) => {
     setTouched(true);
     setTextFieldState(e.target.value);
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setTouched(true);
     setTextFieldState(e.target.value);
   };
@@ -63,6 +63,7 @@ const textInputField = props => {
           margin: 5px 20px 5px 15px;
           width: 90%;
           outline: none;
+          font-size: 1rem;
         }
 
         input::placeholder,

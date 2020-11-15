@@ -23,7 +23,7 @@ const UserResumesTab = ({ userId }) => {
         {!userId && <ResumeUploadButton />}
       </div>
       {error && <p>There was an error</p>}
-      {loading && <p>Loading your resumes</p>}
+      {loading && <p>Cargando your resumes</p>}
       {list && <ResumeList list={list} />}
     </>
   );

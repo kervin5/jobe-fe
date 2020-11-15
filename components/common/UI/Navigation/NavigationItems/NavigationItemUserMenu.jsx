@@ -38,8 +38,8 @@ export default function NavigationItemUserMenu() {
               onClose={handleClose}
             >
               {/* <Link passHref> */}
-              <MenuItem href="/me" as="a">
-                {appText.objects.profile.singular}
+              <MenuItem>
+                <a href="/me">{appText.objects.profile.singular}</a>
               </MenuItem>
               {/* </Link> */}
               <LogoutButton />

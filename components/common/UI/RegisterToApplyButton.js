@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Query } from "@apollo/react-components";
+
 import Button from "./Button";
 import PopUp from "./PopUp";
 import AuthForm from "@/components/users/AuthForm";
@@ -10,7 +11,7 @@ import appText from "@/lang/appText";
 
 const RegisterToApplyButton = (props) => {
   const [showPopUp, setShowPopUp] = useState(false);
-  const [popUpTitle, setPopUpTitle] = useState("Register");
+  const [popUpTitle, setPopUpTitle] = useState("Crear Cuenta");
   const [caption, setCaption] = useState(
     appText.messages.application.beforeApplying
   );
@@ -20,9 +21,9 @@ const RegisterToApplyButton = (props) => {
       <Query query={ME_USER_QUERY}>
         {({ error, loading, data }) => {
           if (error) return <p>Something went wrong</p>;
-          if (loading) return <p>Loading</p>;
+          if (loading) return <p>Cargando</p>;
           if (data.me && data.me.role.name !== "candidate") return null;
-          <p>Test</p>;
+
           return (
             <div>
               <Button fullWidth onClick={() => setShowPopUp(true)}>
@@ -38,7 +39,7 @@ const RegisterToApplyButton = (props) => {
         <Query query={ME_USER_QUERY}>
           {({ error, loading, data }) => {
             if (error) return <p>Something went wrong...</p>;
-            if (loading) return <p>Loading...</p>;
+            if (loading) return <p>Cargando...</p>;
             if (data.me && data.me.resumes.length === 0) {
               setPopUpTitle(appText.messages.resume.upload);
               setCaption(appText.messages.resume.justOneMoreStep);

@@ -15,7 +15,7 @@ const RegisterToApplyButton = (props) => {
       <Query query={ME_USER_QUERY}>
         {({ error, loading, data }) => {
           if (error) return <p>Something went wrong</p>;
-          if (loading) return <p>Loading</p>;
+          if (loading) return <p>Cargando</p>;
           if (data.me);
           return (
             <div>
@@ -32,7 +32,7 @@ const RegisterToApplyButton = (props) => {
         <Query query={ME_USER_QUERY}>
           {({ error, loading, data }) => {
             if (error) return <p>Something went wrong...</p>;
-            if (loading) return <p>Loading...</p>;
+            if (loading) return <p>Cargando...</p>;
             if (data.me) {
               return (
                 <ResumeUploadForm

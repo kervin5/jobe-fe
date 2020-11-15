@@ -114,7 +114,7 @@ function InputFieldWithGraphQL({ fieldData, fieldKey, onChange, formId }) {
   const { error, loading, data } = useQuery(fieldData.options.query);
 
   if (error) return <p>Something went wrong.</p>;
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Cargando...</p>;
   const options = data[Object.keys(data)[0]].map((option) => {
     return fieldData.options.hasOwnProperty("label")
       ? {

@@ -15,7 +15,7 @@ const ResumeViewer = ({ url }) => {
       <Query query={GET_SINGE_FILE_URL_QUERY} variables={{ url }}>
         {({ error, loading, data }) => {
           if (error) return <p>Something went wrong</p>;
-          if (loading) return <p>Loading...</p>;
+          if (loading) return <p>Cargando...</p>;
 
           if (
             data.getSignedFileUrl.includes(".doc") ||

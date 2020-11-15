@@ -39,7 +39,7 @@ const StyledNavigationItems = styled.div`
       }
 
       &:hover {
-        background-color: white;
+        background-color: blue;
         border-bottom: 5px solid orangered;
       }
     }

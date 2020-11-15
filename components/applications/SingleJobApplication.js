@@ -43,7 +43,7 @@ const SingleJobApplication = ({ applicationId }) => {
       variables={{ id: applicationId }}
     >
       {({ error, loading, data }) => {
-        if (error) return <p>Error Loading, please refresh!</p>;
+        if (error) return <p>Error Cargando, please refresh!</p>;
         if (loading) return <Loader />;
         if (!data.application) return <p>No job found for: {applicationId}</p>;
         const singleApplication = data.application;
@@ -56,7 +56,7 @@ const SingleJobApplication = ({ applicationId }) => {
             />
             <JobApplication
               data={{
-                ...singleApplication
+                ...singleApplication,
               }}
             />
           </>

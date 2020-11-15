@@ -38,6 +38,10 @@ const StyledJobListingBody = styled.div`
        margin-bottom: 5px;
    }
 
+
+.Labels {
+  margin-top: 60px;
+}
    @media only screen and (max-width: 520px){
            
          
@@ -65,13 +69,13 @@ const JobListingBody = (props) => {
         <HtmlRenderer html={props.data.description} />
       </Translator>
 
-      <Title level={3} data-test="company-information-section">
+      {/* <Title level={3} data-test="company-information-section">
         {appText.objects.compensation.singular}
       </Title>
       <JobCompensationBubbles
         minCompensation={props.data.minCompensation}
         maxCompensation={props.data.maxCompensation}
-      />
+      /> */}
 
       <Title level={3} data-test="company-information-section">
         <Translator>

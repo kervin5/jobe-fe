@@ -26,7 +26,7 @@ const ChangeJobStatusButton = ({ jobId, status, children }) => {
   ] = useMutation(POST_JOB_MUTATION, { variables: { jobId, status } });
 
   if (error) return <p>Something went wrong!</p>;
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Cargando...</p>;
   if (data) Router.push(`/admin/jobs`);
 
   return (

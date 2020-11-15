@@ -21,7 +21,7 @@ const RecommendedJobsList = ({ userId }) => {
       <Title level={3}>{appText.messages.job.recommended}</Title>
       <UserInfo>
         {({ me, loading }) => {
-          if (loading) return <p>Loading</p>;
+          if (loading) return <p>Cargando</p>;
           return (
             <Query
               query={USER_CATEGORIES_QUERY}

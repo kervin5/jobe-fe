@@ -13,7 +13,7 @@ import { APPLICATIONS_BY_USER_ID_QUERY } from "@/graphql/queries/applications";
 const ApplicationsList = ({ applications }) => {
   let elementToRender = <h3>No applications found</h3>;
   if (applications && applications.length > 0) {
-    elementToRender = applications.map(application => {
+    elementToRender = applications.map((application) => {
       // return <p>Test</p>;
       return (
         <ApplicationsListItem key={application.id} application={application} />
@@ -33,16 +33,16 @@ const ApplicationsListWrapper = ({ applications, userId }) => {
     return <ApplicationsList applications={applications} />;
   } else {
     const { error, loading, data } = useQuery(APPLICATIONS_BY_USER_ID_QUERY, {
-      variables: { id: userId }
+      variables: { id: userId },
     });
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <p>Cargando...</p>;
     return <ApplicationsList applications={data?.applications} />;
   }
 };
 
 ApplicationsListWrapper.propTypes = {
   applications: PropTypes.arrayOf(PropTypes.object),
-  userId: PropTypes.string
+  userId: PropTypes.string,
 };
 
 export default ApplicationsListWrapper;

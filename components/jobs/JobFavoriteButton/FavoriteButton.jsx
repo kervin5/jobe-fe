@@ -61,7 +61,7 @@ const favoriteButtonWrapper = (props) => {
   });
 
   if (error) return <AddFavoriteButton show={true} />;
-  // if (loading) return <p>Loading...</p>;
+  // if (loading) return <p>Cargando...</p>;
   let touched = data?.me?.favorites?.length > 0;
   return (
     <StyledFavoriteButtonWrapper className="FavoriteButtonWrapper">

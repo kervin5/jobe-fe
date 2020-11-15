@@ -12,7 +12,7 @@ const StyledApplicationStatusCards = styled.div`
 const ApplicationStatusCards = ({ jobId }) => {
   return (
     <StyledApplicationStatusCards>
-      <Grid container>
+      <Grid container spacing={3}>
         <Grid item md={3}>
           <ApplicationStatusCard
             label={appText.adjectives.new}

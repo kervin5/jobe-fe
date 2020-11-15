@@ -6,7 +6,7 @@ import { getColor } from "@/components/charts/chartGlobals";
 const QueryBarChart = ({ query, orderBy }) => {
   const { error, loading, data } = useQuery(query);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Cargando...</p>;
   if (!data) return null;
   const [queryKey] = Object.keys(data);
   const chartData = generateData(data[queryKey], orderBy);

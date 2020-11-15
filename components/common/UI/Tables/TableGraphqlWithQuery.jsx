@@ -11,6 +11,10 @@ import styled from "styled-components";
 
 const StyledToolbar = styled.div`
   display: flex;
+  & > * {
+    margin-left: 20px;
+  }
+
   a,
   button,
   .ui.button {
@@ -63,7 +67,7 @@ const TableGraphqlWithQuery = ({
   if (resCount.error || resRecords.error)
     return <p>Something went wrong ...</p>;
 
-  //if (resCount.loading || resRecords.loading) return <p>Loading</p>;
+  //if (resCount.loading || resRecords.loading) return <p>Cargando</p>;
   const [recordsKey] = resRecords.data
     ? Object.keys(resRecords.data)
     : [undefined];

@@ -156,6 +156,7 @@ const registerForm = (props) => {
                   {fieldsToRender}
                   <br />
                   <PrivacyPolicyLink />
+                  <br />
                   <Button
                     onClick={(e) => submitHandler(signupUser, e)}
                     fullWidth

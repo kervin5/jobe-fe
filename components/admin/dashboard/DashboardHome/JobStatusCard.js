@@ -15,7 +15,7 @@ const JobStatusCard = (props) => {
     <Query query={JOB_STATUS_QUERY} variables={{ status }}>
       {({ error, loading, data }) => {
         if (error) return <p>Something went wrong...</p>;
-        // if (loading) return <p>Loading...</p>;
+        // if (loading) return <p>Cargando...</p>;
         return (
           <Link href={`/admin/jobs?status=${status}`}>
             <a>
