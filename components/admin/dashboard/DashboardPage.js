@@ -18,7 +18,7 @@ const dashboardPage = (props) => {
         <PageTitle>
           {props.title ? `${props.title} - Admin` : "Admin"}
         </PageTitle>
-        <Title capitalize>
+        <Title level={3} capitalize>
           {props.title ? `Admin > ${props.title}` : "Admin"}
         </Title>
         {props.children}

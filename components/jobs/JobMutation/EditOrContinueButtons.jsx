@@ -20,7 +20,7 @@ function EditOrContinueButtons({ jobId }) {
   const { error, loading, data } = useQuery(SINGLE_JOB_QUERY, {
     variables: { id: jobId },
   });
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Cargando...</p>;
   return (
     <StyledEditOrContinueButtons>
       <Button

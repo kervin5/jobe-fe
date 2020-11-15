@@ -19,7 +19,7 @@ const DeleteJobButton = ({ jobId, refetchQueries, optimisticResponse }) => {
     DELETE_JOB_MUTATION
   );
   const handleClick = async () => {
-    if (confirm("Are you sure?")) {
+    if (confirm("Estas seguro?")) {
       await deleteJobMutation({
         variables: { jobId },
         refetchQueries,
@@ -28,7 +28,7 @@ const DeleteJobButton = ({ jobId, refetchQueries, optimisticResponse }) => {
     }
   };
   if (loading) return <Loader />;
-  return <Button onClick={() => handleClick(deleteJobMutation)}>Delete</Button>;
+  return <Button onClick={() => handleClick(deleteJobMutation)}>Borrar</Button>;
 };
 
 export default DeleteJobButton;

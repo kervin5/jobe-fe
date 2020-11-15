@@ -31,10 +31,11 @@ const sections = {
   },
 };
 
-const AdminSideMenu = ({ open }) => {
+const AdminSideMenu = ({ open, close }) => {
   return (
     <SideMenu
       open={open}
+      close={close}
       options={Object.keys(sections).map(
         (sectionName) => sections[sectionName]
       )}

@@ -21,7 +21,7 @@ const ApplicationsStatusCard = (props) => {
     <Query query={APPLICATION_STATUS_QUERY}>
       {({ error, loading, data }) => {
         if (error) return <p>Something went wrong...</p>;
-        // if (loading) return <p>Loading...</p>;
+        // if (loading) return <p>Cargando...</p>;
         return (
           <CounterCard
             label={appText.objects.application.plural}

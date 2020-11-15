@@ -10,7 +10,7 @@ const pageStyles = `background-color: ${variables.mutedColor1};
 
 const passwordRequest = (props) => {
   return (
-    <PageSection style={pageStyles}>
+    <PageSection style={pageStyles} column>
       <PasswordResetRequestForm />
     </PageSection>
   );

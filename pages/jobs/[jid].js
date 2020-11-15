@@ -14,7 +14,7 @@ const SingleJobView = (props) => {
   const jobId = extractJobId(jid);
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <div>Cargando...</div>;
   }
 
   return (

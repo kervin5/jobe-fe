@@ -9,6 +9,10 @@ import appText from "@/lang/appText";
 const StyledJobsStatsCards = styled.div`
   width: 100%;
   margin-bottom: 30px;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 const JobsStatsCards = () => {
@@ -22,7 +26,7 @@ const JobsStatsCards = () => {
           <JobStatusCard
             label={appText.adjectives.draft}
             status="DRAFT"
-            icon="pencil"
+            icon="edit"
             color="2"
           />
         </Grid>
@@ -37,7 +41,7 @@ const JobsStatsCards = () => {
         <Grid item md={3}>
           <Link href="/admin/applications">
             <a>
-              <ApplicationStatusCard color="4" icon="smile" />
+              <ApplicationStatusCard color="4" icon="mood" />
             </a>
           </Link>
         </Grid>

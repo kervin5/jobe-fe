@@ -25,7 +25,6 @@ const StyledBottomNav = styled.nav`
   }
 
   @media (max-width: 900px) {
-    display: block;
     background-color: ${(props) => props.theme.accentColor1};
     color: ${(props) => props.theme.lightColor1};
     display: flex;

@@ -5,7 +5,7 @@ import { ThemeProvider as MaterialThemeProvider } from "@material-ui/styles";
 import theme from "@/common/globalVariables";
 import { purple } from "@material-ui/core/colors";
 import { createMuiTheme } from "@material-ui/core/styles";
-// import App from "next/app";
+import GlobalStyle from "../components/common/globalStyles";
 import * as Sentry from "@sentry/react";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "@/lib/apolloClient";
@@ -37,6 +37,7 @@ export default function App({ Component, pageProps, router }) {
     <ApolloProvider client={apolloClient}>
       <MaterialThemeProvider theme={customMaterialTheme}>
         <ThemeProvider theme={theme}>
+          <GlobalStyle />
           <Page admin={isAdminLayout}>
             <Component {...pageProps} />
           </Page>

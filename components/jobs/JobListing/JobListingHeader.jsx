@@ -13,8 +13,8 @@ import JobPerksBubbles from "../JobPerksBubbles";
 const StyledJobListingHeader = styled.div`
   &.JobListingHeader {
     width: 100%;
-    padding: 0 40px;
-    z-index: 800;
+    padding: 60px 40px 0;
+    z-index: 8;
     position: relative;
   }
 
@@ -35,14 +35,10 @@ const StyledJobListingHeader = styled.div`
     margin: 20px 0;
   }
 
-  .JobTitle {
-    font-size: 2rem;
-  }
-
   @media only screen and (max-width: 520px) {
     .JobListingHeader {
       width: 100%;
-      padding: 40px 40px;
+      padding: 60px 40px;
       border-top-right-radius: 0px;
       border-top-left-radius: 0px;
     }

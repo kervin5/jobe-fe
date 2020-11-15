@@ -15,7 +15,7 @@ const StyledLandingSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: ${(props) => props.theme.mutedColorBg};
+  /* background-color: ${(props) => props.theme.mutedColorBg}; */
   position: relative;
   width: 100%;
 

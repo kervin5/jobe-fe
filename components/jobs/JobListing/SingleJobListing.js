@@ -34,7 +34,7 @@ const SingleJobListing = ({ jobId, preview, jobData, countView }) => {
   return (
     <Query query={SINGLE_JOB_QUERY} variables={{ id: jobId }}>
       {({ error, loading, data }) => {
-        if (error) return <p>Error Loading, please refresh!</p>;
+        if (error) return <p>Error Cargando, please refresh!</p>;
         if (loading) return <Loader />;
         if (!data.job) return <p>No job found for: {jobId}</p>;
         const singleJob = data?.job;

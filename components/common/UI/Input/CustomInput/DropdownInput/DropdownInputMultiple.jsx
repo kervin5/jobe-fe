@@ -47,7 +47,7 @@ const DropdownInputMultiple = ({
   onInputChange,
 }) => {
   const [customOptions, setCustomOptions] = useState([]);
-  if (!options.length) return <p>Loading...</p>;
+  if (!options.length) return <p>Cargando...</p>;
   return (
     <StyledDropdownInput
       className={`DropdownInput field ${error ? "error" : ""} ${

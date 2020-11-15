@@ -134,13 +134,9 @@ const loginForm = (props) => {
       </Mutation>
       <style jsx>{`
         form {
-          margin-bottom: 30px;
+          margin: 0 auto 30px;
           width: 100%;
           max-width: 500px;
-        }
-
-        fieldset {
-          border: none;
         }
       `}</style>
     </React.Fragment>

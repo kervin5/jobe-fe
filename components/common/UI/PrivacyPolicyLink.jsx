@@ -67,10 +67,6 @@ export default function CustomizedDialogs() {
 
   return (
     <div>
-      {appText.messages.account.agreement + " "}
-      <Button color="primary" onClick={handleClickOpen}>
-        {appText.objects.privacyPolicy.singular}
-      </Button>
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -84,12 +80,11 @@ export default function CustomizedDialogs() {
             <iframe src={process.env.NEXT_PUBLIC_PRIVACY_POLICY_LINK}></iframe>
           </div>
         </DialogContent>
-        {/* <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Save changes
-          </Button>
-        </DialogActions> */}
       </Dialog>
+      {appText.messages.account.agreement + " "}
+      <a href="#" onClick={handleClickOpen}>
+        {appText.objects.privacyPolicy.singular}
+      </a>
     </div>
   );
 }

@@ -12,7 +12,7 @@ const StyledPageSection = styled.div`
     align-items: ${(props) => (!props.center ? "baseline" : "center")};
 
     flex-direction: ${(props) => (props.column ? "column" : "row")};
-    background-color: ${(props) => props.theme.mutedColorBg};
+   
     max-width: ${(props) => props.maxWidth || "100%"};
     margin: 0 auto;
     /* min-height: ${(props) =>

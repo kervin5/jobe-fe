@@ -4,6 +4,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Avatar from "@material-ui/core/Avatar";
 import WorkIcon from "@material-ui/icons/Work";
 import IconButton from "@material-ui/core/IconButton";
@@ -32,7 +33,7 @@ export default function ResumeList(props) {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={props.list}
+            primary={list.title}
             secondary={moment(list.file.createdAt).format("MMM Do YYYY")}
           />
           <ListItemSecondaryAction>

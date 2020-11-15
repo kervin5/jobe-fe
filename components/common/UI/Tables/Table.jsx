@@ -97,9 +97,14 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-const useStyles2 = makeStyles({
+const useStyles2 = makeStyles((theme) => ({
   table: {},
-});
+  toolbar: {
+    display: "flex",
+    padding: theme.spacing(1),
+    justifyContent: "space-between",
+  },
+}));
 
 export default function CustomTable({
   data,
@@ -134,31 +139,32 @@ export default function CustomTable({
   //   setPerPage(rowsPerPage);
   // }, [rowsPerPage]);
 
-  if (loading && !data.length) return <p>Loading</p>;
+  if (loading && !data.length) return <p>Cargando</p>;
   // if (error) return <p>Something went wrong</p>;
 
   return (
     <Paper>
       {title && <h1>{title}</h1>}
-      <div className="CustomTable__tooblar">{toolbar}</div>
-      {loading && <p>Loading...</p>}
+      <div className={classes.toolbar}>{toolbar}</div>
+      {loading && <p>Cargando...</p>}
       {data?.length === 0 && !loading && <p>{appText.messages.notfound}</p>}
 
       <Table className={classes.table} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
-            {Object.keys(data[0])
-              .filter(
-                (header) =>
-                  ((withid && header === "id") ||
-                    (header !== "__typename" && header !== "id")) &&
-                  !exclude.includes(header)
-              )
-              .map((header, key) => (
-                <TableCell key={header + key}>
-                  {headers?.[header] ?? jsUcfirst(header)}
-                </TableCell>
-              ))}
+            {data[0] &&
+              Object.keys(data[0])
+                .filter(
+                  (header) =>
+                    ((withid && header === "id") ||
+                      (header !== "__typename" && header !== "id")) &&
+                    !exclude.includes(header)
+                )
+                .map((header, key) => (
+                  <TableCell key={header + key}>
+                    {headers?.[header] ?? jsUcfirst(header)}
+                  </TableCell>
+                ))}
           </TableRow>
         </TableHead>
         <TableBody>

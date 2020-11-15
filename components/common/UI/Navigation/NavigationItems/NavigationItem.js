@@ -18,6 +18,7 @@ const StyledNavigationItem = styled.a`
     padding-bottom: 15px;
     transition-timing-function: ease-in-out;
     border-bottom: 5px solid transparent;
+    border-top: 5px solid transparent;
     font-weight: bold;
 
     &:hover {

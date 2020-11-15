@@ -20,7 +20,7 @@ const mainTheme = {
   mediumScreen: "920px",
 
   bottomNav: "40px",
-  mutedColorBg: "#e1f2f9",
+  mutedColorBg: "#FFF8ED",
 };
 
 export default mainTheme;

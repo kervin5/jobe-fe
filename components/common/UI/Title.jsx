@@ -41,6 +41,32 @@ const StyledTitle = styled.div`
   &.Level4 {
     font-size: 1.7em;
   }
+
+  &.Level5 {
+    font-size: 1.4em;
+  }
+
+  @media (max-width: 720px) {
+    &.Level1 {
+      font-size: 1em;
+    }
+
+    &.Level2 {
+      font-size: 2.3em;
+    }
+
+    &.Level3 {
+      font-size: 2em;
+    }
+
+    &.Level4 {
+      font-size: 1.7em;
+    }
+
+    &.Level5 {
+      font-size: 1.4em;
+    }
+  }
 `;
 
 const Title = (props) => {

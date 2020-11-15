@@ -79,9 +79,8 @@ export const ListOfLanguages = () => {
       });
   }, []);
 
-  console.log(languages);
   return loading ? (
-    <p>Loading</p>
+    <p>Cargando</p>
   ) : (
     <FormControl variant="filled">
       <InputLabel id="select-translator-language">Lenguaje</InputLabel>
@@ -94,8 +93,8 @@ export const ListOfLanguages = () => {
         }}
         defaultValue={language}
       >
-        {languages.map((language) => (
-          <MenuItem value={language.value}>
+        {languages.map((language, index) => (
+          <MenuItem value={language.value} key={index + language.value}>
             <em>{language.text}</em>
           </MenuItem>
         ))}

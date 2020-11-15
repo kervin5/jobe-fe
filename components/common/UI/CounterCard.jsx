@@ -1,4 +1,5 @@
 import React from "react";
+import Grid from "@material-ui/core/Grid";
 import styled, { keyframes } from "styled-components";
 import Paper from "@material-ui/core/Paper";
 import Icon from "./Icon";
@@ -15,41 +16,35 @@ const dangerGlow = keyframes`
 `;
 
 const StyledCounterCard = styled.div`
+  border-radius: 15px;
+  margin-top: 1em;
+  margin-bottom: 0 !important;
+
+  .Body {
+    padding: 15px;
+    display: flex;
+  }
   &.danger {
-    .card {
-      animation: ${dangerGlow} 1s linear infinite alternate;
-    }
+    animation: ${dangerGlow} 1s linear infinite alternate;
   }
 
   .Label {
     text-transform: capitalize;
   }
 
-  .card {
-    border-radius: 15px;
-    margin-top: 1em;
-    margin-bottom: 0 !important;
-    width: auto;
-
-    .content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-  }
-
   .CounterCard__information {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: baseline;
-    & > * {
-      margin: 0;
-    }
+    width: 100%;
   }
 
   .Icon {
     margin-right: 10px;
+
+    span {
+      color: white;
+    }
   }
 
   .Value {
@@ -69,6 +64,10 @@ const StyledCounterCard = styled.div`
       color: ${(props) => props.theme.darkColor};
     }
   }
+
+  h2 {
+    text-decoration: none;
+  }
 `;
 
 const CounterCard = ({ icon, label, value, color, loading, danger }) => {
@@ -77,11 +76,12 @@ const CounterCard = ({ icon, label, value, color, loading, danger }) => {
 
   return (
     <StyledCounterCard className={`CounterCard ${danger ? "danger" : ""}`}>
-      <Paper>
+      <Paper className="Body">
         <Icon icon={iconName} circle color={color} />
+
         <div className="CounterCard__information">
           <h2 className="Label">{label}</h2>
-          &nbsp;
+
           <h2 className={["Value", Color].join(" ")}>{loading ? 0 : value}</h2>
         </div>
       </Paper>

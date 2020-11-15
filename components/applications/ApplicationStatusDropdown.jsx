@@ -110,7 +110,7 @@ const JobApplicationStatusDropdown = ({
       }
     >
       <FormControl className={classes.formControl}>
-        <InputLabel id="application-status-dropdown-label">Age</InputLabel>
+        <InputLabel id="application-status-dropdown-label">Estado</InputLabel>
         <Select
           labelId="application-status-dropdown-label"
           id="application-status-select"
