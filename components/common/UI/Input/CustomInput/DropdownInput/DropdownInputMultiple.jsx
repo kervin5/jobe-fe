@@ -98,7 +98,7 @@ const DropdownInputMultiple = ({
 
           setCustomOptions(customInputValues);
           onChange(
-            { target: { value: formattedValues } },
+            { target: { value: formattedValues, name } },
             { value: formattedValues, name }
           );
         }}

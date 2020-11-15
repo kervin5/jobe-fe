@@ -32,7 +32,7 @@ const StyledLayout = styled.div`
 
   main {
     min-height: 100vh;
-    padding-top: 60px;
+    padding-top: 100px;
   }
 `;
 

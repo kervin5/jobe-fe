@@ -157,10 +157,10 @@ const CreateJobForm = () => {
   };
 
   const handleInputChange = async (e, data) => {
-    if (data.type === "checkbox") {
+    if (data?.type === "checkbox") {
       setValue(data.name, data.checked, { shouldValidate: true });
     } else {
-      setValue(data.name, data.value, { shouldValidate: true });
+      setValue(e.target.name, e.target.value, { shouldValidate: true });
     }
   };
 
@@ -186,6 +186,7 @@ const CreateJobForm = () => {
           placeholder="Gerente de Ventas"
           onChange={handleInputChange}
           error={!!errors.jobTitle}
+          fullWidth
         />
         {/* <div className="field">
           <Checkbox
