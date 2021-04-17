@@ -1,5 +1,5 @@
 {
-  "name": "k-jobs-finder",
+  "name": "jobe-fe",
   "scripts": {
     "dev": "next",
     "build": "next build",
