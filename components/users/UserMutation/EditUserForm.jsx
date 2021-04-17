@@ -51,7 +51,7 @@ const EditUserForm = ({ data, userId, refetchQueries }) => {
     });
   };
 
-  const handleInputChange = async (e, { name, value }, customField) => {
+  const handleInputChange = async ({ target: { name, value}}) => {
     setValue(name, value, { shouldValidate: true });
     setTouchedFields({ ...touchedFields, [name]: value });
   };
@@ -61,7 +61,7 @@ const EditUserForm = ({ data, userId, refetchQueries }) => {
       <form
         onSubmit={handleSubmit((data, event) => onSubmit(touchedFields, event))}
         size={"large"}
-        loading={mutationState.loading}
+        aria-busy={mutationState.loading}
       >
         <ErrorMessage error={mutationState.error} />
 

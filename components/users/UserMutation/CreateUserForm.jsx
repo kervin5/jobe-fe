@@ -31,13 +31,16 @@ const CreatUserForm = () => {
     await updateUserMutation({
       variables: { ...data },
     });
+    
   };
 
-  const handleInputChange = async (e, { name, value }, customField) => {
+  const handleInputChange = async ({ target: { name, value}}) => {
+    // console.log({name, value});
     setValue(name, value, { shouldValidate: true });
     setTouchedFields({ ...touchedFields, [name]: value });
   };
 
+  console.log({errors});
   return (
     <>
       <form

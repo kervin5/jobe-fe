@@ -5,7 +5,7 @@ import PageTitle from "@/common/Layout/PageTitle";
 
 const StyledDashboardPage = styled.div`
   &.DashboardPage {
-    padding: 50px;
+    padding: 0 50px 50px;
     width: 100%;
     min-height: 100%;
   }
@@ -18,7 +18,7 @@ const dashboardPage = (props) => {
         <PageTitle>
           {props.title ? `${props.title} - Admin` : "Admin"}
         </PageTitle>
-        <Title level={3} capitalize>
+        <Title level={4} capitalize>
           {props.title ? `Admin > ${props.title}` : "Admin"}
         </Title>
         {props.children}

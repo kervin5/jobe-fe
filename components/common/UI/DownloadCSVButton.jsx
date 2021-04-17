@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ApolloConsumer } from "@apollo/client";
 import { CSVDownload } from "react-csv";
 import { flattenObject } from "@/lib/objects";
-
+import GetAppIcon from "@material-ui/icons/GetApp";
 import Button from "@material-ui/core/Button";
 import appText from "@/lang/appText";
 
@@ -35,8 +35,11 @@ const ActionButton = ({ client, queryData, rowFormat }) => {
     <>
       <Button
         onClick={handleClick}
-        color="primary"
+        color="default"
+        variant="contained"
         disabled={loading}
+        startIcon={<GetAppIcon />}
+        style={{display: "flex"}}
         // loading={loading}
       >
         {appText.actions.download}

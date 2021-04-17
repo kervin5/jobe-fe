@@ -7,7 +7,7 @@ import appText from "@/lang/appText";
 import UserActionButtons from "./UserActionButtons/UserActionButtons";
 import Link from "next/link";
 import TableGraphqlWithQuery from "@/common/UI/Tables/TableGraphqlWithQuery";
-// import Button from "@/common/UI/Button";
+import Button from "@material-ui/core/Button";
 
 const USERS_QUERY = gql`
   query USERS_QUERY($take: Int!, $skip: Int!, $query: String!) {
@@ -60,7 +60,7 @@ const UsersTable = (props) => {
       })}
       toolbar={
         <Link href="/admin/users/new" passHref>
-          <Button positive as="a">
+          <Button variant="contained" color="primary" as="a">
             {appText.actions.add + " " + appText.objects.user.singular}
           </Button>
         </Link>

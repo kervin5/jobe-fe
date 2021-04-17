@@ -6,10 +6,10 @@ import Link from "next/link";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import CreateIcon from '@material-ui/icons/Create';
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 import appText from "@/lang/appText";
 
@@ -20,6 +20,9 @@ const useStyles = makeStyles({
   fullList: {
     width: "auto",
   },
+  item: {
+    cursor: "pointer"
+  }
 });
 
 export default function TemporaryDrawer(props) {
@@ -39,10 +42,10 @@ export default function TemporaryDrawer(props) {
               key={option.label + index}
               permissions={option.permissions}
             >
-              <Link href={`${option.path}`} passHref>
-                <ListItem as="a" key={option.label}>
+              <Link href={`${option.path}`}  passHref>
+                <ListItem as="a" className={classes.item} key={option.label}>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    { option.icon ? <option.icon /> : <CreateIcon/>}
                   </ListItemIcon>
                   <ListItemText primary={option.label} />
                 </ListItem>

@@ -15,30 +15,28 @@ class DashboardHome extends React.Component {
       <React.Fragment>
         <ApplicationsCountWarning />
         <JobsStatsCards />
-        <Grid container spacing="3">
-          <Grid item md="6">
+        <Grid container spacing={3}>
+          <Grid item md={6}>
             <WidgetCard title={appText.widget.ytdJobsVsApplications}>
               <LinesChartYTDJobsAndApplications />
             </WidgetCard>
           </Grid>
-          <Grid item md="6">
+          <Grid item md={6}>
             <WidgetCard title={appText.widget.powerUsersOfTheMonth}>
               <TableChartPowerUsers />
             </WidgetCard>
           </Grid>
-          <Grid item md="6">
+          <Grid item md={6}>
             <WidgetCard title={appText.widget.totalApplicationsByBranch}>
               <BarsChartCountOfApplications />
             </WidgetCard>
           </Grid>
-          <Grid item md="6">
+          <Grid item md={6}>
             <WidgetCard title={appText.widget.totalJobsByBranch}>
               <BarsChartCountOfJobsByBranch />
             </WidgetCard>
           </Grid>
         </Grid>
-
-        {/* <JobsTable /> */}
       </React.Fragment>
     );
   }

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import SearchIcon from '@material-ui/icons/Search';
 import { take } from "@/root/config";
 import Table from "@/common/UI/Tables/Table";
 import appText from "@/lang/appText";
@@ -67,7 +69,6 @@ const TableGraphqlWithQuery = ({
   if (resCount.error || resRecords.error)
     return <p>Something went wrong ...</p>;
 
-  //if (resCount.loading || resRecords.loading) return <p>Cargando</p>;
   const [recordsKey] = resRecords.data
     ? Object.keys(resRecords.data)
     : [undefined];
@@ -101,7 +102,14 @@ const TableGraphqlWithQuery = ({
               onChange={inputChangeHandler}
               id="outlined-basic"
               label={appText.actions.search}
-              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+                ),
+              }}
+
               placeholder={appText.actions.search}
             />
             <StyledToolbar>

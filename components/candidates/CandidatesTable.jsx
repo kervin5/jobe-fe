@@ -82,12 +82,13 @@ const Candidates = (props) => {
           onChange={(e, data) => {
             setSkills(data.value);
           }}
+          
           name="jobSkills"
           placeholder={
             appText.actions.filterBy + " " + appText.objects.skill.plural
           }
           multiple
-          nolabel
+          label="Habilidades"
           minWidth={"150px"}
           graphql={{
             query: `query ALL_SKILLS( $query: String! ) { skills(where: {name: {contains: $query}} orderBy: {name: asc}) { id name } }`,

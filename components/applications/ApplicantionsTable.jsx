@@ -145,7 +145,7 @@ const ApplicationsTable = (props) => {
       searchFilter={(value) => ({ terms: value })}
       toolbar={
         <>
-          <FormControl variant="outlined">
+          <FormControl >
             <InputLabel>{appText.objects.status.singular}</InputLabel>
             <Select
               labelId="application-status"
@@ -171,6 +171,7 @@ const ApplicationsTable = (props) => {
             placeholder={appText.messages.validation.select}
             showAllOption
             defaultValue="ALL"
+            minWidth="200px"
             graphql={{
               query: `query BRANCHES_QUERY {
               branchesByUser {

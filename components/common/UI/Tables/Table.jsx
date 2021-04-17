@@ -6,6 +6,7 @@ import TableHead from "@material-ui/core/TableHead";
 import PropTypes from "prop-types";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -101,7 +102,7 @@ const useStyles2 = makeStyles((theme) => ({
   table: {},
   toolbar: {
     display: "flex",
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
     justifyContent: "space-between",
   },
 }));
@@ -139,16 +140,17 @@ export default function CustomTable({
   //   setPerPage(rowsPerPage);
   // }, [rowsPerPage]);
 
-  if (loading && !data.length) return <p>Cargando</p>;
+  // if (loading && !data.length) return <p>Cargando</p>;
   // if (error) return <p>Something went wrong</p>;
 
   return (
     <Paper>
       {title && <h1>{title}</h1>}
       <div className={classes.toolbar}>{toolbar}</div>
+      <Box p={2}>
       {loading && <p>Cargando...</p>}
       {data?.length === 0 && !loading && <p>{appText.messages.notfound}</p>}
-
+      </Box>
       <Table className={classes.table} aria-label="custom pagination table">
         <TableHead>
           <TableRow>

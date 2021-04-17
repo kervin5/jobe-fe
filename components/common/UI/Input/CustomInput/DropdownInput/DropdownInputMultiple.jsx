@@ -11,9 +11,7 @@ import TextField from "@material-ui/core/TextField";
 const filter = createFilterOptions();
 
 const StyledDropdownInput = styled.div`
-  .DropdownInput {
-    min-width: ${(props) => props.minWidth ?? "auto"};
-  }
+  min-width: ${(props) => props.minWidth ?? "auto"};
 
   .DropdownInput--additions .ui.label:not([value^="c"]) {
     background-color: #fff8db;
@@ -47,7 +45,7 @@ const DropdownInputMultiple = ({
   onInputChange,
 }) => {
   const [customOptions, setCustomOptions] = useState([]);
-  if (!options.length) return <p>Cargando...</p>;
+  if (!options.length && !allowAdditions) return <p>Cargando...</p>;
   return (
     <StyledDropdownInput
       className={`DropdownInput field ${error ? "error" : ""} ${
