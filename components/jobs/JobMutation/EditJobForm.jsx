@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
-
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Loader from "@/common/UI/Animated/Loader";
 import { useForm } from "react-hook-form";
@@ -23,6 +24,7 @@ import {
   compensationTypeOptions,
   jobTypeOptions,
   validateMinSelectedOptions,
+  StyledForm
 } from "./CreateJobForm";
 import appText from "@/lang/appText";
 
@@ -187,13 +189,14 @@ const EditJobForm = ({ data, jobId }) => {
   };
 
   return (
-    <>
+    <Paper className="Body" >
+      <Box p={4}>
       <Title level={2} capitalize>
         {appText.actions.edit} {appText.objects.job.singular}
       </Title>
       <p className={"Instructions"}>{appText.messages.job.postInstructions}</p>
 
-      <form
+      <StyledForm
         onSubmit={handleSubmit((data, event) =>
           onSubmit(touchedFields, updateJobMutation, event)
         )}
@@ -351,8 +354,9 @@ const EditJobForm = ({ data, jobId }) => {
             {appText.actions.preview}
           </Button>
         </div>
-      </form>
-    </>
+      </StyledForm>
+      </Box>
+    </Paper>
   );
 };
 

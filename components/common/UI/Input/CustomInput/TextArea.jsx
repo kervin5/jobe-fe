@@ -19,8 +19,8 @@ const CustomTextArea = ({
         rows={4}
         defaultValue={defaultValue}
         onChange={onChange}
-        variant="outlined"
         placeholder={placeholder}
+        fullWidth
       />
     </div>
   );

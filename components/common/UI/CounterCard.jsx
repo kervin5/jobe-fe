@@ -1,5 +1,4 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
 import styled, { keyframes } from "styled-components";
 import Paper from "@material-ui/core/Paper";
 import Icon from "./Icon";

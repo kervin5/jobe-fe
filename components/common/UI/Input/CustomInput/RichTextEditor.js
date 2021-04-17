@@ -33,16 +33,20 @@ export default class RichTextEditor extends Component {
   config = {
     readonly: false, // all options from https://xdsoft.net/jodit/doc/
     minHeight: 720,
+    placeholder: this.props.placeholder ?? ""
   };
   render() {
     return (
       <div className="field JoditEditor">
         <label>{this.props.label}</label>
+        <br />
+        <br />
         <JoditEditor
           editorRef={this.setRef}
           value={this.state.content}
           config={this.config}
           onChange={this.updateContent}
+          
         />
         <style jsx>{`
           .JoditEditor :global(.jodit_wysiwyg ul, .jodit_wysiwyg ol) {

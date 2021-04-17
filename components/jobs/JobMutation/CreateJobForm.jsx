@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useMutation } from "@apollo/client";
-
+import styled from "styled-components";
 import ErrorMessage from "@/common/UI/ErrorMessage";
 import { gql } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import Button from "@material-ui/core/Button";
-
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
 import Router from "next/router";
 import TextField from "@material-ui/core/TextField";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -101,6 +102,23 @@ export const jobTypeOptions = [
   },
 ];
 
+export const StyledForm = styled.form`
+  & > .MuiFormControl-root, & > * {
+    margin-bottom: 30px;
+  }
+
+  .MuiFormGroup-row {
+    & > * {
+      margin-right: 30px;
+      flex-grow: 1;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+`;
+
 const CreateJobForm = () => {
   const { register, errors, handleSubmit, setValue } = useForm();
   const [createJobMutation, { error, loading, data }] = useMutation(
@@ -165,13 +183,14 @@ const CreateJobForm = () => {
   };
 
   return (
-    <>
-      <Title level={2} capitalize>
+    <Paper className="Body" >
+      <Box p={4}>
+      <Title level={3} capitalize>
         {appText.messages.job.post}
       </Title>
       <p className={"Instructions"}>{appText.messages.job.postInstructions}</p>
 
-      <form
+      <StyledForm
         onSubmit={handleSubmit((data, event) =>
           onSubmit(data, createJobMutation, event)
         )}
@@ -207,7 +226,7 @@ const CreateJobForm = () => {
           error={errors.jobLocation}
           label={appText.objects.location.singular}
         />
-        <FormGroup>
+        <FormGroup row>
           <TextField
             name="jobMinCompensation"
             id="jobMinCompensation"
@@ -301,6 +320,7 @@ const CreateJobForm = () => {
         <RichTextEditor
           name="jobDescription"
           onChange={handleInputChange}
+          placeholder="Requerimientos, experiencia, educación, etc..."
           label={
             <>
               {appText.messages.job.jobDescription}
@@ -343,8 +363,9 @@ const CreateJobForm = () => {
             {appText.actions.preview}
           </Button>
         </div>
-      </form>
-    </>
+      </StyledForm>
+      </Box>
+    </Paper>
   );
 };
 

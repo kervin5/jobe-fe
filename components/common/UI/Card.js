@@ -1,5 +1,4 @@
 import React from "react";
-import variables from "@/common/globalVariables";
 import styled from "styled-components";
 
 const StyledCard = styled.div`

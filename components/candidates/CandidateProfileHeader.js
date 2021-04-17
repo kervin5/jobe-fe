@@ -86,7 +86,7 @@ const UserProfileHeader = ({ userId }) => {
               </span>
             </div>
 
-            <Title level={5} color="1">
+            <Title level={5} color="1" nomargin>
               {appText.messages.category.favorite}
             </Title>
             {data && (
