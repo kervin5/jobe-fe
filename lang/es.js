@@ -271,10 +271,10 @@ export default {
       jobAuthor: "Autor",
       jobDescription: "Descripción",
       jobDisclaimer: "Términos o Descargo de Responsabilidad",
-      jobDescriptionTips: `A good job description helps answer these questions for potential candidates applying.
-      \n1. What is the job? The roles responsibilities and how it fits into the organization.
-      \n2. Why should they want it? Exciting or challenging projects, what it’s like to work for that company, and any benefits or perks available.
-      \n3. Are they qualified? Skills & experience needed for success.`,
+      jobDescriptionTips: `Una buena descripción del trabajo ayuda a responder estas preguntas a los posibles candidatos que soliciten.
+      \n1. ¿Cuál es el trabajo? Las responsabilidades del puesto y cómo encaja en la organización.
+      \n2. ¿Por qué deberían quererlo? Proyectos emocionantes o desafiantes, cómo es trabajar para esa empresa y los beneficios o ventajas disponibles.
+      \n3. ¿Están calificados? Habilidades y experiencia necesarias para el éxito.`,
       byEnablingRecurring:
         " Al activar esta opción, el puesto de trabajo sera actualizado cada 3 dias. Por favor utiliza esta opción solo para puestos que constantemente estan contratando. Esta opción hara que el puesto aparezca como que ha sido recietemente publicado",
     },
@@ -308,7 +308,7 @@ export default {
         status
       ) => `Por favor asegurate de cambiar el estado de las solicitudes a  
         ${status} una vez que el candidato ya no este siendo considerado para un puesto para remover la solicitud de la lista de trabajo`,
-      applyNow: `Aplicar`,
+      applyNow: `Enviar solicitud`,
       applied: `Enviada`,
       beforeApplying:
         "Antes de enviar una solicitud para este puesto, necesitas crear una cuenta. Solo tomara unos minutos",
@@ -336,15 +336,15 @@ export default {
           ? `Estas son las hojas de vida de ${name}`
           : `Estas son tus hojas de vida`,
       uploadToApply:
-        "Sube tu hoja de vida para comenzar a aplicar a todas las oportunidades disponibles con un solo click",
-      doesntHave: "No tiene hoja de vida",
-      resumeTitle: "Titulo de la hoja de vida",
+        "Sube tu curriculum para comenzar a aplicar a todas las oportunidades disponibles con un solo click",
+      doesntHave: "No tiene curriculum",
+      resumeTitle: "Titulo de la curriculum",
       pleaseEnterTitle:
-        "Por favor, ingresa un titulo descriptivo para esta hoja de vida",
+        "Por favor, ingresa un titulo descriptivo para esta curriculum",
       enterTitle: "Ingresa un titulo",
-      resumeSelected: "Hoja de vida seleccionada",
-      resumeUploaded: "Hoja de vida subida",
-      justOneMoreStep: "Solo un paso más. Por favor sube tu CV más reciente",
+      resumeSelected: "Curriculum seleccionado",
+      resumeUploaded: "Curriculum subido",
+      justOneMoreStep: "Solo un paso más. Por favor sube tu curriculum vitae más reciente",
     },
     validation: {
       required: "Esta campo es requerido",
@@ -356,7 +356,7 @@ export default {
       phone: "Por favor, ingresa un número de teléfono valido",
       specialChars: "Por favor, ingresa letras o números solamente",
       select: "Selecciona una opción",
-      selectAllThatApply: "Selecciona toas las que apliquen",
+      selectAllThatApply: "Selecciona todas las que apliquen",
       selectAtLeastOne: "Selecciona al menos una",
       selectAtLeast: (numberOfOptions, optionsName = "opciones") =>
         `Selecciona al menos ${numberOfOptions} ${optionsName}`,
