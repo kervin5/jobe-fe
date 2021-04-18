@@ -24,10 +24,10 @@ const Translator = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if ((language && language !== systemLanguage) || (systemLanguage === "es" && renderToStaticMarkup(children).contains("are"))) {
+    if (language && language !== systemLanguage) {
       axios
         .post("/api/translate", {
-          url: `https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&To=${language ?? "es"}`,
+          url: `https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&To=${language}`,
           data: [{ text: renderToStaticMarkup(children) }],
         })
         .then((res) => {
