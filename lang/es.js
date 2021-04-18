@@ -206,7 +206,7 @@ export default {
   },
 
   pronouns: {
-    your: "Sus",
+    your: "Tu",
     you: "Usted",
   },
   seo: {
