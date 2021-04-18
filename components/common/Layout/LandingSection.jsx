@@ -82,7 +82,7 @@ const LandingSection = () => {
     <StyledLandingSection className="LandingSection">
       <Grid container justify="center" alignItems="center" spacing={9}>
         <Grid item className="LandingContent" md={7} xs={12}>
-          <Title level={3} alignment={"left"} className="LandingTitle">
+          <Title level={5} alignment={"left"} className="LandingTitle">
             {appText.messages.opportunityOfYourDreams}
           </Title>
           <SearchForm location={userLocation.name} />
