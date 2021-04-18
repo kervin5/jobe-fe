@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Chip from "@material-ui/core/Chip";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
 import Link from "next/link";
 import Title from "@/common/UI/Title";
 import JobCompensationBubbles from "@/components/jobs/JobCompensationBubbles";
@@ -15,7 +17,7 @@ const StyledJobListingBody = styled.div`
 
 &.Body{
   margin: 0 auto;
-  padding: 40px 40px 60px 40px;
+  padding: 0;
   position: relative;
   border-bottom-right-radius: ${variables.roundedRadius};
   border-bottom-left-radius: ${variables.roundedRadius};
@@ -65,6 +67,8 @@ const StyledJobListingBody = styled.div`
 const JobListingBody = (props) => {
   return (
     <StyledJobListingBody className="Body">
+      <Paper>
+        <Box padding={3}>
       <Translator>
         <HtmlRenderer html={props.data.description} />
       </Translator>
@@ -99,6 +103,8 @@ const JobListingBody = (props) => {
           );
         })}
       </div>
+      </Box>
+      </Paper>
     </StyledJobListingBody>
   );
 };

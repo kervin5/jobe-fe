@@ -51,10 +51,10 @@ const StyledJobListingHeader = styled.div`
 
 const JobListingHeader = (props) => (
   <StyledJobListingHeader className="JobListingHeader">
-    <Title nomargin className="JobTitle">
+    <Title level={2} nomargin className="JobTitle">
       <Translator>{props.title}</Translator>
     </Title>
-    <Title level={3} nomargin>
+    <Title level={5} nomargin>
       <Icon icon="location_on" /> <Translator>{props.location}</Translator>
     </Title>
     <div className="JobListingHeaderBar">

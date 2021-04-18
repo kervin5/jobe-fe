@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import RenderIfLoggedIn from "@/components/hoc/RenderIfLoggedIn";
 import DashboardPage from "@/components/admin/dashboard/DashboardPage";
 import JobPreview from "@/components/jobs/JobMutation/JobPreview";

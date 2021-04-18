@@ -11,7 +11,7 @@ const peopleImage = "/images/workers.png";
 
 const StyledLandingSection = styled.div`
   min-height: 100vh;
-  padding: 120px;
+  padding: 0 120px 120px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -82,7 +82,7 @@ const LandingSection = () => {
     <StyledLandingSection className="LandingSection">
       <Grid container justify="center" alignItems="center" spacing={9}>
         <Grid item className="LandingContent" md={7} xs={12}>
-          <Title level={2} alignment={"left"} className="LandingTitle">
+          <Title level={3} alignment={"left"} className="LandingTitle">
             {appText.messages.opportunityOfYourDreams}
           </Title>
           <SearchForm location={userLocation.name} />
