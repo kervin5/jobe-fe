@@ -16,7 +16,7 @@ const Translator = ({ children }) => {
   const [contentToDisplay, setContentToDisplay] = useState(children);
 
   useEffect(() => {
-    if (!!localStorage && localStorage["k-jobboard-system-custom-lang"]) {
+    if (!!localStorage && localStorage["k-jobboard-system-custom-lang"] && typeof localStorage["k-jobboard-system-custom-lang"] !== "undefined") {
       setLanguage(localStorage["k-jobboard-system-custom-lang"]);
     } else {
       setLanguage(language);
