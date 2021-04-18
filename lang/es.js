@@ -246,7 +246,7 @@ export default {
     amazingOpportunity: `Increibles carreras y oportunidades en @ ${companyInfo.name}`,
     opportunityOfYourDreams: (
       <>
-        El trabajo de tus <span>sueños</span>
+        La <span>oportunidad</span> de tus sueños
       </>
     ),
     submitForApproval: "Submit for approval",
