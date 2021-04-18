@@ -25,11 +25,11 @@ const homePage = (props) => {
       <LandingSection />
       <PageSection>
         <Container>
-          <Title level={2} center margin capitalize>
+          <Title level={5} center margin capitalize>
             {appText.messages.whatsTrending} 😎
           </Title>
           <PopularTerms terms={props.terms} />
-          <Title level={2} center margin capitalize>
+          <Title level={5} center margin capitalize>
             {appText.messages.job.latest}
           </Title>
           <JobsCards jobs={props.jobs} />
