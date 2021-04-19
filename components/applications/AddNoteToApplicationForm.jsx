@@ -42,7 +42,7 @@ export default function AddNoteToApplicationForm({
     createApplicationNoteMutation,
     { error, loading, data },
   ] = useMutation(CREACTE_APPLICATION_NOTE_MUTATION, { refetchQueries });
-  const { register, handleSubmit, watch, errors, setValue } = useForm();
+  const { register, handleSubmit, watch, errors } = useForm();
   const [noteContent, setNoteContent] = useState("");
   const onSubmit = async (createApplicationNoteMutation, data) => {
     const result = await createApplicationNoteMutation({
@@ -53,14 +53,11 @@ export default function AddNoteToApplicationForm({
     });
     //console.log(result);
     if (result.data.createApplicationNote) {
-      setValue("noteContent","");
+      setNoteContent("");
     }
   };
 
   //   console.log(watch('noteContent')) // watch input value by passing the name of it
-  const handleInputChange = async (e, data) => {
-    setValue(e.target.name, e.target.value, { shouldValidate: true });
-  };
 
   return (
     <StyledAddNoteToApplicationForm>
@@ -70,14 +67,11 @@ export default function AddNoteToApplicationForm({
         )}
         disabled={loading}
       >
-        <TextField
-          multiline
-          variant="outlined"
-          fullWidth
+        <textarea
           name="noteContent"
           ref={register({ required: true })}
-          // value={noteContent}
-          onChange={handleInputChange}
+          value={noteContent}
+          onChange={(e) => setNoteContent(e.target.value)}
           placeholder={appText.messages.note.enterContent}
         />
         <div className="BottomArea">
