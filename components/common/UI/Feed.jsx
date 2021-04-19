@@ -22,7 +22,7 @@ export default function Feed({ events }) {
     <ListItem key={"FeeItem" + index}>
       <ListItemAvatar>
         <Avatar>
-         {(()=> singleEvent.icon ? <singleEvent.icon /> : <WorkIcon />)()}
+         {(()=> singleEvent?.icon ? <singleEvent.icon /> : <WorkIcon />)()}
         </Avatar>
       </ListItemAvatar>
       {singleEvent.title && <ListItemText primary={singleEvent.title} secondary={singleEvent.date} />}

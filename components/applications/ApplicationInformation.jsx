@@ -16,7 +16,6 @@ import ApplicantInformation from "./ApplicantInformation";
 import ApplicationStatusDropdown from "./ApplicationStatusDropdown";
 import OtherApplicationsList from "./OtherApplicationsList";
 import { SINGLE_JOB_APPLICATION_QUERY } from "./SingleJobApplication";
-import Title from "@/common/UI/Title";
 import appText from "@/lang/appText";
 import Loader from "@/common/UI/Animated/Loader";
 
@@ -136,9 +135,9 @@ function ApplicationInformationTabs({ application }) {
               status={application.status}
             />
           </div>
-          {/* <div className="Section">
+          <div className="Section">
             <ApplicationNotesArea applicationId={application.id} />
-          </div> */}
+          </div>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <OtherApplicationsList

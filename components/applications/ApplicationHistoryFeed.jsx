@@ -44,6 +44,7 @@ const ApplicationHistoryFeed = ({ applicationId }) => {
     date: moment(feedItem.createdAt).fromNow(),
     ...actionPerformed(feedItem),
   }));
+  console.log({feedData});
   return <p>holaasss</p>
   return <Feed events={feedData} />;
 };
