@@ -45,7 +45,7 @@ const ApplicationHistoryFeed = ({ applicationId }) => {
     ...actionPerformed(feedItem),
   }));
   console.log({feedData});
-  return <p>holaasss</p>;
+
   return <Feed events={feedData} />;
 };
 
