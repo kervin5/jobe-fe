@@ -22,8 +22,7 @@ export const APPLICATION_NOTES_QUERY = gql`
 const actionPerformed = ({ type, content, user }) => {
   if (type === "NOTE") {
     return {
-      title: appText.messages.note.added(user.name),
-      description: content,
+      summary: <><b>{user.name}: </b> {content}</>,
     };
   } else {
     return {
@@ -44,7 +43,6 @@ const ApplicationHistoryFeed = ({ applicationId }) => {
     date: moment(feedItem.createdAt).fromNow(),
     ...actionPerformed(feedItem),
   }));
-  console.log({feedData});
 
   return <Feed events={feedData} />;
 };

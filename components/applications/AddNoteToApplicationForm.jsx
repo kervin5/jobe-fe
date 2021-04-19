@@ -26,10 +26,13 @@ const StyledAddNoteToApplicationForm = styled.div`
 
 const StyledTextarea = styled.textarea`
   width: 100%;
-  border-radius: 10px;
-
+  border-radius: 5px;
+  border: 2px solid rgba(0,0,0,0.2);
+  padding: 10px;
+  outline: none;
+  font-size: 1rem;
   &:focus {
-    border: 1px solid rgb(63, 81, 181);
+    border: 2px solid rgb(63, 81, 181);
   }
 `
 
