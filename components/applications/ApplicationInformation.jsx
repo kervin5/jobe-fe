@@ -140,10 +140,10 @@ function ApplicationInformationTabs({ application }) {
           </div> */}
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          {/* <OtherApplicationsList
+          <OtherApplicationsList
             jobId={application.job.id}
             applicationId={application.id}
-          /> */}
+          />
         </TabPanel>
       </SwipeableViews>
     </div>
