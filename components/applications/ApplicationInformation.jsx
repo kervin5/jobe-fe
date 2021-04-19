@@ -50,7 +50,7 @@ export default function ApplicationInformation({ applicationId }) {
         <ApplicantInformation applicationId={applicationId} />
       </div>
 
-      {/* <ApplicationInformationTabs application={data.application} /> */}
+      <ApplicationInformationTabs application={data.application} />
     </StyledApplicationInformation>
   );
 }
@@ -117,8 +117,7 @@ function ApplicationInformationTabs({ application }) {
           <Tab label={appText.objects.update.plural} {...a11yProps(0)} />
           <Tab
             label={
-              "Otras" +
-              " " +
+              "Otras " +
               appText.objects.application.plural
             }
             {...a11yProps(1)}
@@ -142,10 +141,10 @@ function ApplicationInformationTabs({ application }) {
           </div>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <OtherApplicationsList
+          {/* <OtherApplicationsList
             jobId={application.job.id}
             applicationId={application.id}
-          />
+          /> */}
         </TabPanel>
       </SwipeableViews>
     </div>
