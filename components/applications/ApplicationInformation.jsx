@@ -135,9 +135,9 @@ function ApplicationInformationTabs({ application }) {
               status={application.status}
             />
           </div>
-          {/* <div className="Section">
+          <div className="Section">
             <ApplicationNotesArea applicationId={application.id} />
-          </div> */}
+          </div>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <OtherApplicationsList
