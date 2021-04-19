@@ -50,7 +50,7 @@ export default function ApplicationInformation({ applicationId }) {
         <ApplicantInformation applicationId={applicationId} />
       </div>
 
-      <ApplicationInformationTabs application={data.application} />
+      {/* <ApplicationInformationTabs application={data.application} /> */}
     </StyledApplicationInformation>
   );
 }
