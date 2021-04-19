@@ -24,6 +24,15 @@ const StyledAddNoteToApplicationForm = styled.div`
   }
 `;
 
+const StyledTextarea = styled.textarea`
+  width: 100%;
+  border-radius: 10px;
+
+  &:focus {
+    border: 1px solid rgb(63, 81, 181);
+  }
+`
+
 const CREACTE_APPLICATION_NOTE_MUTATION = gql`
   mutation CREACTE_APPLICATION_NOTE_MUTATION($id: ID!, $content: String!) {
     createApplicationNote(id: $id, content: $content) {
@@ -66,7 +75,8 @@ export default function AddNoteToApplicationForm({
         )}
         disabled={loading}
       >
-        <textarea
+        <StyledTextarea
+          rows="10"
           name="noteContent"
           ref={register({ required: true })}
           value={noteContent}
