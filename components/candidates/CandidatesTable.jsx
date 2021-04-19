@@ -52,7 +52,7 @@ const Candidates = (props) => {
               onClick={(e) => {
                 e.preventDefault();
                 window.open(
-                  "/resumes/" + candidate.resumes[0].file.path.split("/").pop()
+                  "/resumes/" + candidate?.resumes[0]?.file?.path?.split("/")?.pop()
                 );
               }}
             >

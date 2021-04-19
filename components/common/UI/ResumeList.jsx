@@ -41,7 +41,7 @@ export default function ResumeList(props) {
               edge="end"
               aria-label="delete"
               as="a"
-              href={`/resumes/${list.file.path.split("/").pop()}`}
+              href={`/resumes/${list?.file?.path?.split("/")?.pop()}`}
             >
               <VisibilityIcon />
             </IconButton>

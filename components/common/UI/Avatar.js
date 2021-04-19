@@ -2,7 +2,7 @@ import React from "react";
 import variables from "@/common/globalVariables";
 
 const Avatar = ({ name = "Unknown", nomargin }) => {
-  const initials = name.split(" ");
+  const initials = name?.split(" ");
   const firstInitial = initials[0][0];
   const lastInitial = initials?.[1]?.[0];
 
