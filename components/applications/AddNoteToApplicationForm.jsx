@@ -67,10 +67,10 @@ export default function AddNoteToApplicationForm({
         )}
         disabled={loading}
       >
-        <TextField
-          multiline
-          variant="outlined"
-          fullWidth
+        <textarea
+          // multiline
+          // variant="outlined"
+          // fullWidth
           name="noteContent"
           ref={register({ required: true })}
           value={noteContent}
