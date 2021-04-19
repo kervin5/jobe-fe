@@ -18,16 +18,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Feed({ events }) {
   const classes = useStyles();
-
   const eventsToRender = events.map((singleEvent, index) => (
     <ListItem key={"FeeItem" + index}>
       <ListItemAvatar>
         <Avatar>
-          <WorkIcon />
+         {(()=> singleEvent.icon ? <singleEvent.icon /> : <WorkIcon />)()}
         </Avatar>
       </ListItemAvatar>
-      <ListItemText primary={singleEvent.title} secondary={singleEvent.date} />
-      <ListItemText secondary={singleEvent.description} />
+      {singleEvent.title && <ListItemText primary={singleEvent.title} secondary={singleEvent.date} />}
+      {singleEvent.summary && <ListItemText primary={singleEvent.summary} secondary={singleEvent.date}/>}
       {singleEvent.extraText && (
         <ListItemText secondary={singleEvent.extraText} />
       )}

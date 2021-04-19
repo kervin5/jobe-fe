@@ -3,6 +3,7 @@ import moment from "moment";
 import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import styled from "styled-components";
+import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import Feed from "@/common/UI/Feed";
 import { SINGLE_JOB_QUERY } from "@/graphql/queries/jobs";
 import appText from "@/lang/appText";
@@ -32,7 +33,7 @@ function formatEvents(data) {
     return data.applications.map((application) => ({
       key: application.id,
       date: moment(application.createdAt).fromNow(),
-      icon: "thumbs up outline",
+      icon: ThumbUpIcon,
       // meta: "4 Likes",
       summary: (
         <p>

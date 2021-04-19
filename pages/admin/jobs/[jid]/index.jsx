@@ -21,14 +21,14 @@ const SingleJobView = (props) => {
     >
       <DashboardPage title={appText.objects.job.information}>
         <Grid container>
-          <Grid item>
+          <Grid item xs={6}>
             <JobStatusHeader jobId={jid} />
             <TransformerContainer padding margin>
               <SingleJobStatsCards jobId={jid} />
               <JobActivityFeed jobId={jid} />
             </TransformerContainer>
           </Grid>
-          <Grid item>
+          <Grid item xs={6}>
             <JobPreview jobId={jid} />
           </Grid>
         </Grid>
