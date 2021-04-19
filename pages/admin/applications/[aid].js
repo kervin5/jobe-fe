@@ -19,10 +19,10 @@ const dashboardApplicationsPerJobPage = (props) => {
       >
         <div className="Sections">
           <div className="ApplicationResume">
-            <SingleJobApplication applicationId={aid} />
+            {/* <SingleJobApplication applicationId={aid} /> */}
           </div>
           <div className="ApplicationInformation">
-            <ApplicationInformation applicationId={aid} />
+            {/* <ApplicationInformation applicationId={aid} /> */}
           </div>
         </div>
 
