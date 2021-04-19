@@ -117,7 +117,7 @@ function ApplicationInformationTabs({ application }) {
           <Tab label={appText.objects.update.plural} {...a11yProps(0)} />
           <Tab
             label={
-              appText.objects.other.plural +
+              "Otras" +
               " " +
               appText.objects.application.plural
             }
@@ -132,25 +132,19 @@ function ApplicationInformationTabs({ application }) {
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
           <div className="Section">
-            <Title level={3} capitalize>
-              {appText.objects.status.singular}
-            </Title>
             <ApplicationStatusDropdown
               applicationId={application.id}
               status={application.status}
             />
           </div>
           <div className="Section">
-            <Title level={3} capitalize>
-              {appText.objects.note.plural}
-            </Title>
             <ApplicationNotesArea applicationId={application.id} />
           </div>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <OtherApplicationsList
+            jobId={application.job.id}
             applicationId={application.id}
-            userId={application.user.id}
           />
         </TabPanel>
       </SwipeableViews>

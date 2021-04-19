@@ -7,13 +7,13 @@ import Link from "next/link";
 
 const APPLICANT_OTHER_JOBS_APPLICATIONS_QUERY = gql`
   query APPLICANT_OTHER_JOBS_APPLICATIONS_QUERY(
-    $userId: String!
     $applicationId: String!
+    $jobId: String!
   ) {
     applications(
       where: {
         AND: [
-          { user: { id: { equals: $userId } } }
+          { job: { id: { equals: $jobId } } }
           { id: { not: { equals: $applicationId } } }
         ]
       }
@@ -39,11 +39,11 @@ const APPLICANT_OTHER_JOBS_APPLICATIONS_QUERY = gql`
   }
 `;
 
-const OtherApplicationsList = ({ userId, applicationId }) => {
+const OtherApplicationsList = ({ jobId, applicationId }) => {
   const { error, loading, data } = useQuery(
     APPLICANT_OTHER_JOBS_APPLICATIONS_QUERY,
     {
-      variables: { userId, applicationId },
+      variables: { jobId, applicationId },
     }
   );
 
@@ -54,7 +54,7 @@ const OtherApplicationsList = ({ userId, applicationId }) => {
   const feedData = data.applications.map((feedItem, index) => ({
     date: moment(feedItem.createdAt).fromNow(),
 
-    description: (
+    summary: (
       <Link
         href={"/admin/applications/[aid]"}
         as={"/admin/applications/" + feedItem.id}

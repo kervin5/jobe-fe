@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 
 import Button from "@material-ui/core/Button";
+import TextField from '@material-ui/core/TextField';
 import { gql } from "@apollo/client";
 import styled from "styled-components";
 import { APPLICATION_NOTES_QUERY } from "./ApplicationHistoryFeed";
@@ -66,7 +67,10 @@ export default function AddNoteToApplicationForm({
         )}
         disabled={loading}
       >
-        <textarea
+        <TextField
+          multiline
+          variant="outlined"
+          fullWidth
           name="noteContent"
           ref={register({ required: true })}
           value={noteContent}

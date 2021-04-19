@@ -9,14 +9,9 @@ const JobListingLocationStyles = `color: ${variables.lightColor}; opacity: 0.7;`
 
 const JobApplicationHeader = (props) => (
   <div className="JobApplicationHeader">
-    <Title level={2} styles={jobListingTitleStyles}>
-      <Link href="/admin/jobs/[jid]" as={`/admin/jobs/${props.jobId}`}>
+   <Link href="/admin/jobs/[jid]" as={`/admin/jobs/${props.jobId}`}>
         <a className="LinkToJob">{props.title}</a>
       </Link>
-    </Title>
-    <Title level={3} styles={JobListingLocationStyles} weight="400">
-      <Icon icon="envelope" /> {props.subtitle}
-    </Title>
     <style jsx>{`
       .JobApplicationHeader {
         width: 100%;

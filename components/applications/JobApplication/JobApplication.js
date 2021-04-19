@@ -10,16 +10,16 @@ const JobApplication = (props) => {
   return (
     <TransformerContainer>
       <JobApplicationHeader
-        title={`${props.data.job.title} in ${props.data.job.location.name}`}
+        title={`${props.data.job.title} en ${props.data.job.location.name}`}
         subtitle={props.data.user.email}
         jobId={props.data.job.id}
       />
 
-      <div className="Body">
-        <Title level={3}>{appText.objects.resume.singular}</Title>
+        <br />
+        <Title level={4} nomargin>{appText.objects.resume.singular}</Title>
         <br />
         <ResumeViewer url={props.data.resume.file.path.split("/").pop()} />
-      </div>
+   
       <style jsx>{`
 
             .Body{
