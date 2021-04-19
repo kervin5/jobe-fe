@@ -129,15 +129,15 @@ function ApplicationInformationTabs({ application }) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          {/* <div className="Section">
+          <div className="Section">
             <ApplicationStatusDropdown
               applicationId={application.id}
               status={application.status}
             />
-          </div> */}
-          <div className="Section">
-            <ApplicationNotesArea applicationId={application.id} />
           </div>
+          {/* <div className="Section">
+            <ApplicationNotesArea applicationId={application.id} />
+          </div> */}
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <OtherApplicationsList
