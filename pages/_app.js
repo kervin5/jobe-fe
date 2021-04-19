@@ -6,7 +6,7 @@ import theme from "@/common/globalVariables";
 import { purple } from "@material-ui/core/colors";
 import { createMuiTheme } from "@material-ui/core/styles";
 import GlobalStyle from "../components/common/globalStyles";
-import * as Sentry from "@sentry/react";
+// import * as Sentry from "@sentry/react";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "@/lib/apolloClient";
 
@@ -15,11 +15,11 @@ import "jodit/build/jodit.min.css";
 
 import "./app.css";
 
-if (process.env.NODE_ENV === "production") {
-  Sentry.init({
-    dsn: process.env.NEXT_PUBLIC_SENTRY_DNS,
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   Sentry.init({
+//     dsn: process.env.NEXT_PUBLIC_SENTRY_DNS,
+//   });
+// }
 
 const customMaterialTheme = createMuiTheme({});
 
