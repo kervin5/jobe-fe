@@ -6,7 +6,7 @@ const ApplicationNotesArea = ({ applicationId }) => {
   return (
     <>
       <AddNoteToApplicationForm applicationId={applicationId} />
-      {/* <ApplicationHistoryFeed applicationId={applicationId} /> */}
+      <ApplicationHistoryFeed applicationId={applicationId} />
     </>
   );
 };
