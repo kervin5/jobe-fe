@@ -43,7 +43,7 @@
     "react-tag-autocomplete": "^5.11.1",
     "react-transition-group": "^4.3.0",
     "recharts": "^1.8.5",
-    "sanitize-html": "^1.20.1",
+    "sanitize-html": "^2.3.2",
     "sitemap": "^6.1.5",
     "styled-components": "^5.1.1",
     "uniqid": "^5.0.3"
